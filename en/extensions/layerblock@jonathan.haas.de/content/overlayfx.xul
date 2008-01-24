@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://layerblock/skin/style.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://layerblock/locale/strings.dtd">
+<overlay id="layerblock-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window id="main-window">
+    <script type="application/x-javascript" src="chrome://layerblock/content/layerblock.js" />
+</window>
+<statusbar id="status-bar">
+    <statusbarpanel
+        id="layerblockstatus"
+        xxinsertafter="statusbarpanel-progress,security-button,privacy-button,offline-status,popupIcon,statusbar-display,component-bar,"
+        context="layerblockmenu">
+        <hbox id="layerb">
+            <vbox id="layerboverlay">
+                <label id="layerblocklabel" value=""/>
+            </vbox>
+            <popup id="layerblockmenu" position="before_end" onpopupshowing="event.preventBubble();" oncommand="event.preventBubble();">
+                    <menuitem id="lbmenact" label="&lbActivate;" oncommand="layerblock_activate()" type="radio"/>
+                    <menuitem id="lbmendea" label="&lbDeactivate;" oncommand="layerblock_deactivate()" type="radio"/>
+                    <menuitem id="lbmendeb" label="&lbDebug;" oncommand="layerblock_debug()" type="radio"/>
+            </popup>
+            <label id="layerblockcaption" value="&lbActive;" hidden="true"/>
+        </hbox>
+    </statusbarpanel>
+  </statusbar>
+</overlay>

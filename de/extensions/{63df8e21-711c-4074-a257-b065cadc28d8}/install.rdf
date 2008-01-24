@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+  
+    <!-- Required fields //-->
+    <em:name>CuteMenus - Crystal SVG</em:name>
+    <em:id>{63df8e21-711c-4074-a257-b065cadc28d8}</em:id>
+    <em:version>1.9.2</em:version>
+    <em:iconURL>chrome://cutemenus/content/mozillacrystal.png</em:iconURL>
+    <em:aboutURL>chrome://cutemenus/content/settings.xul?showAbout=true</em:aboutURL>
+    <em:description>Adds icons to all menus.</em:description>
+    <em:homepageURL>http://www.cutemenuproject.com/</em:homepageURL>
+    <em:optionsURL>chrome://cutemenus/content/settings.xul</em:optionsURL>
+    <em:file>
+      <Description about="urn:mozilla:extension:file:cutemenus.jar">
+        <em:package>content/cutemenus/</em:package>
+				<em:skin>skin/classic/crystal/</em:skin>
+				<em:locale>locale/en-US/cutemenus/</em:locale>
+				<em:locale>locale/en-GB/cutemenus/</em:locale>
+				<em:locale>locale/ru-RU/cutemenus/</em:locale>
+				<em:locale>locale/sk-SK/cutemenus/</em:locale>
+				<em:locale>locale/it-IT/cutemenus/</em:locale>
+				<em:locale>locale/nl-NL/cutemenus/</em:locale>
+				<em:locale>locale/fr-FR/cutemenus/</em:locale>
+				<em:locale>locale/cs-CZ/cutemenus/</em:locale>
+				<em:locale>locale/de-DE/cutemenus/</em:locale>
+				<em:locale>locale/pt-BR/cutemenus/</em:locale>
+				<em:locale>locale/km-KH/cutemenus/</em:locale>
+				<em:locale>locale/da-DK/cutemenus/</em:locale>
+				<em:locale>locale/ja-JP/cutemenus/</em:locale>
+				<em:locale>locale/es-ES/cutemenus/</em:locale>
+				<em:locale>locale/hu-HU/cutemenus/</em:locale>
+				<em:locale>locale/km-KH/cutemenus/</em:locale>
+				<em:locale>locale/he-IL/cutemenus/</em:locale>
+				<em:locale>locale/ko-KR/cutemenus/</em:locale>
+				<em:locale>locale/pl-PL/cutemenus/</em:locale>
+				<em:locale>locale/pt-BR/cutemenus/</em:locale>
+				<em:locale>locale/zh-CN/cutemenus/</em:locale>
+				<em:locale>locale/zh-TW/cutemenus/</em:locale>
+				<em:locale>locale/fi-FI/cutemenus/</em:locale>
+				<em:locale>locale/ga-IE/cutemenus/</em:locale>
+				<em:locale>locale/uk-AU/cutemenus/</em:locale>
+				<em:locale>locale/be-BY/cutemenus/</em:locale>
+
+      </Description>
+    </em:file>
+    
+    <em:targetApplication> <!-- Firefox -->
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>1.0</em:minVersion>
+        <em:maxVersion>3.0b3</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:targetApplication> <!-- Thunderbird -->
+      <Description>
+        <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+        <em:minVersion>1.0</em:minVersion>
+        <em:maxVersion>3.0a1</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:targetApplication> <!-- Flock -->
+      <Description>
+       <em:id>{a463f10c-3994-11da-9945-000d60ca027b}</em:id>
+       <em:minVersion>0.4</em:minVersion>
+       <em:maxVersion>1.5+</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:targetApplication> <!-- Sunbird -->
+      <Description>
+       <em:id>{718e30fb-e89b-41dd-9da7-e25a45638b28}</em:id>
+       <em:minVersion>0.2</em:minVersion>
+       <em:maxVersion>0.8pre</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:targetApplication> <!-- Nvu -->
+      <Description>
+       <em:id>{136c295a-4a5a-41cf-bf24-5cee526720d5}</em:id>
+       <em:minVersion>1.0</em:minVersion>
+       <em:maxVersion>1.0</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:targetApplication> <!-- SeaMonkey -->
+      <Description>
+       <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+       <em:minVersion>1.0</em:minVersion>
+       <em:maxVersion>2.0a1</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:targetApplication> <!-- eMusic -->
+      <Description>
+       <em:id>dlm@emusic.com</em:id>
+       <em:minVersion>1.0</em:minVersion>
+       <em:maxVersion>1.0.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+  </Description>
+</RDF>

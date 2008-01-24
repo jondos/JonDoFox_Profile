@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://layerblock/locale/strings.dtd">
+<prefwindow id="layerblock-prefs"
+     title="&lbOptions;"
+     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ 
+<prefpane id="pane" label="&lbOptions;">
+  <preferences>
+    <preference id="pref_status" name="layerblock.showStatusText" type="bool"/>
+  </preferences>
+ 
+  <hbox align="center">
+    <checkbox preference="pref_status" id="status" label="&lbShowActive;"/>
+  </hbox>
+  <hbox align="center">
+    <description>&lbChangesAfterRestart;</description>
+  </hbox>  
+</prefpane>
+ 
+</prefwindow>

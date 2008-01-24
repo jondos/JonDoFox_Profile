@@ -1,0 +1,21 @@
+overlay	chrome://browser/content/browser.xul	chrome://abhere2/content/abhere2.xul
+overlay	chrome://browser/content/bookmarks/addBookmark2.xul chrome://abhere2/content/addBookmark2.xul
+content	abhere2	jar:chrome/abhere2.jar!/content/
+skin	   abhere2	classic/1.0	jar:chrome/abhere2.jar!/skin/
+locale	abhere2	cs-CZ	jar:chrome/abhere2.jar!/locale/cs-CZ/
+locale	abhere2	de-DE	jar:chrome/abhere2.jar!/locale/de-DE/
+locale	abhere2	el-GR	jar:chrome/abhere2.jar!/locale/el-GR/
+locale	abhere2	en-US	jar:chrome/abhere2.jar!/locale/en-US/
+locale	abhere2	es-ES	jar:chrome/abhere2.jar!/locale/es-ES/
+locale	abhere2	fr-FR	jar:chrome/abhere2.jar!/locale/fr-FR/
+locale	abhere2	hu-HU	jar:chrome/abhere2.jar!/locale/hu-HU/
+locale	abhere2	it-IT	jar:chrome/abhere2.jar!/locale/it-IT/
+locale	abhere2	ja-JP	jar:chrome/abhere2.jar!/locale/ja-JP/
+locale	abhere2	ko-KR	jar:chrome/abhere2.jar!/locale/ko-KR/
+locale	abhere2	nl-NL	jar:chrome/abhere2.jar!/locale/nl-NL/
+locale	abhere2	pl-PL	jar:chrome/abhere2.jar!/locale/pl-PL/
+locale	abhere2	pt-BR	jar:chrome/abhere2.jar!/locale/pt-BR/
+locale	abhere2	sk-SK	jar:chrome/abhere2.jar!/locale/sk-SK/
+locale	abhere2	tr-TR	jar:chrome/abhere2.jar!/locale/tr-TR/
+locale	abhere2	zh-CN	jar:chrome/abhere2.jar!/locale/zh-CN/
+locale	abhere2	zh-TW	jar:chrome/abhere2.jar!/locale/zh-TW/

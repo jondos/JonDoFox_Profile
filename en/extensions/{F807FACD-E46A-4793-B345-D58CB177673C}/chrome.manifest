@@ -1,0 +1,14 @@
+content performancing   chrome/content/
+
+locale  performancing   en-US            chrome/content/locale-default/
+locale  performancing   en-US            chrome/locale/en-US/
+locale  performancing   es-ES            chrome/locale/es-ES/
+locale  performancing   fr-FR            chrome/locale/fr-FR/
+locale  performancing   he-IL            chrome/locale/he-IL/
+locale  performancing   ko-KR            chrome/locale/ko-KR/
+locale  performancing   nl-NL            chrome/locale/nl-NL/
+
+skin    performancing   classic/1.0      chrome/skin/
+
+overlay   chrome://browser/content/browser.xul    chrome://performancing/content/overlay.xul
+

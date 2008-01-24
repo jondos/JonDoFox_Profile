@@ -1,0 +1,16 @@
+
+overlay	chrome://browser/content/browser.xul	chrome://libf/content/libfOverlayBrowser.xul
+overlay	chrome://browser/content/bookmarks/bookmarksPanel.xul	chrome://libf/content/libfOverlayBookmarksPanel.xul
+overlay	chrome://browser/content/bookmarks/bookmarksManager.xul	chrome://libf/content/libfOverlayBookmarksManager.xul
+content	libf	chrome/libf/content/
+
+skin	libf	classic/1.0	chrome/libf/skin/classic/
+style	chrome://browser/content/bookmarks/bookmarksManager.xul	chrome://libf/skin/libf.css
+
+locale	libf	en-US	chrome/libf/locale/en-US/
+
+locale	libf	ja-JP	chrome/libf/locale/ja-JP/
+
+locale	libf	it-IT	chrome/libf/locale/it-IT/
+
+locale	libf	ro-RO	chrome/libf/locale/ro-RO/

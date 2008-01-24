@@ -1,0 +1,32 @@
+
+overlay	chrome://browser/content/browser.xul	chrome://pttl/content/pttlOverlay.xul
+overlay	chrome://navigator/content/navigator.xul	chrome://pttl/content/pttlOverlay.xul
+content	pttl	jar:chrome/pttl.jar!/content/pttl/
+
+skin	pttl	classic/1.0	jar:chrome/pttl.jar!/skin/classic/pttl/
+
+locale	pttl	en-US	jar:chrome/pttl.jar!/locale/en-US/pttl/
+
+locale	pttl	it-IT	jar:chrome/pttl.jar!/locale/it-IT/pttl/
+
+locale	pttl	de-DE	jar:chrome/pttl.jar!/locale/de-DE/pttl/
+
+locale	pttl	es-ES	jar:chrome/pttl.jar!/locale/es-ES/pttl/
+
+locale	pttl	fr-FR	jar:chrome/pttl.jar!/locale/fr-FR/pttl/
+
+locale	pttl	tr-TR	jar:chrome/pttl.jar!/locale/tr-TR/pttl/
+
+locale	pttl	ru-RU	jar:chrome/pttl.jar!/locale/ru-RU/pttl/
+
+locale	pttl	pl-PL	jar:chrome/pttl.jar!/locale/pl-PL/pttl/
+
+locale	pttl	sk-SK	jar:chrome/pttl.jar!/locale/sk-SK/pttl/
+
+locale	pttl	nl-NL	jar:chrome/pttl.jar!/locale/nl-NL/pttl/
+
+locale	pttl	pt-BR	jar:chrome/pttl.jar!/locale/pt-BR/pttl/
+
+locale	pttl	hu-HU	jar:chrome/pttl.jar!/locale/hu-HU/pttl/
+
+locale	pttl	be-BY	jar:chrome/pttl.jar!/locale/be-BY/pttl/

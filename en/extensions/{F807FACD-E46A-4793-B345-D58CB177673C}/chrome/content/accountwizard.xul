@@ -1,0 +1,170 @@
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://performancing/skin/overlay.css" type="text/css"?>
+<!DOCTYPE dialog [ 
+<!ENTITY % performancingDTD SYSTEM "chrome://performancing/locale/overlay.dtd"> 
+%performancingDTD;
+<!ENTITY % performancingFallbackDTD SYSTEM "chrome://performancing/content/locale-default/overlay.dtd"> 
+%performancingFallbackDTD; 
+]>
+<wizard id="performancing-account-wizard" title="&performancing.accountWizardTitle;" onwizardfinish="return onClose();"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script type="application/x-javascript" src="chrome://performancing/content/editor.js"/>
+<script type="application/x-javascript" src="chrome://performancing/content/accountwizard.js"/>
+<script type="application/x-javascript" src="chrome://performancing/content/performancing_api.js"/>
+<script type="application/x-javascript" src="chrome://performancing/content/io.js"/>
+<script type="application/x-javascript" src="chrome://performancing/content/xmlrpc.js"/>
+<script type="application/x-javascript" src="chrome://performancing/content/performancingUtil.js"/>
+<script type="application/x-javascript" src="chrome://performancing/content/blogXML.js"/>
+<script type="application/x-javascript" src="chrome://performancing/content/performancing_api.js"/>
+
+<!-- Localization Strings | http://www.xulplanet.com/references/elemref/ref_stringbundle.html -->
+<stringbundle id="performancingstrings" src="chrome://performancing/locale/overlay.properties"/>
+<stringbundle id="performancingstrings-fallback" src="chrome://performancing/content/locale-default/overlay.properties"/>
+
+  <wizardpage pageid="start" next="start2" onpageshow="return true" onpageadvanced="return onAutoNext()">
+    <description>
+      &performancing.accountwizard.intro;
+    </description>
+    <separator class="thin"/>
+    <deck id="autodetect-deck" selectedIndex="0">
+        <vbox>
+            <label value="&performancing.accountwizard.enterblogurl;"/>
+            <textbox id="blog-url" value="&performancing.accountwizard.enterblogurl.example;" width="300px"/>
+            <hbox>
+                <button label="&performancing.accountwizard.manualconfigure;" oncommand="goTo('start2')"/>
+            </hbox>
+        </vbox>
+        <vbox style="margin-left: 10px" align="center">
+            <hbox>
+                <image id="autodetect-throbber" src="chrome://global/skin/throbber/Throbber-small.gif" align="center"/>
+                <label value="&performancing.accountwizard.checkingblogsettings;" />
+            </hbox>
+            <button label="&performancing.accountwizard.manualconfigure;" oncommand="goTo('start2')"/>
+        </vbox>
+        <vbox>
+            <hbox>
+                <label value="&performancing.accountwizard.blogfoundcont;" class="autoDetectText"/>
+            </hbox>
+        </vbox>
+        <vbox>
+            <label value="&performancing.accountwizard.couldnotautodetect;" class="autoDetectText2"/>
+            <hbox>
+                <button label="&performancing.accountwizard.tryagain;" oncommand="tryAgain()" />
+                <button label="&performancing.accountwizard.manualconfigure;" oncommand="goTo('start2')"/>
+            </hbox>
+        </vbox>
+    </deck>
+    
+  </wizardpage>
+  
+  <wizardpage pageid="start2" next="login" onpageshow="return enableNext()" onpageadvanced="onLoad(); return checkForCustom()">
+    <description>
+      &performancing.accountwizard.intro;
+    </description>
+    <separator class="thin"/>
+    <label value="&performancing.accountwizard.choosebloggingserv;"/>
+    <menulist maxwidth="300px" id="performancing-blogservice-list">
+      <menupopup>
+        <menuitem label="WordPress.com" value="wordpress_com" api="s_mt" apiurl="http://wordpress.com/xmlrpc.php" apikey="0123456789ABCDEF" tooltiptext="&performancing.accountwizard.wordpressex;" disabled="false"/>
+        <menuitem label="TypePad.com" value="typepad_com" api="s_mt" apiurl="http://www.typepad.com/t/api" apikey="0123456789ABCDEF" tooltiptext="&performancing.accountwizard.typepadex;" disabled="false"/>
+        <menuitem label="LiveJournal" value="livejournal_com" api="s_blogger" apiurl="http://www.livejournal.com/interface/blogger/" apikey="0123456789ABCDEF" tooltiptext="&performancing.accountwizard.livejournalex;" disabled="false"/>
+        <menuitem label="Windows Live Spaces" value="msnspaces_com" api="s_metaweblog" apiurl="https://storage.msn.com/storageservice/MetaWeblog.rpc" apikey="" tooltiptext="&performancing.accountwizard.msnspacesex;" disabled="false"/>
+        <menuitem label="Performancing" value="performancing_com" api="s_mt" useBoolean="true" apiurl="http://performancing.com/xmlrpc.php" tooltiptext="&performancing.accountwizard.performancingex;" disabled="false"/>
+        <menuitem label="Jeeran" value="jeeran_com" api="s_metaweblog" apiurl="http://api.jeeran.com/blogs/rpc.rem" tooltiptext="&performancing.accountwizard.jeeranex;" disabled="false"/>
+        <menuitem label="&performancing.accountwizard.customblog;" value="_custom" tooltiptext="&performancing.accountwizard.customex;" disabled="false"/>
+      </menupopup>
+    </menulist>
+  </wizardpage>
+  
+    <wizardpage pageid="doTOSConfirm" next="login" onpageshow="return enableNext();" onpageadvanced="return checkForAcceptedTOS()">
+    <description>
+      &performancing.accountwizard.toscaption;
+    </description>
+    <separator class="thin"/>
+    <iframe flex="1" id="performancing-aw-tos-frame" src="chrome://performancing/content/blank2.html" width="300px"/>
+    <checkbox id="pff-license-check" checked="false" label="&performancing.accountwizard.tosaccept;"/>
+  </wizardpage>
+  
+  <wizardpage description="&performancing.accountwizard.customlogindetails;" pageid="login-custom" next="login" onpageshow="return enableNext()" onpageadvanced="" flex="1">
+  <label value="&performancing.accountwizard.selectblogsystem;"/>
+    <menulist maxwidth="300px" id="performancing-blogservice-custom-list" >
+      <menupopup>
+        <menuitem label="WordPress" onclick="onCustomListClick()" value="wordpress_cust" api="mt" apiurl="http://myserver.com/blog/xmlrpc.php" tooltiptext="&performancing.accountwizard.customex;" disabled="false"/>
+        <menuitem label="Movable Type" onclick="onCustomListClick()" value="moveabletype_cust" api="mt" apiurl="http://myserver.com/mt/mt-xmlrpc.cgi" tooltiptext="&performancing.accountwizard.customex;" disabled="false"/>
+        <menuitem label="Drupal" onclick="onCustomListClick()" value="drupal_cust" api="mt" useBoolean="true" apiurl="http://myserver.com/xmlrpc.php" tooltiptext="&performancing.accountwizard.drupal;" disabled="false"/>
+        <menuitem label="Textpattern" onclick="onCustomListClick()" value="textpattern_cust" api="mt" apiurl="http://myserver.com/blog/textpattern/xmlrpcs.php" tooltiptext="&performancing.accountwizard.customex;" disabled="false"/>
+        <menuitem label="Roller" onclick="onCustomListClick()" value="roller_cust" api="metaweblog" apiurl="http://myserver.com/xmlrpc" tooltiptext="&performancing.accountwizard.customex;" disabled="false"/>
+        <menuitem label="MetaWeblog API" onclick="onCustomListClick()" value="metaweblog_cust" api="metaweblog" apiurl="http://myserver.com/xmlrpc.php" tooltiptext="&performancing.accountwizard.customex;" disabled="false"/>
+        <menuitem label="Blogger" onclick="onCustomListClick()" value="atom_blogger_cust" api="atom_blogger" apiurl="http://BLOGNAME.blogspot.com/feeds/posts/full" tooltiptext="&performancing.accountwizard.customex;" disabled="false"/>
+      </menupopup>
+    </menulist>
+    
+    <separator class="thick"/>
+    
+    <label value="&performancing.accountwizard.addorchangeapiurl;"/>
+    <vbox>
+     <label value="&performancing.accountwizard.serverapiurl;"/>
+     <textbox id="custom-apiurl" value="http://mywebsite.com/blog/xmlrpc.php" width="300px"/>
+    </vbox>
+    
+    <checkbox label="&performancing.accountwizard.advancedsettings;" oncommand="document.getElementById('account-advanced-settings').hidden = !document.getElementById('account-advanced-settings').hidden;" />
+    
+    <vbox id="account-advanced-settings" hidden="true" style="border: 1px groove #000;">
+        <checkbox id="useBooleanForPublish" label="&performancing.accountwizard.usebooleanpublish;" checked="false" />
+        <hbox>
+            <label value="&performancing.accountwizard.apikey;" width="80px"/>
+            <textbox id="custom-appkey" type="password" maxwidth="200px" value="" />
+            <label value="&performancing.accountwizard.apikeyignored;" width="80px" style="font-size: x-small;"/>
+        </hbox>
+    </vbox>
+    
+    <textbox id="custom-api" value="" width="100px" hidden="true"/>
+  </wizardpage>
+
+  <wizardpage description="&performancing.loginDetails;" pageid="login" next="login-loading" onpageshow="return enableNext()" onpageadvanced="return tryServiceLogin('true')" >
+    <label value="&performancing.accountwizard.addusrnpasstoblog;"/>
+    <hbox>
+     <label value="&performancing.accountwizard.username;" width="80px"/>
+    <textbox id="username"  maxwidth="200px"/>
+    </hbox>
+    <hbox>
+     <label value="&performancing.accountwizard.password;" width="80px"/>
+    <textbox id="password" type="password" maxwidth="200px" />
+    </hbox>
+    <box height="50px">
+        <label id="login-error-msg" value="&performancing.accountwizard.errorusrnpass;" style="color: red;" hidden="true"/>
+    </box>
+  </wizardpage>
+
+  <wizardpage description="&performancing.accountwizard.loggingin;" pageid="login-loading" next="success" onpageshow="return disableNext()" onpagehide="return enableNext()">
+     <label value="&performancing.accountwizard.logginginplswait;"/>
+  </wizardpage>
+
+  <wizardpage description="&performancing.accountwizard.loginerror;" pageid="login-error" next="login" onpagerewound="return gotoLoginPage()" onpageshow="return disableNext()" >
+     <label value="&performancing.accountwizard.loginerror;"/>
+     <label value="&performancing.accountwizard.errorcheckusrnpass;"/>
+  </wizardpage>
+
+  <wizardpage description="&performancing.accountwizard.succesfulllogin;" pageid="success" onpageshow="return enableNext()" next="finish"  onpageadvanced="return tryServiceSelection()" >
+     <label value="&performancing.accountwizard.succesfulllogindesc;"/>
+     <label value="&performancing.accountwizard.confirminfobelow;"/>
+     <separator class="thin"/>
+     <label value="&performancing.accountwizard.blogstobeadded;"/>
+     <listbox id="performancing-wizard-blog-list" maxwidth="600px" maxheight="200px" flex="1" rows="3" style="overflow: -moz-scrollbars-horizontal" seltype="multiple">
+          <listhead flex="1" >
+            <listheader label="&performancing.accountwizard.blogname;"/>
+            <listheader label="&performancing.accountwizard.url;" />
+          </listhead>
+        
+          <listcols>
+            <listcol flex="1"/>
+            <listcol flex="1" />
+          </listcols>
+     </listbox>
+  </wizardpage>
+  
+  <wizardpage description="&performancing.accountwizard.accountaddeddesc;" pageid="finish" onpageshow="return saveBlogToSprefs()" >
+     <label value="&performancing.accountwizard.accountadded;"/>
+  </wizardpage>
+
+</wizard>

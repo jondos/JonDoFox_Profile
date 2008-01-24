@@ -1,0 +1,352 @@
+<!ENTITY performancing.accountWizardTitle "ScribeFire 계정마법사">
+<!ENTITY performancing.accountwizard.intro "이 마법사는 당신이 추가하고 싶은 블로그 서비스의 유형을 선택하는데 도움을 줄겁니다.">
+<!ENTITY performancing.accountwizard.enterblogurl "당신의 블로그 url을 입력해 주세요.">
+<!ENTITY performancing.accountwizard.enterblogurl.example "http://mywebsite.com/blog/">
+<!ENTITY performancing.accountwizard.manualconfigure "수동 지정">
+<!ENTITY performancing.accountwizard.checkingblogsettings "블로그 설정 검사중...">
+<!ENTITY performancing.accountwizard.blogfoundcont "성공적으로 블로그를 찾았습니다, 계속해 주세요..">
+<!ENTITY performancing.accountwizard.couldnotautodetect "죄송합니다, 설정을 자동검출 할 수 없습니다.">
+<!ENTITY performancing.accountwizard.tryagain "재 시도">
+<!ENTITY performancing.accountwizard.choosebloggingserv "당신은 어떤 블로그 서비스를 추가하고 싶습니까?">
+<!ENTITY performancing.accountwizard.customblog "사용자 지정 블로그">
+<!ENTITY performancing.loginDetails "로그인 상세">
+<!ENTITY performancing.accountwizard.bloggerex "예제: myblog.blogspot.com">
+<!ENTITY performancing.accountwizard.wordpressex "예제: myblog.wordpress.com">
+<!ENTITY performancing.accountwizard.typepadex "예제: myblog.typepad.com">
+<!ENTITY performancing.accountwizard.livejournalex "예제: livejournal.com/users/YourName">
+<!ENTITY performancing.accountwizard.msnspacesex "예제: spaces.msn.com/YourNick">
+<!ENTITY performancing.accountwizard.performancingex "예제: performancing.com/blog/689">
+<!ENTITY performancing.accountwizard.jeeranex "예제: myname.jeeran.com">
+<!ENTITY performancing.accountwizard.drupal "예제: myserver.com/">
+<!ENTITY performancing.accountwizard.customex "예제: myserver.com/blog">
+<!ENTITY performancing.accountwizard.customlogindetails "사용자 지정 로그인 상세">
+<!ENTITY performancing.accountwizard.selectblogsystem "목록에서 블로그 체계 유형을 다음과 같이 선택하십시오:">
+<!ENTITY performancing.accountwizard.addorchangeapiurl "당신의 API URL을 추가(또는 변경)해 주세요:">
+<!ENTITY performancing.accountwizard.serverapiurl "서버 API URL:">
+<!ENTITY performancing.accountwizard.advancedsettings "고급 설정">
+<!ENTITY performancing.accountwizard.usebooleanpublish "출판을 위해 부울 연산 사용">
+<!ENTITY performancing.accountwizard.apikey "API 키:">
+<!ENTITY performancing.accountwizard.apikeyignored "(normally ignored)">
+<!ENTITY performancing.accountwizard.addusrnpasstoblog "블로그를 위해 사용자명과 암호를 추가하십시오:">
+<!ENTITY performancing.accountwizard.username "사용자명:">
+<!ENTITY performancing.accountwizard.password "암호:">
+<!ENTITY performancing.accountwizard.errorusrnpass "오류: 사용자명과 암호를 입력해 주세요">
+<!ENTITY performancing.accountwizard.loggingin "로그인">
+<!ENTITY performancing.accountwizard.logginginplswait "로그인 중..기다려 주세요.">
+<!ENTITY performancing.accountwizard.loginerror "로그인 오류">
+<!ENTITY performancing.accountwizard.errorcheckusrnpass "오류에 따라 사용자명과 암호를 확인후 다시 시도해 주세요.">
+<!ENTITY performancing.accountwizard.succesfulllogin "로그인 성공">
+<!ENTITY performancing.accountwizard.succesfulllogindesc "당신의 계정으로 성공적으로 로그인 했습니다.">
+<!ENTITY performancing.accountwizard.confirminfobelow "다음 정보를 확인 후 계속하십시오.">
+<!ENTITY performancing.accountwizard.blogstobeadded "추가할 블로그:">
+<!ENTITY performancing.accountwizard.blogname "블로그 명">
+<!ENTITY performancing.accountwizard.url "URL">
+<!ENTITY performancing.accountwizard.accountaddeddesc "성공적으로 계정 추가됨">
+<!ENTITY performancing.accountwizard.accountadded "계정 추가">
+<!ENTITY performancing.accountwizard.toscaption "다음의 서버스 조건을 받아들이세요.">
+<!ENTITY performancing.accountwizard.tosaccept "나는 서비스 조건을 받아들입니다">
+<!ENTITY performancing.imageupload.title "ScribeFire 이미지 업로드">
+<!ENTITY performancing.imageupload.tabs.general "일반">
+<!ENTITY performancing.imageupload.tabs.general.key "G">
+<!ENTITY performancing.imageupload.uploadandinsert "이미지 삽입">
+<!ENTITY performancing.imageupload.apply "적용">
+<!ENTITY performancing.imageupload.tabs.settings "FTP 설정">
+<!ENTITY performancing.imageupload.tabs.settings.key "F">
+<!ENTITY performancing.imageupload.saveerr "FTP 설정 저장 오류">
+<!ENTITY performancing.imageupload.chooseimagemsg "이미지 원본를 선택해 주세요">
+<!ENTITY performancing.imageupload.fromurl "원본 URL">
+<!ENTITY performancing.imageupload.fromurl.key "U">
+<!ENTITY performancing.imageupload.uploadtoftp "FTP로 업로드">
+<!ENTITY performancing.imageupload.uploadtoftp.key "F">
+<!ENTITY performancing.imageupload.imageurl "이미지 URL">
+<!ENTITY performancing.imageupload.generatedftp "URL 생성">
+<!ENTITY performancing.imageupload.url "URL">
+<!ENTITY performancing.imageupload.url.key "U">
+<!ENTITY performancing.imageupload.copyurltoclp "클립보드로 URL 복사">
+<!ENTITY performancing.imageupload.ftpimageup "FTP 이미지 업로드">
+<!ENTITY performancing.imageupload.file "파일">
+<!ENTITY performancing.imageupload.file.key "F">
+<!ENTITY performancing.imageupload.browse "찾아보기">
+<!ENTITY performancing.imageupload.uploadimage "이미지 업로드">
+<!ENTITY performancing.imageupload.status "상태:">
+<!ENTITY performancing.imageupload.uploading "업로드 중...">
+<!ENTITY performancing.imageupload.cancelupload "업로드 취소">
+<!ENTITY performancing.imageupload.ftpsettings "FTP 설정">
+<!ENTITY performancing.imageupload.host "호스트">
+<!ENTITY performancing.imageupload.host.key "H">
+<!ENTITY performancing.imageupload.hostexample "예. myserver.com">
+<!ENTITY performancing.imageupload.ftp "FTP">
+<!ENTITY performancing.imageupload.ftp.key "F">
+<!ENTITY performancing.imageupload.http "HTTP">
+<!ENTITY performancing.imageupload.http.key "T">
+<!ENTITY performancing.imageupload.https "HTTPS">
+<!ENTITY performancing.imageupload.https.key "S">
+<!ENTITY performancing.imageupload.username "사용자명">
+<!ENTITY performancing.imageupload.username.key "U">
+<!ENTITY performancing.imageupload.password "암호">
+<!ENTITY performancing.imageupload.password.key "P">
+<!ENTITY performancing.imageupload.serverpath "서버 경로">
+<!ENTITY performancing.imageupload.serverpath.key "S">
+<!ENTITY performancing.imageupload.serverpathexample "예. user/images/">
+<!ENTITY performancing.imageupload.urltopath "URL 경로">
+<!ENTITY performancing.imageupload.urltopath.key "U">
+<!ENTITY performancing.imageupload.urltopathexample "예. http://mydomain.com/images/">
+<!ENTITY performancing.imageupload.savesettings "설정 저장">
+<!ENTITY performancing.imageupload.imageupload "이미지 업로드">
+<!ENTITY performancing.imageupload.imageupload.key "I">
+<!ENTITY performancing.imageupload.fileupload "파일 업로드">
+<!ENTITY performancing.imageupload.fileupload.key "F">
+<!ENTITY performancing.imageupload.uploadviaftp "FTP를 통해 올리기">
+<!ENTITY performancing.imageupload.uploadviaapi "API를 통해 올리기">
+<!ENTITY performancing.fileupload.chooseimagemsg "파일 원본을 선택하세요">
+<!ENTITY performancing.fileupload.title "ScribeFire 파일 업로드">
+<!ENTITY performancing.fileupload.uploadandinsert "파일 삽입">
+<!ENTITY performancing.fileupload.imageurl "파일 URL">
+<!ENTITY performancing.fileupload.ftpfileup "FTP 파일 업로드">
+<!ENTITY performancing.fileupload.uploadfile "파일 업로드">
+<!ENTITY performancing.fileupload.serverpathexample "예. user/files/">
+<!ENTITY performancing.fileupload.urltopathexample "예. http://mydomain.com/files/">
+<!ENTITY performancing.overlay.blogthis "이 페이지 블로그(분할 화면)">
+<!ENTITY performancing.overlay.blogthis.key "B">
+<!ENTITY performancing.overlay.openintab "탭으로 열기">
+<!ENTITY performancing.overlay.openintab.key "T">
+<!ENTITY performancing.overlay.openinwindow "창으로 열기">
+<!ENTITY performancing.overlay.openinwindow.key "W">
+<!ENTITY performancing.overlay.openinbrowser "브라우저로 열기">
+<!ENTITY performancing.overlay.openinbrowser.key "O">
+<!ENTITY performancing.overlay.blogthispage "이 페이지 블로그">
+<!ENTITY performancing.overlay.blogthispage.key "B">
+<!ENTITY performancing.overlay.bookmark "북마크">
+<!ENTITY performancing.overlay.bookmark.key "M">
+<!ENTITY performancing.overlay.pagetools "페이지 도구">
+<!ENTITY performancing.overlay.pagetools.key "P">
+<!ENTITY performancing.overlay.ftpupload "FTP 파일 올리기">
+<!ENTITY performancing.overlay.ftpupload.key "F">
+<!ENTITY performancing.overlay.dragpff "편집기 크기를 바꾸려면 이 막대를 끄십시오">
+<!ENTITY performancing.overlay.closeperformancing "ScribeFire 닫기">
+<!ENTITY performancing.main.sb.cm.about "정보...">
+<!ENTITY performancing.main.sb.cm.about.key "A">
+<!ENTITY performancing.title "ScribeFire">
+<!ENTITY performancing.cmaccesskey "c">
+<!ENTITY performancing.editor.title "ScribeFire">
+<!ENTITY performancing.editor.bar.spelling "철자 검사">
+<!ENTITY performancing.editor.bar.bold.tt "굵게">
+<!ENTITY performancing.editor.bar.italic.tt "기울임">
+<!ENTITY performancing.editor.bar.underline.tt "밑줄">
+<!ENTITY performancing.editor.bar.strikethrough.tt "취소줄">
+<!ENTITY performancing.editor.bar.quote.tt "인용">
+<!ENTITY performancing.editor.bar.strong.tt "강하게">
+<!ENTITY performancing.editor.bar.em.tt "강조">
+<!ENTITY performancing.editor.bar.incfont.tt "글꼴 크기 증가">
+<!ENTITY performancing.editor.bar.decfont.tt "글꼴 크기 감소">
+<!ENTITY performancing.editor.bar.link.tt "연결">
+<!ENTITY performancing.editor.bar.image.tt "이미지">
+<!ENTITY performancing.editor.bar.color.tt "색상">
+<!ENTITY performancing.editor.bar.olist.tt "순차 목록">
+<!ENTITY performancing.editor.bar.ulist.tt "비순차 목록">
+<!ENTITY performancing.editor.bar.leftjust.tt "왼쪽 정렬">
+<!ENTITY performancing.editor.bar.centjust.tt "가운데 정렬">
+<!ENTITY performancing.editor.bar.rightjust.tt "오른쪽 정렬">
+<!ENTITY performancing.editor.bar.just.tt "정렬">
+<!ENTITY performancing.editor.bar.opensb.tt "검색창 열기">
+<!ENTITY performancing.editor.bar.closesb.tt "검색창 닫기">
+<!ENTITY performancing.navbar.editor "편집기">
+<!ENTITY performancing.navbar.notes "주석">
+<!ENTITY performancing.navbar.settings "설정">
+<!ENTITY performancing.navbar.pagetools "페이지 도구">
+<!ENTITY performancing.navbar.bookmarks "북마크">
+<!ENTITY performancing.navbar.about "정보">
+<!ENTITY performancing.editor.tabs.rich "Rich (normal) Editing">
+<!ENTITY performancing.editor.tabs.source "원본 편집">
+<!ENTITY performancing.editor.tabs.preview "실시간 미리보기">
+<!ENTITY performancing.editor.thetitle "제목:">
+<!ENTITY performancing.editor.button.publish "출판 환경설정">
+<!ENTITY performancing.message.postsuccess "게시 성공!">
+<!ENTITY performancing.message.postsuccess.button "편집기를 청소하려면 확인을 누르세요">
+<!ENTITY performancing.message.publishto "다음으로 출판:">
+<!ENTITY performancing.message.noblogselected "선택된 블로그 없음">
+<!ENTITY performancing.message.publishingtoblog "자신의 블로그로 출판...">
+<!ENTITY performancing.message.publishing "출판중...">
+<!ENTITY performancing.link.viewblog "이 블로그로 보기">
+<!ENTITY performancing.button.ok "확인">
+<!ENTITY performancing.button.cancelkeep "내용 유지">
+<!ENTITY performancing.button.saveasnote "주석으로 저장">
+<!ENTITY performancing.button.savenote "저장">
+<!ENTITY performancing.button.clearcontent "내용 삭제">
+<!ENTITY performancing.button.republish "편집해 출판">
+<!ENTITY performancing.publish "출판">
+<!ENTITY performancing.settings.tab.general "일반">
+<!ENTITY performancing.settings.tab.general.key "G">
+<!ENTITY performancing.settings.tab.appearance "테마">
+<!ENTITY performancing.settings.tab.appearance.key "T">
+<!ENTITY performancing.settings.tab.addons "부가기능">
+<!ENTITY performancing.settings.tab.addons.key "D">
+<!ENTITY performancing.settings.general "일반 설정">
+<!ENTITY performancing.settings.remember "닫을때 편집기 내용 저장">
+<!ENTITY performancing.settings.onbottom "분할 화면 아래에 편집기 표시">
+<!ENTITY performancing.settings.hidepffcm "ScribeFire 문맥메뉴 감추기">
+<!ENTITY performancing.settings.hidepagetools "페이지 도구 감추기">
+<!ENTITY performancing.settings.hidebookmarks "북마크 감추기">
+<!ENTITY performancing.settings.sortcats "태그 정렬">
+<!ENTITY performancing.settings.formatsettings "형식">
+<!ENTITY performancing.settings.usecssmsg "내용 양식을 위해 CSS 사용 (그밖에 HTML사용)">
+<!ENTITY performancing.settings.useextcss "미리보기 탭을 위한 외부 CSS URL 사용:">
+<!ENTITY performancing.settings.makertl "&apos;오른쪽에서 왼쪽으로 &apos;글자 쓰기">
+<!ENTITY performancing.settings.publishingfeatures "출판 기능">
+<!ENTITY performancing.settings.defaultdraft "기본값으로 초안 사용">
+<!ENTITY performancing.settings.showextra "추가 출판 기능 표시">
+<!ENTITY performancing.settings.autoinserttech "출판시 Technorati 링크을 자동으로 삽입 할까요?">
+<!ENTITY performancing.settings.insertpoweredbypff "자동으로 &apos;Powered by ScribeFire&apos;을 삽입할까요?">
+<!ENTITY performancing.settings.skin.caption "ScribeFire 테마">
+<!ENTITY performancing.settings.skin.desc "PFF에 적용할 좋아하는 주제를 선정하십시오.">
+<!ENTITY performancing.settings.skin.skinname "테마 명">
+<!ENTITY performancing.settings.skin.author "저자">
+<!ENTITY performancing.settings.skin.enableselected "선택된 테마 사용">
+<!ENTITY performancing.settings.skin.restartfx "테마의 효과를 적용하려면 Firefox를 재시작하세요">
+<!ENTITY performancing.settings.addon.caption "ScribeFire">
+<!ENTITY performancing.settings.addon.clicktoadd "클릭을 통해 부가기능을 사용하거나 사용안하게 할 수 있습니다.">
+<!ENTITY performancing.settings.addon.morethanone "1개 이상의 부가기능을 즉시 사용가능하게 할 수 있습니다.">
+<!ENTITY performancing.settings.addon.name "부기가능 명">
+<!ENTITY performancing.settings.addon.status "상태">
+<!ENTITY performancing.settings.addon.noninstalled "설치된 부가기능 없음">
+<!ENTITY performancing.settings.common.description "설명:">
+<!ENTITY performancing.settings.common.author "저자">
+<!ENTITY performancing.settings.common.add "추가">
+<!ENTITY performancing.settings.common.delete "삭제">
+<!ENTITY performancing.settings.common.clicktodownload "내려받기 위해 누르기">
+<!ENTITY performancing.settings.common.downloadmore "부가기능 및 테마 다운로드">
+<!ENTITY performancing.technorati.info "Technorati 정보">
+<!ENTITY performancing.technorati.loadinginfo "Technorati 정보 불러오는 중...">
+<!ENTITY performancing.technorati.loading "불러오는 중...">
+<!ENTITY performancing.technorati.searchtech "Technorati 검색">
+<!ENTITY performancing.technorati.search "검색">
+<!ENTITY performancing.technorati.pageinfo "페이지 정보">
+<!ENTITY performancing.technorati.thereare "그것은">
+<!ENTITY performancing.technorati.linkstopage "이 페이지로 가는 링크 및">
+<!ENTITY performancing.technorati.blogslinking "Technorati내 이 페이지로 가는 블로그 링크 입니다.">
+<!ENTITY performancing.technorati.loadingpageinfo "페이지 정보 받는 중...">
+<!ENTITY performancing.technorati.moreresults "더 많은 결과...">
+<!ENTITY performancing.technorati.refreshpageinfo "(페이지 정보 새로고침)">
+<!ENTITY performancing.delicious.login "Del.Icio.Us 로그인">
+<!ENTITY performancing.delicious.loggedout "로그인 되지 않았습니다, 지금 로그인 하세요">
+<!ENTITY performancing.delicious.username "사용자명:">
+<!ENTITY performancing.delicious.password "암호:">
+<!ENTITY performancing.delicious.loggingin "Del.icio.us로 로그인...">
+<!ENTITY performancing.delicious.service "Del.icio.us 서비스">
+<!ENTITY performancing.delicious.reloadpage "(현재 페이지 새로고침)">
+<!ENTITY performancing.delicious.savingpost "Del.icio.us에 게시물 저장">
+<!ENTITY performancing.delicious.clear "청소">
+<!ENTITY performancing.delicious.save "저장">
+<!ENTITY performancing.delicious.mytagsearch "내 태그 검색:">
+<!ENTITY performancing.delicious.searchtype "검색 유형">
+<!ENTITY performancing.delicious.loadingtags "- 태그 불러오는 중...">
+<!ENTITY performancing.delicious.autologin "자동 로그인">
+<!ENTITY performancing.delicious.url "url">
+<!ENTITY performancing.delicious.description "상세설명">
+<!ENTITY performancing.delicious.tags "태그">
+<!ENTITY performancing.delicious.notes "주석">
+<!ENTITY performancing.delicious.posts "게시물">
+<!ENTITY performancing.delicious.all "모두">
+<!ENTITY performancing.about.description "Performancing은 전문적 블로거들의 세계 최대 커뮤니티입니다. 우리는 웹로깅을 통해 돈을 벌기를 원하는 블로거들에 대한 지원 및 블로깅 도구 제공에 촛점을 맞췄습니다. 당신은 아래의 단추를 사용하여 우리의 RSS를 구독할 수 있습니다.">
+<!ENTITY performancing.about.latestposts "최종 게시물:">
+<!ENTITY performancing.about.refreshlist "(목록 새로 고침)">
+<!ENTITY performancing.about.loadingfeeds "피드 받는 중...">
+<!ENTITY performancing.about.gethelp "도움말 받기:">
+<!ENTITY performancing.about.pffhandbook "ScribeFire 안내서">
+<!ENTITY performancing.about.supportforums "지원 포럼">
+<!ENTITY performancing.about.requests "버그 및 기능 요청">
+<!ENTITY performancing.about.getrss "RSS 받기">
+<!ENTITY performancing.about.joinperformancing "Performancing 가입:">
+<!ENTITY performancing.about.login "로그인">
+<!ENTITY performancing.about.register "등록">
+<!ENTITY performancing.about.forums "포럼">
+<!ENTITY performancing.credits "감사">
+<!ENTITY performancing.about.credits "ScribeFire는 Performancing LLC에 의해 고안 및 개발되었습니다. Atom API 수행코드를 작성한 &apos;Flock의 Anthony Young&apos;, 최고의 &apos;미다스&apos;라이브러리를 만든 David Murray 와 상태막대 끌기 라이브러리를 만든 Alex Sirota에게 특별한 감사를 보냅니다.">
+<!ENTITY performancing.about.version "ver. 1.3.5">
+<!ENTITY performancing.sidebar.blogs "블로그">
+<!ENTITY performancing.sidebar.categories "태그">
+<!ENTITY performancing.sidebar.history "게시물">
+<!ENTITY performancing.sidebar.pages "페이지">
+<!ENTITY performancing.sidebar.notes "주석">
+<!ENTITY performancing.sidebar.blogs.tt "내 블로그">
+<!ENTITY performancing.sidebar.categories.tt "이 태그를 포함해 출판">
+<!ENTITY performancing.sidebar.history.tt "블로그에 최종 게시물 작성">
+<!ENTITY performancing.sidebar.pages.tt "블로그 내 최종 페이지 작성">
+<!ENTITY performancing.sidebar.notes.tt "저장된 주석">
+<!ENTITY performancing.sidebar.loadingbloglist "블로그 목록 불러오는 중...">
+<!ENTITY performancing.sidebar.add "추가">
+<!ENTITY performancing.sidebar.addcats "태그 추가">
+<!ENTITY performancing.sidebar.accountwizard "계정 올리기 마법사">
+<!ENTITY performancing.sidebar.loadingcats "태그 받는 중...">
+<!ENTITY performancing.sidebar.loadinghist "게시물 기록 받는 중...">
+<!ENTITY performancing.sidebar.loadingpages "페이지 받는 중...">
+<!ENTITY performancing.sidebar.deletepost "게시물 삭제">
+<!ENTITY performancing.sidebar.deletepage "페이지 삭제">
+<!ENTITY performancing.sidebar.search "검색:">
+<!ENTITY performancing.sidebar.loadingnotes "주석 받는 중...">
+<!ENTITY performancing.sidebar.deletenote "주석 삭제">
+<!ENTITY performancing.sidebar.publishingoptions "출판 환경설정">
+<!ENTITY performancing.sidebar.closeextra "추가 환경설정 닫기">
+<!ENTITY performancing.sidebar.postasdraft "초안으로 게시">
+<!ENTITY performancing.sidebar.technoratitags "Technorati 태그:">
+<!ENTITY performancing.sidebar.commaseperated "(쉼표로 목록 구분)">
+<!ENTITY performancing.sidebar.autoaddmsg "자동으로 추가될 겁니다">
+<!ENTITY performancing.sidebar.addtagsbutton "게시물에 태그 추가">
+<!ENTITY performancing.sidebar.bookmarkposts "동일 태그를 사용해 del.icio.us에 북마크 게시">
+<!ENTITY performancing.sidebar.trackbackurl "트래백 URL:">
+<!ENTITY performancing.sidebar.delete "삭제">
+<!ENTITY performancing.sidebar.enablepings "핑 사용">
+<!ENTITY performancing.sidebar.custom "사용자 지정">
+<!ENTITY key_logout.key "q">
+<!ENTITY key_help.key "VK_F1">
+<!ENTITY key_bold.key "b">
+<!ENTITY key_italic.key "i">
+<!ENTITY key_underline.key "u">
+<!ENTITY key_link.key "m">
+<!ENTITY key_login.key "VK_RETURN">
+<!ENTITY key_spell.key "VK_F7">
+<!ENTITY openCmd.label "열기">
+<!ENTITY openCmd.accesskey "o">
+<!ENTITY openCmd.key "O">
+<!ENTITY saveCmd.label "저장">
+<!ENTITY saveCmd.accesskey "s">
+<!ENTITY saveCmd.key "S">
+<!ENTITY saveAsCmd.label "다음으로 저장">
+<!ENTITY undoCmd.label "실행취소">
+<!ENTITY undoCmd.key "Z">
+<!ENTITY undoCmd.accesskey "u">
+<!ENTITY redoCmd.label "재실행">
+<!ENTITY redoCmd.key "Y">
+<!ENTITY redoCmd.accesskey "r">
+<!ENTITY cutCmd.label "잘라내기">
+<!ENTITY cutCmd.key "X">
+<!ENTITY cutCmd.accesskey "t">
+<!ENTITY copyCmd.label "복사">
+<!ENTITY copyCmd.key "C">
+<!ENTITY copyCmd.accesskey "c">
+<!ENTITY pasteCmd.label "붙여넣기">
+<!ENTITY pasteCmd.key "V">
+<!ENTITY pasteCmd.accesskey "p">
+<!ENTITY pasteNoFormattingCmd.label "형식 없이 붙이기">
+<!ENTITY pasteNoFormattingCmd.accesskey "o">
+<!ENTITY deleteCmd.label "삭제">
+<!ENTITY deleteCmd.key "D">
+<!ENTITY deleteCmd.accesskey "d">
+<!ENTITY selectAllCmd.label "모두 선택">
+<!ENTITY selectAllCmd.key "A">
+<!ENTITY selectAllCmd.accesskey "a">
+<!ENTITY printCmd.label "인쇄">
+<!ENTITY printCmd.key "P">
+<!ENTITY printCmd.accesskey "p">
+<!ENTITY preferencesCmd.label "환결설정">
+<!ENTITY preferencesCmd.key "E">
+<!ENTITY preferencesCmd.accesskey "e">
+<!ENTITY pff-spellAddToDictionary.label "사전 추가">
+<!ENTITY pff-spellAddToDictionary.accesskey "t">
+<!ENTITY pff-spellEnable.label "이 필드 철자 검사">
+<!ENTITY pff-spellEnable.accesskey "S">
+<!ENTITY pff-spellNoSuggestions.label "(철자법 제안 없음)">
+<!ENTITY pff-spellDictionaries.label "언어">
+<!ENTITY pff-spellDictionaries.accesskey "l">
+<!ENTITY pff-spellAddDictionaries.label "사전 추가...">
+<!ENTITY pff-spellAddDictionaries.accesskey "A">

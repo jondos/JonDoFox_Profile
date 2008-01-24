@@ -1,0 +1,14 @@
+#tb-mediapirate {
+
+  list-style-image: url("chrome://mediapirate/content/logo-big-inactive.png");
+}
+
+#tb-mediapirate[state="1"] {
+
+  list-style-image: url("chrome://mediapirate/content/logo-big-active.png");
+}
+
+#tb-mediapirate[state="0"] {
+
+  list-style-image: url("chrome://mediapirate/content/logo-big-inactive.png");
+}

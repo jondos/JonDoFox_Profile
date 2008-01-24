@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:extension:file:drweb.jar"
+                   em:package="content/">
+    <em:locale>locale/en-US/drweb/</em:locale>
+    <em:locale>locale/fr-FR/drweb/</em:locale>
+    <em:locale>locale/lt-LT/drweb/</em:locale>
+    <em:locale>locale/pl-PL/drweb/</em:locale>
+    <em:locale>locale/pt-PT/drweb/</em:locale>
+    <em:locale>locale/ru-RU/drweb/</em:locale>
+    <em:locale>locale/sk-SK/drweb/</em:locale>
+    <em:locale>locale/de-DE/drweb/</em:locale>
+    <em:locale>locale/it-IT/drweb/</em:locale>
+    <em:locale>locale/ja-JP/drweb/</em:locale>
+    <em:locale>locale/ua-UA/drweb/</em:locale>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{6614d11d-d21d-b211-ae23-815234e1ebb5}"
+                   em:name="Dr.Web anti-virus link checker"
+                   em:version="1.0.15"
+                   em:description="Scan link target with Dr.Web anti-virus"
+                   em:creator="Doctor Web, Ltd."
+                   em:homepageURL="http://www.drweb.com/"
+                   em:iconURL="chrome://drweb/content/drwebicon.png">
+    <em:file RDF:resource="urn:mozilla:extension:file:drweb.jar"/>
+    <em:targetApplication RDF:resource="rdf:#$GfY8F2"/>
+    <em:targetApplication RDF:resource="rdf:#$LfY8F2"/>
+    <em:targetApplication RDF:resource="rdf:#$QfY8F2"/>
+    <em:targetApplication RDF:resource="rdf:#$VfY8F2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$GfY8F2"
+                   em:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+                   em:minVersion="1.5"
+                   em:maxVersion="2.0.0.*" />
+  <RDF:Description RDF:about="rdf:#$LfY8F2"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.0"
+                   em:maxVersion="2.0.0.*" />
+  <RDF:Description RDF:about="rdf:#$QfY8F2"
+                   em:id="{a463f10c-3994-11da-9945-000d60ca027b}"
+                   em:minVersion="0.7"
+                   em:maxVersion="0.7.*" />
+  <RDF:Description RDF:about="rdf:#$VfY8F2"
+                   em:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
+                   em:minVersion="1.7"
+                   em:maxVersion="1.8" />
+</RDF:RDF>

@@ -1,0 +1,9 @@
+
+overlay	chrome://browser/content/browser.xul	chrome://groowebar/content/groowebar.xul
+overlay	chrome://navigator/content/navigator.xul	chrome://groowebar/content/groowebar.xul
+content	groowebar	jar:chrome/groowebar.jar!/content/
+
+skin	groowebar	classic/1.0	jar:chrome/groowebar.jar!/skin/
+style	chrome://global/content/customizeToolbar.xul	chrome://groowebar/skin/toolbarbtn.css
+
+locale	groowebar	en-US	jar:chrome/groowebar.jar!/locale/en-US/

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="rdf:#$aARWU2"
+                   em:id="{a463f10c-3994-11da-9945-000d60ca027b}"
+                   em:minVersion="0.5"
+                   em:maxVersion="1.0+" />
+  <RDF:Description RDF:about="rdf:#$XzRWU2"
+                   em:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
+                   em:minVersion="1.5"
+                   em:maxVersion="1.8" />
+  <RDF:Description RDF:about="rdf:#$0ARWU2"
+                   em:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
+                   em:minVersion="1.0"
+                   em:maxVersion="1.5a" />
+  <RDF:Description RDF:about="urn:mozilla:extension:file:forecastfox.jar"
+                   em:package="content/forecastfox/"
+                   em:skin="skin/classic/forecastfox/">
+    <em:locale>locale/en-US/forecastfox/</em:locale>
+    <em:locale>locale/bg-BG/forecastfox/</em:locale>
+    <em:locale>locale/ca-AD/forecastfox/</em:locale>
+    <em:locale>locale/cs-CZ/forecastfox/</em:locale>
+    <em:locale>locale/da-DK/forecastfox/</em:locale>
+    <em:locale>locale/de-DE/forecastfox/</em:locale>
+    <em:locale>locale/es-ES/forecastfox/</em:locale>
+    <em:locale>locale/fi-FI/forecastfox/</em:locale>
+    <em:locale>locale/fr-FR/forecastfox/</em:locale>
+    <em:locale>locale/hu-HU/forecastfox/</em:locale>
+    <em:locale>locale/it-IT/forecastfox/</em:locale>
+    <em:locale>locale/ko-KR/forecastfox/</em:locale>
+    <em:locale>locale/nb-NO/forecastfox/</em:locale>
+    <em:locale>locale/nl-NL/forecastfox/</em:locale>
+    <em:locale>locale/pl-PL/forecastfox/</em:locale>
+    <em:locale>locale/pt-BR/forecastfox/</em:locale>
+    <em:locale>locale/ro-RO/forecastfox/</em:locale>
+    <em:locale>locale/ru-RU/forecastfox/</em:locale>
+    <em:locale>locale/sk-SK/forecastfox/</em:locale>
+    <em:locale>locale/sv-SE/forecastfox/</em:locale>
+    <em:locale>locale/tr-TR/forecastfox/</em:locale>
+    <em:locale>locale/uk-UA/forecastfox/</em:locale>
+    <em:locale>locale/zh-CN/forecastfox/</em:locale>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$5ARWU2"
+                   em:id="{3db10fab-e461-4c80-8b97-957ad5f8ea47}"
+                   em:minVersion="8.0"
+                   em:maxVersion="8.1.2" />
+  <RDF:Description RDF:about="rdf:#$SzRWU2"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.5"
+                   em:maxVersion="3.0a3" />
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}"
+                   em:version="0.9.5.2"
+                   em:name="Forecastfox Enhanced"
+                   em:description="Get international weather forecasts and radar images and display it in any toolbar or statusbar with this highly customizable extension."
+                   em:creator="Jon Stritar"
+                   em:homepageURL="http://users.rcn.com/shoofy/forecastfox_enhanced/"
+                   em:optionsURL="chrome://forecastfox/content/options.xul"
+                   em:iconURL="chrome://forecastfox/skin/images/icon.png"
+                   em:aboutURL="chrome://forecastfox/content/about.xul">
+    <em:targetApplication RDF:resource="rdf:#$SzRWU2"/>
+    <em:targetApplication RDF:resource="rdf:#$XzRWU2"/>
+    <em:targetApplication RDF:resource="rdf:#$0ARWU2"/>
+    <em:targetApplication RDF:resource="rdf:#$5ARWU2"/>
+    <em:targetApplication RDF:resource="rdf:#$aARWU2"/>
+    <em:contributor>Richard Klein</em:contributor>
+    <em:contributor>Aaron Sarna</em:contributor>
+    <em:contributor>A.C.</em:contributor>
+    <em:contributor>Menet</em:contributor>
+    <em:file RDF:resource="urn:mozilla:extension:file:forecastfox.jar"/>
+  </RDF:Description>
+</RDF:RDF>
