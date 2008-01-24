@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}"
+                   em:version="2.3"
+                   em:type="2"
+                   em:name="Media Pirate - The video downloader"
+                   em:description="Video downloader"
+                   em:creator="Pascal Beyeler"
+                   em:homepageURL="http://www.mediapirate.org"
+                   em:optionsURL="chrome://mediapirate/content/options.xul">
+    <em:targetApplication RDF:resource="rdf:#$kcAOM1"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$kcAOM1"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.0"
+                   em:maxVersion="2.0.0.*" />
+</RDF:RDF>

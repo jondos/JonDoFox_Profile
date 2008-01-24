@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<RDF 	xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+	<Description about="urn:mozilla:install-manifest">
+		<em:id>{d37dc5d0-431d-44e5-8c91-49419370caa1}</em:id>
+		<em:name>FoxClocks</em:name>
+		<em:type>2</em:type> <!-- ie extension -->
+		<em:version>2.2.23</em:version>
+		<em:description>Displays local times around the world in the statusbar/toolbar. Supports virtually all time zones.</em:description>
+		<em:creator>Andy McDonald</em:creator>
+
+		<em:contributor>Eric H. Jung</em:contributor>
+		<em:contributor>Carl Ireland</em:contributor>
+		<em:contributor>Sandi Trillo</em:contributor>
+		<em:contributor>Philip Chee</em:contributor>
+		<em:contributor>Stefan Sitter</em:contributor>
+		<em:contributor>Flags: Mark James (famfamfam.com)</em:contributor>
+		<em:contributor>be-BY: DRKA, Andrew O. Shadoura</em:contributor>
+		<em:contributor>cs-CZ: Michal NOIEX</em:contributor>
+		<em:contributor>da-DK: AlleyKat (Babelzillian)</em:contributor>
+		<em:contributor>de-DE: ReinekeFux, Team erweiterungen.de, D|Z</em:contributor>
+		<em:contributor>es-ES: Proyecto Nave</em:contributor>
+		<!-- <em:contributor>es-CL: DJFunkinmixer</em:contributor> -->
+		<em:contributor>fr-FR: Okaryn, Olivier Tribout</em:contributor>
+		<!-- <em:contributor>el-GR: Antony_256</em:contributor> -->
+		<em:contributor>hu-HU: fenya25, misibacsi</em:contributor>
+		<em:contributor>it-IT: Pedro (Luca Pedrazzi)</em:contributor>
+		<!-- <em:contributor>ja-JP: William Barnes, Reuentahl, Victory</em:contributor> -->
+		<em:contributor>ko-KR: Hunimini</em:contributor>
+		<!-- <em:contributor>mk-MK: Zoriv Ivanovski</em:contributor> -->
+		<em:contributor>mn-MN: Natsagdorj Shagdar</em:contributor>
+		<em:contributor>nl-NL: markh</em:contributor>
+		<em:contributor>pl-PL: Leszek(teo)Zyczkowski</em:contributor>
+		<!-- <em:contributor>pt-BR: tchu</em:contributor> -->
+		<em:contributor>ru-RU: Alexander L. Slovesnik a.k.a Unghost</em:contributor>
+		<em:contributor>sk-SK: SlovakSoft</em:contributor>
+		<em:contributor>tr-TR: Kenan Balamir</em:contributor>
+		<em:contributor>uk-UA: Andriy Baranskyy</em:contributor>
+		<!-- <em:contributor>zh-CN: Rick Cart</em:contributor> -->
+		<!-- <em:contributor>zh-TW: G.S.K.Lee</em:contributor> -->
+
+		<em:homepageURL>http://www.stemhaus.com/firefox/</em:homepageURL>
+		<em:optionsURL>chrome://foxclocks/content/options.xul</em:optionsURL>
+		<em:iconURL>chrome://foxclocks/skin/icon.png</em:iconURL>
+		<!-- <em:aboutURL>chrome://foxclocks/content/about.xul</em:aboutURL> -->
+
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- ie Firefox -->
+				<em:minVersion>1.5</em:minVersion>
+				<em:maxVersion>2.0.0.*</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+		<em:targetApplication>
+			<Description>
+				<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id> <!-- ie Thunderbird -->
+				<em:minVersion>1.5</em:minVersion>
+				<em:maxVersion>2.0.0.*</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+		<em:targetApplication>
+			<Description>
+				<em:id>{718e30fb-e89b-41dd-9da7-e25a45638b28}</em:id> <!-- ie Sunbird -->
+				<em:minVersion>0.3</em:minVersion>
+				<em:maxVersion>0.5</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+		<!-- <em:targetApplication> - disabled for now
+			<Description>
+				<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id> xx ie SeaMonkey xx
+				<em:minVersion>1.0</em:minVersion>
+				<em:maxVersion>2.0.*</em:maxVersion>
+			</Description>
+		</em:targetApplication> -->
+	</Description>      
+</RDF>

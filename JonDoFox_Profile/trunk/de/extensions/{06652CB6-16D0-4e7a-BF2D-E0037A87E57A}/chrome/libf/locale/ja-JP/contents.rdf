@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:chrome="http://www.mozilla.org/rdf/chrome#">
+
+	<!-- list all the packages being supplied by this extension -->
+	<Seq about="urn:mozilla:locale:root">
+		<li resource="urn:mozilla:locale:ja-JP"/>
+	</Seq>
+
+	<!-- locale information -->
+	<Description about="urn:mozilla:locale:ja-JP"
+		chrome:author="Hidenari Nozaki"
+		chrome:name="ja-JP"
+		chrome:displayName="Japanese">
+		<chrome:packages>
+			<Seq about="urn:mozilla:locale:ja-JP:packages">
+				<li resource="urn:mozilla:locale:ja-JP:libf"/>
+			</Seq>
+		</chrome:packages>
+	</Description>
+
+</RDF>

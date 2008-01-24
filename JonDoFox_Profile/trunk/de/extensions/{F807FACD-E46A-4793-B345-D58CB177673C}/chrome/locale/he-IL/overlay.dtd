@@ -1,0 +1,453 @@
+<!-- /* 
+* Performancing for Firefox Localization file #1
+* file: overlay.dtd
+* 
+* Localization notes:
+* Please do NOT localize the name 'Performancing' nor 'Performancing for Firefox'
+* Any questions on what a string means either install PFF or go to the forums and ask us
+* http://performancing.com/forum/firefox
+* 
+* Also, keep the following information below and change the information to correspond to you.
+*
+* ##########################################################################################
+* # Locale: He (Hebrew)
+* # Date: December, 2006
+* # PFF version: 1.2.1
+* # Author: Tomer Cohen <tomerc@gmail.com>
+* # Last Edited: June 15th, 2006
+* ##########################################################################################
+*
+*/ -->
+
+<!-- AccountWizard.xul - Account Adding Wizard text -->
+<!ENTITY performancing.accountwizard.intro "אשף זה יסייע לך לבחור את סוג שירות הבלוגים שברצונך להוסיף.">
+<!ENTITY performancing.accountwizard.enterblogurl "בבקשה הכנס את כתובת הבלוג">
+<!ENTITY performancing.accountwizard.enterblogurl.example "http://mywebsite.com/blog/">
+<!ENTITY performancing.accountwizard.checkurl "בדוק כתובת">
+<!ENTITY performancing.accountwizard.manualconfigure "הגדר ידנית">
+<!ENTITY performancing.accountwizard.checkingblogsettings "בודק הגדרות הבלוג...">
+<!ENTITY performancing.accountwizard.blogfoundcont "הבלוג אותר בהצלחה, נא להמשיך...">
+<!ENTITY performancing.accountwizard.couldnotautodetect "מצטער, לא ניתן לזהות אוטומטית את ההגדרות.">
+<!ENTITY performancing.accountwizard.tryagain "נסה שוב">
+<!ENTITY performancing.accountwizard.choosebloggingserv "איזה שירות בלוגים ברצונך להוסיף?">
+<!ENTITY performancing.accountwizard.customblog "בלוג מותאם אישית">
+<!-- Tootip blog url examples -->
+<!ENTITY performancing.accountwizard.bloggerex "לדוגמה: myblog.blogspot.com">
+<!ENTITY performancing.accountwizard.wordpressex "לדוגמה: myblog.wordpress.com">
+<!ENTITY performancing.accountwizard.typepadex "לדוגמה: myblog.typepad.com">
+<!ENTITY performancing.accountwizard.livejournalex "לדוגמה: livejournal.com/users/YourName">
+<!ENTITY performancing.accountwizard.msnspacesex "לדוגמה: spaces.msn.com/YourNick">
+<!ENTITY performancing.accountwizard.performancingex "לדוגמה: performancing.com/blog/689">
+<!ENTITY performancing.accountwizard.jeeranex "לדוגמה: myname.jeeran.com">
+<!ENTITY performancing.accountwizard.drupal "לדוגמה: myserver.com/">
+<!ENTITY performancing.accountwizard.customex "לדוגמה: myserver.com/blog">
+
+<!ENTITY performancing.accountwizard.customlogindetails "פרטי התחברות מותאמת אישית">
+<!ENTITY performancing.accountwizard.selectblogsystem "בבקשה בחר את סוג מערכת הבלוגים מהרשימה הבאה:">
+<!ENTITY performancing.accountwizard.addorchangeapiurl "בבקשה הוסף (או שנה) את כתובת ה־API:">
+<!ENTITY performancing.accountwizard.serverapiurl "כתובת שרת API:">
+<!ENTITY performancing.accountwizard.advancedsettings "הגדרות מתקדמות">
+<!ENTITY performancing.accountwizard.usebooleanpublish "Use Boolean for Publish">
+<!ENTITY performancing.accountwizard.apikey "API Key:">
+<!ENTITY performancing.accountwizard.apikeyignored "(normally ignored)">
+<!ENTITY performancing.accountwizard.addusrnpasstoblog "הכנס את שם המשתמש והסיסמה שלך לבלוג זה:">
+<!ENTITY performancing.accountwizard.username "שם משתמש:">
+<!ENTITY performancing.accountwizard.password "סיסמה:">
+<!ENTITY performancing.accountwizard.errorusrnpass "שגיאה: נא להכניס שם משתמש וסיסמה">
+<!ENTITY performancing.accountwizard.loggingin "מתחבר">
+<!ENTITY performancing.accountwizard.logginginplswait "מתחבר... נא להמתין.">
+<!ENTITY performancing.accountwizard.loginerror "שגיאה בהתחברות">
+<!ENTITY performancing.accountwizard.errorcheckusrnpass "בבקשה בדוק את שם המשתמש והסיסמה שלך ונסה שוב.">
+<!ENTITY performancing.accountwizard.succesfulllogin "התחבר בהצלחה">
+<!ENTITY performancing.accountwizard.succesfulllogindesc "התחברת בהצלחה לחשבון שלך.">
+<!ENTITY performancing.accountwizard.confirminfobelow "בבקשה וודא את המידע מטה והמשך">
+<!ENTITY performancing.accountwizard.blogstobeadded "בלוגים להוספה:">
+<!ENTITY performancing.accountwizard.blogname "שם הבלוג">
+<!ENTITY performancing.accountwizard.url "כתובת">
+<!ENTITY performancing.accountwizard.accountaddeddesc "חשבון הוסף בהצלחה">
+<!ENTITY performancing.accountwizard.accountadded "חשבון הוסף">
+
+<!ENTITY performancing.accountwizard.toscaption "בבקשה אשר את תנאי השימוש הבאים">
+<!ENTITY performancing.accountwizard.tosaccept "אני מאשר את תנאי השימוש">
+
+<!-- ImageUpload.xul - Image upload text -->
+<!ENTITY performancing.imageupload.title "ScribeFire העלאת תמונות">
+<!ENTITY performancing.imageupload.tabs.general "כללי">
+<!ENTITY performancing.imageupload.tabs.general.key "כ">
+<!ENTITY performancing.imageupload.uploadandinsert "הוסף תמונה">
+<!ENTITY performancing.imageupload.tabs.general.key "כ">
+<!ENTITY performancing.imageupload.apply "החל">
+<!ENTITY performancing.imageupload.tabs.settings "הגדרות FTP">
+<!ENTITY performancing.imageupload.tabs.settings.key "ה">
+<!ENTITY performancing.imageupload.saveerr "שגיאה בשמירת הגדרות FTP">
+<!ENTITY performancing.imageupload.chooseimagemsg "בבקשה בחר את מקור התמונה">
+<!ENTITY performancing.imageupload.fromurl "מכתובת">
+<!ENTITY performancing.imageupload.fromurl.key "כ">
+<!ENTITY performancing.imageupload.uploadtoftp "העלה ל־FTP">
+<!ENTITY performancing.imageupload.uploadtoftp.key "ה">
+<!ENTITY performancing.imageupload.imageurl "כתובת תמונה">
+<!ENTITY performancing.imageupload.generatedftp "צור כתובת">
+<!ENTITY performancing.imageupload.url "כתובת">
+<!ENTITY performancing.imageupload.url.key "כ">
+<!ENTITY performancing.imageupload.copyurltoclp "העתק כתובת ללוח">
+<!ENTITY performancing.imageupload.ftpimageup "העלאת תמונות ל־FTP">
+<!ENTITY performancing.imageupload.file "קובץ">
+<!ENTITY performancing.imageupload.file.key "ק">
+<!ENTITY performancing.imageupload.browse "עיין">
+<!ENTITY performancing.imageupload.uploadimage "העלה תמונה">
+<!ENTITY performancing.imageupload.status "מצב:">
+<!ENTITY performancing.imageupload.uploading "מעלה....">
+<!ENTITY performancing.imageupload.cancelupload "בטל העלאה">
+<!ENTITY performancing.imageupload.ftpsettings "הגדרות FTP">
+<!ENTITY performancing.imageupload.host "שרת מארח">
+<!ENTITY performancing.imageupload.host.key "ש">
+<!ENTITY performancing.imageupload.hostexample "למשל myserver.com">
+<!ENTITY performancing.imageupload.ftp "FTP">
+<!ENTITY performancing.imageupload.ftp.key "F">
+<!ENTITY performancing.imageupload.http "HTTP">
+<!ENTITY performancing.imageupload.http.key "T">
+<!ENTITY performancing.imageupload.https "HTTPS">
+<!ENTITY performancing.imageupload.https.key "S">
+<!ENTITY performancing.imageupload.username "שם משתמש">
+<!ENTITY performancing.imageupload.username.key "מ">
+<!ENTITY performancing.imageupload.password "סיסמה">
+<!ENTITY performancing.imageupload.password.key "ס">
+<!ENTITY performancing.imageupload.serverpath "נתיב שרת">
+<!ENTITY performancing.imageupload.serverpath.key "נ">
+<!ENTITY performancing.imageupload.serverpathexample "למשל user/images/">
+<!ENTITY performancing.imageupload.urltopath "כתובת לנתיב">
+<!ENTITY performancing.imageupload.urltopath.key "כ">
+<!ENTITY performancing.imageupload.urltopathexample "למשל http://mydomain.com/images/">
+<!ENTITY performancing.imageupload.savesettings "שמור הגדרות">
+<!ENTITY performancing.imageupload.apply "החל">
+
+<!-- TEMP!! -->
+<!ENTITY performancing.imageupload.imageupload "העלאת תמונות">
+<!ENTITY performancing.imageupload.imageupload.key "ת">
+<!ENTITY performancing.imageupload.fileupload "העלאת קבצים">
+<!ENTITY performancing.imageupload.fileupload.key "ק">
+<!ENTITY performancing.imageupload.uploadviaftp "העלה דרך FTP">
+<!ENTITY performancing.imageupload.uploadviaapi "העלה דרך API">
+
+<!-- FileUpload.xul - File upload text specific, shares with image upload -->
+<!ENTITY performancing.fileupload.chooseimagemsg "בבקשה בחר את מקור הקובץ">
+<!ENTITY performancing.fileupload.title "ScribeFire העלאת קבצים">
+<!ENTITY performancing.fileupload.uploadandinsert "הוסף קובץ">
+<!ENTITY performancing.fileupload.imageurl "כתובת קובץ">
+<!ENTITY performancing.fileupload.ftpfileup "העלאת קבצים ל־FTP">
+<!ENTITY performancing.fileupload.uploadfile "העלאת קובץ">
+<!ENTITY performancing.fileupload.serverpathexample "למשל user/files/">
+<!ENTITY performancing.fileupload.urltopathexample "למשל http://mydomain.com/files/">
+
+<!-- Overlay.xul - Main Firefox Window and Context Overlay -->
+<!ENTITY performancing.overlay.blogthis "כתוב בבלוג על דף זה (מסך מפוצל)">
+<!ENTITY performancing.overlay.blogthis.key "כ">
+<!ENTITY performancing.overlay.openintab "פתח בלשונית">
+<!ENTITY performancing.overlay.openintab.key "ל">
+<!ENTITY performancing.overlay.openinwindow "פתח בחלון">
+<!ENTITY performancing.overlay.openinwindow.key "ח">
+<!ENTITY performancing.overlay.openinbrowser "פתח בדפדפן">
+<!ENTITY performancing.overlay.openinbrowser.key "פ">
+<!ENTITY performancing.overlay.blogthispage "כתוב בבלוג על דף זה">
+<!ENTITY performancing.overlay.blogthispage.key "כ">
+<!ENTITY performancing.overlay.bookmark "סימנייה">
+<!ENTITY performancing.overlay.bookmark.key "ס">
+<!ENTITY performancing.overlay.pagetools "כלי דף">
+<!ENTITY performancing.overlay.pagetools.key "ד">
+<!ENTITY performancing.overlay.ftpupload "העלאת קבצים ל־FTP">
+<!ENTITY performancing.overlay.ftpupload.key "F">
+<!ENTITY performancing.overlay.updateavailable "עדכון זמין">
+<!ENTITY performancing.overlay.dragpff "גרור את הפס הזה לשינוי גודל העורך">
+<!ENTITY performancing.overlay.closeperformancing "סגירת ScribeFire">
+<!ENTITY performancing.main.sb.cm.about "אודות...">
+<!ENTITY performancing.main.sb.cm.about.key "א">
+<!ENTITY performancing.title "ScribeFire">
+
+
+<!-- Editor.xul - Main PFF Content -->
+<!ENTITY performancing.editor.title "ScribeFire">
+<!ENTITY performancing.editor.bar.spelling "בדוק איות">
+<!-- Edutor button Tooltips -->
+<!ENTITY performancing.editor.bar.bold.tt "מודגש">
+<!ENTITY performancing.editor.bar.italic.tt "נטוי">
+<!ENTITY performancing.editor.bar.underline.tt "קו תחתי">
+<!ENTITY performancing.editor.bar.strikethrough.tt "קו חוצה">
+<!ENTITY performancing.editor.bar.quote.tt "ציטוט">
+<!ENTITY performancing.editor.bar.incfont.tt "הגדלת גודל גופן">
+<!ENTITY performancing.editor.bar.decfont.tt "הקטנת גודל גופן">
+<!ENTITY performancing.editor.bar.link.tt "קישור">
+<!ENTITY performancing.editor.bar.image.tt "תמונה">
+<!ENTITY performancing.editor.bar.color.tt "צבע">
+<!ENTITY performancing.editor.bar.olist.tt "רשימה ממוספרת">
+<!ENTITY performancing.editor.bar.ulist.tt "רשימה לא ממוספרת">
+<!ENTITY performancing.editor.bar.leftjust.tt "ישר לשמאל">
+<!ENTITY performancing.editor.bar.centjust.tt "מרכז">
+<!ENTITY performancing.editor.bar.rightjust.tt "ישר לימין">
+<!ENTITY performancing.editor.bar.just.tt "יישור דו־צידי">
+<!ENTITY performancing.editor.bar.opensb.tt "פתח סרגל צד">
+<!ENTITY performancing.editor.bar.closesb.tt "סגור סרגל צד">
+
+<!-- Left Navigational Sidebar Size specific, don't make longer 
+     than english words or it will mess up the sidebar layout -->
+<!ENTITY performancing.navbar.editor "עורך">
+<!ENTITY performancing.navbar.notes "הערות">
+<!ENTITY performancing.navbar.settings "הגדרות">
+<!ENTITY performancing.navbar.pagetools "כלי דף">
+<!ENTITY performancing.navbar.bookmarks "סימניות">
+<!ENTITY performancing.navbar.metrics "Metrics">
+<!ENTITY performancing.navbar.about "אודות">
+<!-- /End Size specific-->
+
+<!-- Editor View Tabs -->
+<!ENTITY performancing.editor.tabs.rich "עריכה עשירה (רגילה)">
+<!ENTITY performancing.editor.tabs.source "עריכת מקור">
+<!ENTITY performancing.editor.tabs.preview "תצוגה מקדימה">
+
+<!-- Editor Buttons and feedback -->
+<!ENTITY performancing.editor.thetitle "כותרת:">
+<!ENTITY performancing.editor.button.publish "אפשרויות פרסום">
+<!ENTITY performancing.message.postsuccess "פורסם בהצלחה!">
+<!ENTITY performancing.message.postsuccess.button "לחץ אישור למחיקת מידע הפרסומים הישנים שלך.">
+<!ENTITY performancing.message.publishto "פרסם אל:">
+<!ENTITY performancing.message.noblogselected "לא נבחר בלוג">
+<!ENTITY performancing.message.publishingtoblog "מפרסם לבלוג שלך...">
+<!ENTITY performancing.message.publishing "מפרסם...">
+<!ENTITY performancing.link.viewblog "צפה בבלוג">
+<!ENTITY performancing.button.ok "אישור">
+<!ENTITY performancing.button.cancelkeep "ביטול, שמירת תוכן">
+<!ENTITY performancing.button.saveasnote "שמירה כהערה">
+<!ENTITY performancing.button.savenote "שמירה">
+<!ENTITY performancing.button.clearcontent "מחיקת תוכן">
+<!ENTITY performancing.button.republish "פרסם כטיוטא">
+
+<!-- Settings Tab -->
+<!ENTITY performancing.settings.tab.general "כללי">
+<!ENTITY performancing.settings.tab.general.key "כ">
+<!ENTITY performancing.settings.tab.appearance "ערכות נושא">
+<!ENTITY performancing.settings.tab.appearance.key "ע">
+<!ENTITY performancing.settings.tab.addons "תוספות">
+<!ENTITY performancing.settings.tab.addons.key "ת">
+
+<!ENTITY performancing.settings.general "אפשרויות כלליות">
+<!ENTITY performancing.settings.remember "שמירת מידע עריכה בסגירה">
+<!ENTITY performancing.settings.onbottom "הצג עורך בתחתית המסך המפוצל">
+<!ENTITY performancing.settings.hidepffcm "הסתר את תפריט ההקשר של ScribeFire">
+<!ENTITY performancing.settings.hidepagetools "הסתר כלי דף">
+<!ENTITY performancing.settings.hidebookmarks "הסתר סימניות">
+<!ENTITY performancing.settings.hidemetrics "הסתר Metrics">
+<!ENTITY performancing.settings.sortcats "מיין קטגוריות">
+<!ENTITY performancing.settings.formatsettings "הגדרות תבנית">
+<!ENTITY performancing.settings.usecssmsg "השתמש ב־CSS לעיצוב התוכן (אחרים משתמשים ב־HTML)">
+<!ENTITY performancing.settings.useextcss "השתמש בכתובת CSS חיצונית ללשונית התצוגה המקדימה:">
+<!ENTITY performancing.settings.makertl "צור טקסט 'ימין לשמאל'">
+<!ENTITY performancing.settings.publishingfeatures "אפשרויות פרסום">
+<!ENTITY performancing.settings.defaultdraft "אפשר טיוטא כברירת מחדל">
+<!ENTITY performancing.settings.showextra "הצג אפשרויות פרסום נוספות">
+<!ENTITY performancing.settings.autoinserttech "הכנס אוטומטית קישורי Technorati בפרסום?">
+<!ENTITY performancing.settings.insertpoweredbypff "הכנס אוטומטית 'Powered by ScribeFire'?">
+<!ENTITY performancing.settings.formatsettings "תבנית">
+
+<!ENTITY performancing.settings.skin.caption "ערכות נושא עבור ScribeFire">
+<!ENTITY performancing.settings.skin.desc "בחר את ערכות הנושא שברצונך להחיל על ScribeFire.">
+<!ENTITY performancing.settings.skin.skinname "שם ערכת נושא">
+<!ENTITY performancing.settings.skin.author "כותב">
+<!ENTITY performancing.settings.skin.enableselected "אפשר ערכת נושא נבחרת">
+<!ENTITY performancing.settings.skin.restartfx "הפעל מחדש את Firefox כדי להפעיל את ערכת הנושא">
+
+<!ENTITY performancing.settings.addon.caption "תוספות עבור ScribeFire">
+<!ENTITY performancing.settings.addon.clicktoadd "לחץ על תוספת כדי לאפשר או לנטרל אותה.">
+<!ENTITY performancing.settings.addon.morethanone "ניתן לאפשר יותר מתוספת אחת בכל פעם.">
+<!ENTITY performancing.settings.addon.name "שם התוספת">
+<!ENTITY performancing.settings.addon.status "מצב">
+<!ENTITY performancing.settings.addon.caption "ScribeFire">
+<!ENTITY performancing.settings.addon.noninstalled "לא מותקנות תוספות">
+
+<!ENTITY performancing.settings.common.description "תיאור:">
+<!ENTITY performancing.settings.common.author "כותב">
+<!ENTITY performancing.settings.common.add "הוסף">
+<!ENTITY performancing.settings.common.delete "מחק">
+<!ENTITY performancing.settings.common.clicktodownload "לחץ להורדה">
+<!ENTITY performancing.settings.common.downloadmore "הורדת תוספות וערכות נושא">
+
+
+
+<!-- Technorati Tab -->
+<!ENTITY performancing.technorati.info "מידע Technorati">
+<!ENTITY performancing.technorati.loadinginfo "טוען מידע Technorati...">
+<!ENTITY performancing.technorati.loading "טוען...">
+<!ENTITY performancing.technorati.searchtech "חפש ב־Technorati">
+<!ENTITY performancing.technorati.search "חפש">
+<!ENTITY performancing.technorati.pageinfo "מידע אודות הדף">
+<!ENTITY performancing.technorati.thereare "קיימים ">
+<!ENTITY performancing.technorati.linkstopage "קישורים לדף זה, כאשר ">
+<!ENTITY performancing.technorati.blogslinking "מקשרים לדף זה לפי Technorati.">
+<!ENTITY performancing.technorati.loadingpageinfo "טוען מידע אודות הדף...">
+<!ENTITY performancing.technorati.moreresults "תוצאות נוספות...">
+<!ENTITY performancing.technorati.refreshpageinfo "(רענן דף מידע)">
+
+<!-- Delicious Tab -->
+<!ENTITY performancing.delicious.login "זיהוי Del.Icio.Us">
+<!ENTITY performancing.delicious.loggedout "אינך מחובר, נא להתחבר כעת">
+<!ENTITY performancing.delicious.username "שם משתמש:">
+<!ENTITY performancing.delicious.password "סיסמה:">
+<!ENTITY performancing.delicious.loggingin "מתחבר אל Del.icio.us...">
+<!ENTITY performancing.delicious.service "שירות Del.Icio.Us">
+<!ENTITY performancing.delicious.reloadpage "(טען מחדש דף נוכחי)">
+<!ENTITY performancing.delicious.savingpost "שומר פרסום ל־Del.icio.us...">
+<!ENTITY performancing.delicious.clear "מחיקה">
+<!ENTITY performancing.delicious.save "שמירה">
+<!ENTITY performancing.delicious.mytagsearch "חיפוש בתוויות שלי:">
+<!ENTITY performancing.delicious.searchtype "סוג חיפוש">
+<!ENTITY performancing.delicious.loadingtags "- טוען תוויות...">
+<!ENTITY performancing.delicious.autologin "התחבר אוטומטית">
+
+<!-- Delicious specific, maybe don't translate, or translate as delicious has-->
+<!ENTITY performancing.delicious.url "כתובת">
+<!ENTITY performancing.delicious.description "תיאור">
+<!ENTITY performancing.delicious.tags "תוויות">
+<!ENTITY performancing.delicious.notes "הערות">
+<!ENTITY performancing.delicious.posts "פרסומים">
+<!ENTITY performancing.delicious.all "הכל">
+<!-- End D. specific -->
+
+<!-- About PFF Tab -->
+<!ENTITY performancing.about.description "Performancing היא הקהילה הגדולה בעולם של בלוגרים מקצועיים. אנו מתמקדים בהספקת תמיכה וכלים לבלוגרים המעוניינים לעשות כסף מבלוגים. באפשרותך להירשם להזנת ה־RSS שלנו באמצעות הכפתורים באמצעות הכפתורים הבאים.">
+<!ENTITY performancing.about.latestposts "פרסומים אחרונים:">
+<!ENTITY performancing.about.refreshlist "(רענן רשימה)">
+<!ENTITY performancing.about.loadingfeeds "טוען הזנות...">
+<!ENTITY performancing.about.gethelp "קבל עזרה:">
+<!ENTITY performancing.about.pffhandbook "מדריך למשתמש ב־ScribeFire">
+<!ENTITY performancing.about.supportforums "פורומי תמיכה">
+<!ENTITY performancing.about.requests "באגים ובקשת תכונות">
+<!ENTITY performancing.about.getrss "קבל את ה־RSS">
+<!ENTITY performancing.about.joinperformancing "הצטרף אל Performancing:">
+<!ENTITY performancing.about.login "הכנס">
+<!ENTITY performancing.about.register "הירשם">
+<!ENTITY performancing.about.forums "פורומים">
+<!ENTITY performancing.about.forums "Forums">
+<!ENTITY performancing.about.credits "ScribeFire was conceived and developed by Performancing LLC. Special thanks goes to 'Anthony Young from Flock' for writing the Atom API implementation, David Murray for the excellent 'Midas' Libraries and Alex Sirota for the Statusbar drag library.">
+<!ENTITY performancing.about.version "ver. 1.3.5">
+
+<!-- Performancing Metrics tab -->
+<!ENTITY performancing.metrics.logindesc "כניסה אל Performancing Metrics">
+<!ENTITY performancing.metrics.notloggedin "אינך מחובר, נא להיכנס כעת">
+<!ENTITY performancing.metrics.username "שם משתמש:">
+<!ENTITY performancing.metrics.password "סיסמה:">
+<!ENTITY performancing.metrics.loading "מתחבר אל Metrics...">
+<!ENTITY performancing.metrics.login "התחברות">
+<!ENTITY performancing.metrics.notauser "לא משתמש?">
+<!ENTITY performancing.metrics.resgister "הירשם עכשיו">
+<!ENTITY performancing.metrics.service "שירות Performancing Metrics">
+<!ENTITY performancing.metrics.selectdomain "בחר שם מתחם:">
+<!ENTITY performancing.metrics.general "כללי">
+<!ENTITY performancing.metrics.currentview "תצוגה נוכחית:">
+<!ENTITY performancing.metrics.visitors "מבקרים">
+<!ENTITY performancing.metrics.activity "פעילות">
+<!ENTITY performancing.metrics.marketing "שיווק">
+<!ENTITY performancing.metrics.oneweek ""> <!-- Leave Empty for now -->
+<!ENTITY performancing.metrics.repeatevisitors "מבקרים חוזרים">
+<!ENTITY performancing.metrics.newvisitors "מבקרים חדשים">
+<!ENTITY performancing.metrics.postviews "תצוגת פרסומים">
+<!ENTITY performancing.metrics.commentsposted "תגובות פורסמו">
+<!ENTITY performancing.metrics.postscommented "פרסומים קיבלו תגובות">
+<!ENTITY performancing.metrics.adsenseclicks "לחיצות Adsense">
+<!ENTITY performancing.metrics.searchengines "מנועי חיפוש">
+<!ENTITY performancing.metrics.outboundlinks "קישורים חיצוניים">
+<!ENTITY performancing.metrics.autologin "התחבר אוטומטית">
+
+<!-- Left content Sidebar tab titles
+     These Need to be very small -->
+<!ENTITY performancing.sidebar.blogs "בלוגים">
+<!ENTITY performancing.sidebar.categories "קטגוריות">
+<!ENTITY performancing.sidebar.history "היסטוריה">
+<!ENTITY performancing.sidebar.notes "הערות">
+<!-- //End Need to be small -->
+
+<!-- Left Sidebar content -->
+<!ENTITY performancing.sidebar.blogs.tt "בלוגים שלי">
+<!ENTITY performancing.sidebar.categories.tt "פרסם תחת הקטגוריות הבאות">
+<!ENTITY performancing.sidebar.history.tt "פרסומים אחרונים בבלוג">
+<!ENTITY performancing.sidebar.notes.tt "הערות שמורות שלך">
+<!ENTITY performancing.sidebar.loadingbloglist "טוען רשימת בלוגים...">
+<!ENTITY performancing.sidebar.add "הוסף">
+<!ENTITY performancing.sidebar.accountwizard "הפעל את אשף החשבונות">
+<!ENTITY performancing.sidebar.loadingcats "טוען קטגוריות...">
+<!ENTITY performancing.sidebar.loadinghist "טוען היסטורית פרסומים...">
+<!ENTITY performancing.sidebar.deletepost "מחק פרסום">
+<!ENTITY performancing.sidebar.search "חפש:">
+<!ENTITY performancing.sidebar.loadingnotes "טוען הערות...">
+<!ENTITY performancing.sidebar.deletenote "מחק הערה">
+<!ENTITY performancing.sidebar.publishingoptions "אפשרויות פרסום">
+<!ENTITY performancing.sidebar.closeextra "סגור אפשרויות נוספות">
+<!ENTITY performancing.sidebar.postasdraft "פרסם כטיוטא">
+<!ENTITY performancing.sidebar.technoratitags "תוויות Technorati:">
+<!ENTITY performancing.sidebar.commaseperated "(רשימה מופרדת בפסיקים)">
+<!ENTITY performancing.sidebar.autoaddmsg "יתווסף אוטומטית">
+<!ENTITY performancing.sidebar.addtagsbutton "הוסף תוויות לפרסום">
+<!ENTITY performancing.sidebar.bookmarkposts "שמור פרסום כסימניה ב־del.icio.us עם אותן תוויות">
+<!ENTITY performancing.sidebar.trackbackurl "כתובות TrackBack:">
+<!ENTITY performancing.sidebar.delete "מחיקה">
+<!ENTITY performancing.sidebar.enablepings "אפשר pings">
+<!ENTITY performancing.sidebar.custom "מותאם אישית">
+
+<!-- ScribeFire and Firefox edit shortcuts, do not translate unless they are different for your locale -->
+<!ENTITY key_logout.key "q">
+<!ENTITY key_help.key "VK_F1">
+<!ENTITY key_bold.key "b">
+<!ENTITY key_italic.key "i">
+<!ENTITY key_underline.key "u">
+<!ENTITY key_link.key "m">
+<!ENTITY key_login.key "VK_RETURN">
+<!ENTITY key_spell.key "VK_F7">
+
+
+<!ENTITY openCmd.label "פתיחה">
+<!ENTITY openCmd.accesskey "o">
+<!ENTITY openCmd.key "O">
+
+<!ENTITY saveCmd.label "שמירה">
+<!ENTITY saveCmd.accesskey "ש">
+<!ENTITY saveCmd.key "S">
+
+<!ENTITY saveAsCmd.label "שמירה בשם">
+
+<!ENTITY undoCmd.label "בטל">
+<!ENTITY undoCmd.key "Z">
+<!ENTITY undoCmd.accesskey "ב">
+<!ENTITY redoCmd.label "בצע שוב">
+<!ENTITY redoCmd.key "Y">
+<!ENTITY redoCmd.accesskey "ש">
+<!ENTITY cutCmd.label "גזור">
+<!ENTITY cutCmd.key "X">
+<!ENTITY cutCmd.accesskey "ג">
+<!ENTITY copyCmd.label "העתק">
+<!ENTITY copyCmd.key "C">
+<!ENTITY copyCmd.accesskey "ה">
+<!ENTITY pasteCmd.label "הדבק">
+<!ENTITY pasteCmd.key "V">
+<!ENTITY pasteCmd.accesskey "ד">
+<!ENTITY pasteNoFormattingCmd.label "הדבק ללא עיצוב">
+<!ENTITY pasteNoFormattingCmd.accesskey "ל">
+<!ENTITY deleteCmd.label "מחק">
+<!ENTITY deleteCmd.key "D">
+<!ENTITY deleteCmd.accesskey "מ">
+<!ENTITY selectAllCmd.label "בחר הכל">
+<!ENTITY selectAllCmd.key "A">
+<!ENTITY selectAllCmd.accesskey "ב">
+<!ENTITY printCmd.label "הדפס">
+<!ENTITY printCmd.key "P">
+<!ENTITY printCmd.accesskey "ד">
+<!ENTITY preferencesCmd.label "הגדרות...">
+<!ENTITY preferencesCmd.key "E">
+<!ENTITY preferencesCmd.accesskey "e">
+
+<!-- Temp Spell Check -->
+<!ENTITY pff-spellAddToDictionary.label "הוסף למילון">
+<!ENTITY pff-spellAddToDictionary.accesskey "מ">
+<!ENTITY pff-spellEnable.label "בדוק איות לשדה זה">
+<!ENTITY pff-spellEnable.accesskey "א">
+<!ENTITY pff-spellNoSuggestions.label "(אין המלצות איות)">
+<!ENTITY pff-spellDictionaries.label "שפות">
+<!ENTITY pff-spellDictionaries.accesskey "ש">
+<!ENTITY pff-spellAddDictionaries.label "הוסף מילונים...">
+<!ENTITY pff-spellAddDictionaries.accesskey "ה">

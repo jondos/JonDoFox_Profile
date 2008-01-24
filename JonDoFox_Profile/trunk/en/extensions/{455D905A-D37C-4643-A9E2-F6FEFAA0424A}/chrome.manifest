@@ -1,0 +1,36 @@
+
+overlay	chrome://browser/content/browser.xul	chrome://refcontrol/content/refcontrolOverlay.xul
+overlay	chrome://navigator/content/navigator.xul	chrome://refcontrol/content/refcontrolOverlay.xul
+content	refcontrol	jar:chrome/RefControl.jar!/content/
+
+skin	refcontrol	classic/1.0	jar:chrome/RefControl.jar!/skin/
+
+locale	refcontrol	en-US	jar:chrome/RefControl.jar!/locale/en-US/
+
+locale	refcontrol	de-DE	jar:chrome/RefControl.jar!/locale/de-DE/
+
+locale	refcontrol	el-GR	jar:chrome/RefControl.jar!/locale/el-GR/
+
+locale	refcontrol	es-ES	jar:chrome/RefControl.jar!/locale/es-ES/
+
+locale	refcontrol	fr-FR	jar:chrome/RefControl.jar!/locale/fr-FR/
+
+locale	refcontrol	hr-HR	jar:chrome/RefControl.jar!/locale/hr-HR/
+
+locale	refcontrol	it-IT	jar:chrome/RefControl.jar!/locale/it-IT/
+
+locale	refcontrol	nb-NO	jar:chrome/RefControl.jar!/locale/nb-NO/
+
+locale	refcontrol	nl-NL	jar:chrome/RefControl.jar!/locale/nl-NL/
+
+locale	refcontrol	pt-BR	jar:chrome/RefControl.jar!/locale/pt-BR/
+
+locale	refcontrol	pt-PT	jar:chrome/RefControl.jar!/locale/pt-PT/
+
+locale	refcontrol	ru-RU	jar:chrome/RefControl.jar!/locale/ru-RU/
+
+locale	refcontrol	tr-TR	jar:chrome/RefControl.jar!/locale/tr-TR/
+
+locale	refcontrol	uk-UA	jar:chrome/RefControl.jar!/locale/uk-UA/
+
+locale	refcontrol	zh-TW	jar:chrome/RefControl.jar!/locale/zh-TW/

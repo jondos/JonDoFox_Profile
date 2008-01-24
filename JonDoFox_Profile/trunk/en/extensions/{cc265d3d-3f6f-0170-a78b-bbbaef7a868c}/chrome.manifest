@@ -1,0 +1,3 @@
+overlay	chrome://browser/content/browser.xul	chrome://mediapirate/content/mediapirate.xul
+content	mediapirate	chrome/content/
+

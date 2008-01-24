@@ -1,0 +1,6 @@
+# HTTP Cookie File
+# http://www.netscape.com/newsref/std/cookie_spec.html
+# This is a generated file!  Do not edit.
+# To delete cookies, use the Cookie Manager.
+
+.temporaryinbox.com	TRUE	/	FALSE	1347298920	language	en

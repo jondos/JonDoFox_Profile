@@ -1,0 +1,776 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://performancing/skin/overlay.css" type="text/css"?>
+<?xml-stylesheet href="chrome://performancing/skin/bindings.css" type="text/css"?>
+<!DOCTYPE dialog [ 
+	<!ENTITY % performancingDTD SYSTEM "chrome://performancing/locale/overlay.dtd"> 
+	%performancingDTD;
+	<!ENTITY % performancingFallbackDTD SYSTEM "chrome://performancing/content/locale-default/overlay.dtd"> 
+	%performancingFallbackDTD; 
+]>
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+	id="performancing-mainwindow"
+	title="&performancing.editor.title;"
+	persist="screenX screenY width height" 
+	onload="loadPerFormancingUtil();" 
+	flex="1"
+	onunload="gPerformancingUtil.onPFFWindowClose();"
+	>
+	<stringbundle id="performancingstrings" src="chrome://performancing/locale/overlay.properties"/>
+	<stringbundle id="performancingstrings-fallback" src="chrome://performancing/content/locale-default/overlay.properties"/>
+	<script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/midas.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/clipboard.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/editor.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/io.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/xmlrpc.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/performancingUtil.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/blogXML.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/performancing_api.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/history.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/pages.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/notes.js"></script>
+	<script type="application/x-javascript" src="chrome://performancing/content/addonskin.js"></script>
+	<!-- Firefox 2.0 and greater only -->
+	<script type="application/x-javascript" src="chrome://performancing/content/spellcheck.js"></script>
+	<script type="application/x-javascript" src="chrome://browser/content/utilityOverlay.js"></script>
+	<!-- Drag and Drop support -->
+	<script src="chrome://global/content/nsDragAndDrop.js"></script>
+	<script src="chrome://global/content/nsTransferable.js"></script>
+	<!-- Start Splitter -->
+	<popupset id="contentAreaContextSet">
+		<popup id="performancing-messagemenu"
+			onpopupshowing="performancingUI.theSpellcheck._doPopupItemEnabling(this);"
+			onpopuphiding="performancingUI.theSpellcheck._doPopupItemDisabling(this);">
+		<menuitem label="&pff-spellNoSuggestions.label;" id="spell-no-suggestions" disabled="true"/>
+		<menuitem label="&pff-spellAddToDictionary.label;" accesskey="&pff-spellAddToDictionary.accesskey;" id="spell-add-to-dictionary" oncommand="performancingUI.theSpellcheck.addToDictionary();"/>
+		<menuseparator id="spell-suggestions-separator"/>
+		<menuitem id="performancing-messagemenu_undo" label="undoCmd" command="cmd_undo"/>
+		<menuitem id="performancing-messagemenu_redo" label="redoCmd" command="cmd_redo"/>
+		<menuseparator id="performancing-messagemenu-sep-undo"/>
+		<menuitem id="performancing-messagemenu_cut" label="cutCmd" command="cmd_cut"/>
+		<menuitem id="performancing-messagemenu_copy" label="copyCmd" command="cmd_copy"/>
+		<menuitem id="performancing-messagemenu_paste" label="pasteCmd" command="cmd_paste"/>
+		<menuitem id="performancing-messagemenu_pastenf" label="pasteNoFormattingCmd" command="cmd_pasteNoFormatting" hidden="false"/>
+		<menuitem id="performancing-messagemenu_delete" label="deleteCmd" command="cmd_delete"/>
+		<menuseparator id="performancing-messagemenu-sep-cut"/>
+		<menuitem id="performancing-messagemenu_selectAll" label="selectAllCmd" command="cmd_selectAll"/>
+		<menuitem id="performancing-cm-fileupload" 
+			label="&performancing.imageupload.fileupload;"
+			accesskey="&performancing.imageupload.fileupload.key;"
+			oncommand="performancingUI.openFileUpload()"/>
+		<menuseparator id="spell-separator"/>
+		<menuitem id="spell-check-enabled"
+			label="&pff-spellEnable.label;"
+			type="checkbox"
+			accesskey="&pff-spellEnable.accesskey;"
+			oncommand="InlineSpellCheckerUI.toggleEnabled();"/>
+		<menuitem id="spell-add-dictionaries-main"
+			label="&pff-spellAddDictionaries.label;"
+			accesskey="&pff-spellAddDictionaries.accesskey;"
+			oncommand="performancingUI.theSpellcheck.addDictionaries();"/>
+			<menu id="spell-dictionaries"
+				label="&pff-spellDictionaries.label;"
+				accesskey="&pff-spellDictionaries.accesskey;">
+				<menupopup id="spell-dictionaries-menu">
+					<menuseparator id="spell-language-separator"/>
+					<menuitem id="spell-add-dictionaries"
+						label="&pff-spellAddDictionaries.label;"
+						accesskey="&pff-spellAddDictionaries.accesskey;"
+						oncommand="performancingUI.theSpellcheck.addDictionaries();"/>
+				</menupopup>
+			</menu>
+		</popup>
+	</popupset>
+<box id="performancing-outerbox2" collapsed="false" flex="1">
+<commandset id="performancingcommands">
+<command id="cmd_undo" oncommand="performancing_undo();" label="&undoCmd.label;"/>
+<command id="cmd_redo" oncommand="performancing_redo();" label="&redoCmd.label;"/>
+<command id="cmd_cut" oncommand="performancing_cut();" label="&cutCmd.label;"/>
+<command id="cmd_copy" oncommand="performancing_copy();" label="&copyCmd.label;"/>
+<command id="cmd_paste" oncommand="performancing_paste();" label="&pasteCmd.label;"/>
+<command id="cmd_pasteNoFormatting" oncommand="performancing_pastenoformatting();" label="&pasteNoFormattingCmd.label;" hidden="true"/>
+<command id="cmd_delete" oncommand="performancing_delete();" label="&deleteCmd.label;"/>
+<command id="cmd_selectAll" oncommand="performancing_selectAll();" label="&selectAllCmd.label;"/>
+<command id="cmd_spell" label="&performancing.editor.bar.spelling;" disabled="true"/>
+<command id="cmd_options" oncommand="ShowOptions()"/>
+<command id="cmd_help" oncommand="window.open('http://www.performancing.com/firefox/', 'Performancing', 'chrome,resizable,titlebar,dialog=no')"/>;
+<command id="cmd_bold" oncommand="performancingMidas.doSomeEditCommand('bold');"/>
+<command id="cmd_italic" oncommand="performancingMidas.doSomeEditCommand('italic');"/>
+<command id="cmd_strong" oncommand="performancingMidas.strong();"/>
+<command id="cmd_em" oncommand="performancingMidas.em();"/>
+<command id="cmd_underline" oncommand="performancingMidas.doSomeEditCommand('underline');"/>
+<command id="cmd_strikethrough" oncommand="performancingMidas.doSomeEditCommand('strikethrough');"/>
+<command id="cmd_blockquote" oncommand="performancingMidas.blockquote()"/>
+<command id="cmd_textincr" oncommand="performancingMidas.doSomeEditCommand('increasefontsize');"/>
+<command id="cmd_textdecr" oncommand="performancingMidas.doSomeEditCommand('decreasefontsize');"/>
+<command id="cmd_link" oncommand="performancingMidas.addLink();"/>
+<command id="cmd_insertimage" oncommand="performancingMidas.addImage();"/>
+<command id="cmd_ul" oncommand="performancingMidas.doSomeEditCommand('insertunorderedlist');"/>
+<command id="cmd_ol" oncommand="performancingMidas.doSomeEditCommand('insertorderedlist');"/>
+<command id="cmd_jleft" oncommand="performancingMidas.doSomeEditCommand('justifyleft');"/>
+<command id="cmd_jcenter" oncommand="performancingMidas.doSomeEditCommand('justifycenter');"/>
+<command id="cmd_jright" oncommand="performancingMidas.doSomeEditCommand('justifyright');"/>
+<command id="cmd_justify" oncommand="performancingMidas.doSomeEditCommand('justifyfull');"/>
+<command id="cmd_save" oncommand="gPerformancingNotes.doSave( document.getElementById('performancing-saveasnote-button'), false);"/>
+</commandset>
+
+<keyset id="performancingkeys">
+<key id="key_open" key="&openCmd.key;" modifiers="accel" command="cmd_open"/>
+<key id="key_save" key="&saveCmd.key;" modifiers="accel" command="cmd_save"/>
+<key id="key_print" key="&printCmd.key;" modifiers="accel" command="cmd_print"/>
+<key id="key_logout" key="&key_logout.key;" modifiers="accel" command="cmd_logout"/>
+<key id="key_undo" key="&undoCmd.key;" modifiers="accel" command="cmd_undo"/>
+<key id="key_redo" key="&redoCmd.key;" modifiers="accel" command="cmd_redo"/>
+<key id="key_cut" key="&cutCmd.key;" modifiers="accel" command="cmd_cut"/>
+<key id="key_copy" key="&copyCmd.key;" modifiers="accel" command="cmd_copy"/>
+<key id="key_paste" key="&pasteCmd.key;" modifiers="accel" command="cmd_paste"/>
+<key id="key_delete" key="&deleteCmd.key;" modifiers="accel" command="cmd_delete"/>
+<key id="key_selectAll" key="&selectAllCmd.key;" modifiers="accel" command="cmd_selectAll"/>
+<key id="key_spell" keycode="&key_spell.key;" command="cmd_spell"/>
+<key id="key_help" keycode="&key_help.key;" command="cmd_help"/>
+<key id="key_bold" key="&key_bold.key;" modifiers="accel" command="cmd_bold"/>
+<key id="key_italic" key="&key_italic.key;" modifiers="accel" command="cmd_italic"/>
+<key id="key_underline" key="&key_underline.key;" modifiers="accel" command="cmd_underline"/>
+<key id="key_link" key="&key_link.key;" modifiers="accel" command="cmd_link"/>
+</keyset>
+
+
+<hbox id="performancing-main-hbox" collapsed="false" flex="1" >
+<vbox id="performancing-navbar" collapsed="true">
+
+<vbox id="performancing-navbar-tabs" class="performancing-navbar-tabs" align="left">
+<box id="performancing-editor-tab" name="editor" class="performancing-navbar-tab" value="&performancing.navbar.editor;" selected="true" />
+<box id="performancing-notes-tab" name="notes" class="performancing-navbar-tab" value="&performancing.navbar.notes;" collapsed="true" />
+<box id="performancing-technorati-tab" name="technorati" class="performancing-navbar-tab" value="&performancing.navbar.pagetools;" />
+<box id="performancing-delicious-tab" name="delicious" class="performancing-navbar-tab" value="&performancing.navbar.bookmarks;" />
+<box id="performancing-settings-tab" name="settings" class="performancing-navbar-tab" value="&performancing.navbar.settings;" />
+<box id="performancing-about-tab" name="about" class="performancing-navbar-tab" value="&performancing.navbar.about;" />
+<box id="performancing-addons-tab" name="addons" class="performancing-navbar-tab" value="&performancing.settings.tab.addons;" hidden="true" />
+<vbox id="performancing-navbar-tabs-addons">
+</vbox>
+
+</vbox>
+</vbox>
+<vbox id="performancing-main-vbox" style="padding: 5px;" flex="1">
+<hbox flex="1" id="StartEditor">
+<hbox flex="1">
+<deck id="performancing-main-content-deck" selectedIndex="0" flex="1">
+<!-- Editor -->
+<vbox flex="1" id="performancing-editor-content">
+<hbox>
+<toolbarbutton id="performancing-navbar-toggle" state="closed" oncommand="performancingUI.toggleNavbar()" tooltiptext="&performancing.editor.bar.closesb.tt;" />
+<hbox id="edit-tab-hbox">
+<image id="tab-normal-edit" class="onpfftabhover" isselected="true" tooltiptext="&performancing.editor.tabs.rich;" onclick="performancingMidas.viewTab(this);"/>
+<image id="tab-source-edit" class="onpfftabhover" isselected="false" tooltiptext="&performancing.editor.tabs.source;" onclick="performancingMidas.viewTab(this)"/>
+<image id="tab-preview-edit" class="onpfftabhover" isselected="false" tooltiptext="&performancing.editor.tabs.preview;" onclick="performancingMidas.viewTab(this)"/>
+</hbox>
+<hbox flex="1">
+<label value="&performancing.editor.thetitle;" style="color: #000; font-size: small; font-weight: bold; margin-left: 10px;" />
+<!-- onkeyup="performancingUI.onSubjectKeyPress(this, event)" -->
+<textbox id="performancing-editor-subject" style="" multiline="false" flex="1" onfocus=""/>
+<button id="performancing-editor-extra-pub" label="&performancing.editor.button.publish;" oncommand="performancingUI.toggleExtraOptDeck(false);" hidden="true" />
+<toolbarbutton id="performancing-sidebarbutton" state="open" oncommand="performancingMidas.toggleSidebar()" tooltiptext="&performancing.editor.bar.closesb.tt;" />
+</hbox>
+</hbox>
+<hbox>
+<toolbox id="firstrowtoolbox" flex="1">
+<toolbar id="firstrowtoolbar" flex="1">
+<toolbarbutton id="bold-button" command="cmd_bold" tooltiptext="&performancing.editor.bar.bold.tt;"/>
+<toolbarbutton id="italic-button" command="cmd_italic" tooltiptext="&performancing.editor.bar.italic.tt;"/>
+<toolbarbutton id="underline-button" command="cmd_underline" tooltiptext="&performancing.editor.bar.underline.tt;"/>
+<toolbarbutton id="strikethrough-button" command="cmd_strikethrough" tooltiptext="&performancing.editor.bar.strikethrough.tt;"/>
+<toolbarseparator/>
+<toolbarbutton id="strong-button" command="cmd_strong" tooltiptext="&performancing.editor.bar.strong.tt;"/>
+<toolbarbutton id="em-button" command="cmd_em" tooltiptext="&performancing.editor.bar.em.tt;"/>
+<toolbarbutton id="blockquote-button" command="cmd_blockquote" tooltiptext="&performancing.editor.bar.quote.tt;"/>
+<toolbarseparator/>
+<toolbarbutton id="text-increase-button" command="cmd_textincr" tooltiptext="&performancing.editor.bar.incfont.tt;"/>
+<toolbarbutton id="text-decrease-button" command="cmd_textdecr" tooltiptext="&performancing.editor.bar.decfont.tt;"/>
+<toolbarseparator/>
+<toolbarbutton id="link-button" command="cmd_link" tooltiptext="&performancing.editor.bar.link.tt;"/>
+<toolbarbutton id="image-button" command="cmd_insertimage" tooltiptext="&performancing.editor.bar.image.tt;"/>
+<colorpicker  id="performance-color-picker" type="button" onchange="performancingMidas.doSomeEditCommand('forecolor',this.color);" tooltiptext="&performancing.editor.bar.color.tt;"/>
+<toolbarseparator/>
+<toolbarbutton id="orderedlist-button" command="cmd_ol" tooltiptext="&performancing.editor.bar.olist.tt;"/>
+<toolbarbutton id="unorderedlist-button" command="cmd_ul" tooltiptext="&performancing.editor.bar.ulist.tt;"/>
+<toolbarseparator/>
+<toolbarbutton id="justifyleft-button" command="cmd_jleft" tooltiptext="&performancing.editor.bar.leftjust.tt;"/>
+<toolbarbutton id="justifycenter-button" command="cmd_jcenter" tooltiptext="&performancing.editor.bar.centjust.tt;"/>
+<toolbarbutton id="justifyright-button" command="cmd_jright" tooltiptext="&performancing.editor.bar.rightjust.tt;"/>
+<toolbarbutton id="justifyjustified-button" command="cmd_justify" tooltiptext="&performancing.editor.bar.just.tt;"/>
+<spring flex="1"/>
+
+</toolbar>
+</toolbox>
+</hbox>
+<deck id="performancing-feedback-deck"	selectedIndex="1" flex="1">
+<vbox flex="1">
+<spring flex="1"/>
+<groupbox minheight="100px" flex="1" pack="center" orient="vertical" align="center" class="feedbackdialog">
+<label id="performancing-feedback-text-1" style="font-weight: bold; font-size: medium;" value="&performancing.message.postsuccess;" />
+<label id="performancing-feedback-text-1" style="font-size: small;" value="&performancing.message.postsuccess.button;" hidden="false" />
+<separator class="thick"/>
+<hbox>
+<button id="performancing-feedback-button-1" class="normalButtons_" label="&performancing.button.ok;" oncommand="performancingUI.okClearPost(true)" />
+<button id="performancing-feedback-button-2" class="normalButtons_" label="&performancing.button.cancelkeep;" oncommand="performancingUI.okClearPost(false)" />
+<button id="performancing-feedback-button-3" class="normalButtons_" label="&performancing.link.viewblog;" oncommand="performancingUI.openInTab(document.getElementById('blog-group').selectedItem.getAttribute('tooltiptext'));" />
+</hbox>
+</groupbox>
+<spring flex="1"/>
+</vbox>
+<!-- <tabpanels flex="1"> -->
+<deck flex="1" id="performancing-editor-tabbox" selectedIndex="2">
+<vbox align="stretch" flex="1" id="midasview">
+<separator class="thin"/>
+<editor id="performancing-message" context="performancing-messagemenu" style="font-family: sans-serif; font-size: medium;" stretch="true" flex="1" value=" " class="inset iframe" src="chrome://performancing/content/blank.html" onfocus="performancingUI.onEditFocus();"/>
+</vbox>
+<vbox align="stretch" flex="1" id="source-vbox-view">
+<textbox id="performancing-message-source" style="" multiline="true" flex="1" onfocus="" context="performancing-messagemenu"/>
+</vbox>
+<vbox align="stretch" flex="1" id="preview-vbox-view">
+<iframe id="performancing-preview-display" stretch="true" style="font-family: sans-serif; font-size: medium;" src="chrome://performancing/content/blank2.html" flex="1" class="inset iframe"/>
+</vbox>
+</deck>
+</deck>
+<hbox flex="1" minheight="32px">
+<button id="performancing-saveasnote-button" label="&performancing.button.saveasnote;" minheight="32px" class="normalButtons_" maxheight="32px" oncommand="gPerformancingNotes.doSave(this, false);" hidden="false"/>
+<button	 label="&performancing.button.clearcontent;" class="normalButtons_" oncommand="performancingUI.clearAll()"/>
+<button id="performancing-resavenote-button" label="&performancing.button.savenote;" class="normalButtons_" oncommand="gPerformancingNotes.reSaveNote(this, false);" hidden="true" collapsed="true"/>
+<spring flex="1"/>
+<hbox id="post-edit-buttons" hidden="true">
+	<deck id="delete-buttons">
+		<button id="delete-post" label="&performancing.sidebar.deletepost;" class="normalButtons_" oncommand="gPerformancingUtil.deleteHistoryItem();"/>
+		<button id="delete-page" label="&performancing.sidebar.deletepage;" class="normalButtons_" oncommand="gPerformancingUtil.deletePage();"/>
+	</deck>
+	<button id="performancing-republish-button" label="&performancing.button.republish;" class="normalButtons_" oncommand="gPerformancingUtil.editCurrentItem();"/>
+</hbox>
+<deck id="performancing-publish-deck" selectedIndex="0">
+
+<button id="performancing-publish-button" label="&performancing.publish;" class="normalButtons_" maxheight="32px" oncommand="gPerformancingUtil.postCurrentItem();" />
+
+<stack id="performancing-publish-imagebutton" onmouseover="performancingUI.onButtonHover(this)" onmouseout="performancingUI.onButtonHoverOut(this)" flex="1"  onclick="gPerformancingUtil.postCurrentItem();" style="display: none;">
+	<image id="performancing-publish-imagebutton2" hovered="false" />
+	<hbox id="performancing-publish-imagebutton3" pack="center" align="center">
+		<label value="&performancing.message.publishto;" style="color: #fff; font-weight: bold; font-size: x-small;" />
+		<label id="performancing-blogstatus" value="&performancing.message.noblogselected;" flex="1" crop="end" style="color: #fff; font-size: x-small; font-style: italic;"/>
+	</hbox>
+</stack>
+
+<stack pack="center" align="center">
+	<vbox>
+		<image id="performancing-post-progress" tooltiptext="&performancing.message.publishingtoblog;" height="19px"/>
+	</vbox>
+	<vbox align="center">
+		<label value="&performancing.message.publishing;" style="color: #000; font-weight: bold; font-size: small;" />
+		<spring flex="1"/>
+	</vbox>
+</stack>
+
+</deck>
+</hbox>
+</vbox>
+
+<!-- Settings -->
+<vbox flex="1" id="performancing-settings-content" align="center" collapsed="false" style="">
+<tabbox id="pff-addon-tabbox" flex="1" context="">
+<tabs orient="horizontal" onselect="pffAddonSkin.onTabSwitch(this)">
+<tab id="performancing-tab-general" label="&performancing.settings.tab.general;" accesskey="&performancing.settings.tab.general.key;" collapsed="false"/>
+<tab id="performancing-tab-skin" label="&performancing.settings.tab.appearance;" accesskey="&performancing.settings.tab.appearance.key;" collapsed="false"/>
+<tab id="performancing-tab-addons" label="&performancing.settings.tab.addons;" accesskey="&performancing.settings.tab.addons;" collapsed="false"/>
+</tabs>
+<spacer width="4"/>
+<tabpanels id="pff-addon-tabpanels" class="performancing_tabpanels" flex="1">
+<!-- General -->
+<tabpanel id="performancing-settings-panel-general" class="white" orient="vertical" flex="1" context="">
+<vbox flex="1">
+<separator class="thick"/>
+<groupbox orient="horizontal" class="white" disabled="true">
+<caption label="&performancing.settings.general;" disabled="true"/>
+<vbox>
+<vbox>
+<checkbox id="performancing-settings-remember-editor" label="&performancing.settings.remember;" disabled="false" checked="true" pref="settings.saveonexit" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-display-onbottom-check" label="&performancing.settings.onbottom;" disabled="false" checked="true" pref="display.onbottom" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-display-cm-check" label="&performancing.settings.hidepffcm;" disabled="false" checked="false" pref="display.hideContextMenu" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-display-technorati" label="&performancing.settings.hidepagetools;" disabled="false" checked="false" pref="display.hidetechnorati" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-display-delicious" label="&performancing.settings.hidebookmarks;" disabled="false" checked="false" pref="display.hidedelicious" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-display-sortcats" label="&performancing.settings.sortcats;" disabled="false" checked="true" pref="display.sortcats" oncommand="performancingUI.onBoolSettingsSet(this);" />
+</vbox>
+</vbox>
+</groupbox>
+<groupbox orient="horizontal" class="white" disabled="true">
+<caption label="&performancing.settings.formatsettings;" disabled="true"/>
+<vbox>
+<vbox>
+<checkbox id="performancing-settings-display-usecss" label="&performancing.settings.usecssmsg;" disabled="false" checked="true" pref="settings.usecss" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-display-rtl" label="&performancing.settings.makertl;" disabled="false" checked="false" pref="display.enablertl" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<spacer style="height: 5px"/>
+<label value="&performancing.settings.useextcss;" hidden="true"/>
+<textbox id="performancing-settings-cssurl" hidden="true" pref="performancing.content.preview.cssurl" onblur="performancingUI.cssPreviewSaveNLoad()" />
+</vbox>
+</vbox>
+</groupbox>
+<groupbox orient="horizontal" class="white" disabled="true">
+<caption label="&performancing.settings.publishingfeatures;" disabled="true"/>
+<vbox>
+<vbox>
+<checkbox id="performancing-settings-auto-draft" label="&performancing.settings.defaultdraft;" disabled="false" checked="false" pref="publish.checkdraft" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-show-extra-pub" label="&performancing.settings.showextra;" disabled="false" checked="true" pref="settings.showextrapuboptions" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-auto-technorati" label="&performancing.settings.autoinserttech;" disabled="false" checked="false" pref="extra.inserttechnorati" oncommand="performancingUI.onBoolSettingsSet(this);" />
+<checkbox id="performancing-settings-auto-pffpowered" label="&performancing.settings.insertpoweredbypff;" disabled="false" checked="false" pref="extra.insertpfftext2" oncommand="performancingUI.onBoolSettingsSet(this);" />
+</vbox>
+</vbox>
+</groupbox>
+<spring flex="1"/>
+</vbox>
+</tabpanel>
+<!-- Skin -->
+<tabpanel id="performancing-settings-panel-skin" class="white" orient="vertical" flex="1" context="">
+<groupbox orient="vertical" class="white" disabled="true" 
+ondragover="nsDragAndDrop.dragOver(event, pffCSSDragDropHandler)"
+ondragdrop="nsDragAndDrop.drop(event, pffCSSDragDropHandler)" >
+<caption label="&performancing.settings.skin.caption;" disabled="true"/>
+<vbox>
+<description flex="1">
+&performancing.settings.skin.desc;
+</description>
+<hbox>
+<listbox id="performancing-skin-list" flex="1">
+<listhead >
+<listheader label="&performancing.settings.skin.skinname;" />
+<listheader label="&performancing.settings.skin.author;"/>
+</listhead>
+
+<listcols>
+<listcol/>
+<listcol flex="1" />
+</listcols>
+<listitem id="li-s-1" enabled="true" class="pffAddonBody" onclick="pffAddonSkin.onSkinListClick(this, event, '1')"  tooltiptext="Default theme for Performancing" selected="true" src="_default_">
+<listcell label="Default Theme" crop="end" /> 
+<listcell label="Performancing, Inc." crop="end" />
+</listitem>
+
+</listbox>
+</hbox>
+
+<hbox>
+<button label="&performancing.settings.skin.enableselected;" oncommand="pffAddonSkin.enableSelectedSkin();" />
+<button label="&performancing.settings.common.add;" oncommand="pffAddonSkin.addASkinFile();" />
+<button label="&performancing.settings.common.delete;" oncommand="pffAddonSkin.deleteASkinFile();" />
+</hbox>
+<spacer width="4"/>
+<label id="performancing-skin-desc-label" value="&performancing.settings.common.description;" hidden="true"/>
+<textbox id="performancing-skin-desc" readonly="true" multiline="true"	value="" style="-moz-appearance: none !important;" hidden="true"/>
+</vbox>
+<hbox align="center" pack="center">
+<label class="url" value="&performancing.settings.common.downloadmore;" onclick="performancingUI.openInTab('http://performancing.com/firefox/addons/');"/>
+</hbox>
+</groupbox>
+</tabpanel>
+
+<!-- Addons -->
+<tabpanel id="performancing-settings-panel-addons" class="white" orient="vertical" flex="1" context="">
+<groupbox orient="vertical" class="white" disabled="true">
+<caption label="&performancing.settings.addon.caption;" disabled="true"/>
+<vbox>
+<description crop="end" value="&performancing.settings.addon.clicktoadd;" />
+<description crop="end" value="&performancing.settings.addon.morethanone;" />
+
+<hbox>
+<listbox id="performancing-addon-list" flex="1">
+<listhead >
+<listheader label="&performancing.settings.addon.name;" />
+<listheader label="&performancing.settings.common.author;"/>
+<listheader label="&performancing.settings.addon.status;"/>
+</listhead>
+
+<listcols>
+<listcol/>
+<listcol flex="1" />
+</listcols>
+
+
+<listitem id="li-a-0" onclick="performancingUI.openInTab('http://performancing.com/firefox/addons/');"	>
+<listcell>	
+<label value="&performancing.settings.addon.noninstalled;"/> 
+</listcell>
+<listcell label="&performancing.settings.common.clicktodownload;"/>
+<listcell id="li-a-enabled-i-1" label=""/>
+</listitem>
+
+</listbox>
+</hbox>
+<hbox>
+<button label="&performancing.settings.common.add;" hidden="true"  />
+<button label="&performancing.settings.common.delete;" hidden="true" />
+</hbox>
+<spacer width="4"/>
+<label id="performancing-addon-desc-label" value="&performancing.settings.common.description;" hidden="true"/>
+<textbox id="performancing-addon-desc" readonly="true" multiline="true"	 value="" style="-moz-appearance: none !important;" hidden="true"/>
+</vbox>
+<hbox align="center" pack="center">
+<label class="url" value="&performancing.settings.common.downloadmore;" onclick="performancingUI.openInTab('http://performancing.com/firefox/addons/');"/>
+</hbox>
+
+</groupbox>
+</tabpanel>
+
+</tabpanels>
+</tabbox>
+</vbox>
+
+<!-- Technorati -->
+<vbox flex="1" id="performancing-technorati-content" collapsed="false" align="center" class="white" style="">
+<vbox flex="1" align="center" class="white" >
+<groupbox align="center" orient="vertical" flex="1" style="margin: 20px;">
+<caption label="&performancing.technorati.info;" />
+<hbox>
+<image id="performancing-technorati-loading-img" src="chrome://global/skin/throbber/Throbber-small.gif" tooltiptext="&performancing.technorati.loadinginfo;" hidden="false"/>
+<label id="performancing-technorati-title" align="center" style="font-size: x-large" value="&performancing.technorati.loading;"/>
+</hbox>
+<vbox id="performancing-technorati-search-vbox" align="center" flex="1">
+<label value="&performancing.technorati.searchtech;" />
+<hbox>
+<textbox id="performancing-technorati-srchtechnorati" onkeyup="performancingUI.onTechnoratiKeyPress(event)" />
+<button id="performancing-technorati-srch-button" label="&performancing.technorati.search;" oncommand="performancingUI.onTechnoratiSearch()" />
+</hbox>
+<image src="chrome://performancing/skin/technorati.gif" style="margin: 5px" class="url" onclick="performancingUI.openInTab('http://technorati.com/search/?partner=performancing')" />
+</vbox>
+<vbox align="left" flex="1">
+<hbox flex="1">
+<label align="center" style="font-size: large" value="&performancing.technorati.pageinfo;"/>
+<label id="performancing-technorati-currentpagetitle" class="url" align="center" crop="end" style="font-size: large; margin-left: 5px" value="_____"/>
+</hbox>
+<spacer style="height:10px"/>
+<hbox flex="1">
+<label align="center" style="" value="&performancing.technorati.thereare;"/>
+<label id="performancing-technorati-linkcount" align="center" style="margin-left: 5px; margin-right: 5px; color: red;" value="__"/>
+<label align="center" style="" value="&performancing.technorati.linkstopage;"/>
+<label id="performancing-technorati-blogcount" align="center" style="margin-left: 5px; margin-right: 5px; color: red;" value="__"/>
+<label align="center" style="" value="&performancing.technorati.blogslinking;"/>
+</hbox>
+<spacer style="height:10px"/>
+<vbox flex="1" align="center">
+<vbox id="performancing-technorati-inboundlinks" flex="1">
+<label value="&performancing.technorati.loadingpageinfo;" />
+</vbox>
+<spacer style="height:10px"/>
+<hbox align="right" flex="1">
+<label id="performancing-technorati-moreresults" value="&performancing.technorati.moreresults;" class="url" onclick="performancingUI.getPageInfo('technorati');"/>
+<label value="&performancing.technorati.refreshpageinfo;" class="url" style="text-decoration: underline; color: red;" onclick="performancingUI.getPageInfo('technorati');"/>
+</hbox>
+</vbox>
+</vbox>
+<spacer style="height:10px"/>
+<spring flex="1"/>
+</groupbox>
+<spring flex="1"/>
+</vbox>
+<spring flex="1"/>
+</vbox>
+
+<!-- Delicious -->
+<vbox flex="1" id="performancing-delicious-content" class="white"  collapsed="false" align="center">
+<spring flex="1"/>							 
+<deck id="performancing-delicios-deck" selectedIndex="0" flex="1" class="white">
+<groupbox class="white" align="center" orient="vertical" flex="1">
+<caption label="&performancing.delicious.login;" />
+<label value="&performancing.delicious.loggedout;" />
+<hbox>
+<label value="&performancing.delicious.username;" /> 
+<textbox id="performancing-delicios-login-username" class="pff-forms" />
+</hbox>
+<hbox>
+<label value="&performancing.delicious.password;" /> 
+<textbox id="performancing-delicios-login-password" type="password"	 class="pff-forms"/>
+</hbox>
+<vbox align="left">
+<hbox>
+<image id="performancing-delicios-loading-img" src="chrome://global/skin/throbber/Throbber-small.gif" tooltiptext="&performancing.delicious.loggingin;" hidden="true"/>
+<button id="performancing-delicios-login-submit" label="Login" oncommand="performancingUI.deliciousLogin()" />
+</hbox>
+
+</vbox>
+</groupbox>
+
+<groupbox class="white" orient="vertical" flex="1">
+<caption label="&performancing.delicious.service;" />
+<hbox>
+<vbox align="right" flex="1" hidden="false">
+<hbox>
+<label value="&performancing.delicious.reloadpage;" class="url" onclick="performancingUI.getPageInfo('delicious')"/>
+<hbox>
+<image id="performancing-delicios-saving-img" src="chrome://global/skin/throbber/Throbber-small.gif" tooltiptext="&performancing.delicious.savingpost;" hidden="true"/>
+<button label="&performancing.delicious.clear;" oncommand="performancingUI.deliciousClearBM()"/>
+<button label="&performancing.delicious.save;" oncommand="performancingUI.deliciousPostBookmark()"/>
+</hbox>
+</hbox>
+<hbox>
+<label value="&performancing.delicious.url;" />
+<textbox id="performancing-delicios-bookmark-url" class="pff-forms" />
+</hbox>
+<hbox>
+<label value="&performancing.delicious.description;" />
+<textbox id="performancing-delicios-bookmark-desc" multiline="true" class="pff-forms" />
+</hbox>
+<hbox>
+<label value="&performancing.delicious.tags;" />
+<textbox id="performancing-delicios-bookmark-tags" class="pff-forms" />
+</hbox>
+<hbox>
+<label value="&performancing.delicious.notes;" />
+<textbox id="performancing-delicios-bookmark-notes" multiline="true" class="pff-forms" />
+</hbox>
+</vbox>
+
+<vbox class="pff-delicious-search" flex="1">
+<label value="&performancing.delicious.mytagsearch;" />
+<hbox>
+<textbox id="performancing-delicios-search-box" onkeyup="performancingUI.getKeys(this,event)" />
+<menulist label="&performancing.delicious.searchtype;" id="openIn" editable="false" hidden="true">
+<menupopup>
+<menuitem label="&performancing.delicious.tags;" selected="true"/>
+<menuitem label="&performancing.delicious.posts;"/>
+<menuitem label="&performancing.delicious.all;"/>
+</menupopup>
+</menulist>
+</hbox>
+<vbox id="performancing-delicios-tag-list"	height="150px">
+<label value="&performancing.delicious.loadingtags;" class="" width="200px" onclick="" />
+</vbox>
+</vbox>
+
+</hbox>
+</groupbox>
+</deck>
+<hbox align="right">
+<checkbox id="performancing-delicios-login-save" label="&performancing.delicious.autologin;" checked="false" disabled="false" onclick="performancingUI.deliciousOnSaveCheck()" />
+</hbox>
+<spring flex="1"/>
+</vbox>
+
+<!-- About -->
+<vbox flex="1" id="performancing-about-content" collapsed="false" class="white">
+<hbox flex="1" align="right">
+<groupbox class="white"	 orient="vertical" flex="1" style="margin: 20px;">
+<vbox flex="1" align="right" >
+<image src="chrome://performancing/skin/ui/scribefire-logo-small.png" class="url"
+onclick="performancingUI.openInTab('http://performancing.com/');"/>
+<spacer style="height:5px"/>
+<text align="right" value="&performancing.about.version;"/>
+<spacer style="height:10px"/>
+<vbox flex="1" class="performance-about-desc-vbox">
+<description class="performance-about-desc" >&performancing.about.description;</description>
+<spacer style="height:10px"/>
+</vbox>
+</vbox>
+<spacer style="height:10px"/>
+<vbox flex="1">
+<hbox flex="1">
+<spring flex="1"/>
+<vbox align="center" style="border-right: 1px solid #000;">
+<label style="font-weight:bold; font-size: medium" wrap="true" value="&performancing.about.latestposts;" class="performancing-sidebar-background"/>
+<groupbox id="performancing-about-rss-box">
+<vbox>
+<label value="&performancing.about.refreshlist;" class="url" style="text-decoration: underline; color: red;" onclick="performancingUI.getAboutRSS();"/>
+</vbox>
+<vbox id="performancing-about-rss" flex="1" >
+<label value="&performancing.about.loadingfeeds;" class="" crop="end" onclick="performancingUI.openInTab('http://performancing.com/');" />
+</vbox>
+</groupbox>
+<vbox>
+<label style="font-weight:bold; font-size: medium" wrap="true" value="&performancing.about.gethelp;" class="performancing-sidebar-background"/>
+<label value="&performancing.about.pffhandbook;" onclick="performancingUI.openInTab('http://performancing.com/firefox/handbook')" class="url" />
+<label value="&performancing.about.supportforums;" onclick="performancingUI.openInTab('http://performancing.com/forum/firefox')" class="url" />
+<label value="&performancing.about.requests;" onclick="performancingUI.openInTab('http://performancing.com/project/issues')" class="url" />
+</vbox>
+</vbox>
+<vbox align="center">
+<vbox align="center" style="padding-bottom: 20px;">
+<label style="font-weight:bold; font-size: medium" wrap="true" value="&performancing.about.getrss;" class="performancing-sidebar-background"/>
+<vbox>
+<image src="chrome://performancing/skin/rss.png" style="margin: 5px;" class="url" onclick="performancingUI.openInTab('http://performancing.com/node/feed')" />
+<image src="chrome://performancing/skin/sub_blog.png" style="margin: 5px;" class="url" onclick="performancingUI.openInTab('http://www.bloglines.com/sub/http://www.performancing.com/node/feed')" />
+<image src="chrome://performancing/skin/image_myyahoo.png" style="margin: 5px;" class="url" onclick="performancingUI.openInTab('http://add.my.yahoo.com/content?url=http%3A//www.performancing.com/node/feed')" />
+</vbox>
+</vbox>
+<vbox style="padding: 20px">
+<label style="font-weight:bold; font-size: medium" wrap="true" value="&performancing.about.joinperformancing;" class="performancing-sidebar-background"/>
+<label value="&performancing.about.login;" onclick="performancingUI.openInTab('http://performancing.com/user/login')" class="url" />
+<label value="&performancing.about.register;" onclick="performancingUI.openInTab('http://performancing.com/user/register')" class="url" />
+<label value="&performancing.about.forums;" onclick="performancingUI.openInTab('http://performancing.com/forum')" class="url" />
+</vbox>
+</vbox>
+<spring flex="1"/>
+</hbox>
+<spacer style="height:10px"/>
+<vbox align="center" pack="center" flex="1" >
+<label style="font-weight:bold; font-size: medium" wrap="true" value="&performancing.credits;:"/>
+<description class="performance-about-desc">&performancing.about.credits;</description>
+</vbox>
+</vbox>
+<spring flex="1"/>
+</groupbox>
+</hbox>
+</vbox>
+
+</deck>
+</hbox>
+<!-- // End Editor -->
+<vbox id="performancing-sidebar-outer">
+<vbox align="center">
+<hbox align="center">
+<image id="performancing-logo" updateavail="false" class="url" onclick="performancingUI.openInTab('http://scribefire.com/');"/>
+</hbox>
+</vbox>
+<deck id="performancing-editor-extra-pub-deck" selectedIndex="0" flex="1">
+<vbox id="performancing-sidebar" class="performancing-sidebar" collapsed="false" flex="1">
+	<hbox id="performancing-sidebarnav-hbox-0" selectedtab="1" class="performancing-sidebarnav" pack="center" flex="1" maxheight="20px">
+		<label value="&performancing.sidebar.blogs;" tooltiptext="&performancing.sidebar.blogs.tt;" id="performancing-sb-tab0" deck="1" class="performancing-sidebarnav-tab" selected="true" onclick="performancingUI.onSidebarTabSelect(this);" />
+		<label value="&performancing.sidebar.categories;" tooltiptext="&performancing.sidebar.categories.tt;" id="performancing-sb-tab1" deck="0" class="performancing-sidebarnav-tab" onclick="performancingUI.onSidebarTabSelect(this);" />
+		<label value="&performancing.sidebar.history;" tooltiptext="&performancing.sidebar.history.tt;" id="performancing-sb-tab2" deck="2" class="performancing-sidebarnav-tab" onclick="performancingUI.onSidebarTabSelect(this);" />
+		<label value="&performancing.sidebar.pages;" tooltiptext="&performancing.sidebar.pages.tt;" id="performancing-sb-tab4" deck="4" class="performancing-sidebarnav-tab" onclick="performancingUI.onSidebarTabSelect(this, true);" hidden="true"/>
+		<label value="&performancing.sidebar.notes;" tooltiptext="&performancing.sidebar.notes.tt;" id="performancing-sb-tab3" deck="3" class="performancing-sidebarnav-tab" onclick="performancingUI.onSidebarTabSelect(this);" hidden="false" />
+	</hbox>
+	<vbox id="performancing-sidebar-vbox" selectedIndex="0" flex="1">
+	
+		<!-- Blogs -->
+		
+		<vbox id="blog-sidebar-listing-1" class="performancing-categories" flex="1" collapsed="false">
+			<deck id="performancing-account-deck" selectedIndex="1" flex="1">
+				<vbox flex="1">
+					<groupbox flex="1">
+						<radiogroup id="blog-group" flex="1">
+							<grid>
+								<columns>
+									<column/>
+									<column flex="1"/>
+								</columns>
+								<rows id="blog-group-rows">
+								</rows>
+							</grid>
+						</radiogroup>
+						<hbox pack="center">
+							<button label="&performancing.sidebar.add;" oncommand="performancingUI.launchWindow('chrome://performancing/content/accountwizard.xul');" style="font-size: x-small;" maxheight="20px" />
+							<button label="&performancing.sidebar.delete;" oncommand="gPerformancingUtil.deleteBlogEntry(this)" style="font-size: x-small;" maxheight="20px" />
+						</hbox>
+					</groupbox>
+				</vbox>
+				<vbox flex="1">
+					<button label="&performancing.sidebar.accountwizard;" oncommand="performancingUI.launchWindow('chrome://performancing/content/accountwizard.xul');" />
+				</vbox>
+			</deck>
+		</vbox>
+		
+		<!-- Categories -->
+		
+		<vbox id="blog-sidebar-listing-0" class="performancing-categories" flex="1" disabled="true" collapsed="true">
+			<groupbox flex="1">
+				<vbox id="blog-sidebar-listing-categories" class="performancing-categories" flex="1" style="overflow: auto;">
+					<checkbox label="&performancing.sidebar.loadingcats;" />
+				</vbox>
+				<hbox pack="center" align="center">
+					<button id="blog-sidebar-categories-addbtn" label="&performancing.sidebar.addcats;" oncommand="performancingUI.addCategories();" hidden="true"/>
+				</hbox>			
+			</groupbox>
+		</vbox>
+		
+		<!-- Post History -->
+		
+		<vbox id="blog-sidebar-listing-2" class="performancing-categories" flex="1" collapsed="true">
+			<listbox id="performancing-history-list" flex="1" disabled="false">
+				<listcols flex="1" >
+					<listcol flex="1" minwidth="50"/>
+					<listcol flex="1"/>
+				</listcols>
+				<listitem disabled="false" hidden="false" tooltiptext="&performancing.sidebar.loadinghist;" label="&performancing.sidebar.loadinghist;"/>
+			</listbox>
+		</vbox>
+		
+		<!-- Notes -->
+		
+		<vbox id="blog-sidebar-listing-3" class="performancing-categories" flex="1" collapsed="true">
+			<hbox pack="center" align="center">
+				<label value="&performancing.sidebar.search;" style=" font-size: small; font-weight: bold; color: #000"/> 
+				<textbox id="performancing-search-notes-text" oninput="gPerformancingNotes.onNoteSearchChange();"/>
+			</hbox>
+			<listbox id="performancing-notes-list" flex="1">
+				<listcols flex="1">
+					<listcol flex="1" minwidth="50"/>
+					<listcol flex="1"/>
+				</listcols>
+				<listitem disabled="false" hidden="false" tooltiptext="&performancing.sidebar.loadingnotes;" label="&performancing.sidebar.loadingnotes;"/>
+			</listbox>
+			<hbox pack="center" align="right">
+				<button label="&performancing.sidebar.deletenote;" oncommand="gPerformancingNotes.deleteNoteEntry(this)" style="font-size: x-small;" maxheight="20px" />
+			</hbox>
+		</vbox>
+	
+		<!-- Pages -->
+		
+		<vbox id="blog-sidebar-listing-4" class="performancing-categories" flex="1" collapsed="true" hidden="true">
+			<listbox id="performancing-pages-list" flex="1" disabled="false">
+				<listcols flex="1" >
+					<listcol flex="1" minwidth="50"/>
+					<listcol flex="1"/>
+				</listcols>
+				<listitem disabled="false" hidden="false" tooltiptext="&performancing.sidebar.loadingpages;" label="&performancing.sidebar.loadingpages;"/>
+			</listbox>
+			<hbox pack="center" align="right">
+				<button label="&performancing.sidebar.deletepage;" oncommand="gPerformancingUtil.deletePage()" style="font-size: x-small;" maxheight="20px" />
+			</hbox>
+		</vbox>
+	</vbox>
+</vbox>
+
+<vbox id="performancing-sidebar-extra-options" >
+<hbox align="center" id="performancing-sidebar-extra-navbar" pack="center">
+<label value="&performancing.sidebar.publishingoptions;" class="pffwhite-text" flex="1"/>
+<toolbarbutton id="performancing-close-extra-opts" align="right"
+tooltiptext="&performancing.sidebar.closeextra;" class="url"
+oncommand="performancingUI.toggleExtraOptDeck(false);"/>
+</hbox>
+<vbox class="pff-sidebar-border">
+<checkbox id="performancing-draft-checkbox" label="&performancing.sidebar.postasdraft;" hidden="false"/>
+
+<separator class="thick"/>
+<label value="&performancing.sidebar.technoratitags;" class="extra-options" />
+<textbox id="performancing-technorati-tags" />
+<label value="&performancing.sidebar.commaseperated;" class="extra-options-desc" />
+<label id="performancing-technorati-extrainfo" value="&performancing.sidebar.autoaddmsg;" class="extra-options-desc" />
+<button id="performancing-technorati-tags-button" label="&performancing.sidebar.addtagsbutton;" oncommand="performancingUI.insertTechnorati();" />
+<checkbox id="performancing-addto-delicious-checkbox" checked="false" label="&performancing.sidebar.bookmarkposts;" hidden="false"/>
+
+<separator class="thick"/>
+<label value="&performancing.sidebar.trackbackurl;" class="extra-options" hidden="false" />
+<textbox id="performancing-trackback-textbox" hidden="false" />
+<label value="&performancing.sidebar.commaseperated;" class="extra-options-desc" hidden="false"/>
+
+<separator class="thick"/>
+
+<checkbox id="performancing-enablepings-checkbox" oncommand="document.getElementById('performancing-pinglist-mainbox').collapsed = !document.getElementById('performancing-pinglist-mainbox').collapsed;" checked="false" label="&performancing.sidebar.enablepings;" hidden="false" />
+<vbox collapsed="true" id="performancing-pinglist-mainbox">
+<radiogroup id="performancing-pingradio-group">
+<radio id="performancing-radio-pingomatic" value="pingomatic" label="Ping-O-Matic" selected="true" oncommand="document.getElementById('performancing-pinglist-vbox').collapsed = true;" />
+<radio id="performancing-radio-pingat" value="pingoat" label="PingoAt" oncommand="document.getElementById('performancing-pinglist-vbox').collapsed = true;"/>
+<radio id="performancing-radio-custom" value="custom" label="&performancing.sidebar.custom;" oncommand="document.getElementById('performancing-pinglist-vbox').collapsed = false;" />
+</radiogroup>
+<vbox id="performancing-pinglist-vbox" collapsed="true" style="margin: 5px;">
+<checkbox id="performancing-pinglist-technorati" url="http://rpc.technorati.com/rpc/ping" label="Technorati" />
+<checkbox id="performancing-pinglist-weblogs" url="http://rpc.weblogs.com/RPC2" label="Weblogs" />
+<checkbox id="performancing-pinglist-blogs" url="http://ping.blo.gs/" label="Blo.gs" />
+<checkbox id="performancing-pinglist-blogrolling" url="http://rpc.blogrolling.com/pinger/" label="Blogrolling" />
+<checkbox id="performancing-pinglist-icerocket" url="http://rpc.icerocket.com:10080/" label="Icerocket" />
+</vbox>
+</vbox>
+</vbox>
+</vbox>
+</deck>
+</vbox>
+
+</hbox>
+</vbox>
+</hbox>
+</box>
+
+</window>

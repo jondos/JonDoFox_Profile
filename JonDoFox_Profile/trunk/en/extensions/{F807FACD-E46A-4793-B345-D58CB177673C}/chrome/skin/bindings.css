@@ -1,0 +1,21 @@
+/* 
+Bindings CSS for the whole Performancing Extension
+-----------------------------------------------------
+*/
+
+/* Bindings */
+.pffAddonBody{
+   /* -moz-binding: url("chrome://performancing/content/bindings/addonskin.xml#pffAddonBody");*/
+}
+
+pffeditor{
+   /*-moz-binding: url("chrome://performancing/content/bindings/pffeditor.xml#editor");*/
+}
+
+.performancing-navbar-tab{
+   -moz-binding: url("chrome://performancing/content/bindings/addonskin.xml#performancing-navbar-tab");
+}
+
+.performancing-navbar-tab-addon{
+   -moz-binding: url("chrome://performancing/content/bindings/addonskin.xml#performancing-navbar-tab-addon");
+}
