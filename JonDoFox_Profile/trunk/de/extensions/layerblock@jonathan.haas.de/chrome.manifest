@@ -1,5 +1,0 @@
-content layerblock   content/
-locale  layerblock   en          locale/en-US/
-locale  layerblock   de          locale/de-DE/
-skin    layerblock   classic/1.0 skin/
-overlay chrome://browser/content/browser.xul chrome://layerblock/content/overlayfx.xul

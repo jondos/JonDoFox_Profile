@@ -1,3 +1,0 @@
-content     dtwhois    chrome/content/
-overlay chrome://browser/content/browser.xul chrome://dtwhois/content/whois.xul
-skin dtwhois classic/1.0 chrome/skin/
