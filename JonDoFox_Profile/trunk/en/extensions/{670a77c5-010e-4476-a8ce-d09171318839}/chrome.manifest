@@ -1,0 +1,5 @@
+content stanford-safecache jar:chrome/stanford-safecache.jar!/content/
+locale stanford-safecache en-US jar:chrome/stanford-safecache.jar!/locale/
+overlay chrome://browser/content/browser.xul chrome://stanford-safecache/content/stanford-safecache-overlay.xul
+overlay chrome://browser/content/preferences/preferences.xul chrome://stanford-safecache/content/pref-privacy.xul
+skin	stanford-safecache	classic/1.0	jar:chrome/stanford-safecache.jar!/skin/

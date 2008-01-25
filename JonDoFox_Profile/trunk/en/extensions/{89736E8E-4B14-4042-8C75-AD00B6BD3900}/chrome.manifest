@@ -1,0 +1,5 @@
+
+overlay	chrome://browser/content/browser.xul	chrome://tinyurl/content/tinyurl_overlay.xul
+overlay	chrome://navigator/content/navigatorOverlay.xul	chrome://tinyurl/content/tinyurl_overlay.xul
+overlay	chrome://navigator/content/navigator.xul	chrome://tinyurl/content/tinyurl_overlay.xul
+content	tinyurl	jar:chrome/tinyurl.jar!/content/

@@ -1,0 +1,15 @@
+
+overlay	chrome://editor/content/editorTasksOverlay.xul	chrome://chatzilla/content/chatzillaOverlay.xul
+overlay	chrome://browser/content/browser.xul	chrome://chatzilla/content/browserOverlay.xul
+overlay	chrome://communicator/content/pref/preftree.xul	chrome://chatzilla/content/prefsOverlay.xul
+overlay	chrome://communicator/content/pref/pref-appearance.xul	chrome://chatzilla/content/prefsOverlay.xul
+content	chatzilla	jar:chrome/chatzilla.jar!/content/chatzilla/
+
+overlay	chrome://chatzilla/content/chatzilla.xul	chrome://chatzilla/content/ff/overlay.xul
+content	chatzilla-ff	jar:chrome/chatzilla.jar!/content/chatzilla/ff/
+
+skin	chatzilla	modern/1.0	jar:chrome/chatzilla.jar!/skin/modern/chatzilla/
+style	chrome://browser/content/browser.xul	chrome://chatzilla/skin/browserOverlay.css
+style	chrome://global/content/customizeToolbar.xul	chrome://chatzilla/skin/browserOverlay.css
+
+locale	chatzilla	en-US	jar:chrome/chatzilla.jar!/locale/en-US/chatzilla/

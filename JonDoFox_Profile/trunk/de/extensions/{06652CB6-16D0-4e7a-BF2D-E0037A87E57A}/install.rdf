@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{06652CB6-16D0-4e7a-BF2D-E0037A87E57A}"
+                   em:version="0.2.5"
+                   em:type="2"
+                   em:name="Locate in Bookmark Folders"
+                   em:description="Locates a bookmark in Bookmarks Manager's folders tree or in the Bookmarks Sidebar, complementing the Bookmark Search feature of Firefox."
+                   em:creator="Alex Muntean"
+                   em:homepageURL="http://alex.muntean.name/">
+    <em:targetApplication RDF:resource="rdf:#$AhY8F2"/>
+    <em:file RDF:resource="urn:mozilla:extension:file:libf"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mozilla:extension:file:libf"
+                   em:package="content/"
+                   em:skin="skin/classic/">
+    <em:locale>locale/en-US/</em:locale>
+    <em:locale>locale/ja-JP/</em:locale>
+    <em:locale>locale/it-IT/</em:locale>
+    <em:locale>locale/ro-RO/</em:locale>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$AhY8F2"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.0"
+                   em:maxVersion="2.0.0.*" />
+</RDF:RDF>

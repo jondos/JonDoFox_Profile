@@ -1,0 +1,7 @@
+<!ENTITY lbActivate "Enable Layerblock">
+<!ENTITY lbDeactivate "Disable Layerblock">
+<!ENTITY lbDebug "Debug Mode">
+<!ENTITY lbActive "Layers were hidden">
+<!ENTITY lbOptions "Layerblock - Options">
+<!ENTITY lbShowActive "Show '&lbActive;'">
+<!ENTITY lbChangesAfterRestart "Changes will take effect after a restart of Firefox.">

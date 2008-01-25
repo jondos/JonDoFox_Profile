@@ -1,0 +1,3 @@
+content errorzillamod jar:chrome/errorzillamod.jar!/content/errorzillamod/
+override chrome://global/content/netError.xhtml chrome://errorzillamod/content/netError.xhtml
+skin errorzillamod classic/1.0 jar:chrome/errorzillamod.jar!/skin/classic/errorzillamod/

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{cda6db95-6aab-414b-803c-40cf34f589b5}"
+                   em:version="0.5.5"
+                   em:name="AllowClipboard Helper"
+                   em:description="Manager of servers allowed for using clipboard functions."
+                   em:creator="Petr Simek"
+                   em:aboutURL="chrome://allowclipboardhelper/content/about.xul"
+                   em:homepageURL="http://allowclipboard.foxinus.cz/"
+                   em:iconURL="chrome://allowclipboardhelper/content/allowclipboardhelper.png"
+                   em:optionsURL="chrome://allowclipboardhelper/content/ach-preferences.xul">
+    <em:targetApplication RDF:resource="rdf:#$6eY8F2"/>
+    <em:targetApplication RDF:resource="rdf:#$beY8F2"/>
+    <em:targetApplication RDF:resource="rdf:#$geY8F2"/>
+    <em:contributor>Stanislas Rolland</em:contributor>
+    <em:contributor>Simone Caramel</em:contributor>
+    <em:contributor>Alfonso Martinez de L.</em:contributor>
+    <em:contributor>Dirk Fischer</em:contributor>
+    <em:contributor>victory</em:contributor>
+    <em:contributor>Pavlina Chovancikova</em:contributor>
+    <em:contributor>SlovakSoft</em:contributor>
+    <em:contributor>AlleyKat</em:contributor>
+    <em:contributor>BudsieBuds</em:contributor>
+    <em:file RDF:resource="urn:mozilla:extension:file:allowclipboardhelper.jar"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$geY8F2"
+                   em:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
+                   em:minVersion="1.0"
+                   em:maxVersion="1.0.*" />
+  <RDF:Description RDF:about="rdf:#$6eY8F2"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.0"
+                   em:maxVersion="2.0.0.*" />
+  <RDF:Description RDF:about="urn:mozilla:extension:file:allowclipboardhelper.jar"
+                   em:package="content/allowclipboardhelper/"
+                   em:skin="skin/classic/allowclipboardhelper/">
+    <em:locale>locale/en-US/allowclipboardhelper/</em:locale>
+    <em:locale>locale/cs-CZ/allowclipboardhelper/</em:locale>
+    <em:locale>locale/fr-FR/allowclipboardhelper/</em:locale>
+    <em:locale>locale/es-AR/allowclipboardhelper/</em:locale>
+    <em:locale>locale/es-ES/allowclipboardhelper/</em:locale>
+    <em:locale>locale/it-IT/allowclipboardhelper/</em:locale>
+    <em:locale>locale/de-DE/allowclipboardhelper/</em:locale>
+    <em:locale>locale/ja-JP/allowclipboardhelper/</em:locale>
+    <em:locale>locale/pl-PL/allowclipboardhelper/</em:locale>
+    <em:locale>locale/sk-SK/allowclipboardhelper/</em:locale>
+    <em:locale>locale/da-DK/allowclipboardhelper/</em:locale>
+    <em:locale>locale/nl-NL/allowclipboardhelper/</em:locale>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$beY8F2"
+                   em:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
+                   em:minVersion="1.7"
+                   em:maxVersion="1.8" />
+</RDF:RDF>

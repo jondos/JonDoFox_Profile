@@ -1,0 +1,5 @@
+<!-- BookmarksManager Toolbar button -->
+<!ENTITY libf.button.label "見つける">
+<!ENTITY libf.button.tooltiptext "ブックマークフォルダで見つける">
+<!ENTITY libf.button.accesskey "L">
+

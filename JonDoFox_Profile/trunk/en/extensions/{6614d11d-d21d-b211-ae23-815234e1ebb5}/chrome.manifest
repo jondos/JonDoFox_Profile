@@ -1,0 +1,25 @@
+content drweb       jar:chrome/drweb.jar!/content/
+locale  drweb en-US jar:chrome/drweb.jar!/locale/en-US/drweb/
+locale  drweb ru-RU jar:chrome/drweb.jar!/locale/ru-RU/drweb/
+locale  drweb de-DE jar:chrome/drweb.jar!/locale/de-DE/drweb/
+locale  drweb fr-FR jar:chrome/drweb.jar!/locale/fr-FR/drweb/
+locale  drweb it-IT jar:chrome/drweb.jar!/locale/it-IT/drweb/
+locale  drweb ja-JP jar:chrome/drweb.jar!/locale/ja-JP/drweb/
+locale  drweb lt-LT jar:chrome/drweb.jar!/locale/lt-LT/drweb/
+locale  drweb pl-PL jar:chrome/drweb.jar!/locale/pl-PL/drweb/
+locale  drweb pt-PT jar:chrome/drweb.jar!/locale/pt-PT/drweb/
+locale  drweb sk-SK jar:chrome/drweb.jar!/locale/sk-SK/drweb/
+locale  drweb ua-UA jar:chrome/drweb.jar!/locale/ua-UA/drweb/
+
+# firefox
+overlay chrome://browser/content/browser.xul chrome://drweb/content/drwebOverlay.xul
+
+
+# mozilla
+overlay chrome://communicator/content/tasksOverlay.xul chrome://drweb/content/drwebOverlay.xul
+overlay chrome://communicator/content/pref/preftree.xul chrome://drweb/content/drwebOverlay.xul
+
+
+# Thunderbird / Mozilla Mail 
+overlay chrome://messenger/content/mailWindowOverlay.xul chrome://drweb/content/drwebOverlay.xul
+overlay chrome://messenger/content/messageWindow.xul chrome://drweb/content/drwebOverlay.xul

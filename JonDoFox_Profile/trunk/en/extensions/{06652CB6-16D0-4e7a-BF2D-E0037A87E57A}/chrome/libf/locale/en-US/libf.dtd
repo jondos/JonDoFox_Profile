@@ -1,0 +1,4 @@
+<!-- BookmarksManager Toolbar button -->
+<!ENTITY libf.button.label "Locate">
+<!ENTITY libf.button.tooltiptext "Locate in Bookmark Folders">
+<!ENTITY libf.button.accesskey "L">

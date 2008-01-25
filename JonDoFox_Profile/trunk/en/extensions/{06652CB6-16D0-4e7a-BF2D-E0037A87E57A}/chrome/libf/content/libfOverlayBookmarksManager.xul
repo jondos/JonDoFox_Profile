@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://libf/skin/libf.css" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://libf/locale/libf.dtd">
+
+<overlay id="libfOverlayBookmarksManager" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script type="application/x-javascript" src="chrome://libf/content/libfOverlayBookmarksManager.js"/>
+
+	// add a new button to the BookmarksManager's Command Toolbar
+	<toolbar id="command-toolbar">
+		<toolbarbutton id="libf-button" label="&libf.button.label;" tooltiptext="&libf.button.tooltiptext;" disabled="true"
+			accesskey="&libf.button.accesskey;" oncommand="libfOverlayBM.libfButtonClicked()"/>
+	</toolbar>
+
+</overlay>

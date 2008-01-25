@@ -1,0 +1,352 @@
+<!ENTITY performancing.accountWizardTitle "Assistant de création de compte Scribefire">
+<!ENTITY performancing.accountwizard.intro "Cet assistant vous aidera à choisir le type de service blog que vous souhaitez ajouter.">
+<!ENTITY performancing.accountwizard.enterblogurl "Veuillez saisir l&apos;adresse de votre blog">
+<!ENTITY performancing.accountwizard.enterblogurl.example "http://monsiteweb.com/blog/">
+<!ENTITY performancing.accountwizard.manualconfigure "Configurer manuellement">
+<!ENTITY performancing.accountwizard.checkingblogsettings "Vérification des paramètres du blog…">
+<!ENTITY performancing.accountwizard.blogfoundcont "Blog trouvé, veuillez continuer…">
+<!ENTITY performancing.accountwizard.couldnotautodetect "Désolé, impossible de détecter automatiquement les paramètres.">
+<!ENTITY performancing.accountwizard.tryagain "Essayer à nouveau">
+<!ENTITY performancing.accountwizard.choosebloggingserv "Quel service de blog souhaitez-vous ajouter ?">
+<!ENTITY performancing.accountwizard.customblog "Blog personnel">
+<!ENTITY performancing.loginDetails "Identifiants">
+<!ENTITY performancing.accountwizard.bloggerex "Exemple : monblog.blogspot.com">
+<!ENTITY performancing.accountwizard.wordpressex "Exemple : monblog.wordpress.com">
+<!ENTITY performancing.accountwizard.typepadex "Exemple : monblog.typepad.com">
+<!ENTITY performancing.accountwizard.livejournalex "Exemple : livejournal.com/users/VotreNom">
+<!ENTITY performancing.accountwizard.msnspacesex "Exemple : spaces.msn.com/VotrePseudo">
+<!ENTITY performancing.accountwizard.performancingex "Exemple : performancing.com/blog/689">
+<!ENTITY performancing.accountwizard.jeeranex "Exemple : monnom.jeeran.com">
+<!ENTITY performancing.accountwizard.drupal "Exemple : monserveur.com/">
+<!ENTITY performancing.accountwizard.customex "Exemple : monserveur.com/blog">
+<!ENTITY performancing.accountwizard.customlogindetails "Identifiants personnels">
+<!ENTITY performancing.accountwizard.selectblogsystem "Veuillez choisir le type de système blog dans la liste :">
+<!ENTITY performancing.accountwizard.addorchangeapiurl "Veuillez ajouter (ou modifier) votre URL d&apos;API :">
+<!ENTITY performancing.accountwizard.serverapiurl "URL du serveur d&apos;API :">
+<!ENTITY performancing.accountwizard.advancedsettings "Paramètres avancés">
+<!ENTITY performancing.accountwizard.usebooleanpublish "Utiliser des booléens pour publier">
+<!ENTITY performancing.accountwizard.apikey "Clé de l&apos;API :">
+<!ENTITY performancing.accountwizard.apikeyignored "(normalement ignorée)">
+<!ENTITY performancing.accountwizard.addusrnpasstoblog "Veuillez saisir votre nom d&apos;utilisateur et votre mot de passe pour ce blog :">
+<!ENTITY performancing.accountwizard.username "Nom d&apos;utilisateur :">
+<!ENTITY performancing.accountwizard.password "Mot de passe :">
+<!ENTITY performancing.accountwizard.errorusrnpass "Erreur : veuillez saisir un nom d&apos;utilisateur et un mot de passe">
+<!ENTITY performancing.accountwizard.loggingin "Connexion">
+<!ENTITY performancing.accountwizard.logginginplswait "En cours de connexion… veuillez patienter.">
+<!ENTITY performancing.accountwizard.loginerror "Erreur de connexion">
+<!ENTITY performancing.accountwizard.errorcheckusrnpass "Veuillez vérifier votre nom d&apos;utilisateur et votre mot de passe et essayer à nouveau.">
+<!ENTITY performancing.accountwizard.succesfulllogin "Connexion réussie">
+<!ENTITY performancing.accountwizard.succesfulllogindesc "Vous vous êtes connecté à votre compte avec succès.">
+<!ENTITY performancing.accountwizard.confirminfobelow "Veuillez valider l&apos;information ci-dessous et continuer">
+<!ENTITY performancing.accountwizard.blogstobeadded "Blogs allant être ajoutés :">
+<!ENTITY performancing.accountwizard.blogname "Nom du blog">
+<!ENTITY performancing.accountwizard.url "URL">
+<!ENTITY performancing.accountwizard.accountaddeddesc "Compte ajouté avec succès">
+<!ENTITY performancing.accountwizard.accountadded "Compte ajouté">
+<!ENTITY performancing.accountwizard.toscaption "Veuillez accepter les conditions d&apos;utilisation suivantes">
+<!ENTITY performancing.accountwizard.tosaccept "J&apos;accepte les conditions">
+<!ENTITY performancing.imageupload.title "Envoi d&apos;image avec ScribeFire">
+<!ENTITY performancing.imageupload.tabs.general "Générales">
+<!ENTITY performancing.imageupload.tabs.general.key "G">
+<!ENTITY performancing.imageupload.uploadandinsert "Insérer l&apos;image">
+<!ENTITY performancing.imageupload.apply "Appliquer">
+<!ENTITY performancing.imageupload.tabs.settings "Paramètres FTP">
+<!ENTITY performancing.imageupload.tabs.settings.key "F">
+<!ENTITY performancing.imageupload.saveerr "Erreur lors de l&apos;enregistrement des paramètres FTP">
+<!ENTITY performancing.imageupload.chooseimagemsg "Veuillez choisir l&apos;image source">
+<!ENTITY performancing.imageupload.fromurl "À partir d&apos;une URL">
+<!ENTITY performancing.imageupload.fromurl.key "U">
+<!ENTITY performancing.imageupload.uploadtoftp "Envoi sur le serveur FTP">
+<!ENTITY performancing.imageupload.uploadtoftp.key "F">
+<!ENTITY performancing.imageupload.imageurl "URL de l&apos;image">
+<!ENTITY performancing.imageupload.generatedftp "URL Générée">
+<!ENTITY performancing.imageupload.url "URL">
+<!ENTITY performancing.imageupload.url.key "U">
+<!ENTITY performancing.imageupload.copyurltoclp "Copier l&apos;adresse vers le presse-papiers">
+<!ENTITY performancing.imageupload.ftpimageup "Envoi FTP de l&apos;image">
+<!ENTITY performancing.imageupload.file "Fichier">
+<!ENTITY performancing.imageupload.file.key "F">
+<!ENTITY performancing.imageupload.browse "Parcourir…">
+<!ENTITY performancing.imageupload.uploadimage "Envoi de l&apos;image">
+<!ENTITY performancing.imageupload.status "État :">
+<!ENTITY performancing.imageupload.uploading "Encours d&apos;envoi…">
+<!ENTITY performancing.imageupload.cancelupload "Annuler l&apos;envoi">
+<!ENTITY performancing.imageupload.ftpsettings "Paramètres FTP">
+<!ENTITY performancing.imageupload.host "Hôte">
+<!ENTITY performancing.imageupload.host.key "H">
+<!ENTITY performancing.imageupload.hostexample "c.-à-d. : monserveur.com">
+<!ENTITY performancing.imageupload.ftp "FTP">
+<!ENTITY performancing.imageupload.ftp.key "F">
+<!ENTITY performancing.imageupload.http "HTTP">
+<!ENTITY performancing.imageupload.http.key "T">
+<!ENTITY performancing.imageupload.https "HTTPS">
+<!ENTITY performancing.imageupload.https.key "S">
+<!ENTITY performancing.imageupload.username "Nom d&apos;utilisateur">
+<!ENTITY performancing.imageupload.username.key "U">
+<!ENTITY performancing.imageupload.password "Mot de passe">
+<!ENTITY performancing.imageupload.password.key "M">
+<!ENTITY performancing.imageupload.serverpath "Chemin sur le serveur">
+<!ENTITY performancing.imageupload.serverpath.key "C">
+<!ENTITY performancing.imageupload.serverpathexample "c.-à-d. : utilisateur/images/">
+<!ENTITY performancing.imageupload.urltopath "URL de base">
+<!ENTITY performancing.imageupload.urltopath.key "U">
+<!ENTITY performancing.imageupload.urltopathexample "c.-à-d. : http://mondomaine.com/images/">
+<!ENTITY performancing.imageupload.savesettings "Enregistrer les paramètres">
+<!ENTITY performancing.imageupload.imageupload "Envoi d&apos;image">
+<!ENTITY performancing.imageupload.imageupload.key "I">
+<!ENTITY performancing.imageupload.fileupload "Envoi de fichier">
+<!ENTITY performancing.imageupload.fileupload.key "F">
+<!ENTITY performancing.imageupload.uploadviaftp "Envoi via FTP">
+<!ENTITY performancing.imageupload.uploadviaapi "Envoi via l&apos;API">
+<!ENTITY performancing.fileupload.chooseimagemsg "Veuillez choisir le fichier source">
+<!ENTITY performancing.fileupload.title "Envoi de fichier avec ScribeFire">
+<!ENTITY performancing.fileupload.uploadandinsert "Insérer le fichier">
+<!ENTITY performancing.fileupload.imageurl "URL du fichier">
+<!ENTITY performancing.fileupload.ftpfileup "Envoi FTP de fichier">
+<!ENTITY performancing.fileupload.uploadfile "Envoi du fichier">
+<!ENTITY performancing.fileupload.serverpathexample "c.-à-d. : utilisateur/fichiers/">
+<!ENTITY performancing.fileupload.urltopathexample "c.-à-d. : http://mondomaine.com/fichiers/">
+<!ENTITY performancing.overlay.blogthis "Cette page sur le blog (partager l&apos;écran)">
+<!ENTITY performancing.overlay.blogthis.key "B">
+<!ENTITY performancing.overlay.openintab "Ouvrir dans un onglet">
+<!ENTITY performancing.overlay.openintab.key "O">
+<!ENTITY performancing.overlay.openinwindow "Ouvrir dans une nouvelle fenêtre">
+<!ENTITY performancing.overlay.openinwindow.key "F">
+<!ENTITY performancing.overlay.openinbrowser "Ouvrir dans la même fenêtre">
+<!ENTITY performancing.overlay.openinbrowser.key "m">
+<!ENTITY performancing.overlay.blogthispage "Cette page sur le blog">
+<!ENTITY performancing.overlay.blogthispage.key "B">
+<!ENTITY performancing.overlay.bookmark "Marque-page">
+<!ENTITY performancing.overlay.bookmark.key "M">
+<!ENTITY performancing.overlay.pagetools "Outils">
+<!ENTITY performancing.overlay.pagetools.key "P">
+<!ENTITY performancing.overlay.ftpupload "Envoi FTP de fichier">
+<!ENTITY performancing.overlay.ftpupload.key "F">
+<!ENTITY performancing.overlay.dragpff "Clic-glissez cette barre pour redimensionner l&apos;éditeur">
+<!ENTITY performancing.overlay.closeperformancing "Fermer ScribeFire">
+<!ENTITY performancing.main.sb.cm.about "À propos de…">
+<!ENTITY performancing.main.sb.cm.about.key "A">
+<!ENTITY performancing.title "ScribeFire">
+<!ENTITY performancing.cmaccesskey "c">
+<!ENTITY performancing.editor.title "ScribeFire">
+<!ENTITY performancing.editor.bar.spelling "Vérifier l&apos;orthographe">
+<!ENTITY performancing.editor.bar.bold.tt "Gras">
+<!ENTITY performancing.editor.bar.italic.tt "Italique">
+<!ENTITY performancing.editor.bar.underline.tt "Souligné">
+<!ENTITY performancing.editor.bar.strikethrough.tt "Barré">
+<!ENTITY performancing.editor.bar.quote.tt "Cité">
+<!ENTITY performancing.editor.bar.strong.tt "Gras">
+<!ENTITY performancing.editor.bar.em.tt "Italique">
+<!ENTITY performancing.editor.bar.incfont.tt "Augmenter la taille de la police">
+<!ENTITY performancing.editor.bar.decfont.tt "Diminuer la taille de la police">
+<!ENTITY performancing.editor.bar.link.tt "Lien">
+<!ENTITY performancing.editor.bar.image.tt "Image">
+<!ENTITY performancing.editor.bar.color.tt "Couleur">
+<!ENTITY performancing.editor.bar.olist.tt "Liste numérotée">
+<!ENTITY performancing.editor.bar.ulist.tt "Liste à puces">
+<!ENTITY performancing.editor.bar.leftjust.tt "Aligner à gauche">
+<!ENTITY performancing.editor.bar.centjust.tt "Centrer">
+<!ENTITY performancing.editor.bar.rightjust.tt "Aligner à droite">
+<!ENTITY performancing.editor.bar.just.tt "Justifier">
+<!ENTITY performancing.editor.bar.opensb.tt "Ouvrir le panneau latéral">
+<!ENTITY performancing.editor.bar.closesb.tt "Fermer le panneau latéral">
+<!ENTITY performancing.navbar.editor "Éditeur">
+<!ENTITY performancing.navbar.notes "Notes">
+<!ENTITY performancing.navbar.settings "Paramètres">
+<!ENTITY performancing.navbar.pagetools "Outils">
+<!ENTITY performancing.navbar.bookmarks "M.-pages">
+<!ENTITY performancing.navbar.about "À propos">
+<!ENTITY performancing.editor.tabs.rich "Mode d&apos;édition assisté (normal)">
+<!ENTITY performancing.editor.tabs.source "Édition du code source">
+<!ENTITY performancing.editor.tabs.preview "Aperçu en temps réel">
+<!ENTITY performancing.editor.thetitle "Titre :">
+<!ENTITY performancing.editor.button.publish "Options de publication">
+<!ENTITY performancing.message.postsuccess "Publié avec succès !">
+<!ENTITY performancing.message.postsuccess.button "Cliquez sur OK pour effacer l&apos;éditeur.">
+<!ENTITY performancing.message.publishto "Publier sur :">
+<!ENTITY performancing.message.noblogselected "Aucun blog sélectionné">
+<!ENTITY performancing.message.publishingtoblog "Publication sur votre blog en cours…">
+<!ENTITY performancing.message.publishing "Publication…">
+<!ENTITY performancing.link.viewblog "Afficher ce blog">
+<!ENTITY performancing.button.ok "OK">
+<!ENTITY performancing.button.cancelkeep "Conserver le contenu">
+<!ENTITY performancing.button.saveasnote "Enregistrer sous forme de note">
+<!ENTITY performancing.button.savenote "Enregistrer">
+<!ENTITY performancing.button.clearcontent "Effacer le contenu">
+<!ENTITY performancing.button.republish "Publier dans l&apos;éditeur">
+<!ENTITY performancing.publish "Publier">
+<!ENTITY performancing.settings.tab.general "Généraux">
+<!ENTITY performancing.settings.tab.general.key "G">
+<!ENTITY performancing.settings.tab.appearance "Thèmes">
+<!ENTITY performancing.settings.tab.appearance.key "T">
+<!ENTITY performancing.settings.tab.addons "Extensions">
+<!ENTITY performancing.settings.tab.addons.key "x">
+<!ENTITY performancing.settings.general "Paramètres généraux">
+<!ENTITY performancing.settings.remember "Enregistrer le contenu de l&apos;éditeur lors de la fermeture">
+<!ENTITY performancing.settings.onbottom "Afficher l&apos;éditeur dans la partie inférieure de l&apos;écran">
+<!ENTITY performancing.settings.hidepffcm "Masquer le menu contextuel de ScribeFire">
+<!ENTITY performancing.settings.hidepagetools "Masquer les outils">
+<!ENTITY performancing.settings.hidebookmarks "Masquer les marque-pages">
+<!ENTITY performancing.settings.sortcats "Trier les catégories">
+<!ENTITY performancing.settings.formatsettings "Mise en page">
+<!ENTITY performancing.settings.usecssmsg "Utiliser des CSS pour définir le style (autrement utiliser HTML)">
+<!ENTITY performancing.settings.useextcss "Utiliser une URL de CSS externe pour l&apos;onglet de prévisualisation :">
+<!ENTITY performancing.settings.makertl "Sens de lecture &apos;Droite-Gauche&apos;">
+<!ENTITY performancing.settings.publishingfeatures "Fonctions de publication">
+<!ENTITY performancing.settings.defaultdraft "Activer le brouillon par défaut">
+<!ENTITY performancing.settings.showextra "Afficher les fonctions de publications supplémentaires">
+<!ENTITY performancing.settings.autoinserttech "Insérer automatiquement des liens Technorati lors de la publication ?">
+<!ENTITY performancing.settings.insertpoweredbypff "Insérer automatiquement &apos;Powered by ScribeFire&apos; ?">
+<!ENTITY performancing.settings.skin.caption "Thèmes de ScribeFire">
+<!ENTITY performancing.settings.skin.desc "Choisissez le thème que vous souhaitez appliquer à PFF.">
+<!ENTITY performancing.settings.skin.skinname "Nom du thème">
+<!ENTITY performancing.settings.skin.author "Auteur">
+<!ENTITY performancing.settings.skin.enableselected "Activer le thème sélectionné">
+<!ENTITY performancing.settings.skin.restartfx "Veuillez redémarrer Firefox pour que le changement de thème prenne effet">
+<!ENTITY performancing.settings.addon.caption "ScribeFire">
+<!ENTITY performancing.settings.addon.clicktoadd "Cliquez sur une extension pour l&apos;activer ou la désactiver">
+<!ENTITY performancing.settings.addon.morethanone "Vous pouvez activer plusieurs extensions à la fois">
+<!ENTITY performancing.settings.addon.name "Nom de l&apos;extension">
+<!ENTITY performancing.settings.addon.status "État">
+<!ENTITY performancing.settings.addon.noninstalled "Aucune extension installée">
+<!ENTITY performancing.settings.common.description "Description :">
+<!ENTITY performancing.settings.common.author "Auteur">
+<!ENTITY performancing.settings.common.add "Ajouter">
+<!ENTITY performancing.settings.common.delete "Supprimer">
+<!ENTITY performancing.settings.common.clicktodownload "Cliquer pour télécharger">
+<!ENTITY performancing.settings.common.downloadmore "Télécharger des extensions et des thèmes">
+<!ENTITY performancing.technorati.info "Info sur Technorati">
+<!ENTITY performancing.technorati.loadinginfo "Chargement des informations Technorati…">
+<!ENTITY performancing.technorati.loading "Chargement…">
+<!ENTITY performancing.technorati.searchtech "Recherche Technorati">
+<!ENTITY performancing.technorati.search "Rechercher">
+<!ENTITY performancing.technorati.pageinfo "Information sur la page">
+<!ENTITY performancing.technorati.thereare "Il y a">
+<!ENTITY performancing.technorati.linkstopage "liens pointant sur cette page, et">
+<!ENTITY performancing.technorati.blogslinking "liens blog vers cette page dans Technorati.">
+<!ENTITY performancing.technorati.loadingpageinfo "Chargement des informations sur la page…">
+<!ENTITY performancing.technorati.moreresults "Davantage de résultats…">
+<!ENTITY performancing.technorati.refreshpageinfo "(Actualiser les infos sur la page)">
+<!ENTITY performancing.delicious.login "Identifiant del.icio.us">
+<!ENTITY performancing.delicious.loggedout "Vous n&apos;êtes pas connecté, veuillez vous connecter maintenant">
+<!ENTITY performancing.delicious.username "Nom d&apos;utilisateur :">
+<!ENTITY performancing.delicious.password "Mot de passe :">
+<!ENTITY performancing.delicious.loggingin "Connexion à del.icio.us…">
+<!ENTITY performancing.delicious.service "Service del.icio.us">
+<!ENTITY performancing.delicious.reloadpage "(Recharger la page courante)">
+<!ENTITY performancing.delicious.savingpost "Enregistrement du billet sur del.icio.us…">
+<!ENTITY performancing.delicious.clear "Effacer">
+<!ENTITY performancing.delicious.save "Enregistrer">
+<!ENTITY performancing.delicious.mytagsearch "Ma recherche d&apos;identificateur (tag) :">
+<!ENTITY performancing.delicious.searchtype "Type de recherche">
+<!ENTITY performancing.delicious.loadingtags "- Chargement des identificateurs…">
+<!ENTITY performancing.delicious.autologin "Connexion automatique">
+<!ENTITY performancing.delicious.url "URL">
+<!ENTITY performancing.delicious.description "description">
+<!ENTITY performancing.delicious.tags "identificateurs (tags)">
+<!ENTITY performancing.delicious.notes "notes">
+<!ENTITY performancing.delicious.posts "billets">
+<!ENTITY performancing.delicious.all "tout">
+<!ENTITY performancing.about.description "Performancing est la plus grande communauté mondiale de blogueurs professionnels. Notre objectif est de fournir des outils d&apos;aide et d&apos;utilisation de blog aux blogueurs qui souhaitent gagner de l&apos;argent en utilisant des weblog. Vous pouvez vous abonner à notre fil RSS en utilisant les boutons ci-dessous.">
+<!ENTITY performancing.about.latestposts "Derniers billets :">
+<!ENTITY performancing.about.refreshlist "(actualiser la liste)">
+<!ENTITY performancing.about.loadingfeeds "Chargement des fils…">
+<!ENTITY performancing.about.gethelp "Obtenir de l&apos;aide :">
+<!ENTITY performancing.about.pffhandbook "Manuel de ScribeFire">
+<!ENTITY performancing.about.supportforums "Forums d&apos;aide">
+<!ENTITY performancing.about.requests "Bogues et suggestions">
+<!ENTITY performancing.about.getrss "Obtenir le fil RSS">
+<!ENTITY performancing.about.joinperformancing "Aller au site Performancing :">
+<!ENTITY performancing.about.login "Se connecter">
+<!ENTITY performancing.about.register "S&apos;enregistrer">
+<!ENTITY performancing.about.forums "Forums">
+<!ENTITY performancing.credits "Crédits">
+<!ENTITY performancing.about.credits "ScribeFire a été conçue et développée par Performancing LLC. Remerciements particuliers à &apos;Anthony Young de Flock&apos; pour l&apos;implémentation de l&apos;API Atom, David Murray pour les excellentes bibliothèques &apos;Midas&apos; et Alex Sirota pour la bibliothèque de &quot;glisser-déposer&quot; sur la barre d&apos;état.">
+<!ENTITY performancing.about.version "version 1.3.5">
+<!ENTITY performancing.sidebar.blogs "Blogs">
+<!ENTITY performancing.sidebar.categories "Cat.">
+<!ENTITY performancing.sidebar.history "Historique">
+<!ENTITY performancing.sidebar.pages "Pages">
+<!ENTITY performancing.sidebar.notes "Notes">
+<!ENTITY performancing.sidebar.blogs.tt "Mes blogs">
+<!ENTITY performancing.sidebar.categories.tt "Publier dans ces catégories">
+<!ENTITY performancing.sidebar.history.tt "Derniers billets">
+<!ENTITY performancing.sidebar.pages.tt "Dernières pages">
+<!ENTITY performancing.sidebar.notes.tt "Vos notes enregistrées">
+<!ENTITY performancing.sidebar.loadingbloglist "Chargement de la liste des blogs…">
+<!ENTITY performancing.sidebar.add "Ajouter">
+<!ENTITY performancing.sidebar.addcats "Ajouter la catégorie">
+<!ENTITY performancing.sidebar.accountwizard "Lancer l&apos;assistant de compte">
+<!ENTITY performancing.sidebar.loadingcats "Chargement des catégories…">
+<!ENTITY performancing.sidebar.loadinghist "Chargement de l&apos;historique…">
+<!ENTITY performancing.sidebar.loadingpages "Chargement des pages…">
+<!ENTITY performancing.sidebar.deletepost "Supprimer le billet">
+<!ENTITY performancing.sidebar.deletepage "Supprimer la page">
+<!ENTITY performancing.sidebar.search "Rechercher :">
+<!ENTITY performancing.sidebar.loadingnotes "Chargement des notes…">
+<!ENTITY performancing.sidebar.deletenote "Supprimer la note">
+<!ENTITY performancing.sidebar.publishingoptions "Options de publication">
+<!ENTITY performancing.sidebar.closeextra "Fermer les options supplémentaires">
+<!ENTITY performancing.sidebar.postasdraft "Publier sous forme de brouillon">
+<!ENTITY performancing.sidebar.technoratitags "Identificateurs Technorati :">
+<!ENTITY performancing.sidebar.commaseperated "(séparés par des virgules)">
+<!ENTITY performancing.sidebar.autoaddmsg "Sera ajouté automatiquement">
+<!ENTITY performancing.sidebar.addtagsbutton "Ajouter les identificateurs au billet">
+<!ENTITY performancing.sidebar.bookmarkposts "Publication du billet sur del.icio.us en utilisant les même identificateurs">
+<!ENTITY performancing.sidebar.trackbackurl "URL de rétrolien :">
+<!ENTITY performancing.sidebar.delete "Supprimer">
+<!ENTITY performancing.sidebar.enablepings "Activer les pings">
+<!ENTITY performancing.sidebar.custom "Personnel">
+<!ENTITY key_logout.key "q">
+<!ENTITY key_help.key "VK_F1">
+<!ENTITY key_bold.key "g">
+<!ENTITY key_italic.key "i">
+<!ENTITY key_underline.key "s">
+<!ENTITY key_link.key "l">
+<!ENTITY key_login.key "VK_ENTRÉE">
+<!ENTITY key_spell.key "VK_F7">
+<!ENTITY openCmd.label "Ouvrir">
+<!ENTITY openCmd.accesskey "o">
+<!ENTITY openCmd.key "O">
+<!ENTITY saveCmd.label "Enregistrer">
+<!ENTITY saveCmd.accesskey "E">
+<!ENTITY saveCmd.key "S">
+<!ENTITY saveAsCmd.label "Enregistrer sous">
+<!ENTITY undoCmd.label "Annuler">
+<!ENTITY undoCmd.key "Z">
+<!ENTITY undoCmd.accesskey "u">
+<!ENTITY redoCmd.label "Refaire">
+<!ENTITY redoCmd.key "Y">
+<!ENTITY redoCmd.accesskey "R">
+<!ENTITY cutCmd.label "Couper">
+<!ENTITY cutCmd.key "X">
+<!ENTITY cutCmd.accesskey "e">
+<!ENTITY copyCmd.label "Copier">
+<!ENTITY copyCmd.key "C">
+<!ENTITY copyCmd.accesskey "p">
+<!ENTITY pasteCmd.label "Coller">
+<!ENTITY pasteCmd.key "V">
+<!ENTITY pasteCmd.accesskey "o">
+<!ENTITY pasteNoFormattingCmd.label "Coller sans mise en forme">
+<!ENTITY pasteNoFormattingCmd.accesskey "F">
+<!ENTITY deleteCmd.label "Supprimer">
+<!ENTITY deleteCmd.key "D">
+<!ENTITY deleteCmd.accesskey "S">
+<!ENTITY selectAllCmd.label "Tout sélectionner">
+<!ENTITY selectAllCmd.key "A">
+<!ENTITY selectAllCmd.accesskey "T">
+<!ENTITY printCmd.label "Imprimer">
+<!ENTITY printCmd.key "P">
+<!ENTITY printCmd.accesskey "p">
+<!ENTITY preferencesCmd.label "Préférences…">
+<!ENTITY preferencesCmd.key "E">
+<!ENTITY preferencesCmd.accesskey "r">
+<!ENTITY pff-spellAddToDictionary.label "Ajouter au dictionnaire">
+<!ENTITY pff-spellAddToDictionary.accesskey "d">
+<!ENTITY pff-spellEnable.label "Vérifier l&apos;orthographe dans ce champ">
+<!ENTITY pff-spellEnable.accesskey "V">
+<!ENTITY pff-spellNoSuggestions.label "(Aucune suggestion)">
+<!ENTITY pff-spellDictionaries.label "Langues">
+<!ENTITY pff-spellDictionaries.accesskey "L">
+<!ENTITY pff-spellAddDictionaries.label "Ajouter des dictionnaires…">
+<!ENTITY pff-spellAddDictionaries.accesskey "A">

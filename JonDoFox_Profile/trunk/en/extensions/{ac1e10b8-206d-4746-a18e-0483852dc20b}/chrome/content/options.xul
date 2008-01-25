@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<prefwindow id="temporaryinbox-prefs"
+     title="Temporary Inbox - Options"
+     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ 
+<prefpane id="pane" label="Options">
+  <groupbox>
+  <caption label="Website default language" style="font-weight:bold;" />
+  <preferences>
+    <preference id="language" name="temporaryinbox.language" type="string"/>
+  </preferences>
+  <menulist id="temporaryinbox.language" preference="language">
+    <menupopup>
+        <menuitem value="en" label="en"/>
+        <menuitem value="de" label="de"/>
+        <menuitem value="es" label="es"/>
+        <menuitem value="fr" label="fr"/>
+        <menuitem value="it" label="it"/>
+        <menuitem value="pt" label="pt"/>
+        <menuitem value="hu" label="hu"/>
+        <menuitem value="nl" label="nl"/>
+	<menuitem value="th" label="th"/>
+	<menuitem value="ru" label="ru"/>
+    </menupopup>
+  </menulist>
+  
+  </groupbox>
+
+  <groupbox>
+  <caption label="Context menu" style="font-weight:bold;" />
+  
+  <preferences>
+    <preference id="contextmenu1" name="temporaryinbox.hideContextMenu1" type="bool"/>
+  </preferences>
+ 
+  <hbox align="center">
+    <checkbox preference="contextmenu1" id="contextmenu1" label="Disable 'Insert a temporary email address' in the context menu"/>
+  </hbox>
+
+  <preferences>
+    <preference id="contextmenu2" name="temporaryinbox.hideContextMenu2" type="bool"/>
+  </preferences>
+ 
+  <hbox align="center">
+    <checkbox preference="contextmenu2" id="contextmenu2" label="Disable 'Go to temporaryinbox.com' in the context menu"/>
+  </hbox>
+  </groupbox>
+  
+  <groupbox>
+  <caption label="SSL connection" style="font-weight:bold;" />
+  
+  <preferences>
+    <preference id="sslconnection" name="temporaryinbox.usessl" type="bool"/>
+  </preferences>
+ 
+  <hbox align="center">
+    <checkbox preference="sslconnection" id="sslconnection" label="Enable secure connection to temporaryinbox.com"/>
+  </hbox>
+  </groupbox>  
+</prefpane>
+ 
+</prefwindow>

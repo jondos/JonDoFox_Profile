@@ -1,0 +1,5 @@
+content stanford-safehistory jar:chrome/stanford-safehistory.jar!/content/
+locale stanford-safehistory en-US jar:chrome/stanford-safehistory.jar!/locale/
+overlay chrome://browser/content/browser.xul chrome://stanford-safehistory/content/stanford-safehistory-overlay.xul
+overlay chrome://browser/content/preferences/preferences.xul chrome://stanford-safehistory/content/pref-privacy.xul
+skin	stanford-safehistory	classic/1.0	jar:chrome/stanford-safehistory.jar!/skin/
