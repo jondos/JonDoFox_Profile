@@ -1,7 +1,0 @@
-﻿<!ENTITY lbActivate "Layerblock aktivieren">
-<!ENTITY lbDeactivate "Layerblock deaktivieren">
-<!ENTITY lbDebug "Debug-Modus">
-<!ENTITY lbActive "Werbung wurde blockiert">
-<!ENTITY lbOptions "Layerblock - Einstellungen">
-<!ENTITY lbShowActive "Zeige „&lbActive;“">
-<!ENTITY lbChangesAfterRestart "Änderungen werden erst nach einem Neustart wirksam.">
