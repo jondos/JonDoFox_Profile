@@ -1,7 +1,0 @@
-
-overlay	chrome://browser/content/browser.xul	chrome://copyplaintext/content/overlay.xul
-overlay	chrome://navigator/content/navigatorOverlay.xul	chrome://copyplaintext/content/overlay_moz.xul
-overlay	chrome://navigator/content/navigator.xul	chrome://copyplaintext/content/overlay_moz.xul
-overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://copyplaintext/content/overlay_thunder.xul
-overlay	chrome://messenger/content/messengercompose/messengercompose.xul	chrome://copyplaintext/content/overlay_thunder.xul
-content	copyplaintext	jar:chrome/copyplaintext.jar!/content/

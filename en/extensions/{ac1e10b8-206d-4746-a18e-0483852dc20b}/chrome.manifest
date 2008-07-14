@@ -1,4 +1,0 @@
-overlay	chrome://browser/content/browser.xul	chrome://temporaryinbox/content/temporaryinbox.xul
-content	temporaryinbox	chrome/content/
-locale	temporaryinbox	en-US	chrome/locale/en-US/
-locale	temporaryinbox	de-DE	chrome/locale/de-DE/
