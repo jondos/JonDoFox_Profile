@@ -18,9 +18,9 @@ fileProfile = sFirefoxPath & chr(92) & "profiles.ini"
 sJonDoProfileName = "JonDoFox"
 sJonDoProfileNameSource = "profile"
 
+
 ' Name des JonDoFox
 sJonDoFoxName = "JonDoFox"
-
 
 ' Name des Computers
 
@@ -87,6 +87,8 @@ sLanguage = GetLocale
 	txtCopyError = "Das Kopieren von " & vbCRLF & "[source]" & vbCRLF & " nach " & vbCRLF & "[target]" & vbCRLF & " schlug fehl."
 	
 	txtBackupError = "Backup des bestehenden profils konnte nicht erstellt werden. Installation wird abgebrochen."
+	
+	txtProfilesIniNotLocated = "Die Datei profiles.ini wurde nicht gefunden, die Installation wird abgebrochen."
 
   else
 
@@ -113,6 +115,8 @@ sLanguage = GetLocale
 	txtCopyError = "Copy folder from " & vbCRLF & "[source]" & vbCRLF & " to " & vbCRLF & "[target]" & vbCRLF & " failed."
 
 	txtBackupError = "Could not create backup. Installation will be aborted."
+	
+	txtProfilesIniNotLocated = "profiles.ini not located. Installation will be aborted."
 
   end if
 
@@ -201,50 +205,17 @@ Sub CheckFireFox()
 
 	End if
 
-
-'	if IsNull(sFirefoxFolder) then
-'
-'Nachschauen ob Firefox Profil-Ordner existiert
-'
-'		sFirefoxFolder = InputBox(txtFirefoxStillNotLocated, txtTitel, "C:\Programme\Mozilla Firefox")
-'
-'		if (sFirefoxFolder = "" ) then
-'			MsgBox txtAbort, vbOKOnly, txtTitel
-'			WScript.Quit
-'		End if
-'		
-'	End if
-'
-'		while (objFSO.FolderExists(sFirefoxFolder) = false)
-'
-'
-'			bButton = MsgBox (txtFirefoxNotLocated, vbRetryCancel, txtTitel)
-'
-'			if (bButton = 2) then
-'				MsgBox txtAbort, vbOKOnly, txtTitel
-'				WScript.Quit
-'			else
-'
-'				sFirefoxFolder = InputBox(txtFirefoxStillNotLocated, txtTitel, "C:\Programme\Mozilla Firefox")
-'
-'				if (sFirefoxFolder = "" ) then
-'					MsgBox txtAbort, vbOKOnly, txtTitel
-'					WScript.Quit
-'				End if
-'
-'			End if
-'
-'		Wend
-
 End Sub
 
-
+' ---------------------------------------------------------- '
+' Backup
+' ---------------------------------------------------------- '
 
 Sub BackItUp()
 
 ' Vorhandenes Profil sichern
 		
-	'On Error Resume Next
+	On Error Resume Next
 
 	source = sFirefoxProfilePath & chr(92) & sJonDoProfileName
 
@@ -263,6 +234,15 @@ Sub BackItUp()
 			
 		end if
 		
+		if (objFSO.FolderExists(target) = false) then
+					
+			MsgBox txtBackupError & vbCRLF & err.Description, vbOKOnly, txtTitel
+
+			MsgBox txtAbort, vbOKOnly, txtTitel
+			WScript.Quit
+			
+		end if
+		
 		objFSO.DeleteFolder source
 		objFSO.CreateFolder source
 
@@ -270,42 +250,69 @@ Sub BackItUp()
 
 ' Backup der Bookmarks erstellen
 
-				if (objFSO.FileExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName) = true) then
-					objFSOourceBookmark = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName
-					fTargetBookmark = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName & ".bak"
-					objFSO.CopyFile  objFSOourceBookmark, fTargetBookmark, true 
-				End if
+'				if (objFSO.FileExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName) = true) then
+'					fSourceBookmark = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName
+'					fTargetBookmark = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName & ".bak"
+'					objFSO.CopyFile  fSourceBookmark, fTargetBookmark, true 
+'				End if
 
 ' Backup der places.sqlite erstellen
 
-				if (objFSO.FileExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName) = true) then
-					objFSOourcePlaces = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName
-					fTargetPlaces = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName & ".bak"
-					objFSO.CopyFile  objFSOourcePlaces, fTargetPlaces, true 
-				End if
+'				if (objFSO.FileExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName) = true) then
+'					fSourcePlaces = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName
+'					fTargetPlaces = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName & ".bak"
+'					objFSO.CopyFile  fSourcePlaces, fTargetPlaces, true 
+'				End if
 
 End Sub
 
+' ---------------------------------------------------------- '
+' Restore Bookmarks
+' ---------------------------------------------------------- '
+
 Sub RestoreBookmarks()
 
+On Error Resume Next
 
 		' Bookmarks wiederherstellen
 
-			if (objFSO.FileExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName & ".bak") = true) then
-				objFSOourceBookmark = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName
-				fTargetBookmark = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName & ".bak"
-				objFSO.CopyFile  fTargetBookmark, objFSOourceBookmark, true
+			if (objFSO.FileExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName & "-backup" & chr(92) & sBookmarkFileName) = true) then
+				
+				fSourceBookmark = sFirefoxProfilePath & chr(92) & sJonDoProfileName & "-backup" & chr(92) & sBookmarkFileName
+				
+				fTargetBookmark = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sBookmarkFileName
+				
+				objFSO.CopyFile  fSourceBookmark, fTargetBookmark, true
+				
+				if Err.Number > 0 then
+					MsgBox "Restore Bookmark Error" & vbCRLF & err.Description, vbOKOnly, txtTitel
+					WScript.Quit
+				end if
+				
 			End if
 
 		' places.sqlite wiederherstellen
 
-			if (objFSO.FileExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName & ".bak") = true) then
-				objFSOourcePlaces = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName
-				fTargetPlaces = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName & ".bak"
-				objFSO.CopyFile  fTargetPlaces, objFSOourcePlaces, true 
+			if (objFSO.FileExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName & "-backup" & chr(92) & sPlacesFileName) = true) then
+				
+				fSourcePlaces = sFirefoxProfilePath & chr(92) & sJonDoProfileName & "-backup" & chr(92) & sPlacesFileName
+				
+				fTargetPlaces = sFirefoxProfilePath & chr(92) & sJonDoProfileName & chr(92) & sPlacesFileName
+				
+				objFSO.CopyFile  fSourcePlaces, fTargetPlaces, true 
+				
+				if Err.Number > 0 then
+					MsgBox "Restore Bookmark Error" & vbCRLF & err.Description, vbOKOnly, txtTitel
+					WScript.Quit
+				end if
+				
 			End if
 
 End Sub
+
+' ---------------------------------------------------------- '
+' Restore Backup
+' ---------------------------------------------------------- '
 
 Sub RestoreBackup()
 
@@ -342,6 +349,10 @@ Sub RestoreBackup()
 End Sub
 
 
+' ---------------------------------------------------------- '
+' Install
+' ---------------------------------------------------------- '
+
 Sub InstallProfile
 
 ' Profil kopieren
@@ -350,7 +361,7 @@ On Error Resume Next
 
 objFSO.CopyFolder sourceFolder, targetFolder, true
 
-RestoreBookmarks()
+DateiSystemDurchsuchen(targetFolder) 
 
 if Err.Number > 0 then
 
@@ -366,6 +377,8 @@ if Err.Number > 0 then
 	
 end if
 
+RestoreBookmarks()
+
 End Sub
 
 
@@ -379,10 +392,12 @@ Private Sub DateiSystemDurchsuchen(Pfad)
     If objFSO.FolderExists(Pfad) Then
         ' Then: Falls Ordner übergeben wurde
         Set Ordner = objFSO.GetFolder(Pfad)
-
+		
         ' Papierkorb nicht bearbeiten
         If LCase(Ordner.Name) = "recycled" Then Exit Sub
-
+		
+		Ordner.Attributes = Ordner.Attributes And Not 1
+		
         ' Funktion Bearbeiten() für Ordner aufrufen
         If Not Bearbeiten(Ordner, False) Then Exit Sub
 
@@ -477,9 +492,17 @@ else
 
 	' Prüfen ob Profil schon eingetragen ist
 
+	
+	if (objFSO.FileExists(fileProfile) = true) then
+	
+		Set objTextFile = objFSO.OpenTextFile(fileProfile, ForReading)
+	else
+	
+		MsgBox txtProfilesIniNotLocated, vbOKOnly, txtTitel
+		WScript.Quit
+	
+	end if
 
-
-	Set objTextFile = objFSO.OpenTextFile(fileProfile, ForReading)
 
 
 	Text = ""
@@ -523,26 +546,25 @@ else
 	End if
 
 
-
-
 	if (bButton = 6) then
 
 
 		MsgBox txtWait, vbOKOnly, txtTitel
 
+
+		
 		DateiSystemDurchsuchen (sFirefoxProfilePath)
 
 		' Profilordner erstellen
-			if (objFSO.FolderExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName) = false) then
-			      objFSO.CreateFolder sFirefoxProfilePath & chr(92) & sJonDoProfileName
-			else
-
-				BackItUp()
-
-				InstallProfile()
+		
+		BackItUp()
 				
-			End if
+		if (objFSO.FolderExists(sFirefoxProfilePath & chr(92) & sJonDoProfileName) = false) then
+			objFSO.CreateFolder sFirefoxProfilePath & chr(92) & sJonDoProfileName
+		end if
 
+		InstallProfile()
+				
 
 		' profiles.ini erweitern
 
