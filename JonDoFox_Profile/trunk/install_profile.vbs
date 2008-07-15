@@ -223,7 +223,29 @@ Sub BackItUp()
 
 	if (objFSO.FolderExists(source) = true) then
 
-		objFSO.CopyFolder source, target, true
+		' Pruefen ob Backup-Verzeichnis schon vorhanden, wenn ja loeschen
+		
+		if (objFSO.FolderExists(target) = true) then
+
+			objFSO.DeleteFolder target
+
+			if Err.Number > 0 then
+
+				MsgBox txtBackupError & vbCRLF & err.Description, vbOKOnly, txtTitel
+
+				MsgBox txtAbort, vbOKOnly, txtTitel
+				WScript.Quit
+				
+			end if
+
+		end if
+
+		' Name aendern
+		
+		Set f = objFSO.GetFolder(source)
+		f.Name = sJonDoProfileName & "-backup"
+		
+		'objFSO.CopyFolder source, target, true
 
 		if Err.Number > 0 then
 
@@ -243,7 +265,6 @@ Sub BackItUp()
 			
 		end if
 		
-		objFSO.DeleteFolder source
 		objFSO.CreateFolder source
 
 	End if
