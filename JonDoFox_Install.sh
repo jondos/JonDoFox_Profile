@@ -59,6 +59,11 @@ COPY_OVERWRITE_OPT="--remove-destination"
 ECHO_ESCAPE="-e"
 VERBOSE=""
 
+OVERWRITE_DIALOG_TITLE=""
+DIALOG_TEXT_SAME_VERSION=""
+DIALOG_TEXT_OW_OLDER_VERSION=""
+DIALOG_TEXT_OW_NEWER_VERSION=""
+
 function setVariables()
 {
 	if [ -e /usr/bin/osascript ]; then
@@ -87,7 +92,13 @@ function setVariables()
 	
 	JONDOFOX_PROFILE_ENTRY="[General]\nStartWithLastProfile=0\n\n[Profile0]\nName=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"    	
 
+	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
+	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
+	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
+	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
+
 	if [ "${VERBOSE}" ]; then
+		echo "Firefox settings path: ${FIREFOX_SETTINGS_PATH}"
 		echo "Install source: ${INSTALL_PROFILE}"
 		echo "Destination: ${DEST_PROFILE}"
 		echo "profiles.ini: ${PROFILES_INI_FILE}"
@@ -205,7 +216,7 @@ function copyProfileFolder()
 		return 1
 	fi
 	
-	cp -r ${COPY_OVERWRITE_OPT} ${INSTALL_PROFILE} ${DEST_PROFILE}
+	cp -r ${COPY_OVERWRITE_OPT} ${INSTALL_PROFILE} "${FIREFOX_SETTINGS_PATH}/${FIREFOX_PROFILES_FOLDER}"
 	
 	if [ $? -ne 0 ]; then
 		echo "Copying of profile folder failed"
@@ -213,6 +224,7 @@ function copyProfileFolder()
 		restoreBookmarks
 		return 1
 	fi
+	chmod -fR 755 ${DEST_PROFILE}
 	restoreBookmarks
 	return 0
 }
@@ -226,55 +238,87 @@ function isJonDoFoxInstalled()
 	fi
 }
 
+function getVersion()
+{
+	local versionStr="";
+	if [ -e $1 ]; then
+		
+		versionStr=$(grep JonDoFox.*Version $1)
+		versionStr=${versionStr##*-}
+		versionStr=${versionStr%\");} #"
+	fi
+	echo ${versionStr}
+}
+
 function getInstalledVersion()
 {
-	INSTALLED_JONDOFOX_VERSION=""
-	if [ -e ${INSTALLED_PREFS} ]; then
-		INSTALLED_JONDOFOX_VERSION=$(grep JonDoFox.*Version ${INSTALLED_PREFS})
-		INSTALLED_JONDOFOX_VERSION=${INSTALLED_JONDOFOX_VERSION##*-}
-		INSTALLED_JONDOFOX_VERSION=${INSTALLED_JONDOFOX_VERSION%\");}
-	fi	
-	echo ${INSTALLED_JONDOFOX_VERSION}
+	getVersion ${INSTALLED_PREFS} 
 }
 
 function getNewVersion()
 {
-	NEW_JONDOFOX_VERSION
-	if [ -e ${NEW_PREFS} ]; then
-		NEW_JONDOFOX_VERSION=$(grep JonDoFox.*Version ${NEW_PREFS})
-		NEW_JONDOFOX_VERSION=${NEW_JONDOFOX_VERSION##*-}
-		NEW_JONDOFOX_VERSION=${NEW_JONDOFOX_VERSION%\");}
+	getVersion ${NEW_PREFS}	
+}
+
+function cmpVersions()
+{
+	if [ $(expr "$1" \> "$2") = "1" ]; then
+		return 1
+	elif [ $(expr "$1" \< "$2") = "1" ]; then
+		return 2
+	else
+		return 0
 	fi
-	return ${NEW_JONDOFOX_VERSION}	
 }
 
 ## the main installation routine
 
-VERBOSE="VERBOSE"
+
+while [ "$1" ]; 
+do
+	case $1 in
+		-v) VERBOSE="VERBOSE";;
+		*) ;;
+	esac
+	shift
+done
+
 setVariables
+isJonDoFoxInstalled
 
-#isJonDoFoxInstalled
+if [ $? -eq 0 ]; then
+	editProfilesIni
+	if [ $? -ne 0 ]; then
+		echo "Could not edit profiles.ini: Restoring old settings and abort installation!"
+		restoreOldSettings
+		exit 1
+	fi
+else
+	cmpVersions $(getInstalledVersion) $(getNewVersion)
+	case $? in
+		0) OVERWRITE_DIALOG_TEXT=${DIALOG_TEXT_SAME_VERSION};;
+		1) OVERWRITE_DIALOG_TEXT=${DIALOG_TEXT_OW_NEWER_VERSION};;
+		2) OVERWRITE_DIALOG_TEXT=${DIALOG_TEXT_OW_OLDER_VERSION};;
+	esac
+	
+	dialog --clear --title "${OVERWRITE_DIALOG_TITLE}" --yesno  "${OVERWRITE_DIALOG_TEXT}" 9 50
+	if [ $? -ne 0 ]; then
+		clear
+		echo "Installation aborted"
+		exit 1
+	fi
+	clear
+	##TODO: Ask if user wants to continue
+	##if yes: save bookmarks
+	echo "saving bookmarks."
+	saveInstalledBookmarks
+fi
 
-#if [ $? -eq 0 ]; then
-#	editProfilesIni
-#	if [ $? -ne 0 ]; then
-#		echo "Could not edit profiles.ini: Restoring old settings and abort installation!"
-#		restoreOldSettings
-#		exit 1
-#	fi
-#else
-#	echo "JonDoFox $(getInstalledVersion) already installed"
-#	##TODO: Ask if user wants to continue
-#	##if yes: save bookmarks
-#	echo "saving bookmarks."
-#	saveInstalledBookmarks
-#fi
-#
-#echo "installing profile"
-#copyProfileFolder
-#if [ $? -ne 0 ]; then
-#	echo "JonDoFox could not be installed"
-#	exit 1
-#fi
-#echo "JonDoFox successfully installed"
-#exit 0
+echo "installing profile"
+copyProfileFolder
+if [ $? -ne 0 ]; then
+	echo "JonDoFox could not be installed"
+	exit 1
+fi
+echo "JonDoFox successfully installed"
+exit 0
