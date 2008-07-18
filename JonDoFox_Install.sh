@@ -32,13 +32,15 @@
 ##   2008 by Simon Pecher, JonDos GmbH 
 ##
 
-#global variables
+#global variables (Linux default values)
+FIREFOX_PROFILES_FOLDER=""
 JONDOFOX_PROFILE_NAME="profile" #name of the JondoFox profile folder (within firefox_profile_path)
-FIREFOX_SETTINGS_PATH="${HOME}/.mozilla/firefox"  #firefox profile folder's path
+FIREFOX_SETTINGS_PATH="${HOME}/.mozilla/firefox"  #firefox profile folder's path (defaults to Linux)
 
 INSTALL_SOURCE_DIR="."
-INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${JONDOFOX_PROFILE_NAME}"
-DEST_PROFILE="${FIREFOX_SETTINGS_PATH}/${JONDOFOX_PROFILE_NAME}"
+INSTALL_BUNDLE_RESOURCES=""
+INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${INSTALL_BUNDLE_RESOURCES}/${JONDOFOX_PROFILE_NAME}"
+DEST_PROFILE="${FIREFOX_SETTINGS_PATH}/${FIREFOX_PROFILES_FOLDER}/${JONDOFOX_PROFILE_NAME}"
 
 PROFILES_INI_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini" #name of the profiles config file
 PROFILES_INI_BACKUP_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini.bak" #name for the file profiles.ini backup file
@@ -47,21 +49,61 @@ PREFS_FILE_NAME="prefs.js"
 INSTALLED_PREFS="${FIREFOX_SETTINGS_PATH}/${JONDOFOX_PROFILE_NAME}/${PREFS_FILE_NAME}"
 NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"
 
-NEW_JONDOFOX_VERSION=""
-INSTALLED_JONDOFOX_VERSION=""
-
 BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
 BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
 SAVED_BOOKMARKS=""
 
-JONDOFOX_PROFILE_ENTRY="[General]\nStartWithLastProfile=0\n\n[Profile0]\nName=JonDoFox\nIsRelative=1\nPath=${JONDOFOX_PROFILE_NAME}\nDefault=1"
+JONDOFOX_PROFILE_ENTRY="[General]\nStartWithLastProfile=0\n\n[Profile0]\nName=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"
 
 COPY_OVERWRITE_OPT="--remove-destination"
+ECHO_ESCAPE="-e"
+VERBOSE=""
 
+function setVariables()
+{
+	if [ -e /usr/bin/osascript ]; then
+		FIREFOX_PROFILES_FOLDER="Profiles/"
+		FIREFOX_SETTINGS_PATH="${HOME}/Library/Application\ Support/Firefox"
+		INSTALL_BUNDLE_RESOURCES="JonDoFox_Install.app/Contents/Resources/"
+		ECHO_ESCAPE=""
+	else
+		FIREFOX_PROFILES_FOLDER=""
+		FIREFOX_SETTINGS_PATH="${HOME}/.mozilla/firefox"
+		INSTALL_BUNDLE_RESOURCES=""
+		ECHO_ESCAPE="-e"
+	fi
+    
+	INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${INSTALL_BUNDLE_RESOURCES}${JONDOFOX_PROFILE_NAME}"
+	DEST_PROFILE="${FIREFOX_SETTINGS_PATH}/${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}"
+	
+	PROFILES_INI_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini"
+	PROFILES_INI_BACKUP_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini.bak"	
+
+	INSTALLED_PREFS="${DEST_PROFILE}/${PREFS_FILE_NAME}"
+	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
+	
+	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
+	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
+	
+	JONDOFOX_PROFILE_ENTRY="[General]\nStartWithLastProfile=0\n\n[Profile0]\nName=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"    	
+
+	if [ "${VERBOSE}" ]; then
+		echo "Install source: ${INSTALL_PROFILE}"
+		echo "Destination: ${DEST_PROFILE}"
+		echo "profiles.ini: ${PROFILES_INI_FILE}"
+		echo "profiles.ini.bak: ${PROFILES_INI_BACKUP_FILE}"
+		echo "Installed preferences: ${INSTALLED_PREFS}"
+		echo "New preferences: ${NEW_PREFS}"
+		echo "FF3 bookmarks: ${BOOKMARKS_FF3}"
+		echo "FF2 bookmarks: ${BOOKMARKS_FF2}"
+		echo ${ECHO_ESCAPE} "Profile Entry:\n${JONDOFOX_PROFILE_ENTRY}"
+	fi
+}
+    
 function profilesIniModifications()
 {
 	local i=1
-	echo -e ${JONDOFOX_PROFILE_ENTRY}
+	echo ${ECHO_ESCAPE} ${JONDOFOX_PROFILE_ENTRY}
 	while [ ${i} -le $1 ];
 	do
 		modFilter $(head -n ${i} ${PROFILES_INI_BACKUP_FILE} | tail -n 1)
@@ -163,7 +205,7 @@ function copyProfileFolder()
 		return 1
 	fi
 	
-	cp -r ${COPY_OVERWRITE_OPT} ${INSTALL_PROFILE} "${FIREFOX_SETTINGS_PATH}/${JONDOFOX_PROFILE_NAME}"
+	cp -r ${COPY_OVERWRITE_OPT} ${INSTALL_PROFILE} ${DEST_PROFILE}
 	
 	if [ $? -ne 0 ]; then
 		echo "Copying of profile folder failed"
@@ -208,28 +250,31 @@ function getNewVersion()
 
 ## the main installation routine
 
-isJonDoFoxInstalled
+VERBOSE="VERBOSE"
+setVariables
 
-if [ $? -eq 0 ]; then
-	editProfilesIni
-	if [ $? -ne 0 ]; then
-		echo "Could not edit profiles.ini: Restoring old settings and abort installation!"
-		restoreOldSettings
-		exit 1
-	fi
-else
-	echo "JonDoFox $(getInstalledVersion) already installed"
-	##TODO: Ask if user wants to continue
-	##if yes: save bookmarks
-	echo "saving bookmarks."
-	saveInstalledBookmarks
-fi
+#isJonDoFoxInstalled
 
-echo "installing profile"
-copyProfileFolder
-if [ $? -ne 0 ]; then
-	echo "JonDoFox could not be installed"
-	exit 1
-fi
-echo "JonDoFox successfully installed"
-exit 0
+#if [ $? -eq 0 ]; then
+#	editProfilesIni
+#	if [ $? -ne 0 ]; then
+#		echo "Could not edit profiles.ini: Restoring old settings and abort installation!"
+#		restoreOldSettings
+#		exit 1
+#	fi
+#else
+#	echo "JonDoFox $(getInstalledVersion) already installed"
+#	##TODO: Ask if user wants to continue
+#	##if yes: save bookmarks
+#	echo "saving bookmarks."
+#	saveInstalledBookmarks
+#fi
+#
+#echo "installing profile"
+#copyProfileFolder
+#if [ $? -ne 0 ]; then
+#	echo "JonDoFox could not be installed"
+#	exit 1
+#fi
+#echo "JonDoFox successfully installed"
+#exit 0
