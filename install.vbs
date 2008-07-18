@@ -68,7 +68,7 @@ sLanguage = GetLocale
 	txtTitel	 	= "Installation des " & sJonDoFoxName & "-Profils"
 
 	txtShouldInstall 	= "Soll das " & sJonDoFoxName & "-Profil installiert werden?"
-	txtShouldOverwrite	= "Profil wurde bereits installiert, soll es überschrieben werden?"
+	txtShouldOverwrite	= "Profil wurde bereits installiert, soll es überschrieben werden? Ihre Bookmarks bleiben dabei erhalten."
 
 	txtAbort	 	= "Die Installation wurde abgebrochen"
 	txtWait			= "Das Profil wird nun importiert" & vbCRLF & "Bitte warten Sie einen Moment, bis der Vorgang abgeschlossen ist." & vbCRLF & "Das Ende des Kopiervorgangs wird Ihnen durch eine weitere Meldung angezeigt."
@@ -86,7 +86,7 @@ sLanguage = GetLocale
 	
 	txtCopyError = "Das Kopieren von " & vbCRLF & "[source]" & vbCRLF & " nach " & vbCRLF & "[target]" & vbCRLF & " schlug fehl."
 	
-	txtBackupError = "Backup des bestehenden profils konnte nicht erstellt werden. Installation wird abgebrochen."
+	txtBackupError = "Backup des bestehenden Profils konnte nicht erstellt werden. Installation wird abgebrochen." & vbCRLF & "Prüfen Sie bitte, ob der Backup-Ordner im Explorer geöffnet ist und schließen Sie ihn."
 	
 	txtProfilesIniNotLocated = "Die Datei profiles.ini wurde nicht gefunden, die Installation wird abgebrochen."
 
@@ -96,7 +96,7 @@ sLanguage = GetLocale
 	txtTitel	 	= sJonDoFoxName & " profile installation"
 
 	txtShouldInstall 	= "Should the " & sJonDoFoxName & " profile installation start?"
-	txtShouldOverwrite	= "The JonDoFox profile is already installed, should it be overwritten?"
+	txtShouldOverwrite	= "The JonDoFox profile is already installed, should it be overwritten? You bookmarks are thereby preserved."
 
 	txtAbort	 	= "The installation has been aborted"
 	txtWait			= "Now, the profile will be imported" & vbCRLF & "Please wait a moment for the process to complete." & vbCRLF & "A follow-up message will inform you about the end of the copy process."
@@ -114,9 +114,9 @@ sLanguage = GetLocale
 
 	txtCopyError = "Copy folder from " & vbCRLF & "[source]" & vbCRLF & " to " & vbCRLF & "[target]" & vbCRLF & " failed."
 
-	txtBackupError = "Could not create backup. Installation will be aborted."
+	txtBackupError = "Could not create backup of old profile. Installation aborted." & vbCRLF & "Please check if the existing backup folder is opened in the Windows Explorer and close it."
 	
-	txtProfilesIniNotLocated = "profiles.ini not located. Installation will be aborted."
+	txtProfilesIniNotLocated = "profiles.ini not located. Installation aborted."
 
   end if
 
@@ -228,7 +228,7 @@ Sub BackItUp()
 		if (objFSO.FolderExists(target) = true) then
 
 			objFSO.DeleteFolder target
-
+			
 			if Err.Number > 0 then
 
 				MsgBox txtBackupError & vbCRLF & err.Description, vbOKOnly, txtTitel
@@ -239,6 +239,7 @@ Sub BackItUp()
 			end if
 
 		end if
+
 
 		' Name aendern
 		
@@ -408,6 +409,9 @@ End Sub
 ' ---------------------------------------------------------- '
 
 Private Sub DateiSystemDurchsuchen(Pfad)
+
+On Error Resume Next
+
     Dim Ordner, UnterOrdner, Datei
 
     If objFSO.FolderExists(Pfad) Then
@@ -442,6 +446,9 @@ End Sub
 
 ' Hier wird festgelegt, wie Dateien bearbeitet werden sollen.
 Private Function Bearbeiten(Datei, IstDatei)
+
+On Error Resume Next
+
     ' Schreibschutz-Attribut einer/s Datei/Ordners löschen
     Datei.Attributes = Datei.Attributes And Not 1
     Anzahl = Anzahl + 1
@@ -454,22 +461,6 @@ End Function
 
 CheckFireFox()
 
-
-' Profil da?
-
-if (objFSO.FolderExists("." & chr(92) & sJonDoProfileNameSource & chr(92)) = true) then
-
-	sourceFolder = objFSO.GetFolder("." & chr(92) & sJonDoProfileNameSource & chr(92))
-	DateiSystemDurchsuchen (sourceFolder)
-
-else
-
-	MsgBox txtProfileFolderNotLocated, vbOKOnly, txtTitel
-	WScript.Quit	
-
-end if
-
-
 if (bFirefoxPossibleInstalled = true) then
 
 	bButton = MsgBox (txtFirefoxNotButProfileLocated, vbYesNo, txtTitel)
@@ -481,12 +472,25 @@ else
 End if
 
 
-
 if (bButton = 7) then
 
 	MsgBox txtAbort, vbOKOnly, txtTitel
 
 else
+
+	' Profil da?
+
+	if (objFSO.FolderExists("." & chr(92) & sJonDoProfileNameSource & chr(92)) = true) then
+
+		sourceFolder = objFSO.GetFolder("." & chr(92) & sJonDoProfileNameSource & chr(92))
+		'DateiSystemDurchsuchen (sourceFolder)
+
+	else
+
+		MsgBox txtProfileFolderNotLocated, vbOKOnly, txtTitel
+		WScript.Quit	
+
+	end if
 
 	'Warnung Firefox schließen
 	bFFRun = true
@@ -572,8 +576,6 @@ else
 
 		MsgBox txtWait, vbOKOnly, txtTitel
 
-
-		
 		DateiSystemDurchsuchen (sFirefoxProfilePath)
 
 		' Profilordner erstellen
