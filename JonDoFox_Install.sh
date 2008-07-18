@@ -37,7 +37,7 @@ FIREFOX_PROFILES_FOLDER=""
 JONDOFOX_PROFILE_NAME="profile" #name of the JondoFox profile folder (within firefox_profile_path)
 FIREFOX_SETTINGS_PATH=""  #firefox profile folder's path (defaults to Linux)
 
-INSTALL_SOURCE_DIR=""	#the parent path of the installation source folder
+INSTALL_SOURCE_DIR="."	#the parent path of the installation source folder
 INSTALL_BUNDLE_RESOURCES=""	#Resource folder of the installation bundle (Mac OS X)
 INSTALL_PROFILE=""	#the path of the profile folder that shall be installed
 DEST_PROFILE=""	#where to install the profile
@@ -330,17 +330,15 @@ else
 		exit 1
 	fi
 	clear
-	echo -n "saving bookmarks."
+	echo "saving bookmarks."
 	saveInstalledBookmarks
-	echo ".......finished"
 fi
 
-echo -n "installing profile."
+echo "installing profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
 	echo "JonDoFox could not be installed"
 	exit 1
 fi
-echo ".......finished"
 echo "JonDoFox successfully installed!"
 exit 0
