@@ -39,15 +39,18 @@ FIREFOX_SETTINGS_PATH=""  #firefox profile folder's path (defaults to Linux)
 
 INSTALL_SOURCE_DIR="."	#the parent path of the installation source folder
 INSTALL_BUNDLE_RESOURCES=""	#Resource folder of the installation bundle (Mac OS X)
-INSTALL_PROFILE=""	#the path of the profile folder that shall be installed
+
+#the path of the profile folder that shall be installed
+INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${INSTALL_BUNDLE_RESOURCES}${JONDOFOX_PROFILE_NAME}"
 DEST_PROFILE=""	#where to install the profile
 
 PROFILES_INI_FILE="" #name of the profiles config file
 PROFILES_INI_BACKUP_FILE="" #name for the file profiles.ini backup file
 
 PREFS_FILE_NAME="prefs.js"	#name of the firefox prefernces file
+NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"
 INSTALLED_PREFS=""	#path to the prerference file of the local Firefox installation
-NEW_PREFS=""	#the prefernces file of the profile that shall be installed
+	#the prefernces file of the profile that shall be installed
 
 BOOKMARKS_FF3="" #Firefox3 bookmarks file
 BOOKMARKS_FF2="" #Firefox2 bookmarks file
@@ -65,13 +68,18 @@ DIALOG_TEXT_SAME_VERSION=""
 DIALOG_TEXT_OW_OLDER_VERSION=""
 DIALOG_TEXT_OW_NEWER_VERSION=""
 
+
+
 ## assign OS specific values for the global variables
 function setVariables()
 {
+	
 	if [ -e /usr/bin/osascript ]; then
 		#Mac OS X specific settings
 		FIREFOX_PROFILES_FOLDER="Profiles/"
-		FIREFOX_SETTINGS_PATH="${HOME}/Library/Application Support/Firefox"
+		if ! [ "${FIREFOX_SETTINGS_PATH}" ]; then
+			FIREFOX_SETTINGS_PATH="${HOME}/Library/Application Support/Firefox"
+		fi
 		#INSTALL_BUNDLE_RESOURCES="JonDoFox_Install.app/Contents/Resources/"
 		INSTALL_BUNDLE_RESOURCES=""
 		ECHO_ESCAPE=""
@@ -80,25 +88,31 @@ function setVariables()
 	else
 		#Linux specific settings
 		FIREFOX_PROFILES_FOLDER=""
-		FIREFOX_SETTINGS_PATH="${HOME}/.mozilla/firefox"
+		if ! [ "${FIREFOX_SETTINGS_PATH}" ]; then
+			FIREFOX_SETTINGS_PATH="${HOME}/.mozilla/firefox"
+		fi
 		INSTALL_BUNDLE_RESOURCES=""
 		ECHO_ESCAPE="-e"
 		COPY_OVERWRITE_OPT="--remove-destination"
 		COPY_RECURSIVE_OPT="-r"
 	fi
-    
+	
 	INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${INSTALL_BUNDLE_RESOURCES}${JONDOFOX_PROFILE_NAME}"
-	DEST_PROFILE="${FIREFOX_SETTINGS_PATH}/${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}"
+	DEST_PROFILE="${FIREFOX_SETTINGS_PATH}/${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}"	
 	
 	PROFILES_INI_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini"
 	PROFILES_INI_BACKUP_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini.bak"	
-
-	INSTALLED_PREFS="${DEST_PROFILE}/${PREFS_FILE_NAME}"
-	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
 	
+	PROFILES_INI_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini"
+	PROFILES_INI_BACKUP_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini.bak"		
+
+	
+	INSTALLED_PREFS="${DEST_PROFILE}/${PREFS_FILE_NAME}"
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
 	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
-	
+
+	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
+		
 	JONDOFOX_PROFILE_ENTRY="[General]\nStartWithLastProfile=0\n\n[Profile0]\nName=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"    	
 
 	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
@@ -107,16 +121,9 @@ function setVariables()
 	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
 
 	if [ "${VERBOSE}" ]; then
+		echo "Installing JonDoFox $(getInstalledVersion) with these settings"
 		echo "Firefox settings path: ${FIREFOX_SETTINGS_PATH}"
-		echo "Install source: ${INSTALL_PROFILE}"
-		echo "Destination: ${DEST_PROFILE}"
-		echo "profiles.ini: ${PROFILES_INI_FILE}"
-		echo "profiles.ini.bak: ${PROFILES_INI_BACKUP_FILE}"
-		echo "Installed preferences: ${INSTALLED_PREFS}"
-		echo "New preferences: ${NEW_PREFS}"
-		echo "FF3 bookmarks: ${BOOKMARKS_FF3}"
-		echo "FF2 bookmarks: ${BOOKMARKS_FF2}"
-		echo ${ECHO_ESCAPE} "Profile Entry:\n${JONDOFOX_PROFILE_ENTRY}"
+		echo "Install Destination: ${DEST_PROFILE}"
 	fi
 }
 
@@ -247,7 +254,7 @@ function copyProfileFolder()
 
 function isFirefoxRunning()
 {
-	if [ "$(ps aux | fgrep -i firefox | fgrep -v grep)" ]; then
+	if [ "$(ps -A | fgrep -i firefox)" ]; then
 		return 1
 	fi
 	return 0
@@ -325,15 +332,31 @@ function promptOverwrite()
 ##################### the main installation routine ############################
 
 ## handle command line options
-while [ "$1" ]; 
+
+OPTSTR="f:vh"	
+getopts "${OPTSTR}" CMD_OPT
+while [ $? -eq 0 ]; 
 do
-	case $1 in
-		-v) VERBOSE="-v";;
+	case ${CMD_OPT} in
+		v) VERBOSE="-v";;
+		f) FIREFOX_SETTINGS_PATH="${OPTARG}";;
+		h) 
+			echo "JonDoFox $(getNewVersion) Installation for Linux (2008 JonDos GmbH)"
+			echo "usage: ./install_linux [options]"
+			echo "possible options are:"
+			echo "-v prints verbose about the installation progress."
+			echo "-f <path to firefox settings> Manually set the path to where the profile shall be installed."
+			echo "   (Must be the same one where the profiles.ini can be found)."
+			echo "-h prints this help text." 
+			echo ""
+			exit 0
+			;;
 		*) ;;
 	esac
-	shift
+	getopts "${OPTSTR}" CMD_OPT
 done
 
+## set the other global variables depending on the platform or command line options
 setVariables
 
 isFirefoxRunning
