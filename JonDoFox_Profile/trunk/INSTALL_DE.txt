@@ -9,13 +9,13 @@ https://www.jondos.de/de/downloads/JonDoFox_OS_X.dmg
 
 
 1. Installation unter Windows:
-------------------------
+------------------------------
 
 Doppelklicken Sie auf die Datei "install_win.vbs" und folgen Sie den Anweisungen.
 
 
 2. Installation unter Linux:
-------------------------
+----------------------------
 
 2.1 Oeffnen Sie ein Terminal-Fenster und wechseln Sie in das Verzeichnins, in dem die
 Datei "install_linux.sh" liegt. (Das Verzeichnis, das Sie soeben entpackt haben):

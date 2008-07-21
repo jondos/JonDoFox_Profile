@@ -15,7 +15,7 @@ Doubleclick on the file "install_win.vbs" and follow the instructions.
 
 
 2. Linux installation:
--------------------------
+----------------------
 
 2.1 Open a terminal and change to the path that contains the file "install_linux.sh"
 (the folder which you unpacked).
