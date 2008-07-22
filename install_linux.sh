@@ -222,6 +222,11 @@ function editProfilesIni()
 	profilesIniModifications ${lastLineNr} > "${PROFILES_INI_FILE}"
 }
 
+removeOldProfileFolder()
+{
+	rm -rf ${VERBOSE} "${DEST_PROFILE}"
+}
+
 ##copies the JonDoFox profile to the corresponding firefox folder 
 function copyProfileFolder()
 {
@@ -245,7 +250,7 @@ function copyProfileFolder()
 		restoreBookmarks
 		return 1
 	fi
-	chmod -fR 755 "${DEST_PROFILE}"
+	chmod -fR 755 "${DEST_PROFILE}" >& /dev/null
 	restoreBookmarks
 	return 0
 }
@@ -381,6 +386,7 @@ else
 	fi
 	echo "saving bookmarks."
 	saveInstalledBookmarks
+	removeOldProfileFolder
 fi
 
 echo "installing profile."
