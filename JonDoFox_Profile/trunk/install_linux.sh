@@ -29,7 +29,7 @@
 ## SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ##    
 ##   JonDoFox profile bash installation script
-##   2008 by Simon Pecher, JonDos GmbH 
+##   2008 by Simon Pecher, JonDos GmbH (simon.pecher@jondos.de) 
 ##
 
 #global variables - will obtain OS specific values when setVariables is called
@@ -69,11 +69,9 @@ DIALOG_TEXT_OW_OLDER_VERSION=""
 DIALOG_TEXT_OW_NEWER_VERSION=""
 
 
-
 ## assign OS specific values for the global variables
 function setVariables()
-{
-	
+{	
 	if [ -e /usr/bin/osascript ]; then
 		#Mac OS X specific settings
 		FIREFOX_PROFILES_FOLDER="Profiles/"
@@ -121,7 +119,7 @@ function setVariables()
 	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
 
 	if [ "${VERBOSE}" ]; then
-		echo "Installing JonDoFox $(getInstalledVersion) with these settings"
+		echo "Installing JonDoFox $(getInstalledVersion) with these settings:"
 		echo "Firefox settings path: ${FIREFOX_SETTINGS_PATH}"
 		echo "Install Destination: ${DEST_PROFILE}"
 	fi
@@ -254,7 +252,7 @@ function copyProfileFolder()
 
 function isFirefoxRunning()
 {
-	if [ "$(ps -A | fgrep -i firefox)" ]; then
+	if [ "$(ps aux | fgrep -i firefox | fgrep -v grep | fgrep -v install_linux)" ]; then
 		return 1
 	fi
 	return 0
@@ -341,7 +339,7 @@ do
 		v) VERBOSE="-v";;
 		f) FIREFOX_SETTINGS_PATH="${OPTARG}";;
 		h) 
-			echo "JonDoFox $(getNewVersion) Installation for Linux (2008 JonDos GmbH)"
+			echo "JonDoFox $(getNewVersion) Installation for Linux (2008 Copyright (c) JonDos GmbH)"
 			echo "usage: ./install_linux [options]"
 			echo "possible options are:"
 			echo "-v prints verbose about the installation progress."
