@@ -46,7 +46,7 @@ global saved_bookmarks --where the old bookmarsk are saved
 on run
 	set err to 0
 	-- initialize global variables	
-	set install_bundle_name to "JonDoFox_Install.app"
+	set install_bundle_name to "Install_OSX.app"
 	set jondoprofile_foldername to "profile"
 	set profile_ini_backup_name to "profiles.ini.bak"
 	set profile_version_prefix to "local_install.titleTemplate"
@@ -73,6 +73,15 @@ on run
 	-- main handler: first edit the profiles.ini ... 
 	if (err = 0) then
 		-- if Firefox is running during the installation it may fail, so quit Firefox.
+		tell application "System Events"
+			if the process "Firefox" exists then
+				display dialog "Your Firefox is still running. If you continue Firefox will be closed. Otherwise JonDoFox installation may fail" buttons {"Continue", "Abort"}
+				if (button returned of result = "Abort") then
+					return 2
+				end if
+				tell application "Firefox" to quit
+			end if
+		end tell
 		tell application "Firefox" to quit
 		set err to edit_profiles_ini()
 	end if
@@ -259,7 +268,7 @@ on get_version(prefs_js_file)
 	set magic_off to 51
 	set version_string_end to 2
 	tell application "Finder"
-		display dialog prefs_js_file buttons {"OK"}
+		
 		if (the file prefs_js_file exists) then
 			
 			set prefs_js_fdr to open for access file (prefs_js_file)
@@ -278,14 +287,12 @@ on get_version(prefs_js_file)
 			set version_offset to (the offset of the profile_version_prefix in buf)
 			if (the version_offset is not 0) then
 				set version_str to text (version_offset + magic_off) thru (version_offset + magic_off + version_string_end) of buf
-				--display dialog (version_str as string) buttons {"OK"}
 			else
 				-- ignore or error ?
 				return "???"
 			end if
 			return version_str
 		else
-			--display dialog "Error!" buttons {"OK"}
 			return "???"
 		end if
 	end tell
