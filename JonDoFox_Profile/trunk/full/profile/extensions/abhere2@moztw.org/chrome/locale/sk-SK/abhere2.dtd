@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Nastavenia Add Bookmark Here ²">
+<!ENTITY group.pos "Pozícia ponuky">
+<!ENTITY group.bmm "Ponuka Záložky">
+<!ENTITY group.bmc "Kontextová ponuka">
+<!ENTITY group.misc "Rôzne">
+<!ENTITY pos.abhere "Pozícia položky [$abhere$]:">
+<!ENTITY pos.optabs "Pozícia položky [$optabs$]:">
+<!ENTITY pos.top "Hore">
+<!ENTITY pos.bottom "Dole">
+<!ENTITY pos.hidden "Skrytá">
+<!ENTITY bmm.abhere "Zobraziť položku [$abhere$]">
+<!ENTITY bmm.bmpage "Skryť pôvodnú položku [&bookmarkThisPageCmd.label;]">
+<!ENTITY bmm.bmtabs "Skryť položku [&bookmarkAllCmd.label;]">
+<!ENTITY folderDrag "Povoliť presunúť priečinok Záložky">
+<!ENTITY insertTop "Novú záložku umiestniť navrch ponuky">

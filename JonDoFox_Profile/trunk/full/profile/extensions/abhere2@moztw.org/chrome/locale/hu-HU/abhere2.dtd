@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Add Bookmark Here ² - beállítások">
+<!ENTITY group.pos "Könyvjelzők legördülő menü">
+<!ENTITY group.bmm "Könyvjelzők menü">
+<!ENTITY group.bmc "Könyvjelzők helyi menü">
+<!ENTITY group.misc "Vegyes">
+<!ENTITY pos.abhere "[$abhere$] pozíció:">
+<!ENTITY pos.optabs "[$optabs$] pozíció:">
+<!ENTITY pos.top "Felső">
+<!ENTITY pos.bottom "Alsó">
+<!ENTITY pos.hidden "Rejtett">
+<!ENTITY bmm.abhere "[$abhere$] megjelenítése">
+<!ENTITY bmm.bmpage "[&bookmarkThisPageCmd.label;] elrejtése">
+<!ENTITY bmm.bmtabs "[&bookmarkAllCmd.label;] elrejtése">
+<!ENTITY folderDrag "Könyvjelzők mappa áthelyezésének engedélyezése">
+<!ENTITY insertTop "Új könyvjelző hozzáadása a menü tetejére">

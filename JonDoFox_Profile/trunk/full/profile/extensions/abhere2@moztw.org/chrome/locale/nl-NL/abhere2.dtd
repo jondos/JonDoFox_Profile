@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Add Bookmarks Here ² - Opties">
+<!ENTITY group.pos "Positie menuitem">
+<!ENTITY group.bmm "Bladwijzermenu">
+<!ENTITY group.bmc "Bladwijzer contextmenu">
+<!ENTITY group.misc "Diversen">
+<!ENTITY pos.abhere "Positie menuitem &quot;$abhere$&quot;:">
+<!ENTITY pos.optabs "Positie menuitem &quot;$optabs$&quot;:">
+<!ENTITY pos.top "Bovenaan">
+<!ENTITY pos.bottom "Onderaan">
+<!ENTITY pos.hidden "Verborgen">
+<!ENTITY bmm.abhere "Menuitem &quot;$abhere$&quot; weergeven">
+<!ENTITY bmm.bmpage "Menuitem &quot;&bookmarkThisPageCmd.label;&quot; verbergen">
+<!ENTITY bmm.bmtabs "Menuitem &quot;&bookmarkAllCmd.label;&quot; verbergen">
+<!ENTITY folderDrag "Slepen van Bladwijzermappen toestaan">
+<!ENTITY insertTop "Bladwijzer bovenaan het menu toevoegen">

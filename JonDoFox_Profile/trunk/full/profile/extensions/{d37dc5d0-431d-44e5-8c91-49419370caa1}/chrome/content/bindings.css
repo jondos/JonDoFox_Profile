@@ -1,0 +1,11 @@
+/*
+FoxClocks extension for Mozilla Firefox/Thunderbird/Sunbird
+Copyright (C) 2005-2008 Andy McDonald / www.stemhaus.com
+For licensing terms, please refer to readme.txt in this extension's '.xpi'
+package or its installation directory on your computer.
+*/
+
+foxclocks-clockpanel
+{
+  -moz-binding: url("chrome://foxclocks/content/bindings.xml#foxclocks-clockpanel");
+}

@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % browserDTD SYSTEM "chrome://browser/locale/browser.dtd">
+%browserDTD;
+<!ENTITY % abhere2DTD SYSTEM "chrome://abhere2/locale/abhere2.dtd">
+%abhere2DTD;
+]>
+
+<dialog id="abHere2Dialog"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      title="&dialog.title;"
+      buttons="accept, cancel"
+      onload="abHere2.init(); abHere2.loadPrefs();"
+      onunload="abHere2.destory();"
+      ondialogaccept="abHere2.savePrefs();"
+      persist="screenX screenY">
+
+  <vbox>
+    <groupbox>
+      <caption label="&group.bmm;"/>
+        <checkbox id="abhereCheck" label="&bmm.abhere;"/>
+        <checkbox id="bmpageCheck" label="&bmm.bmpage;" disabled="true" class="indent"/>
+        <checkbox id="bmtabsCheck" label="&bmm.bmtabs;" disabled="true" class="indent"/>
+    </groupbox>
+
+    <groupbox>
+      <caption label="&group.bmc;"/>
+        <checkbox id="abhereCMenu" label="&bmm.abhere;"/>
+    </groupbox>
+
+    <groupbox>
+      <caption label="&group.pos;"/>
+      <grid>
+        <columns>
+          <column/>
+          <column/>
+        </columns>
+        <rows>
+          <row align="center">
+            <label id="abhereLabel" value="&pos.abhere;"/>
+            <menulist id="abhereMenuPosition">
+              <menupopup>
+                <menuitem value="0" label="&pos.top;"/>
+                <menuitem value="1" label="&pos.bottom;"/>
+                <menuitem value="2" label="&pos.hidden;"/>
+              </menupopup>
+            </menulist>
+          </row>
+          <row align="center">
+            <label id="optabsLabel" value="&pos.optabs;"/>
+            <menulist id="optabsMenuPosition">
+              <menupopup>
+                <menuitem value="0" label="&pos.top;"/>
+                <menuitem value="1" label="&pos.bottom;"/>
+                <menuitem value="2" label="&pos.hidden;"/>
+              </menupopup>
+            </menulist>
+          </row>
+        </rows>
+      </grid>
+    </groupbox>
+    <groupbox>
+      <caption label="&group.misc;"/>
+        <checkbox id="insertTop" label="&insertTop;"/>
+        <checkbox id="folderDrag" label="&folderDrag;"/>
+    </groupbox>
+  </vbox>
+
+<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
+<script type="application/x-javascript">
+<![CDATA[
+var abHere2 = {
+   loadPrefs: function() {
+      document.getElementById("abhereMenuPosition").selectedIndex
+      = (nsPreferences.getBoolPref("abhere2.abhere.hidden", false) ? 2 :
+        (nsPreferences.getBoolPref("abhere2.abhere.top", true ) ? 0 : 1));
+
+      document.getElementById("optabsMenuPosition").selectedIndex
+      = (nsPreferences.getBoolPref("abhere2.optabs.hidden", false) ? 2 :
+        (nsPreferences.getBoolPref("abhere2.optabs.top", false) ? 0 : 1));
+
+      document.getElementById("abhereCheck").checked = nsPreferences.getBoolPref("abhere2.bmm.showAddBookmarkHere", false);
+      document.getElementById("bmpageCheck").checked = nsPreferences.getBoolPref("abhere2.bmm.hideBookmarkCurPage", false);
+      document.getElementById("bmtabsCheck").checked = nsPreferences.getBoolPref("abhere2.bmm.hideBookmarkAllTabs", false);
+
+      document.getElementById("abhereCMenu").checked = nsPreferences.getBoolPref("abhere2.bmc.showAddBookmarkHere", true);
+
+      document.getElementById("insertTop").checked = nsPreferences.getBoolPref("abhere2.insertTop", true);
+      document.getElementById("folderDrag").checked = nsPreferences.getBoolPref("abhere2.folderDrag", true);
+   },
+
+   savePrefs: function() {
+      nsPreferences.setBoolPref("abhere2.abhere.top",    (document.getElementById("abhereMenuPosition").selectedIndex == 0));
+      nsPreferences.setBoolPref("abhere2.optabs.top",    (document.getElementById("optabsMenuPosition").selectedIndex == 0));
+      nsPreferences.setBoolPref("abhere2.abhere.hidden", (document.getElementById("abhereMenuPosition").selectedIndex == 2));
+      nsPreferences.setBoolPref("abhere2.optabs.hidden", (document.getElementById("optabsMenuPosition").selectedIndex == 2));
+
+      nsPreferences.setBoolPref("abhere2.bmm.showAddBookmarkHere", document.getElementById("abhereCheck").checked);
+      nsPreferences.setBoolPref("abhere2.bmm.hideBookmarkCurPage", document.getElementById("bmpageCheck").checked);
+      nsPreferences.setBoolPref("abhere2.bmm.hideBookmarkAllTabs", document.getElementById("bmtabsCheck").checked);
+
+      nsPreferences.setBoolPref("abhere2.bmc.showAddBookmarkHere", document.getElementById("abhereCMenu").checked);
+
+      nsPreferences.setBoolPref("abhere2.insertTop", document.getElementById("insertTop").checked);
+      nsPreferences.setBoolPref("abhere2.folderDrag", document.getElementById("folderDrag").checked);
+   },
+
+   updateDisabledState: function(event) {
+      var d = !document.getElementById("abhereCheck").checked;
+      document.getElementById("bmpageCheck").disabled = d;
+      document.getElementById("bmtabsCheck").disabled = d;
+   },
+
+   init: function() {
+      var bundleService = Components.classes['@mozilla.org/intl/stringbundle;1'].getService(Components.interfaces.nsIStringBundleService);
+      var brPropBundle = bundleService.createBundle("chrome://browser/locale/browser.properties");
+      var abHereBundle = bundleService.createBundle('chrome://abhere2/locale/abhere2.properties');
+
+      var op = document.getElementById("optabsLabel");
+      var ab = document.getElementById("abhereLabel");
+      var ck = document.getElementById("abhereCheck");
+      var cm = document.getElementById("abhereCMenu");
+
+      op.value = op.value.replace("$optabs$", brPropBundle.GetStringFromName("menuOpenAllInTabs.label"));
+      ab.value = ab.value.replace("$abhere$", abHereBundle.GetStringFromName("label"));
+      ck.label = ck.label.replace("$abhere$", abHereBundle.GetStringFromName("label"));
+      cm.label = cm.label.replace("$abhere$", abHereBundle.GetStringFromName("label"));
+
+      ck.addEventListener("CheckboxStateChange", abHere2.updateDisabledState, false);
+   },
+
+   destory: function() {
+      var ck = document.getElementById("abhereCheck");
+      ck.removeEventListener("CheckboxStateChange", abHere2.updateDisabledState, false);
+   }
+}
+]]>
+</script>
+
+</dialog>

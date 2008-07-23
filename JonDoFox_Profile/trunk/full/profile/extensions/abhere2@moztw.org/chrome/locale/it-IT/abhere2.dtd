@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Opzioni di Add Bookmark Here ²">
+<!ENTITY group.pos "Posizione della voce di menu">
+<!ENTITY group.bmm "Menu principale &quot;Segnalibri&quot;">
+<!ENTITY group.bmc "Menu contestuale delle cartelle dei segnalibri">
+<!ENTITY group.misc "Varie">
+<!ENTITY pos.abhere "Posizione della voce di menu &apos;$abhere$&apos;:">
+<!ENTITY pos.optabs "Posizione della voce di menu &apos;$optabs$&apos;:">
+<!ENTITY pos.top "in cima">
+<!ENTITY pos.bottom "in fondo">
+<!ENTITY pos.hidden "nascosta">
+<!ENTITY bmm.abhere "Mostra la voce di menu &apos;$abhere$&apos;">
+<!ENTITY bmm.bmpage "Nascondi la voce di menu &apos;&bookmarkThisPageCmd.label;&apos;">
+<!ENTITY bmm.bmtabs "Nascondi la voce di menu &apos;&bookmarkAllCmd.label;&apos;">
+<!ENTITY folderDrag "Permetti il trascinamento nelle cartelle dei segnalibri">
+<!ENTITY insertTop "Aggiungi il segnalibro sopra a quelli presenti nella cartella">

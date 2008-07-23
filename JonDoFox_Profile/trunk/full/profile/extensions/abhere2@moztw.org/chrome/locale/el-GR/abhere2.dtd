@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Επιλογές του Add Bookmark Here ²">
+<!ENTITY group.pos "Θέση στοιχείων στο αναδυόμενο μενού των σελιδοδεικτών">
+<!ENTITY group.bmm "Μενού &apos;Σελιδοδείκτες&apos;">
+<!ENTITY group.bmc "Mενού περιεχομένου σελιδοδεικτών">
+<!ENTITY group.misc "Διάφορα">
+<!ENTITY pos.abhere "Θέση του στοιχείου [$abhere$]:">
+<!ENTITY pos.optabs "Θέση του στοιχείου [$optabs$]:">
+<!ENTITY pos.top "Επάνω">
+<!ENTITY pos.bottom "Κάτω">
+<!ENTITY pos.hidden "Κρυφό">
+<!ENTITY bmm.abhere "Προβολή στοιχείου [$abhere$]">
+<!ENTITY bmm.bmpage "Απόκρυψη στοιχείου [&bookmarkThisPageCmd.label;]">
+<!ENTITY bmm.bmtabs "Απόκρυψη στοιχείου [&bookmarkAllCmd.label;]">
+<!ENTITY folderDrag "Να επιτρέπεται το σύρσιμο φακέλων">
+<!ENTITY insertTop "Προσθήκη νέων σελιδοδεικτών στην κορυφή του μενού">

@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Engade un marcapáxinas aquí ². Opcións">
+<!ENTITY group.pos "Posición do elemento no menú despregrable dos marcadopáxinas">
+<!ENTITY group.bmm "Menú do marcapáxinas">
+<!ENTITY group.bmc "Menú contextual do marcapáxinas">
+<!ENTITY group.misc "Varios">
+<!ENTITY pos.abhere "Posición do elemento [$abhere$]">
+<!ENTITY pos.optabs "Posición do elemento [$optabs$]">
+<!ENTITY pos.top "Arriba">
+<!ENTITY pos.bottom "Abaixo">
+<!ENTITY pos.hidden "Oculto">
+<!ENTITY bmm.abhere "Amosar o elemento [$abhere$]">
+<!ENTITY bmm.bmpage "Ocultar o elemento [&bookmarkThisPageCmd.label;]">
+<!ENTITY bmm.bmtabs "Ocultar o elemento [&bookmarkAllCmd.label;]">
+<!ENTITY folderDrag "Permitir arrastras ao cartafol de marcapáxinas">
+<!ENTITY insertTop "Engadir un novo marcapáxinas na parte superior do menú">

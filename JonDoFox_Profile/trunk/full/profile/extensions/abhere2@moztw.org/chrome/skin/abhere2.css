@@ -1,0 +1,5 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+.abhere-menuitem, .abhere-bm-menuitem, .abhere-cm-menuitem {
+  list-style-image: url("chrome://abhere2/skin/abhere16x16.png");
+}

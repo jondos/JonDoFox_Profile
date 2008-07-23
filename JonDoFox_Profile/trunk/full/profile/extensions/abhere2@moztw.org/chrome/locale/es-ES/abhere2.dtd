@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Add Bookmark Here ² - Opciones">
+<!ENTITY group.pos "Posición del elemento en el menú desplegable de los marcadores">
+<!ENTITY group.bmm "Menú de marcadores">
+<!ENTITY group.bmc "Menú contextual de marcadores">
+<!ENTITY group.misc "Varios">
+<!ENTITY pos.abhere "Posición del elemento [$abhere$]:">
+<!ENTITY pos.optabs "Posición del elemento [$optabs$]:">
+<!ENTITY pos.top "Arriba">
+<!ENTITY pos.bottom "Abajo">
+<!ENTITY pos.hidden "Oculto">
+<!ENTITY bmm.abhere "Mostrar elemento [$abhere$]">
+<!ENTITY bmm.bmpage "Ocultar elemento [&bookmarkThisPageCmd.label;]">
+<!ENTITY bmm.bmtabs "Ocultar elemento [&bookmarkAllCmd.label;]">
+<!ENTITY folderDrag "Permitir arrastrar la carpeta de marcadores">
+<!ENTITY insertTop "Añadir el nuevo marcador en la parte superior del menú">

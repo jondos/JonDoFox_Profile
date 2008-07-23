@@ -1,0 +1,19 @@
+<!ENTITY  dialog.title  "Add Bookmark Here ² Options">
+
+<!ENTITY  group.pos     "Menuitem Position in Bookmarks drop down Menu">
+<!ENTITY  group.bmm     "Bookmarks Menu">
+<!ENTITY  group.bmc     "Bookmarks Context Menu">
+<!ENTITY  group.misc    "Miscellaneous">
+
+<!ENTITY  pos.abhere    "[$abhere$] menuitem position:">
+<!ENTITY  pos.optabs    "[$optabs$] menuitem position:">
+<!ENTITY  pos.top       "Top">
+<!ENTITY  pos.bottom    "Bottom">
+<!ENTITY  pos.hidden    "Hidden">
+
+<!ENTITY  bmm.abhere    "Show [$abhere$] menuitem">
+<!ENTITY  bmm.bmpage    "Hide [&bookmarkThisPageCmd.label;] menuitem">
+<!ENTITY  bmm.bmtabs    "Hide [&bookmarkAllCmd.label;] menuitem">
+
+<!ENTITY  folderDrag    "Allow to drag Bookmarks Folder">
+<!ENTITY  insertTop     "Add new Bookmark to the top of Menu">

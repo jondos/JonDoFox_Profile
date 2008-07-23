@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Add Bookmark Here ² - Einstellungen">
+<!ENTITY group.pos "Position der Menüeinträge im Lesezeichen-Menü">
+<!ENTITY group.bmm "Anzeige der Menüeinträge im Lesezeichen-Menü">
+<!ENTITY group.bmc "Anzeige des Menüeintrags im Lesezeichen-Kontextmenü">
+<!ENTITY group.misc "Verschiedenes">
+<!ENTITY pos.abhere "Eintrag &quot;$abhere$&quot;:">
+<!ENTITY pos.optabs "Eintrag &quot;$optabs$&quot;:">
+<!ENTITY pos.top "am Anfang">
+<!ENTITY pos.bottom "am Ende">
+<!ENTITY pos.hidden "ausblenden">
+<!ENTITY bmm.abhere "&quot;$abhere$&quot; anzeigen">
+<!ENTITY bmm.bmpage "&quot;&bookmarkThisPageCmd.label;&quot; ausblenden">
+<!ENTITY bmm.bmtabs "&quot;&bookmarkAllCmd.label;&quot; ausblenden">
+<!ENTITY folderDrag "Verschieben von Lesezeichen mit der Maus erlauben">
+<!ENTITY insertTop "Neue Lesezeichen am Anfang einfügen">

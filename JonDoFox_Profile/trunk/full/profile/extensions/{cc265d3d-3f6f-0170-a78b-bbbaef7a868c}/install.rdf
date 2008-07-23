@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}</em:id>
+    <em:version>2.3.1</em:version>
+    <em:type>2</em:type>
+   
+    <!-- Target Application this extension can install into, 
+         with minimum and maximum supported versions. --> 
+    <em:targetApplication>
+      <Description>
+		<!-- Firefox GUID -->
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>1.0</em:minVersion>
+        <em:maxVersion>3.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+   
+    <!-- Front End MetaData -->
+    <em:name>Media Pirate - The video downloader</em:name>
+    <em:description>Video downloader</em:description>
+    <em:creator>Pascal Beyeler</em:creator>
+    <em:homepageURL>http://www.mediapirate.org</em:homepageURL>
+	<em:optionsURL>chrome://mediapirate/content/options.xul</em:optionsURL>
+  </Description>
+</RDF>

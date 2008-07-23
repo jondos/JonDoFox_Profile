@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+   <Description about="urn:mozilla:install-manifest">
+      <em:creator>Milos Mileusnic</em:creator>
+      <em:description>Groowe Search Toolbar bundles toolbar functions for many search engines, shopping sites, download sites, including Google toolbar, Yahoo, Amazon, EBay, Ask, Msn, Download.com, Wikipedia, Digg, del.icio.us and others. The entire toolbar reconfigures when you select a different site and it includes many advanced features found in each engine or site. You can also easily repeat your search on all sites included in toolbar. Groowe plugins can be downloaded for many other sites like YouTUBE, IMDb, Technorati, Exalead, Clusty, dictionaries, etc. By using Groowe Online Toolbar Designer you can create your own toolbar and share it with other Groowe users.</em:description>
+      <em:homepageURL>http://www.groowe.com/</em:homepageURL>
+      <em:id>{268ad77e-cff8-42d7-b479-da60a7b93305}</em:id>
+      <em:name>Groowe Search Toolbar</em:name>
+      <em:version>1.6.5</em:version>
+      <em:iconURL>chrome://groowebar/skin/logo.png</em:iconURL>   
+      <em:aboutURL>chrome://groowebar/content/about.xul</em:aboutURL>
+      <em:optionsURL>chrome://groowebar/content/options.xul</em:optionsURL>
+
+      <em:targetApplication>
+         <Description>
+            <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+            <em:minVersion>1.0</em:minVersion>
+            <em:maxVersion>3.0.*</em:maxVersion>
+         </Description>
+      </em:targetApplication>
+   
+      <em:file>
+         <Description about="urn:mozilla:extension:file:groowebar.jar">
+            <em:package>content/</em:package>
+            <em:skin>skin/</em:skin>
+            <em:locale>locale/en-US/</em:locale>
+         </Description>
+      </em:file>
+   
+   </Description>
+</RDF>
+

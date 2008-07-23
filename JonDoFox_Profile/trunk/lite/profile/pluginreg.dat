@@ -1,0 +1,260 @@
+Generated File. Do not edit.
+
+[HEADER]
+Version|0.09|$
+
+[PLUGINS]
+C:\Program Files\Adobe\Reader 8.0\Reader\browser\nppdf32.dll|$
+|$
+1178830354000|1|5|$
+Adobe PDF Plug-In For Firefox and Netscape|$
+Adobe Acrobat|$
+6
+0|application/pdf|Acrobat Portable Document Format|pdf|$
+1|application/vnd.adobe.x-mars|Acrobat Portable XML Document Format|mars|$
+2|application/vnd.fdf|Acrobat Forms Data Format|fdf|$
+3|application/vnd.adobe.xfdf|XML Version of Acrobat Forms Data Format|xfdf|$
+4|application/vnd.adobe.xdp+xml| Acrobat XML Data Package|xdp|$
+5|application/vnd.adobe.xfd+xml|Adobe FormFlow99 Data File|xfd|$
+C:\Program Files\Java\jre1.6.0_07\bin\npjpi160_07.dll|$
+|$
+1213064822000|1|5|$
+Java Plug-in 1.6.0_07 for Netscape Navigator (DLL Helper)|$
+Java(TM) Platform SE 6 U7|$
+2
+0|application/x-java-applet;jpi-version=1.6.0_07|Java Applet||$
+1|application/x-java-bean;jpi-version=1.6.0_07|JavaBeans||$
+C:\Program Files\Java\jre1.6.0_07\bin\npoji610.dll|$
+|$
+1213064834000|1|5|$
+Java Plug-in 1.6.0_07 for Netscape Navigator (DLL Helper)|$
+Java(TM) Platform SE 6 U7|$
+1
+0|application/x-java-vm|Java| |$
+C:\Program Files\Java\jre1.6.0_07\bin\npjava32.dll|$
+|$
+1213064834000|1|5|$
+Java Plug-in 1.6.0_07 for Netscape Navigator (DLL Helper)|$
+Java(TM) Platform SE 6 U7|$
+6
+0|application/x-java-applet;version=1.3|Java Applet||$
+1|application/x-java-bean;version=1.3|JavaBeans||$
+2|application/x-java-applet;version=1.2.2|Java Applet||$
+3|application/x-java-bean;version=1.2.2|JavaBeans||$
+4|application/x-java-applet;version=1.2.1|Java Applet||$
+5|application/x-java-bean;version=1.2.1|JavaBeans||$
+C:\Program Files\Java\jre1.6.0_07\bin\npjava14.dll|$
+|$
+1213064834000|1|5|$
+Java Plug-in 1.6.0_07 for Netscape Navigator (DLL Helper)|$
+Java(TM) Platform SE 6 U7|$
+6
+0|application/x-java-applet;version=1.4.2|Java Applet||$
+1|application/x-java-bean;version=1.4.2|JavaBeans||$
+2|application/x-java-applet;version=1.5|Java Applet||$
+3|application/x-java-bean;version=1.5|JavaBeans||$
+4|application/x-java-applet;version=1.6|||$
+5|application/x-java-bean;version=1.6|||$
+C:\Program Files\Java\jre1.6.0_07\bin\npjava13.dll|$
+|$
+1213064834000|1|5|$
+Java Plug-in 1.6.0_07 for Netscape Navigator (DLL Helper)|$
+Java(TM) Platform SE 6 U7|$
+6
+0|application/x-java-applet;version=1.3.1|Java Applet||$
+1|application/x-java-bean;version=1.3.1|JavaBeans||$
+2|application/x-java-applet;version=1.4|Java Applet||$
+3|application/x-java-bean;version=1.4|JavaBeans||$
+4|application/x-java-applet;version=1.4.1|Java Applet||$
+5|application/x-java-bean;version=1.4.1|JavaBeans||$
+C:\Program Files\Java\jre1.6.0_07\bin\npjava12.dll|$
+|$
+1213064834000|1|5|$
+Java Plug-in 1.6.0_07 for Netscape Navigator (DLL Helper)|$
+Java(TM) Platform SE 6 U7|$
+6
+0|application/x-java-applet;version=1.2|Java Applet||$
+1|application/x-java-bean;version=1.2|JavaBeans||$
+2|application/x-java-applet;version=1.1.3|Java Applet||$
+3|application/x-java-bean;version=1.1.3|JavaBeans||$
+4|application/x-java-applet;version=1.1.2|Java Applet||$
+5|application/x-java-bean;version=1.1.2|JavaBeans||$
+C:\Program Files\Java\jre1.6.0_07\bin\npjava11.dll|$
+|$
+1213064834000|1|5|$
+Java Plug-in 1.6.0_07 for Netscape Navigator (DLL Helper)|$
+Java(TM) Platform SE 6 U7|$
+6
+0|application/x-java-applet;version=1.1.1|Java Applet||$
+1|application/x-java-bean;version=1.1.1|JavaBeans||$
+2|application/x-java-applet;version=1.1|Java Applet||$
+3|application/x-java-bean;version=1.1|JavaBeans||$
+4|application/x-java-applet|Java Applet||$
+5|application/x-java-bean|JavaBeans||$
+C:\Program Files\VideoLAN\VLC\npvlc.dll|$
+|$
+1207089670000|1|5|$
+Version 0.8.6f, copyright 1996-2007 The VideoLAN Team<br><a href="http://www.videolan.org/">http://www.videolan.org/</a>|$
+VLC Multimedia Plugin|$
+26
+0|audio/mpeg|MPEG audio|mp2,mp3,mpga,mpega|$
+1|audio/x-mpeg|MPEG audio|mp2,mp3,mpga,mpega|$
+2|video/mpeg|MPEG video|mpg,mpeg,mpe|$
+3|video/x-mpeg|MPEG video|mpg,mpeg,mpe|$
+4|video/mpeg-system|MPEG video|mpg,mpeg,vob|$
+5|video/x-mpeg-system|MPEG video|mpg,mpeg,vob|$
+6|video/mpeg4|MPEG-4 video|mp4,mpg4|$
+7|audio/mpeg4|MPEG-4 audio|mp4,mpg4|$
+8|application/mpeg4-iod|MPEG-4 video|mp4,mpg4|$
+9|application/mpeg4-muxcodetable|MPEG-4 video|mp4,mpg4|$
+10|video/x-msvideo|AVI video|avi|$
+11|video/quicktime|QuickTime video|mov,qt|$
+12|application/x-ogg|Ogg stream|ogg|$
+13|application/ogg|Ogg stream|ogg|$
+14|application/x-vlc-plugin|VLC plugin|vlc|$
+15|video/x-ms-asf-plugin|Windows Media video|asf,asx|$
+16|video/x-ms-asf|Windows Media video|asf,asx|$
+17|application/x-mplayer2|Windows Media plugin||$
+18|video/x-ms-wmv|Windows Media video|wmv|$
+19|application/x-google-vlc-plugin|Google VLC plugin||$
+20|audio/wav|WAV audio|wav|$
+21|audio/x-wav|WAV audio|wav|$
+22|audio/3gpp|3GPP audio|3gp,3gpp|$
+23|video/3gpp|3GPP video|3gp,3gpp|$
+24|audio/3gpp2|3GPP2 audio|3g2,3gpp2|$
+25|video/3gpp2|3GPP2 video|3g2,3gpp2|$
+C:\Windows\system32\Macromed\Flash\NPSWF32.dll|$
+|$
+1195606358000|1|5|$
+Shockwave Flash 9.0  r115|$
+Shockwave Flash|$
+2
+0|application/x-shockwave-flash|Adobe Flash movie|swf|$
+1|application/futuresplash|FutureSplash movie|spl|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\NPSWF32.dll|$
+|$
+1086789864000|1|5|$
+Shockwave Flash 7.0  r19|$
+Shockwave Flash|$
+2
+0|application/x-shockwave-flash|Macromedia Flash movie|swf|$
+1|application/futuresplash|FutureSplash movie|spl|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\npqtplugin2.dll|$
+|$
+1121597468000|1|5|$
+The QuickTime Plugin allows you to view a wide variety of multimedia content in Web pages. For more information, visit the <A HREF=http://www.apple.com/quicktime/>QuickTime</A> Web site.|$
+QuickTime Plug-in 6.5.1|$
+2
+0|image/x-pict|PICT-Bild|pict,pic,pct|$
+1|image/x-quicktime|QuickTime-Bild|qtif,qti|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\npqtplugin.dll|$
+|$
+1121597468000|1|5|$
+The QuickTime Plugin allows you to view a wide variety of multimedia content in Web pages. For more information, visit the <A HREF=http://www.apple.com/quicktime/>QuickTime</A> Web site.|$
+QuickTime Plug-in 6.5.1|$
+8
+0|video/quicktime|QuickTime Film|mov,qt|$
+1|video/3gpp2|3GPP2-Mediendatei|3g2,3gp2|$
+2|audio/3gpp2|3GPP2-Mediendatei|3g2,3gp2|$
+3|video/x-m4v|Video (gesch³tzt)|m4v|$
+4|video/sd-video|SD-Videodatei|sdv|$
+5|application/x-mpeg|AMC-Mediendatei|amc|$
+6|image/x-macpaint|MacPaint-Bild|pntg,pnt,mac|$
+7|image/pict|PICT-Bild|pict,pic,pct|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\nprpjplug.dll|$
+|$
+1122195412000|1|5|$
+6.0.12.1212|$
+RealPlayer Version Plugin|$
+1
+0|application/vnd.rn-realplayer-javascript|RealPlayer Version Plugin|rpj|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\nppl3260.dll|$
+|$
+1122195418000|1|5|$
+RealPlayer(tm) LiveConnect-Enabled Plug-In|$
+RealPlayer(tm) G2 LiveConnect-Enabled Plug-In (32-bit) |$
+1
+0|audio/x-pn-realaudio-plugin|RealPlayer(tm) as Plug-in|rpm|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\nprjplug.dll|$
+|$
+1122195426000|1|5|$
+RealJukebox Netscape Plugin|$
+RealJukebox NS Plugin|$
+1
+0|none|RealJukebox NS Plugin File|none|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\nppdf32.dll|$
+|$
+1127537056000|1|5|$
+Adobe Acrobat Plug-In Version 7.00 for Netscape|$
+Adobe Acrobat|$
+5
+0|application/pdf|Acrobat Portable Document Format|pdf|$
+1|application/vnd.fdf|Acrobat Forms Data Format|fdf|$
+2|application/vnd.adobe.xfdf|XML Version of Acrobat Forms Data Format|xfdf|$
+3|application/vnd.adobe.xdp+xml| Acrobat XML Data Package|xdp|$
+4|application/vnd.adobe.xfd+xml|Adobe FormFlow99 Data File|xfd|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\NPJava32.dll|$
+|$
+1133338274000|1|5|$
+Java Plug-in 1.3.1_17 for Netscape Navigator (DLL Helper)|$
+Java Plug-in|$
+6
+0|application/x-java-applet;version=1.3|Java-Applet||$
+1|application/x-java-bean;version=1.3|JavaBeans||$
+2|application/x-java-applet;version=1.2.2|Java-Applet||$
+3|application/x-java-bean;version=1.2.2|JavaBeans||$
+4|application/x-java-applet;version=1.2.1|Java-Applet||$
+5|application/x-java-bean;version=1.2.1|JavaBeans||$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\NPJava131_17.dll|$
+|$
+1133338274000|1|5|$
+Java Plug-in 1.3.1_17 for Netscape Navigator (DLL Helper)|$
+Java Plug-in|$
+2
+0|application/x-java-applet;jpi-version=1.3.1_17|Java Applet||$
+1|application/x-java-bean;jpi-version=1.3.1_17|JavaBeans||$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\NPJava12.dll|$
+|$
+1133338274000|1|5|$
+Java Plug-in 1.3.1_17 for Netscape Navigator (DLL Helper)|$
+Java Plug-in|$
+6
+0|application/x-java-applet;version=1.2|Java-Applet||$
+1|application/x-java-bean;version=1.2|JavaBeans||$
+2|application/x-java-applet;version=1.1.3|Java-Applet||$
+3|application/x-java-bean;version=1.1.3|JavaBeans||$
+4|application/x-java-applet;version=1.1.2|Java-Applet||$
+5|application/x-java-bean;version=1.1.2|JavaBeans||$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\NPJava11.dll|$
+|$
+1133338274000|1|5|$
+Java Plug-in 1.3.1_17 for Netscape Navigator (DLL Helper)|$
+Java Plug-in|$
+6
+0|application/x-java-applet;version=1.1.1|Java-Applet||$
+1|application/x-java-bean;version=1.1.1|JavaBeans||$
+2|application/x-java-applet;version=1.1|Java-Applet||$
+3|application/x-java-bean;version=1.1|JavaBeans||$
+4|application/x-java-applet|Java-Applet||$
+5|application/x-java-bean|JavaBeans||$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\npoji600.dll|$
+|$
+1133338276000|1|5|$
+Java Plug-in 1.3.1_17 for Netscape Navigator (DLL Helper)|$
+Java Plug-in|$
+1
+0|application/x-java-vm|Virtuelle Java-Maschine für Netscape 6.x| |$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\np32dsw.dll|$
+|$
+1139323298000|1|5|$
+Macromedia Shockwave for Director Netscape plug-in, version 10.1|$
+Shockwave for Director|$
+1
+0|application/x-director|Shockwave Movie|dir,dxr,dcr|$
+F:\PortableApps\FirefoxPortable\App\firefox\plugins\npnul32.dll|$
+|$
+1216288270000|1|5|$
+Default Plug-in|$
+Mozilla Default Plug-in|$
+1
+0|*|Mozilla Default Plug-in|*|$
