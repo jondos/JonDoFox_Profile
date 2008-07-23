@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+FoxClocks extension for Mozilla Firefox/Thunderbird/Sunbird
+Copyright (C) 2005-2008 Andy McDonald / www.stemhaus.com
+For licensing terms, please refer to readme.txt in this extension's '.xpi'
+package or its installation directory on your computer.
+-->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://foxclocks/content/bindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://foxclocks/skin/foxclocks.css" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://foxclocks/locale/foxclocks.dtd">
+
+<overlay	id="foxclocks-overlay"
+			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="foxclocks-bundle" src="chrome://foxclocks/locale/foxclocks.properties"/>
+	</stringbundleset>
+	
+	<script type="application/x-javascript" src="chrome://foxclocks/content/common.js" />
+	<script type="application/x-javascript" src="chrome://foxclocks/content/foxclocksoverlay.js" />
+	<script type="application/x-javascript"><![CDATA[
+		var foxClocksOverlay = new FoxClocks_Overlay();
+		
+		window.addEventListener("load", function() { foxClocksOverlay.onLoad(); }, false);
+		window.addEventListener("unload", function() { foxClocksOverlay.onUnload(); }, false);
+	]]></script>
+
+	<commandset>
+		<command id="cmd_fcov_openfc" oncommand="FoxClocks_openFoxClocksWindow()"/>
+		<command id="cmd_fcov_openopt" oncommand="FoxClocks_openOptionsWindow()"/>
+		<command id="cmd_fcov_openhelp" oncommand="FoxClocks_openFoxClocksHomeURL()"/>
+		<command id="cmd_fcov_openabout" oncommand="FoxClocks_openAboutWindow()"/>
+	</commandset>
+	
+	<!-- AFM - for Firefox, id="mainKeyset"; for Thunderbird and Sunbird id="tasksKeys" -->
+	<!-- PC  - for SeaMonkey id="navKeys" -->
+	<keyset id="mainKeyset">
+		<key	id="foxclocksoverlay-foxclocks-open-key"/>
+	</keyset>
+	<keyset id="tasksKeys">
+		<key	id="foxclocksoverlay-foxclocks-open-key"/>
+	</keyset>
+	<keyset id="navKeys">
+		<key	id="foxclocksoverlay-foxclocks-open-key"/>
+	</keyset>
+	<key	id="foxclocksoverlay-foxclocks-open-key" modifiers="control shift"
+			key="&foxclocksoverlay.menuitem.accelkey;" command="cmd_fcov_openfc"/>
+
+	<!-- AFM - for Firefox, id="menu_ToolsPopup", insertbefore="devToolsSeparator";
+	for Thunderbird id="taskPopup", insertbefore="prefSep";
+	for Sunbird id="toolsPopup", insertbefore="devToolsSeparator" -->
+	<!-- PC  - for SeaMonkey id="taskPopup", insertafter="downloadmgr" -->
+	<menupopup id="taskPopup">
+		<menuitem	id="foxclocksoverlay-menuitem"
+					label="&foxclocksoverlay.menuitem.label;" accesskey="&foxclocksoverlay.menuitem.accesskey;"
+					key="foxclocksoverlay-foxclocks-open-key" command="cmd_fcov_openfc"
+		            insertbefore="prefSep"
+					insertafter="downloadmgr"/>
+	</menupopup>
+	
+	<!-- AFM - for Firefox, id="main-window"; for Thunderbird main window id="messengerWindow"; for Thunderbird message
+	compose window id="msgcomposeWindow"; for Sunbird id="calendar-window" -->
+	<!-- PC  - for SeaMonkey navigator window, id="main-window";
+	for SeaMonkey messenger window id="messengerWindow";
+	for SeaMonkey message compose window id="msgcomposeWindow" -->
+	<window id="main-window">
+		<popupset id="foxclocksoverlay-popupset"/>
+	</window>
+	<window id="messengerWindow">
+		<popupset id="foxclocksoverlay-popupset"/>
+	</window>
+	<window id="msgcomposeWindow">
+		<popupset id="foxclocksoverlay-popupset"/>
+	</window>
+	<window id="calendar-window">
+		<popupset id="foxclocksoverlay-popupset"/>
+	</window>
+	<popupset id="foxclocksoverlay-popupset">	
+		<popup id="foxclocksoverlay-clock-context">
+
+			<menuitem	label="&foxclocksoverlay.context.foxclocks.label;" accesskey="&foxclocksoverlay.context.foxclocks.accesskey;"
+						key="foxclocksoverlay-foxclocks-open-key" command="cmd_fcov_openfc"/>
+
+			<menuitem	label="&foxclocksoverlay.context.options.label;" accesskey="&foxclocksoverlay.context.options.accesskey;"
+						command="cmd_fcov_openopt"/>
+
+			<menuseparator/>
+			<menuitem	label="&foxclocksoverlay.context.help.label;" accesskey="&foxclocksoverlay.context.help.accesskey;"
+						command="cmd_fcov_openhelp"/>	
+			<menuitem	label="&foxclocksoverlay.context.about.label;" accesskey="&foxclocksoverlay.context.about.accesskey;"
+						command="cmd_fcov_openabout"/>
+		</popup>
+
+		<tooltip	id="foxclocksoverlay-clock-tooltip" onpopupshowing="foxClocksOverlay.onClockTooltipShowing(event)"
+					onpopuphidden="foxClocksOverlay.onClockTooltipHidden(event)"
+					noautohide="true">
+		</tooltip>
+
+		<data id="foxclocksoverlay-nolocs-label" label="&foxclocks.locationlist.nolocs.label;"/>
+	</popupset>
+	
+	<!-- AFM - for Firefox, id="BrowserToolbarPalette"; for Thunderbird main window id="MailToolbarPalette"; for Thunderbird message
+	compose window id="MsgComposeToolbarPalette"; for Sunbird id="calendarToolbarPalette" -->
+	<toolbarpalette id="BrowserToolbarPalette" align="center">
+		<toolbaritem	id="foxclocksoverlay-toolbaritem-clocks"/>
+	</toolbarpalette>
+	<toolbarpalette id="MailToolbarPalette" align="center">
+		<toolbaritem	id="foxclocksoverlay-toolbaritem-clocks"/>
+	</toolbarpalette>
+	<toolbarpalette id="MsgComposeToolbarPalette" align="center">
+		<toolbaritem	id="foxclocksoverlay-toolbaritem-clocks"/>
+	</toolbarpalette>
+	<toolbarpalette id="calendarToolbarPalette" align="center">
+		<toolbaritem	id="foxclocksoverlay-toolbaritem-clocks"/>
+	</toolbarpalette>
+	<toolbaritem	id="foxclocksoverlay-toolbaritem-clocks" align="center" context="foxclocksoverlay-clock-context"
+					tooltip="foxclocksoverlay-clock-tooltip">
+
+		<toolbarbutton	id="foxclocksoverlay-toolbarbutton-clocks" class="toolbarbutton-1 chromeclass-toolbar-additional"
+						label="&foxclocksoverlay.toolbarbutton.clocks.label;" command="cmd_fcov_openfc"/>
+
+		<hbox id="foxclocksoverlay-toolbaritem-box" align="center"/>
+
+	</toolbaritem>
+		
+</overlay>

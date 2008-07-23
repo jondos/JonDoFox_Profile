@@ -1,0 +1,22 @@
+<notelist>
+  <lastsaved>
+    <note>
+      <title/>
+      <content/>
+    </note>
+  </lastsaved>
+  <notes>
+    <note>
+      <title>Example Note 1</title>
+      <content>This is an &lt;span style="font-weight: bold; color: rgb(255, 0, 0);"&gt;example &lt;/span&gt;of a &lt;span style="font-weight: bold;"&gt;formatted &lt;span style="color: blue;"&gt;note&lt;/span&gt;&lt;/span&gt; note</content>
+      <datemodified>20070923T07:35:45</datemodified>
+      <GUID>baa945110-54b7-68d1-96d5-62282cedd6b</GUID>
+    </note>
+    <note>
+      <title>Example Note 2</title>
+      <content>This is an example of a normal text note</content>
+      <datemodified>20070923T07:35:46</datemodified>
+      <GUID>73c168059-749a-b203-c130-311dd76cb38</GUID>
+    </note>
+  </notes>
+</notelist>

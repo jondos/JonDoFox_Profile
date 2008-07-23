@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "បន្ថែម​ចំណាំ​នៅ​ទីនេះ ២ ជម្រើស">
+<!ENTITY group.pos "ទីតាំង​ធាតុ​ម៉ឺនុយ​នៅ​ក្នុង​ម៉ឺនុយ​ទម្លាក់ចុះ​ចំណាំ">
+<!ENTITY group.bmm "ម៉ឺនុយ​ចំណាំ">
+<!ENTITY group.bmc "ម៉ឺនុយ​បរិបទ​ចំណាំ">
+<!ENTITY group.misc "ផ្សេងៗ">
+<!ENTITY pos.abhere "ទីតាំង​ធាតុ​ម៉ឺនុយ [$abhere$] ៖">
+<!ENTITY pos.optabs "ទីតាំង​ធាតុ​ម៉ឺនុយ [$optabs$] ៖">
+<!ENTITY pos.top "កំពូល">
+<!ENTITY pos.bottom "បាត">
+<!ENTITY pos.hidden "លាក់">
+<!ENTITY bmm.abhere "បង្ហាញ​ធាតុ​ម៉ឺនុយ [$abhere$]">
+<!ENTITY bmm.bmpage "លាក់​ធាតុ​ម៉ឺនុយ [&bookmarkThisPageCmd.label;]">
+<!ENTITY bmm.bmtabs "លាក់​ធាតុ​ម៉ឺនុយ [&bookmarkAllCmd.label;]">
+<!ENTITY folderDrag "អនុញ្ញាត​ឲ្យ​អូស​ថត​ចំណាំ">
+<!ENTITY insertTop "បន្ថែម​ចំណាំថ្មី​ទៅ​កំពូល​របស់​ម៉ឺនុយ">

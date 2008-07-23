@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+
+    <em:id>{AA052FD6-366A-4771-A591-0D8DC551585D}</em:id>
+    <em:name>Calculator</em:name>
+    <em:version>1.1.12</em:version>
+    <em:description>A calculator with advanced features. Installed in the tools menu.</em:description>
+    <em:creator>Marc Belmont</em:creator>
+    <em:homepageURL>http://calculator.mozdev.org</em:homepageURL>
+    <em:iconURL>chrome://calculator/skin/calculator.png</em:iconURL>
+    <em:optionsURL>chrome://calculator/content/preferences.xul</em:optionsURL>
+    <em:aboutURL>chrome://calculator/content/about.xul</em:aboutURL>
+    <em:file>
+      <Description about="urn:mozilla:extension:file:calculator.jar">
+	<em:package>content/</em:package>
+	<em:skin>skin/classic/</em:skin>
+	<em:locale>locale/en-US/</em:locale>
+	<em:locale>locale/it-IT/</em:locale>
+	<em:locale>locale/fr-FR/</em:locale>
+	<em:locale>locale/es-ES/</em:locale>
+	<em:locale>locale/de-DE/</em:locale>
+	<em:locale>locale/ja-JP/</em:locale>
+	<em:locale>locale/pl-PL/</em:locale>
+	<em:locale>locale/nl-NL/</em:locale>
+	<em:locale>locale/tr-TR/</em:locale>
+	<em:locale>locale/ru-RU/</em:locale>
+	<em:locale>locale/sl-SI/</em:locale>
+	<em:locale>locale/sk-SK/</em:locale>
+	<em:locale>locale/cs-CZ/</em:locale>
+	<em:locale>locale/pt-BR/</em:locale>
+	<em:locale>locale/zh-CN/</em:locale>
+	<em:locale>locale/az-AZ/</em:locale>
+      </Description>
+    </em:file>
+
+    <!-- Firefox -->
+    <em:targetApplication>
+      <Description>
+	<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+	<em:minVersion>1.0</em:minVersion>
+	<em:maxVersion>3.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- SeaMonkey -->
+    <em:targetApplication>
+      <Description>
+	<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+	<em:minVersion>1.0</em:minVersion>
+	<em:maxVersion>2.0a1</em:maxVersion>
+       </Description>
+     </em:targetApplication>
+
+<!--     <em:targetApplication> -->
+<!--       <Description> -->
+<!-- 	<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id> -->
+<!-- 	<em:minVersion>0.5</em:minVersion> -->
+<!-- 	<em:maxVersion>1.0+</em:maxVersion> -->
+<!--       </Description> -->
+<!--     </em:targetApplication> -->
+<!--     <em:targetApplication> -->
+<!--       <Description> -->
+<!-- 	<em:id>{86c18b42-e466-45a9-ae7a-9b95ba6f5640}</em:id> -->
+<!-- 	<em:minVersion>1.0</em:minVersion> -->
+<!-- 	<em:maxVersion>1.8+</em:maxVersion> -->
+<!--       </Description> -->
+<!--     </em:targetApplication> -->
+  </Description>
+</RDF>

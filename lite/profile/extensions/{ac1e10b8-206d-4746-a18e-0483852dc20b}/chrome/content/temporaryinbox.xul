@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://temporaryinbox/content/style.css" type="text/css"?>
+
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+	 - Version: MPL 1.1
+	 -
+	 - The contents of this file are subject to the Mozilla Public License Version
+	 - 1.1 (the "License"); you may not use this file except in compliance with
+	 - the License. You may obtain a copy of the License at
+	 - http://www.mozilla.org/MPL/
+	 -
+	 - Software distributed under the License is distributed on an "AS IS" basis,
+	 - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+	 - for the specific language governing rights and limitations under the
+	 - License.
+	 -
+	 - The Original Code is Temporary Inbox.
+	 -
+	 - The Initial Developer of the Original Code is
+	 - Christian Frank.
+	 - Portions created by the Initial Developer are Copyright (C) 2006
+	 - the Initial Developer. All Rights Reserved.
+	 -
+	 - Contributor(s):
+	 -
+	 - ***** END LICENSE BLOCK ***** -->
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://temporaryinbox/content/textbox.js"/>
+	<script type="application/x-javascript" src="chrome://temporaryinbox/content/randomemail.js"/>
+	<script type="application/x-javascript" src="chrome://temporaryinbox/content/contextmenu.js"/>
+	<script type="application/x-javascript" src="chrome://temporaryinbox/content/availabledomains.js"/>
+	<script type="application/x-javascript" src="chrome://temporaryinbox/content/options.js"/>
+	<!-- firefox toolbox -->
+	<toolbox id="navigator-toolbox">
+		<toolbar id="temporaryinbox_toolbar" toolbarname="Temporary Inbox Extension" class="chromeclass-toolbar" context="toolbar-context-menu" hidden="false" persist="hidden">
+			<toolbarbutton oncommand="goToTemporaryInbox3();" image="chrome://temporaryinbox/content/logo.png"/>
+			<textbox id="temporaryinbox_textbox" onkeypress="goToTemporaryInbox(event);"/>
+
+			<toolbarbutton id="temporaryinbox_button" label="Check  " tooltiptext="Check your inbox" oncommand="goToTemporaryInbox2();" />
+
+			<toolbarseparator />
+			<toolbarbutton id="temporaryinbox_button2" tooltiptext="Create a random email address" label="Random email  " oncommand="createRandomEmail();" />
+			<textbox id="temporaryinbox_textbox2" size="40" onclick="document.getElementById('temporaryinbox_textbox2').select();"/>
+			<toolbarseparator />
+			<toolbarbutton id="temporaryinbox_button3" tooltiptext="Email history" label="History  " oncommand="goToHistory();" />
+			<toolbarseparator />
+			<toolbarbutton id="temporaryinbox_button3" tooltiptext="Create a temporary forwarding" label="Temporary Forwarding  " oncommand="goToForward();" />
+			<toolbarseparator />
+			<toolbarbutton id="temporaryinbox_button3" tooltiptext="Learn how to use this service" label="Help  " oncommand="goToHelp();" />
+			<toolbarseparator />
+		</toolbar>
+	</toolbox>
+	
+	<popup id="contentAreaContextMenu" >
+		<menuseperator/>
+		<menuitem id="ContextMenu_TemporaryInbox_Page" label="Go to temporaryinbox.com" oncommand="window.content.document.location.href = 'http://www.temporaryinbox.com?l=' +  Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch).getCharPref('temporaryinbox.language');" insertafter="context-stop"/>
+		<menuitem id="ContextMenu_TemporaryInbox_Insert" label="Insert a temporary email address" oncommand="var accountname = getAccount(15); gContextMenu.target.value = accountname + '@' + domains_array[getRandomNum(0,domains_array.length)]; document.getElementById('temporaryinbox_textbox').value = accountname;" insertafter="context-stop"/>
+		<menuseperator/>
+	</popup>	
+	
+  	<toolbarpalette id="BrowserToolbarPalette">
+    		<toolbarbutton id="tb-temporaryinbox" disabled="false"
+                  image="chrome://temporaryinbox/content/logo-big.png" title="Temporary Inbox" oncommand="window.content.document.location.href = 'http://www.temporaryinbox.com?l=' +  Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch).getCharPref('temporaryinbox.language');">
+    		</toolbarbutton>
+  	</toolbarpalette>	
+	
+</overlay>

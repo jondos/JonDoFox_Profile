@@ -1,0 +1,950 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<zonepicker xmlns="http://www.stemhaus.com/firefox/foxclocks/zonepicker" version="2.0" locale="ko-KR">
+	<Branch name="&#50500;&#54532;&#47532;&#52852;">
+		<Branch name="&#45208;&#46972;">
+			<Leaf zone_id="Africa/Algiers" name="&#50508;&#51228;&#47532;" />
+			<Leaf zone_id="Africa/Luanda" name="&#50521;&#44264;&#46972;" />
+			<Leaf zone_id="Africa/Porto-Novo" name="&#48288;&#45257;" />
+			<Leaf zone_id="Africa/Gaborone" name="&#48372;&#52768;&#50752;&#45208;" />
+			<Leaf zone_id="Africa/Ouagadougou" name="&#48512;&#47476;&#53412;&#45208;&#54028;&#49548;" />
+			<Leaf zone_id="Africa/Bujumbura" name="&#48512;&#47340;&#46356;" />
+			<Leaf zone_id="Africa/Douala" name="&#52852;&#47700;&#47340;" />
+			<Leaf zone_id="Africa/Bangui" name="&#51473;&#50521;&#50500;&#54532;&#47532;&#52852;&#44277;&#54868;&#44397;" />
+			<Leaf zone_id="Africa/Ceuta" name="&#49464;&#50864;&#53440; &#48143; &#47708;&#47532;&#50556;" />
+			<Leaf zone_id="Africa/Ndjamena" name="&#52264;&#46300;" />
+			<Branch name="&#53097;&#44256;&#48124;&#51452;&#44277;&#54868;&#44397;">
+				<Leaf zone_id="Africa/Lubumbashi" name="&#46041;&#48512;" />
+				<Leaf zone_id="Africa/Kinshasa" name="&#49436;&#48512;" />
+			</Branch>
+			<Leaf zone_id="Africa/Brazzaville" name="&#53097;&#44256;&#44277;&#54868;&#44397;" />
+			<Leaf zone_id="Africa/Abidjan" name="&#53076;&#53944;&#46356;&#48512;&#50500;&#47476;" />
+			<Leaf zone_id="Africa/Djibouti" name="&#51648;&#48512;&#54000;" />
+			<Leaf zone_id="Africa/Cairo" name="&#51060;&#51665;&#53944;" />
+			<Leaf zone_id="Africa/Malabo" name="&#51201;&#46020;&#44592;&#45768;" />
+			<Leaf zone_id="Africa/Asmera" name="&#50640;&#47532;&#53944;&#47112;&#50500;" />
+			<Leaf zone_id="Africa/Addis_Ababa" name="&#50640;&#54000;&#50724;&#54588;&#50500;" />
+			<Leaf zone_id="Africa/Libreville" name="&#44032;&#48393;" />
+			<Leaf zone_id="Africa/Banjul" name="&#44048;&#48708;&#50500;" />
+			<Leaf zone_id="Africa/Accra" name="&#44032;&#45208;" />
+			<Leaf zone_id="Africa/Conakry" name="&#44592;&#45768;" />
+			<Leaf zone_id="Africa/Bissau" name="&#44592;&#45768;&#48708;&#49324;&#50864;" />
+			<Leaf zone_id="Africa/Nairobi" name="&#52992;&#45264;" />
+			<Leaf zone_id="Africa/Maseru" name="&#47112;&#49548;&#53664;" />
+			<Leaf zone_id="Africa/Monrovia" name="&#46972;&#51060;&#48288;&#47532;&#50500;" />
+			<Leaf zone_id="Africa/Tripoli" name="&#47532;&#48708;&#50500;" />
+			<Leaf zone_id="Indian/Antananarivo" name="&#47560;&#45796;&#44032;&#49828;&#52852;&#47476;" />
+			<Leaf zone_id="Africa/Blantyre" name="&#47568;&#46972;&#50948;" />
+			<Leaf zone_id="Africa/Bamako" name="&#47568;&#47532;" />
+			<Leaf zone_id="Africa/Nouakchott" name="&#47784;&#47532;&#53440;&#45768;" />
+			<Leaf zone_id="Africa/Casablanca" name="&#47784;&#47196;&#53076;" />
+			<Leaf zone_id="Africa/Maputo" name="&#47784;&#51104;&#48708;&#53356;" />
+			<Leaf zone_id="Africa/Windhoek" name="&#45208;&#48120;&#48708;&#50500;" />
+			<Leaf zone_id="Africa/Niamey" name="&#45768;&#51228;&#47476;" />
+			<Leaf zone_id="Africa/Lagos" name="&#45208;&#51060;&#51648;&#47532;&#50500;" />
+			<Leaf zone_id="Africa/Kigali" name="&#47476;&#50756;&#45796;" />
+			<Leaf zone_id="Africa/Sao_Tome" name="&#49345;&#53804;&#47700;&#54532;&#47536;&#49884;&#54168;" />
+			<Leaf zone_id="Africa/Dakar" name="&#49464;&#45348;&#44040;" />
+			<Leaf zone_id="Africa/Freetown" name="&#49884;&#50640;&#46972;&#47532;&#50728;" />
+			<Leaf zone_id="Africa/Mogadishu" name="&#49548;&#47568;&#47532;&#50500;" />
+			<Leaf zone_id="Africa/Johannesburg" name="&#45224;&#50500;&#54532;&#47532;&#52852;&#53097;&#54868;&#44397;" />
+			<Leaf zone_id="Africa/Khartoum" name="&#49688;&#45800;" />
+			<Leaf zone_id="Africa/Mbabane" name="&#49828;&#50752;&#51656;&#46976;&#46300;" />
+			<Leaf zone_id="Africa/Dar_es_Salaam" name="&#53444;&#51088;&#45768;&#50500;" />
+			<Leaf zone_id="Africa/Lome" name="&#53664;&#44256;" />
+			<Leaf zone_id="Africa/Tunis" name="&#53888;&#45768;&#51648;" />
+			<Leaf zone_id="Africa/Kampala" name="&#50864;&#44036;&#45796;" />
+			<Leaf zone_id="Africa/El_Aaiun" name="&#49324;&#54616;&#46972;&#50500;&#46989;&#48124;&#51452;&#44277;&#54868;&#44397;" />
+			<Leaf zone_id="Africa/Lusaka" name="&#51104;&#48708;&#50500;" />
+			<Leaf zone_id="Africa/Harare" name="&#51664;&#48148;&#48652;&#50920;" />
+		</Branch>
+		<Branch name="&#46020;&#49884;">
+			<Leaf zone_id="Africa/Abidjan" name="&#50500;&#48708;&#51109;" />
+			<Leaf zone_id="Africa/Accra" name="&#50500;&#53356;&#46972;" />
+			<Leaf zone_id="Africa/Addis_Ababa" name="&#50500;&#46356;&#49828;&#50500;&#48148;&#48148;" />
+			<Leaf zone_id="Africa/Algiers" name="&#50508;&#51228;" />
+			<Leaf zone_id="Indian/Antananarivo" name="&#50504;&#53440;&#45208;&#47532;&#48372;" />
+			<Leaf zone_id="Africa/Asmera" name="&#50500;&#49828;&#47700;&#46972;" />
+			<Leaf zone_id="Africa/Bamako" name="&#48148;&#47560;&#53076;" />
+			<Leaf zone_id="Africa/Bangui" name="&#48169;&#44592;" />
+			<Leaf zone_id="Africa/Banjul" name="&#48152;&#51460;" />
+			<Leaf zone_id="Africa/Bissau" name="&#48708;&#49324;&#50864;" />
+			<Leaf zone_id="Africa/Blantyre" name="&#48660;&#47004;&#53440;&#51060;&#50612;" />
+			<Leaf zone_id="Africa/Brazzaville" name="&#48652;&#46972;&#51088;&#48716;" />
+			<Leaf zone_id="Africa/Bujumbura" name="&#48512;&#51468;&#48512;&#46972;" />
+			<Leaf zone_id="Africa/Cairo" name="&#52852;&#51060;&#47196;" />
+			<Leaf zone_id="Africa/Johannesburg" name="&#52992;&#51060;&#54532;&#53440;&#50868;">
+				<Coordinates latitude="-33.925" longitude="18.43" />
+			</Leaf>
+			<Leaf zone_id="Africa/Casablanca" name="&#52852;&#49324;&#48660;&#46993;&#52852;" />
+			<Leaf zone_id="Africa/Ceuta" name="&#49464;&#50864;&#53440;" />
+			<Leaf zone_id="Africa/Conakry" name="&#53076;&#45208;&#53356;&#47532;" />
+			<Leaf zone_id="Africa/Dakar" name="&#45796;&#52852;&#47476;" />
+			<Leaf zone_id="Africa/Dar_es_Salaam" name="&#45796;&#47476;&#50640;&#49828;&#49332;&#46988;" />
+			<Leaf zone_id="Africa/Djibouti" name="&#51648;&#48512;&#54000;" />
+			<Leaf zone_id="Africa/Douala" name="&#46160;&#50508;&#46972;" />
+			<Leaf zone_id="Africa/El_Aaiun" name="&#50648;&#50500;&#51060;&#50868;" />
+			<Leaf zone_id="Africa/Freetown" name="&#54532;&#47532;&#53440;&#50868;" />
+			<Leaf zone_id="Africa/Gaborone" name="&#44032;&#48372;&#47196;&#45348;" />
+			<Leaf zone_id="Africa/Harare" name="&#54616;&#46972;&#45348;" />
+			<Leaf zone_id="Africa/Johannesburg" name="&#50836;&#54616;&#45348;&#49828;&#48260;&#44536;" />
+			<Leaf zone_id="Africa/Kampala" name="&#52868;&#54036;&#46972;" />
+			<Leaf zone_id="Africa/Khartoum" name="&#54616;&#47476;&#53820;" />
+			<Leaf zone_id="Africa/Kigali" name="&#53412;&#44040;&#47532;" />
+			<Leaf zone_id="Africa/Kinshasa" name="&#49888;&#49380;&#49324;" />
+			<Leaf zone_id="Africa/Lagos" name="&#46972;&#44256;&#49828;" />
+			<Leaf zone_id="Africa/Libreville" name="&#47532;&#48652;&#47476;&#48716;" />
+			<Leaf zone_id="Africa/Lome" name="&#47196;&#47700;" />
+			<Leaf zone_id="Africa/Luanda" name="&#47336;&#50504;&#45796;" />
+			<Leaf zone_id="Africa/Lubumbashi" name="&#47336;&#48528;&#48148;&#49884;" />
+			<Leaf zone_id="Africa/Lusaka" name="&#47336;&#49324;&#52852;" />
+			<Leaf zone_id="Africa/Malabo" name="&#47568;&#46972;&#48372;" />
+			<Leaf zone_id="Africa/Maputo" name="&#47560;&#54392;&#53804;" />
+			<Leaf zone_id="Africa/Maseru" name="&#47560;&#49464;&#47336;" />
+			<Leaf zone_id="Africa/Mbabane" name="&#51020;&#48148;&#48148;&#45348;" />
+			<Leaf zone_id="Africa/Mogadishu" name="&#47784;&#44592;&#46356;&#49800;" />
+			<Leaf zone_id="Africa/Monrovia" name="&#47788;&#47196;&#48708;&#50500;" />
+			<Leaf zone_id="Africa/Nairobi" name="&#45208;&#51060;&#47196;&#48708;" />
+			<Leaf zone_id="Africa/Ndjamena" name="&#51008;&#51088;&#47700;&#45208;" />
+			<Leaf zone_id="Africa/Niamey" name="&#45768;&#50500;&#47700;" />
+			<Leaf zone_id="Africa/Nouakchott" name="&#45572;&#50501;&#49660;&#53944;" />
+			<Leaf zone_id="Africa/Ouagadougou" name="&#50752;&#44032;&#46160;&#44396;" />
+			<Leaf zone_id="Africa/Porto-Novo" name="&#54252;&#47476;&#53664;&#45432;&#48372;" />
+			<Leaf zone_id="Africa/Sao_Tome" name="&#49345;&#53804;&#47700;" />
+			<Leaf zone_id="Africa/Timbuktu" name="&#54016;&#48513;&#53804;" />
+			<Leaf zone_id="Africa/Tripoli" name="&#53944;&#47532;&#54260;&#47532;" />
+			<Leaf zone_id="Africa/Tunis" name="&#53888;&#45768;&#49828;" />
+			<Leaf zone_id="Africa/Windhoek" name="&#48712;&#53944;&#54980;&#53356;" />
+		</Branch>
+	</Branch>
+	<Branch name="&#50500;&#47700;&#47532;&#52852;">
+		<Branch name="&#45208;&#46972;">
+			<Leaf zone_id="America/Anguilla" name="&#50549;&#44488;&#46972;" />
+			<Leaf zone_id="America/Antigua" name="&#50532;&#54000;&#44032;&#48148;&#48512;&#45796;" />
+			<Branch name="&#50500;&#47476;&#54760;&#54000;&#45208;">
+				<Leaf zone_id="America/Argentina/Cordoba" name="&#50500;&#47476;&#54760;&#54000;&#45208; (&#45824;&#48512;&#48516;)" />
+				<Leaf zone_id="America/Argentina/Buenos_Aires" name="&#48512;&#50640;&#45432;&#49828;&#50500;&#51060;&#47112;&#49828; (BA, CF)" />
+				<Leaf zone_id="America/Argentina/Catamarca" name="&#52852;&#53440;&#47560;&#47476;&#52852; (CT), &#52628;&#48512;&#53944; (CH)" />
+				<Leaf zone_id="America/Argentina/Jujuy" name="&#54980;&#54980;&#51060; (JY)" />
+				<Leaf zone_id="America/Argentina/La_Rioja" name="&#46972;&#47532;&#50724;&#54616; (LR)" />
+				<Leaf zone_id="America/Argentina/Mendoza" name="&#47704;&#46020;&#49324; (MZ)" />
+				<Leaf zone_id="America/Argentina/San_Juan" name="&#49328;&#54980;&#50504; (SJ)" />
+				<Leaf zone_id="America/Argentina/Rio_Gallegos" name="&#49328;&#53440;&#53356;&#47336;&#49828; (SC)" />
+				<Leaf zone_id="America/Argentina/Ushuaia" name="&#54000;&#50640;&#46972;&#53588;&#54392;&#50640;&#44256; (TF)" />
+				<Leaf zone_id="America/Argentina/Tucuman" name="&#53804;&#53216;&#47564; (TM)" />
+			</Branch>
+			<Leaf zone_id="America/Aruba" name="&#50500;&#47336;&#48148;" />
+			<Leaf zone_id="America/Nassau" name="&#48148;&#54616;&#47560;" />
+			<Leaf zone_id="America/Barbados" name="&#48148;&#48288;&#51060;&#46020;&#49828;" />
+			<Leaf zone_id="America/Belize" name="&#48296;&#47532;&#51592;" />
+			<Leaf zone_id="America/La_Paz" name="&#48380;&#47532;&#48708;&#50500;" />
+			<Branch name="&#48652;&#46972;&#51656;">
+				<Leaf zone_id="America/Rio_Branco" name="&#50500;&#53356;&#47112;" />
+				<Leaf zone_id="America/Maceio" name="&#50508;&#46972;&#44256;&#50500;&#49828;, &#49464;&#47476;&#51648;&#54168;" />
+				<Leaf zone_id="America/Belem" name="&#50500;&#47560;&#54028;, &#54028;&#46972; &#46041;&#48512;" />
+				<Leaf zone_id="America/Noronha" name="&#45824;&#49436;&#50577;&#50676;&#46020;" />
+				<Leaf zone_id="America/Bahia" name="&#48148;&#51060;&#50500;" />
+				<Leaf zone_id="America/Manaus" name="&#50500;&#47560;&#51312;&#45208;&#49828; &#46041;&#48512;" />
+				<Leaf zone_id="America/Cuiaba" name="&#47560;&#53804;&#44536;&#47196;&#49688;" />
+				<Leaf zone_id="America/Campo_Grande" name="&#47560;&#53804;&#44536;&#47196;&#49688;&#46160;&#49696;" />
+				<Leaf zone_id="America/Fortaleza" name="&#48652;&#46972;&#51656; &#48513;&#46041;&#48512;" />
+				<Leaf zone_id="America/Recife" name="&#54168;&#47476;&#45224;&#48512;&#53216;" />
+				<Leaf zone_id="America/Boa_Vista" name="&#47196;&#46972;&#51060;&#47560;" />
+				<Leaf zone_id="America/Sao_Paulo" name="&#48652;&#46972;&#51656; &#45224;&#48512; &#48143; &#45224;&#46041;&#48512;" />
+				<Leaf zone_id="America/Araguaina" name="&#53664;&#52856;&#54004;&#49828;" />
+				<Leaf zone_id="America/Eirunepe" name="&#50500;&#47560;&#51312;&#45208;&#49828; &#49436;&#48512;" />
+				<Leaf zone_id="America/Porto_Velho" name="&#54028;&#46972; &#49436;&#48512;, &#47200;&#46020;&#45768;&#50500;" />
+			</Branch>
+			<Branch name="&#52992;&#45208;&#45796;">
+				<Branch name="&#45824;&#49436;&#50577;&#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Goose_Bay" name="&#47000;&#48652;&#46972;&#46020;" />
+					<Leaf zone_id="America/Moncton" name="&#45684;&#48652;&#47088;&#51592;&#50949;" />
+					<Leaf zone_id="America/Halifax" name="NS &#48143; &#54532;&#47536;&#49828;&#50640;&#46300;&#50892;&#46300;&#50500;&#51068;&#47004;&#46300;" />
+				</Branch>
+				<Branch name="&#51473;&#48512; &#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Regina" name="&#49436;&#49828;&#52880;&#52376;&#50896;" />
+				</Branch>
+				<Branch name="&#51473;&#48512;&#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Winnipeg" name="&#47588;&#45768;&#53664;&#48148; &#48143; ON &#49436;&#48512;" />
+					<Leaf zone_id="America/Rankin_Inlet" name="&#45572;&#45208;&#48512;&#53944; &#51473;&#48512;" />
+				</Branch>
+				<Branch name="&#46041;&#48512;&#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Toronto" name="&#50728;&#53440;&#47532;&#50724;" />
+					<Leaf zone_id="America/Montreal" name="&#53272;&#48289;" />
+					<Leaf zone_id="America/Iqaluit" name="&#45572;&#45208;&#48512;&#53944; &#46041;&#48512;" />
+				</Branch>
+				<Branch name="&#49328;&#51648;&#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Edmonton" name="&#50648;&#48260;&#53440;, BC &#46041;&#48512; &#48143; SK &#49436;&#48512;" />
+					<Leaf zone_id="America/Yellowknife" name="&#45432;&#49828;&#50920;&#49828;&#53944;&#53580;&#47532;&#53664;&#47532;&#49828; &#51473;&#48512;" />
+					<Leaf zone_id="America/Cambridge_Bay" name="&#45572;&#45208;&#48512;&#53944; &#49436;&#48512;" />
+					<Leaf zone_id="America/Inuvik" name="&#45432;&#49828;&#50920;&#49828;&#53944;&#53580;&#47532;&#53664;&#47532;&#49828; &#49436;&#48512;" />
+				</Branch>
+				<Branch name="&#45684;&#54144;&#46308;&#47004;&#46300;&#49884;">
+					<Leaf zone_id="America/St_Johns" name="NF &amp; &#47000;&#48652;&#46972;&#46020; &#45224;&#46041;&#48512;" />
+				</Branch>
+				<Branch name="&#53468;&#54217;&#50577;&#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Dawson" name="&#50976;&#53080; &#48513;&#48512;" />
+					<Leaf zone_id="America/Whitehorse" name="&#50976;&#53080; &#45224;&#48512;" />
+					<Leaf zone_id="America/Vancouver" name="&#48652;&#47532;&#54000;&#49884;&#52972;&#47100;&#48708;&#50500; &#49436;&#48512;" />
+				</Branch>
+				<Branch name="&#50696;&#50808;">
+					<Branch name="&#45824;&#49436;&#50577; &#54364;&#51456;&#49884;">
+						<Leaf zone_id="America/Blanc-Sablon" name="QC - &#47196;&#50864;&#50612;&#45432;&#49828;&#49660;" />
+					</Branch>
+					<Branch name="&#45824;&#49436;&#50577;&#54364;&#51456;&#49884;">
+						<Leaf zone_id="America/Glace_Bay" name="NS - no DST 1966-1971" />
+					</Branch>
+					<Branch name="&#51473;&#48512; &#54364;&#51456;&#49884;">
+						<Leaf zone_id="America/Swift_Current" name="&#49436;&#49828;&#52880;&#52376;&#50896; - &#51473;&#49436;&#48512;" />
+					</Branch>
+					<Branch name="&#51473;&#48512;&#54364;&#51456;&#49884;">
+						<Leaf zone_id="America/Rainy_River" name="&#47112;&#51060;&#45768;&#47532;&#48260; &#48143; &#54532;&#46976;&#49884;&#49828; &#50836;&#49352;, ON" />
+					</Branch>
+					<Branch name="&#46041;&#48512; &#54364;&#51456;&#49884;">
+						<Leaf zone_id="America/Atikokan" name="&#50500;&#54000;&#53076;&#52856;, ON &#48143; &#49324;&#50864;&#49368;&#54532;&#53556;&#49452;, NU" />
+					</Branch>
+					<Branch name="&#46041;&#48512;&#54364;&#51456;&#49884;">
+						<Leaf zone_id="America/Nipigon" name="ON &amp; QC - no DST 1967-1973" />
+						<Leaf zone_id="America/Pangnirtung" name="&#54049;&#45768;&#47476;&#53825;, NU" />
+						<Leaf zone_id="America/Thunder_Bay" name="&#49440;&#45908;&#48288;&#51060;, ON" />
+					</Branch>
+					<Branch name="&#49328;&#51648;&#54364;&#51456;&#49884;">
+						<Leaf zone_id="America/Dawson_Creek" name="&#46020;&#49832; Cr &#48143; &#49464;&#51064;&#53944; &#51316; &#50836;&#49352;, BC" />
+					</Branch>
+				</Branch>
+			</Branch>
+			<Leaf zone_id="America/Cayman" name="&#52992;&#51060;&#47564; &#51228;&#46020;" />
+			<Leaf zone_id="America/Santiago" name="&#52832;&#47112;" />
+			<Leaf zone_id="America/Bogota" name="&#53084;&#47212;&#48708;&#50500;" />
+			<Leaf zone_id="America/Costa_Rica" name="&#53076;&#49828;&#53440;&#47532;&#52852;" />
+			<Leaf zone_id="America/Havana" name="&#53216;&#48148;" />
+			<Leaf zone_id="America/Dominica" name="&#46020;&#48120;&#45768;&#52852;" />
+			<Leaf zone_id="America/Santo_Domingo" name="&#46020;&#48120;&#45768;&#52852;&#44277;&#54868;&#44397;" />
+			<Leaf zone_id="America/Guayaquil" name="&#50528;&#53104;&#46020;&#47476;">
+				<Coordinates latitude="-0.223" longitude="-78.513" />
+			</Leaf>
+			<Leaf zone_id="America/El_Salvador" name="&#50648;&#49332;&#48148;&#46020;&#47476;" />
+			<Leaf zone_id="America/Cayenne" name="&#54532;&#46993;&#49828;&#47161; &#44592;&#50500;&#45208;" />
+			<Branch name="&#44536;&#47536;&#46976;&#46300;">
+				<Leaf zone_id="America/Godthab" name="&#44536;&#47536;&#46976;&#46300; (&#45824;&#48512;&#48516;)" />
+				<Leaf zone_id="America/Scoresbysund" name="&#49828;&#53076;&#47112;&#49828;&#48596;&#49692;/&#51060;&#53664;&#53076;&#47476;&#53664;&#47476;&#48120;&#50864;&#53944;" />
+				<Leaf zone_id="America/Thule" name="&#53812;&#47112;/&#54588;&#53804;&#54589;" />
+				<Leaf zone_id="America/Danmarkshavn" name="&#46041;&#48512; &#54644;&#50504;, &#49828;&#53076;&#47112;&#49828;&#48596;&#49692; &#48513;&#48512;" />
+			</Branch>
+			<Leaf zone_id="America/Grenada" name="&#44536;&#47112;&#45208;&#45796;" />
+			<Leaf zone_id="America/Guadeloupe" name="&#44284;&#46308;&#47336;&#54532;" />
+			<Leaf zone_id="America/Guatemala" name="&#44284;&#53580;&#47568;&#46972;" />
+			<Leaf zone_id="America/Guyana" name="&#44032;&#51060;&#50500;&#45208;" />
+			<Leaf zone_id="America/Port-au-Prince" name="&#50500;&#51060;&#54000;" />
+			<Leaf zone_id="America/Tegucigalpa" name="&#50728;&#46160;&#46972;&#49828;" />
+			<Leaf zone_id="America/Jamaica" name="&#51088;&#47700;&#51060;&#52852;" />
+			<Leaf zone_id="America/Martinique" name="&#47560;&#47476;&#54000;&#45768;&#53356;" />
+			<Branch name="&#47701;&#49884;&#53076;">
+				<Branch name="&#51473;&#48512;&#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Mexico_City" name="&#51473;&#48512; (&#45824;&#48512;&#48516;)" />
+					<Leaf zone_id="America/Merida" name="&#52868;&#54168;&#52404;, &#50976;&#52852;&#53444;" />
+					<Leaf zone_id="America/Monterrey" name="&#53076;&#50500;&#50864;&#51068;&#46972;, &#46160;&#46993;&#44256;, &#45572;&#50640;&#48372;&#47112;&#50728;, &#53440;&#47560;&#50872;&#47532;&#54028;&#49828;" />
+					<Leaf zone_id="America/Cancun" name="&#53416;&#53440;&#45208;&#47196;&#50724;" />
+				</Branch>
+				<Branch name="&#49328;&#51648; &#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Hermosillo" name="&#49548;&#45432;&#46972;" />
+				</Branch>
+				<Branch name="&#49328;&#51648;&#54364;&#51456;&#49884;">
+					<Leaf zone_id="America/Chihuahua" name="&#52824;&#50752;&#50752;" />
+					<Leaf zone_id="America/Mazatlan" name="&#48148;&#54616;&#52860;&#47532;&#54252;&#47476;&#45768;&#50500; &#45224;&#48512;, &#45208;&#50556;&#47532;&#53944;, &#49884;&#45216;&#47196;&#50500;" />
+				</Branch>
+				<Leaf zone_id="America/Tijuana" name="&#53468;&#54217;&#50577;&#50672;&#50504;" />
+			</Branch>
+			<Leaf zone_id="America/Montserrat" name="&#47788;&#53944;&#49464;&#46972;&#53944;" />
+			<Leaf zone_id="America/Curacao" name="&#45348;&#45916;&#46976;&#46300;&#47161; &#50504;&#54008;&#47112;&#49828;" />
+			<Leaf zone_id="America/Managua" name="&#45768;&#52852;&#46972;&#44284;" />
+			<Leaf zone_id="America/Panama" name="&#54028;&#45208;&#47560;" />
+			<Leaf zone_id="America/Asuncion" name="&#54028;&#46972;&#44284;&#51060;" />
+			<Leaf zone_id="America/Lima" name="&#54168;&#47336;" />
+			<Leaf zone_id="America/Puerto_Rico" name="&#54392;&#50640;&#47476;&#53664;&#47532;&#53076;" />
+			<Leaf zone_id="America/St_Kitts" name="&#49464;&#51064;&#53944;&#53412;&#52768;&#45348;&#48708;&#49828;" />
+			<Leaf zone_id="America/St_Lucia" name="&#49464;&#51064;&#53944;&#47336;&#49884;&#50500;" />
+			<Leaf zone_id="America/Miquelon" name="&#49373;&#54588;&#50640;&#47476;&#50532;&#46300;&#48120;&#53364;&#47217;" />
+			<Leaf zone_id="America/St_Vincent" name="&#49464;&#51064;&#53944;&#48712;&#49468;&#53944;" />
+			<Leaf zone_id="America/Paramaribo" name="&#49688;&#47532;&#45224;" />
+			<Leaf zone_id="America/Port_of_Spain" name="&#53944;&#47532;&#45768;&#45796;&#46300;&#53664;&#48148;&#53076;" />
+			<Leaf zone_id="America/Grand_Turk" name="&#53552;&#53356;&#49828;&#52992;&#51060;&#52964;&#49828; &#51228;&#46020;" />
+			<Branch name="&#48120;&#44397;">
+				<Branch name="&#50508;&#47000;&#49828;&#52852;">
+					<Leaf zone_id="America/Anchorage" name="&#50508;&#47000;&#49828;&#52852; (&#45824;&#48512;&#48516;)" />
+					<Leaf zone_id="America/Juneau" name="&#54060;&#54648;&#46308;" />
+					<Leaf zone_id="America/Yakutat" name="&#54060;&#54648;&#46308;&#45349;" />
+					<Leaf zone_id="America/Adak" name="&#50508;&#47448;&#49384; &#50676;&#46020;" />
+					<Leaf zone_id="America/Nome" name="&#50508;&#47000;&#49828;&#52852; &#49436;&#48512;" />
+				</Branch>
+				<Leaf zone_id="America/Chicago" name="&#51473;&#48512;" />
+				<Leaf zone_id="America/New_York" name="&#46041;&#48512;" />
+				<Leaf zone_id="Pacific/Honolulu" name="&#54616;&#50752;&#51060;" />
+				<Leaf zone_id="America/Denver" name="&#49328;&#51648;" />
+				<Leaf zone_id="America/Los_Angeles" name="&#53468;&#54217;&#50577;&#50672;&#50504;" />
+				<Branch name="&#50696;&#50808;">
+					<Branch name="&#51473;&#48512;&#54364;&#51456;&#49884;">
+						<Branch name="&#51064;&#46356;&#50528;&#45208;">
+							<Leaf zone_id="America/Indiana/Vincennes" name="&#45796;&#48708;&#49828;, &#45908;&#48708;&#49828;, &#45433;&#49828;, &#47560;&#54004;, &#54168;&#47532; &amp; &#54392;&#46972;&#49828;&#53412; Cos" />
+							<Leaf zone_id="America/Indiana/Petersburg" name="&#54588;&#52992; Co" />
+						</Branch>
+						<Branch name="&#48120;&#49884;&#44036;">
+							<Leaf zone_id="America/Menominee" name="&#46356;&#53416;&#49832;, &#44256;&#44144;&#48709;, &#50500;&#51060;&#47088; &amp; &#47700;&#45432;&#48120;&#45768; Cos" />
+						</Branch>
+						<Branch name="&#45432;&#49828;&#45796;&#53076;&#53440;">
+							<Leaf zone_id="America/North_Dakota/New_Salem" name="&#47784;&#53556; Co (&#47592;&#45912; &#50640;&#50612;&#47532;&#50612; &#51228;&#50808;)" />
+							<Leaf zone_id="America/North_Dakota/Center" name="&#50732;&#47532;&#48260; Co" />
+						</Branch>
+					</Branch>
+					<Branch name="&#46041;&#48512;&#54364;&#51456;&#49884;">
+						<Branch name="&#51064;&#46356;&#50528;&#45208;">
+							<Leaf zone_id="America/Indiana/Indianapolis" name="&#51064;&#46356;&#50528;&#45208; (&#45824;&#48512;&#48516;)" />
+							<Leaf zone_id="America/Indiana/Marengo" name="&#53356;&#47084;&#50864;&#54252;&#46300; Co" />
+							<Leaf zone_id="America/Indiana/Knox" name="&#49828;&#53440;&#52992; Co" />
+							<Leaf zone_id="America/Indiana/Vevay" name="&#49828;&#50948;&#51600;&#47004;&#46300; Co" />
+						</Branch>
+						<Branch name="&#52996;&#53552;&#53412;">
+							<Leaf zone_id="America/Kentucky/Louisville" name="&#47336;&#51060;&#48716; &#50640;&#50612;&#47532;&#50612;" />
+							<Leaf zone_id="America/Kentucky/Monticello" name="&#50752;&#51060;&#45348; Co" />
+						</Branch>
+						<Leaf zone_id="America/Detroit" name="&#48120;&#49884;&#44036; (&#45824;&#48512;&#48516;)" />
+					</Branch>
+					<Branch name="&#49328;&#51648;&#54364;&#51456;&#49884;">
+						<Leaf zone_id="America/Phoenix" name="&#50528;&#47532;&#51312;&#45208;" />
+						<Leaf zone_id="America/Shiprock" name="&#45208;&#48148;&#54840;" />
+						<Leaf zone_id="America/Boise" name="&#50500;&#51060;&#45796;&#54840; &#45224;&#48512; &#48143; &#50724;&#47532;&#44148; &#46041;&#48512;" />
+					</Branch>
+				</Branch>
+			</Branch>
+			<Leaf zone_id="America/Montevideo" name="&#50864;&#47476;&#44284;&#51060;" />
+			<Leaf zone_id="America/Caracas" name="&#48288;&#45348;&#49688;&#50648;&#46972;" />
+			<Leaf zone_id="America/Tortola" name="&#50689;&#44397;&#47161; &#48260;&#51652;&#50500;&#51068;&#47004;&#46300;" />
+			<Leaf zone_id="America/St_Thomas" name="&#48120;&#44397;&#47161; &#48260;&#51652;&#50500;&#51068;&#47004;&#46300;" />
+		</Branch>
+		<Branch name="&#46020;&#49884;">
+			<Leaf zone_id="America/Adak" name="&#50500;&#45797;" />
+			<Leaf zone_id="America/Anchorage" name="&#50549;&#52964;&#47532;&#51648;" />
+			<Leaf zone_id="America/Araguaina" name="&#50500;&#46972;&#44396;&#50500;&#51060;&#50500;" />
+			<Leaf zone_id="America/Asuncion" name="&#50500;&#49692;&#49884;&#50728;" />
+			<Leaf zone_id="America/Atikokan" name="&#50500;&#54000;&#52964;&#52853;" />
+			<Leaf zone_id="America/Bahia" name="&#48148;&#51060;&#50500;" />
+			<Leaf zone_id="America/Guadeloupe" name="&#48148;&#49828;&#53580;&#47476;, &#44284;&#46308;&#47336;&#54532;" />
+			<Leaf zone_id="America/St_Kitts" name="&#48148;&#49828;&#53580;&#47476;, &#49464;&#51064;&#53944;&#53412;&#52768;" />
+			<Leaf zone_id="America/Belem" name="&#48296;&#47128;" />
+			<Leaf zone_id="America/Belize" name="&#48296;&#47532;&#51592;&#49884;&#54000;" />
+			<Leaf zone_id="America/Blanc-Sablon" name="&#48660;&#46993;&#49324;&#48660;&#47217;" />
+			<Leaf zone_id="America/Boa_Vista" name="&#48372;&#50500;&#48708;&#49828;&#53440;" />
+			<Leaf zone_id="America/Bogota" name="&#48372;&#44256;&#53440;" />
+			<Leaf zone_id="America/Boise" name="&#48372;&#51060;&#49884;" />
+			<Leaf zone_id="America/Barbados" name="&#48652;&#47532;&#51648;&#53440;&#50868;" />
+			<Leaf zone_id="America/Argentina/Buenos_Aires" name="&#48512;&#50640;&#45432;&#49828;&#50500;&#51060;&#47112;&#49828;" />
+			<Leaf zone_id="America/Cambridge_Bay" name="&#52992;&#51076;&#48652;&#47532;&#51648;&#48288;&#51060;" />
+			<Leaf zone_id="America/Campo_Grande" name="&#52868;&#54392;&#44536;&#46976;&#45936;" />
+			<Leaf zone_id="America/Cancun" name="&#52856;&#53220;" />
+			<Leaf zone_id="America/Caracas" name="&#52852;&#46972;&#52852;&#49828;" />
+			<Leaf zone_id="America/Argentina/Catamarca" name="&#52852;&#53440;&#47560;&#47476;&#52852;" />
+			<Leaf zone_id="America/Cayenne" name="&#52852;&#50700;" />
+			<Leaf zone_id="America/Chicago" name="&#49884;&#53412;&#44256;" />
+			<Leaf zone_id="America/Chihuahua" name="&#52824;&#50752;&#50752;" />
+			<Leaf zone_id="America/Grand_Turk" name="&#53076;&#53356;&#48264;&#53440;&#50868;" />
+			<Leaf zone_id="America/Argentina/ComodRivadavia" name="&#53076;&#47784;&#46020;&#47532;&#48148;&#45796;&#48708;&#50500;" />
+			<Leaf zone_id="America/Argentina/Cordoba" name="&#53076;&#47476;&#46020;&#48148;" />
+			<Leaf zone_id="America/Cuiaba" name="&#53216;&#51060;&#50500;&#48148;" />
+			<Leaf zone_id="America/Danmarkshavn" name="&#45800;&#47560;&#53356;&#49380;&#48656;" />
+			<Leaf zone_id="America/Dawson" name="&#46020;&#49832;&#49884;&#54000;" />
+			<Leaf zone_id="America/Dawson_Creek" name="&#46020;&#49832;&#53356;&#47532;&#53356;" />
+			<Leaf zone_id="America/Denver" name="&#45940;&#48260;" />
+			<Leaf zone_id="America/Detroit" name="&#46356;&#53944;&#47196;&#51060;&#53944;" />
+			<Leaf zone_id="America/Edmonton" name="&#50640;&#46300;&#48124;&#53556;" />
+			<Leaf zone_id="America/Eirunepe" name="&#50500;&#51060;&#47336;&#45348;&#54168;" />
+			<Leaf zone_id="America/Martinique" name="&#54252;&#47476;&#46300;&#54532;&#46993;&#49828;" />
+			<Leaf zone_id="America/Fortaleza" name="&#54252;&#47476;&#53448;&#47112;&#51088;" />
+			<Leaf zone_id="America/Cayman" name="&#51312;&#51648;&#53440;&#50868;, &#52992;&#51060;&#47592; &#51228;&#46020;" />
+			<Leaf zone_id="America/Guyana" name="&#51312;&#51648;&#53440;&#50868;, &#44032;&#51060;&#50500;&#45208;" />
+			<Leaf zone_id="America/Glace_Bay" name="&#44544;&#47112;&#51060;&#49828;&#48288;&#51060;" />
+			<Leaf zone_id="America/Godthab" name="&#44256;&#46300;&#54252;&#48652;" />
+			<Leaf zone_id="America/Goose_Bay" name="&#44396;&#49828;&#48288;&#51060;" />
+			<Leaf zone_id="America/Guatemala" name="&#44284;&#53580;&#47568;&#46972;&#49884;&#54000;" />
+			<Leaf zone_id="America/Guayaquil" name="&#44284;&#50556;&#53420;" />
+			<Leaf zone_id="America/Halifax" name="&#54652;&#47532;&#54057;&#49828;" />
+			<Leaf zone_id="America/Havana" name="&#50500;&#48148;&#45208;" />
+			<Leaf zone_id="America/Hermosillo" name="&#50640;&#47476;&#47784;&#49884;&#50836;" />
+			<Leaf zone_id="Pacific/Honolulu" name="&#54840;&#45440;&#47344;&#47336;" />
+			<Branch name="&#51064;&#46356;&#50528;&#45208;">
+				<Leaf zone_id="America/Indiana/Indianapolis" name="&#51064;&#46356;&#50528;&#45208;&#54260;&#47532;&#49828;" />
+				<Leaf zone_id="America/Indiana/Knox" name="&#45433;&#49828;" />
+				<Leaf zone_id="America/Indiana/Marengo" name="&#47560;&#47133;&#44256;" />
+				<Leaf zone_id="America/Indiana/Petersburg" name="&#54588;&#53552;&#51592;&#48260;&#44536;" />
+				<Leaf zone_id="America/Indiana/Vevay" name="&#48260;&#48288;&#51060;" />
+				<Leaf zone_id="America/Indiana/Vincennes" name="&#48712;&#49468;&#49828;" />
+			</Branch>
+			<Leaf zone_id="America/Indianapolis" name="&#51064;&#46356;&#50528;&#45208;&#54260;&#47532;&#49828;" />
+			<Leaf zone_id="America/Inuvik" name="&#51060;&#45572;&#48709;" />
+			<Leaf zone_id="America/Iqaluit" name="&#51060;&#52860;&#47336;&#51060;&#53944;" />
+			<Leaf zone_id="America/Argentina/Jujuy" name="&#54980;&#54980;&#51060;" />
+			<Leaf zone_id="America/Juneau" name="&#51452;&#45432;" />
+			<Branch name="&#52996;&#53552;&#53412;">
+				<Leaf zone_id="America/Kentucky/Louisville" name="&#47336;&#51060;&#48716;" />
+				<Leaf zone_id="America/Kentucky/Monticello" name="&#47788;&#54000;&#52412;&#47196;" />
+			</Branch>
+			<Leaf zone_id="America/Jamaica" name="&#53433;&#49828;&#53556;" />
+			<Leaf zone_id="America/La_Paz" name="&#46972;&#54028;&#49828;" />
+			<Leaf zone_id="America/Argentina/La_Rioja" name="&#46972;&#47532;&#50724;&#54616;" />
+			<Leaf zone_id="America/Lima" name="&#47532;&#47560;" />
+			<Leaf zone_id="America/Los_Angeles" name="&#47196;&#49828;&#50644;&#51236;&#47112;&#49828;" />
+			<Leaf zone_id="America/Louisville" name="&#47336;&#51060;&#48716;" />
+			<Leaf zone_id="America/Maceio" name="&#47560;&#49464;&#51060;&#50724;" />
+			<Leaf zone_id="America/Managua" name="&#47560;&#45208;&#44284;" />
+			<Leaf zone_id="America/Manaus" name="&#47560;&#45208;&#50864;&#49828;" />
+			<Leaf zone_id="America/Mazatlan" name="&#47560;&#49324;&#53952;&#46976;" />
+			<Leaf zone_id="America/Argentina/Mendoza" name="&#47704;&#46020;&#49324;" />
+			<Leaf zone_id="America/Menominee" name="&#47700;&#45432;&#48120;&#45768;" />
+			<Leaf zone_id="America/Merida" name="&#47700;&#47532;&#45796;" />
+			<Leaf zone_id="America/Mexico_City" name="&#47701;&#49884;&#53076;&#49884;&#54000;" />
+			<Leaf zone_id="America/Miquelon" name="&#48120;&#53364;&#47217;" />
+			<Leaf zone_id="America/Moncton" name="&#47693;&#53356;&#53556;" />
+			<Leaf zone_id="America/Monterrey" name="&#47788;&#53580;&#47112;&#51060;" />
+			<Leaf zone_id="America/Montevideo" name="&#47788;&#53580;&#48708;&#45936;&#50724;" />
+			<Leaf zone_id="America/Montreal" name="&#47788;&#53944;&#47532;&#50732;" />
+			<Leaf zone_id="America/Nassau" name="&#45208;&#49548;" />
+			<Leaf zone_id="America/New_York" name="&#45684;&#50837;" />
+			<Leaf zone_id="America/Nipigon" name="&#45768;&#54588;&#44260;" />
+			<Leaf zone_id="America/Nome" name="&#45448;" />
+			<Leaf zone_id="America/Noronha" name="&#45572;&#47196;&#45264;" />
+			<Branch name="&#45432;&#49828;&#45796;&#53076;&#53440;">
+				<Leaf zone_id="America/North_Dakota/Center" name="&#49468;&#53552;" />
+				<Leaf zone_id="America/North_Dakota/New_Salem" name="&#45684;&#49332;&#47128;" />
+			</Branch>
+			<Leaf zone_id="America/Aruba" name="&#50724;&#46972;&#45404;&#49828;&#53440;&#53944;" />
+			<Leaf zone_id="America/Panama" name="&#54028;&#45208;&#47560;&#49884;&#54000;" />
+			<Leaf zone_id="America/Pangnirtung" name="&#54049;&#45768;&#47476;&#53825;" />
+			<Leaf zone_id="America/Paramaribo" name="&#54028;&#46972;&#47560;&#47532;&#48372;" />
+			<Leaf zone_id="America/Phoenix" name="&#54588;&#45769;&#49828;" />
+			<Leaf zone_id="America/Montserrat" name="&#54540;&#47532;&#47672;&#49828;" />
+			<Leaf zone_id="America/Port_of_Spain" name="&#54252;&#53944;&#50724;&#48652;&#49828;&#54168;&#51064;" />
+			<Leaf zone_id="America/Port-au-Prince" name="&#54252;&#47476;&#53664;&#54532;&#47021;&#49828;" />
+			<Leaf zone_id="America/Porto_Velho" name="&#54252;&#47476;&#53804;&#48288;&#50976;" />
+			<Leaf zone_id="America/Guayaquil" name="&#53412;&#53664;">
+				<Coordinates latitude="-0.223" longitude="-78.513" />
+			</Leaf>
+			<Leaf zone_id="America/Rainy_River" name="&#47112;&#51060;&#45768;&#47532;&#48260;" />
+			<Leaf zone_id="America/Rankin_Inlet" name="&#47021;&#53416;&#51064;&#47131;" />
+			<Leaf zone_id="America/Recife" name="&#47112;&#49884;&#54168;" />
+			<Leaf zone_id="America/Regina" name="&#47532;&#51088;&#51060;&#45208;" />
+			<Leaf zone_id="America/Rio_Branco" name="&#47532;&#50864;&#48652;&#46993;&#53216;" />
+			<Leaf zone_id="America/Sao_Paulo" name="&#47532;&#50864;&#45936;&#51088;&#45348;&#51060;&#47336;">
+				<Coordinates latitude="-22.909" longitude="-43.215" />
+			</Leaf>
+			<Leaf zone_id="America/Argentina/Rio_Gallegos" name="&#47532;&#50724;&#44032;&#50696;&#44256;&#49828;" />
+			<Leaf zone_id="America/Dominica" name="&#47196;&#51312;" />
+			<Leaf zone_id="America/Grenada" name="&#49464;&#51064;&#53944;&#51312;&#51648;&#49828;" />
+			<Leaf zone_id="America/Antigua" name="&#49464;&#51064;&#53944;&#51316;&#49828;, &#50532;&#54000;&#44032;" />
+			<Leaf zone_id="America/St_Johns" name="&#49464;&#51064;&#53944;&#51316;&#49828;, &#45684;&#54144;&#46308;&#47004;&#46300;" />
+			<Leaf zone_id="America/St_Lucia" name="&#49464;&#51064;&#53944;&#47336;&#49884;&#50500;" />
+			<Leaf zone_id="America/St_Thomas" name="&#49464;&#51064;&#53944;&#53664;&#47560;&#49828;" />
+			<Leaf zone_id="America/St_Vincent" name="&#49464;&#51064;&#53944;&#48712;&#49468;&#53944;" />
+			<Leaf zone_id="America/Costa_Rica" name="&#49328;&#54840;&#49464;" />
+			<Leaf zone_id="America/Argentina/San_Juan" name="&#49328;&#54980;&#50504;, &#50500;&#47476;&#54760;&#54000;&#45208;" />
+			<Leaf zone_id="America/Puerto_Rico" name="&#49328;&#54980;&#50504;, &#54392;&#50640;&#47476;&#53664;&#47532;&#53076;" />
+			<Leaf zone_id="America/El_Salvador" name="&#49328;&#49332;&#48148;&#46020;&#47476;" />
+			<Leaf zone_id="America/Santiago" name="&#49328;&#54000;&#50500;&#44256;" />
+			<Leaf zone_id="America/Santo_Domingo" name="&#49328;&#53664;&#46020;&#48141;&#44256;" />
+			<Leaf zone_id="America/Sao_Paulo" name="&#49345;&#54028;&#50872;&#47336;" />
+			<Leaf zone_id="America/Scoresbysund" name="&#49828;&#53076;&#47112;&#49828;&#48596;&#49692;" />
+			<Leaf zone_id="America/Shiprock" name="&#49901;&#47197;" />
+			<Leaf zone_id="America/Swift_Current" name="&#49828;&#50948;&#54532;&#53944;&#52964;&#47088;&#53944;" />
+			<Leaf zone_id="America/Tegucigalpa" name="&#53580;&#44396;&#49884;&#44040;&#54028;" />
+			<Leaf zone_id="America/Anguilla" name="&#45908;&#48296;&#47532;" />
+			<Leaf zone_id="America/Thule" name="&#53812;&#47112;" />
+			<Leaf zone_id="America/Thunder_Bay" name="&#49440;&#45908;&#48288;&#51060;" />
+			<Leaf zone_id="America/Tijuana" name="&#54000;&#54980;&#50500;&#45208;" />
+			<Leaf zone_id="America/Toronto" name="&#53664;&#47200;&#53664;" />
+			<Leaf zone_id="America/Tortola" name="&#53664;&#47476;&#53672;&#46972;" />
+			<Leaf zone_id="America/Argentina/Tucuman" name="&#53804;&#53216;&#47564;" />
+			<Leaf zone_id="America/Argentina/Ushuaia" name="&#50864;&#49688;&#50500;&#51060;&#50500;" />
+			<Leaf zone_id="America/Vancouver" name="&#48292;&#53216;&#48260;" />
+			<Leaf zone_id="America/New_York" name="&#50892;&#49905;&#53556; DC">
+				<Coordinates latitude="38.895" longitude="-77.037" />
+			</Leaf>
+			<Leaf zone_id="America/Whitehorse" name="&#54868;&#51060;&#53944;&#54840;&#49828;" />
+			<Leaf zone_id="America/Curacao" name="&#48716;&#47128;&#49828;&#53440;&#53944;" />
+			<Leaf zone_id="America/Winnipeg" name="&#50948;&#45768;&#54169;" />
+			<Leaf zone_id="America/Yakutat" name="&#50500;&#53216;&#53440;&#53944;" />
+			<Leaf zone_id="America/Yellowknife" name="&#50704;&#47196;&#45208;&#51060;&#54532;" />
+		</Branch>
+	</Branch>
+	<Branch name="&#45224;&#44537;">
+		<Leaf zone_id="Antarctica/South_Pole" name="&#50500;&#47928;&#49468;-&#49828;&#53076;&#53944;&#44592;&#51648;, &#45224;&#44537;&#51216;" />
+		<Leaf zone_id="Antarctica/Casey" name="&#52992;&#51060;&#49884;&#44592;&#51648;, &#48288;&#51068;&#47532;&#48152;&#46020;" />
+		<Leaf zone_id="Antarctica/Davis" name="&#45936;&#51060;&#48708;&#46300;&#44592;&#51648;, &#48288;&#49828;&#53944;&#54260;&#46300;&#50616;&#45909;" />
+		<Leaf zone_id="Antarctica/DumontDUrville" name="&#46300;&#47788;&#46160;&#47476;&#48716;&#44592;&#51648;, &#53588;&#47112;&#50500;&#45944;&#47532;" />
+		<Leaf zone_id="Antarctica/McMurdo" name="&#47589;&#47672;&#46020; &#44592;&#51648;, &#47196;&#49828;&#49452;" />
+		<Leaf zone_id="Antarctica/Mawson" name="&#47784;&#49832; &#44592;&#51648;, &#54848;&#47492;&#47564;" />
+		<Leaf zone_id="Antarctica/Palmer" name="&#54036;&#47672; &#44592;&#51648;, &#50521;&#48288;&#47476;&#49452;" />
+		<Leaf zone_id="Antarctica/Rothera" name="&#47196;&#53580;&#46972; &#44592;&#51648;, &#50640;&#46308;&#47112;&#51060;&#46300;&#49452;" />
+		<Leaf zone_id="Antarctica/Syowa" name="&#49660;&#50752; &#44592;&#51648;, &#46041; &#50745;&#44404;&#49452;" />
+		<Leaf zone_id="Antarctica/Vostok" name="&#48372;&#49828;&#53664;&#53356; &#44592;&#51648;, &#51088;&#45224;&#44537;" />
+	</Branch>
+	<Branch name="&#48513;&#44537;&#54644;">
+		<Branch name="&#49828;&#48156;&#48148;&#47476; &#48143; &#50560;&#47560;&#50924;">
+			<Leaf zone_id="Arctic/Longyearbyen" name="&#49828;&#48156;&#48148;&#47476;" />
+		</Branch>
+	</Branch>
+	<Branch name="&#50500;&#49884;&#50500;">
+		<Branch name="&#45208;&#46972;">
+			<Leaf zone_id="Asia/Kabul" name="&#50500;&#54532;&#44032;&#45768;&#49828;&#53444;" />
+			<Leaf zone_id="Asia/Yerevan" name="&#50500;&#47476;&#47700;&#45768;&#50500;" />
+			<Leaf zone_id="Asia/Baku" name="&#50500;&#51228;&#47476;&#48148;&#51060;&#51092;" />
+			<Leaf zone_id="Asia/Bahrain" name="&#48148;&#47112;&#51064;" />
+			<Leaf zone_id="Asia/Dhaka" name="&#48169;&#44544;&#46972;&#45936;&#49884;" />
+			<Leaf zone_id="Asia/Thimphu" name="&#48512;&#53444;" />
+			<Leaf zone_id="Asia/Brunei" name="&#48652;&#47336;&#45208;&#51060;" />
+			<Leaf zone_id="Asia/Phnom_Penh" name="&#52868;&#48372;&#46356;&#50500;" />
+			<Leaf zone_id="Asia/Shanghai" name="&#51473;&#44397;">
+				<Coordinates latitude="39.904" longitude="116.391" />
+			</Leaf>
+			<Branch name="&#51473;&#44397; (&#50669;&#49324;&#49345;)">
+				<Leaf zone_id="Asia/Harbin" name="&#54756;&#51060;&#47357;&#51109;&#49457; (&#47784;&#54728; &#51228;&#50808;), &#51648;&#47536;" />
+				<Leaf zone_id="Asia/Chongqing" name="&#51473;&#44397; &#51473;&#50521;" />
+				<Leaf zone_id="Asia/Urumqi" name="&#54000;&#48307; &#48143; &#49888;&#51109; (&#45824;&#48512;&#48516;)" />
+				<Leaf zone_id="Asia/Kashgar" name="&#49436;&#48512; &#54000;&#48307; &#48143; &#49888;&#51109;" />
+			</Branch>
+			<Leaf zone_id="Asia/Nicosia" name="&#53412;&#54532;&#47196;&#49828;" />
+			<Leaf zone_id="Asia/Dili" name="&#46041;&#54000;&#47784;&#47476;" />
+			<Leaf zone_id="Asia/Tbilisi" name="&#44536;&#47336;&#51648;&#50556;" />
+			<Leaf zone_id="Asia/Hong_Kong" name="&#54861;&#53097;" />
+			<Leaf zone_id="Asia/Calcutta" name="&#51064;&#46020;">
+				<Coordinates latitude="28.633" longitude="77.217" />
+			</Leaf>
+			<Branch name="&#51064;&#46020;&#45348;&#49884;&#50500;">
+				<Leaf zone_id="Asia/Jayapura" name="&#51060;&#47532;&#50504;&#51088;&#50556; &#48143; &#47792;&#47336;&#52852;" />
+			<Leaf zone_id="Asia/Jakarta" name="&#51064;&#46020;&#45348;&#49884;&#50500;&#51088;&#48148; &#48143; &#49688;&#47560;&#53944;&#46972;" />
+				<Leaf zone_id="Asia/Makassar" name="&#46041;&#48512; &#48143; &#45224;&#48512; &#48372;&#47476;&#45348;&#50724;, &#49696;&#46972;&#50920;&#49884;, &#48156;&#47532; &#48143; &#46041;&#48512;" />
+				<Leaf zone_id="Asia/Pontianak" name="&#49436;&#48512; &#48143; &#51473;&#50521; &#48372;&#47476;&#45348;&#50724;" />
+			</Branch>
+			<Leaf zone_id="Asia/Tehran" name="&#51060;&#46976;" />
+			<Leaf zone_id="Asia/Baghdad" name="&#51060;&#46972;&#53356;" />
+			<Leaf zone_id="Asia/Jerusalem" name="&#51060;&#49828;&#46972;&#50648;" />
+			<Leaf zone_id="Asia/Tokyo" name="&#51068;&#48376;" />
+			<Leaf zone_id="Asia/Amman" name="&#50836;&#47476;&#45800;" />
+			<Branch name="&#52852;&#51088;&#55120;&#49828;&#53444;">
+				<Leaf zone_id="Asia/Almaty" name="&#52852;&#51088;&#55120;&#49828;&#53444; (&#45824;&#48512;&#48516;)" />
+				<Leaf zone_id="Asia/Aqtobe" name="&#50501;&#53748;&#48288;" />
+				<Leaf zone_id="Asia/Aqtau" name="&#50500;&#54000;&#46972;&#50864;, &#47581;&#44592;&#49828;&#53440;&#50864;" />
+				<Leaf zone_id="Asia/Qyzylorda" name="&#53412;&#51656;&#50724;&#47476;&#45796;" />
+				<Leaf zone_id="Asia/Oral" name="&#49436;&#48512; &#52852;&#51088;&#55120;&#49828;&#53444;" />
+			</Branch>
+			<Leaf zone_id="Asia/Pyongyang" name="&#48513;&#54620;" />
+			<Leaf zone_id="Asia/Seoul" name="&#45824;&#54620;&#48124;&#44397;" />
+			<Leaf zone_id="Asia/Kuwait" name="&#53216;&#50920;&#51060;&#53944;" />
+			<Leaf zone_id="Asia/Bishkek" name="&#53412;&#47476;&#44592;&#51592;&#49828;&#53444;" />
+			<Leaf zone_id="Asia/Vientiane" name="&#46972;&#50724;&#49828;" />
+			<Leaf zone_id="Asia/Beirut" name="&#47112;&#48148;&#45436;" />
+			<Leaf zone_id="Asia/Macau" name="&#47560;&#52852;&#50724;" />
+			<Branch name="&#47568;&#47112;&#51060;&#49884;&#50500;">
+				<Leaf zone_id="Asia/Kuala_Lumpur" name="&#47568;&#47112;&#51060;&#49884;&#50500; &#48152;&#46020;" />
+				<Leaf zone_id="Asia/Kuching" name="&#49324;&#48148; &#48143; &#49324;&#46972;&#50753;" />
+			</Branch>
+			<Branch name="&#47805;&#44264;">
+				<Leaf zone_id="Asia/Ulaanbaatar" name="&#47805;&#44264; (&#45824;&#48512;&#48516;)" />
+				<Leaf zone_id="Asia/Hovd" name="&#48148;&#50560;-&#50872;&#44592;, &#54840;&#48652;&#46300;, &#46321;&#46321;." />
+				<Leaf zone_id="Asia/Choibalsan" name="&#45908;&#47476;&#45320;&#46300;, &#49688;&#55120;&#48148;&#53440;&#47476;" />
+			</Branch>
+			<Leaf zone_id="Asia/Rangoon" name="&#48120;&#50560;&#47560; (&#48260;&#47560;)" />
+			<Leaf zone_id="Asia/Katmandu" name="&#45348;&#54036;" />
+			<Leaf zone_id="Asia/Muscat" name="&#50724;&#47564;" />
+			<Leaf zone_id="Asia/Karachi" name="&#54028;&#53412;&#49828;&#53444;" />
+			<Leaf zone_id="Asia/Gaza" name="&#54036;&#47112;&#49828;&#53440;&#51064;" />
+			<Leaf zone_id="Asia/Manila" name="&#54596;&#47532;&#54592;" />
+			<Leaf zone_id="Asia/Qatar" name="&#52852;&#53440;&#47476;" />
+			<Branch name="&#47084;&#49884;&#50500;">
+				<Leaf zone_id="Asia/Yekaterinburg" name="&#47784;&#49828;&#53356;&#48148;+02 - &#50864;&#46980;" />
+				<Leaf zone_id="Asia/Novosibirsk" name="&#47784;&#49828;&#53356;&#48148;+03 - &#45432;&#48372;&#49884;&#48708;&#47476;&#49828;&#53356;" />
+				<Leaf zone_id="Asia/Omsk" name="&#47784;&#49828;&#53356;&#48148;+03 - &#49436;&#48512; &#49884;&#48288;&#47532;&#50500;" />
+				<Leaf zone_id="Asia/Krasnoyarsk" name="&#47784;&#49828;&#53356;&#48148;+04 - &#50696;&#45768;&#49464;&#51060;&#44053;" />
+				<Leaf zone_id="Asia/Irkutsk" name="&#47784;&#49828;&#53356;&#48148;+05 - &#48148;&#51060;&#52860;&#54840;" />
+				<Leaf zone_id="Asia/Yakutsk" name="&#47784;&#49828;&#53356;&#48148;+06 - &#47112;&#45208;&#44053;" />
+				<Leaf zone_id="Asia/Vladivostok" name="&#47784;&#49828;&#53356;&#48148;+07 - &#50500;&#47924;&#47476;&#44053;" />
+				<Leaf zone_id="Asia/Sakhalin" name="&#47784;&#49828;&#53356;&#48148;+07 - &#49324;&#54624;&#47536;&#49452;" />
+				<Leaf zone_id="Asia/Magadan" name="&#47784;&#49828;&#53356;&#48148;+08 - &#47560;&#44032;&#45800;" />
+				<Leaf zone_id="Asia/Kamchatka" name="&#47784;&#49828;&#53356;&#48148;+09 - &#52868;&#52264;&#52852;" />
+				<Leaf zone_id="Asia/Anadyr" name="&#47784;&#49828;&#53356;&#48148;+10 - &#48288;&#47553;&#54644;" />
+			</Branch>
+			<Leaf zone_id="Asia/Riyadh" name="&#49324;&#50864;&#46356;&#50500;&#46972;&#48708;&#50500;" />
+			<Leaf zone_id="Asia/Singapore" name="&#49905;&#44032;&#54252;&#47476;" />
+			<Leaf zone_id="Asia/Colombo" name="&#49828;&#47532;&#46993;&#52852;" />
+			<Leaf zone_id="Asia/Damascus" name="&#49884;&#47532;&#50500;" />
+			<Leaf zone_id="Asia/Taipei" name="&#53440;&#51060;&#50756;" />
+			<Leaf zone_id="Asia/Dushanbe" name="&#53440;&#51648;&#53412;&#49828;&#53444;" />
+			<Leaf zone_id="Asia/Bangkok" name="&#53468;&#44397;" />
+			<Leaf zone_id="Asia/Ashgabat" name="&#53804;&#47476;&#53356;&#47700;&#45768;&#49828;&#53444;" />
+			<Leaf zone_id="Asia/Dubai" name="&#50500;&#46989;&#50640;&#48120;&#47532;&#53944;" />
+			<Branch name="&#50864;&#51592;&#48288;&#53412;&#49828;&#53444;">
+				<Leaf zone_id="Asia/Tashkent" name="&#46041;&#48512; &#50864;&#51592;&#48288;&#53412;&#49828;&#53444;" />
+				<Leaf zone_id="Asia/Samarkand" name="&#49436;&#48512; &#50864;&#51592;&#48288;&#53412;&#49828;&#53444;" />
+			</Branch>
+			<Leaf zone_id="Asia/Saigon" name="&#48288;&#53944;&#45224;" />
+			<Leaf zone_id="Asia/Aden" name="&#50696;&#47704;">
+				<Coordinates latitude="15.352" longitude="44.207" />
+			</Leaf>
+		</Branch>
+		<Branch name="&#46020;&#49884;">
+			<Leaf zone_id="Asia/Aden" name="&#50500;&#45940;" />
+			<Leaf zone_id="Asia/Almaty" name="&#50508;&#47560;&#54000;" />
+			<Leaf zone_id="Asia/Amman" name="&#50516;&#47564;" />
+			<Leaf zone_id="Asia/Anadyr" name="&#50500;&#45208;&#46356;&#47532;" />
+			<Leaf zone_id="Asia/Aqtau" name="&#50500;&#53356;&#53440;&#50864;" />
+			<Leaf zone_id="Asia/Aqtobe" name="&#50501;&#53748;&#48288;" />
+			<Leaf zone_id="Asia/Ashgabat" name="&#50500;&#49800;&#54616;&#48148;&#53944;" />
+			<Leaf zone_id="Asia/Baghdad" name="&#48148;&#44536;&#45796;&#46300;" />
+			<Leaf zone_id="Asia/Baku" name="&#48148;&#53216;" />
+			<Leaf zone_id="Asia/Brunei" name="&#48152;&#45796;&#47476;&#49828;&#47532;&#48652;&#44032;&#50756;" />
+			<Leaf zone_id="Asia/Bangkok" name="&#48169;&#53077;" />
+			<Leaf zone_id="Asia/Shanghai" name="&#48288;&#51060;&#51669;">
+				<Coordinates latitude="39.904" longitude="116.391" />
+			</Leaf>
+			<Leaf zone_id="Asia/Beirut" name="&#48288;&#51060;&#47336;&#53944;" />
+			<Leaf zone_id="Asia/Bishkek" name="&#48708;&#49800;&#52992;&#53356;" />
+			<Leaf zone_id="Asia/Choibalsan" name="&#52488;&#51060;&#48156;&#49328;" />
+			<Leaf zone_id="Asia/Chongqing" name="&#52649;&#52845;" />
+			<Leaf zone_id="Asia/Colombo" name="&#53084;&#47212;&#48372;" />
+			<Leaf zone_id="Asia/Damascus" name="&#45796;&#47560;&#49828;&#53216;&#49828;" />
+			<Leaf zone_id="Asia/Dhaka" name="&#45796;&#52852;" />
+			<Leaf zone_id="Asia/Dili" name="&#46364;&#47532;" />
+			<Leaf zone_id="Asia/Qatar" name="&#46020;&#54616;" />
+			<Leaf zone_id="Asia/Dubai" name="&#46160;&#48148;&#51060;" />
+			<Leaf zone_id="Asia/Dushanbe" name="&#46160;&#49384;&#48288;" />
+			<Leaf zone_id="Asia/Gaza" name="&#44032;&#51088;" />
+			<Leaf zone_id="Asia/Harbin" name="&#54616;&#50620;&#48712;" />
+			<Leaf zone_id="Asia/Hong_Kong" name="&#54861;&#53097;" />
+			<Leaf zone_id="Asia/Hovd" name="&#54840;&#48652;&#46300;" />
+			<Leaf zone_id="Asia/Irkutsk" name="&#51060;&#47476;&#53216;&#52768;&#53356;" />
+			<Leaf zone_id="Asia/Istanbul" name="&#51060;&#49828;&#53444;&#48520;" />
+			<Leaf zone_id="Asia/Jakarta" name="&#51088;&#52852;&#47476;&#53440;" />
+			<Leaf zone_id="Asia/Jayapura" name="&#51088;&#50556;&#54392;&#46972;" />
+			<Leaf zone_id="Asia/Jerusalem" name="&#50696;&#47336;&#49332;&#47128;" />
+			<Leaf zone_id="Asia/Kabul" name="&#52852;&#48520;" />
+			<Leaf zone_id="Asia/Karachi" name="&#52852;&#46972;&#52824;" />
+			<Leaf zone_id="Asia/Kashgar" name="&#52852;&#49800;&#44032;&#47476;" />
+			<Leaf zone_id="Asia/Katmandu" name="&#52852;&#53944;&#47564;&#46160;" />
+			<Leaf zone_id="Asia/Calcutta" name="&#53084;&#52852;&#53440; (&#53000;&#52964;&#53440;)" />
+			<Leaf zone_id="Asia/Krasnoyarsk" name="&#53356;&#46972;&#49828;&#45432;&#50556;&#47476;&#49828;&#53356;" />
+			<Leaf zone_id="Asia/Kuala_Lumpur" name="&#53112;&#46972;&#47352;&#54392;&#47476;" />
+			<Leaf zone_id="Asia/Kuching" name="&#53216;&#52845;" />
+			<Leaf zone_id="Asia/Kuwait" name="&#53216;&#50920;&#51060;&#53944;" />
+			<Leaf zone_id="Asia/Macau" name="&#47560;&#52852;&#50724;" />
+			<Leaf zone_id="Asia/Magadan" name="&#47560;&#44032;&#45800;" />
+			<Leaf zone_id="Asia/Makassar" name="&#47560;&#52852;&#49324;&#47476;" />
+			<Leaf zone_id="Asia/Bahrain" name="&#48148;&#47112;&#51064;" />
+			<Leaf zone_id="Asia/Manila" name="&#47560;&#45776;&#46972;" />
+			<Leaf zone_id="Asia/Calcutta" name="&#47940;&#48148;&#51060; (&#48388;&#48288;&#51060;)">
+				<Coordinates latitude="19.032" longitude="72.849" />
+			</Leaf>
+			<Leaf zone_id="Asia/Muscat" name="&#47924;&#49828;&#52852;&#53944;" />
+			<Leaf zone_id="Asia/Calcutta" name="&#45684;&#45944;&#47532;">
+				<Coordinates latitude="28.633" longitude="77.217" />
+			</Leaf>
+			<Leaf zone_id="Asia/Nicosia" name="&#45768;&#53076;&#49884;&#50500;" />
+			<Leaf zone_id="Asia/Novosibirsk" name="&#45432;&#48372;&#49884;&#48708;&#47476;&#49828;&#53356;" />
+			<Leaf zone_id="Asia/Omsk" name="&#50740;&#49828;&#53356;" />
+			<Leaf zone_id="Asia/Oral" name="&#50724;&#46980;" />
+			<Leaf zone_id="Asia/Kamchatka" name="&#54168;&#53944;&#47196;&#54028;&#48660;&#47196;&#54532;&#49828;&#53356; &#52868;&#52264;&#52768;&#53412;" />
+			<Leaf zone_id="Asia/Phnom_Penh" name="&#54532;&#45448;&#54172;" />
+			<Leaf zone_id="Asia/Pontianak" name="&#54256;&#54000;&#50500;&#45208;&#53356;" />
+			<Leaf zone_id="Asia/Pyongyang" name="&#54217;&#50577;" />
+			<Leaf zone_id="Asia/Qyzylorda" name="&#53356;&#51656;&#50724;&#47476;&#45796;" />
+			<Leaf zone_id="Asia/Rangoon" name="&#46993;&#44400;" />
+			<Leaf zone_id="Asia/Riyadh" name="&#47532;&#50556;&#46300;" />
+			<Leaf zone_id="Asia/Saigon" name="&#54840;&#52236;&#48124;" />
+			<Leaf zone_id="Asia/Samarkand" name="&#49324;&#47560;&#47476;&#52856;&#53944;" />
+			<Leaf zone_id="Asia/Aden" name="&#49324;&#45208;">
+				<Coordinates latitude="15.352" longitude="44.207" />
+			</Leaf>
+			<Leaf zone_id="Asia/Seoul" name="&#49436;&#50872;" />
+			<Leaf zone_id="Asia/Shanghai" name="&#49345;&#54616;&#51060;" />
+			<Leaf zone_id="Asia/Singapore" name="&#49905;&#44032;&#54252;&#47476;" />
+			<Leaf zone_id="Asia/Taipei" name="&#53440;&#51060;&#48288;&#51060;" />
+			<Leaf zone_id="Asia/Tashkent" name="&#53440;&#49800;&#52996;&#53944;" />
+			<Leaf zone_id="Asia/Tbilisi" name="&#53944;&#48716;&#47532;&#49884;" />
+			<Leaf zone_id="Asia/Tehran" name="&#53580;&#54756;&#46976;" />
+			<Leaf zone_id="Asia/Thimphu" name="&#54016;&#54392;" />
+			<Leaf zone_id="Asia/Tokyo" name="&#46020;&#53188;" />
+			<Leaf zone_id="Asia/Ulaanbaatar" name="&#50872;&#46976;&#48148;&#53664;&#47476;" />
+			<Leaf zone_id="Asia/Urumqi" name="&#50864;&#47336;&#47924;&#52824;" />
+			<Leaf zone_id="Asia/Vientiane" name="&#48708;&#50644;&#54000;&#50504;" />
+			<Leaf zone_id="Asia/Vladivostok" name="&#48660;&#46972;&#46356;&#48372;&#49828;&#53664;&#53356;" />
+			<Leaf zone_id="Asia/Yakutsk" name="&#50556;&#53216;&#52768;&#53356;" />
+			<Leaf zone_id="Asia/Yekaterinburg" name="&#50696;&#52852;&#53580;&#47536;&#48512;&#47476;&#53356;" />
+			<Leaf zone_id="Asia/Yerevan" name="&#50696;&#47112;&#48152;" />
+			<Leaf zone_id="Asia/Sakhalin" name="&#50976;&#51452;&#45432;&#49324;&#54624;&#47536;&#49828;&#53356;" />
+		</Branch>
+	</Branch>
+	<Branch name="&#45824;&#49436;&#50577;">
+		<Leaf zone_id="Atlantic/Bermuda" name="&#48260;&#48036;&#45796;" />
+		<Leaf zone_id="Atlantic/Cape_Verde" name="&#52852;&#48372;&#48288;&#47476;&#45936;" />
+		<Leaf zone_id="Atlantic/Faeroe" name="&#54168;&#47196; &#51228;&#46020;" />
+		<Leaf zone_id="Atlantic/Stanley" name="&#54252;&#53364;&#47004;&#46300; &#51228;&#46020;" />
+		<Leaf zone_id="Atlantic/Reykjavik" name="&#50500;&#51060;&#49836;&#46976;&#46300;" />
+		<Branch name="&#54252;&#47476;&#53804;&#44040;">
+			<Leaf zone_id="Atlantic/Azores" name="&#50500;&#51312;&#47112;&#49828;" />
+			<Leaf zone_id="Atlantic/Madeira" name="&#47560;&#45936;&#51060;&#46972;" />
+		</Branch>
+		<Leaf zone_id="Atlantic/St_Helena" name="&#49464;&#51064;&#53944;&#54764;&#47112;&#45208;" />
+		<Leaf zone_id="Atlantic/South_Georgia" name="&#49324;&#50864;&#49828;&#51312;&#51648;&#50500; &#48143; &#49324;&#50864;&#49828;&#49468;&#46300;&#50948;&#52824; &#51228;&#46020;" />
+		<Branch name="&#49828;&#54168;&#51064;">
+			<Leaf zone_id="Atlantic/Canary" name="&#52852;&#45208;&#47532;&#50500; &#51228;&#46020;" />
+		</Branch>
+		<Branch name="&#49828;&#48156;&#48148;&#47476; &#48143; &#50560;&#47560;&#50924;">
+			<Leaf zone_id="Atlantic/Jan_Mayen" name="&#50560;&#47560;&#50924;" />
+		</Branch>
+	</Branch>
+	<Branch name="&#50724;&#49464;&#50500;&#45768;&#50500;">
+		<Branch name="&#51452;">
+			<Leaf zone_id="Australia/Lord_Howe" name="&#47196;&#46300;&#54616;&#50864;&#49452;" />
+			<Leaf zone_id="Australia/Sydney" name="&#45684;&#49324;&#50864;&#49828;&#50920;&#51068;&#49828;" />
+			<Leaf zone_id="Australia/Broken_Hill" name="&#45684;&#49324;&#50864;&#49828;&#50920;&#51068;&#49828; - &#50560;&#53076;&#50952;&#45208;" />
+			<Leaf zone_id="Australia/Darwin" name="&#45432;&#45912;&#53580;&#47532;&#53664;&#47532;" />
+			<Leaf zone_id="Australia/Brisbane" name="&#53304;&#51600;&#47004;&#46300;" />
+			<Leaf zone_id="Australia/Lindeman" name="&#53304;&#51600;&#47004;&#46300; - &#54848;&#47532;&#45936;&#51060; &#51228;&#46020;" />
+			<Leaf zone_id="Australia/Adelaide" name="&#49324;&#50864;&#49828;&#50724;&#49828;&#53944;&#47112;&#51068;&#47532;&#50500;" />
+			<Leaf zone_id="Australia/Hobart" name="&#53468;&#51592;&#47700;&#51060;&#45768;&#50500;" />
+			<Leaf zone_id="Australia/Currie" name="&#53468;&#51592;&#47700;&#51060;&#45768;&#50500; - &#53433;&#49452;" />
+			<Leaf zone_id="Australia/Melbourne" name="&#48709;&#53664;&#47532;&#50500;" />
+			<Leaf zone_id="Australia/Perth" name="&#50920;&#49828;&#53556;&#50724;&#49828;&#53944;&#47112;&#51068;&#47532;&#50500;" />
+		</Branch>
+		<Branch name="&#46020;&#49884;">
+			<Leaf zone_id="Australia/Adelaide" name="&#50640;&#46308;&#47112;&#51060;&#46300;" />
+			<Leaf zone_id="Australia/Brisbane" name="&#48652;&#47532;&#51592;&#48264;" />
+			<Leaf zone_id="Australia/Broken_Hill" name="&#48652;&#47196;&#52968;&#55184;" />
+			<Leaf zone_id="Australia/Sydney" name="&#52884;&#48260;&#46972;">
+				<Coordinates latitude="-35.308" longitude="149.124" />
+			</Leaf>
+			<Leaf zone_id="Australia/Currie" name="&#52964;&#47532;" />
+			<Leaf zone_id="Australia/Darwin" name="&#45796;&#50952;" />
+			<Leaf zone_id="Australia/Hobart" name="&#54840;&#48148;&#53944;" />
+			<Leaf zone_id="Australia/Lindeman" name="&#47536;&#46300;&#47564;&#49452;" />
+			<Leaf zone_id="Australia/Lord_Howe" name="&#47196;&#46300;&#54616;&#50864;&#49452;" />
+			<Leaf zone_id="Australia/Melbourne" name="&#47708;&#48260;&#47480;" />
+			<Leaf zone_id="Australia/Perth" name="&#54140;&#49828;" />
+			<Leaf zone_id="Australia/Sydney" name="&#49884;&#46300;&#45768;" />
+		</Branch>
+	</Branch>
+	<Branch name="&#50976;&#47101;">
+		<Branch name="&#45208;&#46972;">
+			<Leaf zone_id="Europe/Mariehamn" name="&#50724;&#46976;&#46300; &#51228;&#46020;" />
+			<Leaf zone_id="Europe/Tirane" name="&#50508;&#48148;&#45768;&#50500;" />
+			<Leaf zone_id="Europe/Andorra" name="&#50504;&#46020;&#46972;" />
+			<Leaf zone_id="Europe/Vienna" name="&#50724;&#49828;&#53944;&#47532;&#50500;" />
+			<Leaf zone_id="Europe/Minsk" name="&#48296;&#47196;&#47336;&#49884;" />
+			<Leaf zone_id="Europe/Brussels" name="&#48296;&#44592;&#50640;" />
+			<Leaf zone_id="Europe/Sarajevo" name="&#48372;&#49828;&#45768;&#50500;-&#54756;&#47476;&#52404;&#44256;&#48708;&#45208;" />
+			<Leaf zone_id="Europe/Sofia" name="&#48520;&#44032;&#47532;&#50500;" />
+			<Leaf zone_id="Europe/Zagreb" name="&#53356;&#47196;&#50500;&#54000;&#50500;" />
+			<Leaf zone_id="Europe/Prague" name="&#52404;&#53076;" />
+			<Leaf zone_id="Europe/Copenhagen" name="&#45940;&#47560;&#53356;" />
+			<Leaf zone_id="Europe/Tallinn" name="&#50640;&#49828;&#53664;&#45768;&#50500;" />
+			<Leaf zone_id="Europe/Helsinki" name="&#54592;&#46976;&#46300;" />
+			<Leaf zone_id="Europe/Paris" name="&#54532;&#46993;&#49828;" />
+			<Leaf zone_id="Europe/Berlin" name="&#46021;&#51068;" />
+			<Leaf zone_id="Europe/Gibraltar" name="&#51648;&#48652;&#47204;&#53552;" />
+			<Leaf zone_id="Europe/Athens" name="&#44536;&#47532;&#49828;" />
+			<Leaf zone_id="Europe/Guernsey" name="&#44148;&#51648;" />
+			<Leaf zone_id="Europe/Budapest" name="&#54749;&#44032;&#47532;" />
+			<Leaf zone_id="Atlantic/Reykjavik" name="&#50500;&#51060;&#49836;&#46976;&#46300;" />
+			<Leaf zone_id="Europe/Dublin" name="&#50500;&#51068;&#47004;&#46300;" />
+			<Leaf zone_id="Europe/Isle_of_Man" name="&#47592;&#49452;" />
+			<Leaf zone_id="Europe/Rome" name="&#51060;&#53448;&#47532;&#50500;" />
+			<Leaf zone_id="Europe/Jersey" name="&#51200;&#51648;" />
+			<Leaf zone_id="Europe/Riga" name="&#46972;&#53944;&#48708;&#50500;" />
+			<Leaf zone_id="Europe/Vaduz" name="&#47532;&#55176;&#53584;&#49800;&#53440;&#51064;" />
+			<Leaf zone_id="Europe/Vilnius" name="&#47532;&#53804;&#50500;&#45768;&#50500;" />
+			<Leaf zone_id="Europe/Luxembourg" name="&#47337;&#49480;&#48512;&#47476;&#53356;" />
+			<Leaf zone_id="Europe/Skopje" name="&#47560;&#52992;&#46020;&#45768;&#50500;" />
+			<Leaf zone_id="Europe/Malta" name="&#47568;&#53440;" />
+			<Leaf zone_id="Europe/Chisinau" name="&#47792;&#46020;&#48148;" />
+			<Leaf zone_id="Europe/Monaco" name="&#47784;&#45208;&#53076;" />
+			<Leaf zone_id="Europe/Podgorica" name="&#47788;&#53580;&#45348;&#44536;&#47196;" />
+			<Leaf zone_id="Europe/Amsterdam" name="&#45348;&#45916;&#46976;&#46300;" />
+			<Leaf zone_id="Europe/Oslo" name="&#45432;&#47476;&#50920;&#51060;" />
+			<Leaf zone_id="Europe/Warsaw" name="&#54260;&#46976;&#46300;" />
+			<Leaf zone_id="Europe/Lisbon" name="&#54252;&#47476;&#53804;&#44040;" />
+			<Leaf zone_id="Europe/Bucharest" name="&#47336;&#47560;&#45768;&#50500;" />
+			<Branch name="&#47084;&#49884;&#50500;">
+				<Leaf zone_id="Europe/Volgograd" name="&#47784;&#49828;&#53356;&#48148;+00 - &#52852;&#49828;&#54588;&#54644;" />
+				<Leaf zone_id="Europe/Moscow" name="&#47784;&#49828;&#53356;&#48148;+00 - &#49436;&#48512; &#47084;&#49884;&#50500;" />
+				<Leaf zone_id="Europe/Samara" name="&#47784;&#49828;&#53356;&#48148;+01 - &#49324;&#47560;&#46972;, &#50864;&#46300;&#47924;&#47476;&#54000;&#50500;" />
+				<Leaf zone_id="Europe/Kaliningrad" name="&#47784;&#49828;&#53356;&#48148;-01 - &#52860;&#47532;&#45772;&#44536;&#46972;&#46300;" />
+			</Branch>
+			<Leaf zone_id="Europe/San_Marino" name="&#49328;&#47560;&#47532;&#45432;" />
+			<Leaf zone_id="Europe/Belgrade" name="&#49464;&#47476;&#48708;&#50500;" />
+			<Leaf zone_id="Europe/Bratislava" name="&#49836;&#47196;&#48148;&#53412;&#50500;" />
+			<Leaf zone_id="Europe/Ljubljana" name="&#49836;&#47196;&#48288;&#45768;&#50500;" />
+			<Leaf zone_id="Europe/Madrid" name="&#49828;&#54168;&#51064;" />
+			<Leaf zone_id="Europe/Stockholm" name="&#49828;&#50920;&#45940;" />
+			<Leaf zone_id="Europe/Zurich" name="&#49828;&#50948;&#49828;" />
+			<Leaf zone_id="Europe/Istanbul" name="&#53552;&#53412;" />
+			<Leaf zone_id="Europe/London" name="&#50689;&#44397;" />
+			<Branch name="&#50864;&#44536;&#46972;&#51060;&#45208;">
+				<Leaf zone_id="Europe/Kiev" name="&#50864;&#44536;&#46972;&#51060;&#45208; (&#45824;&#48512;&#48516;)" />
+				<Leaf zone_id="Europe/Simferopol" name="&#51473;&#50521; &#53356;&#47548;&#48152;&#46020;" />
+				<Leaf zone_id="Europe/Uzhgorod" name="&#47336;&#53580;&#45768;&#50500;" />
+				<Leaf zone_id="Europe/Zaporozhye" name="&#51088;&#54252;&#47196;&#51228;, &#46041;&#48512; &#47336;&#54620;&#49828;&#53356;" />
+			</Branch>
+			<Leaf zone_id="Europe/Vatican" name="&#48148;&#54000;&#52856; &#49884;&#44397;" />
+		</Branch>
+		<Branch name="&#46020;&#49884;">
+			<Leaf zone_id="Europe/Amsterdam" name="&#50516;&#49828;&#53580;&#47476;&#45812;" />
+			<Leaf zone_id="Europe/Andorra" name="&#50504;&#46020;&#46972;&#46972;&#48288;&#50556;" />
+			<Leaf zone_id="Europe/Athens" name="&#50500;&#53580;&#45348;" />
+			<Leaf zone_id="Europe/Madrid" name="&#48148;&#47476;&#49472;&#47196;&#45208;">
+				<Coordinates latitude="41.388" longitude="2.17" />
+			</Leaf>
+			<Leaf zone_id="Europe/Belfast" name="&#48296;&#54028;&#49828;&#53944;" />
+			<Leaf zone_id="Europe/Belgrade" name="&#48288;&#50724;&#44536;&#46972;&#46300;" />
+			<Leaf zone_id="Europe/Berlin" name="&#48288;&#47484;&#47536;" />
+			<Leaf zone_id="Europe/Bratislava" name="&#48652;&#46972;&#54000;&#49836;&#46972;&#48148;" />
+			<Leaf zone_id="Europe/Brussels" name="&#48652;&#47420;&#49472;" />
+			<Leaf zone_id="Europe/Bucharest" name="&#48512;&#53216;&#47112;&#49800;&#54000;" />
+			<Leaf zone_id="Europe/Budapest" name="&#48512;&#45796;&#54168;&#49828;&#53944;" />
+			<Leaf zone_id="Europe/Chisinau" name="&#52824;&#49884;&#45208;&#50864;" />
+			<Leaf zone_id="Europe/Copenhagen" name="&#53076;&#54172;&#54616;&#44176;" />
+			<Leaf zone_id="Europe/Isle_of_Man" name="&#45908;&#44544;&#47084;&#49828;" />
+			<Leaf zone_id="Europe/Dublin" name="&#45908;&#48660;&#47536;" />
+			<Leaf zone_id="Europe/Gibraltar" name="&#51648;&#48652;&#47204;&#53552;" />
+			<Leaf zone_id="Europe/Helsinki" name="&#54764;&#49905;&#53412;" />
+			<Leaf zone_id="Europe/Istanbul" name="&#51060;&#49828;&#53444;&#48520;" />
+			<Leaf zone_id="Europe/Kaliningrad" name="&#52860;&#47532;&#45772;&#44536;&#46972;&#46300;" />
+			<Leaf zone_id="Europe/Kiev" name="&#53412;&#50696;&#54532;" />
+			<Leaf zone_id="Europe/Lisbon" name="&#47532;&#49828;&#48376;" />
+			<Leaf zone_id="Europe/Ljubljana" name="&#47448;&#48660;&#47028;&#45208;" />
+			<Leaf zone_id="Europe/London" name="&#47088;&#45912;" />
+			<Leaf zone_id="Europe/Luxembourg" name="&#47337;&#49480;&#48512;&#47476;&#53356;" />
+			<Leaf zone_id="Europe/Madrid" name="&#47560;&#46300;&#47532;&#46300;" />
+			<Leaf zone_id="Europe/Malta" name="&#47792;&#53440;" />
+			<Leaf zone_id="Europe/Mariehamn" name="&#47560;&#47532;&#50640;&#54632;" />
+			<Leaf zone_id="Europe/Minsk" name="&#48124;&#49828;&#53356;" />
+			<Leaf zone_id="Europe/Monaco" name="&#47788;&#53580;&#52852;&#47484;&#47196;" />
+			<Leaf zone_id="Europe/Moscow" name="&#47784;&#45208;&#53076;" />
+			<Leaf zone_id="Europe/Nicosia" name="&#45768;&#53076;&#49884;&#50500;" />
+			<Leaf zone_id="Europe/Oslo" name="&#50724;&#49836;&#47196;" />
+			<Leaf zone_id="Europe/Paris" name="&#54028;&#47532;" />
+			<Leaf zone_id="Europe/Podgorica" name="&#54252;&#46300;&#44256;&#47532;&#52264;" />
+			<Leaf zone_id="Europe/Prague" name="&#54532;&#46972;&#54616;" />
+			<Leaf zone_id="Atlantic/Reykjavik" name="&#47112;&#51060;&#52908;&#48708;&#53356;" />
+			<Leaf zone_id="Europe/Riga" name="&#47532;&#44032;" />
+			<Leaf zone_id="Europe/Rome" name="&#47196;&#47560;" />
+			<Leaf zone_id="Europe/Jersey" name="&#49464;&#51064;&#53944;&#54764;&#47532;&#50612;" />
+			<Leaf zone_id="Europe/Guernsey" name="&#49464;&#51064;&#53944;&#54588;&#53552;&#54252;&#53944;" />
+			<Leaf zone_id="Europe/Samara" name="&#49324;&#47560;&#46972;" />
+			<Leaf zone_id="Europe/San_Marino" name="&#49328;&#47560;&#47532;&#45432;" />
+			<Leaf zone_id="Europe/Sarajevo" name="&#49324;&#46972;&#50696;&#48372;" />
+			<Leaf zone_id="Europe/Simferopol" name="&#49900;&#54168;&#47196;&#54260;" />
+			<Leaf zone_id="Europe/Skopje" name="&#49828;&#53076;&#54540;&#47168;" />
+			<Leaf zone_id="Europe/Sofia" name="&#49548;&#54588;&#50500;" />
+			<Leaf zone_id="Europe/Stockholm" name="&#49828;&#53665;&#54848;&#47492;" />
+			<Leaf zone_id="Europe/Tallinn" name="&#53448;&#47536;" />
+			<Leaf zone_id="Europe/Tirane" name="&#54000;&#46972;&#45208;" />
+			<Leaf zone_id="Europe/Uzhgorod" name="&#50864;&#51592;&#44256;&#47196;&#53944;" />
+			<Leaf zone_id="Europe/Vaduz" name="&#54028;&#46160;&#52768;" />
+			<Leaf zone_id="Europe/Vatican" name="&#48148;&#54000;&#52856;" />
+			<Leaf zone_id="Europe/Vienna" name="&#48708;&#50644;&#45208;" />
+			<Leaf zone_id="Europe/Vilnius" name="&#48716;&#45684;&#49828;" />
+			<Leaf zone_id="Europe/Volgograd" name="&#48380;&#44256;&#44536;&#46972;&#46300;" />
+			<Leaf zone_id="Europe/Warsaw" name="&#48148;&#47476;&#49380;&#48148;" />
+			<Leaf zone_id="Europe/Zagreb" name="&#51088;&#44536;&#47112;&#48652;" />
+			<Leaf zone_id="Europe/Zaporozhye" name="&#51088;&#54252;&#47196;&#51228;" />
+			<Leaf zone_id="Europe/Zurich" name="&#52712;&#47532;&#55176;" />
+		</Branch>
+	</Branch>
+	<Branch name="&#51064;&#46020;&#50577;">
+		<Leaf zone_id="Indian/Chagos" name="&#50689;&#44397;&#47161; &#51064;&#46020;&#50577; &#49885;&#48124;&#51648;" />
+		<Leaf zone_id="Indian/Christmas" name="&#53356;&#47532;&#49828;&#47560;&#49828;&#49452;" />
+		<Leaf zone_id="Indian/Cocos" name="&#53076;&#53076;&#49828;(&#53420;&#47553;) &#51228;&#46020;" />
+		<Leaf zone_id="Indian/Comoro" name="&#53076;&#47784;&#47196; &#51228;&#46020;" />
+		<Leaf zone_id="Indian/Kerguelen" name="&#45224;&#51064;&#46020;&#50577; &#45224;&#48512; &#54532;&#46993;&#49828;&#47161; &#51228;&#46020;" />
+		<Leaf zone_id="Indian/Maldives" name="&#47792;&#46356;&#48652;" />
+		<Leaf zone_id="Indian/Mauritius" name="&#47784;&#47532;&#49492;&#49828;" />
+		<Leaf zone_id="Indian/Mayotte" name="&#47560;&#50836;&#53944;" />
+		<Leaf zone_id="Indian/Reunion" name="&#47112;&#50948;&#45768;&#50745;" />
+		<Leaf zone_id="Indian/Mahe" name="&#49464;&#51060;&#49528;" />
+	</Branch>
+	<Branch name="&#53468;&#54217;&#50577;">
+		<Branch name="&#45208;&#46972;">
+			<Branch name="&#52832;&#47112;">
+				<Leaf zone_id="Pacific/Easter" name="&#51060;&#49828;&#53552;&#49452; &#48143; &#49332;&#46972;&#51060;&#44256;&#47700;&#51592;" />
+			</Branch>
+			<Leaf zone_id="Pacific/Rarotonga" name="&#53217; &#51228;&#46020;" />
+			<Branch name="&#50640;&#53104;&#46020;&#47476;">
+				<Leaf zone_id="Pacific/Galapagos" name="&#44040;&#46972;&#54028;&#44256;&#49828; &#51228;&#46020;" />
+			</Branch>
+			<Leaf zone_id="Pacific/Fiji" name="&#54588;&#51648;" />
+			<Branch name="&#54532;&#46993;&#49828;&#47161;&#54260;&#47532;&#45348;&#49884;&#50500;">
+				<Leaf zone_id="Pacific/Gambier" name="&#44076;&#48708;&#50612; &#51228;&#46020;" />
+				<Leaf zone_id="Pacific/Marquesas" name="&#47560;&#53412;&#51200;&#49828; &#51228;&#46020;" />
+				<Leaf zone_id="Pacific/Tahiti" name="&#49548;&#49884;&#50640;&#53580; &#51228;&#46020;" />
+			</Branch>
+			<Leaf zone_id="Pacific/Guam" name="&#44300;" />
+			<Branch name="&#53412;&#47532;&#48148;&#49884;">
+				<Leaf zone_id="Pacific/Tarawa" name="&#44600;&#48260;&#53944; &#51228;&#46020;" />
+				<Leaf zone_id="Pacific/Kiritimati" name="&#46972;&#51064; &#51228;&#46020;" />
+				<Leaf zone_id="Pacific/Enderbury" name="&#54588;&#45769;&#49828; &#51228;&#46020;" />
+			</Branch>
+			<Branch name="&#47560;&#49500;">
+				<Leaf zone_id="Pacific/Majuro" name="&#47560;&#49500; &#51228;&#46020; (&#45824;&#48512;&#48516;)" />
+				<Leaf zone_id="Pacific/Kwajalein" name="&#53104;&#51208;&#47088;" />
+			</Branch>
+			<Branch name="&#48120;&#53356;&#47196;&#45348;&#49884;&#50500;">
+				<Leaf zone_id="Pacific/Kosrae" name="&#53076;&#49828;&#46972;&#50640;" />
+				<Leaf zone_id="Pacific/Ponape" name="&#54256;&#54168;&#51060;" />
+				<Leaf zone_id="Pacific/Truk" name="&#53944;&#47336;&#53356; &#48143; &#50556;&#54532;" />
+			</Branch>
+			<Leaf zone_id="Pacific/Nauru" name="&#45208;&#50864;&#47336;" />
+			<Leaf zone_id="Pacific/Noumea" name="&#47448;&#52860;&#47112;&#46020;&#45768;&#50500;" />
+			<Leaf zone_id="Pacific/Auckland" name="&#45684;&#51656;&#47004;&#46300;" />
+			<Leaf zone_id="Pacific/Chatham" name="&#45684;&#51656;&#47004;&#46300; - &#52292;&#53568; &#51228;&#46020;" />
+			<Leaf zone_id="Pacific/Niue" name="&#45768;&#50864;&#50640;" />
+			<Leaf zone_id="Pacific/Norfolk" name="&#45432;&#54141;&#49452;" />
+			<Leaf zone_id="Pacific/Saipan" name="&#48513;&#47560;&#47532;&#50500;&#45208; &#51228;&#46020;" />
+			<Leaf zone_id="Pacific/Palau" name="&#54036;&#46972;&#50864;" />
+			<Leaf zone_id="Pacific/Port_Moresby" name="&#54028;&#54392;&#50500;&#45684;&#44592;&#45768;" />
+			<Leaf zone_id="Pacific/Pitcairn" name="&#54607;&#52992;&#50616;&#49452;" />
+			<Leaf zone_id="Pacific/Pago_Pago" name="&#50500;&#47700;&#47532;&#52856;&#49324;&#47784;&#50500;" />
+			<Leaf zone_id="Pacific/Apia" name="&#49436;&#49324;&#47784;&#50500;" />
+			<Leaf zone_id="Pacific/Guadalcanal" name="&#49556;&#47196;&#47788; &#51228;&#46020;" />
+			<Leaf zone_id="Pacific/Fakaofo" name="&#53664;&#53000;&#46972;&#50864;" />
+			<Leaf zone_id="Pacific/Tongatapu" name="&#53685;&#44032;" />
+			<Leaf zone_id="Pacific/Funafuti" name="&#53804;&#48156;&#47336;" />
+			<Branch name="&#48120;&#44397;&#47161; &#44400;&#49548; &#51228;&#46020;">
+				<Leaf zone_id="Pacific/Johnston" name="&#51316;&#49828;&#53556;&#54872;&#52488;" />
+				<Leaf zone_id="Pacific/Midway" name="&#48120;&#46300;&#50920;&#51060; &#51228;&#46020;" />
+				<Leaf zone_id="Pacific/Wake" name="&#50920;&#51060;&#53356;&#49452;" />
+			</Branch>
+			<Leaf zone_id="Pacific/Efate" name="&#48148;&#45572;&#50500;&#53804;" />
+			<Leaf zone_id="Pacific/Wallis" name="&#50956;&#47532;&#49828; &#48143; &#54392;&#53804;&#45208;" />
+		</Branch>
+		<Branch name="&#46020;&#49884;">
+			<Leaf zone_id="Pacific/Niue" name="&#50508;&#47196;&#54588;" />
+			<Leaf zone_id="Pacific/Apia" name="&#50500;&#54588;&#50500;" />
+			<Leaf zone_id="Pacific/Auckland" name="&#50724;&#53364;&#47004;&#46300;" />
+			<Leaf zone_id="Pacific/Rarotonga" name="&#50500;&#48148;&#47336;&#45208;" />
+			<Leaf zone_id="Pacific/Funafuti" name="&#54392;&#45208;&#54392;&#54000;" />
+			<Leaf zone_id="Pacific/Guadalcanal" name="&#54840;&#45768;&#50500;&#46972;" />
+			<Leaf zone_id="Pacific/Kiritimati" name="&#53412;&#47532;&#54000;&#47560;&#54000;" />
+			<Leaf zone_id="Pacific/Majuro" name="&#47560;&#51452;&#47196;" />
+			<Leaf zone_id="Pacific/Palau" name="&#47700;&#47112;&#52992;&#50725;" />
+			<Leaf zone_id="Pacific/Noumea" name="&#45572;&#47700;&#50500;" />
+			<Leaf zone_id="Pacific/Tongatapu" name="&#45572;&#53216;&#50508;&#47196;&#54028;" />
+			<Leaf zone_id="Pacific/Pago_Pago" name="&#54028;&#44256;&#54028;&#44256;" />
+			<Leaf zone_id="Pacific/Tahiti" name="&#54028;&#54168;&#50640;&#53580;" />
+			<Leaf zone_id="Pacific/Port_Moresby" name="&#54252;&#53944;&#47784;&#47476;&#51592;&#48708;" />
+			<Leaf zone_id="Pacific/Efate" name="&#54252;&#53944;&#48716;&#46972;" />
+			<Leaf zone_id="Pacific/Saipan" name="&#49324;&#51060;&#54032;" />
+			<Leaf zone_id="Pacific/Tarawa" name="&#45224; &#53440;&#46972;&#50752;" />
+			<Leaf zone_id="Pacific/Fiji" name="&#49688;&#48148;" />
+			<Leaf zone_id="Pacific/Auckland" name="&#50928;&#47553;&#53556;">
+				<Coordinates latitude="-41.286" longitude="174.776" />
+			</Leaf>
+			<Leaf zone_id="Pacific/Nauru" name="&#50556;&#47116;" />
+		</Branch>
+	</Branch>
+	<Leaf zone_id="Etc/UTC" name="GMT/UTC" />
+</zonepicker>

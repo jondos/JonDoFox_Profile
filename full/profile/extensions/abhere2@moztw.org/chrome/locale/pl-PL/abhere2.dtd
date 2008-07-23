@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Add Bookmark Here ² - opcje">
+<!ENTITY group.pos "Położenie elementów w menu rozwijanym">
+<!ENTITY group.bmm "Menu główne zakładek">
+<!ENTITY group.bmc "Menu kontekstowe zakładek">
+<!ENTITY group.misc "Różne">
+<!ENTITY pos.abhere "Umieść element &quot;$abhere$&quot;">
+<!ENTITY pos.optabs "Umieść element &quot;$optabs$&quot;">
+<!ENTITY pos.top "na górze">
+<!ENTITY pos.bottom "na dole">
+<!ENTITY pos.hidden "ukryj">
+<!ENTITY bmm.abhere "Wyświetl element &quot;$abhere$&quot;">
+<!ENTITY bmm.bmpage "Nie wyświetlaj elementu &quot;&bookmarkThisPageCmd.label;&quot;">
+<!ENTITY bmm.bmtabs "Nie wyświetlaj elementu &quot;&bookmarkAllCmd.label;&quot;">
+<!ENTITY folderDrag "Pozwalaj na przeciąganie folderu zakładek">
+<!ENTITY insertTop "Nową zakładkę umieść na górze menu">

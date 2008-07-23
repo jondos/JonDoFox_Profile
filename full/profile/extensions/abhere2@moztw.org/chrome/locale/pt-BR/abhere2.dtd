@@ -1,0 +1,15 @@
+<!ENTITY dialog.title "Opções do Add Bookmark Here ²">
+<!ENTITY group.pos "Posição do item no menu Favoritos">
+<!ENTITY group.bmm "Menu Favoritos">
+<!ENTITY group.bmc "Menu de contexto">
+<!ENTITY group.misc "Outros">
+<!ENTITY pos.abhere "Posição do item [$abhere$]:">
+<!ENTITY pos.optabs "Posição do item [$optabs$]:">
+<!ENTITY pos.top "Início">
+<!ENTITY pos.bottom "Fim">
+<!ENTITY pos.hidden "Oculto">
+<!ENTITY bmm.abhere "Exibir item [$abhere$]">
+<!ENTITY bmm.bmpage "Ocultar item [&bookmarkThisPageCmd.label;]">
+<!ENTITY bmm.bmtabs "Ocultar item [&bookmarkAllCmd.label;]">
+<!ENTITY folderDrag "Permitir arrastar para a pasta Favoritos">
+<!ENTITY insertTop "Adicionar página no início do menu">

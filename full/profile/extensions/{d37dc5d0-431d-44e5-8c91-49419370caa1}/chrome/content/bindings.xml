@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+FoxClocks extension for Mozilla Firefox/Thunderbird/Sunbird
+Copyright (C) 2005-2008 Andy McDonald / www.stemhaus.com
+For licensing terms, please refer to readme.txt in this extension's '.xpi'
+package or its installation directory on your computer.
+-->
+
+<bindings	xmlns="http://www.mozilla.org/xbl"
+			xmlns:xbl="http://www.mozilla.org/xbl"
+			xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<binding id="foxclocks-clockpanel">
+		<content>
+			<xul:hbox flex="1" align="center">
+				<xul:image xbl:inherits="src"/>
+				<xul:label xbl:inherits="value=label,crop,class=labelclass"/> 
+			</xul:hbox>
+		</content>
+	</binding>
+
+</bindings>

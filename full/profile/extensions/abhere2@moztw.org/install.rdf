@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>abhere2@moztw.org</em:id>
+    <em:version>3.0.20080604</em:version>
+
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>3.0</em:minVersion>
+        <em:maxVersion>3.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:name>Add Bookmark Here ²</em:name>
+    <em:description>Add a menuitem "Add Bookmark Here..." to Bookmarks Menu.</em:description>
+    <em:creator>yuoo2k</em:creator>
+    <em:homepageURL>http://forum.moztw.org/viewtopic.php?t=16450</em:homepageURL>
+    <em:optionsURL>chrome://abhere2/content/prefsDialog.xul</em:optionsURL>
+    <em:iconURL>chrome://abhere2/skin/abhere32x32.png</em:iconURL>
+
+    <em:localized>
+      <Description>
+        <em:locale>ar</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>أضف الخاصة "أضف علامة المواقع هنا"  لقائمة علامات المواقع</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>ca-AD</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Afegeix un ítem de menú anomenat "Afegeix favorit aquí" al menú de favorits.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>cs-CZ</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Přidat položku "Přidat záložku zde..." do menu záložek</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>de-DE</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Erweitert das Lesezeichen-Menü um den Eintrag "Lesezeichen hier hinzufügen..."</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>el-GR</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Προσθέστε το στοιχείο "Προσθήκη σελιδοδείκτη εδώ..." στο μενού των σελιδοδεικτών.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>es-ES</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Añade un nuevo elemento "Añadir marcador aquí..." al menú de los marcadores</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>fr-FR</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Ajouter la commande "Marquer cette page ici..." au menu des marque-pages</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>gl-ES</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Engade un novo elemento, chamado "Engadir marcador aquí...", ao menú dos marcapáxinas.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>hu-HU</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Könyvjelzők menüjének kibővítése ("Könyvjelző hozzáadása...")</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>it-IT</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Permette di aggiungere la voce di menu 'Nuovo segnalibro...' al menu dei segnalibri</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>ja-JP</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>ブックマークメニューに「ここにブックマークを追加」をメニュー項目に追加します。</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>km-KH</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>បន្ថែម​ធាតុ​ម៉ឺនុយ​មួយ "បន្ថែម​ចំណាំ​នៅ​ទីនេះ..." ទៅ​កាន់​ម៉ឺនុយ​ចំណាំ ។</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>ko-KR</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>북마크 메뉴에 "여기를 북마크에 추가..." 메뉴 항목 추가</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>nl-NL</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Het menuitem "Bladwijzer hier toevoegen..." aan het Bladwijzermenu toevoegen.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>pl-PL</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Dodaje element "Dodaj zakładkę tutaj..." do menu "Zakładki"</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>pt-BR</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Adiciona o item "Adicionar página aqui" ao menu Favoritos</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>sk-SK</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Pridáva do ponuky Záložky novú položku "Pridať k záložkám..."</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>tr-TR</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Yer İmleri Menüsüne "Yer İmini Buraya Ekle ..." öğesi ekle.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>zh-CN</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>在书签菜单中增加“添加书签至此...”菜单项</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>zh-TW</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>新增 "加入書籤至此..." 功能項目到書籤選單中。</em:description>
+      </Description>
+    </em:localized>
+
+  </Description>
+</RDF>

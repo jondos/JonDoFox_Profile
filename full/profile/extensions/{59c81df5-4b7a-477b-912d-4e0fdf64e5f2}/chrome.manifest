@@ -1,0 +1,17 @@
+overlay chrome://communicator/content/pref/preferences.xul chrome://chatzilla/content/prefsOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+style   chrome://global/content/customizeToolbar.xul chrome://chatzilla/skin/browserOverlay.css
+overlay chrome://browser/content/browser.xul chrome://chatzilla/content/browserOverlay.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+skin    chatzilla modern/1.0 jar:chrome/chatzilla.jar!/skin/modern/chatzilla/
+content chatzilla            jar:chrome/chatzilla.jar!/content/chatzilla/
+overlay chrome://communicator/content/pref/pref-appearance.xul chrome://chatzilla/content/prefsOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+overlay chrome://songbird/content/xul/layoutBaseOverlay.xul chrome://chatzilla/content/browserOverlay.xul application=songbird@songbirdnest.com
+style   chrome://browser/content/browser.xul chrome://chatzilla/skin/browserOverlay.css
+style   chrome://songbird/content/xul/layoutBaseOverlay.xul chrome://chatzilla/skin/browserOverlay.css
+overlay chrome://editor/content/editorTasksOverlay.xul chrome://chatzilla/content/chatzillaOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+overlay chrome://chatzilla/content/menus.xul chrome://communicator/content/tasksOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+overlay chrome://chatzilla/content/chatzilla.xul chrome://chatzilla/content/sm/overlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+overlay chrome://chatzilla/content/chatzilla.xul chrome://communicator/content/utilityOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+content chatzilla-sm jar:chrome/chatzilla.jar!/content/chatzilla/sm/
+content chatzilla-ff jar:chrome/chatzilla.jar!/content/chatzilla/ff/
+overlay chrome://chatzilla/content/chatzilla.xul chrome://chatzilla/content/ff/overlay.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+locale chatzilla en-US jar:chrome/chatzilla.jar!/locale/en-US/chatzilla/
