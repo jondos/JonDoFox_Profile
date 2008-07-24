@@ -36,7 +36,6 @@
 ## DELETIONS IN THE SUBVERSION REPOSITORY !!!!!!!!!
 
 VERBOSE=""
-QUIET="-q"
 
 OS_X_INSTALLER_NAME="Install_OSX"
 OS_X_INSTALLER_BUNDLE="${OS_X_INSTALLER_NAME}.app"
@@ -199,6 +198,7 @@ createLinuxPackage()
 	local type=""
 	local installer_help_file=""
 	
+	echo "Fetching Installer scripts from Subversion"
 	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${BASH_INSTALLER_SCRIPT}" ]; then
 		svn cat "${SVN_MODULE}/${BASH_INSTALLER_SCRIPT}" > "${BASH_INSTALLER_SCRIPT}"
 		if [ $? -ne 0 ]; then
@@ -253,8 +253,15 @@ createLinuxPackage()
 			
 			cp -f "${installer_help_file}" "${INSTALLER_HELP_FILE}"
 			setLanguageBookmarks "${lang}"
-			zip -r ${QUIET} "${JONDOFOX_PROFILE}_${type}_${lang}.zip" "${JONDOFOX_PROFILE}" "${INSTALLER_HELP_FILE}" \
+			
+			echo "Creating zip file '${JONDOFOX_PROFILE}_${type}_${lang}.zip'"
+			if [ "${VERBOSE}" ]; then
+				zip -r "${JONDOFOX_PROFILE}_${type}_${lang}.zip" "${JONDOFOX_PROFILE}" "${INSTALLER_HELP_FILE}" \
 							"${VB_INSTALLER_SCRIPT}" "${BASH_INSTALLER_SCRIPT}"
+			else
+				zip -qr "${JONDOFOX_PROFILE}_${type}_${lang}.zip" "${JONDOFOX_PROFILE}" "${INSTALLER_HELP_FILE}" \
+							"${VB_INSTALLER_SCRIPT}" "${BASH_INSTALLER_SCRIPT}"
+			fi
 		done
 	done
 	
@@ -444,8 +451,7 @@ getopts "${OPTSTR}" CMD_OPT
 while [ $? -eq 0 ]; 
 do
 	case ${CMD_OPT} in
-		v) VERBOSE="-v"
-			QUIET="-q";;
+		v) VERBOSE="-v";;
 		p) BUILD_PLATFORMS="${OPTARG}";;
 		t) JONDOFOX_PROFILE_TYPES="${OPTARG}";;
 		l) JONDOFOX_PROFILE_LANGS="${OPTARG}";;
