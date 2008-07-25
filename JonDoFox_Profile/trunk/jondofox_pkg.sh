@@ -198,8 +198,9 @@ createLinuxPackage()
 	local type=""
 	local installer_help_file=""
 	
-	echo "Fetching Installer scripts from Subversion"
+	
 	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${BASH_INSTALLER_SCRIPT}" ]; then
+		echo "Fetching Installer scripts from Subversion"
 		svn cat "${SVN_MODULE}/${BASH_INSTALLER_SCRIPT}" > "${BASH_INSTALLER_SCRIPT}"
 		if [ $? -ne 0 ]; then
 			echo "Error: cannot load bash install script from subversion."
