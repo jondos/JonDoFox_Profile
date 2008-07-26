@@ -220,8 +220,6 @@ function editProfilesIni()
 	lastLineNr=${lastLineNr%${lastLineStr}}
 	
 	profilesIniModifications ${lastLineNr} > "${PROFILES_INI_FILE}"
-	#sed "modFilter" "${PROFILES_INI_BACKUP_FILE}"
-	#exit 0
 }
 
 removeOldProfileFolder()
