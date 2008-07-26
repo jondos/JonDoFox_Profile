@@ -70,7 +70,7 @@ DIALOG_TEXT_OW_NEWER_VERSION=""
 
 
 ## assign OS specific values for the global variables
-function setVariables()
+function variablesOsSpecific()
 {	
 	if [ -e /usr/bin/osascript ]; then
 		#Mac OS X specific settings
@@ -220,6 +220,8 @@ function editProfilesIni()
 	lastLineNr=${lastLineNr%${lastLineStr}}
 	
 	profilesIniModifications ${lastLineNr} > "${PROFILES_INI_FILE}"
+	#sed "modFilter" "${PROFILES_INI_BACKUP_FILE}"
+	#exit 0
 }
 
 removeOldProfileFolder()
@@ -360,7 +362,7 @@ do
 done
 
 ## set the other global variables depending on the platform or command line options
-setVariables
+variablesOsSpecific
 
 isFirefoxRunning
 if [ $? -ne 0 ]; then
