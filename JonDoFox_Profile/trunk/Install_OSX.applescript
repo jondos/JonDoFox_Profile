@@ -41,7 +41,7 @@ global old_version_str --the version string of the already installed JonDoFox pr
 
 global jondofox_bookmarks_ff3 --name of the bookmarksfile (FireFox3)
 global jondofox_bookmarks_ff2 --name of the bookmarksfile (FireFox2)
-global saved_bookmarks --where the old bookmarsk are saved
+global saved_bookmarks --where the old bookmarks are saved
 
 -- dialog variables
 global jfx_dialog_title
@@ -299,6 +299,8 @@ end get_old_version
 on getAbsolutePath(fileURL)
 	--this just cuts off the prefix "file://localhost"
 	set path_string to text 17 thru -1 of fileURL
+	
+	--whitespace are encoded as URLs as %20. replace it with "\ " for shell commands
 	set whitespace_encoded to the offset of "%20" in path_string
 	repeat while (whitespace_encoded is not 0)
 		set temp_str1 to text 1 thru (whitespace_encoded - 1) of path_string
