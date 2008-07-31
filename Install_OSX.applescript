@@ -63,7 +63,7 @@ on run
 	
 	set jfx_dialog_title to "JonDoFox " & new_version_str & " OS X Installer"
 	
-	display dialog "This will add the JonDoFox profile version " & new_version_str & " to your Firefox profiles." buttons {"OK", "Cancel"} with icon caution with title jfx_dialog_title
+	display dialog "This will add the JonDoFox profile version " & new_version_str & " to your Firefox profiles." buttons {"OK", "Cancel"} with icon note with title jfx_dialog_title
 	
 	if (button returned of result = "Cancel") then
 		return 0
