@@ -308,11 +308,11 @@ getProfileFolder()
 	
 	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${JONDOFOX_PROFILE}_${type}" ]; then
 		echo "Checking out JonDoFox profile type '${type}'."
-		if [ "${VERBOSE}" ]; then
+		#if [ "${VERBOSE}" ]; then
 			svn export "${SVN_MODULE}/${type}/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}"
-		else
-			svn export "${SVN_MODULE}/${type}/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}" >& /dev/null
-		fi
+		#else
+		#	svn export "${SVN_MODULE}/${type}/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}" >& /dev/null
+		#fi
 		
 		if [ $? -ne 0 ]; then
 			echo "Error: could not check out profile type '${type}'"
