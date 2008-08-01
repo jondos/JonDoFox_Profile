@@ -45,6 +45,9 @@ OS_X_INSTALLER_PKG=""
 OS_X_INSTALLER_ICON="applet.icns"
 OS_X_INSTALER_ICON_SVN_PATH="icons/macosx"
 OS_X_INSTALLER_ICON_SRC="${OS_X_INSTALER_ICON_SVN_PATH}/jondofox_std.icns"
+OS_X_INSTALLER_LANGFILE_NAME="jfx"
+OS_X_INSTALLER_LANGFILE_SUFFIX=".plist"
+OS_X_INSTALLER_LANGFILE="${OS_X_INSTALLER_LANGFILE_NAME}${OS_X_INSTALLER_LANGFILE_SUFFIX}"
 
 LINUX_PKG="profile.zip"
 BASH_INSTALLER_SCRIPT="install_linux.sh"
@@ -123,7 +126,7 @@ createOSXBundle()
 			if [ $? -ne 0 ]; then
 				echo "Error: could not fetch Mac OS X installer icon"
 			fi
-			cp -f ${VERBOSE} "${OS_X_INSTALLER_ICON}" "${OS_X_INSTALLER_BUNDLE}/${BUNDLE_RESOURCES}/${OS_X_INSTALLER_ICON}" >& /dev/null
+			cp -f "${OS_X_INSTALLER_ICON}" "${OS_X_INSTALLER_BUNDLE}/${BUNDLE_RESOURCES}/${OS_X_INSTALLER_ICON}" >& /dev/null
 		fi
 	else
 		svn cat "${SVN_MODULE}/${OS_X_INSTALLER_ICON_SRC}" > "${OS_X_INSTALLER_BUNDLE}/${BUNDLE_RESOURCES}/${OS_X_INSTALLER_ICON}"
@@ -155,6 +158,19 @@ createOSXBundle()
 			setLanguageBookmarks "${lang}" "${type}"
 			if [ $? -ne 0 ]; then
 				continue
+			fi
+			
+			if [ "${SRC_LOCAL}" ]; then
+				if ! [ -e "${OS_X_INSTALLER_LANGFILE_NAME}_${lang}${OS_X_INSTALLER_LANGFILE_SUFFIX}" ]; then
+					svn cat "${SVN_MODULE}/${OS_X_INSTALLER_LANGFILE_NAME}_${lang}${OS_X_INSTALLER_LANGFILE_SUFFIX}" \
+							> "${OS_X_INSTALLER_LANGFILE_NAME}_${lang}${OS_X_INSTALLER_LANGFILE_SUFFIX}"
+				fi
+				cp -f "${OS_X_INSTALLER_LANGFILE_NAME}_${lang}${OS_X_INSTALLER_LANGFILE_SUFFIX}" \
+						"${OS_X_INSTALLER_BUNDLE}/${BUNDLE_RESOURCES}/${OS_X_INSTALLER_LANGFILE}" >& /dev/null
+			else
+			
+				svn cat "${SVN_MODULE}/${OS_X_INSTALLER_LANGFILE_NAME}_${lang}${OS_X_INSTALLER_LANGFILE_SUFFIX}" \
+						> "${OS_X_INSTALLER_BUNDLE}/${BUNDLE_RESOURCES}/${OS_X_INSTALLER_LANGFILE}"
 			fi
 			
 			rm -rf ${VERBOSE} "${OS_X_INSTALLER_BUNDLE}/${BUNDLE_RESOURCES}/${JONDOFOX_PROFILE}"
@@ -440,12 +456,14 @@ setLanguageBookmarks()
 	
 }
 
+##TODO:
 removeOldMacProfile()
 {
-	rm -rvf "~/Library/Application Support/Firefox/Profiles/profile/"
-	mv -f "~/Library/Application Support/Firefox/profiles.ini.bak" "~/Library/Application Support/Firefox/profiles.ini" >& /dev/null
+	rm -rvf "${HOME}/Library/Application Support/Firefox/Profiles/profile/"
+	mv -f "${HOME}/Library/Application Support/Firefox/profiles.ini.bak" "${HOME}/Library/Application Support/Firefox/profiles.ini" 
 }
 
+##TODO:
 uploadMacBundles()
 {
 	scp JonDoFox_OS_X_full_de.dmg root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/JonDoFox_OS_X.dmg
@@ -461,7 +479,7 @@ verboseMessage()
 	fi
 }
 
-OPTSTR="vhs:l:t:p:c:"	
+OPTSTR="vhs:l:t:p:c:ud"	
 getopts "${OPTSTR}" CMD_OPT
 while [ $? -eq 0 ]; 
 do
@@ -507,6 +525,10 @@ do
 			echo ""
 			exit 0
 			;;
+		u) uploadMacBundles
+		   exit 0;;
+		d) removeOldMacProfile
+		   exit 0;;
 		*) ;;
 	esac
 	getopts "${OPTSTR}" CMD_OPT
