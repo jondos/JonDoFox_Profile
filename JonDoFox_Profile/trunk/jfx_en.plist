@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ButtonCancel</key>
+	<string>Cancel</string>
+	<key>ButtonContinue</key>
+	<string>Continue</string>
+	<key>ButtonOK</key>
+	<string>OK</string>
+	<key>ErrorBackupProcess</key>
+	<string>An error occured while saving profiles.ini.</string>
+	<key>ErrorFFNotInstalled</key>
+	<string>Sorry, but you do not have Firefox installed. For installing JonDoFox you need Firefox 2.x or newer.</string>
+	<key>ErrorIniBackupFile</key>
+	<string>Error: The file profiles.ini.bak was not found.</string>
+	<key>ErrorIniFile</key>
+	<string>Error: Could not read Firefox profile.ini</string>
+	<key>ErrorInstallFailed</key>
+	<string>An error occured: JonDoFox profile could not be installed.</string>
+	<key>ErrorProfileEntry</key>
+	<string>Error: Cannot find a valid profile entry.</string>
+	<key>ErrorProfileFolder</key>
+	<string>Error: Could not find Firefox profile folder.</string>
+	<key>ErrorRestoreOldSettings</key>
+	<string>An error occured while restoring old settings.</string>
+	<key>NoteInstallStart</key>
+	<string>This will add the JonDoFox profile %version to your Firefox profiles.</string>
+	<key>NoteInstallSuccessful</key>
+	<string>JonDoFox profile successfully installed.</string>
+	<key>NoteOverwriteOlderVersion</key>
+	<string>You have already installed the older JonDoFox version %olderversion. Click continue to upgrade it to version %newerversion.</string>
+	<key>NoteOverwriteSameVersion</key>
+	<string>You have already installed a JonDoFox of version %version. If you continue it will be replaced.</string>
+	<key>Title</key>
+	<string>JonDoFox %version OS X Installer</string>
+	<key>WarningCloseFirefox</key>
+	<string>Warning: Your Firefox is still running. If you continue Firefox will be closed. Otherwise JonDoFox installation may fail.</string>
+	<key>WarningOlderVersion</key>
+	<string>Warning: You have already installed a JonDoFox of the newer version %newerversion. If you continue it will be replaced with the older version %olderversion.</string>
+</dict>
+</plist>

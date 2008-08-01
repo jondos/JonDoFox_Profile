@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ButtonCancel</key>
+	<string>Abbrechen</string>
+	<key>ButtonContinue</key>
+	<string>Fortfahren</string>
+	<key>ButtonOK</key>
+	<string>OK</string>
+	<key>ErrorBackupProcess</key>
+	<string>Die Sicherung der Datei profiles.ini ist fehlgeschlagen.</string>
+	<key>ErrorFFNotInstalled</key>
+	<string>Sie haben Firefox nicht installiert. Zur Installation von JonDoFox benötigen Sie Firefox 2.x oder aktueller.</string>
+	<key>ErrorIniBackupFile</key>
+	<string>Fehler: Die Datei profiles.ini.bak wurde nicht gefunden.</string>
+	<key>ErrorIniFile</key>
+	<string>Fehler: Die Datei profile.ini konnte nicht gelesen werden</string>
+	<key>ErrorInstallFailed</key>
+	<string>Die Installation von JonDoFox ist fehlgeschlagen</string>
+	<key>ErrorProfileEntry</key>
+	<string>Fehler: Es wurde kein gültiger Profil-Eintrag gefunden.</string>
+	<key>ErrorProfileFolder</key>
+	<string>Fehler: Der Firefox-Profileordner konnte nicht gefunden werden.</string>
+	<key>ErrorRestoreOldSettings</key>
+	<string>Das Wiederherstellen der alten Einstellungen ist fehlgeschlagen.</string>
+	<key>NoteInstallStart</key>
+	<string>Das JonDoFox Profil %version wird nun zu Firefox hinzugefügt.</string>
+	<key>NoteInstallSuccessful</key>
+	<string>Das JonDoFox Profil wurde erfolgreich installiert.</string>
+	<key>NoteOverwriteOlderVersion</key>
+	<string>Sie haben bereits die ältere JonDoFox Version %olderversion installiert. Klicken Sie auf Fortfahren, um auf die Version %newerversion zu aktualisieren.</string>
+	<key>NoteOverwriteSameVersion</key>
+	<string>Sie haben bereits einen JonDoFox der Version %version installiert. Klicken Sie auf Fortfahren, um die vorhandene Version zu ersetzen.</string>
+	<key>Title</key>
+	<string>JonDoFox %version OS X Installer</string>
+	<key>WarningCloseFirefox</key>
+	<string>Warnung: Sie haben Firefox gestartet. Wenn Sie auf Fortfahren klicken wird Firefox beendet. Ansonsten kann die Installation fehlschlagen.</string>
+	<key>WarningOlderVersion</key>
+	<string>Warnung: Sie haben bereits die aktuellere JonDoFox Version %newerversion installiert. Wenn Sie fortfahren wird Sie durch die ältere Version %olderversion ersetzt.</string>
+</dict>
+</plist>

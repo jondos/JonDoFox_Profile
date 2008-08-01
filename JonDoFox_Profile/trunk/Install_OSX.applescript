@@ -45,6 +45,14 @@ global saved_bookmarks --where the old bookmarks are saved
 
 -- dialog variables
 global jfx_dialog_title
+global buttonCancel
+global buttonContinue
+global buttonOK
+
+global lang_props_filename
+global lang_props
+global langPropsList
+
 
 on run
 	set err to 0
@@ -59,13 +67,19 @@ on run
 	set jondofox_bookmarks_ff2 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":bookmarks.html"
 	set saved_bookmarks to ""
 	
+	set lang_props to null
+	set lang_props_filename to "jfx.plist"
+	
 	get_new_version()
 	
-	set jfx_dialog_title to "JonDoFox " & new_version_str & " OS X Installer"
+	set jfx_dialog_title to replacePlaceHolder(getLangProperty("Title"), "%version", new_version_str)
+	set buttonCancel to getLangProperty("ButtonCancel")
+	set buttonContinue to getLangProperty("ButtonContinue")
+	set buttonOK to getLangProperty("ButtonOK")
 	
-	display dialog "This will add the JonDoFox profile version " & new_version_str & " to your Firefox profiles." buttons {"OK", "Cancel"} with icon note with title jfx_dialog_title
+	display dialog replacePlaceHolder(getLangProperty("NoteInstallStart"), "%version", new_version_str) buttons {buttonOK, buttonCancel} with icon note with title jfx_dialog_title
 	
-	if (button returned of result = "Cancel") then
+	if (button returned of result = buttonCancel) then
 		return 0
 	end if
 	
@@ -73,7 +87,7 @@ on run
 	try
 		set profiles_ini to the (firefox_profiles_path & "profiles.ini") as alias
 	on error
-		display dialog "Sorry, but you don't have Firefox installed. For installing JonDoFox you need Firefox 2.x or newer." buttons {"OK"} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} with icon stop with title jfx_dialog_title
 		set err to 1
 	end try
 	
@@ -89,8 +103,8 @@ on run
 		end tell
 		
 		if (firefox_is_running) then
-			display dialog "Your Firefox is still running. If you continue Firefox will be closed. Otherwise JonDoFox installation may fail" buttons {"Continue", "Abort"} with icon caution with title jfx_dialog_title
-			if (button returned of result = "Abort") then
+			display dialog getLangProperty("WarningCloseFirefox") buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title
+			if (button returned of result = buttonCancel) then
 				return 2
 			else
 				tell application "Firefox" to quit
@@ -106,11 +120,11 @@ on run
 	end if
 	-- installation procedure successful
 	if (err = 0) then
-		display dialog "JonDoFox profile successfully installed" buttons {"OK"} with icon note with title jfx_dialog_title
+		display dialog getLangProperty("NoteInstallSuccessful") buttons {buttonOK} with icon note with title jfx_dialog_title
 	end if
 	-- installation procedure failed
 	if (err = 1) then
-		display dialog "An Error occured: JonDoFox profile could not be installed" buttons {"OK"} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorInstallFailed") buttons {buttonOK} with icon stop with title jfx_dialog_title
 	end if
 	return err
 end run
@@ -122,7 +136,7 @@ on edit_profiles_ini()
 		if (the file profiles_ini exists) then
 			set profiles_ini_URL to get the URL of the file profiles_ini
 		else
-			display dialog "Error: couldn't read Firefox profile.ini" buttons {"OK"} with icon stop with title jfx_dialog_title
+			display dialog getLangProperty("ErrorIniFile") buttons {buttonOK} with icon stop with title jfx_dialog_title
 			return 1
 		end if
 	end tell
@@ -136,7 +150,7 @@ on edit_profiles_ini()
 	
 	set next_profile_header to get_next_profile(profiles_ini)
 	if ("---" is in next_profile_header) then
-		display dialog "Error: cannot find a valid profile entry." buttons {"OK"} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} with icon stop with title jfx_dialog_title
 		return 1
 	end if
 	set complete_entry to {next_profile_header, "Name=JonDoFox", "IsRelative=1", "Path=Profiles/" & jondoprofile_foldername}
@@ -149,8 +163,8 @@ on edit_profiles_ini()
 			return 1
 		end if
 		if (old_version_str is equal to new_version_str) then
-			display dialog "You have already installed a JonDoFox profile of the same version (" & old_version_str & ")." & return & return & "If you continue it will be replaced.  Your Bookmarks will be kept." buttons {"Continue", "Abort"} with icon note with title jfx_dialog_title
-			if (button returned of result = "Continue") then
+			display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title
+			if (button returned of result = buttonContinue) then
 				copy_bookmarks()
 				return 0
 			else
@@ -158,16 +172,18 @@ on edit_profiles_ini()
 			end if
 		else
 			if (old_version_str is greater than new_version_str) then
-				display dialog "Warning: You have already installed a JonDoFox profile of a newer version (" & old_version_str & ")." & return & return & "If you 	continue it will be replaced with the older version. Your Bookmarks will be kept." & new_version_str buttons {"Continue", "Abort"} with icon caution with title jfx_dialog_title
-				if (button returned of result = "Continue") then
+				set new_ver_replaced to replacePlaceHolder(getLangProperty("WarningOlderVersion"), "%newerversion", old_version_str)
+				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", new_version_str) buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title
+				if (button returned of result = buttonContinue) then
 					copy_bookmarks()
 					return 0
 				else
 					return 2
 				end if
 			else
-				display dialog "You have already installed an older version of the JonDoFox profile (" & old_version_str & ")." & return & return & "Click continue to upgrade it to version. Your Bookmarks will be kept." & new_version_str buttons {"Continue", "Abort"} with icon note with title jfx_dialog_title
-				if (button returned of result = "Continue") then
+				set new_ver_replaced to replacePlaceHolder(getLangProperty("NoteOverwriteOlderVersion"), "%newerversion", new_version_str)
+				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", old_version_str) buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title
+				if (button returned of result = buttonContinue) then
 					copy_bookmarks()
 					return 0
 				else
@@ -184,7 +200,7 @@ on edit_profiles_ini()
 		if (the file (firefox_profiles_path & profile_ini_backup_name) exists) then
 			set profiles_ini_bak_URL to get the URL of the file (firefox_profiles_path & profile_ini_backup_name)
 		else
-			display dialog "Error: the file profiles.ini.bak was not found." buttons {"OK"} with icon stop with title jfx_dialog_title
+			display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} with icon stop with title jfx_dialog_title
 			return 1
 		end if
 	end tell
@@ -212,7 +228,7 @@ on copy_folder()
 	on error
 		--if something goes wrong: restore old settings from backup file
 		restore_old_settings()
-		display dialog "Error: couldn't find Firefox profile folder" buttons {"OK"} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorProfileFolder") buttons {buttonOK} with icon stop with title jfx_dialog_title
 		return 1
 	end try
 	return 0
@@ -266,7 +282,7 @@ on backup_profile_ini()
 			set name of backup_file to profile_ini_backup_name as Unicode text
 		end tell
 	on error
-		display dialog "Error occured while saving profiles.ini." buttons {"OK"} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} with icon stop with title jfx_dialog_title
 	end try
 end backup_profile_ini
 
@@ -282,7 +298,7 @@ on restore_old_settings()
 			end if
 		end tell
 	on error
-		display dialog "Error occured while restoring old settings." buttons {"OK"} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorRestoreOldSettings") buttons {buttonOK} with icon stop with title jfx_dialog_title
 	end try
 end restore_old_settings
 
@@ -300,7 +316,8 @@ on getAbsolutePath(fileURL)
 	--this just cuts off the prefix "file://localhost"
 	set path_string to text 17 thru -1 of fileURL
 	
-	--whitespace are encoded as URLs as %20. replace it with "\ " for shell commands
+	return replacePlaceHolder(path_string, "%20", "\\ ")
+	(*--whitespace are encoded as URLs as %20. replace it with "\ " for shell commands
 	set whitespace_encoded to the offset of "%20" in path_string
 	repeat while (whitespace_encoded is not 0)
 		set temp_str1 to text 1 thru (whitespace_encoded - 1) of path_string
@@ -308,7 +325,7 @@ on getAbsolutePath(fileURL)
 		set path_string to temp_str1 & "\\ " & temp_str2
 		set whitespace_encoded to the offset of "%20" in path_string
 	end repeat
-	return path_string
+	return path_string*)
 end getAbsolutePath
 
 -- parses the version string from the specified prefs.js file
@@ -340,3 +357,46 @@ on get_version(prefs_js_file)
 	return version_str
 end get_version
 
+on getLangProperty(propertyKey)
+	tell application "System Events"
+		if (lang_props is null) then
+			try
+				set lang_props to get the contents of the property list file (profile_parent_folder & lang_props_filename)
+			on error
+				return propertyKey
+			end try
+			set langPropsList to (property list items of lang_props) as list
+		end if
+		repeat with p_item in langPropsList
+			if name of p_item is equal to propertyKey then
+				return (value of p_item)
+			end if
+		end repeat
+	end tell
+	return propertyKey
+end getLangProperty
+
+on replacePlaceHolder(strWithPlaceholder, placeHolder, value)
+	
+	set replacedStr to strWithPlaceholder
+	set PlaceHolderLength to length of placeHolder
+	set placeholder_off to the offset of placeHolder in replacedStr
+	
+	repeat while (placeholder_off is not 0)
+		if (placeholder_off is greater than 1) then
+			set temp_str1 to text 1 thru (placeholder_off - 1) of replacedStr
+		else
+			set temp_str1 to ""
+		end if
+		
+		if ((placeholder_off + PlaceHolderLength) is less than length of replacedStr) then
+			set temp_str2 to text (placeholder_off + PlaceHolderLength) thru -1 of replacedStr
+		else
+			set temp_str2 to ""
+		end if
+		
+		set replacedStr to temp_str1 & value & temp_str2
+		set placeholder_off to the offset of placeHolder in replacedStr
+	end repeat
+	return replacedStr
+end replacePlaceHolder
