@@ -440,6 +440,20 @@ setLanguageBookmarks()
 	
 }
 
+removeOldMacProfile()
+{
+	rm -rvf "~/Library/Application Support/Firefox/Profiles/profile/"
+	mv -f "~/Library/Application Support/Firefox/profiles.ini.bak" "~/Library/Application Support/Firefox/profiles.ini" >& /dev/null
+}
+
+uploadMacBundles()
+{
+	scp JonDoFox_OS_X_full_de.dmg root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/JonDoFox_OS_X.dmg
+	scp JonDoFox_OS_X_lite_de.dmg root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/JonDoFox_OS_X_lite.dmg
+	scp JonDoFox_OS_X_full_en.dmg root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/JonDoFox_OS_X.dmg
+	scp JonDoFox_OS_X_lite_en.dmg root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/JonDoFox_OS_X_lite.dmg
+}
+
 verboseMessage()
 {
 	if [ "${VERBOSE}" ]; then
