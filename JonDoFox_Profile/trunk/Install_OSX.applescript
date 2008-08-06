@@ -112,7 +112,7 @@ on run
 	-- main handler: first edit the profiles.ini ... 
 	if (err is equal to 0) then
 		-- if Firefox is running during the installation it may fail, so quit Firefox.
-		set ffcheck to checkFirefoxRunning()
+		set ffcheck to checkFirefoxRunning(getLangProperty("StrInstall"))
 		if (not ffcheck) then
 			return 2
 		end if
@@ -242,7 +242,7 @@ end isJonDoFoxProfileInstalled
 
 on uninstall()
 	
-	set ffcheck to checkFirefoxRunning()
+	set ffcheck to checkFirefoxRunning(getLangProperty("StrUninstall"))
 	if (not ffcheck) then
 		return 2
 	end if
@@ -300,7 +300,7 @@ on uninstall()
 	return 0
 end uninstall
 
-on checkFirefoxRunning()
+on checkFirefoxRunning(operation)
 	-- if Firefox is running during the installation it may fail, so quit Firefox.
 	tell application "System Events"
 		if the process "Firefox" exists then
@@ -311,8 +311,8 @@ on checkFirefoxRunning()
 	end tell
 	
 	if (firefox_is_running) then
-		display dialog getLangProperty("WarningCloseFirefox") buttons {buttonContinue, buttonCancel} Â
-			with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
+		display dialog replacePlaceHolder(getLangProperty("WarningCloseFirefox"), "%operation", operation) Â
+			buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 		if (button returned of result = buttonCancel) then
 			return false
 		else
