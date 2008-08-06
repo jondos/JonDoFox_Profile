@@ -87,7 +87,8 @@ on run
 		set profiles_ini to the (firefox_profiles_path & "profiles.ini") as alias
 		tell application "Finder" to set profiles_ini_URL to get the URL of the file profiles_ini
 	on error
-		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â
+			with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 		set err to 1
 	end try
 	
@@ -142,7 +143,8 @@ on edit_profiles_ini()
 	
 	set next_profile_header to get_next_profile(profiles_ini)
 	if ("---" is in next_profile_header) then
-		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} Â
+			with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 		return 1
 	end if
 	set complete_entry to {next_profile_header, "Name=JonDoFox", "IsRelative=1", "Path=Profiles/" & jondoprofile_foldername}
