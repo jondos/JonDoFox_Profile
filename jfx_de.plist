@@ -33,7 +33,7 @@
 	<key>ErrorUndoProfileEntry</key>
 	<string>Beim Entfernen des JonDoFox-Profileintrags ist ein Fehler aufgetreten.</string>
 	<key>NoteChoiceUninstall</key>
-	<string>An installed JonDoFox version was detected. Do you want to continue with installation or uninstall JonDoFox?</string>
+	<string>Eine installierte JonDoFox-Version wurde gefunden. Möchten Sie mit der Installation fortfahren oder JonDoFox entfernen?</string>
 	<key>NoteInstallStart</key>
 	<string>Das JonDoFox Profil %version wird nun zu Firefox hinzugefügt.</string>
 	<key>NoteInstallSuccessful</key>
