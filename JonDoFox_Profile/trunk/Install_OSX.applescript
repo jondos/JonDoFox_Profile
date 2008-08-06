@@ -185,7 +185,7 @@ on edit_profiles_ini()
 	tell application "Finder" to set backupExists to (file (firefox_profiles_path & profile_ini_backup_name) exists)
 	
 	if (backupExists) then
-		set profiles_ini_bak_URL to get the URL of the file (firefox_profiles_path & profile_ini_backup_name)
+		tell application "Finder" to set profiles_ini_bak_URL to the URL of the file (firefox_profiles_path & profile_ini_backup_name)
 	else
 		display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} with icon stop with title jfx_dialog_title
 		return 1
