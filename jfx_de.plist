@@ -44,10 +44,14 @@
 	<string>Sie haben bereits einen JonDoFox der Version %version installiert. Klicken Sie auf Fortfahren, um die vorhandene Version zu ersetzen.</string>
 	<key>NoteUninstallSuccessful</key>
 	<string>Das JonDoFox Profil wurde erfolgreich entfernt.</string>
+	<key>StrInstall</key>
+	<string>die Installation von JonDoFox</string>
+	<key>StrUninstall</key>
+	<string>die Deinstallation von JonDoFox</string>
 	<key>Title</key>
 	<string>JonDoFox %version OS X Installer</string>
 	<key>WarningCloseFirefox</key>
-	<string>Warnung: Sie haben Firefox gestartet. Wenn Sie auf Fortfahren klicken wird Firefox beendet. Ansonsten kann die Installation fehlschlagen.</string>
+	<string>Warnung: Sie haben Firefox gestartet. Wenn Sie auf Fortfahren klicken wird Firefox beendet. Ansonsten kann %operation fehlschlagen.</string>
 	<key>WarningNoJonDoFoxProfileFolder</key>
 	<string>Warnung: Es konnte kein JonDoFox-Profilordner gefunden werden.</string>
 	<key>WarningOlderVersion</key>
