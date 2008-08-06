@@ -34,6 +34,7 @@ global install_bundle_name --name of the install bundle folder
 global jondoprofile_foldername -- name of the JondoFox profile folder (within firefox_profile_path)
 global profile_ini_backup_name -- name for the file profiles.ini backup file
 global profiles_ini --alias for profiles.ini
+global profiles_ini_path --the Unix notation path to profiles.ini 
 global profile_parent_folder -- name of the profile's parent folder in the installation bundle
 global profile_version_prefix --the JonDoFox profile version prefix in prefs.js
 global new_version_str --the version string of the profile to install
@@ -48,6 +49,8 @@ global jfx_dialog_title
 global buttonCancel
 global buttonContinue
 global buttonOK
+global buttonInstall
+global buttonUninstall
 
 global lang_props_filename
 global lang_props
@@ -76,54 +79,53 @@ on run
 	set buttonCancel to getLangProperty("ButtonCancel")
 	set buttonContinue to getLangProperty("ButtonContinue")
 	set buttonOK to getLangProperty("ButtonOK")
-	
-	display dialog replacePlaceHolder(getLangProperty("NoteInstallStart"), "%version", new_version_str) buttons {buttonOK, buttonCancel} with icon note with title jfx_dialog_title
-	
-	if (button returned of result = buttonCancel) then
-		return 0
-	end if
+	set buttonInstall to getLangProperty("ButtonInstall")
+	set buttonUninstall to getLangProperty("ButtonUninstall")
 	
 	-- We assume that if there are no saved settings of Firefox, it isn't installed.
 	try
 		set profiles_ini to the (firefox_profiles_path & "profiles.ini") as alias
+		tell application "Finder" to set profiles_ini_URL to get the URL of the file profiles_ini
 	on error
 		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} with icon stop with title jfx_dialog_title
 		set err to 1
 	end try
 	
+	set profiles_ini_path to getAbsolutePath(profiles_ini_URL)
+	
+	if isJonDoFoxProfileInstalled() then
+		display dialog getLangProperty("NoteChoiceUninstall") buttons {buttonInstall, buttonUninstall} with icon note with title jfx_dialog_title
+		if (button returned of result = buttonUninstall) then
+			return uninstall()
+		end if
+	else
+		display dialog replacePlaceHolder(getLangProperty("NoteInstallStart"), "%version", new_version_str) buttons {buttonOK, buttonCancel} with icon note with title jfx_dialog_title
+		if (button returned of result = buttonCancel) then
+			return 0
+		end if
+	end if
+	
 	-- main handler: first edit the profiles.ini ... 
-	if (err = 0) then
+	if (err is equal to 0) then
 		-- if Firefox is running during the installation it may fail, so quit Firefox.
-		tell application "System Events"
-			if the process "Firefox" exists then
-				set firefox_is_running to true
-			else
-				set firefox_is_running to false
-			end if
-		end tell
-		
-		if (firefox_is_running) then
-			display dialog getLangProperty("WarningCloseFirefox") buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title
-			if (button returned of result = buttonCancel) then
-				return 2
-			else
-				tell application "Firefox" to quit
-			end if
+		set ffcheck to checkFirefoxRunning()
+		if (not ffcheck) then
+			return 2
 		end if
 		
 		set err to edit_profiles_ini()
 	end if
 	
 	-- ... if successful: copy the folder containing the JonDoFox profile
-	if (err = 0) then
+	if (err is equal to 0) then
 		set err to copy_folder()
 	end if
 	-- installation procedure successful
-	if (err = 0) then
+	if (err is equal to 0) then
 		display dialog getLangProperty("NoteInstallSuccessful") buttons {buttonOK} with icon note with title jfx_dialog_title
 	end if
 	-- installation procedure failed
-	if (err = 1) then
+	if (err is equal to 1) then
 		display dialog getLangProperty("ErrorInstallFailed") buttons {buttonOK} with icon stop with title jfx_dialog_title
 	end if
 	return err
@@ -132,7 +134,7 @@ end run
 -- appends JonDoFox profile to profiles.ini
 on edit_profiles_ini()
 	
-	tell application "Finder"
+	(*tell application "Finder"
 		if (the file profiles_ini exists) then
 			set profiles_ini_URL to get the URL of the file profiles_ini
 		else
@@ -141,12 +143,7 @@ on edit_profiles_ini()
 		end if
 	end tell
 	
-	set profiles_ini_path to getAbsolutePath(profiles_ini_URL)
-	try
-		set jdf_str to do shell script "fgrep Name=JonDoFox " & profiles_ini_path
-	on error
-		set jdf_str to "naught"
-	end try
+	set profiles_ini_path to getAbsolutePath(profiles_ini_URL)*)
 	
 	set next_profile_header to get_next_profile(profiles_ini)
 	if ("---" is in next_profile_header) then
@@ -157,7 +154,7 @@ on edit_profiles_ini()
 	
 	-- Detection of an already installed JonDoFox profile. 
 	-- (Then replace it without messing up the profiles.ini with useless entries)
-	if ("Name=JonDoFox" is in jdf_str) then
+	if (isJonDoFoxProfileInstalled()) then
 		get_old_version()
 		if (old_version_str is equal to "???") then
 			return 1
@@ -234,6 +231,92 @@ on copy_folder()
 	return 0
 end copy_folder
 
+on isJonDoFoxProfileInstalled()
+	try
+		set jdf_str to do shell script "fgrep Name=JonDoFox " & profiles_ini_path
+	on error
+		set jdf_str to ""
+	end try
+	return ("Name=JonDoFox" is in jdf_str)
+end isJonDoFoxProfileInstalled
+
+on uninstall()
+	
+	set ffcheck to checkFirefoxRunning()
+	if (not ffcheck) then
+		return 2
+	end if
+	
+	tell application "Finder"
+		set backupFound to (file (firefox_profiles_path & profile_ini_backup_name) exists)
+		set profileFound to (folder (firefox_profiles_path & "Profiles:profile") exists)
+		try
+			set ffprofiles_path_URL to the URL of the folder firefox_profiles_path
+		on error
+			set ffprofiles_path_URL to ""
+		end try
+	end tell
+	
+	if (ffprofiles_path_URL is equal to "") then
+		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		return 1
+	end if
+	set ffprofiles_path to getAbsolutePath(ffprofiles_path_URL)
+	set entryFound to isJonDoFoxProfileInstalled()
+	
+	if (backupFound) then
+		set backupFound to (restore_old_settings() is equal to 0)
+	end if
+	
+	if ((not backupFound) and entryFound) then
+		try
+			do shell script "fgrep -n JonDoFox " & profiles_ini_path & " -A 3 -C 1 | xargs -I % expr % : \"\\(.*\\)[-:].*\" |  xargs -I %  echo -n -e %d\" \" | xargs -J % sed %   " & profiles_ini_path & " > " & ffprofiles_path & ".temp1"
+			do shell script "mv -f " & ffprofiles_path & ".temp1 " & profiles_ini_path
+		on error
+			display dialog getLangProperty("ErrorUndoProfileEntry") buttons {buttonOK} with icon stop with title jfx_dialog_title
+			return 1
+		end try
+	end if
+	
+	if (profileFound) then
+		tell application "Finder" to set profileFolderURL to the URL of the folder (firefox_profiles_path & "Profiles:profile")
+		
+		set installed_profile_folder to getAbsolutePath(profileFolderURL)
+		
+		try
+			do shell script "rm -rf " & installed_profile_folder
+		on error
+			display dialog getLangProperty("ErrorRemoveProfileFolder") buttons {buttonOK} with icon stop with title jfx_dialog_title
+			return 1
+		end try
+		(*else
+		display dialog getLangProperty("WarningNoJonDoFoxProfileFolder") buttons {buttonOK} with icon caution with title jfx_dialog_title*)
+	end if
+	display dialog getLangProperty("NoteUninstallSuccessful") buttons {buttonOK} with icon note with title jfx_dialog_title
+	return 0
+end uninstall
+
+on checkFirefoxRunning()
+	-- if Firefox is running during the installation it may fail, so quit Firefox.
+	tell application "System Events"
+		if the process "Firefox" exists then
+			set firefox_is_running to true
+		else
+			set firefox_is_running to false
+		end if
+	end tell
+	
+	if (firefox_is_running) then
+		display dialog getLangProperty("WarningCloseFirefox") buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title
+		if (button returned of result = buttonCancel) then
+			return false
+		else
+			tell application "Firefox" to quit
+		end if
+	end if
+	return true
+end checkFirefoxRunning
+
 -- find out the number of installed profiles 
 on get_next_profile(prof_file)
 	tell application "Finder"
@@ -288,18 +371,20 @@ end backup_profile_ini
 
 -- restore old settings in case the copy process of the JonDoFox profile folder fails 
 on restore_old_settings()
-	try
-		tell application "Finder"
-			if (the file (firefox_profiles_path & profile_ini_backup_name) exists) then
-				delete profiles_ini
-				empty trash
-				set backup_file to the file (firefox_profiles_path & profile_ini_backup_name)
-				set name of backup_file to "profiles.ini" as Unicode text
-			end if
-		end tell
-	on error
+	--try
+	tell application "Finder"
+		if (the file (firefox_profiles_path & profile_ini_backup_name) exists) then
+			delete profiles_ini
+			empty trash
+			set backup_file to the file (firefox_profiles_path & profile_ini_backup_name)
+			set name of backup_file to "profiles.ini" as Unicode text
+		end if
+	end tell
+	(*on error
 		display dialog getLangProperty("ErrorRestoreOldSettings") buttons {buttonOK} with icon stop with title jfx_dialog_title
-	end try
+		return 1
+	end try*)
+	return 0
 end restore_old_settings
 
 -- sets the version string of the profile to install
@@ -317,15 +402,6 @@ on getAbsolutePath(fileURL)
 	set path_string to text 17 thru -1 of fileURL
 	
 	return replacePlaceHolder(path_string, "%20", "\\ ")
-	(*--whitespace are encoded as URLs as %20. replace it with "\ " for shell commands
-	set whitespace_encoded to the offset of "%20" in path_string
-	repeat while (whitespace_encoded is not 0)
-		set temp_str1 to text 1 thru (whitespace_encoded - 1) of path_string
-		set temp_str2 to text (whitespace_encoded + 3) thru -1 of path_string
-		set path_string to temp_str1 & "\\ " & temp_str2
-		set whitespace_encoded to the offset of "%20" in path_string
-	end repeat
-	return path_string*)
 end getAbsolutePath
 
 -- parses the version string from the specified prefs.js file

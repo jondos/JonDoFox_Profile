@@ -206,7 +206,7 @@ function restoreOldSettings()
 function editProfilesIni()
 {
 	if  ! [ -e "${PROFILES_INI_FILE}" ]; then
-		echo "ERROR: No profiles.ini found."
+		echo "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
 		return 1
 	fi
 	backupProfilesIni

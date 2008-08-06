@@ -6,8 +6,12 @@
 	<string>Cancel</string>
 	<key>ButtonContinue</key>
 	<string>Continue</string>
+	<key>ButtonInstall</key>
+	<string>Install</string>
 	<key>ButtonOK</key>
 	<string>OK</string>
+	<key>ButtonUninstall</key>
+	<string>Uninstall</string>
 	<key>ErrorBackupProcess</key>
 	<string>An error occured while saving profiles.ini.</string>
 	<key>ErrorFFNotInstalled</key>
@@ -22,8 +26,14 @@
 	<string>Error: Cannot find a valid profile entry.</string>
 	<key>ErrorProfileFolder</key>
 	<string>Error: Could not find Firefox profile folder.</string>
+	<key>ErrorRemoveProfileFolder</key>
+	<string>An error occured while removing the JonDoFox profile folder.</string>
 	<key>ErrorRestoreOldSettings</key>
 	<string>An error occured while restoring old settings.</string>
+	<key>ErrorUndoProfileEntry</key>
+	<string>An error occured while removing the JonDoFox profile entry.</string>
+	<key>NoteChoiceUninstall</key>
+	<string>An installed JonDoFox version was detected. Do you want to continue with installation or uninstall JonDoFox?</string>
 	<key>NoteInstallStart</key>
 	<string>This will add the JonDoFox profile %version to your Firefox profiles.</string>
 	<key>NoteInstallSuccessful</key>
@@ -32,10 +42,14 @@
 	<string>You have already installed the older JonDoFox version %olderversion. Click continue to upgrade it to version %newerversion.</string>
 	<key>NoteOverwriteSameVersion</key>
 	<string>You have already installed a JonDoFox of version %version. If you continue it will be replaced.</string>
+	<key>NoteUninstallSuccessful</key>
+	<string>JonDoFox profile successfully uninstalled.</string>
 	<key>Title</key>
 	<string>JonDoFox %version OS X Installer</string>
 	<key>WarningCloseFirefox</key>
-	<string>Warning: Your Firefox is still running. If you continue Firefox will be closed. Otherwise JonDoFox installation may fail.</string>
+	<string>Warning: Your Firefox is still running. If you continue Firefox will be closed. Otherwise the process may fail.</string>
+	<key>WarningNoJonDoFoxProfileFolder</key>
+	<string>Warning: Could not find the JonDoFox profile folder.</string>
 	<key>WarningOlderVersion</key>
 	<string>Warning: You have already installed a JonDoFox of the newer version %newerversion. If you continue it will be replaced with the older version %olderversion.</string>
 </dict>

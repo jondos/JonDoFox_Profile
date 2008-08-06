@@ -6,8 +6,12 @@
 	<string>Abbrechen</string>
 	<key>ButtonContinue</key>
 	<string>Fortfahren</string>
+	<key>ButtonInstall</key>
+	<string>Installieren</string>
 	<key>ButtonOK</key>
 	<string>OK</string>
+	<key>ButtonUninstall</key>
+	<string>Entfernen</string>
 	<key>ErrorBackupProcess</key>
 	<string>Die Sicherung der Datei profiles.ini ist fehlgeschlagen.</string>
 	<key>ErrorFFNotInstalled</key>
@@ -22,8 +26,14 @@
 	<string>Fehler: Es wurde kein gültiger Profil-Eintrag gefunden.</string>
 	<key>ErrorProfileFolder</key>
 	<string>Fehler: Der Firefox-Profileordner konnte nicht gefunden werden.</string>
+	<key>ErrorRemoveProfileFolder</key>
+	<string>Beim Entfernen des JonDoFox-Profilordners ist ein Fehler aufgetreten.</string>
 	<key>ErrorRestoreOldSettings</key>
 	<string>Das Wiederherstellen der alten Einstellungen ist fehlgeschlagen.</string>
+	<key>ErrorUndoProfileEntry</key>
+	<string>Beim Entfernen des JonDoFox-Profileintrags ist ein Fehler aufgetreten.</string>
+	<key>NoteChoiceUninstall</key>
+	<string>An installed JonDoFox version was detected. Do you want to continue with installation or uninstall JonDoFox?</string>
 	<key>NoteInstallStart</key>
 	<string>Das JonDoFox Profil %version wird nun zu Firefox hinzugefügt.</string>
 	<key>NoteInstallSuccessful</key>
@@ -32,10 +42,14 @@
 	<string>Sie haben bereits die ältere JonDoFox Version %olderversion installiert. Klicken Sie auf Fortfahren, um auf die Version %newerversion zu aktualisieren.</string>
 	<key>NoteOverwriteSameVersion</key>
 	<string>Sie haben bereits einen JonDoFox der Version %version installiert. Klicken Sie auf Fortfahren, um die vorhandene Version zu ersetzen.</string>
+	<key>NoteUninstallSuccessful</key>
+	<string>Das JonDoFox Profil wurde erfolgreich entfernt.</string>
 	<key>Title</key>
 	<string>JonDoFox %version OS X Installer</string>
 	<key>WarningCloseFirefox</key>
 	<string>Warnung: Sie haben Firefox gestartet. Wenn Sie auf Fortfahren klicken wird Firefox beendet. Ansonsten kann die Installation fehlschlagen.</string>
+	<key>WarningNoJonDoFoxProfileFolder</key>
+	<string>Warnung: Es konnte kein JonDoFox-Profilordner gefunden werden.</string>
 	<key>WarningOlderVersion</key>
 	<string>Warnung: Sie haben bereits die aktuellere JonDoFox Version %newerversion installiert. Wenn Sie fortfahren wird Sie durch die ältere Version %olderversion ersetzt.</string>
 </dict>
