@@ -44,10 +44,14 @@
 	<string>You have already installed a JonDoFox of version %version. If you continue it will be replaced.</string>
 	<key>NoteUninstallSuccessful</key>
 	<string>JonDoFox profile successfully uninstalled.</string>
+	<key>StrInstall</key>
+	<string>installing JonDoFox</string>
+	<key>StrUninstall</key>
+	<string>uninstalling JonDoFox</string>
 	<key>Title</key>
 	<string>JonDoFox %version OS X Installer</string>
 	<key>WarningCloseFirefox</key>
-	<string>Warning: Your Firefox is still running. If you continue Firefox will be closed. Otherwise the process may fail.</string>
+	<string>Warning: Your Firefox is still running. If you continue Firefox will be closed. Otherwise %operation may fail.</string>
 	<key>WarningNoJonDoFoxProfileFolder</key>
 	<string>Warning: Could not find the JonDoFox profile folder.</string>
 	<key>WarningOlderVersion</key>
