@@ -134,17 +134,6 @@ end run
 -- appends JonDoFox profile to profiles.ini
 on edit_profiles_ini()
 	
-	(*tell application "Finder"
-		if (the file profiles_ini exists) then
-			set profiles_ini_URL to get the URL of the file profiles_ini
-		else
-			display dialog getLangProperty("ErrorIniFile") buttons {buttonOK} with icon stop with title jfx_dialog_title
-			return 1
-		end if
-	end tell
-	
-	set profiles_ini_path to getAbsolutePath(profiles_ini_URL)*)
-	
 	set next_profile_header to get_next_profile(profiles_ini)
 	if ("---" is in next_profile_header) then
 		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} with icon stop with title jfx_dialog_title
@@ -157,7 +146,7 @@ on edit_profiles_ini()
 	if (isJonDoFoxProfileInstalled()) then
 		get_old_version()
 		if (old_version_str is equal to "???") then
-			return 1
+			return 0
 		end if
 		if (old_version_str is equal to new_version_str) then
 			display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title
@@ -193,14 +182,14 @@ on edit_profiles_ini()
 	backup_profile_ini()
 	
 	-- modify profiles.ini
-	tell application "Finder"
-		if (the file (firefox_profiles_path & profile_ini_backup_name) exists) then
-			set profiles_ini_bak_URL to get the URL of the file (firefox_profiles_path & profile_ini_backup_name)
-		else
-			display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} with icon stop with title jfx_dialog_title
-			return 1
-		end if
-	end tell
+	tell application "Finder" to set backupExists to (file (firefox_profiles_path & profile_ini_backup_name) exists)
+	
+	if (backupExists) then
+		set profiles_ini_bak_URL to get the URL of the file (firefox_profiles_path & profile_ini_backup_name)
+	else
+		display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		return 1
+	end if
 	
 	set profiles_ini_bak_path to getAbsolutePath(profiles_ini_bak_URL)
 	
