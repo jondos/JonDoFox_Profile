@@ -94,12 +94,16 @@ on run
 	set profiles_ini_path to getAbsolutePath(profiles_ini_URL)
 	
 	if isJonDoFoxProfileInstalled() then
-		display dialog getLangProperty("NoteChoiceUninstall") buttons {buttonInstall, buttonUninstall} with icon note with title jfx_dialog_title
+		display dialog getLangProperty("NoteChoiceUninstall") buttons {buttonInstall, buttonUninstall, buttonCancel} Â
+			with icon note with title jfx_dialog_title default button buttonInstall cancel button buttonCancel
 		if (button returned of result = buttonUninstall) then
 			return uninstall()
+		else if (button returned of result = buttonCancel) then
+			return 0
 		end if
 	else
-		display dialog replacePlaceHolder(getLangProperty("NoteInstallStart"), "%version", new_version_str) buttons {buttonOK, buttonCancel} with icon note with title jfx_dialog_title
+		display dialog replacePlaceHolder(getLangProperty("NoteInstallStart"), "%version", new_version_str) buttons {buttonOK, buttonCancel} Â
+			with icon note with title jfx_dialog_title default button buttonOK cancel button buttonCancel
 		if (button returned of result = buttonCancel) then
 			return 0
 		end if
@@ -122,11 +126,13 @@ on run
 	end if
 	-- installation procedure successful
 	if (err is equal to 0) then
-		display dialog getLangProperty("NoteInstallSuccessful") buttons {buttonOK} with icon note with title jfx_dialog_title
+		display dialog getLangProperty("NoteInstallSuccessful") buttons {buttonOK} Â
+			with icon note with title jfx_dialog_title default button buttonOK cancel button buttonOK
 	end if
 	-- installation procedure failed
 	if (err is equal to 1) then
-		display dialog getLangProperty("ErrorInstallFailed") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorInstallFailed") buttons {buttonOK} Â
+			with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 	end if
 	return err
 end run
@@ -149,7 +155,8 @@ on edit_profiles_ini()
 			return 0
 		end if
 		if (old_version_str is equal to new_version_str) then
-			display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title
+			display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) Â
+				buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 			if (button returned of result = buttonContinue) then
 				copy_bookmarks()
 				return 0
@@ -159,7 +166,8 @@ on edit_profiles_ini()
 		else
 			if (old_version_str is greater than new_version_str) then
 				set new_ver_replaced to replacePlaceHolder(getLangProperty("WarningOlderVersion"), "%newerversion", old_version_str)
-				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", new_version_str) buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title
+				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", new_version_str) buttons {buttonContinue, buttonCancel} Â
+					with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 				if (button returned of result = buttonContinue) then
 					copy_bookmarks()
 					return 0
@@ -168,7 +176,8 @@ on edit_profiles_ini()
 				end if
 			else
 				set new_ver_replaced to replacePlaceHolder(getLangProperty("NoteOverwriteOlderVersion"), "%newerversion", new_version_str)
-				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", old_version_str) buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title
+				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", old_version_str) buttons {buttonContinue, buttonCancel} Â
+					with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 				if (button returned of result = buttonContinue) then
 					copy_bookmarks()
 					return 0
@@ -187,7 +196,8 @@ on edit_profiles_ini()
 	if (backupExists) then
 		tell application "Finder" to set profiles_ini_bak_URL to the URL of the file (firefox_profiles_path & profile_ini_backup_name)
 	else
-		display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} Â
+			with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 		return 1
 	end if
 	
@@ -214,7 +224,8 @@ on copy_folder()
 	on error
 		--if something goes wrong: restore old settings from backup file
 		restore_old_settings()
-		display dialog getLangProperty("ErrorProfileFolder") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorProfileFolder") buttons {buttonOK} Â
+			with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 		return 1
 	end try
 	return 0
@@ -247,7 +258,8 @@ on uninstall()
 	end tell
 	
 	if (ffprofiles_path_URL is equal to "") then
-		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â
+			with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 		return 1
 	end if
 	set ffprofiles_path to getAbsolutePath(ffprofiles_path_URL)
@@ -262,7 +274,8 @@ on uninstall()
 			do shell script "fgrep -n JonDoFox " & profiles_ini_path & " -A 3 -C 1 | xargs -I % expr % : \"\\(.*\\)[-:].*\" |  xargs -I %  echo -n -e %d\" \" | xargs -J % sed %   " & profiles_ini_path & " > " & ffprofiles_path & ".temp1"
 			do shell script "mv -f " & ffprofiles_path & ".temp1 " & profiles_ini_path
 		on error
-			display dialog getLangProperty("ErrorUndoProfileEntry") buttons {buttonOK} with icon stop with title jfx_dialog_title
+			display dialog getLangProperty("ErrorUndoProfileEntry") buttons {buttonOK} Â
+				with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 			return 1
 		end try
 	end if
@@ -275,13 +288,15 @@ on uninstall()
 		try
 			do shell script "rm -rf " & installed_profile_folder
 		on error
-			display dialog getLangProperty("ErrorRemoveProfileFolder") buttons {buttonOK} with icon stop with title jfx_dialog_title
+			display dialog getLangProperty("ErrorRemoveProfileFolder") buttons {buttonOK} Â
+				with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 			return 1
 		end try
 		(*else
 		display dialog getLangProperty("WarningNoJonDoFoxProfileFolder") buttons {buttonOK} with icon caution with title jfx_dialog_title*)
 	end if
-	display dialog getLangProperty("NoteUninstallSuccessful") buttons {buttonOK} with icon note with title jfx_dialog_title
+	display dialog getLangProperty("NoteUninstallSuccessful") buttons {buttonOK} Â
+		with icon note with title jfx_dialog_title default button buttonOK cancel button buttonOK
 	return 0
 end uninstall
 
@@ -296,7 +311,8 @@ on checkFirefoxRunning()
 	end tell
 	
 	if (firefox_is_running) then
-		display dialog getLangProperty("WarningCloseFirefox") buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title
+		display dialog getLangProperty("WarningCloseFirefox") buttons {buttonContinue, buttonCancel} Â
+			with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 		if (button returned of result = buttonCancel) then
 			return false
 		else
@@ -354,7 +370,8 @@ on backup_profile_ini()
 			set name of backup_file to profile_ini_backup_name as Unicode text
 		end tell
 	on error
-		display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} with icon stop with title jfx_dialog_title
+		display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} Â
+			with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 	end try
 end backup_profile_ini
 
