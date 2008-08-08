@@ -1,15 +1,17 @@
-<!ENTITY dialog.title "Add Bookmark Here ² - beállítások">
-<!ENTITY group.pos "Könyvjelzők legördülő menü">
+<!ENTITY dialog.title "Add Bookmark Here 2 - beállítások">
+<!ENTITY group.pos "Menüpont elhelyezése a könyvjelzők legördülő menüjében">
 <!ENTITY group.bmm "Könyvjelzők menü">
 <!ENTITY group.bmc "Könyvjelzők helyi menü">
 <!ENTITY group.misc "Vegyes">
-<!ENTITY pos.abhere "[$abhere$] pozíció:">
-<!ENTITY pos.optabs "[$optabs$] pozíció:">
-<!ENTITY pos.top "Felső">
-<!ENTITY pos.bottom "Alsó">
+<!ENTITY pos.abhere "[$abhere$] menüpont pozíciója:">
+<!ENTITY pos.optabs "[$optabs$] menüpont pozíciója:">
+<!ENTITY pos.top "Felül">
+<!ENTITY pos.bottom "Alul">
 <!ENTITY pos.hidden "Rejtett">
-<!ENTITY bmm.abhere "[$abhere$] megjelenítése">
-<!ENTITY bmm.bmpage "[&bookmarkThisPageCmd.label;] elrejtése">
-<!ENTITY bmm.bmtabs "[&bookmarkAllCmd.label;] elrejtése">
-<!ENTITY folderDrag "Könyvjelzők mappa áthelyezésének engedélyezése">
+<!ENTITY bmm.abhere "[$abhere$] menüpont megjelenítése">
+<!ENTITY bmm.bmpage "[&bookmarkThisPageCmd.label;] menüpont elrejtése">
+<!ENTITY bmm.bmtabs "[&bookmarkAllCmd.label;] menüpont elrejtése">
 <!ENTITY insertTop "Új könyvjelző hozzáadása a menü tetejére">
+<!ENTITY folderDrag "Könyvjelzők mappa áthelyezésének engedélyezése">
+<!ENTITY noPopEditUI "A szerkesztés párbeszédablak elrejtése könyvjelző hozzáadásakor">
+<!ENTITY clickStarUI "Kattintás a könyvjelző csillagra megnyitja a szerkesztés párbeszédablakot">

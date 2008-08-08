@@ -1,4 +1,4 @@
-<!ENTITY dialog.title "Add Bookmark Here ² Seçenekleri">
+<!ENTITY dialog.title "Add Bookmark Here 2 Seçenekleri">
 <!ENTITY group.pos "Yerimleri açılan menüsündeki Menü Öğesi Konumu">
 <!ENTITY group.bmm "Yerimleri Menüsü">
 <!ENTITY group.bmc "Yerimleri İçerik Menüsü">
@@ -11,5 +11,7 @@
 <!ENTITY bmm.abhere "[$abhere$] menü öğesini göster">
 <!ENTITY bmm.bmpage "Menü öğesini [&bookmarkThisPageCmd.label;] gizle">
 <!ENTITY bmm.bmtabs "Menü öğesini [&bookmarkAllCmd.label;] gizle">
-<!ENTITY folderDrag "Yerimleri Dizininin Sürüklenmesine izin ver.">
 <!ENTITY insertTop "Yeni Yerimini Menü&apos;nün Üstüne Ekle">
+<!ENTITY folderDrag "Yerimleri Dizininin Sürüklenmesine izin ver.">
+<!ENTITY noPopEditUI "Bir yerimi eklediğimde Düzenleme Kutusunu gösterme">
+<!ENTITY clickStarUI "Düzenleme Kutusu göstermek için Yerimleri Yıldızına tıklayınız">

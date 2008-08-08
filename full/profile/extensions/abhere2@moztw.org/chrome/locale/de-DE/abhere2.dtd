@@ -11,5 +11,7 @@
 <!ENTITY bmm.abhere "&quot;$abhere$&quot; anzeigen">
 <!ENTITY bmm.bmpage "&quot;&bookmarkThisPageCmd.label;&quot; ausblenden">
 <!ENTITY bmm.bmtabs "&quot;&bookmarkAllCmd.label;&quot; ausblenden">
-<!ENTITY folderDrag "Verschieben von Lesezeichen mit der Maus erlauben">
 <!ENTITY insertTop "Neue Lesezeichen am Anfang einfügen">
+<!ENTITY folderDrag "Verschieben von Lesezeichen mit der Maus erlauben">
+<!ENTITY noPopEditUI "Bearbeiten-Dialog beim Hinzufügen eines Lesezeichens nicht anzeigen">
+<!ENTITY clickStarUI "Einmaliges Klicken auf Lesezeichen öffnet Bearbeiten-Dialog">

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <?xml-stylesheet href="chrome://abhere2/skin/abhere2.css" type="text/css"?>
 
 <overlay id="abHere2Overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -27,30 +27,41 @@ var abHere2 = {
    },
 
    get isAnchorPopup() {
-      return nsPreferences.getBoolPref("abhere2.anchorPopup", true);
+      return nsPreferences.getBoolPref("abhere2.anchorPopup", false);
+   },
+
+   get isNoPopEditUI() {
+      return nsPreferences.getBoolPref("abhere2.noPopEditUI", false);
+   },
+
+   get isClickStarUI() {
+      return nsPreferences.getBoolPref("abhere2.clickStarUI", false);
    },
 
    get panelWidth() {
       return nsPreferences.getIntPref("abhere2.panel.width", 400);
    },
 
-   get prefFolderId() {
-      switch (nsPreferences.getIntPref("abhere2.panel.folderPref", 1)) {
-      case 1:  // remember last selected folderId
-      case 2:  // user customize the folderId
-         return nsPreferences.getIntPref("abhere2.panel.folderId", PlacesUtils.unfiledBookmarksFolderId);
-      case 3:  // use bookmarksMenuFolderId
-         return PlacesUtils.bookmarksMenuFolderId;
-      case 4:  // use toolbarFolderId
-         return PlacesUtils.toolbarFolderId;
-      default: // use unfiledBookmarksFolderId
-         return PlacesUtils.unfiledBookmarksFolderId;
-      }
+   getPrefFolderId: function(prefName, defaultId) {
+      var folderId = nsPreferences.getIntPref(prefName, 0);
+      if (folderId == 0) folderId = defaultId;
+      return Math.abs(folderId);
    },
 
-   set prefFolderId(folderId) {
-      if (nsPreferences.getIntPref("abhere2.panel.folderPref", 1) == 1)
-         nsPreferences.setIntPref("abhere2.panel.folderId", folderId);
+   get prefBookmarkFolderId() {
+      return abHere2.getPrefFolderId("abhere2.folderId.bookmark", PlacesUtils.unfiledBookmarksFolderId);
+   },
+   set prefBookmarkFolderId(folderId) {
+      if (nsPreferences.getIntPref("abhere2.folderId.bookmark", 0) < 0) return;
+      nsPreferences.setIntPref("abhere2.folderId.bookmark", folderId);
+   },
+
+   get prefLivemarkFolderId() {
+      return abHere2.getPrefFolderId("abhere2.folderId.livemark", PlacesUtils.toolbarFolderId);
+   },
+   set prefLivemarkFolderId(folderId) {
+      if (nsPreferences.getIntPref("abhere2.folderId.livemark", 0) < 0) return;
+      nsPreferences.setIntPref("abhere2.folderId.livemark", folderId);
    },
 
    get hiddenRows() {
@@ -75,7 +86,8 @@ var abHere2 = {
       return null;
    },
 
-   addBookmarkHere: function(target) {
+   addBookmarkHere: function(event) {
+      var target = event.originalTarget;
       var aItemId, aIndex, aShowEditUI;
       if (target.parentNode.id == "placesContext") {
          // bookmarksContextMenu
@@ -90,7 +102,26 @@ var abHere2 = {
          aShowEditUI = target;
          target.parentNode._built = false;
       }
-      PlacesCommandHook.bookmarkPage(getBrowser().selectedBrowser, aItemId, aShowEditUI, aIndex);
+      if (event.button == 1) {
+         // show AddMultiBookmarkUI
+         var aInsertionPoint = new InsertionPoint(aItemId, (aItemId != PlacesUtils.bookmarksMenuFolderId) && abHere2.isInsertTop ? 0 : -1);
+         var aURIList = PlacesCommandHook._getUniqueTabInfo();
+         var info = {
+            action: "add",
+            type: "folder",
+            hiddenRows: ["folder picker"],
+            defaultInsertionPoint: aInsertionPoint,
+            URIList: aURIList
+         };
+         PlacesUIUtils._showBookmarkDialog(info, true);
+      } else {
+         // show EditBookmarkUI
+         var aBrowser = getBrowser().selectedBrowser;
+         var mrItemId = PlacesUtils.getMostRecentBookmarkForURI(aBrowser.currentURI);
+         if (abHere2.isNoPopEditUI && (mrItemId == -1)) aShowEditUI = false;
+         PlacesCommandHook.bookmarkPage(aBrowser, aItemId, aShowEditUI, aIndex);
+         if (!aShowEditUI) abHere2.saveBookmarkFolderId(aItemId);
+      }
    },
 
    updateMarkers: function(aPopup) {
@@ -151,7 +182,8 @@ var abHere2 = {
          abhere.setAttribute("label", abHere2.strBundle.GetStringFromName("label"));
          abhere.setAttribute("accesskey", abHere2.strBundle.GetStringFromName("accesskey"));
          abhere.setAttribute("class", "abhere-menuitem");
-         abhere.setAttribute("oncommand", "abHere2.addBookmarkHere(event.originalTarget);");
+         abhere.setAttribute("oncommand", "abHere2.addBookmarkHere(event);");
+         abhere.setAttribute("onclick", "checkForMiddleClick(this, event);");
       }
       if (sprtor) target.removeChild(sprtor);
       else {
@@ -184,7 +216,8 @@ var abHere2 = {
             bmABH = document.createElement("menuitem");
             bmABH.setAttribute("label", abHere2.strBundle.GetStringFromName("label"));
             bmABH.setAttribute("class", "abhere-menuitem");
-            bmABH.setAttribute("oncommand", "abHere2.addBookmarkHere(event.originalTarget);");
+            bmABH.setAttribute("oncommand", "abHere2.addBookmarkHere(event);");
+            bmABH.setAttribute("onclick", "checkForMiddleClick(this, event);");
             target.insertBefore(bmABH, target.firstChild);
          }
          //hide addBookmarkAs menuitem
@@ -221,7 +254,8 @@ var abHere2 = {
             bmABH.setAttribute("label", abHere2.strBundle.GetStringFromName("label"));
             bmABH.setAttribute("accesskey", abHere2.strBundle.GetStringFromName("accesskey"));
             bmABH.setAttribute("class", "abhere-menuitem");
-            bmABH.setAttribute("oncommand", "abHere2.addBookmarkHere(event.originalTarget);");
+            bmABH.setAttribute("oncommand", "abHere2.addBookmarkHere(event);");
+            bmABH.setAttribute("onclick", "checkForMiddleClick(this, event);");
             target.insertBefore(bmABH, bmNew);
          }
       } else {
@@ -229,10 +263,24 @@ var abHere2 = {
       }
    },
 
-   savePrefFolderId: function(folderId) {
+   saveBookmarkFolderId: function(folderId) {
    	  if (folderId != PlacesUtils.unfiledBookmarksFolderId) {
-   	  	 abHere2.prefFolderId = folderId;
+   	  	 abHere2.prefBookmarkFolderId = folderId;
    	  }
+   },
+
+   expandFolderTree: function(self) {
+      if (self._element("folderRow").hidden) return;
+      var expander = self._element("foldersExpander");
+      expander.className = "expander-up";
+      expander.setAttribute("tooltiptext", expander.getAttribute("tooltiptextup"));
+      self._folderTree.collapsed = self._element("newFolderBox").collapsed = false;
+      self._folderTree.place = "place:excludeItems=1&excludeQueries=1&excludeReadOnlyFolders=1&folder=" + PlacesUIUtils.allBookmarksFolderId;
+      self._element("chooseFolderSeparator").hidden = self._element("chooseFolderMenuItem").hidden = true;
+      setTimeout(function(self) {
+         self._folderTree.selectItems([PlacesUtils.bookmarks.getFolderIdForItem(self._itemId)]);
+         self._folderTree.boxObject.ensureRowIsVisible(self._folderTree.view.selection.currentIndex);
+      }, 100, self);
    },
 
    hookBookmarksToolbar: function() {
@@ -304,14 +352,25 @@ var abHere2 = {
       bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.createAddBookmarkHereItems(event.originalTarget);");
       bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.controlBookmarksMenuPopups(event.originalTarget);");
 
-      //*** implement folderPref feature
+      //*** implement folderId.bookmark feature
       //decide folderId when user bookmark current page
       abHere2.hookCode("PlacesCommandHook.bookmarkCurrentPage",
          "aParent,",
-         "aShowEditUI ? abHere2.prefFolderId : aParent,");
+         "aShowEditUI ? abHere2.prefBookmarkFolderId : aParent,");
       //remember last selected folder when user bookmark a page
       var btn = document.getElementById("editBookmarkPanelDoneButton");
-      if (btn) btn.setAttribute("oncommand", btn.getAttribute("oncommand")+"abHere2.savePrefFolderId(gEditItemOverlay._getFolderIdFromMenuList());");
+      if (btn) btn.setAttribute("oncommand", btn.getAttribute("oncommand")+"abHere2.saveBookmarkFolderId(gEditItemOverlay._getFolderIdFromMenuList());");
+
+      //*** implement folderId.livemark feature
+      //decide folderId when user add a livemark
+      abHere2.hookCode("PlacesCommandHook.addLiveBookmark",
+         "var toolbarIP = new InsertionPoint(PlacesUtils.bookmarks.toolbarFolder, -1);",
+         "var aItemId = abHere2.prefLivemarkFolderId; var toolbarIP = new InsertionPoint(aItemId, (aItemId != PlacesUtils.bookmarksMenuFolderId) && abHere2.isInsertTop ? 0 : -1); gEditItemOverlay._markFolderAsRecentlyUsed(PlacesUtils.bookmarks.getFolderIdForItem(aItemId));");
+
+      //*** implement clickStarUI feature
+      abHere2.hookCode("PlacesStarButton.onClick",
+         "this._starred",
+         "abHere2.isClickStarUI ? true : this._starred");
 
       //*** customize editBookmarkPanel each row's hidden/show
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
@@ -321,22 +380,27 @@ var abHere2 = {
       //*** customize editBookmarkPanel's width
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
          /}$/,
-         'if (abHere2.panelWidth>0) this.panel.width = abHere2.panelWidth; }');
+         'if (abHere2.panelWidth>0) this.panel.width = abHere2.panelWidth; $&');
 
       //*** hide the FolderRow if the bookmark is not bookmarked yet
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
-         /}$/,
-         'this._element("editBMPanel_folderRow").hidden = (["menuitem", "toolbarbutton"].indexOf(aAnchorElement.localName)>=0) && this._element("editBookmarkPanelRemoveButton").hidden; }');
+         'gEditItemOverlay.initPanel',
+         'this._element("editBMPanel_folderRow").hidden = (["menuitem", "toolbarbutton"].indexOf(aAnchorElement.localName)>=0) && this._element("editBookmarkPanelRemoveButton").hidden; $&');
 
       //*** expand the FolderTree if the bookmark has already existed
-      abHere2.hookCode("StarUI.panelShown",
+      abHere2.hookCode("gEditItemOverlay._showHideRows",
          /}$/,
-         'if (!this._element("editBMPanel_folderRow").hidden) gEditItemOverlay.toggleFolderTreeVisibility(); }');
+         'abHere2.expandFolderTree(this); $&');
+
+      //*** prevent KeyEvent.DOM_VK_RETURN close editBookmarkPanel if the description field is focused
+      abHere2.hookCode("StarUI.handleEvent",
+         'aEvent.target.localName != "tree"',
+         '$& && aEvent.target.id != "editBMPanel_descriptionField"');
 
       //*** hook initBookmarksToolbar() to implement some features
       abHere2.hookCode("initBookmarksToolbar",
          /}$/,
-         'abHere2.hookBookmarksToolbar(); }');
+         'abHere2.hookBookmarksToolbar(); $&');
 
       //*** add BookmarksContextMenu's popupshowing event handler
       var bmc = document.getElementById("placesContext");

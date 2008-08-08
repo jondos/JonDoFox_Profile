@@ -1,19 +1,17 @@
-<!ENTITY  dialog.title  "Add Bookmark Here ² 選項">
-
-<!ENTITY  group.pos     "書籤選單中功能項目之位置">
-<!ENTITY  group.bmm     "主功能表上的書籤選單">
-<!ENTITY  group.bmc     "書籤選單右鍵功能表">
-<!ENTITY  group.misc    "其他雜項設定">
-
-<!ENTITY  pos.abhere    "將 [$abhere$] 選單項目置於:">
-<!ENTITY  pos.optabs    "將 [$optabs$] 選單項目置於:">
-<!ENTITY  pos.top       "頂端">
-<!ENTITY  pos.bottom    "底端">
-<!ENTITY  pos.hidden    "隱藏">
-
-<!ENTITY  bmm.abhere    "顯示 [$abhere$] 選單項目">
-<!ENTITY  bmm.bmpage    "隱藏 [&bookmarkThisPageCmd.label;] 選單項目">
-<!ENTITY  bmm.bmtabs    "隱藏 [&bookmarkAllCmd.label;] 選單項目">
-
-<!ENTITY  folderDrag    "允許直接拖曳書籤資料夾">
-<!ENTITY  insertTop     "改由書籤選單頂端加入書籤">
+<!ENTITY dialog.title "Add Bookmark Here ² 選項">
+<!ENTITY group.pos "書籤選單中功能項目之位置">
+<!ENTITY group.bmm "主功能表上的書籤選單">
+<!ENTITY group.bmc "書籤選單右鍵功能表">
+<!ENTITY group.misc "其他雜項設定">
+<!ENTITY pos.abhere "將 [$abhere$] 選單項目置於:">
+<!ENTITY pos.optabs "將 [$optabs$] 選單項目置於:">
+<!ENTITY pos.top "頂端">
+<!ENTITY pos.bottom "底端">
+<!ENTITY pos.hidden "隱藏">
+<!ENTITY bmm.abhere "顯示 [$abhere$] 選單項目">
+<!ENTITY bmm.bmpage "隱藏 [&bookmarkThisPageCmd.label;] 選單項目">
+<!ENTITY bmm.bmtabs "隱藏 [&bookmarkAllCmd.label;] 選單項目">
+<!ENTITY insertTop "由書籤選單頂端加入書籤">
+<!ENTITY folderDrag "允許直接拖曳書籤資料夾">
+<!ENTITY noPopEditUI "加入書籤至此時不顯示編輯窗">
+<!ENTITY clickStarUI "首次點擊星號時即顯示編輯窗">

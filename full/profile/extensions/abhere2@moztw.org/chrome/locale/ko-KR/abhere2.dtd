@@ -1,4 +1,4 @@
-<!ENTITY dialog.title "Add Bookmark Here ² 선택사항">
+<!ENTITY dialog.title "Add Bookmark Here 2 선택사항">
 <!ENTITY group.pos "북마크 드롭다운 메뉴내 메뉴항목 위치">
 <!ENTITY group.bmm "북마크 메뉴">
 <!ENTITY group.bmc "북마크 문맥 메뉴">
@@ -11,5 +11,7 @@
 <!ENTITY bmm.abhere "[$abhere$] 메뉴항목 표시">
 <!ENTITY bmm.bmpage "[&bookmarkThisPageCmd.label;] 메뉴항목 숨김">
 <!ENTITY bmm.bmtabs "[&bookmarkAllCmd.label;] 메뉴항목 숨김">
-<!ENTITY folderDrag "북마크 폴더 끌어오기 허용">
 <!ENTITY insertTop "메뉴 위에 새 북마크 추가">
+<!ENTITY folderDrag "북마크 폴더 끌어오기 허용">
+<!ENTITY noPopEditUI "북마크 추가시 편집 대화상자 표시 안함">
+<!ENTITY clickStarUI "북마크 별을 한번 클릭하면 편집 대화상자 표시">
