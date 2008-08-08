@@ -24,7 +24,9 @@ locale	jsview	ko-KR	jar:chrome/jsview.jar!/locale/ko-KR/jsview/
 locale	jsview	nl-NL	jar:chrome/jsview.jar!/locale/nl-NL/jsview/
 locale	jsview	pl-PL	jar:chrome/jsview.jar!/locale/pl-PL/jsview/
 locale	jsview	pt-BR	jar:chrome/jsview.jar!/locale/pt-BR/jsview/
+locale	jsview	pt-PT	jar:chrome/jsview.jar!/locale/pt-PT/jsview/
 locale	jsview	ro-RO	jar:chrome/jsview.jar!/locale/ro-RO/jsview/
 locale	jsview	ru-RU	jar:chrome/jsview.jar!/locale/ru-RU/jsview/
+locale	jsview	tr-TR	jar:chrome/jsview.jar!/locale/tr-TR/jsview/
 locale	jsview	zh-CN	jar:chrome/jsview.jar!/locale/zh-CN/jsview/
 locale	jsview	zh-TW	jar:chrome/jsview.jar!/locale/zh-TW/jsview/

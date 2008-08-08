@@ -7,7 +7,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
 		<em:id>{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}</em:id>
 		<em:name>JSView</em:name>
-		<em:version>2.0.4</em:version>
+		<em:version>2.0.5</em:version>
 		<em:description>View the source code of external javascripts.</em:description>
 		<em:creator>Ron Beckman</em:creator>
 		<em:homepageURL>http://forum.softwareblaze.com</em:homepageURL>
@@ -30,10 +30,12 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 		<em:contributor>Wtspout (ko-KR)</em:contributor>
 		<em:contributor>Mark Heijl (nl-NL)</em:contributor>
 		<em:contributor>Momus, Greg (pl-PL)</em:contributor>
+		<em:contributor>hugo.goncalves (pt-PT)</em:contributor>
 		<em:contributor>Fernando Pereira Silveira (pt-BR)</em:contributor>
 		<em:contributor>Pedro Luiz Failla Junior (pt-BR)</em:contributor>
 		<em:contributor>Dan Lungescu (ro-RO)</em:contributor>
 		<em:contributor>Stoneflash (ru-RU)</em:contributor>
+		<em:contributor>nikneyim (tr-TR)</em:contributor>
 		<em:contributor>Zhkl0228 (zh-CN)</em:contributor>
 		<em:contributor>Javalai (zh-TW)</em:contributor>
 
@@ -55,9 +57,11 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 				<em:locale>locale/ko-KR/jsview/</em:locale>
 				<em:locale>locale/nl-NL/jsview/</em:locale>
 				<em:locale>locale/pl-PL/jsview/</em:locale>
+				<em:locale>locale/pt-PT/jsview/</em:locale>
 				<em:locale>locale/pt-BR/jsview/</em:locale>
 				<em:locale>locale/ro-RO/jsview/</em:locale>
 				<em:locale>locale/ru-RU/jsview/</em:locale>
+				<em:locale>locale/tr-TR/jsview/</em:locale>
 				<em:locale>locale/zh-CN/jsview/</em:locale>
 				<em:locale>locale/zh-TW/jsview/</em:locale>
 			</Description>
@@ -77,7 +81,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 			<Description>
 				<em:id>{a463f10c-3994-11da-9945-000d60ca027b}</em:id>
 				<em:minVersion>1.0</em:minVersion>
-				<em:maxVersion>1.0.*</em:maxVersion>
+				<em:maxVersion>1.1.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 
@@ -95,7 +99,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 			<Description>
 				<em:id>{3db10fab-e461-4c80-8b97-957ad5f8ea47}</em:id>
 				<em:minVersion>9.0</em:minVersion>
-				<em:maxVersion>9.0.0.*</em:maxVersion>
+				<em:maxVersion>9.0.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 
@@ -104,7 +108,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 			<Description>
 				<em:id>songbird@songbirdnest.com</em:id>
 				<em:minVersion>0.4</em:minVersion>
-				<em:maxVersion>0.5</em:maxVersion>
+				<em:maxVersion>0.6</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 	</Description>
