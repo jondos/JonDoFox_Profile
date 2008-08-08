@@ -123,10 +123,18 @@ VLC Multimedia Plugin|$
 23|video/3gpp|3GPP video|3gp,3gpp|$
 24|audio/3gpp2|3GPP2 audio|3g2,3gpp2|$
 25|video/3gpp2|3GPP2 video|3g2,3gpp2|$
+C:\Windows\Microsoft.NET\Framework\v3.5\Windows Presentation Foundation\NPWPF.dll|$
+|$
+1194454958000|1|5|$
+Windows Presentation Foundation (WPF) plug-in for Mozilla browsers|$
+Windows Presentation Foundation|$
+2
+0|application/x-ms-xbap|XAML Browser Application|xbap|$
+1|application/xaml+xml|XAML Document|xaml|$
 C:\Windows\system32\Macromed\Flash\NPSWF32.dll|$
 |$
-1195606358000|1|5|$
-Shockwave Flash 9.0  r115|$
+1206415278000|1|5|$
+Shockwave Flash 9.0  r124|$
 Shockwave Flash|$
 2
 0|application/x-shockwave-flash|Adobe Flash movie|swf|$
@@ -253,7 +261,7 @@ Shockwave for Director|$
 0|application/x-director|Shockwave Movie|dir,dxr,dcr|$
 F:\PortableApps\FirefoxPortable\App\firefox\plugins\npnul32.dll|$
 |$
-1216288270000|1|5|$
+1216296690000|1|5|$
 Default Plug-in|$
 Mozilla Default Plug-in|$
 1

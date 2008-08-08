@@ -2,79 +2,18 @@
 <RDF:RDF xmlns:NS1="http://www.mozilla.org/2004/em-rdf#"
          xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <RDF:Description RDF:about="rdf:#$SbmXP2"
+  <RDF:Description RDF:about="rdf:#$AnSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.5"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$BnSXJ2"
                    NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
                    NS1:minVersion="1.1a1"
                    NS1:maxVersion="1.5.0.*" />
-  <RDF:Description RDF:about="urn:mozilla:item:{EDA7B1D7-F793-4e03-B074-E6F303317FB0}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="1.2.6"
-                   NS1:optionsURL="chrome://menuedit/content/menueditprefs.xul"
-                   NS1:name="Menu Editor"
-                   NS1:description="Customize application menus"
-                   NS1:creator="Devon Jensen"
-                   NS1:homepageURL="http://menueditor.mozdev.org/"
-                   NS1:developer="Nickolay Ponomarev">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$RbmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$SbmXP2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="urn:mozilla:item:{792BDDFE-2E7C-42ed-B18D-18154D2761BD}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="0.8.11"
-                   NS1:optionsURL="chrome://tabrenamizer/content/settings.xul"
-                   NS1:iconURL="chrome://tabrenamizer/skin/tabrenamizer.png"
-                   NS1:name="TabRenamizer"
-                   NS1:description="The best antidote for paranoia"
-                   NS1:creator="Valadrem"
-                   NS1:homepageURL="https://addons.mozilla.org/firefox/addon/2987/">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:contributor>Dave (Czech locale)</NS1:contributor>
-    <NS1:contributor>Joergen (Danish locale)</NS1:contributor>
-    <NS1:contributor>Andileinchen (German locale)</NS1:contributor>
-    <NS1:contributor>KangDiz (Persian locale)</NS1:contributor>
-    <NS1:contributor>MiK546 (Finnish locale)</NS1:contributor>
-    <NS1:contributor>Myahoo (French locale)</NS1:contributor>
-    <NS1:contributor>Urihart (Hebrew locale)</NS1:contributor>
-    <NS1:contributor>Marktheitalian (Italian locale)</NS1:contributor>
-    <NS1:contributor>Drry (Japanese locale)</NS1:contributor>
-    <NS1:contributor>Wtspout (Korean locale)</NS1:contributor>
-    <NS1:contributor>Nymo (Norwegian locale)</NS1:contributor>
-    <NS1:contributor>Markh (Dutch locale)</NS1:contributor>
-    <NS1:contributor>Teo (Polish locale)</NS1:contributor>
-    <NS1:contributor>Alberto Eidh (Portuguese (Brazilian) locale)</NS1:contributor>
-    <NS1:contributor>MySh (Russian locale)</NS1:contributor>
-    <NS1:contributor>Lloco (Portuguese (Portugal) locale)</NS1:contributor>
-    <NS1:contributor>Stoli (Swedish locale)</NS1:contributor>
-    <NS1:contributor>KenanBalamir (Turkish locale)</NS1:contributor>
-    <NS1:contributor>WangKing (Chinese (Simplified) locale)</NS1:contributor>
-    <NS1:contributor>Greener (Chinese (Traditional) locale)</NS1:contributor>
-    <NS1:contributor>xente_tranze</NS1:contributor>
-    <NS1:contributor>Goofy</NS1:contributor>
-    <NS1:targetApplication RDF:resource="rdf:#$t4mXP2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$EOGDe2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="3.0.1"
-                   NS1:maxVersion="3.0.1" />
-  <RDF:Description RDF:about="urn:mozilla:item:{6614d11d-d21d-b211-ae23-815234e1ebb5}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="1.0.15"
-                   NS1:iconURL="chrome://drweb/content/drwebicon.png"
-                   NS1:name="Dr.Web anti-virus link checker"
-                   NS1:description="Scan link target with Dr.Web anti-virus"
-                   NS1:creator="Doctor Web, Ltd."
-                   NS1:homepageURL="http://www.drweb.com/">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$sdmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$tdmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$udmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$vdmXP2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$d9mXP2"
-                   NS1:id="dlm@emusic.com"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="1.0.0.*" />
+  <RDF:Description RDF:about="rdf:#$VoSXJ2"
+                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
+                   NS1:minVersion="1.1"
+                   NS1:maxVersion="2.0a1" />
   <RDF:Description RDF:about="urn:mozilla:item:elemhidehelper@adblockplus.org"
                    NS1:installLocation="app-profile"
                    NS1:version="1.0.5"
@@ -85,19 +24,244 @@
                    NS1:creator="Wladimir Palant"
                    NS1:homepageURL="http://adblockplus.org/">
     <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$0.lXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$1.lXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$2.lXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$3.lXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$4.lXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$5.lXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$6.lXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$7.lXP2"/>
-    <NS1:requires RDF:resource="rdf:#$8.lXP2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$dhSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$ehSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$fhSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$ghSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$hhSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$ihSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$jhSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$khSXJ2"/>
+    <NS1:requires RDF:resource="rdf:#$lhSXJ2"/>
   </RDF:Description>
+  <RDF:Description RDF:about="urn:mozilla:item:{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="1.4.1"
+                   NS1:optionsURL="chrome://switchproxy/content/options/options.xul"
+                   NS1:name="SwitchProxy Tool"
+                   NS1:description="A tool that allows you to manage and switch between multiple proxy configurations quickly and easily."
+                   NS1:creator="Jeremy Gillick"
+                   NS1:homepageURL="http://mozmonkey.com/">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$enSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$fnSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$gnSXJ2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$sTXC53"
+                   NS1:id="songbird@songbirdnest.com"
+                   NS1:minVersion="0.4"
+                   NS1:maxVersion="0.6" />
+  <RDF:Description RDF:about="urn:mozilla:item:{455D905A-D37C-4643-A9E2-F6FEFAA0424A}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="0.8.11"
+                   NS1:optionsURL="chrome://refcontrol/content/refcontrolOptions.xul"
+                   NS1:iconURL="chrome://refcontrol/skin/icon.png"
+                   NS1:name="RefControl"
+                   NS1:description="Control what gets sent as the HTTP Referer on a per-site basis."
+                   NS1:creator="James Abbatiello"
+                   NS1:homepageURL="http://www.stardrifter.org/refcontrol/">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:contributor>ca-AD Locale - el_libre</NS1:contributor>
+    <NS1:contributor>de-DE Locale - Starke</NS1:contributor>
+    <NS1:contributor>el-GR Locale - Sonickydon</NS1:contributor>
+    <NS1:contributor>es-ES Locale - srxo1978</NS1:contributor>
+    <NS1:contributor>fi-FI Locale - kenmooda</NS1:contributor>
+    <NS1:contributor>fr-FR Locale - Goofy</NS1:contributor>
+    <NS1:contributor>hr-HR Locale - Krcko</NS1:contributor>
+    <NS1:contributor>it-IT Locale - MatrixIsAllOver, l0stintranslation</NS1:contributor>
+    <NS1:contributor>ja-JP Locale - drry</NS1:contributor>
+    <NS1:contributor>nb-NO Locale - bliblok</NS1:contributor>
+    <NS1:contributor>nl-NL Locale - Alf</NS1:contributor>
+    <NS1:contributor>pl-PL Locale - hiryu</NS1:contributor>
+    <NS1:contributor>pt-BR Locale - Rodrigo Bergmann Laurindo</NS1:contributor>
+    <NS1:contributor>pt-PT Locale - RedStar</NS1:contributor>
+    <NS1:contributor>ru-RU Locale - f0x</NS1:contributor>
+    <NS1:contributor>tr-TR Locale - Celikbas</NS1:contributor>
+    <NS1:contributor>uk-UA Locale - MozUA</NS1:contributor>
+    <NS1:contributor>zh-CN Locale - web123lai</NS1:contributor>
+    <NS1:contributor>zh-TW Locale - 風痕影</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$TrSXJ2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$ihSXJ2"
+                   NS1:id="{aa5ca914-c309-495d-91cf-3141bbb04115}"
+                   NS1:minVersion="0.2"
+                   NS1:maxVersion="0.3" />
+  <RDF:Description RDF:about="rdf:#$YoSXJ2"
+                   NS1:id="dlm@emusic.com"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="1.0.*" />
+  <RDF:Description RDF:about="rdf:#$8SXC53"
+                   NS1:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
+                   NS1:minVersion="1.7"
+                   NS1:maxVersion="1.8" />
+  <RDF:Description RDF:about="rdf:#$umSXJ2"
+                   NS1:id="songbird@songbirdnest.com"
+                   NS1:minVersion="0.5"
+                   NS1:maxVersion="0.6.*" />
+  <RDF:Description RDF:about="rdf:#$FlSXJ2"
+                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
+                   NS1:minVersion="1.5a"
+                   NS1:maxVersion="2.0a1" />
+  <RDF:Description RDF:about="urn:mozilla:item:{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="2.0.5"
+                   NS1:optionsURL="chrome://jsview/content/jsviewOptions.xul"
+                   NS1:aboutURL="chrome://jsview/content/jsviewAbout.xul"
+                   NS1:iconURL="chrome://jsview/skin/jsview.gif"
+                   NS1:name="JSView"
+                   NS1:description="View the source code of external javascripts."
+                   NS1:creator="Ron Beckman"
+                   NS1:homepageURL="http://forum.softwareblaze.com">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:contributor>Jason Karl Davis (Object Reference Script)</NS1:contributor>
+    <NS1:contributor>Andrew Shadoura (be-BY)</NS1:contributor>
+    <NS1:contributor>The Zero (cs-CZ)</NS1:contributor>
+    <NS1:contributor>Team erweiterungen.de (de-DE)</NS1:contributor>
+    <NS1:contributor>PAGF_LINUX (es-ES)</NS1:contributor>
+    <NS1:contributor>Jojaba (fr-FR)</NS1:contributor>
+    <NS1:contributor>Krcko (hr-HR)</NS1:contributor>
+    <NS1:contributor>Mikes Kaszman Istvan (hu-HU)</NS1:contributor>
+    <NS1:contributor>Ginex (it-IT)</NS1:contributor>
+    <NS1:contributor>MatrixIsAllOver (it-IT)</NS1:contributor>
+    <NS1:contributor>Shadow912 (ja-JP)</NS1:contributor>
+    <NS1:contributor>Wtspout (ko-KR)</NS1:contributor>
+    <NS1:contributor>Mark Heijl (nl-NL)</NS1:contributor>
+    <NS1:contributor>Momus, Greg (pl-PL)</NS1:contributor>
+    <NS1:contributor>hugo.goncalves (pt-PT)</NS1:contributor>
+    <NS1:contributor>Fernando Pereira Silveira (pt-BR)</NS1:contributor>
+    <NS1:contributor>Pedro Luiz Failla Junior (pt-BR)</NS1:contributor>
+    <NS1:contributor>Dan Lungescu (ro-RO)</NS1:contributor>
+    <NS1:contributor>Stoneflash (ru-RU)</NS1:contributor>
+    <NS1:contributor>nikneyim (tr-TR)</NS1:contributor>
+    <NS1:contributor>Zhkl0228 (zh-CN)</NS1:contributor>
+    <NS1:contributor>Javalai (zh-TW)</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$oTXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$pTXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$qTXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$rTXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$sTXC53"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$gnSXJ2"
+                   NS1:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
+                   NS1:minVersion="1.6"
+                   NS1:maxVersion="1.8" />
+  <RDF:Description RDF:about="rdf:#$HQXC53"
+                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="2.0a1" />
+  <RDF:Description RDF:about="rdf:#$JlSXJ2"
+                   NS1:id="dlm4@emusic.com"
+                   NS1:minVersion="4.0"
+                   NS1:maxVersion="4.0.*" />
+  <RDF:Description RDF:about="rdf:#$JqSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="2.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$GQXC53"
+                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
+                   NS1:minVersion="0.4"
+                   NS1:maxVersion="1.2.*" />
+  <RDF:Description RDF:about="rdf:#$wmSXJ2"
+                   NS1:id="dlm@emusic.com"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="1.0.0.*" />
+  <RDF:Description RDF:about="rdf:#$ElSXJ2"
+                   NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+                   NS1:minVersion="2.0"
+                   NS1:maxVersion="3.0a2pre" />
+  <RDF:Description RDF:about="rdf:#$rTXC53"
+                   NS1:id="{3db10fab-e461-4c80-8b97-957ad5f8ea47}"
+                   NS1:minVersion="9.0"
+                   NS1:maxVersion="9.0.*" />
+  <RDF:Description RDF:about="urn:mozilla:item:{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="6.0.1"
+                   NS1:optionsURL="chrome://local_install/content/settings/settings.xul"
+                   NS1:iconURL="chrome://local_install/content/icon.png"
+                   NS1:name="MR Tech Toolkit (formerly Local Install)"
+                   NS1:description="Extension, theme and other power tools for all users."
+                   NS1:creator="Mel Reyes (mrtech@gmail.com)"
+                   NS1:homepageURL="http://www.mrtech.com/extensions/">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:contributor>Code and Ideas from tons of extensions!</NS1:contributor>
+    <NS1:contributor>SPECIAL THANKS TO:</NS1:contributor>
+    <NS1:contributor>- Jane Ocean (AMI): Assistance and Testing</NS1:contributor>
+    <NS1:contributor>- Leszek (teo) Zyczkowski: Translation Manager and Layout Fixes</NS1:contributor>
+    <NS1:contributor>- Frank (Desertfox): CSS and Layout Fixes</NS1:contributor>
+    <NS1:contributor>- Everaldo Coelho: Crystal SVG Toolbar and Menu icons</NS1:contributor>
+    <NS1:contributor>- David Vignoni: Nuvola Toolbar and Menu icons</NS1:contributor>
+    <NS1:contributor>- Arvid Axelsson: Qute Toolbar and Menu icons</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$DlSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$ElSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$FlSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$GlSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$HlSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$IlSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$JlSXJ2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mozilla:item:{6614d11d-d21d-b211-ae23-815234e1ebb5}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="1.0.18"
+                   NS1:iconURL="chrome://drweb/content/drwebicon.png"
+                   NS1:name="Dr.Web anti-virus link checker"
+                   NS1:description="Scan link target with Dr.Web anti-virus"
+                   NS1:creator="Doctor Web, Ltd."
+                   NS1:homepageURL="http://www.drweb.com/">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$5SXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$6SXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$7SXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$8SXC53"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$JTXC53"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="2.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="urn:mozilla:item:beysim@beysim.net"
+                   NS1:installLocation="app-profile"
+                   NS1:version="1.6"
+                   NS1:iconURL="chrome://dtwhois/skin/button32.png"
+                   NS1:name="DT Whois"
+                   NS1:description="Domaintools.com whois button for Firefox"
+                   NS1:creator="Beysim Ali"
+                   NS1:homepageURL="http://www.beysim.net/dtwhois/">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$lgSXJ2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$7SXC53"
+                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
+                   NS1:minVersion="0.7"
+                   NS1:maxVersion="0.9.*" />
+  <RDF:Description RDF:about="rdf:#$qTXC53"
+                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
+                   NS1:minVersion="1.1"
+                   NS1:maxVersion="2.0a1" />
+  <RDF:Description RDF:about="rdf:#$qRXC53"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.5"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$IlSXJ2"
+                   NS1:id="dlm@emusic.com"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="1.0.*" />
+  <RDF:Description RDF:about="urn:mozilla:item:{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="2.3.1"
+                   NS1:optionsURL="chrome://mediapirate/content/options.xul"
+                   NS1:name="Media Pirate - The video downloader"
+                   NS1:description="Video downloader"
+                   NS1:creator="Pascal Beyeler"
+                   NS1:homepageURL="http://www.mediapirate.org">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$jsSXJ2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$WoSXJ2"
+                   NS1:id="{3db10fab-e461-4c80-8b97-957ad5f8ea47}"
+                   NS1:minVersion="9.0"
+                   NS1:maxVersion="9.0.*" />
   <RDF:Description RDF:about="urn:mozilla:item:{73a6fe31-595d-460b-a920-fcc0f8843232}"
                    NS1:installLocation="app-profile"
-                   NS1:version="1.7.7"
+                   NS1:version="1.7.8"
                    NS1:optionsURL="chrome://noscript/content/noscriptOptions.xul"
                    NS1:aboutURL="chrome://noscript/content/about.xul"
                    NS1:iconURL="chrome://noscript/skin/icon32.png"
@@ -149,48 +313,107 @@
     <NS1:contributor>tonynguyen (Vietnamese translation)</NS1:contributor>
     <NS1:contributor>Ultravioletu (Romanian translation)</NS1:contributor>
     <NS1:contributor>Xavier Robin (French translation)</NS1:contributor>
-    <NS1:targetApplication RDF:resource="rdf:#$qPdcw2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$rPdcw2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$sPdcw2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$tPdcw2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$uPdcw2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$vPdcw2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$wPdcw2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$xPdcw2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$EQXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$FQXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$GQXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$HQXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$IQXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$JQXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$KQXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$LQXC53"/>
   </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$cdmXP2"
+  <RDF:Description RDF:about="rdf:#$smSXJ2"
+                   NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+                   NS1:minVersion="1.5"
+                   NS1:maxVersion="3.0a1" />
+  <RDF:Description RDF:about="rdf:#$ToSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="2.0"
+                   NS1:maxVersion="3.1a1pre" />
+  <RDF:Description RDF:about="rdf:#$DlSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="2.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$jhSXJ2"
+                   NS1:id="dlm@emusic.com"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="1.0.0.*" />
+  <RDF:Description RDF:about="rdf:#$TrSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$qmSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.5"
+                   NS1:maxVersion="3.1a2pre" />
+  <RDF:Description RDF:about="urn:mozilla:item:{437be45a-4114-11dd-b9ab-71d256d89593}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="0.1a3"
+                   NS1:updateURL="https://www.jondos.de/files/downloads/update.rdf"
+                   NS1:aboutURL="chrome://jondofox/content/about.xul"
+                   NS1:iconURL="chrome://jondofox/skin/icon-32x32.png"
+                   NS1:name="JonDoFox"
+                   NS1:description="Show customized error pages and instructions in case of proxy errors."
+                   NS1:creator="JonDos GmbH"
+                   NS1:homepageURL="https://www.jondos.de/jondofox"
+                   NS1:developer="Johannes Renner"
+                   NS1:contributor="Philipp Kaplycz">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$JTXC53"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$EQXC53"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.5.0.4"
+                   NS1:maxVersion="3.1a1pre" />
+  <RDF:Description RDF:about="rdf:#$LQXC53"
+                   NS1:id="songbird@songbirdnest.com"
+                   NS1:minVersion="0.5"
+                   NS1:maxVersion="0.7pre" />
+  <RDF:Description RDF:about="rdf:#$fnSXJ2"
+                   NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+                   NS1:minVersion="0.5"
+                   NS1:maxVersion="1.5" />
+  <RDF:Description RDF:about="rdf:#$6SXC53"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$dkSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="2.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$FQXC53"
+                   NS1:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
+                   NS1:minVersion="1.8"
+                   NS1:maxVersion="1.8" />
+  <RDF:Description RDF:about="rdf:#$fhSXJ2"
+                   NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+                   NS1:minVersion="1.5"
+                   NS1:maxVersion="3.0a2pre" />
+  <RDF:Description RDF:about="rdf:#$dhSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.5"
+                   NS1:maxVersion="3.1a2pre" />
+  <RDF:Description RDF:about="rdf:#$XoSXJ2"
                    NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
                    NS1:minVersion="2.0"
                    NS1:maxVersion="3.0a2pre" />
-  <RDF:Description RDF:about="urn:mozilla:item:{b9db16a4-6edc-47ec-a1f4-b86292ed211d}"
+  <RDF:Description RDF:about="urn:mozilla:item:{EDA7B1D7-F793-4e03-B074-E6F303317FB0}"
                    NS1:installLocation="app-profile"
-                   NS1:version="3.1.1"
-                   NS1:optionsURL="chrome://dwhelper/content/preferences.xul"
-                   NS1:iconURL="chrome://dwhelper/skin/logo-32x32.png"
-                   NS1:name="DownloadHelper"
-                   NS1:description="Download videos and images from many sites"
-                   NS1:creator="Michel Gutierrez"
-                   NS1:homepageURL="http://www.downloadhelper.net">
+                   NS1:version="1.2.6"
+                   NS1:optionsURL="chrome://menuedit/content/menueditprefs.xul"
+                   NS1:name="Menu Editor"
+                   NS1:description="Customize application menus"
+                   NS1:creator="Devon Jensen"
+                   NS1:homepageURL="http://menueditor.mozdev.org/"
+                   NS1:developer="Nickolay Ponomarev">
     <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$kbmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$lbmXP2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$AnSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$BnSXJ2"/>
   </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$4.lXP2"
-                   NS1:id="songbird@songbirdnest.com"
-                   NS1:minVersion="0.5"
-                   NS1:maxVersion="0.6.*" />
-  <RDF:Description RDF:about="rdf:#$RbmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.5"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$vPdcw2"
-                   NS1:id="dlm@emusic.com"
-                   NS1:minVersion="1.0a4"
-                   NS1:maxVersion="1.0.0.*" />
-  <RDF:Description RDF:about="rdf:#$X5mXP2"
-                   NS1:id="{718e30fb-e89b-41dd-9da7-e25a45638b28}"
-                   NS1:minVersion="0.7"
-                   NS1:maxVersion="0.9pre" />
+  <RDF:Description RDF:about="rdf:#$rRXC53"
+                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
+                   NS1:minVersion="0.4+"
+                   NS1:maxVersion="1.5+" />
   <RDF:Description RDF:about="urn:mozilla:item:{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}"
                    NS1:installLocation="app-profile"
                    NS1:version="0.7.5.5"
@@ -202,139 +425,67 @@
                    NS1:creator="Wladimir Palant"
                    NS1:homepageURL="http://adblockplus.org/">
     <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$79mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$89mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$99mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$a9mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$b9mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$c9mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$d9mXP2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$qmSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$rmSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$smSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$tmSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$umSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$vmSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$wmSXJ2"/>
   </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$mhmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$5.lXP2"
-                   NS1:id="{aa5ca914-c309-495d-91cf-3141bbb04115}"
-                   NS1:minVersion="0.2"
-                   NS1:maxVersion="0.3" />
-  <RDF:Description RDF:about="urn:mozilla:item:{437be45a-4114-11dd-b9ab-71d256d89593}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="0.1a1"
-                   NS1:updateURL="https://www.jondos.de/files/downloads/update.rdf"
-                   NS1:aboutURL="chrome://jondofox/content/about.xul"
-                   NS1:iconURL="chrome://jondofox/skin/icon-32x32.png"
-                   NS1:name="JonDoFox"
-                   NS1:description="Show customized error pages and instructions in case of proxy errors."
-                   NS1:creator="JonDos GmbH"
-                   NS1:homepageURL="https://www.jondos.de/jondofox">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:contributor>Johannes Renner</NS1:contributor>
-    <NS1:contributor>Philipp Kaplycz</NS1:contributor>
-    <NS1:targetApplication RDF:resource="rdf:#$tgmXP2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$t4mXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="2.0"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="urn:mozilla:item:beysim@beysim.net"
-                   NS1:installLocation="app-profile"
-                   NS1:version="1.6"
-                   NS1:iconURL="chrome://dtwhois/skin/button32.png"
-                   NS1:name="DT Whois"
-                   NS1:description="Domaintools.com whois button for Firefox"
-                   NS1:creator="Beysim Ali"
-                   NS1:homepageURL="http://www.beysim.net/dtwhois/">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$8ZlXP2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$xPdcw2"
-                   NS1:id="songbird@songbirdnest.com"
-                   NS1:minVersion="0.5"
-                   NS1:maxVersion="0.7pre" />
-  <RDF:Description RDF:about="rdf:#$2.lXP2"
+  <RDF:Description RDF:about="rdf:#$5SXC53"
                    NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
                    NS1:minVersion="1.5"
-                   NS1:maxVersion="3.0a2pre" />
-  <RDF:Description RDF:about="urn:mozilla:item:{455D905A-D37C-4643-A9E2-F6FEFAA0424A}"
+                   NS1:maxVersion="2.0.0.*" />
+  <RDF:Description RDF:about="rdf:#$lhSXJ2"
+                   NS1:id="{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}"
+                   NS1:minVersion="0.7.5"
+                   NS1:maxVersion="*" />
+  <RDF:Description RDF:about="urn:mozilla:item:{670a77c5-010e-4476-a8ce-d09171318839}"
                    NS1:installLocation="app-profile"
-                   NS1:version="0.8.11"
-                   NS1:optionsURL="chrome://refcontrol/content/refcontrolOptions.xul"
-                   NS1:iconURL="chrome://refcontrol/skin/icon.png"
-                   NS1:name="RefControl"
-                   NS1:description="Control what gets sent as the HTTP Referer on a per-site basis."
-                   NS1:creator="James Abbatiello"
-                   NS1:homepageURL="http://www.stardrifter.org/refcontrol/">
+                   NS1:version="0.9"
+                   NS1:iconURL="chrome://stanford-safecache/skin/stanford-safecache.png"
+                   NS1:name="SafeCache"
+                   NS1:description="Defends against cache-based web privacy attacks."
+                   NS1:creator="Stanford University"
+                   NS1:homepageURL="http://www.safecache.com/">
     <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:contributor>ca-AD Locale - el_libre</NS1:contributor>
-    <NS1:contributor>de-DE Locale - Starke</NS1:contributor>
-    <NS1:contributor>el-GR Locale - Sonickydon</NS1:contributor>
-    <NS1:contributor>es-ES Locale - srxo1978</NS1:contributor>
-    <NS1:contributor>fi-FI Locale - kenmooda</NS1:contributor>
-    <NS1:contributor>fr-FR Locale - Goofy</NS1:contributor>
-    <NS1:contributor>hr-HR Locale - Krcko</NS1:contributor>
-    <NS1:contributor>it-IT Locale - MatrixIsAllOver, l0stintranslation</NS1:contributor>
-    <NS1:contributor>ja-JP Locale - drry</NS1:contributor>
-    <NS1:contributor>nb-NO Locale - bliblok</NS1:contributor>
-    <NS1:contributor>nl-NL Locale - Alf</NS1:contributor>
-    <NS1:contributor>pl-PL Locale - hiryu</NS1:contributor>
-    <NS1:contributor>pt-BR Locale - Rodrigo Bergmann Laurindo</NS1:contributor>
-    <NS1:contributor>pt-PT Locale - RedStar</NS1:contributor>
-    <NS1:contributor>ru-RU Locale - f0x</NS1:contributor>
-    <NS1:contributor>tr-TR Locale - Celikbas</NS1:contributor>
-    <NS1:contributor>uk-UA Locale - MozUA</NS1:contributor>
-    <NS1:contributor>zh-CN Locale - web123lai</NS1:contributor>
-    <NS1:contributor>zh-TW Locale - 風痕影</NS1:contributor>
-    <NS1:targetApplication RDF:resource="rdf:#$mhmXP2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$JqSXJ2"/>
   </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$V5mXP2"
+  <RDF:Description RDF:about="urn:mozilla:item:{b9db16a4-6edc-47ec-a1f4-b86292ed211d}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="3.2"
+                   NS1:optionsURL="chrome://dwhelper/content/preferences.xul"
+                   NS1:iconURL="chrome://dwhelper/skin/logo-32x32.png"
+                   NS1:name="DownloadHelper"
+                   NS1:description="Download videos and images from many sites"
+                   NS1:creator="Michel Gutierrez"
+                   NS1:homepageURL="http://www.downloadhelper.net">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$qRXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$rRXC53"/>
+    <NS1:targetApplication RDF:resource="rdf:#$sRXC53"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$HlSXJ2"
+                   NS1:id="{718e30fb-e89b-41dd-9da7-e25a45638b28}"
+                   NS1:minVersion="0.7"
+                   NS1:maxVersion="0.9pre" />
+  <RDF:Description RDF:about="rdf:#$lgSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$5sSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$rmSXJ2"
                    NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
-                   NS1:minVersion="1.5a"
+                   NS1:minVersion="1.0"
                    NS1:maxVersion="2.0a1" />
-  <RDF:Description RDF:about="rdf:#$7.lXP2"
-                   NS1:id="{a79fe89b-6662-4ff4-8e88-09950ad4dfde}"
-                   NS1:minVersion="0.1"
-                   NS1:maxVersion="100.0" />
-  <RDF:Description RDF:about="rdf:#$jTY1u2"
+  <RDF:Description RDF:about="rdf:#$enSXJ2"
                    NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
                    NS1:minVersion="1.0"
                    NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$9dmXP2"
-                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="1.2" />
-  <RDF:Description RDF:about="rdf:#$WfmXP2"
-                   NS1:id="{3db10fab-e461-4c80-8b97-957ad5f8ea47}"
-                   NS1:minVersion="9.0"
-                   NS1:maxVersion="9.0.0.*" />
-  <RDF:Description RDF:about="rdf:#$TfmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="2.0"
-                   NS1:maxVersion="3.1a1pre" />
-  <RDF:Description RDF:about="rdf:#$T5mXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="2.0"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$vdmXP2"
-                   NS1:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
-                   NS1:minVersion="1.7"
-                   NS1:maxVersion="1.8" />
-  <RDF:Description RDF:about="rdf:#$lbmXP2"
-                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
-                   NS1:minVersion="0.4+"
-                   NS1:maxVersion="1.5+" />
-  <RDF:Description RDF:about="rdf:#$bdmXP2"
-                   NS1:id="{3db10fab-e461-4c80-8b97-957ad5f8ea47}"
-                   NS1:minVersion="9.0"
-                   NS1:maxVersion="9.0.*" />
-  <RDF:Description RDF:about="rdf:#$qPdcw2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.5.0.4"
-                   NS1:maxVersion="3.1a1pre" />
-  <RDF:Description RDF:about="rdf:#$Y5mXP2"
-                   NS1:id="dlm@emusic.com"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="1.0.*" />
   <RDF:Seq RDF:about="urn:mozilla:item:root">
     <RDF:li RDF:resource="urn:mozilla:item:{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}"/>
     <RDF:li RDF:resource="urn:mozilla:item:elemhidehelper@adblockplus.org"/>
@@ -355,40 +506,18 @@
     <RDF:li RDF:resource="urn:mozilla:item:{792BDDFE-2E7C-42ed-B18D-18154D2761BD}"/>
     <RDF:li RDF:resource="urn:mozilla:item:{ac1e10b8-206d-4746-a18e-0483852dc20b}"/>
   </RDF:Seq>
-  <RDF:Description RDF:about="urn:mozilla:item:{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="6.0.1"
-                   NS1:optionsURL="chrome://local_install/content/settings/settings.xul"
-                   NS1:iconURL="chrome://local_install/content/icon.png"
-                   NS1:name="MR Tech Toolkit (formerly Local Install)"
-                   NS1:description="Extension, theme and other power tools for all users."
-                   NS1:creator="Mel Reyes (mrtech@gmail.com)"
-                   NS1:homepageURL="http://www.mrtech.com/extensions/">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:contributor>Code and Ideas from tons of extensions!</NS1:contributor>
-    <NS1:contributor>SPECIAL THANKS TO:</NS1:contributor>
-    <NS1:contributor>- Jane Ocean (AMI): Assistance and Testing</NS1:contributor>
-    <NS1:contributor>- Leszek (teo) Zyczkowski: Translation Manager and Layout Fixes</NS1:contributor>
-    <NS1:contributor>- Frank (Desertfox): CSS and Layout Fixes</NS1:contributor>
-    <NS1:contributor>- Everaldo Coelho: Crystal SVG Toolbar and Menu icons</NS1:contributor>
-    <NS1:contributor>- David Vignoni: Nuvola Toolbar and Menu icons</NS1:contributor>
-    <NS1:contributor>- Arvid Axelsson: Qute Toolbar and Menu icons</NS1:contributor>
-    <NS1:targetApplication RDF:resource="rdf:#$T5mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$U5mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$V5mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$W5mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$X5mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$Y5mXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$Z5mXP2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$c9mXP2"
-                   NS1:id="{aa5ca914-c309-495d-91cf-3141bbb04115}"
-                   NS1:minVersion="0.2"
-                   NS1:maxVersion="0.3" />
-  <RDF:Description RDF:about="rdf:#$tbmXP2"
-                   NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
-                   NS1:minVersion="0.5"
-                   NS1:maxVersion="1.5" />
+  <RDF:Description RDF:about="rdf:#$UoSXJ2"
+                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="1.2" />
+  <RDF:Description RDF:about="rdf:#$ZoSXJ2"
+                   NS1:id="songbird@songbirdnest.com"
+                   NS1:minVersion="0.4"
+                   NS1:maxVersion="0.6" />
+  <RDF:Description RDF:about="rdf:#$khSXJ2"
+                   NS1:id="{a79fe89b-6662-4ff4-8e88-09950ad4dfde}"
+                   NS1:minVersion="0.1"
+                   NS1:maxVersion="100.0" />
   <RDF:Description RDF:about="urn:mozilla:item:{972ce4c6-7e08-4474-a285-3208198ce6fd}"
                    NS1:installLocation="app-global"
                    NS1:version="3.0.1"
@@ -400,68 +529,63 @@
                    NS1:creator="Mozilla"
                    NS1:contributor="Mozilla Contributors">
     <NS1:type NC:parseType="Integer">4</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$EOGDe2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$7gSXJ2"/>
   </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$1.lXP2"
-                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="2.0a1" />
-  <RDF:Description RDF:about="rdf:#$Z5mXP2"
-                   NS1:id="dlm4@emusic.com"
-                   NS1:minVersion="4.0"
-                   NS1:maxVersion="4.0.*" />
-  <RDF:Description RDF:about="rdf:#$sPdcw2"
+  <RDF:Description RDF:about="rdf:#$GlSXJ2"
                    NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
-                   NS1:minVersion="0.4"
-                   NS1:maxVersion="1.2.*" />
-  <RDF:Description RDF:about="rdf:#$XfmXP2"
-                   NS1:id="songbird@songbirdnest.com"
-                   NS1:minVersion="0.4"
-                   NS1:maxVersion="0.5" />
-  <RDF:Description RDF:about="rdf:#$tPdcw2"
-                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="2.0a1" />
-  <RDF:Description RDF:about="rdf:#$8dmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="2.0"
-                   NS1:maxVersion="3.1a1pre" />
-  <RDF:Description RDF:about="rdf:#$udmXP2"
+                   NS1:minVersion="0.9.0"
+                   NS1:maxVersion="2.0.*" />
+  <RDF:Description RDF:about="rdf:#$JQXC53"
+                   NS1:id="dlm@emusic.com"
+                   NS1:minVersion="1.0a4"
+                   NS1:maxVersion="1.0.0.*" />
+  <RDF:Description RDF:about="rdf:#$KQXC53"
+                   NS1:id="toolkit@mozilla.org"
+                   NS1:minVersion="1.9a2"
+                   NS1:maxVersion="1.9" />
+  <RDF:Description RDF:about="rdf:#$ghSXJ2"
                    NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
-                   NS1:minVersion="0.7"
-                   NS1:maxVersion="0.7.*" />
-  <RDF:Description RDF:about="rdf:#$sdmXP2"
-                   NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
-                   NS1:minVersion="1.5"
-                   NS1:maxVersion="2.0.0.*" />
-  <RDF:Description RDF:about="rdf:#$cgmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="2.0"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$0.lXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.5"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$b9mXP2"
+                   NS1:minVersion="0.5"
+                   NS1:maxVersion="1.0+" />
+  <RDF:Description RDF:about="rdf:#$vmSXJ2"
+                   NS1:id="{aa5ca914-c309-495d-91cf-3141bbb04115}"
+                   NS1:minVersion="0.2"
+                   NS1:maxVersion="0.3" />
+  <RDF:Description RDF:about="rdf:#$hhSXJ2"
                    NS1:id="songbird@songbirdnest.com"
                    NS1:minVersion="0.5"
                    NS1:maxVersion="0.6.*" />
-  <RDF:Description RDF:about="rdf:#$79mXP2"
+  <RDF:Description RDF:about="rdf:#$7gSXJ2"
                    NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.5"
+                   NS1:minVersion="3.0.1"
+                   NS1:maxVersion="3.0.1" />
+  <RDF:Description RDF:about="rdf:#$jsSXJ2"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.0"
                    NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$ubmXP2"
-                   NS1:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
-                   NS1:minVersion="1.6"
-                   NS1:maxVersion="1.8" />
-  <RDF:Description RDF:about="rdf:#$UfmXP2"
+  <RDF:Description RDF:about="rdf:#$oTXC53"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="2.0"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$pTXC53"
                    NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
                    NS1:minVersion="1.0"
-                   NS1:maxVersion="1.0.*" />
-  <RDF:Description RDF:about="rdf:#$uPdcw2"
-                   NS1:id="{aa5ca914-c309-495d-91cf-3141bbb04115}"
-                   NS1:minVersion="0.2"
-                   NS1:maxVersion="3.0.*" />
+                   NS1:maxVersion="1.1.*" />
+  <RDF:Description RDF:about="rdf:#$sRXC53"
+                   NS1:id="songbird@songbirdnest.com"
+                   NS1:minVersion="0.5"
+                   NS1:maxVersion="0.7pre" />
+  <RDF:Description RDF:about="urn:mozilla:item:{ac1e10b8-206d-4746-a18e-0483852dc20b}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="2.1.2"
+                   NS1:optionsURL="chrome://temporaryinbox/content/options.xul"
+                   NS1:name="Temporary Inbox"
+                   NS1:description="Temporary Inbox"
+                   NS1:creator="Pascal Beyeler"
+                   NS1:homepageURL="http://www.temporaryinbox.com">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$5sSXJ2"/>
+  </RDF:Description>
   <RDF:Description RDF:about="urn:mozilla:item:{00084897-021a-4361-8423-083407a033e0}"
                    NS1:installLocation="app-profile"
                    NS1:version="1.3.9"
@@ -491,175 +615,58 @@
     <NS1:contributor>FunAlien (ru-RU)</NS1:contributor>
     <NS1:contributor>Myroslav (uk-UA)</NS1:contributor>
     <NS1:contributor>Fracsh / Firewire (zh-CN)</NS1:contributor>
-    <NS1:targetApplication RDF:resource="rdf:#$8dmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$9dmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$admXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$bdmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$cdmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$ddmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$edmXP2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$ToSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$UoSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$VoSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$WoSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$XoSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$YoSXJ2"/>
+    <NS1:targetApplication RDF:resource="rdf:#$ZoSXJ2"/>
   </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$U5mXP2"
-                   NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
-                   NS1:minVersion="2.0"
-                   NS1:maxVersion="3.0a2pre" />
-  <RDF:Description RDF:about="urn:mozilla:item:{ac1e10b8-206d-4746-a18e-0483852dc20b}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="2.1.2"
-                   NS1:optionsURL="chrome://temporaryinbox/content/options.xul"
-                   NS1:name="Temporary Inbox"
-                   NS1:description="Temporary Inbox"
-                   NS1:creator="Pascal Beyeler"
-                   NS1:homepageURL="http://www.temporaryinbox.com">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$qvZgm2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="urn:mozilla:item:{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="2.0.4"
-                   NS1:optionsURL="chrome://jsview/content/jsviewOptions.xul"
-                   NS1:aboutURL="chrome://jsview/content/jsviewAbout.xul"
-                   NS1:iconURL="chrome://jsview/skin/jsview.gif"
-                   NS1:name="JSView"
-                   NS1:description="View the source code of external javascripts."
-                   NS1:creator="Ron Beckman"
-                   NS1:homepageURL="http://forum.softwareblaze.com">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:contributor>Jason Karl Davis (Object Reference Script)</NS1:contributor>
-    <NS1:contributor>Andrew Shadoura (be-BY)</NS1:contributor>
-    <NS1:contributor>The Zero (cs-CZ)</NS1:contributor>
-    <NS1:contributor>Team erweiterungen.de (de-DE)</NS1:contributor>
-    <NS1:contributor>PAGF_LINUX (es-ES)</NS1:contributor>
-    <NS1:contributor>Jojaba (fr-FR)</NS1:contributor>
-    <NS1:contributor>Krcko (hr-HR)</NS1:contributor>
-    <NS1:contributor>Mikes Kaszman Istvan (hu-HU)</NS1:contributor>
-    <NS1:contributor>Ginex (it-IT)</NS1:contributor>
-    <NS1:contributor>MatrixIsAllOver (it-IT)</NS1:contributor>
-    <NS1:contributor>Shadow912 (ja-JP)</NS1:contributor>
-    <NS1:contributor>Wtspout (ko-KR)</NS1:contributor>
-    <NS1:contributor>Mark Heijl (nl-NL)</NS1:contributor>
-    <NS1:contributor>Momus, Greg (pl-PL)</NS1:contributor>
-    <NS1:contributor>Fernando Pereira Silveira (pt-BR)</NS1:contributor>
-    <NS1:contributor>Pedro Luiz Failla Junior (pt-BR)</NS1:contributor>
-    <NS1:contributor>Dan Lungescu (ro-RO)</NS1:contributor>
-    <NS1:contributor>Stoneflash (ru-RU)</NS1:contributor>
-    <NS1:contributor>Zhkl0228 (zh-CN)</NS1:contributor>
-    <NS1:contributor>Javalai (zh-TW)</NS1:contributor>
-    <NS1:targetApplication RDF:resource="rdf:#$TfmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$UfmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$VfmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$WfmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$XfmXP2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$edmXP2"
-                   NS1:id="songbird@songbirdnest.com"
-                   NS1:minVersion="0.4"
-                   NS1:maxVersion="0.6" />
-  <RDF:Description RDF:about="rdf:#$89mXP2"
+  <RDF:Description RDF:about="rdf:#$ehSXJ2"
                    NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
                    NS1:minVersion="1.0"
                    NS1:maxVersion="2.0a1" />
-  <RDF:Description RDF:about="rdf:#$sbmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="urn:mozilla:item:{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}"
+  <RDF:Description RDF:about="urn:mozilla:item:{792BDDFE-2E7C-42ed-B18D-18154D2761BD}"
                    NS1:installLocation="app-profile"
-                   NS1:version="1.4.1"
-                   NS1:optionsURL="chrome://switchproxy/content/options/options.xul"
-                   NS1:name="SwitchProxy Tool"
-                   NS1:description="A tool that allows you to manage and switch between multiple proxy configurations quickly and easily."
-                   NS1:creator="Jeremy Gillick"
-                   NS1:homepageURL="http://mozmonkey.com/">
+                   NS1:version="0.8.11"
+                   NS1:optionsURL="chrome://tabrenamizer/content/settings.xul"
+                   NS1:iconURL="chrome://tabrenamizer/skin/tabrenamizer.png"
+                   NS1:name="TabRenamizer"
+                   NS1:description="The best antidote for paranoia"
+                   NS1:creator="Valadrem"
+                   NS1:homepageURL="https://addons.mozilla.org/firefox/addon/2987/">
     <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$sbmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$tbmXP2"/>
-    <NS1:targetApplication RDF:resource="rdf:#$ubmXP2"/>
+    <NS1:contributor>Dave (Czech locale)</NS1:contributor>
+    <NS1:contributor>Joergen (Danish locale)</NS1:contributor>
+    <NS1:contributor>Andileinchen (German locale)</NS1:contributor>
+    <NS1:contributor>KangDiz (Persian locale)</NS1:contributor>
+    <NS1:contributor>MiK546 (Finnish locale)</NS1:contributor>
+    <NS1:contributor>Myahoo (French locale)</NS1:contributor>
+    <NS1:contributor>Urihart (Hebrew locale)</NS1:contributor>
+    <NS1:contributor>Marktheitalian (Italian locale)</NS1:contributor>
+    <NS1:contributor>Drry (Japanese locale)</NS1:contributor>
+    <NS1:contributor>Wtspout (Korean locale)</NS1:contributor>
+    <NS1:contributor>Nymo (Norwegian locale)</NS1:contributor>
+    <NS1:contributor>Markh (Dutch locale)</NS1:contributor>
+    <NS1:contributor>Teo (Polish locale)</NS1:contributor>
+    <NS1:contributor>Alberto Eidh (Portuguese (Brazilian) locale)</NS1:contributor>
+    <NS1:contributor>MySh (Russian locale)</NS1:contributor>
+    <NS1:contributor>Lloco (Portuguese (Portugal) locale)</NS1:contributor>
+    <NS1:contributor>Stoli (Swedish locale)</NS1:contributor>
+    <NS1:contributor>KenanBalamir (Turkish locale)</NS1:contributor>
+    <NS1:contributor>WangKing (Chinese (Simplified) locale)</NS1:contributor>
+    <NS1:contributor>Greener (Chinese (Traditional) locale)</NS1:contributor>
+    <NS1:contributor>xente_tranze</NS1:contributor>
+    <NS1:contributor>Goofy</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$dkSXJ2"/>
   </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$admXP2"
-                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
-                   NS1:minVersion="1.1"
-                   NS1:maxVersion="2.0a1" />
-  <RDF:Description RDF:about="rdf:#$99mXP2"
-                   NS1:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
-                   NS1:minVersion="1.5"
-                   NS1:maxVersion="3.0a1" />
-  <RDF:Description RDF:about="rdf:#$8.lXP2"
-                   NS1:id="{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}"
-                   NS1:minVersion="0.7.5"
-                   NS1:maxVersion="*" />
-  <RDF:Description RDF:about="rdf:#$6.lXP2"
-                   NS1:id="dlm@emusic.com"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="1.0.0.*" />
-  <RDF:Description RDF:about="rdf:#$qvZgm2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.0"
+  <RDF:Description RDF:about="rdf:#$IQXC53"
+                   NS1:id="{aa5ca914-c309-495d-91cf-3141bbb04115}"
+                   NS1:minVersion="0.2"
                    NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$rPdcw2"
-                   NS1:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
-                   NS1:minVersion="1.8"
-                   NS1:maxVersion="1.8" />
-  <RDF:Description RDF:about="urn:mozilla:item:{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="2.3.1"
-                   NS1:optionsURL="chrome://mediapirate/content/options.xul"
-                   NS1:name="Media Pirate - The video downloader"
-                   NS1:description="Video downloader"
-                   NS1:creator="Pascal Beyeler"
-                   NS1:homepageURL="http://www.mediapirate.org">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$jTY1u2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$tgmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="3.0"
-                   NS1:maxVersion="3.0+" />
-  <RDF:Description RDF:about="rdf:#$3.lXP2"
+  <RDF:Description RDF:about="rdf:#$tmSXJ2"
                    NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
                    NS1:minVersion="0.5"
                    NS1:maxVersion="1.0+" />
-  <RDF:Description RDF:about="rdf:#$VfmXP2"
-                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
-                   NS1:minVersion="1.1"
-                   NS1:maxVersion="2.0a1" />
-  <RDF:Description RDF:about="urn:mozilla:item:{670a77c5-010e-4476-a8ce-d09171318839}"
-                   NS1:installLocation="app-profile"
-                   NS1:version="0.9"
-                   NS1:iconURL="chrome://stanford-safecache/skin/stanford-safecache.png"
-                   NS1:name="SafeCache"
-                   NS1:description="Defends against cache-based web privacy attacks."
-                   NS1:creator="Stanford University"
-                   NS1:homepageURL="http://www.safecache.com/">
-    <NS1:type NC:parseType="Integer">2</NS1:type>
-    <NS1:targetApplication RDF:resource="rdf:#$cgmXP2"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$W5mXP2"
-                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
-                   NS1:minVersion="0.9.0"
-                   NS1:maxVersion="2.0.*" />
-  <RDF:Description RDF:about="rdf:#$wPdcw2"
-                   NS1:id="toolkit@mozilla.org"
-                   NS1:minVersion="1.9a2"
-                   NS1:maxVersion="1.9" />
-  <RDF:Description RDF:about="rdf:#$kbmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.5"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$a9mXP2"
-                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
-                   NS1:minVersion="0.5"
-                   NS1:maxVersion="1.0+" />
-  <RDF:Description RDF:about="rdf:#$tdmXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$8ZlXP2"
-                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="3.0.*" />
-  <RDF:Description RDF:about="rdf:#$ddmXP2"
-                   NS1:id="dlm@emusic.com"
-                   NS1:minVersion="1.0"
-                   NS1:maxVersion="1.0.*" />
 </RDF:RDF>
