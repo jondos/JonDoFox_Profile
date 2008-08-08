@@ -2,7 +2,7 @@
 const gName			= "TinyUrl Creator";
 const gAuthor		= "Jeremy Gillick";
 const gRegKey		= "/JeremyGillick/TinyUrl";
-const gVersion		= "1.0.4";
+const gVersion		= "1.0.5";
 const gJar			= "tinyurl.jar";
 const gFolderName	= "tinyurl";
 

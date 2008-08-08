@@ -1,4 +1,4 @@
-<!ENTITY dialog.title "Opções do Add Bookmark Here ²">
+<!ENTITY dialog.title "Opções do Add Bookmark Here 2">
 <!ENTITY group.pos "Posição do item no menu Favoritos">
 <!ENTITY group.bmm "Menu Favoritos">
 <!ENTITY group.bmc "Menu de contexto">
@@ -11,5 +11,7 @@
 <!ENTITY bmm.abhere "Exibir item [$abhere$]">
 <!ENTITY bmm.bmpage "Ocultar item [&bookmarkThisPageCmd.label;]">
 <!ENTITY bmm.bmtabs "Ocultar item [&bookmarkAllCmd.label;]">
-<!ENTITY folderDrag "Permitir arrastar para a pasta Favoritos">
 <!ENTITY insertTop "Adicionar página no início do menu">
+<!ENTITY folderDrag "Permitir arrastar para a pasta Favoritos">
+<!ENTITY noPopEditUI "Não exibir o diálogo Editar ao adicionar um favorito">
+<!ENTITY clickStarUI "Clicar na Estrela uma vez para exibir o diálogo Editar">

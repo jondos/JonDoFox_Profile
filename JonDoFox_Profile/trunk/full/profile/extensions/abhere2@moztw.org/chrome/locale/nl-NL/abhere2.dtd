@@ -3,13 +3,15 @@
 <!ENTITY group.bmm "Bladwijzermenu">
 <!ENTITY group.bmc "Bladwijzer contextmenu">
 <!ENTITY group.misc "Diversen">
-<!ENTITY pos.abhere "Positie menuitem &quot;$abhere$&quot;:">
-<!ENTITY pos.optabs "Positie menuitem &quot;$optabs$&quot;:">
+<!ENTITY pos.abhere "Positie menuitem [$abhere$]:">
+<!ENTITY pos.optabs "Positie menuitem [$optabs$]:">
 <!ENTITY pos.top "Bovenaan">
 <!ENTITY pos.bottom "Onderaan">
 <!ENTITY pos.hidden "Verborgen">
-<!ENTITY bmm.abhere "Menuitem &quot;$abhere$&quot; weergeven">
-<!ENTITY bmm.bmpage "Menuitem &quot;&bookmarkThisPageCmd.label;&quot; verbergen">
-<!ENTITY bmm.bmtabs "Menuitem &quot;&bookmarkAllCmd.label;&quot; verbergen">
-<!ENTITY folderDrag "Slepen van Bladwijzermappen toestaan">
+<!ENTITY bmm.abhere "Menuitem [$abhere$] weergeven">
+<!ENTITY bmm.bmpage "Menuitem [bookmarkThisPageCmd.label;] verbergen">
+<!ENTITY bmm.bmtabs "Menuitem [&bookmarkAllCmd.label;] verbergen">
 <!ENTITY insertTop "Bladwijzer bovenaan het menu toevoegen">
+<!ENTITY folderDrag "Slepen van Bladwijzermappen toestaan">
+<!ENTITY noPopEditUI "Dit wijzigen venster niet weergeven bij het toevoegen van een bladwijzer">
+<!ENTITY clickStarUI "Klik op de Bladwijzer Ster om het wijzigen venster weer te geven">

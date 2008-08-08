@@ -63,8 +63,10 @@
     </groupbox>
     <groupbox>
       <caption label="&group.misc;"/>
-        <checkbox id="insertTop" label="&insertTop;"/>
         <checkbox id="folderDrag" label="&folderDrag;"/>
+        <checkbox id="insertTop" label="&insertTop;"/>
+        <checkbox id="noPopEditUI" label="&noPopEditUI;"/>
+        <checkbox id="clickStarUI" label="&clickStarUI;"/>
     </groupbox>
   </vbox>
 
@@ -87,8 +89,10 @@ var abHere2 = {
 
       document.getElementById("abhereCMenu").checked = nsPreferences.getBoolPref("abhere2.bmc.showAddBookmarkHere", true);
 
-      document.getElementById("insertTop").checked = nsPreferences.getBoolPref("abhere2.insertTop", true);
       document.getElementById("folderDrag").checked = nsPreferences.getBoolPref("abhere2.folderDrag", true);
+      document.getElementById("insertTop").checked = nsPreferences.getBoolPref("abhere2.insertTop", true);
+      document.getElementById("noPopEditUI").checked = nsPreferences.getBoolPref("abhere2.noPopEditUI", false);
+      document.getElementById("clickStarUI").checked = nsPreferences.getBoolPref("abhere2.clickStarUI", false);
    },
 
    savePrefs: function() {
@@ -103,8 +107,10 @@ var abHere2 = {
 
       nsPreferences.setBoolPref("abhere2.bmc.showAddBookmarkHere", document.getElementById("abhereCMenu").checked);
 
-      nsPreferences.setBoolPref("abhere2.insertTop", document.getElementById("insertTop").checked);
       nsPreferences.setBoolPref("abhere2.folderDrag", document.getElementById("folderDrag").checked);
+      nsPreferences.setBoolPref("abhere2.insertTop", document.getElementById("insertTop").checked);
+      nsPreferences.setBoolPref("abhere2.noPopEditUI", document.getElementById("noPopEditUI").checked);
+      nsPreferences.setBoolPref("abhere2.clickStarUI", document.getElementById("clickStarUI").checked);
    },
 
    updateDisabledState: function(event) {

@@ -1,15 +1,17 @@
 <!ENTITY dialog.title "Add Bookmark Here ² 选项">
 <!ENTITY group.pos "菜单项位置">
 <!ENTITY group.bmm "书签菜单">
-<!ENTITY group.bmc "书签的右键菜单">
+<!ENTITY group.bmc "书签的上下文菜单">
 <!ENTITY group.misc "其他">
-<!ENTITY pos.abhere "[$abhere$] 菜单项显示于：">
-<!ENTITY pos.optabs "[$optabs$] 菜单项显示于：">
+<!ENTITY pos.abhere "[$abhere$] 菜单项显示于:">
+<!ENTITY pos.optabs "[$optabs$] 菜单项显示于:">
 <!ENTITY pos.top "顶部">
 <!ENTITY pos.bottom "底部">
 <!ENTITY pos.hidden "隐藏">
 <!ENTITY bmm.abhere "显示 [$abhere$] 菜单项">
 <!ENTITY bmm.bmpage "隐藏 [&bookmarkThisPageCmd.label;] 菜单项">
 <!ENTITY bmm.bmtabs "隐藏 [&bookmarkAllCmd.label;] 菜单项">
-<!ENTITY folderDrag "允许拖拽书签文件夹">
 <!ENTITY insertTop "从顶部添加新书签">
+<!ENTITY folderDrag "允许拖拽书签文件夹">
+<!ENTITY noPopEditUI "添加书签时不显示编辑对话框">
+<!ENTITY clickStarUI "单击地址栏书签图标显示编辑对话框">

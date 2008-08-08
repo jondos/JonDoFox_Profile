@@ -1,4 +1,4 @@
-<!ENTITY dialog.title "Add Bookmark Here ² オプション">
+<!ENTITY dialog.title "Add Bookmark Here 2 オプション">
 <!ENTITY group.pos "メニューアイテムに表示/非表示">
 <!ENTITY group.bmm "ブックマークメニュー">
 <!ENTITY group.bmc "ブックマークコンテキストメニュー">
@@ -11,5 +11,7 @@
 <!ENTITY bmm.abhere "[$abhere$] を表示">
 <!ENTITY bmm.bmpage "[&bookmarkThisPageCmd.label;] を非表示">
 <!ENTITY bmm.bmtabs "[&bookmarkAllCmd.label;] を非表示">
-<!ENTITY folderDrag "ブックマークフォルダーをドラック＆ドロップで移動させるする事を可能にします。">
 <!ENTITY insertTop "コンテキストメニューのトップへブックマークを追加します。">
+<!ENTITY folderDrag "ブックマークフォルダーをドラック＆ドロップで移動できるようにします。">
+<!ENTITY noPopEditUI "ブックマークを追加する場合、ダイアログの編集を非表示にします。">
+<!ENTITY clickStarUI "ダイアログの編集を表示するため、ブックマークスターを一度クリックします。">

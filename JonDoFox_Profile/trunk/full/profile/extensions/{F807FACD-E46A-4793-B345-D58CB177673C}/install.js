@@ -1,152 +1,116 @@
-// This code is heavily inspired by Chris Pederick (useragentswitcher) install.js
-// Contributors: Philip Chee, deathburger
-//
-// Philip Chee: Added installation of prefs, components, and locales.
-// deathburger: Refactored to move all changable items to the top of the file.
+var XpiInstaller = {
 
-// Editable Items Begin
-var displayName         = "ScribeFire"; // The name displayed to the user (don't include the version)
-var version             = "2.2.10";
-var name                = "performancing"; // The leafname of the JAR file (without the .jar part)
+	// --- Editable items begin ---
+	extFullName: 'ScribeFire', // The name displayed to the user (don't include the version)
+	extShortName: 'performancing', // The leafname of the JAR file (without the .jar part)
+	extVersion: '2.3pre',
+	extAuthor: 'Christopher Finke',
+	extLocaleNames: ['en-US','bg-BG','cs-CZ','de-DE','es-ES','fr-FR','he-IL','id-ID','is-IS','it-IT','ja-JP','ko-KR','nl-NL','pl-PL','pt-BR','ru-RU','sr-RS','sr-YU','sv-SE','th-TH','tr-TR','zh-CN','zh-TW'],
+	prefs : ["scribefire.js"],
+	extPostInstallMessage: 'Please restart your browser to finish the installation.', // Set to null for no post-install message
+	// --- Editable items end ---
 
-// The following three sets of variables tell this installer script how your
-// extension directory structure looks.
-// If your jar file contains content/packagename use the second packageDir
-// variable. Same rule applies for skinDir and localeDir. I set them up
-// independent of each other just in case an extension layout is wacky.
-var packageDir           = "/"
-//var packageDir           = "/" + name + "/"
-var skinDir           = ""
-//var skinDir           = "/" + name + "/"
-var localeDir           = "/"
-//var localeDir           = "/" + name + "/"
+	profileInstall: true,
+	silentInstall: false,
 
-var locales             = new Array( "en-US", "bg-BG", "cs-CZ", "de-DE", "es-ES", "fr-FR", "he-IL", "id-ID", "is-IS", "it-IT", "ko-KR", "nl-NL", "pl-PL", "pt-BR", "ru-RU", "sv-SE", "th-TH", "zh-CN", "zh-TW");
-var skins               = new Array( "" );
-var prefs               = new Array( "scribefire.js" );
-var components          = new Array(  );
-var searchPlugins       = new Array(  );
+	install: function()
+	{
+		var jarName = this.extShortName + '.jar';
+		var profileDir = Install.getFolder('Profile', 'chrome');
 
-// Mozilla Suite/Seamonkey stores all pref files in a single directory
-// under the application directory.  If the name of the preference file(s)
-// is/are not unique enough, you may override other extension preferences.
-// set this to true if you need to prevent this.
-var disambiguatePrefs   = false;
+		// Parse HTTP arguments
+		this.parseArguments();
 
-// Editable Items End
+		// Check if extension is already installed in profile
+		if (File.exists(Install.getFolder(profileDir, jarName)))
+		{
+			if (!this.silentInstall)
+			{
+				Install.alert('Updating existing Profile install of ' + this.extFullName + ' to version ' + this.extVersion + '.');
+			}
+			this.profileInstall = true;
+		}
+		else if (!this.silentInstall)
+		{
+			// Ask user for install location, profile or browser dir?
+			this.profileInstall = Install.confirm('Install ' + this.extFullName + ' ' + this.extVersion + ' to your Profile directory (OK) or your Browser directory (Cancel)?');
+		}
 
-var jarName             = name + ".jar";
-var jarFolder           = "content" + packageDir
-var error               = null;
+		// Init install
+		var dispName = this.extFullName + ' ' + this.extVersion;
+		var regName = '/' + this.extAuthor + '/' + this.extShortName;
+		Install.initInstall(dispName, regName, this.extVersion);
 
-var folder              = getFolder("Profile", "chrome");
-var prefFolder          = getFolder(getFolder("Program", "defaults"), "pref");
-var compFolder          = getFolder("Components");
-var searchFolder        = getFolder("Plugins");
+		// Find directory to install into
+		var installPath;
+		if (this.profileInstall) installPath = profileDir;
+		else installPath = Install.getFolder('chrome');
 
-var existsInApplication = File.exists(getFolder(getFolder("chrome"), jarName));
-var existsInProfile     = File.exists(getFolder(folder, jarName));
+		// Add JAR file
+		Install.addFile(null, 'chrome/' + jarName, installPath, null);
 
-var contentFlag         = CONTENT | PROFILE_CHROME;
-var localeFlag          = LOCALE | PROFILE_CHROME;
-var skinFlag            = SKIN | PROFILE_CHROME;
+		// Register chrome
+		var jarPath = Install.getFolder(installPath, jarName);
+		var installType = this.profileInstall ? Install.PROFILE_CHROME : Install.DELAYED_CHROME;
 
-// If the extension exists in the application folder or it doesn't exist
-// in the profile folder and the user doesn't want it installed to the
-// profile folder
-if(existsInApplication ||
-    (!existsInProfile &&
-      !confirm( "Do you want to install the " + displayName +
-                " extension into your profile folder?\n" +
-                "(Cancel will install into the application folder)")))
-{
-    contentFlag = CONTENT | DELAYED_CHROME;
-    folder      = getFolder("chrome");
-    localeFlag  = LOCALE | DELAYED_CHROME;
-    skinFlag    = SKIN | DELAYED_CHROME;
-}
+		// Register content
+		Install.registerChrome(Install.CONTENT | installType, jarPath, 'content/');
 
-initInstall(displayName, name, version);
-setPackageFolder(folder);
-error = addFile(name, version, "chrome/" + jarName, folder, null);
+		// Register locales
+		for (var locale in this.extLocaleNames)
+		{
+			var regPath = 'locale/' + this.extLocaleNames[locale] + '/';
+			Install.registerChrome(Install.LOCALE | installType, jarPath, regPath);
+		}
 
-// If adding the JAR file succeeded
-if(error == SUCCESS)
-{
-    folder = getFolder(folder, jarName);
+		// Register skin
+		var regPath = 'skin/';
+		Install.registerChrome(Install.SKIN | installType, jarPath, regPath);
 
-    registerChrome(contentFlag, folder, jarFolder);
-    for (var i = 0; i < locales.length; i++) {
-        registerChrome(localeFlag, folder, "locale/" + locales[i] + localeDir);
-    }
+		for (var i = 0; i < this.prefs.length; i++) {
+			addFile(this.extShortName + " Defaults", this.extVersion, "defaults/preferences/" + this.prefs[i], getFolder(getFolder("Program", "defaults"), "pref"), this.prefs[i], true);
+		}
 
-    for (var i = 0; i < skins.length; i++) {
-        registerChrome(skinFlag, folder, "skin/" + skins[i] + skinDir);
-    }
+		// Perform install
+		var err = Install.performInstall();
+		if (err == Install.SUCCESS || err == Install.REBOOT_NEEDED)
+		{
+			if (!this.silentInstall && this.extPostInstallMessage)
+			{
+				Install.alert(this.extPostInstallMessage);
+			}
+		}
+		else
+		{
+			this.handleError(err);
+			return;
+		}
+	},
 
-    for (var i = 0; i < prefs.length; i++) {
-        if (!disambiguatePrefs) {
-            addFile(name + " Defaults", version, "defaults/preferences/" + prefs[i],
-                prefFolder, prefs[i], true);
-        } else {
-            addFile(name + " Defaults", version, "defaults/preferences/" + prefs[i],
-                prefFolder, name + "-" + prefs[i], true);
-        }
-    }
+	parseArguments: function()
+	{
+		// Can't use string handling in install, so use if statement instead
+		var args = Install.arguments;
+		if (args == 'p=0')
+		{
+			this.profileInstall = false;
+			this.silentInstall = true;
+		}
+		else if (args == 'p=1')
+		{
+			this.profileInstall = true;
+			this.silentInstall = true;
+		}
+	},
 
-    for (var i = 0; i < components.length; i++) {
-        addFile(name + " Components", version, "components/" + components[i],
-            compFolder, components[i], true);
-    }
+	handleError: function(err)
+	{
+		if (!this.silentInstall)
+		{
+			Install.alert('Error: Could not install ' + this.extFullName + ' ' + this.extVersion + ' (Error code: ' + err + ')');
+		}
+		Install.cancelInstall(err);
+	}
+};
 
-    for (var i = 0; i < searchPlugins.length; i++) {
-        addFile(name + " searchPlugins", version, "searchplugins/" + searchPlugins[i],
-            searchFolder, searchPlugins[i], true);
-    }
-
-    error = performInstall();
-
-    // If the install failed
-    if(error != SUCCESS && error != REBOOT_NEEDED)
-    {
-        displayError(error);
-    	cancelInstall(error);
-    }
-    else
-    {
-        alert("The installation of the " + displayName + " extension succeeded.");
-    }
-}
-else
-{
-    displayError(error);
-	cancelInstall(error);
-}
-
-// Displays the error message to the user
-function displayError(error)
-{
-    // If the error code was -215
-    if(error == READ_ONLY)
-    {
-        alert("The installation of " + displayName +
-            " failed.\nOne of the files being overwritten is read-only.");
-    }
-    // If the error code was -235
-    else if(error == INSUFFICIENT_DISK_SPACE)
-    {
-        alert("The installation of " + displayName +
-            " failed.\nThere is insufficient disk space.");
-    }
-    // If the error code was -239
-    else if(error == CHROME_REGISTRY_ERROR)
-    {
-        alert("The installation of " + displayName +
-            " failed.\nChrome registration failed.");
-    }
-    else
-    {
-        alert("The installation of " + displayName +
-            " failed.\nThe error code is: " + error);
-    }
-}
+XpiInstaller.install();
