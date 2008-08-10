@@ -174,7 +174,7 @@ user_pref("local_install.showAddonsMyConfigImage", false);
 user_pref("local_install.showBuildinWindowTitle", true);
 user_pref("local_install.showEMMenuButton", false);
 user_pref("local_install.showTMMenuButton", false);
-user_pref("local_install.titleTemplate", "JonDoFox ${Version}-2.0");
+user_pref("local_install.titleTemplate", "JonDoFox ${Version}-2.01");
 user_pref("mediapirate.firstTime", false);
 user_pref("network.cookie.cookieBehavior", 2);
 user_pref("network.cookie.prefsMigrated", true);
