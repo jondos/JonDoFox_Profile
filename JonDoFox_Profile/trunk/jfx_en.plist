@@ -37,7 +37,7 @@
 	<key>NoteInstallStart</key>
 	<string>This will add the JonDoFox profile %version to your Firefox profiles.</string>
 	<key>NoteInstallSuccessful</key>
-	<string>JonDoFox profile successfully installed.</string>
+	<string>JonDoFox profile successfully installed. (If you want to remove this profile, run this installer again).</string>
 	<key>NoteOverwriteOlderVersion</key>
 	<string>You have already installed the older JonDoFox version %olderversion. Click continue to upgrade it to version %newerversion.</string>
 	<key>NoteOverwriteSameVersion</key>
