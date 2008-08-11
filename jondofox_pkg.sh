@@ -472,6 +472,14 @@ uploadMacBundles()
 	scp JonDoFox_OS_X_lite_en.dmg root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/JonDoFox_OS_X_lite.dmg
 }
 
+uploadZipBundles()
+{
+	scp profile_full_de.zip root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/profile.zip
+	scp profile_lite_de.zip root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/profile_lite.zip
+	scp profile_full_en.zip root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/profile.zip
+	scp profile_lite_en.zip root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/profile_lite.zip
+}
+
 verboseMessage()
 {
 	if [ "${VERBOSE}" ]; then
@@ -479,7 +487,7 @@ verboseMessage()
 	fi
 }
 
-OPTSTR="vhs:l:t:p:c:ud"	
+OPTSTR="vhs:l:t:p:c:uzd"	
 getopts "${OPTSTR}" CMD_OPT
 while [ $? -eq 0 ]; 
 do
@@ -526,6 +534,8 @@ do
 			exit 0
 			;;
 		u) uploadMacBundles
+		   exit 0;;
+		z) uploadZipBundles
 		   exit 0;;
 		d) removeOldMacProfile
 		   exit 0;;
