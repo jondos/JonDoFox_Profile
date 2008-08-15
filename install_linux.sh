@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## Copyright (c) The JAP-Team, JonDos GmbH
 ##
@@ -70,7 +70,7 @@ DIALOG_TEXT_OW_NEWER_VERSION=""
 
 
 ## assign OS specific values for the global variables
-function variablesOsSpecific()
+variablesOsSpecific()
 {	
 	if [ -e /usr/bin/osascript ]; then
 		#Mac OS X specific settings
@@ -126,7 +126,7 @@ function variablesOsSpecific()
 }
 
 ## modifies each line of the profiles.ini
-function profilesIniModifications()
+profilesIniModifications()
 {
 	local i=1
 	echo ${ECHO_ESCAPE} ${JONDOFOX_PROFILE_ENTRY}
@@ -139,7 +139,7 @@ function profilesIniModifications()
 }
 
 ## filter for profiles.ini modifications 
-function modFilter()
+modFilter()
 {
 	local newProfileNr
 	local line=$1
@@ -157,7 +157,7 @@ function modFilter()
 }
 
 ## store bookmarks of old JonDoFox profile
-function saveInstalledBookmarks()
+saveInstalledBookmarks()
 {
 	SAVED_BOOKMARKS=""
 	if [ -e "${BOOKMARKS_FF3}" ]; then
@@ -171,14 +171,14 @@ function saveInstalledBookmarks()
 }
 
 ## copy saved bookmarks book to the JonDoFox profile folder
-function restoreBookmarks()
+restoreBookmarks()
 {
 	if [ "${SAVED_BOOKMARKS}" ] && [ -e "${SAVED_BOOKMARKS}" ]; then
 		mv -f "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
 	fi
 }
 
-function backupProfilesIni()
+backupProfilesIni()
 {
 	if ! [ -e "${PROFILES_INI_FILE}" ]; then
 		echo "ERROR: Could not save profiles.ini: not found."
@@ -194,7 +194,7 @@ function backupProfilesIni()
 }
 
 ## restores the profiles.ini from the corresponding backup-file
-function restoreOldSettings()
+restoreOldSettings()
 {
 	if [ -e "${PROFILES_INI_BACKUP_FILE}" ]; then
 		mv -f  ${VERBOSE} "${PROFILES_INI_BACKUP_FILE}" "${PROFILES_INI_FILE}"
@@ -203,7 +203,7 @@ function restoreOldSettings()
 }
 
 ## insert JonDoFox entry in profiles.ini
-function editProfilesIni()
+editProfilesIni()
 {
 	if  ! [ -e "${PROFILES_INI_FILE}" ]; then
 		echo "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
@@ -228,7 +228,7 @@ removeOldProfileFolder()
 }
 
 ##copies the JonDoFox profile to the corresponding firefox folder 
-function copyProfileFolder()
+copyProfileFolder()
 {
 	if ! [ -d "${FIREFOX_SETTINGS_PATH}" ]; then
 		echo "ERROR: Firefox is not installed."
@@ -255,7 +255,7 @@ function copyProfileFolder()
 	return 0
 }
 
-function isFirefoxRunning()
+isFirefoxRunning()
 {
 	if [ "$(ps aux | fgrep -i firefox | fgrep -v grep | fgrep -v install_linux)" ]; then
 		return 1
@@ -263,7 +263,7 @@ function isFirefoxRunning()
 	return 0
 }
 
-function isJonDoFoxInstalled()
+isJonDoFoxInstalled()
 {
 	local ret=$(grep JonDoFox "${PROFILES_INI_FILE}")
 	if [ "${ret}" ]; then
@@ -273,7 +273,7 @@ function isJonDoFoxInstalled()
 	fi
 }
 
-function getVersion()
+getVersion()
 {
 	local versionStr="";
 	if [ -e "$1" ]; then
@@ -284,17 +284,17 @@ function getVersion()
 	echo ${versionStr}
 }
 
-function getInstalledVersion()
+getInstalledVersion()
 {
 	getVersion "${INSTALLED_PREFS}" 
 }
 
-function getNewVersion()
+getNewVersion()
 {
 	getVersion "${NEW_PREFS}"	
 }
 
-function compareVersions()
+compareVersions()
 {
 	if [ $(expr "$1" \> "$2") = "1" ]; then
 		return 1
@@ -305,7 +305,7 @@ function compareVersions()
 	fi
 }
 
-function promptOverwrite()
+promptOverwrite()
 {
 	local conf=""
 	local dialog_return
