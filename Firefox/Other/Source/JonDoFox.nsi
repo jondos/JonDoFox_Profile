@@ -433,20 +433,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section "MR Tech Toolkit" MRTechToolkit
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}"
-                StrCpy $ExtensionName "MR Tech Toolkit"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}\*.*"
-
-        SectionEnd
-
-
         Section "NoScript" NoScript
         SectionIn 1 2 3 4
         
@@ -461,18 +447,18 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section "RefControl" RefControl
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{455D905A-D37C-4643-A9E2-F6FEFAA0424A}"
-                StrCpy $ExtensionName "RefControl"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{455D905A-D37C-4643-A9E2-F6FEFAA0424A}\*.*"
-
-        SectionEnd
+#        Section "RefControl" RefControl
+#        SectionIn 1 2 3 4
+#
+#                StrCpy $ExtensionGUID "{455D905A-D37C-4643-A9E2-F6FEFAA0424A}"
+#                StrCpy $ExtensionName "RefControl"
+#
+#                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+#                SetOverwrite on
+#
+#                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{455D905A-D37C-4643-A9E2-F6FEFAA0424A}\*.*"
+#
+#        SectionEnd
 
 
         Section "SafeCache" SafeCache
@@ -489,18 +475,18 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section "SwitchProxy Tool" SwitchProxyTool
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}"
-                StrCpy $ExtensionName "SwitchProxy Tool"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}\*.*"
-
-        SectionEnd
+#        Section "SwitchProxy Tool" SwitchProxyTool
+#        SectionIn 1 2 3 4
+#
+#                StrCpy $ExtensionGUID "{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}"
+#                StrCpy $ExtensionName "SwitchProxy Tool"
+#
+#                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+#                SetOverwrite on
+#
+#                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}\*.*"
+#
+#        SectionEnd
 
 
         Section "TabRenamizer" TabRenamizer
@@ -774,6 +760,20 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{89736E8E-4B14-4042-8C75-AD00B6BD3900}\*.*"
 
         SectionEnd
+        
+
+        Section /o "MR Tech Toolkit" MRTechToolkit
+        SectionIn 1 3
+
+                StrCpy $ExtensionGUID "{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}"
+                StrCpy $ExtensionName "MR Tech Toolkit"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}\*.*"
+
+        SectionEnd
 
 SectionGroupEnd
 
@@ -794,11 +794,10 @@ SectionGroupEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${JSView} $(DescJSView)
   !insertmacro MUI_DESCRIPTION_TEXT ${MediaPirate} $(DescMediaPirate)
   !insertmacro MUI_DESCRIPTION_TEXT ${MenuEditor} $(DescMenuEditor)
-  !insertmacro MUI_DESCRIPTION_TEXT ${MRTechToolkit} $(DescMRTechToolkit)
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
-  !insertmacro MUI_DESCRIPTION_TEXT ${RefControl} $(DescRefControl)
+#  !insertmacro MUI_DESCRIPTION_TEXT ${RefControl} $(DescRefControl)
   !insertmacro MUI_DESCRIPTION_TEXT ${SafeCache} $(DescSafeCache)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SwitchProxyTool} $(DescSwitchProxyTool)
+#  !insertmacro MUI_DESCRIPTION_TEXT ${SwitchProxyTool} $(DescSwitchProxyTool)
   !insertmacro MUI_DESCRIPTION_TEXT ${TabRenamizer} $(DescTabRenamizer)
   !insertmacro MUI_DESCRIPTION_TEXT ${TemporaryInbox} $(DescTemporaryInbox)
   !insertmacro MUI_DESCRIPTION_TEXT ${AddBookmarkHere} $(DescAddBookmarkHere)
@@ -813,6 +812,7 @@ SectionGroupEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${Sage} $(DescSage)
   !insertmacro MUI_DESCRIPTION_TEXT ${ScribeFire} $(DescScribeFire)
   !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)
+  !insertmacro MUI_DESCRIPTION_TEXT ${MRTechToolkit} $(DescMRTechToolkit)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 
@@ -976,11 +976,11 @@ Function RequiredSelections
          SectionSetFlags ${JSView} $0
          SectionSetFlags ${MediaPirate} $0
          SectionSetFlags ${MenuEditor} $0
-         SectionSetFlags ${MRTechToolkit} $0
+#         SectionSetFlags ${MRTechToolkit} $0
          SectionSetFlags ${NoScript} $0
-         SectionSetFlags ${RefControl} $0
+#         SectionSetFlags ${RefControl} $0
          SectionSetFlags ${SafeCache} $0
-         SectionSetFlags ${SwitchProxyTool} $0
+#         SectionSetFlags ${SwitchProxyTool} $0
          SectionSetFlags ${TabRenamizer} $0
          SectionSetFlags ${TemporaryInbox} $0
 
@@ -1046,6 +1046,7 @@ Function SectionDebug
                 SectionGetFlags ${Sage} $9
                 SectionGetFlags ${ScribeFire} $R5
                 SectionGetFlags ${TinyUrlCreator} $R6
+                SectionGetFlags ${MRTechToolkit} $R7
 
 
                 StrCpy $DEBUGVALUE "instPre$\n \
@@ -1067,7 +1068,8 @@ Function SectionDebug
                                    ImageZoom: $8$\n \
                                    Sage: $9$\n \
                                    ScribeFire: $R5$\n \
-                                   TinyUrlCreator: $R6$\n"
+                                   TinyUrlCreator: $R6$\n \
+                                   MRTechToolkit: $R7"
 
                 Call DebugOutput
 
@@ -1237,22 +1239,6 @@ Function .onVerifyInstDir
                       okay:
                             StrCpy $Error "false"
 
-#                            Push $INSTDIR
-#                            Call CheckFolder     # check write permission on folder
-
-#                            ${If} $InstDirOkay == "Read only"
-                                  # Ask for Admin Rights
-#                                  MessageBox MB_ICONQUESTION|MB_YESNO $(YouNeedAdminRights) IDYES yes IDNO no
-#                                  no:
-#                                  StrCpy $varMakeUserAdministrator "false"
-#                                  Goto wrong
-#                                  yes:
-#                                  StrCpy $varMakeUserAdministrator "true"
-#                                  Goto done
-#                            ${EndIf}
-#                            Call SearchProfileFolder
-#                            StrCmp $Error "false" done 0
-
                              Goto done
 
                       wrong:                            # Folder invalid, back to Folderselection Window
@@ -1400,6 +1386,9 @@ Push $R0
         SectionSetFlags ${ScribeFire} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions TinyUrlCreator
         SectionSetFlags ${TinyUrlCreator} $R0
+        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit
+        SectionSetFlags ${MRTechToolkit} $R0
+        
         
         StrCpy $varReload "true"
         
@@ -1534,6 +1523,10 @@ Function SaveOptions
 
         SectionGetFlags ${TinyUrlCreator} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions TinyUrlCreator $R0
+
+        SectionGetFlags ${MRTechToolkit} $R0
+        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit $R0
+        
         
 #        LockWindow on
         HideWindow
@@ -2179,6 +2172,13 @@ FunctionEnd
 Function comPre         # Reset wrong path error
 
         ${If} $varReload == "true"
+
+        SectionGetFlags ${JFPortable} $R0
+
+        ${If} $R0 == 1
+                StrCpy $PROGRAMINSTALL "true"
+        ${EndIf}
+
               Abort
               Goto Reload
         ${EndIf}
@@ -2220,7 +2220,6 @@ Function FinishedInstall
         ${If} $Update == "true"
               Call RestoreBackup
         ${EndIf}
-
 
         ${If} $PROGRAMINSTALL == "true"
                 ExecShell "open" $INSTDIR
