@@ -4,29 +4,30 @@
 0,Version,2,0
 1,AppDir,F:\PortableApps\FirefoxPortable\App\firefox
 
-[Directories,9]
+[Directories,10]
 0,F:\PortableApps\FirefoxPortable\App\firefox\components
 1,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}\components
 2,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{00084897-021a-4361-8423-083407a033e0}\components
-3,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{b9db16a4-6edc-47ec-a1f4-b86292ed211d}\components
-4,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}\components
-5,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}\components
-6,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{455D905A-D37C-4643-A9E2-F6FEFAA0424A}\components
-7,F:\PortableApps\FirefoxPortable\Data\plugins
-8,F:\PortableApps\FirefoxPortable\App\firefox\plugins
+3,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{63df8e21-711c-4074-a257-b065cadc28d8}\components
+4,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{b9db16a4-6edc-47ec-a1f4-b86292ed211d}\components
+5,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}\components
+6,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}\components
+7,F:\PortableApps\FirefoxPortable\Data\profile\extensions\{455D905A-D37C-4643-A9E2-F6FEFAA0424A}\components
+8,F:\PortableApps\FirefoxPortable\Data\plugins
+9,F:\PortableApps\FirefoxPortable\App\firefox\plugins
 
 [Files,11]
 0,browser.xpt,0,348188,1212071056000
 1,nsIQTScriptablePlugin.xpt,0,2394,1121597468000
-2,nsICSPermManager.xpt,2,385,1218196252000
-3,nsICSHiddenMenuItems.xpt,2,280,1218196252000
-4,nsICSTempExceptions.xpt,2,274,1218196252000
-5,nsICSLast10Hosts.xpt,2,261,1218196252000
-6,nsICookieSafe.xpt,2,254,1218196252000
-7,dhIUtilService.xpt,3,3359,1216640064000
-8,dhIConvertMgr.xpt,3,854,1216640064000
-9,dhIDownloadMgr.xpt,3,603,1216640064000
-10,dhIMediaListMgr.xpt,3,372,1216640064000
+2,nsICSPermManager.xpt,2,385,1218196170000
+3,nsICSHiddenMenuItems.xpt,2,280,1218196170000
+4,nsICSTempExceptions.xpt,2,274,1218196170000
+5,nsICSLast10Hosts.xpt,2,261,1218196170000
+6,nsICookieSafe.xpt,2,254,1218196170000
+7,dhIUtilService.xpt,4,3359,1216640064000
+8,dhIConvertMgr.xpt,4,854,1216640064000
+9,dhIDownloadMgr.xpt,4,603,1216640064000
+10,dhIMediaListMgr.xpt,4,372,1216640064000
 
 [ArchiveItems,0]
 
