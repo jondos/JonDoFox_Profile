@@ -1,0 +1,24 @@
+<!ENTITY dialog.title "Opções de Add Bookmark Here">
+<!ENTITY position.group "Posição do ítem de Menu">
+<!ENTITY position.item.abHere "Escolher [Add Bookmark Here...] posição:">
+<!ENTITY position.item.opTabs "Escolher [Abrir em todas as abas] posição:">
+<!ENTITY position.option.top "Topo">
+<!ENTITY position.option.bottom "Fundo">
+<!ENTITY position.option.hidden "Escondido">
+<!ENTITY position.misc.context "Mostrar [Add Bookmark Here...] no menu de contexto">
+<!ENTITY clicking.group "Clique do Mouse">
+<!ENTITY clicking.item.buttonL "Botão esquerdo para:">
+<!ENTITY clicking.item.buttonM "Botão do meio para:">
+<!ENTITY clicking.item.buttonR "Botão direito para:">
+<!ENTITY clicking.option.bmPage "Adicionar aos Favoritos essa Página">
+<!ENTITY clicking.option.bmNoUI "Adicionar aos Favoritos essa Página (sem diálogo)">
+<!ENTITY clicking.option.bmTabs "Adicionar aos Favoritos Todas as Abas">
+<!ENTITY clicking.misc.insertTop "Inserir Favoritos no Topo do Menu">
+<!ENTITY starUI.group "Diálogo Estrela dos Favoritos">
+<!ENTITY starUI.expand.folderRow "Expandir a Árvore de Diretório">
+<!ENTITY starUI.expand.tagsRow "Expandir a Lista de Tags">
+<!ENTITY starUI.misc.singleClick "Clique Único na Estrela dos Favoritos para mostrar diálogo">
+<!ENTITY menubar.group "Menu dos Favoritos">
+<!ENTITY menubar.item.abHere "Mostrar [Add Bookmark Here...] como ítem de menu">
+<!ENTITY menubar.item.bmPage "Mostrar [Adicionar essa página] como ítem de menu">
+<!ENTITY menubar.item.bmTabs "Mostrar [Adicionar essa Todas as Abas] como ítem de menu">
