@@ -409,20 +409,27 @@ on get_version(prefs_js_file)
 	end tell
 	set parent_path to getAbsolutePath(parent_pathURL)
 	try
-		set rawVersionResult to do shell script "grep JonDoFox.*Version " & parent_path
+		set versionStr to do shell script "fgrep jondofox.profile_version " & parent_path & " | xargs -I % expr % : \".*, \\([0-9].*[0-9]\\).*\""
+		return versionStr
 	on error
-		return "???"
+		(*try
+			set rawVersionResult to do shell script "grep JonDoFox.*Version " & parent_path
+			set version_str_offset to the offset of "{Version}-" in rawVersionResult
+			if (version_str_offset is not null) then
+				set versionStr to text (version_str_offset + 10) thru -4 of rawVersionResult
+				return versionStr
+			else
+				return "???"
+			end if
+			
+		on error
+			return "???"
+		end try*)
+		return ""
 	end try
 	
 	-- extracts the version number
-	set version_str_offset to the offset of "{Version}-" in rawVersionResult
-	if (version_str_offset is not null) then
-		set version_str to text (version_str_offset + 10) thru -4 of rawVersionResult
-	else
-		return "???"
-	end if
 	
-	return version_str
 end get_version
 
 on getLangProperty(propertyKey)

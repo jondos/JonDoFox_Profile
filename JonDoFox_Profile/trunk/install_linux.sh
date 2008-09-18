@@ -68,6 +68,7 @@ DIALOG_TEXT_SAME_VERSION=""
 DIALOG_TEXT_OW_OLDER_VERSION=""
 DIALOG_TEXT_OW_NEWER_VERSION=""
 
+OLDER_VERSION="<=2.0.1"
 
 ## assign OS specific values for the global variables
 variablesOsSpecific()
@@ -277,11 +278,19 @@ getVersion()
 {
 	local versionStr="";
 	if [ -e "$1" ]; then
-		versionStr=$(grep JonDoFox.*Version "$1")
-		versionStr=${versionStr##*-}
-		versionStr=${versionStr%\");} #"
+		#versionStr=$(grep JonDoFox.*Version "$1")
+		#if [$? -ne 0 ]; then
+			versionStr=$(fgrep jondofox.profile_version "$1" | xargs -I % expr % : ".*, \([0-9].*[0-9]\).*")
+		#else
+		#	versionStr=${versionStr##*-}
+		#	versionStr=${versionStr%\");} #"
+		#fi
 	fi
-	echo ${versionStr}
+	if [ "${versionStr}" ]; then
+		echo ${versionStr}
+	else
+		echo "${OLDER_VERSION}"
+	fi
 }
 
 getInstalledVersion()
@@ -296,6 +305,12 @@ getNewVersion()
 
 compareVersions()
 {
+	if  [ "$1" = "${OLDER_VERSION}" ]; then
+		return 2
+	elif ! [ "$2" = "${OLDER_VERSION}" ]; then
+		return 1;
+	fi
+	
 	if [ $(expr "$1" \> "$2") = "1" ]; then
 		return 1
 	elif [ $(expr "$1" \< "$2") = "1" ]; then
@@ -322,7 +337,7 @@ promptOverwrite()
 		clear
 		return ${dialog_return}
 	else
-		echo ${ECHO_ESCAPE} "${OVERWRITE_DIALOG_TEXT}\n(y/n) ? \c"
+		echo ${ECHO_ESCAPE} "${OVERWRITE_DIALOG_TEXT}\n(y/n) ?\c"
 		read conf
 		conf=${conf%%"es"}
 		if [ "${conf}" = y ]; then	
