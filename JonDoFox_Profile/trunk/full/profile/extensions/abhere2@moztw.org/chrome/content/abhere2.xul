@@ -293,9 +293,11 @@ var abHere2 = {
                   abHere2.expandRow(aRow);
                   self._element("newFolderBox").collapsed = false;
                   self._element("chooseFolderSeparator").hidden = self._element("chooseFolderMenuItem").hidden = true;
-                  self._folderTree.place = "place:excludeItems=1&excludeQueries=1&excludeReadOnlyFolders=1&folder="+PlacesUIUtils.allBookmarksFolderId;
+                  const FOLDER_TREE_PLACE_URI = "place:excludeItems=1&excludeQueries=1&excludeReadOnlyFolders=1&folder="+PlacesUIUtils.allBookmarksFolderId;
+                  self._folderTree.place = FOLDER_TREE_PLACE_URI;
                   setTimeout(function(self) {
                      if (self._itemId != -1) {
+                        self._folderTree.place = FOLDER_TREE_PLACE_URI;
                         self._folderTree.selectItems([PlacesUtils.bookmarks.getFolderIdForItem(self._itemId)]);
                         self._folderTree.boxObject.ensureRowIsVisible(self._folderTree.view.selection.currentIndex);
                      }
