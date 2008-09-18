@@ -113,6 +113,6 @@ LangString DescScribeFire ${LANG_ENGLISH} "Post to your blog without ever leavin
 
 LangString DescTinyUrlCreator ${LANG_ENGLISH} "Convenient tool to create small url redirects from longer ones"
 
-LangString DescPlainTexttoLink ${LANG_ENGLISH} "test"
+LangString DescPlainTexttoLink ${LANG_ENGLISH} "Open links written in plain text"
 
-LangString DescCopyPlainText ${LANG_ENGLISH} "test"
+LangString DescCopyPlainText ${LANG_ENGLISH} "Copies text without formatting"

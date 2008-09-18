@@ -112,6 +112,6 @@ LangString DescScribeFire ${LANG_GERMAN} "Erlaubt das Schreiben Ihres Blogs ohne
 
 LangString DescTinyUrlCreator ${LANG_GERMAN} "Komfortables Werkzeug zum Erstellen von kleinen URL-Weiterleitungen aus l‰ngeren"
 
-LangString DescPlainTexttoLink ${LANG_GERMAN} "test"
+LangString DescPlainTexttoLink ${LANG_GERMAN} "÷ffnet in bloﬂem Text geschriebene Links"
 
-LangString DescCopyPlainText ${LANG_GERMAN} "test"
+LangString DescCopyPlainText ${LANG_GERMAN} "Kopiert Text ohne Formatierung"

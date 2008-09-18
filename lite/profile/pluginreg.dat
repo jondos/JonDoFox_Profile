@@ -4,18 +4,6 @@ Generated File. Do not edit.
 Version|0.09|$
 
 [PLUGINS]
-C:\Program Files\Adobe\Reader 8.0\Reader\browser\nppdf32.dll|$
-|$
-1178830354000|1|5|$
-Adobe PDF Plug-In For Firefox and Netscape|$
-Adobe Acrobat|$
-6
-0|application/pdf|Acrobat Portable Document Format|pdf|$
-1|application/vnd.adobe.x-mars|Acrobat Portable XML Document Format|mars|$
-2|application/vnd.fdf|Acrobat Forms Data Format|fdf|$
-3|application/vnd.adobe.xfdf|XML Version of Acrobat Forms Data Format|xfdf|$
-4|application/vnd.adobe.xdp+xml| Acrobat XML Data Package|xdp|$
-5|application/vnd.adobe.xfd+xml|Adobe FormFlow99 Data File|xfd|$
 C:\Program Files\Java\jre1.6.0_07\bin\npjpi160_07.dll|$
 |$
 1213064822000|1|5|$
@@ -139,10 +127,34 @@ Shockwave Flash|$
 2
 0|application/x-shockwave-flash|Adobe Flash movie|swf|$
 1|application/futuresplash|FutureSplash movie|spl|$
-F:\PortableApps\FirefoxPortable\App\firefox\plugins\npnul32.dll|$
+C:\Program Files\Mozilla Firefox\plugins\nppdf32.dll|$
 |$
-1215051906000|1|5|$
+1178830354000|1|5|$
+Adobe PDF Plug-In For Firefox and Netscape|$
+Adobe Acrobat|$
+6
+0|application/pdf|Acrobat Portable Document Format|pdf|$
+1|application/vnd.adobe.x-mars|Acrobat Portable XML Document Format|mars|$
+2|application/vnd.fdf|Acrobat Forms Data Format|fdf|$
+3|application/vnd.adobe.xfdf|XML Version of Acrobat Forms Data Format|xfdf|$
+4|application/vnd.adobe.xdp+xml| Acrobat XML Data Package|xdp|$
+5|application/vnd.adobe.xfd+xml|Adobe FormFlow99 Data File|xfd|$
+C:\Program Files\Mozilla Firefox\plugins\npnul32.dll|$
+|$
+1216801173889|1|5|$
 Default Plug-in|$
 Mozilla Default Plug-in|$
 1
 0|*|Mozilla Default Plug-in|*|$
+C:\Program Files\Adobe\Reader 8.0\Reader\browser\nppdf32.dll|$
+|$
+1178830354000|1|13|$
+Adobe PDF Plug-In For Firefox and Netscape|$
+Adobe Acrobat|$
+6
+0|application/pdf|Acrobat Portable Document Format|pdf|$
+1|application/vnd.adobe.x-mars|Acrobat Portable XML Document Format|mars|$
+2|application/vnd.fdf|Acrobat Forms Data Format|fdf|$
+3|application/vnd.adobe.xfdf|XML Version of Acrobat Forms Data Format|xfdf|$
+4|application/vnd.adobe.xdp+xml| Acrobat XML Data Package|xdp|$
+5|application/vnd.adobe.xfd+xml|Adobe FormFlow99 Data File|xfd|$
