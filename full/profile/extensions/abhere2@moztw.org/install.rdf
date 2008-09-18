@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>abhere2@moztw.org</em:id>
-    <em:version>3.0.20080912</em:version>
+    <em:version>3.0.20080915</em:version>
 
     <em:targetApplication>
       <Description>
@@ -99,6 +99,16 @@
         <em:creator>yuoo2k</em:creator>
         <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
         <em:description>Dodaje element "Dodaj zakładkę tutaj..." do menu kontekstowego menu "Zakładki".</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>pt-BR</em:locale>
+        <em:name>Add Bookmark Here ²</em:name>
+        <em:creator>yuoo2k</em:creator>
+        <em:homepageURL>https://addons.mozilla.org/firefox/addon/3880</em:homepageURL>
+        <em:description>Adiciona ao menu de Favoritos o item "Adicionar Favoritos Aqui..."</em:description>
       </Description>
     </em:localized>
 
