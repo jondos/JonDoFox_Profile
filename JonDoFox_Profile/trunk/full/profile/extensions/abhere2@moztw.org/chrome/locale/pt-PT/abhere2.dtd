@@ -1,0 +1,24 @@
+<!ENTITY dialog.title "Adicionar Bookmark Here ² Options">
+<!ENTITY position.group "Posição do Menuitem">
+<!ENTITY position.item.abHere "Escolha a posição [Add Bookmark Here...]:">
+<!ENTITY position.item.opTabs "Escolha a posição [Open All in Tabs]:">
+<!ENTITY position.option.top "Topo">
+<!ENTITY position.option.bottom "Fundo">
+<!ENTITY position.option.hidden "Oculto">
+<!ENTITY position.misc.context "Mostrar [Add Bookmark Here...] no menu de contexto">
+<!ENTITY clicking.group "Clique do rato">
+<!ENTITY clicking.item.buttonL "Clique esquerdo para:">
+<!ENTITY clicking.item.buttonM "Clique central para:">
+<!ENTITY clicking.item.buttonR "Clique direito para:">
+<!ENTITY clicking.option.bmPage "Adicionar esta pasta aos marcadores">
+<!ENTITY clicking.option.bmNoUI "Adicionar esta pasta aos marcadores (sem diálogo)">
+<!ENTITY clicking.option.bmTabs "Adicionar todos os separadores aos marcadores">
+<!ENTITY clicking.misc.insertTop "Inserir marcadores ao topo do menu">
+<!ENTITY starUI.group "Diálogo de início dos marcadores">
+<!ENTITY starUI.expand.folderRow "Expandir a árvore das pastas">
+<!ENTITY starUI.expand.tagsRow "Expandir a lista de etiquetas">
+<!ENTITY starUI.misc.singleClick "Clique único na estrela de marcadores para mostrar o diálogo">
+<!ENTITY menubar.group "Menu Marcadores">
+<!ENTITY menubar.item.abHere "Mostrar o menuitem de [Add Bookmark Here...]">
+<!ENTITY menubar.item.bmPage "Mostrar o menuitem de [Bookmark This Page]">
+<!ENTITY menubar.item.bmTabs "Mostra o menutiem de [Bookmark All Tabs]">
