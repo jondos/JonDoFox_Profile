@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks indstillingsfiler">
 <!ENTITY foxclocks.zonepicker.description.label "Zonevælger">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Viser alle tilgængelige tidszoner. Zonerne bliver til steder når de tilføjes til Overvågningslisten">
+<!ENTITY foxclocks.zonepicker.search.initvalue "">
+<!ENTITY foxclocks.zonepicker.search.accesskey "">
+<!ENTITY foxclocks.zonepicker.search.tooltip "">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Tidszone">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Tidszone">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC Offset">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "e">
 <!ENTITY options.data.update.checknow.button.label "Check nu">
 <!ENTITY options.data.update.checknow.button.accesskey "C">
+<!ENTITY options.advanced.caption "">
+<!ENTITY options.advanced.newloc.caption.label "">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
+<!ENTITY options.advanced.misc.caption.label "">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
+<!ENTITY options.advanced.alert.autoupdate.label "">
+<!ENTITY options.advanced.menuitem.hidden.label "">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "">
 <!ENTITY zoneinfo.title.zone "Tidszone-egenskaber">
 <!ENTITY zoneinfo.title.location "Egenskaber for sted">
 <!ENTITY zoneinfo.tab.zone.label "Tidszone">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "indtil">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "n">
+<!ENTITY zoneinfo.display.flag.caption "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.caption.label "">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.clock.label "">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
 <!ENTITY welcome.title "Velkommen">
 <!ENTITY welcome.header "Velkommen til FoxClocks">
 <!ENTITY welcome.message "FoxClocks viser op til mange ure i programmets statuslinje eller værktøjslinje for hvilken som helst af hundredevis af byer verden over, ved hjælp af en database med tidszoner og sommertidsoplysninger. FoxClocks integrerer sig også med Google Earth (hvis du har det installeret), så du kan hoppe direkte til ethvert sted i FoxClocks database.|Da dette er første gang du bruger FoxClocks, vil du måske konfigurere hvilke ure FoxClocks skal vise. Vi har sørget for en standardliste med steder.|Denne meddelelse vil ikke blive vist fremover; FoxClocks kan tilgås fra Funktioner-menuen, ved at dobbeltklikke på ethver ur, eller ved at klikke på FoxClocks knappen, hvis den er synlig.">

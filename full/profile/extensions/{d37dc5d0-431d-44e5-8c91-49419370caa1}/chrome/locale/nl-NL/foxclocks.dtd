@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -32,13 +19,13 @@
 <!ENTITY foxclocks.accelkey.options "O">
 <!ENTITY foxclocks.button.add.label "Toevoegen &gt;&gt;">
 <!ENTITY foxclocks.button.add.accesskey "T">
-<!ENTITY foxclocks.button.add.tooltip "Voegt locatie(s) aan de aan de lijst toe, gebaseerd op de tijdszone(s) zoals geselecteerd in de zoneselectie">
+<!ENTITY foxclocks.button.add.tooltip "Voegt locatie(s) aan de aan de lijst toe, gebaseerd op de tijdzone(s) zoals geselecteerd in de zoneselectie">
 <!ENTITY foxclocks.button.remove.label "&lt;&lt; Verwijderen">
 <!ENTITY foxclocks.button.remove.accesskey "V">
 <!ENTITY foxclocks.button.remove.tooltip "Verwijdert geselecteerde locatie(s) uit de lijst">
 <!ENTITY foxclocks.button.addas.label "Toevoegen als... &gt;&gt;">
 <!ENTITY foxclocks.button.addas.accesskey "S">
-<!ENTITY foxclocks.button.addas.tooltip "Voegt een locatie toe gebaseerd op de zone zoals geselecteerd in de zoneselectie, via de &apos;Locatie-eigenschappen..&apos; dialoog">
+<!ENTITY foxclocks.button.addas.tooltip "Voegt een locatie toe gebaseerd op de zone zoals geselecteerd in de zoneselectie, via de &apos;Locatie-eigenschappen...&apos;-dialoog">
 <!ENTITY foxclocks.button.moveup.label "Omhoog">
 <!ENTITY foxclocks.button.moveup.accesskey "H">
 <!ENTITY foxclocks.button.moveup.tooltip "Verplaatst de geselecteerde locatie omhoog in de lijst">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks instellingen bestanden">
 <!ENTITY foxclocks.zonepicker.description.label "Zoneselectie">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Toont alle beschikbare tijdzones. Zones worden locaties wanneer ze aan de lijst worden toegevoegd">
+<!ENTITY foxclocks.zonepicker.search.initvalue "Zoeken">
+<!ENTITY foxclocks.zonepicker.search.accesskey "Q">
+<!ENTITY foxclocks.zonepicker.search.tooltip "Zonelijst doorzoeken op land of stad">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Tijdzone">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Tijdzone">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC instelling">
@@ -112,7 +102,7 @@
 <!ENTITY foxclocks.locationlist.header.location.label "Locatie">
 <!ENTITY foxclocks.locationlist.header.location.tooltip "Locatie in de tijdzone. Dubbelklik op een locatie om de eigenschappen te configureren">
 <!ENTITY foxclocks.locationlist.header.time.label "Tijd">
-<!ENTITY foxclocks.locationlist.header.time.tooltip "Lokale tijd. Tijdsopmaak is volledig configureerbaar">
+<!ENTITY foxclocks.locationlist.header.time.tooltip "Lokale tijd. Tijdopmaak is volledig configureerbaar">
 <!ENTITY foxclocks.locationlist.nolocs.label "(geen locaties geselecteerd)">
 <!ENTITY foxclocks.locationlist.context.moveup.label "Omhoog">
 <!ENTITY foxclocks.locationlist.context.moveup.accesskey "H">
@@ -127,7 +117,7 @@
 <!ENTITY foxclocks.remove.confirm.label "Geselecteerde locatie(s) verwijderen?">
 <!ENTITY foxclocks.import.confirm.label "Bestaande FoxClocks instellingen overschrijven?">
 <!ENTITY options.title "FoxClocks opties">
-<!ENTITY options.format.caption "Tijdsopmaak">
+<!ENTITY options.format.caption "Tijdopmaak">
 <!ENTITY options.format.description "Bepaalt hoe de tijd wordt weergegeven in">
 <!ENTITY options.format.clockchoice.clock.label "de statusbalk- / werkbalk klokken">
 <!ENTITY options.format.clockchoice.tooltip.label "de statusbalk- / werkbalktooltip">
@@ -192,8 +182,8 @@
 <!ENTITY options.clock.style.radio.clocks.accesskey "K">
 <!ENTITY options.clock.style.radio.icon.label "FoxClocks pictogram (de muis erboven laat de klokken verschijnen)">
 <!ENTITY options.clock.style.radio.icon.accesskey "P">
-<!ENTITY options.data.caption "Tijdszonegegevens">
-<!ENTITY options.data.info.caption.label "Huidige tijdszonedatabase">
+<!ENTITY options.data.caption "Tijdzonegegevens">
+<!ENTITY options.data.info.caption.label "Huidige tijdzonedatabase">
 <!ENTITY options.data.info.source.label "Bron:">
 <!ENTITY options.data.info.version.label "Versie:">
 <!ENTITY options.data.info.date.label "Datum:">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "I">
 <!ENTITY options.data.update.checknow.button.label "Nu controleren">
 <!ENTITY options.data.update.checknow.button.accesskey "C">
+<!ENTITY options.advanced.caption "Geavanceerd">
+<!ENTITY options.advanced.newloc.caption.label "Een locatie aan de lijst toevoegen">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "Klok in statusbalk/werkbalk weergeven">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "Vlag in statusbalk/werkbalk weergeven">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "Klok in statusbalk-/werkbalktooltip weergeven">
+<!ENTITY options.advanced.misc.caption.label "Diversen">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "Vlaggen in statusbalk-/werkbalktooltip weergeven">
+<!ENTITY options.advanced.alert.autoupdate.label "Updatewaarschuwingen voor tijdzonedatabase weergeven">
+<!ENTITY options.advanced.menuitem.hidden.label "FoxClocks in menu Extra weergeven">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "Verwijderen van locaties uit lijst bevestigen">
 <!ENTITY zoneinfo.title.zone "Tijdzone-eigenschappen">
 <!ENTITY zoneinfo.title.location "Locatie-eigenschappen">
 <!ENTITY zoneinfo.tab.zone.label "Tijdzone">
@@ -245,9 +245,28 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "v">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "tot">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "t">
+<!ENTITY zoneinfo.display.flag.caption "Statusbalk-/werkbalkvlag">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Uitgeschakeld">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "U">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Standaard">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "r">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Aangepast">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "A">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Voorinstellingen...">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "V">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Klik om vooringestelde vlagafbeeldingen te selecteren">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Bladeren...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "B">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Klik om een aangepaste vlag te selecteren">
+<!ENTITY zoneinfo.display.customformat.caption.label "Aangepaste opmaak (geavanceerd)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "bijv. &apos;&lt;l&gt;-&lt;24h&gt;&lt;m&gt;&apos; geeft &apos;[Locatie]-1523&apos;. Kijk bij Opties -&gt; Tijdopmaak voor beschikbare plaatshouders">
+<!ENTITY zoneinfo.display.customformat.clock.label "Statusbalk-/werkbalkklok">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "l">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Statusbalk-/werkbalktooltip">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "k">
 <!ENTITY welcome.title "Welkom">
 <!ENTITY welcome.header "Welkom bij FoxClocks">
-<!ENTITY welcome.message "FoxClocks toont lokale tijden over de hele wereld in uw statusbalk of een willekeurige werkbalk. Vrijwel alle tijdszones op de wereld worden ondersteund. FoxClocks stelt u ook in staat om elke tijdszone in Google Earth te verkennen.|Om te beginnen:|-creëer een klok voor elke tijdszone die u wilt zien, en wijzig optioneel de standaardnaam van de klok;|-pas de stijl, kleur en alternatieve kleur (buiten kantoortijden bijvoorbeeld) aan;|-kies één van de standaard tijdsopmaken voor uw klokken, of creëer uw eigen opmaak.|Dit bericht wordt slecht éénmaal getoond; open FoxClocks vanuit het Extra menu of door te dubbelklikken op een klok.">
+<!ENTITY welcome.message "FoxClocks toont lokale tijden over de hele wereld in uw statusbalk of een willekeurige werkbalk. Vrijwel alle tijdzones op de wereld worden ondersteund. FoxClocks stelt u ook in staat om elke tijdzone in Google Earth te verkennen.|Om te beginnen:|-creëer een klok voor elke tijdzone die u wilt zien, en wijzig optioneel de standaardnaam van de klok;|-pas de stijl, kleur en alternatieve kleur (buiten kantoortijden bijvoorbeeld) aan;|-kies één van de standaard tijdopmaken voor uw klokken, of creëer uw eigen opmaak.|Dit bericht wordt slecht éénmaal getoond; open FoxClocks vanuit het Extra menu of door te dubbelklikken op een klok.">
 <!ENTITY welcome.checkbox.launch.label "FoxClocks starten">
 <!ENTITY welcome.checkbox.launch.accesskey "S">
 <!ENTITY welcome.checkbox.openhomepage.label "FoxClocks homepage openen">

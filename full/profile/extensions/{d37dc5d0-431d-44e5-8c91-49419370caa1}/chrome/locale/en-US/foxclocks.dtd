@@ -275,6 +275,25 @@ package or its installation directory on your computer.
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "until">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "n">
+<!ENTITY zoneinfo.display.flag.caption "Statusbar/toolbar flag">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Disabled">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Standard">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "R">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Custom">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "O">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Presets...">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "P">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Click to select preset flag images">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Browse...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "W">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Click to browse for a custom flag">
+<!ENTITY zoneinfo.display.customformat.caption.label "Custom Formats (advanced)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "e.g. '&lt;l&gt;-&lt;24h&gt;&lt;m&gt;' gives '[Location]-1523'. See Options->Time Format tab for available placeholders">
+<!ENTITY zoneinfo.display.customformat.clock.label "Statusbar/toolbar clock">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "L">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Statusbar/toolbar clock tooltip">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "K">
 
 <!ENTITY welcome.title "Welcome">
 <!ENTITY welcome.header "Welcome to FoxClocks">

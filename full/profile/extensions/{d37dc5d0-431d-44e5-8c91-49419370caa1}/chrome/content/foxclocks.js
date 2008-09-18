@@ -22,7 +22,6 @@ FoxClocks.prototype =
 	// ====================================================================================	
 	quickTest : function()
 	{
-		// const TESTING = true;
 		const TESTING = false;
 
 		if (TESTING == false)
@@ -35,7 +34,7 @@ FoxClocks.prototype =
 			// ====================================================================================
 			// ====================================================================================
 			
-		
+            
 			// ====================================================================================
 			// ====================================================================================
 			fc_gLogger.log("FoxClocks::quickTest(): success");
@@ -53,17 +52,17 @@ FoxClocks.prototype =
 	onLoad : function()
 	{
 		fc_gLogger.log("+FoxClocks::onLoad()");
-		
-		// AFM - English-only
-		//
-		if (fc_gUtils.getAppLocale().major != "en")
-			document.getElementById("fc-zonepicker-searchbox-hbox").setAttribute("collapsed", "true");
-				
+						
 		this.zonePicker = document.getElementById("fc-zonepicker");
 		this.watchlistTree = document.getElementById("fc-watchlist");
 		this.searchBox = document.getElementById("fc-zonepicker-searchbox");
 		this.searchBox.setAttribute("class", "fc-zonepicker-searchbox-inactive");
 
+		// AFM - missing locale strings
+		//
+		if (this.searchBox.getAttribute("fc_init_value") == "")
+			this.searchBox.setAttribute("collapsed", "true");
+		
 		fc_gPrefManager.addPrefObserver("foxclocks.", this);
 		fc_gObserverService.addObserver(this, "foxclocks", false);
 			

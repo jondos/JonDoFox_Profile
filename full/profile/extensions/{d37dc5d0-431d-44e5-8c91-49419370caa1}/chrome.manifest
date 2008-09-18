@@ -23,6 +23,7 @@ locale	foxclocks	sk-SK			chrome/locale/sk-SK/
 locale	foxclocks	tr-TR			chrome/locale/tr-TR/
 locale	foxclocks	uk-UA			chrome/locale/uk-UA/
 locale	foxclocks	zh-CN			chrome/locale/zh-CN/
+locale	foxclocks	zh-TW			chrome/locale/zh-TW/
 
 # Locales w/o country-code - add country-code for Babelzilla
 #
@@ -38,7 +39,6 @@ locale	foxclocks	pt				chrome/locale/pt-BR/
 #locale	foxclocks	es-CL			chrome/locale/es-CL/
 #locale	foxclocks	id-ID			chrome/locale/id-ID/
 #locale	foxclocks	mk-MK			chrome/locale/mk-MK/
-#locale	foxclocks	zh-TW			chrome/locale/zh-TW/
 
 skin	foxclocks	classic/1.0		chrome/skin/classic/
 

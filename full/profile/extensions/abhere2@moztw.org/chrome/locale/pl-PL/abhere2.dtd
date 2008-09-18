@@ -1,17 +1,24 @@
-<!ENTITY dialog.title "Add Bookmark Here 2 - opcje">
-<!ENTITY group.pos "Położenie elementów w menu rozwijanym">
-<!ENTITY group.bmm "Menu główne zakładek">
-<!ENTITY group.bmc "Menu kontekstowe zakładek">
-<!ENTITY group.misc "Różne">
-<!ENTITY pos.abhere "Umieść element &quot;$abhere$&quot;">
-<!ENTITY pos.optabs "Umieść element &quot;$optabs$&quot;">
-<!ENTITY pos.top "na górze">
-<!ENTITY pos.bottom "na dole">
-<!ENTITY pos.hidden "ukryj">
-<!ENTITY bmm.abhere "Wyświetl element &quot;$abhere$&quot;">
-<!ENTITY bmm.bmpage "Nie wyświetlaj elementu &quot;&bookmarkThisPageCmd.label;&quot;">
-<!ENTITY bmm.bmtabs "Nie wyświetlaj elementu &quot;&bookmarkAllCmd.label;&quot;">
-<!ENTITY insertTop "Nową zakładkę umieść na górze menu">
-<!ENTITY folderDrag "Pozwalaj na przeciąganie folderu zakładek">
-<!ENTITY noPopEditUI "Nie wyświetlaj okna edycji podczas dodawania zakładki">
-<!ENTITY clickStarUI "Kliknij gwiazdkę raz, aby wyświetlić okno edycji zakładki">
+<!ENTITY dialog.title "Add Bookmark Here ² - opcje">
+<!ENTITY position.group "Położenia elementów menu">
+<!ENTITY position.item.abHere "Wyświetlaj element &quot;Dodaj zakładkę tutaj...&quot;:">
+<!ENTITY position.item.opTabs "Wyświetlaj element &quot;Otwórz wszystkie w kartach&quot;:">
+<!ENTITY position.option.top "na górze">
+<!ENTITY position.option.bottom "na dole">
+<!ENTITY position.option.hidden "ukryty">
+<!ENTITY position.misc.context "Wyświetlaj element &quot;Dodaj zakładkę tutaj...&quot; w menu kontekstowym">
+<!ENTITY clicking.group "Przyciski myszy">
+<!ENTITY clicking.item.buttonL "Kliknięcie lewym przyciskiem myszy:">
+<!ENTITY clicking.item.buttonM "Kliknięcie środkowym przyciskiem myszy:">
+<!ENTITY clicking.item.buttonR "Kliknięcie prawym przyciskiem myszy:">
+<!ENTITY clicking.option.bmPage "dodaje zakładkę do otwartej strony">
+<!ENTITY clicking.option.bmNoUI "dodaje zakładkę do otwartej strony (bez potwierdzania)">
+<!ENTITY clicking.option.bmTabs "dodaje zakładki do wszystkich kart">
+<!ENTITY clicking.misc.insertTop "Dodawaj zakładki na górze menu">
+<!ENTITY starUI.group "Okno potwierdzenia">
+<!ENTITY starUI.expand.folderRow "Automatycznie rozwijaj drzewo folderów">
+<!ENTITY starUI.expand.tagsRow "Automatycznie rozwijaj listę etykiet">
+<!ENTITY starUI.misc.singleClick "Pojedyncze kliknięcie gwiazdki wyświetla okno potwierdzenia">
+<!ENTITY menubar.group "Menu &quot;Zakładki&quot;">
+<!ENTITY menubar.item.abHere "Wyświetlaj element &quot;Dodaj zakładkę tutaj...&quot; w menu">
+<!ENTITY menubar.item.bmPage "Wyświetlaj element &quot;Dodaj zakładkę...&quot; w menu">
+<!ENTITY menubar.item.bmTabs "Wyświetlaj element &quot;Dodaj zakładki do wszystkich kart...&quot; w menu">

@@ -1,7 +1,7 @@
 <zones xmlns="http://www.stemhaus.com/firefox/foxclocks/zones" version="1.1">
 	<Source id="ftp://elsie.nci.nih.gov/pub/" name="tz database">
-		<Version>2008c</Version>
-		<Date>2008-05-27</Date>
+		<Version>2008e-1</Version>
+		<Date>2008-09-02</Date>
 	</Source>
 	<Year>2008</Year>
 	<ZoneList>
@@ -82,7 +82,7 @@
 			<Country code="MA"/>
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-06-01T00:00:00+00:00</Start><End>2008-09-28T00:00:00+01:00</End>
+				<Start>2008-06-01T00:00:00+00:00</Start><End>2008-09-01T00:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Africa/Ceuta">
@@ -658,7 +658,7 @@
 			<Coordinates latitude="-0064000" longitude="-0695200"/>
 			<Country code="BR"/>
 			<Comments lang="en">W Amazonas</Comments>
-			<StandardTime offset="-05:00" tzname="ACT"/>
+			<StandardTime offset="-04:00" tzname="AMT"/>
 		</Zone>
 		<Zone id="America/El_Salvador">
 			<Coordinates latitude="+0134200" longitude="-0891200"/>
@@ -1153,12 +1153,12 @@
 		</Zone>
 		<Zone id="America/Porto_Acre" deprecated="true">
 			<AliasFor>America/Rio_Branco</AliasFor>
-			<StandardTime offset="-05:00" tzname="ACT"/>
+			<StandardTime offset="-04:00" tzname="AMT"/>
 		</Zone>
 		<Zone id="America/Porto_Velho">
 			<Coordinates latitude="-0084600" longitude="-0635400"/>
 			<Country code="BR"/>
-			<Comments lang="en">W Para, Rondonia</Comments>
+			<Comments lang="en">Rondonia</Comments>
 			<StandardTime offset="-04:00" tzname="AMT"/>
 		</Zone>
 		<Zone id="America/Puerto_Rico">
@@ -1206,7 +1206,7 @@
 			<Coordinates latitude="-0095800" longitude="-0674800"/>
 			<Country code="BR"/>
 			<Comments lang="en">Acre</Comments>
-			<StandardTime offset="-05:00" tzname="ACT"/>
+			<StandardTime offset="-04:00" tzname="AMT"/>
 		</Zone>
 		<Zone id="America/Rosario" deprecated="true">
 			<AliasFor>America/Argentina/Cordoba</AliasFor>
@@ -1214,6 +1214,12 @@
 			<DaylightTime offset="-02:00" tzname="ARST">
 				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
 			</DaylightTime>
+		</Zone>
+		<Zone id="America/Santarem">
+			<Coordinates latitude="-0022600" longitude="-0545200"/>
+			<Country code="BR"/>
+			<Comments lang="en">W Para</Comments>
+			<StandardTime offset="-03:00" tzname="BRT"/>
 		</Zone>
 		<Zone id="America/Santiago">
 			<Coordinates latitude="-0332700" longitude="-0704000"/>
@@ -2253,7 +2259,7 @@
 		</Zone>
 		<Zone id="Brazil/Acre" deprecated="true">
 			<AliasFor>America/Rio_Branco</AliasFor>
-			<StandardTime offset="-05:00" tzname="ACT"/>
+			<StandardTime offset="-04:00" tzname="AMT"/>
 		</Zone>
 		<Zone id="Brazil/DeNoronha" deprecated="true">
 			<AliasFor>America/Noronha</AliasFor>
@@ -3072,6 +3078,9 @@
 			<Coordinates latitude="-0201000" longitude="+0573000"/>
 			<Country code="MU"/>
 			<StandardTime offset="+04:00" tzname="MUT"/>
+			<DaylightTime offset="+05:00" tzname="MUST">
+				<Start>2008-10-26T02:00:00+04:00</Start><End>2009-03-27T02:00:00+04:00</End>
+			</DaylightTime>
 		</Zone>
 		<Zone id="Indian/Mayotte">
 			<Coordinates latitude="-0124700" longitude="+0451400"/>

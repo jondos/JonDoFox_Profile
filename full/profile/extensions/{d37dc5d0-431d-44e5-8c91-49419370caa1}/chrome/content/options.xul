@@ -472,7 +472,8 @@ package or its installation directory on your computer.
 			<tabpanel orient="vertical" id="fc-advanced-tabpanel">
 					
 				<groupbox>
-					<caption label="&options.advanced.newloc.caption.label;"/>
+					<caption 	id="fc-advanced-newloc-caption"
+								label="&options.advanced.newloc.caption.label;"/>
 					
 					<checkbox	label="&options.advanced.newloc.statusbar.clockvisible.label;"
 								pref="foxclocks.clock.bar.clock.new.visible"/>

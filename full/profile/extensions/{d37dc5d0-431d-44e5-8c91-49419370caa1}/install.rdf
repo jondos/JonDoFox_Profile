@@ -7,7 +7,7 @@
 		<em:id>{d37dc5d0-431d-44e5-8c91-49419370caa1}</em:id>
 		<em:name>FoxClocks</em:name>
 		<em:type>2</em:type> <!-- ie extension -->
-		<em:version>2.4.91</em:version>
+		<em:version>2.4.97</em:version>
 		<em:description>Displays local times around the world in the statusbar/toolbar. Supports virtually all time zones.</em:description>
 		<em:creator>Andy McDonald</em:creator>
 
@@ -24,7 +24,7 @@
 		<em:contributor>de-DE: ReinekeFux, Team erweiterungen.de, D|Z</em:contributor>
 		<em:contributor>es-ES: Proyecto Nave</em:contributor>
 		<!-- <em:contributor>es-CL: DJFunkinmixer</em:contributor> -->
-		<em:contributor>fr-FR: Okaryn, Olivier Tribout</em:contributor>
+		<em:contributor>fr-FR: Okaryn, Olivier Tribout, Yann Schwarz</em:contributor>
 		<!-- <em:contributor>el-GR: Antony_256</em:contributor> -->
 		<em:contributor>hu-HU: fenya25, misibacsi</em:contributor>
 		<!-- <em:contributor>id-ID: AuGee</em:contributor> -->
@@ -41,8 +41,8 @@
 		<em:contributor>sk-SK: SlovakSoft</em:contributor>
 		<em:contributor>tr-TR: Kenan Balamir</em:contributor>
 		<em:contributor>uk-UA: Andriy Baranskyy</em:contributor>
-		<em:contributor>zh-CN: Rick Cart, 冰男</em:contributor>
-		<!-- <em:contributor>zh-TW: G.S.K.Lee</em:contributor> -->
+		<em:contributor>zh-CN: Rick Cart, 冰男, xmoke</em:contributor>
+		<em:contributor>zh-TW: Jiayun Zhou, G.S.K.Lee, MilchFlasche</em:contributor>
 
 		<em:homepageURL>http://www.stemhaus.com/firefox/foxclocks/</em:homepageURL>
 		<em:optionsURL>chrome://foxclocks/content/options.xul</em:optionsURL>

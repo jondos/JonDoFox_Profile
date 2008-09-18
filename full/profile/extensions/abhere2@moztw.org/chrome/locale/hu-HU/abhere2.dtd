@@ -1,17 +1,24 @@
-<!ENTITY dialog.title "Add Bookmark Here 2 - beállítások">
-<!ENTITY group.pos "Menüpont elhelyezése a könyvjelzők legördülő menüjében">
-<!ENTITY group.bmm "Könyvjelzők menü">
-<!ENTITY group.bmc "Könyvjelzők helyi menü">
-<!ENTITY group.misc "Vegyes">
-<!ENTITY pos.abhere "[$abhere$] menüpont pozíciója:">
-<!ENTITY pos.optabs "[$optabs$] menüpont pozíciója:">
-<!ENTITY pos.top "Felül">
-<!ENTITY pos.bottom "Alul">
-<!ENTITY pos.hidden "Rejtett">
-<!ENTITY bmm.abhere "[$abhere$] menüpont megjelenítése">
-<!ENTITY bmm.bmpage "[&bookmarkThisPageCmd.label;] menüpont elrejtése">
-<!ENTITY bmm.bmtabs "[&bookmarkAllCmd.label;] menüpont elrejtése">
-<!ENTITY insertTop "Új könyvjelző hozzáadása a menü tetejére">
-<!ENTITY folderDrag "Könyvjelzők mappa áthelyezésének engedélyezése">
-<!ENTITY noPopEditUI "A szerkesztés párbeszédablak elrejtése könyvjelző hozzáadásakor">
-<!ENTITY clickStarUI "Kattintás a könyvjelző csillagra megnyitja a szerkesztés párbeszédablakot">
+<!ENTITY dialog.title "Add Bookmark Here ² - beállítások">
+<!ENTITY position.group "Menüpontok pozíciójának kiválasztása">
+<!ENTITY position.item.abHere "Könyvjelző hozzáadása...">
+<!ENTITY position.item.opTabs "Mindegyik megnyitása külön lapon">
+<!ENTITY position.option.top "Felül">
+<!ENTITY position.option.bottom "Alul">
+<!ENTITY position.option.hidden "Rejtett">
+<!ENTITY position.misc.context "[Könyvjelző hozzáadása...] megjelenítése a helyi menüben">
+<!ENTITY clicking.group "Az egérgomb-kattintások funkciói">
+<!ENTITY clicking.item.buttonL "Bal:">
+<!ENTITY clicking.item.buttonM "Középső:">
+<!ENTITY clicking.item.buttonR "Jobb:">
+<!ENTITY clicking.option.bmPage "Aktuális lap könyvjelzőbe">
+<!ENTITY clicking.option.bmNoUI "Aktuális lap könyvjelzőbe (párbeszédablak nélkül)">
+<!ENTITY clicking.option.bmTabs "Minden lap egy könyvjelzőbe">
+<!ENTITY clicking.misc.insertTop "Könyvjelzők beillesztése a menü tetejére">
+<!ENTITY starUI.group "A csillag könyvjelző párbeszédablaka">
+<!ENTITY starUI.expand.folderRow "Mappák fa struktúrájának kibontása">
+<!ENTITY starUI.expand.tagsRow "Címke lista kibontása">
+<!ENTITY starUI.misc.singleClick "Egy kattintás a csillagra megnyitja a párbeszédablakot">
+<!ENTITY menubar.group "A könyvjelzők menü menüpontjainak megjelenítése">
+<!ENTITY menubar.item.abHere "Könyvjelző hozzáadása...">
+<!ENTITY menubar.item.bmPage "Aktuális lap könyvjelzőbe">
+<!ENTITY menubar.item.bmTabs "Minden lap egy könyvjelzőbe">

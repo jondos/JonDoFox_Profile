@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks ayar dosyaları">
 <!ENTITY foxclocks.zonepicker.description.label "Bölge Seçici">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Mevcut tüm zaman dilimlerini görüntüle. Bölgeler izleme listesine konumlar ile gelir.">
+<!ENTITY foxclocks.zonepicker.search.initvalue "">
+<!ENTITY foxclocks.zonepicker.search.accesskey "">
+<!ENTITY foxclocks.zonepicker.search.tooltip "">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Zaman Dilimi">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Zaman Dilimi">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC Karşılığı">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "E">
 <!ENTITY options.data.update.checknow.button.label "Şimdi kontrol et">
 <!ENTITY options.data.update.checknow.button.accesskey "n">
+<!ENTITY options.advanced.caption "">
+<!ENTITY options.advanced.newloc.caption.label "">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
+<!ENTITY options.advanced.misc.caption.label "">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
+<!ENTITY options.advanced.alert.autoupdate.label "">
+<!ENTITY options.advanced.menuitem.hidden.label "">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "">
 <!ENTITY zoneinfo.title.zone "Zaman Dilimi Özellikleri">
 <!ENTITY zoneinfo.title.location "Konum Özellikleri">
 <!ENTITY zoneinfo.tab.zone.label "Zaman Dilimi">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "n">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "kadar">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "k">
+<!ENTITY zoneinfo.display.flag.caption "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.caption.label "">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.clock.label "">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
 <!ENTITY welcome.title "Hoşgeldiniz">
 <!ENTITY welcome.header "FoxClocks&apos;a Hoşgeldiniz">
 <!ENTITY welcome.message "FoxClocks durum çubuğunda ya da herhangi bir araç çubuğunda tüm dünya ülkelerinin yerel saatlerini görüntüler. Tüm sanal zaman dilimleri desteklenir. FoxClocks, Google Earth aracılığı ile de her bir zaman dilimini gezinebilirsiniz.|Başlarken:|- görmek istediğiniz her bir zaman dilimine ait bir saat oluşturun ve saatin varsayılan ismini değiştirin;|- saat biçimini, rengini ve alternatif rengini özelleştirin;|- standart zaman dilimi biçimlerini seçin veya kendiniz oluşturun.|Gelecekte bu mesaj gösterilmeyecek; FoxClocks Araçlar menüsünden ya da herhangi bir saate çift tıklayarak açabilirsiniz.">

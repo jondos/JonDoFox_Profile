@@ -34,6 +34,8 @@ function FoxClocks_Utils()
 	
 	this.FC_URI_ZONEPICKER_NAMESPACE = this.FC_URL_FOXCLOCKSHOME + "zonepicker";
 	
+	this.FC_REGEXP_FLAGDIR_IMAGE = /\.png$/;
+	
 	this.XHR_STATE_NOT_INIT = 0;
 	this.XHR_STATE_OPEN = 1;
 	this.XHR_STATE_SENT = 2;
@@ -95,9 +97,11 @@ FoxClocks_Utils.prototype =
 				{				
 					var currFileName = flagDirFileEnumerator.getNext().QueryInterface(CI.nsIFile).leafName;
 					
-					if (/\.png$/.test(currFileName))
+					if (this.FC_REGEXP_FLAGDIR_IMAGE.test(currFileName))
 						this.flagImages.push(currFileName);
 				}
+				
+				this.flagImages.sort();
 			}
 	        else if (localFlagDirURI.scheme == "jar")
 	        {
@@ -109,7 +113,7 @@ FoxClocks_Utils.prototype =
 	        else
 	        {
 	            throw "Unknown URI scheme '" + localFlagDirURI.scheme + "'";
-	        }		
+	        }	
 		}
 		catch (ex)
 		{
@@ -213,7 +217,7 @@ FoxClocks_Utils.prototype =
 		{
 			// AFM - SeaMonkey/XPFE - version written in by ant
 			//
-			return "2.4.91";
+			return "2.4.97";
 		}
 	},
 
@@ -324,7 +328,8 @@ FoxClocks_Utils.prototype =
 	{
 		var appInfo = CC["@mozilla.org/xre/app-info;1"].getService(CI.nsIXULAppInfo);
 		
-		var retVal = {appName: "[unknown application]", appVersion: appInfo.version};
+		var retVal = new Object();
+		retVal.appVersion = appInfo.version;
 			
 		if (appInfo.ID == this.FC_GUID_FIREFOX)
 			retVal.appName = "Firefox";
@@ -336,6 +341,8 @@ FoxClocks_Utils.prototype =
 			retVal.appName = "SeaMonkey";
 		else if (appInfo.ID == this.FC_GUID_FLOCK)
 			retVal.appName = "Flock";
+		else
+			retVal.appName = "[unknown application]";
 		
 		return retVal;
 	},

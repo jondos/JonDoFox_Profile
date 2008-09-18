@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "Ф">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "З">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "Файл налаштувань FoxClocks">
 <!ENTITY foxclocks.zonepicker.description.label "Вибір поясів">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Показує всі доступні пояси. Пояси можна додавати до вашого переліку міст та територій">
+<!ENTITY foxclocks.zonepicker.search.initvalue "Пошук">
+<!ENTITY foxclocks.zonepicker.search.accesskey "у">
+<!ENTITY foxclocks.zonepicker.search.tooltip "Пошук міста або країни">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Часовий Пояс">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Часовий Пояс">
 <!ENTITY foxclocks.zonepicker.col.offset.label "Різниця з часом за Ґрінвічем (Всесвітнім часом)">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "д">
 <!ENTITY options.data.update.checknow.button.label "Перевірити зараз">
 <!ENTITY options.data.update.checknow.button.accesskey "з">
+<!ENTITY options.advanced.caption "Поглиблені">
+<!ENTITY options.advanced.newloc.caption.label "Додати місцевість до переліку">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "Показувати годинник у смужці стану">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "Показувати прапор у смужці стану">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "Показувати годинник у підказці смужки стану">
+<!ENTITY options.advanced.misc.caption.label "Рiзне">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "Показувати прапори у смужці стану">
+<!ENTITY options.advanced.alert.autoupdate.label "Показувати повідомлення про поновлення бази даних часових поясів">
+<!ENTITY options.advanced.menuitem.hidden.label "Показувати меню &apos;Інструменти&apos; FoxClocks">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "Підтверджувати видалення місцевостей з переліку">
 <!ENTITY zoneinfo.title.zone "Налаштування часового поясу">
 <!ENTITY zoneinfo.title.location "Налаштування міста або території">
 <!ENTITY zoneinfo.tab.zone.label "Часовий Пояс">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "з">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "до">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "о">
+<!ENTITY zoneinfo.display.flag.caption "Прапор у смужці стану">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Вимкнено">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "В">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Стандартний">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "р">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Спеціальний">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "ц">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Типові значення...">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "Т">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Клацніть аби обрати типові малюнки прапорців">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Обрати...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "и">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Клацніть аби обрати нетиповий прапорець">
+<!ENTITY zoneinfo.display.customformat.caption.label "Нетипові прапорці (поглиблені налаштування)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "Наприклад, &apos;&lt;l&gt;-&lt;24г&gt;&lt;м&gt;&apos; дасть &apos;[місцевість] - 1523&apos;. Деталі подано у &apos;Налаштування-&gt;Формат часу&apos;">
+<!ENTITY zoneinfo.display.customformat.clock.label "Годинник у смужці стану">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "ж">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Підказка годинника у смужці стану">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "з">
 <!ENTITY welcome.title "Ласкаво просимо">
 <!ENTITY welcome.header "Ласкаво просимо до FoxClocks">
 <!ENTITY welcome.message "FoxClocks показує декілька годинників у рядку стану або на панелі програми для будь-яких із сотень міст в усьому світі, використовуючи базу даних часових зон і дат переходу на літній/зимовий час. FoxClocks також інтегрується з Google Earth (якщо ця програма встановлена на вашій системі), надаючи вам змогу відвідати будь-яке місто або регіон з бази даних FoxClocks.|Тому що це перший раз, коли ви запустили FoxClocks, ви можете здійснити налаштування того, який час буде показувати FoxClocks. Ми пропонуємо вам ознайомитися з прикладом переліку міст і регіонів.|У подальшому ми не будемо показувати це повідомлення; FoxClocks можна буде відкрити з меню інструменти, або двічі клацнувши по одному з годинників або клацнув по кнопці FoxClocks, якщо її видно.">

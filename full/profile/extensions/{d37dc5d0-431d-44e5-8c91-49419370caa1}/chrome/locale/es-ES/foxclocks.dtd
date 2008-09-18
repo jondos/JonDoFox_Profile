@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "Archivos de opciones de FoxClocks">
 <!ENTITY foxclocks.zonepicker.description.label "Selector de zona">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Muestra todas las zonas horarias disponibles. Las zonas pasan a ser localizaciones cuando se añaden en la lista">
+<!ENTITY foxclocks.zonepicker.search.initvalue "Buscar">
+<!ENTITY foxclocks.zonepicker.search.accesskey "Q">
+<!ENTITY foxclocks.zonepicker.search.tooltip "Buscar en el selector de zonas por países o ciudades">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Zona horaria">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Zona horaria">
 <!ENTITY foxclocks.zonepicker.col.offset.label "Desplazamiento GMT/UTC">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "H">
 <!ENTITY options.data.update.checknow.button.label "Comprobar ahora">
 <!ENTITY options.data.update.checknow.button.accesskey "C">
+<!ENTITY options.advanced.caption "Avanzadas">
+<!ENTITY options.advanced.newloc.caption.label "Añadir una localización a la lista">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "Mostrar reloj en la barra de estado/barra de herramientas">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "Mostrar bandera en la barra de estado/barra de herramientas">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "Mostrar reloj en los títulos emergentes de la barra de estado/barra de herramientas">
+<!ENTITY options.advanced.misc.caption.label "Varios">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "Mostrar banderas en los títulos emergentes de la barra de estado/barra de herramientas">
+<!ENTITY options.advanced.alert.autoupdate.label "Mostrar alertas de actualizaciones de la base de datos de zonas horarias">
+<!ENTITY options.advanced.menuitem.hidden.label "Mostrar FoxClocks en el menu &apos;Herramientas&apos;">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "Confirmar la eliminación de localizaciones de la lista">
 <!ENTITY zoneinfo.title.zone "Propiedades de la zona horaria">
 <!ENTITY zoneinfo.title.location "Propiedades de la localización">
 <!ENTITY zoneinfo.tab.zone.label "Zona horaria">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "d">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "hasta el">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "h">
+<!ENTITY zoneinfo.display.flag.caption "Bandera en la barra de estado/barra de herramientas">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Deshabilitado">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Estandar">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "r">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Personalizado">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "P">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Preajustes...">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "P">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Pulse para seleccionar las imágenes de las banderas">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Seleccionar...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "l">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Pulse para seleccionar una bandera personalizada">
+<!ENTITY zoneinfo.display.customformat.caption.label "Formatos personalizados (avanzado)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "p.ej: &apos;&lt;l&gt;-&lt;24h&gt;&lt;m&gt;&apos; devuelve &apos;[Localización]-1523&apos;. Vea la pestaña Formato de tiempo en la ventana de opciones para las combinaciones disponibles.">
+<!ENTITY zoneinfo.display.customformat.clock.label "Reloj en la barra de estado/barra de herramientas">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "s">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Reloj emergente en la barra de estado/barra de herramientas">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "g">
 <!ENTITY welcome.title "Bienvenido">
 <!ENTITY welcome.header "Bienvenido a FoxClocks">
 <!ENTITY welcome.message "FoxClocks permite mostrar múltiples relojes en la barra de estado o la barra de herramientas de ciudades de todo el mundo, usando una base de datos con las zonas horarias y los posibles horarios de verano. Se integra con Google Earth (siempre que lo tenga instalado), llevándole a cualquier ubicación de la base de datos.|Al ser la primera vez que usa FoxClocks, necesita configurar qué horas mostrar. La extensión proporciona una lista de ejemplo de ciudades.|En las próximas ejecuciones no se mostrará este mensaje; Puede acceder a FoxClocks desde el menú Herramientas, haciendo doble click en cualquier reloj, o pulsando en el botón de FoxClocks, siempre que éste se encuentre visible.">

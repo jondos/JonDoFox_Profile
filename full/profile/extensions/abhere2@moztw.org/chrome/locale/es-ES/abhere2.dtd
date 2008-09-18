@@ -1,17 +1,24 @@
-<!ENTITY dialog.title "Add Bookmark Here 2 - Opciones">
-<!ENTITY group.pos "Posición del elemento en el menú desplegable de los marcadores">
-<!ENTITY group.bmm "Menú de marcadores">
-<!ENTITY group.bmc "Menú contextual de marcadores">
-<!ENTITY group.misc "Varios">
-<!ENTITY pos.abhere "Posición del elemento [$abhere$]:">
-<!ENTITY pos.optabs "Posición del elemento [$optabs$]:">
-<!ENTITY pos.top "Arriba">
-<!ENTITY pos.bottom "Abajo">
-<!ENTITY pos.hidden "Oculto">
-<!ENTITY bmm.abhere "Mostrar elemento [$abhere$]">
-<!ENTITY bmm.bmpage "Ocultar elemento [&bookmarkThisPageCmd.label;]">
-<!ENTITY bmm.bmtabs "Ocultar elemento [&bookmarkAllCmd.label;]">
-<!ENTITY insertTop "Añadir el nuevo marcador en la parte superior del menú">
-<!ENTITY folderDrag "Permitir arrastrar la carpeta de marcadores">
-<!ENTITY noPopEditUI "No mostrar el cuadro de editar al añadir un marcador">
-<!ENTITY clickStarUI "Pulse una vez la estrella de marcadores para mostrar el cuadro de edición">
+<!ENTITY dialog.title "Add Bookmark Here ² - Opciones">
+<!ENTITY position.group "Posición de los elementos de menú">
+<!ENTITY position.item.abHere "Posición de [Añadir marcador aquí...]:">
+<!ENTITY position.item.opTabs "Posición de [Abrir todos en pestañas]:">
+<!ENTITY position.option.top "Arriba">
+<!ENTITY position.option.bottom "Abajo">
+<!ENTITY position.option.hidden "Oculto">
+<!ENTITY position.misc.context "Mostrar [Añadir marcador aquí...] en el menú contextual">
+<!ENTITY clicking.group "Clicks del ratón">
+<!ENTITY clicking.item.buttonL "Click izquierdo:">
+<!ENTITY clicking.item.buttonM "Click central:">
+<!ENTITY clicking.item.buttonR "Click derecho:">
+<!ENTITY clicking.option.bmPage "Añadir esta página a los marcadores">
+<!ENTITY clicking.option.bmNoUI "Añadir esta página a marcadores (sin ventana)">
+<!ENTITY clicking.option.bmTabs "Añadir todas las pestañas a los marcadores">
+<!ENTITY clicking.misc.insertTop "Insertar los marcadores al inicio del menú">
+<!ENTITY starUI.group "Ventana de la estrella de marcadores">
+<!ENTITY starUI.expand.folderRow "Expandir el árbol de carpetas">
+<!ENTITY starUI.expand.tagsRow "Expandir la lista de etiquetas">
+<!ENTITY starUI.misc.singleClick "Hacer click en la estrella de marcadores para mostrar la ventana">
+<!ENTITY menubar.group "Menú marcadores">
+<!ENTITY menubar.item.abHere "Mostrar el elemento [Añadir marcador aquí...]">
+<!ENTITY menubar.item.bmPage "Mostrar el elemento [Añadir esta página a marcadores]">
+<!ENTITY menubar.item.bmTabs "Mostrar el elemento [Añadir todas las pestañas a los marcadores]">

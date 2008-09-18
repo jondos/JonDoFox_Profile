@@ -24,9 +24,9 @@ FoxClocks_OptionsManager.prototype =
 	{
 		fc_gLogger.log("+FoxClocks_OptionsManager::onLoad()");
 	
-		// AFM - English-only
+		// AFM - missing locale strings
 		//
-		if (fc_gUtils.getAppLocale().major != "en")
+		if (document.getElementById("fc-advanced-newloc-caption").getAttribute("label") == "")
 			document.getElementById("fc-advanced-tab").setAttribute("collapsed", "true");
 		
 		// AFM - start, populate dropdowns based on translations we may not have

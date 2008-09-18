@@ -602,6 +602,9 @@ package or its installation directory on your computer.
 			</Leaf>
 		</Branch>
 		<Branch name="Cities">
+			<Leaf zone_id="Asia/Dubai" name="Abu Dhabi">
+				<Coordinates latitude="24.467" longitude="54.367" />
+			</Leaf>
 			<Leaf zone_id="Asia/Aden" name="Aden" />
 			<Leaf zone_id="Asia/Almaty" name="Almaty" />
 			<Leaf zone_id="Asia/Amman" name="Amman" />
@@ -889,6 +892,53 @@ package or its installation directory on your computer.
 		<Leaf zone_id="Indian/Reunion" name="Réunion" />
 		<Leaf zone_id="Indian/Mahe" name="Seychelles" />
 	</Branch>
+	<Branch name="Middle East">
+		<Branch name="Countries">
+			<Leaf zone_id="Asia/Bahrain" name="Bahrain" />
+			<Leaf zone_id="Africa/Cairo" name="Egypt" />
+			<Leaf zone_id="Asia/Tehran" name="Iran" />
+			<Leaf zone_id="Asia/Baghdad" name="Iraq" />
+			<Leaf zone_id="Asia/Jerusalem" name="Israel" />
+			<Leaf zone_id="Asia/Amman" name="Jordan" />
+			<Leaf zone_id="Asia/Kuwait" name="Kuwait" />
+			<Leaf zone_id="Asia/Beirut" name="Lebanon" />
+			<Leaf zone_id="Asia/Muscat" name="Oman" />
+			<Leaf zone_id="Asia/Gaza" name="Palestine" />
+			<Leaf zone_id="Asia/Qatar" name="Qatar" />
+			<Leaf zone_id="Asia/Riyadh" name="Saudi Arabia" />
+			<Leaf zone_id="Africa/Khartoum" name="Sudan" />
+			<Leaf zone_id="Asia/Damascus" name="Syria" />
+			<Leaf zone_id="Asia/Dubai" name="UAE" />
+			<Leaf zone_id="Asia/Aden" name="Yemen">
+				<Coordinates latitude="15.352" longitude="44.207" />
+			</Leaf>
+		</Branch>
+		<Branch name="Cities">
+			<Leaf zone_id="Asia/Dubai" name="Abu Dhabi">
+				<Coordinates latitude="24.467" longitude="54.367" />
+			</Leaf>
+			<Leaf zone_id="Asia/Aden" name="Aden" />
+			<Leaf zone_id="Asia/Amman" name="Amman" />
+			<Leaf zone_id="Asia/Baghdad" name="Baghdad" />
+			<Leaf zone_id="Asia/Beirut" name="Beirut" />
+			<Leaf zone_id="Africa/Cairo" name="Cairo" />
+			<Leaf zone_id="Asia/Damascus" name="Damascus" />
+			<Leaf zone_id="Asia/Qatar" name="Doha" />
+			<Leaf zone_id="Asia/Dubai" name="Dubai" />
+			<Leaf zone_id="Asia/Gaza" name="Gaza" />
+			<Leaf zone_id="Europe/Istanbul" name="Istanbul" />
+			<Leaf zone_id="Asia/Jerusalem" name="Jerusalem" />
+			<Leaf zone_id="Africa/Khartoum" name="Khartoum" />
+			<Leaf zone_id="Asia/Kuwait" name="Kuwait City" />
+			<Leaf zone_id="Asia/Bahrain" name="Manama" />
+			<Leaf zone_id="Asia/Muscat" name="Muscat" />
+			<Leaf zone_id="Asia/Riyadh" name="Riyadh" />
+			<Leaf zone_id="Asia/Aden" name="San‘a’">
+				<Coordinates latitude="15.352" longitude="44.207" />
+			</Leaf>
+			<Leaf zone_id="Asia/Tehran" name="Tehran" />
+		</Branch>
+	</Branch>
 	<Branch name="Pacific Ocean">
 		<Branch name="Countries">
 			<Branch name="Chile">
@@ -970,38 +1020,3 @@ package or its installation directory on your computer.
 	</Branch>
 	<Leaf zone_id="Etc/UTC" name="GMT/UTC" />
 </zonepicker>
-<!-- Do not remove this comment
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
--->

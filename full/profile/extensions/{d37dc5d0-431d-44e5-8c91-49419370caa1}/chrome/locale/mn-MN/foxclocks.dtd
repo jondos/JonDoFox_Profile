@@ -1,27 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -104,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks тохиргооны файл">
 <!ENTITY foxclocks.zonepicker.description.label "Цагийн бүс сонгогч">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Боломжтой бүх цагийн бүсийг харуулдаг. Цагийн бүсийг харуулах жагсаалтад нэмвэл байршил болдог">
+<!ENTITY foxclocks.zonepicker.search.initvalue "">
+<!ENTITY foxclocks.zonepicker.search.accesskey "">
+<!ENTITY foxclocks.zonepicker.search.tooltip "">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Цагийн бүс">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Цагийн бүс">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC шилжилт">
@@ -215,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "з">
 <!ENTITY options.data.update.checknow.button.label "Одоо шалга">
 <!ENTITY options.data.update.checknow.button.accesskey "ш">
+<!ENTITY options.advanced.caption "">
+<!ENTITY options.advanced.newloc.caption.label "">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
+<!ENTITY options.advanced.misc.caption.label "">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
+<!ENTITY options.advanced.alert.autoupdate.label "">
+<!ENTITY options.advanced.menuitem.hidden.label "">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "">
 <!ENTITY zoneinfo.title.zone "Цагийн бүсийн шинж чанар">
 <!ENTITY zoneinfo.title.location "Байршлын шинж чанар">
 <!ENTITY zoneinfo.tab.zone.label "Цагийн бүс">
@@ -255,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "э">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "дуусах">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "д">
+<!ENTITY zoneinfo.display.flag.caption "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.caption.label "">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.clock.label "">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
 <!ENTITY welcome.title "Тавтай морил">
 <!ENTITY welcome.header "FoxClocks-д тавтай морилно уу">
 <!ENTITY welcome.message "FoxClocks нь дэлхийн зуу зуун орны цагийг цагийн бүсийн мэдээлэл болон цаг өөрчлөх мэдээллийг нь ашиглаж таны төлвийн юмуу багажит самбар дээр харуулдаг өргөтгөл юм. FoxClocks мөн Google Earth тай хамтарч ажилладаг бөгөөд (хэрэв та суулгасан бол), FoxClocks-н өгөгдлийн баазад байгаа бүх байрлалыг танд үзүүлж чадна.|Хэрэв та FoxClocks-г анх удаагаа хэрэглэж байгаа бол, та магадгүй FoxClocks дээр ямар цаг харуулахаа тохируулах хэрэгтэй. Бид жишээ болгож хэдэн байршил оруулсан байдаг.| Ирээдүйд энэ тайлбар танд дахин харуулагдахгүй; FoxClocks-ийг сонгохыг хүсвэл Багаж цэснээс, эсвэл харуулж байгаа цаг дээр хоёр дарах, мөн хэрэв харуулагдаж байвал FoxClocks товч дээр дараарай.">

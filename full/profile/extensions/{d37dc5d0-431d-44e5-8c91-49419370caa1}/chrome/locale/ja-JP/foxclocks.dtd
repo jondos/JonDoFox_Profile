@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks設定ファイル">
 <!ENTITY foxclocks.zonepicker.description.label "Zone Picker">
 <!ENTITY foxclocks.zonepicker.description.tooltip "利用できるゾーンをすべて表示しています。表示リストに追加するとゾーンは利用地域と認識されます。">
+<!ENTITY foxclocks.zonepicker.search.initvalue "">
+<!ENTITY foxclocks.zonepicker.search.accesskey "">
+<!ENTITY foxclocks.zonepicker.search.tooltip "">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "タイムゾーン">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "タイムゾーン">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC との時差">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "E">
 <!ENTITY options.data.update.checknow.button.label "今すぐデータベースを確認する">
 <!ENTITY options.data.update.checknow.button.accesskey "n">
+<!ENTITY options.advanced.caption "">
+<!ENTITY options.advanced.newloc.caption.label "">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
+<!ENTITY options.advanced.misc.caption.label "">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
+<!ENTITY options.advanced.alert.autoupdate.label "">
+<!ENTITY options.advanced.menuitem.hidden.label "">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "">
 <!ENTITY zoneinfo.title.zone "タイムゾーンの詳細">
 <!ENTITY zoneinfo.title.location "地域詳細">
 <!ENTITY zoneinfo.tab.zone.label "タイムゾーン情報">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "～まで">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "n">
+<!ENTITY zoneinfo.display.flag.caption "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.caption.label "">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.clock.label "">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
 <!ENTITY welcome.title "ようこそ！">
 <!ENTITY welcome.header "FoxClocksにようこそ！">
 <!ENTITY welcome.message "FoxClocks はタイムゾーンのデータベースと夏時間情報を使って世界中の何百もの都市から選択し、複数の時刻をアプリケーションのステータスバーやツールバーに表示します。FoxClocks は Google Earth を使って(インストールしていれば)、FoxClocks データベースにある地域を見ることもできます。|FoxClocks の初回使用時なので FoxClocks でどの時間を表示するのか、よかったら設定してください。地域リストの例として、大陸ごとに一つあげています。|このメッセージは今後表示されません; ツールメニュー、時計のダブルクリック、FoxClocks ボタンのクリック(表示されていれば)から FoxClocks にアクセスできます。">

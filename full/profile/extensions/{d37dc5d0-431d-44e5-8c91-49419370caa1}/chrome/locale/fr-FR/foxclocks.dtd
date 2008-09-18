@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "Fichiers des paramètres de FoxClocks">
 <!ENTITY foxclocks.zonepicker.description.label "Choix de la zone">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Affiche l&apos;ensemble des fuseaux disponibles. Les fuseaux deviennent villes lorsqu&apos;ils sont ajoutés à la liste d&apos;observation">
+<!ENTITY foxclocks.zonepicker.search.initvalue "Rechercher">
+<!ENTITY foxclocks.zonepicker.search.accesskey "R">
+<!ENTITY foxclocks.zonepicker.search.tooltip "Rechercher le fuseau horaire par le pays ou la ville">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Fuseau horaire">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Fuseau horaire">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC Offset">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "A">
 <!ENTITY options.data.update.checknow.button.label "Vérifier maintenant">
 <!ENTITY options.data.update.checknow.button.accesskey "V">
+<!ENTITY options.advanced.caption "Avancées">
+<!ENTITY options.advanced.newloc.caption.label "Ajouter la ville à la liste d&apos;observation">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "Afficher l&apos;horloge dans la barre d&apos;état/barre d&apos;outils">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "Afficher le drapeau dans la barre d&apos;état/barre d&apos;outils">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "Afficher l&apos;horloge dans la bulle d&apos;info de la barre d&apos;état/barre d&apos;outils">
+<!ENTITY options.advanced.misc.caption.label "Divers">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "Afficher le drapeau dans la bulle d&apos;info de la barre d&apos;état/barre d&apos;outils">
+<!ENTITY options.advanced.alert.autoupdate.label "Afficher les alertes de mise à jour">
+<!ENTITY options.advanced.menuitem.hidden.label "Afficher la ligne Foxclocks dans le menu Outils de Firefox">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "Confirmer la suppression d&apos;une ville de la liste d&apos;observation">
 <!ENTITY zoneinfo.title.zone "Propriétés du fuseau horaire">
 <!ENTITY zoneinfo.title.location "Propriétés de la ville">
 <!ENTITY zoneinfo.tab.zone.label "Fuseau horaire">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "d">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "jusqu&apos;à">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "j">
+<!ENTITY zoneinfo.display.flag.caption "Drapeau de la barre d&apos;état/barre d&apos;outils">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Désactivé">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Standard">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "S">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Personnalisé">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "P">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Pré-sélections">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "S">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Cliquer pour choisir les images prédéfinies des drapeaux">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Parcourir...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "r">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Cliquer pour rechercher un drapeau">
+<!ENTITY zoneinfo.display.customformat.caption.label "Formats personnalisés (avancé)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "ex : &apos;&lt;l&gt;-&lt;24h&gt;&lt;m&gt;&apos; affiche &apos;[Ville]-1523&apos;. Voir Options-&gt;Format d&apos;affichage de l&apos;heure pour les différentes options">
+<!ENTITY zoneinfo.display.customformat.clock.label "Horloge de la barre d&apos;état/barre d&apos;outils">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "H">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Bulle d&apos;info de l&apos;horloge de la barre d&apos;état/barre d&apos;outils">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "B">
 <!ENTITY welcome.title "Bienvenue">
 <!ENTITY welcome.header "Bienvenue dans FoxClocks">
 <!ENTITY welcome.message "Foxclocks affiche l&apos;heure locale dans près de 400 villes à travers le monde, à l&apos;aide d&apos;une base de données de fuseaux horaires et d&apos;usage de l&apos;heure d&apos;été. FoxClocks interagit avec Google Earth (s&apos;il est installé), pour vous emmener dans tout endroit du monde figurant dans la base de données de FoxClocks. FoxClocks permet aussi d&apos;afficher l&apos;heure dans la barre d&apos;état ou dans la barre d&apos;outils de votre navigateur.|Si vous utilisez FoxClocks pour la première fois, vous souhaitez probablement configurer l&apos;heure à afficher. Nous vous fournissons quelques lieux, un par fuseau horaire.|A l&apos;avenir, ce message ne s&apos;affichera plus; FoxClocks est accessible par le menu Outils ou en double-cliquant sur l&apos;heure affichée dans la barre d&apos;état, si celle-ci est visible">

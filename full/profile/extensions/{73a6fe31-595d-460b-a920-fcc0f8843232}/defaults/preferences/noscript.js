@@ -20,9 +20,11 @@ pref("noscript.showDistrust", true);
 pref("noscript.showUntrusted", true);
 pref("noscript.showBaseDomain", true);
 pref("noscript.showGlobal", true);
+pref("noscript.showTempToPerm", true);
 pref("noscript.showRevokeTemp", true);
 pref("noscript.showBlockedObjects", true);
 pref("noscript.showTempAllowPage", true);
+pref("noscript.showAllowPage", true);
 pref("noscript.mandatory", "chrome: about: resource:");
 pref("noscript.default", "chrome: resource: about:blank about:neterror about:config about:plugins about:credits addons.mozilla.org flashgot.net google.com googlesyndication.com informaction.com yahoo.com yimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com recaptcha.net");
 pref("noscript.forbidJava", true);
@@ -113,7 +115,7 @@ pref("noscript.fixURI.exclude", "");
 pref("noscript.blockNSWB", false);
 
 pref("noscript.urivalid.aim", "\\w[^\\\\\?&\\x00-\\x1f#]*(?:\\?[^\\\\\\x00-\\x1f#]*(?:#[\\w\\-\\.\\+@]{2,32})?)?");
-pref("noscript.urivalid.mailto", "[^\\x00-\\x07\\x09\\x0b\\x0c\\x0e-\\x1f]*");
+pref("noscript.urivalid.mailto", "[^\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f]*");
 
 pref("noscript.forbidExtProtSubdocs", true);
 
@@ -157,3 +159,14 @@ pref("noscript.untrustedGranularity", 3);
 pref("noscript.requireReloadRegExp", "application/x-vnd\\.moveplayer\\b.*");
 
 pref("noscript.trustEV", false);
+
+pref("noscript.secureCookies", false);
+pref("noscript.secureCookiesExceptions", "");
+pref("noscript.secureCookiesForced", "");
+pref("noscript.secureCookies.recycle", false);
+pref("noscript.secureCookies.perTab", false);
+
+pref("noscript.httpsForced", "");
+pref("noscript.allowHttpsOnly", 0);
+
+pref("noscript.https.showInConsole", true);
