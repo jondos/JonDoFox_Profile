@@ -40,7 +40,7 @@ user_pref("browser.places.leftPaneFolderId", -1);
 user_pref("browser.places.migratePostDataAnnotations", false);
 user_pref("browser.places.smartBookmarksVersion", 1);
 user_pref("browser.places.updateRecentTagsUri", false);
-user_pref("browser.preferences.advanced.selectedTabIndex", 3);
+user_pref("browser.preferences.advanced.selectedTabIndex", 0);
 user_pref("browser.preferences.privacy.selectedTabIndex", 5);
 user_pref("browser.safebrowsing.enabled", false);
 user_pref("browser.search.selectedEngine", "Cuil");
