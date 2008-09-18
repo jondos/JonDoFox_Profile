@@ -1,22 +1,19 @@
 <notelist>
   <lastsaved>
-    <note>
-      <title/>
-      <content/>
-    </note>
+    <note/>
   </lastsaved>
   <notes>
     <note>
-      <title>Example Note 1</title>
-      <content>This is an &lt;span style="font-weight: bold; color: rgb(255, 0, 0);"&gt;example &lt;/span&gt;of a &lt;span style="font-weight: bold;"&gt;formatted &lt;span style="color: blue;"&gt;note&lt;/span&gt;&lt;/span&gt; note</content>
-      <datemodified>20070923T07:35:45</datemodified>
-      <GUID>baa945110-54b7-68d1-96d5-62282cedd6b</GUID>
+      <title>Beispielnotiz 1</title>
+      <content>Dies ist ein &lt;span style="font-weight: bold; color: #000;"&gt;Beispiel&lt;/span&gt; für eine &lt;span style="font-weight: bold;"&gt;formatierte &lt;span style="color: blue;"&gt;Notiz&lt;/span&gt;&lt;/span&gt; Notiz.</content>
+      <datemodified>20080917T12:22:21</datemodified>
+      <GUID>d5eb19ee4-350d-d7e0-b661-30e3019a171</GUID>
     </note>
     <note>
-      <title>Example Note 2</title>
-      <content>This is an example of a normal text note</content>
-      <datemodified>20070923T07:35:46</datemodified>
-      <GUID>73c168059-749a-b203-c130-311dd76cb38</GUID>
+      <title>Beispielnotiz 2</title>
+      <content>Dies ist ein Beispiel für eine unformatierte Notiz.</content>
+      <datemodified>20080917T12:22:21</datemodified>
+      <GUID>74a75c48d-3a21-5052-2956-0b656e02ae1</GUID>
     </note>
   </notes>
 </notelist>
