@@ -18,15 +18,15 @@
 ;=== BEGIN: BASIC INFORMATION
 !define NAME "JonDoFox"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.0.0.0"
+!define VERSION "2.0.2.0"
 !define FILENAME "JonDoFox"
 !define CHECKRUNNING "JonDoFoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
-!define PORTABLEAPPSINSTALLERVERSION "0.9.9.0"
+!define INSTALLERVERSION "1.0.0.0"
 !define INSTALLERCOMMENTS "For additional details, visit jondos.de" ; changed by JonDos GmbH 2008
 !define INSTALLERADDITIONALTRADEMARKS "Firefox is a Trademark of The Mozilla Foundation. " ;end this entry with a period and a space if used
-!define INSTALLERLEGALCOPYRIGHT "PortableApps.com and contributors"
+!define INSTALLERLEGALCOPYRIGHT "JonDos GmbH"
 !define LICENSEAGREEMENT "eula.rtf"
 ; NOTE: For no license agreement, comment out the above line by placing a semicolon at the start of it
 ;=== END: BASIC INFORMATION
@@ -91,7 +91,7 @@ ShowInstDetails show
 Name "${NAME}"
 OutFile "..\..\..\${FILENAME}.paf.exe"
 InstallDir "$PROFILE\${SHORTNAME}\"
-Caption "${NAME} | PortableApps.com Installer"
+Caption "${NAME}"
 VIProductVersion "${VERSION}"
 VIAddVersionKey ProductName "${NAME}"
 VIAddVersionKey Comments "${INSTALLERCOMMENTS}"
@@ -101,9 +101,9 @@ VIAddVersionKey FileDescription "${NAME}"
 VIAddVersionKey FileVersion "${VERSION}"
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey InternalName "${NAME}"
-VIAddVersionKey LegalTrademarks "${INSTALLERADDITIONALTRADEMARKS}PortableApps.com is a Trademark of Rare Ideas, LLC."
+VIAddVersionKey LegalTrademarks "${INSTALLERADDITIONALTRADEMARKS}PortableApps.com is a Trademark of Rare Ideas, LLC. JonDo is a trademark of JonDos GmbH."
 VIAddVersionKey OriginalFilename "${FILENAME}.paf.exe"
-VIAddVersionKey PortableApps.comInstallerVersion "${PORTABLEAPPSINSTALLERVERSION}"
+VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 
 
 
@@ -601,6 +601,21 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
+        
+        Section /o "Copy Plain Text" CopyPlainText
+        SectionIn 1 3
+
+                StrCpy $ExtensionGUID "{723AAF16-AF1F-4404-A5D7-0BFE39766605}"
+                StrCpy $ExtensionName "Copy Plain Text"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{723AAF16-AF1F-4404-A5D7-0BFE39766605}\*.*"
+
+        SectionEnd
+
+
         Section /o "CuteMenus - Crystal SVG" CuteMenusCrystalSVG
         SectionIn 1 3
         
@@ -702,6 +717,34 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
+        Section /o "MR Tech Toolkit" MRTechToolkit
+        SectionIn 1 3
+
+                StrCpy $ExtensionGUID "{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}"
+                StrCpy $ExtensionName "MR Tech Toolkit"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}\*.*"
+
+        SectionEnd
+
+
+        Section /o "Plain Text to Link" PlainTexttoLink
+        SectionIn 1 3
+
+                StrCpy $ExtensionGUID "{C90B0826-5A17-4970-A5BF-A43D22452E21}"
+                StrCpy $ExtensionName "Plain Text to Link"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{C90B0826-5A17-4970-A5BF-A43D22452E21}\*.*"
+
+        SectionEnd
+
+
         Section /o "Sage" Sage
         SectionIn 1 3
         
@@ -762,44 +805,9 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
         
 
-        Section /o "MR Tech Toolkit" MRTechToolkit
-        SectionIn 1 3
 
-                StrCpy $ExtensionGUID "{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}"
-                StrCpy $ExtensionName "MR Tech Toolkit"
 
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}\*.*"
-
-        SectionEnd
-
-        Section /o "Plain Text to Link" PlainTexttoLink
-        SectionIn 1 3
-
-                StrCpy $ExtensionGUID "{C90B0826-5A17-4970-A5BF-A43D22452E21}"
-                StrCpy $ExtensionName "Plain Text to Link"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{C90B0826-5A17-4970-A5BF-A43D22452E21}\*.*"
-
-        SectionEnd
-        
-        Section /o "Copy Plain Text" CopyPlainText
-        SectionIn 1 3
-
-                StrCpy $ExtensionGUID "{723AAF16-AF1F-4404-A5D7-0BFE39766605}"
-                StrCpy $ExtensionName "Copy Plain Text"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{723AAF16-AF1F-4404-A5D7-0BFE39766605}\*.*"
-
-        SectionEnd
 
 SectionGroupEnd
 
@@ -829,17 +837,17 @@ SectionGroupEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${CacheIT} $(DescCacheIT)
   !insertmacro MUI_DESCRIPTION_TEXT ${Calculator} $(DescCalculator)
   !insertmacro MUI_DESCRIPTION_TEXT ${ChatZilla} $(DescChatZilla)
+  !insertmacro MUI_DESCRIPTION_TEXT ${CopyPlainText} $(DescCopyPlainText)
   !insertmacro MUI_DESCRIPTION_TEXT ${CuteMenusCrystalSVG} $(DescCuteMenusCrystalSVG)
   !insertmacro MUI_DESCRIPTION_TEXT ${ForecastbarEnhanced} $(DescForecastbarEnhanced)
   !insertmacro MUI_DESCRIPTION_TEXT ${FoxClocks} $(DescFoxClocks)
   !insertmacro MUI_DESCRIPTION_TEXT ${GrooweSearchToolbar} $(DescGrooweSearchToolbar)
   !insertmacro MUI_DESCRIPTION_TEXT ${ImageZoom} $(DescImageZoom)
-  !insertmacro MUI_DESCRIPTION_TEXT ${Sage} $(DescSage)
-  !insertmacro MUI_DESCRIPTION_TEXT ${ScribeFire} $(DescScribeFire)
-  !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)
   !insertmacro MUI_DESCRIPTION_TEXT ${MRTechToolkit} $(DescMRTechToolkit)
   !insertmacro MUI_DESCRIPTION_TEXT ${PlainTexttoLink} $(DescPlainTexttoLink)
-  !insertmacro MUI_DESCRIPTION_TEXT ${CopyPlainText} $(DescCopyPlainText)
+  !insertmacro MUI_DESCRIPTION_TEXT ${Sage} $(DescSage)
+  !insertmacro MUI_DESCRIPTION_TEXT ${ScribeFire} $(DescScribeFire)
+  !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)  
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 
