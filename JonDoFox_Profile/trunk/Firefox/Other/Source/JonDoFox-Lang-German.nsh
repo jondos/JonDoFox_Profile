@@ -111,3 +111,7 @@ LangString DescSage ${LANG_GERMAN} "Ein leichtgewichtiger RSS und Atom-feed Lese
 LangString DescScribeFire ${LANG_GERMAN} "Erlaubt das Schreiben Ihres Blogs ohne Firefox verlassen zu müssen"
 
 LangString DescTinyUrlCreator ${LANG_GERMAN} "Komfortables Werkzeug zum Erstellen von kleinen URL-Weiterleitungen aus längeren"
+
+LangString DescPlainTexttoLink ${LANG_GERMAN} "test"
+
+LangString DescCopyPlainText ${LANG_GERMAN} "test"
