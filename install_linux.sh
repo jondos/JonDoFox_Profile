@@ -307,7 +307,7 @@ compareVersions()
 {
 	if  [ "$1" = "${OLDER_VERSION}" ]; then
 		return 2
-	elif ! [ "$2" = "${OLDER_VERSION}" ]; then
+	elif [ "$2" = "${OLDER_VERSION}" ]; then
 		return 1;
 	fi
 	
