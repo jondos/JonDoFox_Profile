@@ -1,0 +1,24 @@
+<!ENTITY dialog.title "Nastavenia Add Bookmark Here ²">
+<!ENTITY position.group "Pozícia položky ponuky">
+<!ENTITY position.item.abHere "Vyberte pozíciu položky [Pridať k záložkám...]:">
+<!ENTITY position.item.opTabs "Vyberte pozíciu položky [Otvoriť všetko na kartách]:">
+<!ENTITY position.option.top "Hore">
+<!ENTITY position.option.bottom "Dole">
+<!ENTITY position.option.hidden "Skrytá">
+<!ENTITY position.misc.context "Zobrať položku [Pridať k záložkám...] v kontextovej ponuke">
+<!ENTITY clicking.group "Kliknutie myšou">
+<!ENTITY clicking.item.buttonL "Kliknutie ľavým tlačidlom:">
+<!ENTITY clicking.item.buttonM "Kliknutie stredným tlačidlom:">
+<!ENTITY clicking.item.buttonR "Kliknutie pravým tlačidlom:">
+<!ENTITY clicking.option.bmPage "Pridať medzi záložky">
+<!ENTITY clicking.option.bmNoUI "Pridať medzi záložky (bez zobrazenia dialógového okna)">
+<!ENTITY clicking.option.bmTabs "Pridať všetky karty medzi záložky">
+<!ENTITY clicking.misc.insertTop "Vložiť Záložky navrch ponuky">
+<!ENTITY starUI.group "Dialógové okno pridania záložky">
+<!ENTITY starUI.expand.folderRow "Rozbaliť strom priečinkov">
+<!ENTITY starUI.expand.tagsRow "Rozbaliť zoznam značiek">
+<!ENTITY starUI.misc.singleClick "Po jednom kliknutí na ikonu hviezdy zobraziť dialógové okno">
+<!ENTITY menubar.group "Ponuka Záložky">
+<!ENTITY menubar.item.abHere "Zobraziť položku [Pridať medzi záložky...]">
+<!ENTITY menubar.item.bmPage "Zobraziť položku [Pridať medzi záložky]">
+<!ENTITY menubar.item.bmTabs "Zobraziť položku [Pridať všetky karty medzi záložky]">
