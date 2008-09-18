@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "Файлы з наладкамі FoxClocks">
 <!ENTITY foxclocks.zonepicker.description.label "Выбар зоны">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Адлюстроўвае ўсе даступныя часавыя зоны. Зоны становяцца месцамі, калі даданыя ў сьпіс гадзін">
+<!ENTITY foxclocks.zonepicker.search.initvalue "">
+<!ENTITY foxclocks.zonepicker.search.accesskey "">
+<!ENTITY foxclocks.zonepicker.search.tooltip "">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Часавая зона">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Часавая зона">
 <!ENTITY foxclocks.zonepicker.col.offset.label "Зрух адносна GMT/UTC">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "Д">
 <!ENTITY options.data.update.checknow.button.label "Праверыць зараз">
 <!ENTITY options.data.update.checknow.button.accesskey "з">
+<!ENTITY options.advanced.caption "">
+<!ENTITY options.advanced.newloc.caption.label "">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
+<!ENTITY options.advanced.misc.caption.label "">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
+<!ENTITY options.advanced.alert.autoupdate.label "">
+<!ENTITY options.advanced.menuitem.hidden.label "">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "">
 <!ENTITY zoneinfo.title.zone "Уласьцівасьці часавай зоны">
 <!ENTITY zoneinfo.title.location "Уласьцівасьці месца">
 <!ENTITY zoneinfo.tab.zone.label "Часавая зона">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "з">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "па">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "п">
+<!ENTITY zoneinfo.display.flag.caption "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.caption.label "">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.clock.label "">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
 <!ENTITY welcome.title "Сардэчна запрашаем">
 <!ENTITY welcome.header "Сардэчна запрашаем у FoxClocks">
 <!ENTITY welcome.message "FoxClocks паказвае час у любым месцы на Зямлі ў радку статусу альбо панэлі інструмэнтаў, карыстаючыся базаю дадзеных часавых зон і дат пераходу на летні/зімовы час. FoxClocks інтэгруецца з Google Earth.|Для пачатку Вы можаце зараз наладзіць FoxClocks – абраць часавыя зоны, час для якіх ён будзе паказваць.|Болей гэтае паведамленьне паказвацца ня будзе; каб зьмяніць наладкі FoxClocks, выклічыце яго зь сьпісу пашырэньняў.">

@@ -1,17 +1,24 @@
-<!ENTITY dialog.title "Add Bookmarks Here ² - Opties">
-<!ENTITY group.pos "Positie menuitem">
-<!ENTITY group.bmm "Bladwijzermenu">
-<!ENTITY group.bmc "Bladwijzer contextmenu">
-<!ENTITY group.misc "Diversen">
-<!ENTITY pos.abhere "Positie menuitem [$abhere$]:">
-<!ENTITY pos.optabs "Positie menuitem [$optabs$]:">
-<!ENTITY pos.top "Bovenaan">
-<!ENTITY pos.bottom "Onderaan">
-<!ENTITY pos.hidden "Verborgen">
-<!ENTITY bmm.abhere "Menuitem [$abhere$] weergeven">
-<!ENTITY bmm.bmpage "Menuitem [bookmarkThisPageCmd.label;] verbergen">
-<!ENTITY bmm.bmtabs "Menuitem [&bookmarkAllCmd.label;] verbergen">
-<!ENTITY insertTop "Bladwijzer bovenaan het menu toevoegen">
-<!ENTITY folderDrag "Slepen van Bladwijzermappen toestaan">
-<!ENTITY noPopEditUI "Dit wijzigen venster niet weergeven bij het toevoegen van een bladwijzer">
-<!ENTITY clickStarUI "Klik op de Bladwijzer Ster om het wijzigen venster weer te geven">
+<!ENTITY dialog.title "Add Bookmarks Here² opties">
+<!ENTITY position.group "Positie menuitems">
+<!ENTITY position.item.abHere "Positie [Bladwijzer hier toevoegen...]">
+<!ENTITY position.item.opTabs "Positie [Alle openen in tabbladen]">
+<!ENTITY position.option.top "Bovenkant">
+<!ENTITY position.option.bottom "Onderkant">
+<!ENTITY position.option.hidden "Verborgen">
+<!ENTITY position.misc.context "[Bladwijzer hier toevoegen...] in contextmenu weergeven">
+<!ENTITY clicking.group "Muisbesturing">
+<!ENTITY clicking.item.buttonL "Linksklikken:">
+<!ENTITY clicking.item.buttonM "Middenklikken:">
+<!ENTITY clicking.item.buttonR "Rechtsklikken:">
+<!ENTITY clicking.option.bmPage "Bladwijzer van deze pagina maken">
+<!ENTITY clicking.option.bmNoUI "Bladwijzer van deze pagina maken (zonder venster)">
+<!ENTITY clicking.option.bmTabs "Bladwijzer van alle tabbladen te maken">
+<!ENTITY clicking.misc.insertTop "Bladwijzers bovenaan het menu toevoegen">
+<!ENTITY starUI.group "Bladwijzer Ster venster">
+<!ENTITY starUI.expand.folderRow "Mappenlijst uitklappen">
+<!ENTITY starUI.expand.tagsRow "Labellijst uitklappen">
+<!ENTITY starUI.misc.singleClick "Enkelklikken op de Bladwijzer Ster opent gegevens">
+<!ENTITY menubar.group "Bladwijzermenu">
+<!ENTITY menubar.item.abHere "Menuitem [Bladwijzer hier toevoegen...] weergeven">
+<!ENTITY menubar.item.bmPage "Menuitem [Bladwijzer van deze pagina maken] weergeven">
+<!ENTITY menubar.item.bmTabs "Menuitem [Bladwijzer van alle tabbladen maken] weergeven">

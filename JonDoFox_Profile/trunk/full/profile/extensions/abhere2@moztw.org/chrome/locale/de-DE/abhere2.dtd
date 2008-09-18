@@ -1,17 +1,24 @@
-<!ENTITY dialog.title "Add Bookmark Here ² - Einstellungen">
-<!ENTITY group.pos "Position der Menüeinträge im Lesezeichen-Menü">
-<!ENTITY group.bmm "Anzeige der Menüeinträge im Lesezeichen-Menü">
-<!ENTITY group.bmc "Anzeige des Menüeintrags im Lesezeichen-Kontextmenü">
-<!ENTITY group.misc "Verschiedenes">
-<!ENTITY pos.abhere "Eintrag &quot;$abhere$&quot;:">
-<!ENTITY pos.optabs "Eintrag &quot;$optabs$&quot;:">
-<!ENTITY pos.top "am Anfang">
-<!ENTITY pos.bottom "am Ende">
-<!ENTITY pos.hidden "ausblenden">
-<!ENTITY bmm.abhere "&quot;$abhere$&quot; anzeigen">
-<!ENTITY bmm.bmpage "&quot;&bookmarkThisPageCmd.label;&quot; ausblenden">
-<!ENTITY bmm.bmtabs "&quot;&bookmarkAllCmd.label;&quot; ausblenden">
-<!ENTITY insertTop "Neue Lesezeichen am Anfang einfügen">
-<!ENTITY folderDrag "Verschieben von Lesezeichen mit der Maus erlauben">
-<!ENTITY noPopEditUI "Bearbeiten-Dialog beim Hinzufügen eines Lesezeichens nicht anzeigen">
-<!ENTITY clickStarUI "Einmaliges Klicken auf Lesezeichen öffnet Bearbeiten-Dialog">
+<!ENTITY dialog.title "Add Bookmark Here ² Optionen">
+<!ENTITY position.group "Menüeintrag Position">
+<!ENTITY position.item.abHere "[Lesezeichen hier hinzufügen...] Position wählen:">
+<!ENTITY position.item.opTabs "[Alle in Tabs öffnen] Position wählen:">
+<!ENTITY position.option.top "Oben">
+<!ENTITY position.option.bottom "Unten">
+<!ENTITY position.option.hidden "Versteckt">
+<!ENTITY position.misc.context "[Lesezeichen hier hinzufügen...] im Kontextmenü zeigen">
+<!ENTITY clicking.group "Mausklick">
+<!ENTITY clicking.item.buttonL "Linksklick zu:">
+<!ENTITY clicking.item.buttonM "Mittelklick zu:">
+<!ENTITY clicking.item.buttonR "Rechtsklick zu:">
+<!ENTITY clicking.option.bmPage "Lesezeichen für diese Seite hinzufügen">
+<!ENTITY clicking.option.bmNoUI "Lesezeichen für diese Seite hinzufügen (ohne Dialog)">
+<!ENTITY clicking.option.bmTabs "Lesezeichen für alle Tabs hinzufügen">
+<!ENTITY clicking.misc.insertTop "Lesezeichen am Anfang des Menüs einfügen">
+<!ENTITY starUI.group "Lesezeichen-Stern Dialog">
+<!ENTITY starUI.expand.folderRow "Ordnerbaum erweitern">
+<!ENTITY starUI.expand.tagsRow "Schlagwörterliste erweitern">
+<!ENTITY starUI.misc.singleClick "Einfacher Klick auf den Lesezeichen-Stern zeigt Dialog">
+<!ENTITY menubar.group "Lesezeichen-Menü">
+<!ENTITY menubar.item.abHere "[Lesezeichen hier hinzufügen...] Menüeintrag zeigen">
+<!ENTITY menubar.item.bmPage "[Lesezeichen für diese Seite hinzufügen] Menüeintrag zeigen">
+<!ENTITY menubar.item.bmTabs "[Lesezeichen für alle Tabs hinzufügen] Menüeintrag zeigen">

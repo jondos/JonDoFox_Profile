@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks uložené soubory">
 <!ENTITY foxclocks.zonepicker.description.label "Seznam pásem">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Zobrazuje všechna dostupná časová pásma. Při přidávaní míst do seznamu hodin jsou místa rozdělena podle pásem.">
+<!ENTITY foxclocks.zonepicker.search.initvalue "">
+<!ENTITY foxclocks.zonepicker.search.accesskey "">
+<!ENTITY foxclocks.zonepicker.search.tooltip "">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Časové pásmo">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Časové pásmo">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC rozdíl">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "Z">
 <!ENTITY options.data.update.checknow.button.label "Zkontrolovat nyní">
 <!ENTITY options.data.update.checknow.button.accesskey "n">
+<!ENTITY options.advanced.caption "">
+<!ENTITY options.advanced.newloc.caption.label "">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
+<!ENTITY options.advanced.misc.caption.label "">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
+<!ENTITY options.advanced.alert.autoupdate.label "">
+<!ENTITY options.advanced.menuitem.hidden.label "">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "">
 <!ENTITY zoneinfo.title.zone "Podrobnosti časového pásma">
 <!ENTITY zoneinfo.title.location "Podrobnosti místa">
 <!ENTITY zoneinfo.tab.zone.label "Časová pásma">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "o">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "do">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "d">
+<!ENTITY zoneinfo.display.flag.caption "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.caption.label "">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.clock.label "">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
 <!ENTITY welcome.title "Vítejte">
 <!ENTITY welcome.header "Vítejte v rozšíření FoxClocks">
 <!ENTITY welcome.message "FoxClocks zobrazuje ve stavovém řádku nebo na panelu nástrojů aplikace čas ze stovek míst po celém světě, prostřednictvím databáze časových pásem v letním čase. FoxClocks také spolupracuje s Google Earth (pokud ho máte nainstalovaný), ve kterém si můžete prohlédnout kterékoliv místo nacházející se v databázi FoxClocks.|Při prvním použití FoxClocks si můžete nastavit, které časy má FoxClocks zobrazit. Máte k dispozici příklad seznamu míst.|Příště se toto oznámení nezobrazí; FoxClocks je možné otevřít z nabídky Nástroje, poklepáním na libovolné hodiny nebo klepnutím na tlačítko FoxClocks, je-li viditelné.">

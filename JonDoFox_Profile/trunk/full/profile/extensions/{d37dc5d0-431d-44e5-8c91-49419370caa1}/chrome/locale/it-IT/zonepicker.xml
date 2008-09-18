@@ -1,4 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    FoxClocks extension for Mozilla Firefox/Thunderbird/Sunbird
+    Copyright (C) 2005-2008 Andy McDonald / www.stemhaus.com
+    For licensing terms, please refer to readme.txt in this extension's '.xpi'
+    package or its installation directory on your computer.
+    -->
+
+<!-- Please see 'NOTES FOR TRANSLATORS' in readme.txt -->
+
 <zonepicker xmlns="http://www.stemhaus.com/firefox/foxclocks/zonepicker" version="2.0" locale="it-IT">
 	<Branch name="Africa">
 		<Branch name="Nazioni">
@@ -160,8 +170,10 @@
 					<Leaf zone_id="America/Moncton" name="New Brunswick" />
 					<Leaf zone_id="America/Halifax" name="NS e PEI" />
 				</Branch>
-				<Branch name="Orario centrale">
+				<Branch name="Orario centrale standard">
 					<Leaf zone_id="America/Regina" name="Saskatchewan" />
+				</Branch>
+				<Branch name="Orario centrale">
 					<Leaf zone_id="America/Winnipeg" name="Manitoba e W ON" />
 					<Leaf zone_id="America/Rankin_Inlet" name="Centro Nunavut" />
 				</Branch>
@@ -185,16 +197,22 @@
 					<Leaf zone_id="America/Vancouver" name="Ovest Columbia britannica" />
 				</Branch>
 				<Branch name="Eccezioni">
-					<Branch name="Orario atlantico">
+					<Branch name="Orario atlantico standard">
 						<Leaf zone_id="America/Blanc-Sablon" name="QC - Lower N Shore" />
+					</Branch>
+					<Branch name="Orario atlantico">
 						<Leaf zone_id="America/Glace_Bay" name="NS - no DST 1966-1971" />
 					</Branch>
-					<Branch name="Orario centrale">
+					<Branch name="Orario centrale standard">
 						<Leaf zone_id="America/Swift_Current" name="Saskatchewan - midwest" />
+					</Branch>
+					<Branch name="Orario centrale">
 						<Leaf zone_id="America/Rainy_River" name="Rainy River e Fort Frances, ON" />
 					</Branch>
-					<Branch name="Orario orientale">
+					<Branch name="Orario orientale standard">
 						<Leaf zone_id="America/Atikokan" name="Atikokan, ON e Southampton I, NU" />
+					</Branch>
+					<Branch name="Orario orientale">
 						<Leaf zone_id="America/Nipigon" name="ON e QC - no DST 1967-1973" />
 						<Leaf zone_id="America/Pangnirtung" name="Pangnirtung, NU" />
 						<Leaf zone_id="America/Thunder_Bay" name="Thunder Bay, ON" />
@@ -232,12 +250,15 @@
 			<Leaf zone_id="America/Martinique" name="Martinica" />
 			<Branch name="Messico">
 				<Branch name="Orario centrale">
+					<Leaf zone_id="America/Mexico_City" name="Messico centrale" />
 					<Leaf zone_id="America/Merida" name="Campeche, Yucatan" />
 					<Leaf zone_id="America/Monterrey" name="Coahuila, Durango, Nuevo Leon, Tamaulipas" />
 					<Leaf zone_id="America/Cancun" name="Quintana Roo" />
 				</Branch>
-				<Branch name="Orario delle montagne">
+				<Branch name="Orario standard delle montagne">
 					<Leaf zone_id="America/Hermosillo" name="Sonora" />
+				</Branch>
+				<Branch name="Orario delle montagne">
 					<Leaf zone_id="America/Chihuahua" name="Chihuahua" />
 					<Leaf zone_id="America/Mazatlan" name="S Baja, Nayarit, Sinaloa" />
 				</Branch>
@@ -287,6 +308,8 @@
 					<Branch name="Orario orientale">
 						<Branch name="Indiana">
 							<Leaf zone_id="America/Indiana/Indianapolis" name="Indiana" />
+							<Leaf zone_id="America/Indiana/Vincennes" name="Daviess, Dubois, Knox e Martin Cos" />
+							<Leaf zone_id="America/Indiana/Indianapolis" name="Indiana" />
 							<Leaf zone_id="America/Indiana/Marengo" name="Crawford Co" />
 							<Leaf zone_id="America/Indiana/Knox" name="Starke Co" />
 							<Leaf zone_id="America/Indiana/Vevay" name="Switzerland Co" />
@@ -324,6 +347,9 @@
 			<Leaf zone_id="America/Boa_Vista" name="Boa Vista" />
 			<Leaf zone_id="America/Bogota" name="Bogotá" />
 			<Leaf zone_id="America/Boise" name="Boise" />
+			<Leaf zone_id="America/Sao_Paulo" name="Brasilia">
+				<Coordinates latitude="-15.792" longitude="-47.898" />
+			</Leaf>
 			<Leaf zone_id="America/Barbados" name="Bridgetown" />
 			<Leaf zone_id="America/Argentina/Buenos_Aires" name="Buenos Aires" />
 			<Leaf zone_id="America/Cambridge_Bay" name="Cambridge Bay" />
@@ -335,7 +361,6 @@
 			<Leaf zone_id="America/Chicago" name="Chicago" />
 			<Leaf zone_id="America/Chihuahua" name="Chihuahua" />
 			<Leaf zone_id="America/Grand_Turk" name="Cockburn Town" />
-			<Leaf zone_id="America/Argentina/ComodRivadavia" name="Comodoro Rivadavia" />
 			<Leaf zone_id="America/Argentina/Cordoba" name="Córdoba" />
 			<Leaf zone_id="America/Cuiaba" name="Cuiaba" />
 			<Leaf zone_id="America/Danmarkshavn" name="Danmarkshavn" />
@@ -363,6 +388,7 @@
 				<Leaf zone_id="America/Indiana/Knox" name="Knox" />
 				<Leaf zone_id="America/Indiana/Marengo" name="Marengo" />
 				<Leaf zone_id="America/Indiana/Petersburg" name="Petersburg" />
+				<Leaf zone_id="America/Indiana/Tell_City" name="Tell City" />
 				<Leaf zone_id="America/Indiana/Vevay" name="Vevay" />
 				<Leaf zone_id="America/Indiana/Vincennes" name="Vincennes" />
 			</Branch>
@@ -472,6 +498,11 @@
 		<Leaf zone_id="Antarctica/Vostok" name="Base scientifica 'Vostok'" />
 		<Leaf zone_id="Antarctica/South_Pole" name="Polo Sud" />
 	</Branch>
+	<Branch name="Oceano articon">
+		<Branch name="Svalbard e Jan Mayen">
+			<Leaf zone_id="Arctic/Longyearbyen" name="Isole Svalbard" />
+		</Branch>
+	</Branch>
 	<Branch name="Asia">
 		<Branch name="Nazioni">
 			<Leaf zone_id="Asia/Kabul" name="Afghanistan" />
@@ -560,6 +591,7 @@
 			<Leaf zone_id="Asia/Dushanbe" name="Tagikistan" />
 			<Leaf zone_id="Asia/Bangkok" name="Thailandia" />
 			<Leaf zone_id="Asia/Ashgabat" name="Turkmenistan" />
+			<Leaf zone_id="Europe/Istanbul" name="Turchia" />
 			<Leaf zone_id="Asia/Dubai" name="Emirati Arabi Uniti" />
 			<Branch name="Uzbekistan">
 				<Leaf zone_id="Asia/Tashkent" name="Est Uzbekistan" />
@@ -602,6 +634,9 @@
 			<Leaf zone_id="Asia/Hong_Kong" name="Hong Kong" />
 			<Leaf zone_id="Asia/Hovd" name="Hovd" />
 			<Leaf zone_id="Asia/Irkutsk" name="Irkutsk" />
+			<Leaf zone_id="Asia/Karachi" name="Islamabad">
+				<Coordinates latitude="33.718" longitude="73.061" />
+			</Leaf>
 			<Leaf zone_id="Asia/Istanbul" name="Istanbul" />
 			<Leaf zone_id="Asia/Jakarta" name="Giacarta" />
 			<Leaf zone_id="Asia/Jayapura" name="Jayapura" />
@@ -662,6 +697,27 @@
 			<Leaf zone_id="Asia/Sakhalin" name="Yuzhno-Sakhalinsk" />
 		</Branch>
 	</Branch>
+	<Branch name="Oceano atlantico">
+		<Leaf zone_id="Atlantic/Bermuda" name="Isole Bermuda" />
+		<Leaf zone_id="Atlantic/Cape_Verde" name="Capo Verde" />
+		<Leaf zone_id="Atlantic/Faeroe" name="Isole Faeroer" />
+		<Leaf zone_id="Atlantic/Stanley" name="Isole Falkland" />
+		<Leaf zone_id="Atlantic/Reykjavik" name="Islanda" />
+		<Branch name="Portogallo">
+			<Leaf zone_id="Atlantic/Azores" name="Isole Azzorre" />
+			<Leaf zone_id="Atlantic/Madeira" name="Madeira" />
+		</Branch>
+		<Leaf zone_id="Atlantic/St_Helena" name="Sant'Elena" />
+		<Leaf zone_id="Atlantic/South_Georgia" name="Georgia del sud e Isole Sandwich meridionali" />
+		<Branch name="Spagna">
+			<Leaf zone_id="Atlantic/Canary" name="Isole Canarie" />
+		</Branch>
+		<Branch name="Isole Svalbard e Jan Mayen">
+			<Leaf zone_id="Europe/Oslo" name="Jan Mayen">
+				<Coordinates latitude="70.983" longitude="-8.083" />
+			</Leaf>
+		</Branch>
+	</Branch>
 	<Branch name="Australia">
 		<Branch name="Stati">
 			<Leaf zone_id="Australia/Lord_Howe" name="Isola Lord Howe" />
@@ -704,6 +760,7 @@
 			<Leaf zone_id="Europe/Sarajevo" name="Bosnia e Erzegovina" />
 			<Leaf zone_id="Europe/Sofia" name="Bulgaria" />
 			<Leaf zone_id="Europe/Zagreb" name="Croazia" />
+			<Leaf zone_id="Asia/Nicosia" name="Cipro" />
 			<Leaf zone_id="Europe/Prague" name="Repubblica Ceca" />
 			<Leaf zone_id="Europe/Copenhagen" name="Danimarca" />
 			<Leaf zone_id="Europe/Tallinn" name="Estonia" />
@@ -763,7 +820,9 @@
 			<Leaf zone_id="Europe/Madrid" name="Barcellona">
 				<Coordinates latitude="41.388" longitude="2.17" />
 			</Leaf>
-			<Leaf zone_id="Europe/Belfast" name="Belfast" />
+			<Leaf zone_id="Europe/London" name="Belfast">
+				<Coordinates latitude="54.597" longitude="-5.930" />
+			</Leaf>
 			<Leaf zone_id="Europe/Belgrade" name="Belgrado" />
 			<Leaf zone_id="Europe/Berlin" name="Berlino" />
 			<Leaf zone_id="Europe/Bratislava" name="Bratislava" />
@@ -806,6 +865,8 @@
 			<Leaf zone_id="Europe/Skopje" name="Skopje" />
 			<Leaf zone_id="Europe/Sofia" name="Sofia" />
 			<Leaf zone_id="Europe/Stockholm" name="Stoccolma" />
+			<Leaf zone_id="Europe/Tallinn" name="Tallinn" />
+			<Leaf zone_id="Europe/Tirane" name="Tirana" />
 			<Leaf zone_id="Europe/Uzhgorod" name="Uzhgorod" />
 			<Leaf zone_id="Europe/Vaduz" name="Vaduz" />
 			<Leaf zone_id="Europe/Vatican" name="Città del Vaticano" />
@@ -816,30 +877,6 @@
 			<Leaf zone_id="Europe/Zagreb" name="Zagabria" />
 			<Leaf zone_id="Europe/Zaporozhye" name="Zaporizhia" />
 			<Leaf zone_id="Europe/Zurich" name="Zurigo" />
-		</Branch>
-	</Branch>
-	<Branch name="Oceano artico">
-		<Branch name="Svalbard e Jan Mayen">
-			<Leaf zone_id="Arctic/Longyearbyen" name="Isole Svalbard" />
-		</Branch>
-	</Branch>
-	<Branch name="Oceano atlantico">
-		<Leaf zone_id="Atlantic/Bermuda" name="Isole Bermuda" />
-		<Leaf zone_id="Atlantic/Cape_Verde" name="Capo Verde" />
-		<Leaf zone_id="Atlantic/Faeroe" name="Isole Faeroer" />
-		<Leaf zone_id="Atlantic/Stanley" name="Isole Falkland" />
-		<Leaf zone_id="Atlantic/Reykjavik" name="Islanda" />
-		<Branch name="Portogallo">
-			<Leaf zone_id="Atlantic/Azores" name="Isole Azzorre" />
-			<Leaf zone_id="Atlantic/Madeira" name="Madeira" />
-		</Branch>
-		<Leaf zone_id="Atlantic/St_Helena" name="Sant'Elena" />
-		<Leaf zone_id="Atlantic/South_Georgia" name="Georgia del sud e Isole Sandwich meridionali" />
-		<Branch name="Spagna">
-			<Leaf zone_id="Atlantic/Canary" name="Isole Canarie" />
-		</Branch>
-		<Branch name="Isole Svalbard e Jan Mayen">
-			<Leaf zone_id="Atlantic/Jan_Mayen" name="Jan Mayen" />
 		</Branch>
 	</Branch>
 	<Branch name="Oceano indiano">
@@ -935,3 +972,38 @@
 	</Branch>
 	<Leaf zone_id="Etc/UTC" name="GMT/UTC" />
 </zonepicker>
+<!-- Do not remove this comment
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+-->

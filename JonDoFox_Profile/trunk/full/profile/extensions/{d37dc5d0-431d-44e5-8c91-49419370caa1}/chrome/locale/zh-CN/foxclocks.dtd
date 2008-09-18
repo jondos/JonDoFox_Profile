@@ -1,13 +1,4 @@
-﻿<!--
-FoxClocks extension for Mozilla Firefox/Thunderbird/Sunbird
-Copyright (C) 2005-2008 Andy McDonald / www.stemhaus.com
-For licensing terms, please refer to readme.txt in this extension's '.xpi'
-package or its installation directory on your computer.
--->
-
-<!-- Please see 'NOTES FOR TRANSLATORS' in readme.txt -->
-
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -19,7 +10,6 @@ package or its installation directory on your computer.
 <!ENTITY foxclocksoverlay.context.help.accesskey "H">
 <!ENTITY foxclocksoverlay.context.about.label "关于 FoxClocks...">
 <!ENTITY foxclocksoverlay.context.about.accesskey "A">
-
 <!ENTITY foxclocks.title "FoxClocks">
 <!ENTITY foxclocks.accelkey.add "A">
 <!ENTITY foxclocks.accelkey.moveup "U">
@@ -27,23 +17,22 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.accelkey.loc.details "L">
 <!ENTITY foxclocks.accelkey.zone.details "Z">
 <!ENTITY foxclocks.accelkey.options "O">
-		
 <!ENTITY foxclocks.button.add.label "添加 &gt;&gt;">
 <!ENTITY foxclocks.button.add.accesskey "A">
-<!ENTITY foxclocks.button.add.tooltip "Adds location(s) to the Watchlist based on the time zone(s) selected in the Zone Picker">
+<!ENTITY foxclocks.button.add.tooltip "添加一个在时区表里的地域到监视列表">
 <!ENTITY foxclocks.button.remove.label "&lt;&lt; 移除">
 <!ENTITY foxclocks.button.remove.accesskey "R">
-<!ENTITY foxclocks.button.remove.tooltip "从地域显示列表中移除所选地域">
+<!ENTITY foxclocks.button.remove.tooltip "从监视列表中移除所选地域">
 <!ENTITY foxclocks.button.addas.label "添加为...&gt;&gt;">
 <!ENTITY foxclocks.button.addas.accesskey "S">
-<!ENTITY foxclocks.button.addas.tooltip "Adds location based on zone selected in Zone Picker, via 'Location properties...' dialog">
+<!ENTITY foxclocks.button.addas.tooltip "Adds location based on zone selected in Zone Picker, via &apos;Location properties...&apos; dialog
+通过“地域细节”窗口添加选中地域">
 <!ENTITY foxclocks.button.moveup.label "上移">
 <!ENTITY foxclocks.button.moveup.accesskey "U">
-<!ENTITY foxclocks.button.moveup.tooltip "在地域显示列表中上移">
+<!ENTITY foxclocks.button.moveup.tooltip "在监视列表中上移选中地域">
 <!ENTITY foxclocks.button.movedown.label "下移">
 <!ENTITY foxclocks.button.movedown.accesskey "D">
-<!ENTITY foxclocks.button.movedown.tooltip "在地域显示列表中下移">
-
+<!ENTITY foxclocks.button.movedown.tooltip "在监视列表中下移选中地域">
 <!ENTITY foxclocks.menubar.menu.file.label "文件">
 <!ENTITY foxclocks.menubar.menu.file.accesskey "F">
 <!ENTITY foxclocks.menubar.menu.file.close.label "关闭">
@@ -54,15 +43,15 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.menubar.menu.file.export.accesskey "E">
 <!ENTITY foxclocks.menubar.menu.edit.label "编辑">
 <!ENTITY foxclocks.menubar.menu.edit.accesskey "E">
-<!ENTITY foxclocks.menubar.menu.edit.add.label "添加时区到地域显示列表">
+<!ENTITY foxclocks.menubar.menu.edit.add.label "添加时区到监视列表">
 <!ENTITY foxclocks.menubar.menu.edit.add.accesskey "A">
-<!ENTITY foxclocks.menubar.menu.edit.addas.label "在地域显示列表中添加为...">
+<!ENTITY foxclocks.menubar.menu.edit.addas.label "在监视列表中添加为...">
 <!ENTITY foxclocks.menubar.menu.edit.addas.accesskey "S">
-<!ENTITY foxclocks.menubar.menu.edit.moveup.label "在地域显示列表中上移">
+<!ENTITY foxclocks.menubar.menu.edit.moveup.label "在监视列表中上移">
 <!ENTITY foxclocks.menubar.menu.edit.moveup.accesskey "U">
-<!ENTITY foxclocks.menubar.menu.edit.movedown.label "在地域显示列表中下移">
+<!ENTITY foxclocks.menubar.menu.edit.movedown.label "在监视列表中下移">
 <!ENTITY foxclocks.menubar.menu.edit.movedown.accesskey "D">
-<!ENTITY foxclocks.menubar.menu.edit.remove.label "从地域显示列表移除该地域">
+<!ENTITY foxclocks.menubar.menu.edit.remove.label "从监视列表移除该地域">
 <!ENTITY foxclocks.menubar.menu.edit.remove.accesskey "R">
 <!ENTITY foxclocks.menubar.menu.edit.loc.details.label "地域细节...">
 <!ENTITY foxclocks.menubar.menu.edit.loc.details.accesskey "L">
@@ -84,7 +73,6 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.menubar.menu.help.help.accesskey "H">
 <!ENTITY foxclocks.menubar.menu.help.about.label "关于 FoxClocks...">
 <!ENTITY foxclocks.menubar.menu.help.about.accesskey "A">
-
 <!ENTITY foxclocks.dialog.import.title "载入 FoxClocks 设置">
 <!ENTITY foxclocks.dialog.import.success "设置文件已载入">
 <!ENTITY foxclocks.dialog.import.failure "设置文件载入失败">
@@ -92,12 +80,11 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.dialog.export.success "设置文件已保存">
 <!ENTITY foxclocks.dialog.export.failure "设置文件保存失败">
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks 设置文件">
-
 <!ENTITY foxclocks.zonepicker.description.label "时区列表">
-<!ENTITY foxclocks.zonepicker.description.tooltip "显示所有可以加入到地域显示列表的地域及其时区">
-<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
+<!ENTITY foxclocks.zonepicker.description.tooltip "显示所有可以加入监视列表的地域及其时区">
+<!ENTITY foxclocks.zonepicker.search.initvalue "查找">
+<!ENTITY foxclocks.zonepicker.search.accesskey "Q">
+<!ENTITY foxclocks.zonepicker.search.tooltip "按国家或者城市查找时区列表">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "时区">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "时区">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC 时差">
@@ -107,13 +94,12 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.zonepicker.context.details.accesskey "Z">
 <!ENTITY foxclocks.zonepicker.context.add.label "添加到地域显示列表">
 <!ENTITY foxclocks.zonepicker.context.add.accesskey "A">
-<!ENTITY foxclocks.zonepicker.context.addas.label "在地域显示列表中添加为...">
+<!ENTITY foxclocks.zonepicker.context.addas.label "在监视列表中添加为...">
 <!ENTITY foxclocks.zonepicker.context.addas.accesskey "S">
 <!ENTITY foxclocks.zonepicker.context.google.label "Google Earth...">
 <!ENTITY foxclocks.zonepicker.context.google.accesskey "G">
-
-<!ENTITY foxclocks.locationlist.description.label "地域显示列表">		
-<!ENTITY foxclocks.locationlist.description.tooltip "显示列表中的地域会被显示在 状态栏/工具栏或者 提示框中">		
+<!ENTITY foxclocks.locationlist.description.label "监视列表">
+<!ENTITY foxclocks.locationlist.description.tooltip "监视列表中的地域会被显示在 状态栏/工具栏或者提示框中">
 <!ENTITY foxclocks.locationlist.header.location.label "地域">
 <!ENTITY foxclocks.locationlist.header.location.tooltip "双击时区中的地域以查看该地域的细节">
 <!ENTITY foxclocks.locationlist.header.time.label "时间">
@@ -129,12 +115,9 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.locationlist.context.remove.accesskey "R">
 <!ENTITY foxclocks.locationlist.context.google.label "Google Earth...">
 <!ENTITY foxclocks.locationlist.context.google.accesskey "G">
-
 <!ENTITY foxclocks.remove.confirm.label "移除选择的地域？">
 <!ENTITY foxclocks.import.confirm.label "覆盖当前的 FoxClocks 设置？">
-
 <!ENTITY options.title "FoxClocks 选项">
-
 <!ENTITY options.format.caption "时钟格式">
 <!ENTITY options.format.description "时钟显示方式">
 <!ENTITY options.format.clockchoice.clock.label "显示在 状态栏/工具栏">
@@ -146,33 +129,26 @@ package or its installation directory on your computer.
 <!ENTITY options.format.radio.custom.label "自定义格式">
 <!ENTITY options.format.radio.custom.accesskey "C">
 <!ENTITY options.format.standard.menu.select "- - - - - - - - - - 选 择 - - - - - - - - - -">
-
 <!ENTITY options.format.custom.textbox.input.label "格式:">
 <!ENTITY options.format.custom.textbox.preview.label "预览:">
-
 <!ENTITY options.format.custom.secs.label "秒">
 <!ENTITY options.format.custom.mins.label "分钟">
-
 <!ENTITY options.format.custom.hours.label "小时:">
 <!ENTITY options.format.custom.hours.12.1.label "12小时制">
 <!ENTITY options.format.custom.hours.12.2.label "12小时制(2位数)">
 <!ENTITY options.format.custom.hours.24.1.label "24小时制">
 <!ENTITY options.format.custom.hours.24.2.label "24小时制(2位数)">
-
 <!ENTITY options.format.custom.am.label "上午/下午:">
 <!ENTITY options.format.custom.am.lower.label "am/pm">
 <!ENTITY options.format.custom.am.upper.label "上午/下午">
-
 <!ENTITY options.format.custom.year.label "年:">
 <!ENTITY options.format.custom.year.4.label "以4位数显示年份">
 <!ENTITY options.format.custom.year.2.label "以2位数显示年份">
-
 <!ENTITY options.format.custom.month.label "月:">
 <!ENTITY options.format.custom.month.num.1.label "数字">
 <!ENTITY options.format.custom.month.num.2.label "2位数字">
 <!ENTITY options.format.custom.month.name.long.label "中文格式">
 <!ENTITY options.format.custom.month.name.short.label "英文(缩写)">
-
 <!ENTITY options.format.custom.day.label "日:">
 <!ENTITY options.format.custom.day.num.1.label "数字">
 <!ENTITY options.format.custom.day.num.2.label "以2位数显示天数">
@@ -180,7 +156,6 @@ package or its installation directory on your computer.
 <!ENTITY options.format.custom.day.name.short.label "星期(英文缩写)">
 <!ENTITY options.format.custom.day.ordinal.label "中文格式">
 <!ENTITY options.format.custom.day.ofyear.label "自年初算起的天数">
-
 <!ENTITY options.format.custom.other.label "其它:">
 <!ENTITY options.format.custom.other.location.label "地域名">
 <!ENTITY options.format.custom.other.offset.label "GMT(格林威治标准时) 时差">
@@ -190,13 +165,12 @@ package or its installation directory on your computer.
 <!ENTITY options.format.custom.other.2.label "冒号">
 <!ENTITY options.format.custom.other.2.value ":">
 <!ENTITY options.format.custom.other.3.label "空格">
-<!ENTITY options.format.custom.other.3.value " ">
-
+<!ENTITY options.format.custom.other.3.value "">
 <!ENTITY options.clock.caption "时钟位置和风格">
 <!ENTITY options.clock.position.description.label "显示位置:">
 <!ENTITY options.clock.position.radio.statusbar.label "状态栏">
 <!ENTITY options.clock.position.radio.statusbar.accesskey "a">
-<!ENTITY options.clock.position.radio.toolbar.label "定制工具栏 (需从 '定制工具栏' 拖出调制面板)">
+<!ENTITY options.clock.position.radio.toolbar.label "定制工具栏 (需从 &apos;定制工具栏&apos; 拖出调制面板)">
 <!ENTITY options.clock.position.radio.toolbar.accesskey "t">
 <!ENTITY options.clock.position.statusbar.radio.left.label "靠左侧">
 <!ENTITY options.clock.position.statusbar.radio.left.accesskey "L">
@@ -209,7 +183,6 @@ package or its installation directory on your computer.
 <!ENTITY options.clock.style.radio.clocks.accesskey "M">
 <!ENTITY options.clock.style.radio.icon.label "FoxClocks 图标 (鼠标移动到 FoxClocks 图标时显示时钟)">
 <!ENTITY options.clock.style.radio.icon.accesskey "I">
-
 <!ENTITY options.data.caption "时区参数">
 <!ENTITY options.data.info.caption.label "当前时区数据库">
 <!ENTITY options.data.info.source.label "来源:">
@@ -223,18 +196,16 @@ package or its installation directory on your computer.
 <!ENTITY options.data.update.auto.enable.accesskey "E">
 <!ENTITY options.data.update.checknow.button.label "立刻检查">
 <!ENTITY options.data.update.checknow.button.accesskey "n">
-
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-
+<!ENTITY options.advanced.caption "高级">
+<!ENTITY options.advanced.newloc.caption.label "添加一个地区到监视列表">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "在状态栏/工具栏显示时钟">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "在状态栏/工具栏显示国旗">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "在状态栏/工具栏提示显示时钟">
+<!ENTITY options.advanced.misc.caption.label "杂项">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "在状态栏/工具栏提示显示国旗">
+<!ENTITY options.advanced.alert.autoupdate.label "时区数据升级后提示我">
+<!ENTITY options.advanced.menuitem.hidden.label "添加 FoxClocks 工具项目到菜单">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "从监视列表中移除地域时提示确认">
 <!ENTITY zoneinfo.title.zone "时区细节">
 <!ENTITY zoneinfo.title.location "地域细节">
 <!ENTITY zoneinfo.tab.zone.label "时区">
@@ -251,7 +222,7 @@ package or its installation directory on your computer.
 <!ENTITY zoneinfo.addas.latitude.label "纬度">
 <!ENTITY zoneinfo.addas.longitude.label "经度">
 <!ENTITY zoneinfo.button.google.label "Google Earth...">
-<!ENTITY zoneinfo.display.description "当 FoxClocks显示为图标模式时 状态栏/工具栏 时钟设置将不会被应用(查看 选项->时钟位置和风格)">
+<!ENTITY zoneinfo.display.description "当 FoxClocks显示为图标模式时 状态栏/工具栏 时钟设置将不会被应用(查看 选项-&gt;时钟位置和风格)">
 <!ENTITY zoneinfo.display.showclock.caption "显示/隐藏 时钟">
 <!ENTITY zoneinfo.display.showclock.checkbox.statusbar.label "在 状态栏/工具栏 显示时钟">
 <!ENTITY zoneinfo.display.showclock.checkbox.statusbar.accesskey "S">
@@ -275,7 +246,25 @@ package or its installation directory on your computer.
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "截至时间">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "n">
-
+<!ENTITY zoneinfo.display.flag.caption "状态栏/工具栏 国旗">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "禁用">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "标准">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "R">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "定制">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "O">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "预设...">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "P">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "点击以选取预设国旗图像">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "浏览...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "W">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "点击以定制国旗">
+<!ENTITY zoneinfo.display.customformat.caption.label "定制格式 (高级)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "例如 &apos;&lt;l&gt;-&lt;24h&gt;&lt;m&gt;&apos; 效果为 &apos;地域-1523&apos;。可以到选项里的时间格式标签查看可用占位符。">
+<!ENTITY zoneinfo.display.customformat.clock.label "状态栏/工具栏 时钟">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "L">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "状态栏/工具栏 时钟提示">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "K">
 <!ENTITY welcome.title "欢迎">
 <!ENTITY welcome.header "欢迎使用 FoxClocks">
 <!ENTITY welcome.message "FoxClocks 通过使用时区数据库和夏令时信息可以在应用程序（firefox，thunderbird）的工具栏或状态栏显示世界多个位置的时间。FoxClocks 还可以通过调用 Google Earth（如果您已经安装）带您到 FoxClocks 数据库中包含的任何位置 。|由于这是您第一次使用 FoxClocks，您需要花一些时间来配置 FoxClocks ，为此我们提供了一个时区选择列表。|安装后，该信息将不再被显示。FoxClocks 可以通过双击状态栏时钟或单击工具栏按钮（如果它可见的话）来访问。">
@@ -283,16 +272,13 @@ package or its installation directory on your computer.
 <!ENTITY welcome.checkbox.launch.accesskey "L">
 <!ENTITY welcome.checkbox.openhomepage.label "打开 FoxClocks 主页">
 <!ENTITY welcome.checkbox.openhomepage.accesskey "O">
-
 <!ENTITY update.title "FoxClocks 更新">
 <!ENTITY update.thisversion "版本:">
 <!ENTITY update.message "感谢更新 FoxClocks. 您可以通过查看 FoxClocks 的更新日志来了解新版本中包含哪些新特性.">
 <!ENTITY update.checkbox.launch.label "查看更新日志">
 <!ENTITY update.checkbox.launch.accesskey "V">
-
 <!ENTITY about.title "关于 FoxClocks">
-<!ENTITY about.message "Copyright &#169; 2005-2008 Andy McDonald">
-
+<!ENTITY about.message "Copyright © 2005-2008 Andy McDonald">
 <!ENTITY misc.never "从不">
 <!ENTITY misc.na "N/A">
 <!ENTITY misc.done "完成">

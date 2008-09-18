@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "Arquivos de configurações do FoxClocks">
 <!ENTITY foxclocks.zonepicker.description.label "Seletor de fuso">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Exibe todos os fusos horários disponíveis. Os fusos se tornam locais quando adicionados à lista">
+<!ENTITY foxclocks.zonepicker.search.initvalue "">
+<!ENTITY foxclocks.zonepicker.search.accesskey "">
+<!ENTITY foxclocks.zonepicker.search.tooltip "">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Fuso horário">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Fuso horário">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC Offset">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "H">
 <!ENTITY options.data.update.checknow.button.label "Verificar agora">
 <!ENTITY options.data.update.checknow.button.accesskey "a">
+<!ENTITY options.advanced.caption "">
+<!ENTITY options.advanced.newloc.caption.label "">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
+<!ENTITY options.advanced.misc.caption.label "">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
+<!ENTITY options.advanced.alert.autoupdate.label "">
+<!ENTITY options.advanced.menuitem.hidden.label "">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "">
 <!ENTITY zoneinfo.title.zone "Propriedades do fuso horário">
 <!ENTITY zoneinfo.title.location "Propriedades do local">
 <!ENTITY zoneinfo.tab.zone.label "Fuso horário">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "d">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "até">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "a">
+<!ENTITY zoneinfo.display.flag.caption "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.caption.label "">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.clock.label "">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
 <!ENTITY welcome.title "Bem vindo">
 <!ENTITY welcome.header "Bem vindo ao FoxClocks">
 <!ENTITY welcome.message "O FoxClocks exibe horas locais de todo o mundo em sua barra de status ou qualquer barra de ferramentas. Praticamente todos os fusos horários do mundo são suportados. O FoxClocks também permite que você explore cada fuso horário no Google Earth.|Para começar:| - Crie um relógio para cada fuso horário que você deseja ver e opcionalmente altere o nome padrão do relógio;| - Personalize o estilo, cor e cor alternada (utilizada fora de horário comercial, por exemplo) de seu relógio;| - Escolha um dos formatos de hora padrão para seus relógios, ou crie o seu próprio formato.|No futuro, esta mensagem não será exibida; abra o FoxClocks a partir do menu Ferramentas ou com um duplo clique em qualquer relógio.">

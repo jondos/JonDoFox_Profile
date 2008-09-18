@@ -576,7 +576,7 @@
 			<Leaf zone_id="Asia/Singapore" name="新加坡" />
 			<Leaf zone_id="Asia/Colombo" name="斯里兰卡" />
 			<Leaf zone_id="Asia/Damascus" name="叙利亚" />
-			<Leaf zone_id="Asia/Taipei" name="中国台湾省" />
+			<Leaf zone_id="Asia/Taipei" name="台湾" />
 			<Leaf zone_id="Asia/Dushanbe" name="塔吉克斯坦" />
 			<Leaf zone_id="Asia/Bangkok" name="泰国" />
 			<Leaf zone_id="Asia/Ashgabat" name="土库曼斯坦" />
@@ -960,38 +960,3 @@
 	</Branch>
 	<Leaf zone_id="Etc/UTC" name="GMT/UTC" />
 </zonepicker>
-<!-- Do not remove this comment
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
--->

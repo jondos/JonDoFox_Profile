@@ -434,24 +434,27 @@ package or its installation directory on your computer.
 					</grid>
 				</groupbox>
 
-				<!-- ************************************************************** -->
-				<!-- AFM - START, English-only for this release, hidden in onLoad() -->
-
-				<groupbox id="fc-zoneinfo-display-flag-groupbox" english_only="true">
-					<caption label="Statusbar/toolbar flag"/>
+				<groupbox id="fc-zoneinfo-display-flag-groupbox" check_child_caption_label="true">
+					<caption label="&zoneinfo.display.flag.caption;"/>
 					
 					<hbox align="center">
 						<radiogroup orient="horizontal" id="fc-zoneinfo-display-flag-radiogroup"
 									onselect="zoneInfo.onFlagSelect()">
 											
 							<radio	id="fc-zoneinfo-display-flag-radio-none"
-									label="Disabled" accesskey="D" observes="fc-zoneinfo-display-style-clock-disabled"/>
+									label="&zoneinfo.display.flag.radio.disabled.label;"
+									accesskey="&zoneinfo.display.flag.radio.disabled.accesskey;"
+									observes="fc-zoneinfo-display-style-clock-disabled"/>
 					
 							<radio	id="fc-zoneinfo-display-flag-radio-standard"
-									label="Standard" accesskey="R" observes="fc-zoneinfo-display-style-clock-disabled"/>
+									label="&zoneinfo.display.flag.radio.standard.label;"
+									accesskey="&zoneinfo.display.flag.radio.standard.accesskey;"
+									observes="fc-zoneinfo-display-style-clock-disabled"/>
 	
 							<radio	id="fc-zoneinfo-display-flag-radio-custom"
-									label="Custom" accesskey="O" observes="fc-zoneinfo-display-style-clock-disabled"/>
+									label="&zoneinfo.display.flag.radio.custom.label;"
+									accesskey="&zoneinfo.display.flag.radio.custom.accesskey;"
+									observes="fc-zoneinfo-display-style-clock-disabled"/>
 											
 						</radiogroup>
 						
@@ -467,9 +470,9 @@ package or its installation directory on your computer.
 			
 						<hbox align="center">
 	
-							<button label="Presets..."
-									accesskey="P"
-									tooltiptext="Click to select preset flag images"
+							<button label="&zoneinfo.display.flag.custom.presets.label;"
+									accesskey="&zoneinfo.display.flag.custom.presets.accesskey;"
+									tooltiptext="&zoneinfo.display.flag.custom.presets.tooltiptext;"
 									popup="fc-zoneinfo-custflag-preset-popup" class="button-small"
 									observes="fc-zoneinfo-display-style-clock-disabled"/>
 							
@@ -480,9 +483,9 @@ package or its installation directory on your computer.
 								<hbox id="fc-zoneinfo-custflag-preset-flag-container"/>
 							</menupopup>
 														
-							<button label="Browse..."
-									accesskey="W"
-									tooltiptext="Click to browse for a custom flag"
+							<button label="&zoneinfo.display.flag.custom.browse.label;"
+									accesskey="&zoneinfo.display.flag.custom.browse.accesskey;"
+									tooltiptext="&zoneinfo.display.flag.custom.browse.tooltiptext;"
 									command="cmd_custflag_browse" class="button-small"
 									observes="fc-zoneinfo-display-style-clock-disabled"/>
 	
@@ -491,9 +494,9 @@ package or its installation directory on your computer.
 										
 				</groupbox>
 				
-				<groupbox id="fc-zoneinfo-display-style-custformat-groupbox" english_only="true">
-					<caption label="Custom Formats (advanced)"
-						tooltiptext="e.g. '&lt;l&gt;-&lt;24h&gt;&lt;m&gt;' gives '[Location]-1523'. See Options->Time Format tab for available placeholders"/>
+				<groupbox id="fc-zoneinfo-display-style-custformat-groupbox" check_child_caption_label="true">
+					<caption label="&zoneinfo.display.customformat.caption.label;"
+						tooltiptext="&zoneinfo.display.customformat.caption.tooltiptext;"/>
 
 					<grid>
 						<columns>
@@ -503,7 +506,8 @@ package or its installation directory on your computer.
 		
 						<rows>
 							<row align="center">
-								<label	value="Statusbar/toolbar clock" accesskey="L"
+								<label	value="&zoneinfo.display.customformat.clock.label;"
+										accesskey="&zoneinfo.display.customformat.clock.accesskey;"
 										control="fc-zoneinfo-display-style-custformat-sbar-textbox"
 										observes="fc-zoneinfo-display-style-clock-disabled"/>
 		
@@ -511,7 +515,8 @@ package or its installation directory on your computer.
 											observes="fc-zoneinfo-display-style-clock-disabled"/>				
 							</row>
 							<row align="center">
-								<label	value="Statusbar/toolbar clock tooltip" accesskey="K"
+								<label	value="&zoneinfo.display.customformat.tooltip.label;"
+										accesskey="&zoneinfo.display.customformat.tooltip.accesskey;"
 										control="fc-zoneinfo-display-style-custformat-tooltip-textbox"
 										observes="fc-zoneinfo-display-style-tooltip-disabled"/>
 		
@@ -522,9 +527,6 @@ package or its installation directory on your computer.
 						</rows>
 					</grid>									
 				</groupbox>
-								
-				<!-- AFM - END, English-only for this release, hidden in onLoad() -->
-				<!-- ************************************************************ -->
 
 			</tabpanel>				
 		</tabpanels>

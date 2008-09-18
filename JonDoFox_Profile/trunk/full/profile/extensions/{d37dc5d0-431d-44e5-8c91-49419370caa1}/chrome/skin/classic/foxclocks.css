@@ -13,7 +13,7 @@ toolbar[iconsize="small"] #foxclocksoverlay-toolbarbutton-clocks, #foxclocksover
 
 #foxclocksoverlay-clock-tooltip { max-height: none; max-width: none; }
 
-#fc-zonepicker-searchbox { height: 1.4em; padding: 0px; }
+#fc-zonepicker-searchbox { height: 1.4em; padding: 1px; }
 /*
 AFM - not enough for our needs
 #fc-zonepicker-searchbox input { color: graytext }

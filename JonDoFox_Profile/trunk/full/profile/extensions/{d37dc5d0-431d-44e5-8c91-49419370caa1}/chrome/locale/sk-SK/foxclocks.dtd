@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -76,7 +63,7 @@
 <!ENTITY foxclocks.menubar.menu.view.loc.googleearth.label "Otvoriť miesto v Google Earth...">
 <!ENTITY foxclocks.menubar.menu.view.loc.googleearth.accesskey "E">
 <!ENTITY foxclocks.menubar.menu.tools.label "Nástroje">
-<!ENTITY foxclocks.menubar.menu.tools.accesskey "T">
+<!ENTITY foxclocks.menubar.menu.tools.accesskey "N">
 <!ENTITY foxclocks.menubar.menu.tools.options.label "Možnosti...">
 <!ENTITY foxclocks.menubar.menu.tools.options.accesskey "M">
 <!ENTITY foxclocks.menubar.menu.help.label "Pomocník">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "Súbory s nastavením FoxClocks">
 <!ENTITY foxclocks.zonepicker.description.label "Zoznam pásiem">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Zobrazuje všetky dostupné časové pásma. Pri pridávaní miest do Zoznamu hodín sú miesta rozdelené podľa pásiem.">
+<!ENTITY foxclocks.zonepicker.search.initvalue "Hľadať">
+<!ENTITY foxclocks.zonepicker.search.accesskey "a">
+<!ENTITY foxclocks.zonepicker.search.tooltip "Prehľadávať zoznam pásiem podľa mesta alebo krajiny">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Časové pásmo">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Časové pásmo">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC rozdiel">
@@ -174,7 +164,7 @@
 <!ENTITY options.format.custom.other.2.label "dvojbodka">
 <!ENTITY options.format.custom.other.2.value ":">
 <!ENTITY options.format.custom.other.3.label "medzera">
-<!ENTITY options.format.custom.other.3.value " ">
+<!ENTITY options.format.custom.other.3.value "">
 <!ENTITY options.clock.caption "Umiestnenie a štýl">
 <!ENTITY options.clock.position.description.label "Zobraziť v:">
 <!ENTITY options.clock.position.radio.statusbar.label "Stavový riadok">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "e">
 <!ENTITY options.data.update.checknow.button.label "Skontrolovať">
 <!ENTITY options.data.update.checknow.button.accesskey "k">
+<!ENTITY options.advanced.caption "Rozšírené">
+<!ENTITY options.advanced.newloc.caption.label "Pridanie adresy do zoznamu sledovaných">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "Zobraziť hodiny v stavovom riadku/paneli nástrojov">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "Zobraziť vlajku v stavovom riadku/paneli nástrojov">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "Zobraziť hodiny v tooltipe stavového riadku/panela nástrojov">
+<!ENTITY options.advanced.misc.caption.label "Rôzne">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "Zobraziť vlajky v tooltipe stavového riadku/panela nástrojov">
+<!ENTITY options.advanced.alert.autoupdate.label "Zobraziť upozornenia aktualizácie databázy časových zón">
+<!ENTITY options.advanced.menuitem.hidden.label "Zobraziť položky FoxClocks v ponuke Nástroje">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "Potvrdiť odstránenie adresy zo zoznamu sledovaných">
 <!ENTITY zoneinfo.title.zone "Vlastnosti časového pásma">
 <!ENTITY zoneinfo.title.location "Vlastnosti miesta">
 <!ENTITY zoneinfo.tab.zone.label "Časové pásmo">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "o">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "do">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "d">
+<!ENTITY zoneinfo.display.flag.caption "Vlajka v stavovom riadku/paneli nástrojov">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Zakázaná">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "Z">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Štandardná">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "a">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Vlastná">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "V">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Predvoľby">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "P">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Kliknutím vyberiete obrázky predvoľby vlajky">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Prehľadávať...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "h">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Kliknutím vyberte vlastnú vlajku">
+<!ENTITY zoneinfo.display.customformat.caption.label "Vlastné formáty (rozšírené)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "napr. &apos;&lt;l&gt;-&lt;24h&gt;&lt;m&gt;&apos; zobrazí &apos;[Adresa]-1523&apos;. Zoznam premenných nájdete na Možnosti-&gt;karta Formát času">
+<!ENTITY zoneinfo.display.customformat.clock.label "Hodiny v stavovom riadku/paneli nástrojov">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "H">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Tooltip hodín v stavovom riadku/paneli nástrojov">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "T">
 <!ENTITY welcome.title "Vitajte">
 <!ENTITY welcome.header "Vitajte v rozšírení FoxClocks">
 <!ENTITY welcome.message "FoxClocks zobrazuje v stavovom riadku alebo na paneli s nástrojmi aplikácie hodiny v stovkách miest z celého sveta, prostredníctvom databázy s informáciami o časových pásmach a letnom čase. FoxClocks je tiež integrovaný s Google Earth (ak ho máte nainštalovaný), v ktorom si môžete pozrieť ktorékoľvek miesto nachádzajúce sa v databáze FoxClocks.|Pri prvom použití FoxClocks môžete nastaviť, ktoré časy má FoxClocks zobrazovať. Máte k dispozícii príklad zoznamu miest.|Nabudúce sa toto oznámenie nezobrazí. FoxClocks je možné otvoriť z ponuky Tools (Nástroje), dvojitým kliknutím na niektoré hodiny alebo kliknutím na tlačidlo FoxClocks (ak je viditeľné).">

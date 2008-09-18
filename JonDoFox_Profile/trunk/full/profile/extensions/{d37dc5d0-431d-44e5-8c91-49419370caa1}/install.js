@@ -10,7 +10,7 @@
 
 // Editable Items Begin
 var displayName         = "FoxClocks"; // The name displayed to the user (don't include the version)
-var version             = "2.4.91"; // AFM - version written in by ant
+var version             = "2.4.97"; // AFM - version written in by ant
 var name                = "foxclocks"; // The leafname of the JAR file (without the .jar part)
 
 // The following three sets of variables tell this installer script how your

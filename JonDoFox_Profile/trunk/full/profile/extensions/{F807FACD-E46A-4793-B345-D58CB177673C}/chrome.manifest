@@ -1,10 +1,13 @@
-content performancing   jar:chrome/performancing.jar!/content/
+content performancing   jar:chrome/performancing.jar!/content/ 
+content performancing   jar:chrome/performancing.jar!/content/ contentaccessible=yes
+
 
 locale  performancing   en-US            jar:chrome/performancing.jar!/locale/en-US/
 locale  performancing   bg-BG            jar:chrome/performancing.jar!/locale/bg-BG/
 locale  performancing   cs-CZ            jar:chrome/performancing.jar!/locale/cs-CZ/
 locale  performancing   de-DE            jar:chrome/performancing.jar!/locale/de-DE/
 locale  performancing   es-ES            jar:chrome/performancing.jar!/locale/es-ES/
+locale  performancing   fi-FI            jar:chrome/performancing.jar!/locale/fi-FI/
 locale  performancing   fr-FR            jar:chrome/performancing.jar!/locale/fr-FR/
 locale  performancing   he-IL            jar:chrome/performancing.jar!/locale/he-IL/
 locale  performancing   id-ID            jar:chrome/performancing.jar!/locale/id-ID/
@@ -20,13 +23,13 @@ locale  performancing   sr-RS            jar:chrome/performancing.jar!/locale/sr
 locale  performancing   sr-YU            jar:chrome/performancing.jar!/locale/sr-YU/
 locale  performancing   sv-SE            jar:chrome/performancing.jar!/locale/sv-SE/
 locale  performancing   th-TH            jar:chrome/performancing.jar!/locale/th-TH/
-locale  performancing   tr-TR            jar:chrome/performancing.jar!/locale/tr-TR/
 locale  performancing   zh-CN            jar:chrome/performancing.jar!/locale/zh-CN/
 locale  performancing   zh-TW            jar:chrome/performancing.jar!/locale/zh-TW/
 
 skin    performancing   classic/1.0      jar:chrome/performancing.jar!/skin/
 
 overlay chrome://browser/content/browser.xul         chrome://performancing/content/overlay.xul
+overlay chrome://messenger/content/messenger.xul     chrome://performancing/content/overlay_mail.xul
 overlay chrome://emusic/content/startup.xul          chrome://performancing/content/overlay.xul
 overlay chrome://navigator/content/navigator.xul     chrome://performancing/content/overlay_suite.xul
 

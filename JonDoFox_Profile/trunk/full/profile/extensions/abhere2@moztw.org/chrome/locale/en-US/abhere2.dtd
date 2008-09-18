@@ -1,17 +1,24 @@
 <!ENTITY dialog.title "Add Bookmark Here ² Options">
-<!ENTITY group.pos "Menuitem Position in Bookmarks drop down Menu">
-<!ENTITY group.bmm "Bookmarks Menu">
-<!ENTITY group.bmc "Bookmarks Context Menu">
-<!ENTITY group.misc "Miscellaneous">
-<!ENTITY pos.abhere "[$abhere$] menuitem position:">
-<!ENTITY pos.optabs "[$optabs$] menuitem position:">
-<!ENTITY pos.top "Top">
-<!ENTITY pos.bottom "Bottom">
-<!ENTITY pos.hidden "Hidden">
-<!ENTITY bmm.abhere "Show [$abhere$] menuitem">
-<!ENTITY bmm.bmpage "Hide [&bookmarkThisPageCmd.label;] menuitem">
-<!ENTITY bmm.bmtabs "Hide [&bookmarkAllCmd.label;] menuitem">
-<!ENTITY insertTop "Insert the bookmark to the top of Menu">
-<!ENTITY folderDrag "Allow to drag the Bookmarks Folder">
-<!ENTITY noPopEditUI "Don&apos;t show the Edit Dialog when I add a bookmark">
-<!ENTITY clickStarUI "Click the Bookmark Star once to show the Edit Dialog">
+<!ENTITY position.group "Menuitem Position">
+<!ENTITY position.item.abHere "Choose [Add Bookmark Here...] position:">
+<!ENTITY position.item.opTabs "Choose [Open All in Tabs] position:">
+<!ENTITY position.option.top "Top">
+<!ENTITY position.option.bottom "Bottom">
+<!ENTITY position.option.hidden "Hidden">
+<!ENTITY position.misc.context "Show [Add Bookmark Here...] in Context Menu">
+<!ENTITY clicking.group "Mouse Clicking">
+<!ENTITY clicking.item.buttonL "Left-Click to:">
+<!ENTITY clicking.item.buttonM "Middle-Click to:">
+<!ENTITY clicking.item.buttonR "Right-Click to:">
+<!ENTITY clicking.option.bmPage "Bookmark This Page">
+<!ENTITY clicking.option.bmNoUI "Bookmark This Page (without Dialog)">
+<!ENTITY clicking.option.bmTabs "Bookmark All Tabs">
+<!ENTITY clicking.misc.insertTop "Insert Bookmarks to the Top of Menu">
+<!ENTITY starUI.group "Bookmark Star Dialog">
+<!ENTITY starUI.expand.folderRow "Expand the Folder Tree">
+<!ENTITY starUI.expand.tagsRow "Expand the Tags List">
+<!ENTITY starUI.misc.singleClick "Single-Click the Bookmark Star to show the Dialog">
+<!ENTITY menubar.group "Bookmarks Menu">
+<!ENTITY menubar.item.abHere "Show [Add Bookmark Here...] menuitem">
+<!ENTITY menubar.item.bmPage "Show [Bookmark This Page] menuitem">
+<!ENTITY menubar.item.bmTabs "Show [Bookmark All Tabs] menuitem">

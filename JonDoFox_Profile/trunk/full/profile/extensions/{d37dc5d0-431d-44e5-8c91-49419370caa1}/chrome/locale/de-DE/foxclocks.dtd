@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -41,10 +28,10 @@
 <!ENTITY foxclocks.button.addas.tooltip "Fügt mit Bearbeitungsmöglichkeit Orte aus der ausgewählten Zeitzone hinzu">
 <!ENTITY foxclocks.button.moveup.label "Nach oben">
 <!ENTITY foxclocks.button.moveup.accesskey "o">
-<!ENTITY foxclocks.button.moveup.tooltip "Bewegt den ausgewählten Ort in der Beobachtungsliste nach oben">
+<!ENTITY foxclocks.button.moveup.tooltip "Verschiebt den ausgewählten Ort in der Beobachtungsliste nach oben">
 <!ENTITY foxclocks.button.movedown.label "Nach unten">
 <!ENTITY foxclocks.button.movedown.accesskey "u">
-<!ENTITY foxclocks.button.movedown.tooltip "Bewegt den ausgewählten Ort in der Beobachtungsliste nach unten">
+<!ENTITY foxclocks.button.movedown.tooltip "Verschiebt den ausgewählten Ort in der Beobachtungsliste nach unten">
 <!ENTITY foxclocks.menubar.menu.file.label "Datei">
 <!ENTITY foxclocks.menubar.menu.file.accesskey "D">
 <!ENTITY foxclocks.menubar.menu.file.close.label "Schließen">
@@ -59,9 +46,9 @@
 <!ENTITY foxclocks.menubar.menu.edit.add.accesskey "H">
 <!ENTITY foxclocks.menubar.menu.edit.addas.label "Zone zur Beobachtungsliste hinzufügen als...">
 <!ENTITY foxclocks.menubar.menu.edit.addas.accesskey "A">
-<!ENTITY foxclocks.menubar.menu.edit.moveup.label "Ort in der Beobachtungsliste nach oben bewegen">
+<!ENTITY foxclocks.menubar.menu.edit.moveup.label "Ort in der Beobachtungsliste nach oben verschieben">
 <!ENTITY foxclocks.menubar.menu.edit.moveup.accesskey "o">
-<!ENTITY foxclocks.menubar.menu.edit.movedown.label "Ort in der Beobachtungsliste nach unten bewegen">
+<!ENTITY foxclocks.menubar.menu.edit.movedown.label "Ort in der Beobachtungsliste nach unten verschieben">
 <!ENTITY foxclocks.menubar.menu.edit.movedown.accesskey "u">
 <!ENTITY foxclocks.menubar.menu.edit.remove.label "Ort(e) aus der Beobachtungsliste entfernen">
 <!ENTITY foxclocks.menubar.menu.edit.remove.accesskey "e">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks-Einstellungsdateien">
 <!ENTITY foxclocks.zonepicker.description.label "Zonenauswahl">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Alle verfügbaren Zeitzonen. Zonen werden in der Beobachtungsliste zu Orten">
+<!ENTITY foxclocks.zonepicker.search.initvalue "Suchen">
+<!ENTITY foxclocks.zonepicker.search.accesskey "Q">
+<!ENTITY foxclocks.zonepicker.search.tooltip "Durchsucht die Zonenauswahl nach Ländern oder Städten">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Zeitzone">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Zeitzone">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT-/UTC-Zeitverschiebung">
@@ -118,13 +108,13 @@
 <!ENTITY foxclocks.locationlist.context.moveup.accesskey "o">
 <!ENTITY foxclocks.locationlist.context.movedown.label "Nach unten">
 <!ENTITY foxclocks.locationlist.context.movedown.accesskey "u">
-<!ENTITY foxclocks.locationlist.context.details.label "Ortsangaben...">
+<!ENTITY foxclocks.locationlist.context.details.label "Ortseigenschaften...">
 <!ENTITY foxclocks.locationlist.context.details.accesskey "O">
 <!ENTITY foxclocks.locationlist.context.remove.label "Entfernen">
 <!ENTITY foxclocks.locationlist.context.remove.accesskey "E">
 <!ENTITY foxclocks.locationlist.context.google.label "Google Earth...">
 <!ENTITY foxclocks.locationlist.context.google.accesskey "G">
-<!ENTITY foxclocks.remove.confirm.label "Ausgwählte Orte entfernen?">
+<!ENTITY foxclocks.remove.confirm.label "Ausgewählte Orte entfernen?">
 <!ENTITY foxclocks.import.confirm.label "Bestehende FoxClocks-Einstellung überschreiben?">
 <!ENTITY options.title "FoxClocks - Einstellungen">
 <!ENTITY options.format.caption "Zeitformat">
@@ -174,7 +164,7 @@
 <!ENTITY options.format.custom.other.2.label "Doppelpunkt">
 <!ENTITY options.format.custom.other.2.value ":">
 <!ENTITY options.format.custom.other.3.label "Leerzeichen">
-<!ENTITY options.format.custom.other.3.value " ">
+<!ENTITY options.format.custom.other.3.value "">
 <!ENTITY options.clock.caption "Position und Aussehen">
 <!ENTITY options.clock.position.description.label "Anzeigen in:">
 <!ENTITY options.clock.position.radio.statusbar.label "der Statusleiste">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "A">
 <!ENTITY options.data.update.checknow.button.label "Jetzt prüfen">
 <!ENTITY options.data.update.checknow.button.accesskey "J">
+<!ENTITY options.advanced.caption "Erweitert">
+<!ENTITY options.advanced.newloc.caption.label "Einen Ort zur Beobachtungsliste hinzufügen">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "Zeitanzeige in der Status-/Symbolleiste anzeigen">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "Flagge in der Status-/Symbolleiste anzeigen">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "Zeitanzeige im Tooltip der Status-/Symbolleiste anzeigen">
+<!ENTITY options.advanced.misc.caption.label "Verschiedenes">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "Flagge im Tooltip der Status-/Symbolleiste anzeigen">
+<!ENTITY options.advanced.alert.autoupdate.label "Bei Datenbankaktualisierung eine Benachrichtigungen anzeigen">
+<!ENTITY options.advanced.menuitem.hidden.label "FoxClocks-Eintrag im Menü &quot;Extras&quot; anzeigen">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "Orte aus der Beobachtungsliste entfernen bestätigen">
 <!ENTITY zoneinfo.title.zone "Zeitzoneneigenschaften">
 <!ENTITY zoneinfo.title.location "Ortseigenschaften">
 <!ENTITY zoneinfo.tab.zone.label "Zeitzone">
@@ -224,12 +224,12 @@
 <!ENTITY zoneinfo.display.description "Einstellungen für die Status-/Symbolleiste kommen nicht zur Anwendung, wenn FoxClocks sich im &apos;Symbol&apos;-Modus befindet (siehe Einstellungen -&gt; Position und Aussehen)">
 <!ENTITY zoneinfo.display.showclock.caption "Zeitanzeige ein-/ausblenden">
 <!ENTITY zoneinfo.display.showclock.checkbox.statusbar.label "Zeitanzeige in der Status-/Symbolleiste anzeigen">
-<!ENTITY zoneinfo.display.showclock.checkbox.statusbar.accesskey "S">
+<!ENTITY zoneinfo.display.showclock.checkbox.statusbar.accesskey "y">
 <!ENTITY zoneinfo.display.showclock.checkbox.tooltip.label "Zeitanzeige im Tooltip der Status-/Symbolleiste anzeigen">
-<!ENTITY zoneinfo.display.showclock.checkbox.tooltip.accesskey "T">
+<!ENTITY zoneinfo.display.showclock.checkbox.tooltip.accesskey "o">
 <!ENTITY zoneinfo.display.style.caption "Aussehen der Zeitanzeige in der Status-/Symbolleiste">
 <!ENTITY zoneinfo.display.style.checkbox.bold.label "Fett">
-<!ENTITY zoneinfo.display.style.checkbox.bold.accesskey "F">
+<!ENTITY zoneinfo.display.style.checkbox.bold.accesskey "e">
 <!ENTITY zoneinfo.display.style.checkbox.italic.label "Kursiv">
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "K">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Unterstrichen">
@@ -237,7 +237,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.showflag.label "Flagge anzeigen">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "a">
 <!ENTITY zoneinfo.display.style.colour.caption "Farbe der Zeitanzeige in der Status-/Symbolleiste">
-<!ENTITY zoneinfo.display.style.colour.standard.label "Standardfarbe benutzen">
+<!ENTITY zoneinfo.display.style.colour.standard.label "Standardfarbe verwenden">
 <!ENTITY zoneinfo.display.style.colour.standard.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.label "Wechselnde Farben aktivieren">
 <!ENTITY zoneinfo.display.style.colour.alternate.accesskey "W">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "v">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "bis">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "b">
+<!ENTITY zoneinfo.display.flag.caption "Flagge in der Status-/Symbolleiste">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Deaktiviert">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Standard">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "S">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Benutzerdefiniert">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "B">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Vorlagen...">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "V">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Eine der vorhandenen Flaggen auswählen">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Durchsuchen...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "c">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Die Festplatte nach eigenen Flaggen durchsuchen">
+<!ENTITY zoneinfo.display.customformat.caption.label "Benutzerdefinierte Formate (erweitert)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "Zum Beispiel &quot;&lt;l&gt;-&lt;24h&gt;&lt;m&gt;&quot; ergibt &apos;[Ort]-1523&apos;. Siehe Einstellungen-&gt;Zeitformat-Tab für verfügbare Platzhalter">
+<!ENTITY zoneinfo.display.customformat.clock.label "Zeitanzeige in der Status-/Symbolleiste">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "Z">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Zeitanzeige im Tooltip der Status-/Symbolleiste">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "T">
 <!ENTITY welcome.title "Willkommen">
 <!ENTITY welcome.header "Willkommen zu FoxClocks">
 <!ENTITY welcome.message "FoxClocks stellt mehrere Zeitanzeigen für hunderte von Städten weltweit in der Status- oder Symbolleiste dar und greift hierfür auf eine Datenbank mit Informationen zu Zeitzonen und Angaben zur Sommerzeit zu. FoxClocks bietet darüber hinaus eine Integration mit Google Earth (sofern installiert) und bringt Sie damit zu jedem Ort aus dem FoxClocks-Datenbestand.|Da Sie FoxClocks zum ersten Mal einsetzen, möchten Sie vielleicht die dargestellten Zeitanzeigen zunächst anpassen. Zu diesem Zweck wird anfangs eine Beispielliste von Orten bereitgestellt.|Diese Meldung wird in Zukunft nicht mehr angezeigt. Sie können das FoxClocks-Fenster über das Menü &quot;Extras&quot;, durch Doppelklick auf eine der Zeitanzeigen oder durch Klick auf die FoxClocks-Schaltfläche (falls sichtbar) aufrufen.">

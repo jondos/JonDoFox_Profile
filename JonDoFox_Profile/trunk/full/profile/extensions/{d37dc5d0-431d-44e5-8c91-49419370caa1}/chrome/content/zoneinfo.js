@@ -51,18 +51,20 @@ FoxClocks_ZoneInfo.prototype =
 	// ====================================================================================
 	onLoad : function()
 	{
-		// AFM - English-only
+		// AFM - missing locale strings
 		//
 		var groupBoxes = document.getElementsByTagName("groupbox");
-		var nonEnglishLocale = fc_gUtils.getAppLocale().major != "en";
 		
 		for (var i=0; i < groupBoxes.length; i++)
 		{
 			var currGroupBox = groupBoxes[i];
 			
-			var englishOnlyAtt = currGroupBox.getAttribute("english_only");
-			if (englishOnlyAtt != null && englishOnlyAtt == "true" && nonEnglishLocale == true)
+			var checkChild = currGroupBox.getAttribute("check_child_caption_label");
+			if (	checkChild == "true" && currGroupBox.firstChild != null &&
+					currGroupBox.firstChild.getAttribute("label") == "")
+			{
 				currGroupBox.setAttribute("collapsed", "true");
+			}
 		}
 		
 		// AFM - set up various labels - not sure why we're not using DTD here

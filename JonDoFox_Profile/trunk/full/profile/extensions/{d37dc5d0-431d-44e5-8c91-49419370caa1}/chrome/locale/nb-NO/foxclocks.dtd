@@ -1,13 +1,4 @@
-<!--
-FoxClocks extension for Mozilla Firefox/Thunderbird/Sunbird
-Copyright (C) 2005-2008 Andy McDonald / www.stemhaus.com
-For licensing terms, please refer to readme.txt in this extension's '.xpi'
-package or its installation directory on your computer.
--->
-
-<!-- Please see 'NOTES FOR TRANSLATORS' in readme.txt -->
-
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -19,7 +10,6 @@ package or its installation directory on your computer.
 <!ENTITY foxclocksoverlay.context.help.accesskey "H">
 <!ENTITY foxclocksoverlay.context.about.label "Om FoxClocks ...">
 <!ENTITY foxclocksoverlay.context.about.accesskey "O">
-
 <!ENTITY foxclocks.title "FoxClocks">
 <!ENTITY foxclocks.accelkey.add "A">
 <!ENTITY foxclocks.accelkey.moveup "U">
@@ -27,7 +17,6 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.accelkey.loc.details "L">
 <!ENTITY foxclocks.accelkey.zone.details "Z">
 <!ENTITY foxclocks.accelkey.options "O">
-		
 <!ENTITY foxclocks.button.add.label "Legg til &gt;&gt;">
 <!ENTITY foxclocks.button.add.accesskey "L">
 <!ENTITY foxclocks.button.add.tooltip "Legger til steder i oversiktslisten basert på valgte tidssoner i sonevelgeren">
@@ -36,14 +25,13 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.button.remove.tooltip "Fjerner valgt sted fra oversiktslisten">
 <!ENTITY foxclocks.button.addas.label "Legg til som ...&gt;&gt;">
 <!ENTITY foxclocks.button.addas.accesskey "s">
-<!ENTITY foxclocks.button.addas.tooltip "Legger til steder basert på valgt tidssone i sonevelgeren, via 'Egenskaper for sted ...'-dialogen">
+<!ENTITY foxclocks.button.addas.tooltip "Legger til steder basert på valgt tidssone i sonevelgeren, via &apos;Egenskaper for sted ...&apos;-dialogen">
 <!ENTITY foxclocks.button.moveup.label "Flytt opp">
 <!ENTITY foxclocks.button.moveup.accesskey "o">
 <!ENTITY foxclocks.button.moveup.tooltip "Flytter valgt sted opp i oversiktslisten">
 <!ENTITY foxclocks.button.movedown.label "Flytt ned">
 <!ENTITY foxclocks.button.movedown.accesskey "n">
 <!ENTITY foxclocks.button.movedown.tooltip "Flytter valgt sted ned i oversiktslisten">
-
 <!ENTITY foxclocks.menubar.menu.file.label "Fil">
 <!ENTITY foxclocks.menubar.menu.file.accesskey "F">
 <!ENTITY foxclocks.menubar.menu.file.close.label "Lukk">
@@ -84,7 +72,6 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.menubar.menu.help.help.accesskey "H">
 <!ENTITY foxclocks.menubar.menu.help.about.label "Om FoxClocks ...">
 <!ENTITY foxclocks.menubar.menu.help.about.accesskey "O">
-
 <!ENTITY foxclocks.dialog.import.title "Last inn FoxClocks-innstillinger">
 <!ENTITY foxclocks.dialog.import.success "Innstillinger er lastet inn">
 <!ENTITY foxclocks.dialog.import.failure "Klarte ikke importere innstillinger">
@@ -92,7 +79,6 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.dialog.export.success "Innstillinger er lagret">
 <!ENTITY foxclocks.dialog.export.failure "Klarte ikke lagre innstillinger">
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks innstillingsfiler">
-
 <!ENTITY foxclocks.zonepicker.description.label "Sonevelger">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Viser alle tilgjengelige tidssoner. Soner blir steder når du legger dem til i oversiktslisten">
 <!ENTITY foxclocks.zonepicker.search.initvalue "">
@@ -111,9 +97,8 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.zonepicker.context.addas.accesskey "e">
 <!ENTITY foxclocks.zonepicker.context.google.label "Google Earth ...">
 <!ENTITY foxclocks.zonepicker.context.google.accesskey "G">
-
-<!ENTITY foxclocks.locationlist.description.label "Oversiktsliste">		
-<!ENTITY foxclocks.locationlist.description.tooltip "Steder i oversiktslisten kan være synlig i statuslinjen, i verktøylinjen eller som verktøytips">		
+<!ENTITY foxclocks.locationlist.description.label "Oversiktsliste">
+<!ENTITY foxclocks.locationlist.description.tooltip "Steder i oversiktslisten kan være synlig i statuslinjen, i verktøylinjen eller som verktøytips">
 <!ENTITY foxclocks.locationlist.header.location.label "Sted">
 <!ENTITY foxclocks.locationlist.header.location.tooltip "Steder i tidssonen. Dobbeltklikk på et sted for å konfigurere innstillinger for det">
 <!ENTITY foxclocks.locationlist.header.time.label "Tid">
@@ -129,12 +114,9 @@ package or its installation directory on your computer.
 <!ENTITY foxclocks.locationlist.context.remove.accesskey "F">
 <!ENTITY foxclocks.locationlist.context.google.label "Google Earth...">
 <!ENTITY foxclocks.locationlist.context.google.accesskey "G">
-
 <!ENTITY foxclocks.remove.confirm.label "Fjern valgte steder?">
 <!ENTITY foxclocks.import.confirm.label "Overskriv nåværende FoxClocks-innstillinger?">
-
 <!ENTITY options.title "FoxClocks-innstillinger">
-
 <!ENTITY options.format.caption "Tidsformat">
 <!ENTITY options.format.description "Avgjør formatet som tid vises i">
 <!ENTITY options.format.clockchoice.clock.label "klokke i statuslinjen/verktøylinjen">
@@ -146,33 +128,26 @@ package or its installation directory on your computer.
 <!ENTITY options.format.radio.custom.label "Egendefinert format">
 <!ENTITY options.format.radio.custom.accesskey "E">
 <!ENTITY options.format.standard.menu.select "---velg---">
-
 <!ENTITY options.format.custom.textbox.input.label "Format:">
 <!ENTITY options.format.custom.textbox.preview.label "Forhåndsvis:">
-
 <!ENTITY options.format.custom.secs.label "Sekunder">
 <!ENTITY options.format.custom.mins.label "Minutter">
-
 <!ENTITY options.format.custom.hours.label "Timer:">
 <!ENTITY options.format.custom.hours.12.1.label "12-timers">
 <!ENTITY options.format.custom.hours.12.2.label "12-timers, 2 siffer">
 <!ENTITY options.format.custom.hours.24.1.label "24-timers">
 <!ENTITY options.format.custom.hours.24.2.label "24-timers, 2 siffer">
-
 <!ENTITY options.format.custom.am.label "am/pm:">
 <!ENTITY options.format.custom.am.lower.label "am/pm">
 <!ENTITY options.format.custom.am.upper.label "AM/PM">
-
 <!ENTITY options.format.custom.year.label "År:">
 <!ENTITY options.format.custom.year.4.label "4 siffer">
 <!ENTITY options.format.custom.year.2.label "2 siffer">
-
 <!ENTITY options.format.custom.month.label "Måned:">
 <!ENTITY options.format.custom.month.num.1.label "tall">
 <!ENTITY options.format.custom.month.num.2.label "tall, 2 siffer">
 <!ENTITY options.format.custom.month.name.long.label "navn">
 <!ENTITY options.format.custom.month.name.short.label "navn, kortform">
-
 <!ENTITY options.format.custom.day.label "Dag:">
 <!ENTITY options.format.custom.day.num.1.label "tall">
 <!ENTITY options.format.custom.day.num.2.label "tall, 2 siffer">
@@ -180,7 +155,6 @@ package or its installation directory on your computer.
 <!ENTITY options.format.custom.day.name.short.label "navn, kortform">
 <!ENTITY options.format.custom.day.ordinal.label "ordinal">
 <!ENTITY options.format.custom.day.ofyear.label "dag i året">
-
 <!ENTITY options.format.custom.other.label "Andre:">
 <!ENTITY options.format.custom.other.location.label "Sted">
 <!ENTITY options.format.custom.other.offset.label "GMT-forskyvning">
@@ -191,12 +165,11 @@ package or its installation directory on your computer.
 <!ENTITY options.format.custom.other.2.value ":">
 <!ENTITY options.format.custom.other.3.label "mellomrom">
 <!ENTITY options.format.custom.other.3.value " ">
-
 <!ENTITY options.clock.caption "Posisjon og stil">
 <!ENTITY options.clock.position.description.label "Vis i:">
 <!ENTITY options.clock.position.radio.statusbar.label "Statuslinjen">
 <!ENTITY options.clock.position.radio.statusbar.accesskey "a">
-<!ENTITY options.clock.position.radio.toolbar.label "En verktøylinje (dra fra 'Tilpass verktøylinjen'-funksjonen)">
+<!ENTITY options.clock.position.radio.toolbar.label "En verktøylinje (dra fra &apos;Tilpass verktøylinjen&apos;-funksjonen)">
 <!ENTITY options.clock.position.radio.toolbar.accesskey "E">
 <!ENTITY options.clock.position.statusbar.radio.left.label "på venstre side">
 <!ENTITY options.clock.position.statusbar.radio.left.accesskey "v">
@@ -209,7 +182,6 @@ package or its installation directory on your computer.
 <!ENTITY options.clock.style.radio.clocks.accesskey "F">
 <!ENTITY options.clock.style.radio.icon.label "FoxClocks-ikon (beveg muspekeren over for å vise klokkene)">
 <!ENTITY options.clock.style.radio.icon.accesskey "k">
-
 <!ENTITY options.data.caption "Tidssonedata">
 <!ENTITY options.data.info.caption.label "Nåværende tidssonedatabase">
 <!ENTITY options.data.info.source.label "Kilde:">
@@ -223,7 +195,6 @@ package or its installation directory on your computer.
 <!ENTITY options.data.update.auto.enable.accesskey "T">
 <!ENTITY options.data.update.checknow.button.label "Sjekk nå">
 <!ENTITY options.data.update.checknow.button.accesskey "n">
-
 <!ENTITY options.advanced.caption "">
 <!ENTITY options.advanced.newloc.caption.label "">
 <!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
@@ -234,7 +205,6 @@ package or its installation directory on your computer.
 <!ENTITY options.advanced.alert.autoupdate.label "">
 <!ENTITY options.advanced.menuitem.hidden.label "">
 <!ENTITY options.advanced.watchlist.remove.confirm.label "">
-
 <!ENTITY zoneinfo.title.zone "Tidssoneegenskaper">
 <!ENTITY zoneinfo.title.location "Stedsegenskaper">
 <!ENTITY zoneinfo.tab.zone.label "Tidssone">
@@ -251,7 +221,7 @@ package or its installation directory on your computer.
 <!ENTITY zoneinfo.addas.latitude.label "Breddegrad">
 <!ENTITY zoneinfo.addas.longitude.label "Lengdegrad">
 <!ENTITY zoneinfo.button.google.label "Google Earth ...">
-<!ENTITY zoneinfo.display.description "Statuslinje/verktøylinjens klokkeinnstillinger brukes ikke når FoxClocks er i 'ikon'-modus (se Innstillinger->Posisjon og stil-fanen)">
+<!ENTITY zoneinfo.display.description "Statuslinje/verktøylinjens klokkeinnstillinger brukes ikke når FoxClocks er i &apos;ikon&apos;-modus (se Innstillinger-&gt;Posisjon og stil-fanen)">
 <!ENTITY zoneinfo.display.showclock.caption "Vis/skjul klokke">
 <!ENTITY zoneinfo.display.showclock.checkbox.statusbar.label "Vis klokke i statuslinjen/verktøylinjen">
 <!ENTITY zoneinfo.display.showclock.checkbox.statusbar.accesskey "V">
@@ -275,7 +245,25 @@ package or its installation directory on your computer.
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "frem til">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "e">
-
+<!ENTITY zoneinfo.display.flag.caption "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.caption.label "">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
+<!ENTITY zoneinfo.display.customformat.clock.label "">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
 <!ENTITY welcome.title "Velkommen">
 <!ENTITY welcome.header "Velkommen til FoxClocks">
 <!ENTITY welcome.message "FoxClocks viser lokal tid ulike steder i verden i statuslinjen eller i en verktøylinje. Alle verdens tidssoner er støttet. FoxClocks lar deg også å se tidssonene i Google Earth.|For å komme i gang:| - opprett en klokke for hver tidssone du vil se, og dersom du ønsker kan du endre standardnavnene;| - tilpass klokkens stil, farge og alternative farge (som f.eks. brukes utenfor arbeidstid);| - velg en av standardtidsformatene for klokkene, eller opprett din egen.|I fremtiden vil denne meldingen ikke vises; åpne FoxClocks fra Verktøy-menyen eller ved å dobbeltklikke på en klokke.">
@@ -283,16 +271,13 @@ package or its installation directory on your computer.
 <!ENTITY welcome.checkbox.launch.accesskey "S">
 <!ENTITY welcome.checkbox.openhomepage.label "Åpne FoxClocks-hjemmesiden">
 <!ENTITY welcome.checkbox.openhomepage.accesskey "Å">
-
 <!ENTITY update.title "FoxClocks er oppdatert">
 <!ENTITY update.thisversion "Denne versjonen:">
 <!ENTITY update.message "Takk for at du oppdaterte. Du kan se i endringsloggen for FoxClocks for å finne ut hva som er nytt i denne versjonen.">
 <!ENTITY update.checkbox.launch.label "Vis endringslogg">
 <!ENTITY update.checkbox.launch.accesskey "V">
-
 <!ENTITY about.title "Om FoxClocks">
 <!ENTITY about.message "Copyright &#169; 2005-2008 Andy McDonald">
-
 <!ENTITY misc.never "aldri">
 <!ENTITY misc.na "I/T">
 <!ENTITY misc.done "Fullført">

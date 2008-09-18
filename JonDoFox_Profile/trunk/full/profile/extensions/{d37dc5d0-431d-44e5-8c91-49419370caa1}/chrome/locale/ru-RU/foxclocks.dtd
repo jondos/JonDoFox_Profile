@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "Файлы с настройками FoxClocks">
 <!ENTITY foxclocks.zonepicker.description.label "Выбор зоны">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Отображает все доступные временные зоны. Зоны становятся местами при добавлении в список часов">
+<!ENTITY foxclocks.zonepicker.search.initvalue "Поиск">
+<!ENTITY foxclocks.zonepicker.search.accesskey "о">
+<!ENTITY foxclocks.zonepicker.search.tooltip "Поиск в выборщике зоны по стране или городу">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Временная зона">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Временная зона">
 <!ENTITY foxclocks.zonepicker.col.offset.label "Сдвиг относительно GMT/UTC">
@@ -174,7 +164,7 @@
 <!ENTITY options.format.custom.other.2.label "двоеточие">
 <!ENTITY options.format.custom.other.2.value ":">
 <!ENTITY options.format.custom.other.3.label "пробел">
-<!ENTITY options.format.custom.other.3.value " ">
+<!ENTITY options.format.custom.other.3.value "">
 <!ENTITY options.clock.caption "Позиция и стиль">
 <!ENTITY options.clock.position.description.label "Отображать на:">
 <!ENTITY options.clock.position.radio.statusbar.label "Строке статуса">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "о">
 <!ENTITY options.data.update.checknow.button.label "Проверить сейчас">
 <!ENTITY options.data.update.checknow.button.accesskey "с">
+<!ENTITY options.advanced.caption "Дополнительно">
+<!ENTITY options.advanced.newloc.caption.label "Добавить место в список отслеживания">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "Показывать часы в панели статуса/инструментов">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "Показывать флаг в панели статуса/инструментов">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "Показывать часы в подсказке панели статуса/инструментов">
+<!ENTITY options.advanced.misc.caption.label "Разное">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "Показывать флаги в подсказке панели статуса/инструментов">
+<!ENTITY options.advanced.alert.autoupdate.label "Показывать уведомления об обновлении базы временных зон">
+<!ENTITY options.advanced.menuitem.hidden.label "Показывать пункт FoxClocks в меню Инструменты">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "Запрашивать подтверждение при удалении мест из списка отслеживания">
 <!ENTITY zoneinfo.title.zone "Свойства временной зоны">
 <!ENTITY zoneinfo.title.location "Свойства места">
 <!ENTITY zoneinfo.tab.zone.label "Временная зона">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "с">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "по">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "п">
+<!ENTITY zoneinfo.display.flag.caption "Флаг в панели статуса/инструментов">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Отключён">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "к">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Стандартный">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "т">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Настраиваемый">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "с">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Наборы...">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "б">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Щёлкните для выбора набора значков флагов">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Обзор...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "б">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Щёлкните для выбора своего флага">
+<!ENTITY zoneinfo.display.customformat.caption.label "Настраиваемые форматы (для продвинутых)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "например ввод &apos;&lt;l&gt;-&lt;24h&gt;&lt;m&gt;&apos; даёт &apos;[Location]-1523&apos;. См. Настройки-&gt;вкладка Формат Времени для просмотра возможных опций">
+<!ENTITY zoneinfo.display.customformat.clock.label "Часы в панели статуса/инструментов">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "п">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Подсказка к часам в панели статуса/инструментов">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "с">
 <!ENTITY welcome.title "Добро пожаловать">
 <!ENTITY welcome.header "Добро пожаловать в FoxClocks">
 <!ENTITY welcome.message "FoxClocks отображает местное время для городов по всему миру в строке статуса или панели инструментов. Поддерживаются фактически все временные зоны. FoxClocks также позволяет вам открывать каждую временную зону в Google Earth.|Для начала:| - создайте часы для каждой нужной вам временной зоны. При желании вы можете сменить название часов по умолчанию.;| - настройте стиль, цвет и альтернативный цвет часов (используемый, например, для обозначения нерабочих часов);| - выберите один из стандартных форматов отображения времени на часах или создайте свой собственный.|В дальнейшем это сообщение отображаться не будет; FoxClocks можно будет открыть из меню Инструменты или дважды щелкнув по любым часам.">

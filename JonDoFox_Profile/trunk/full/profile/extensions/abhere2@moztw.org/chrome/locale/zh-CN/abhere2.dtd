@@ -1,17 +1,24 @@
 <!ENTITY dialog.title "Add Bookmark Here ² 选项">
-<!ENTITY group.pos "菜单项位置">
-<!ENTITY group.bmm "书签菜单">
-<!ENTITY group.bmc "书签的上下文菜单">
-<!ENTITY group.misc "其他">
-<!ENTITY pos.abhere "[$abhere$] 菜单项显示于:">
-<!ENTITY pos.optabs "[$optabs$] 菜单项显示于:">
-<!ENTITY pos.top "顶部">
-<!ENTITY pos.bottom "底部">
-<!ENTITY pos.hidden "隐藏">
-<!ENTITY bmm.abhere "显示 [$abhere$] 菜单项">
-<!ENTITY bmm.bmpage "隐藏 [&bookmarkThisPageCmd.label;] 菜单项">
-<!ENTITY bmm.bmtabs "隐藏 [&bookmarkAllCmd.label;] 菜单项">
-<!ENTITY insertTop "从顶部添加新书签">
-<!ENTITY folderDrag "允许拖拽书签文件夹">
-<!ENTITY noPopEditUI "添加书签时不显示编辑对话框">
-<!ENTITY clickStarUI "单击地址栏书签图标显示编辑对话框">
+<!ENTITY position.group "菜单项位置">
+<!ENTITY position.item.abHere "选择“添加书签到此”的位置：">
+<!ENTITY position.item.opTabs "选择“在标签页中打开全部”的位置：">
+<!ENTITY position.option.top "顶部">
+<!ENTITY position.option.bottom "底部">
+<!ENTITY position.option.hidden "隐藏">
+<!ENTITY position.misc.context "显示“添加书签到此”于右键菜单">
+<!ENTITY clicking.group "鼠标点击">
+<!ENTITY clicking.item.buttonL "左键：">
+<!ENTITY clicking.item.buttonM "中键：">
+<!ENTITY clicking.item.buttonR "右键：">
+<!ENTITY clicking.option.bmPage "将此页面加为书签">
+<!ENTITY clicking.option.bmNoUI "将此页面加为书签 (无对话框)">
+<!ENTITY clicking.option.bmTabs "将所有标签页加为书签">
+<!ENTITY clicking.misc.insertTop "将书签添加到菜单顶部">
+<!ENTITY starUI.group "添加书签对话框">
+<!ENTITY starUI.expand.folderRow "展开目录树">
+<!ENTITY starUI.expand.tagsRow "展开标签树">
+<!ENTITY starUI.misc.singleClick "单击书签星标显示对话框">
+<!ENTITY menubar.group "书签菜单">
+<!ENTITY menubar.item.abHere "显示“添加书签到此”菜单项">
+<!ENTITY menubar.item.bmPage "显示“将此页面加为书签”菜单项">
+<!ENTITY menubar.item.bmTabs "显示“将所有标签页为书签”菜单项">

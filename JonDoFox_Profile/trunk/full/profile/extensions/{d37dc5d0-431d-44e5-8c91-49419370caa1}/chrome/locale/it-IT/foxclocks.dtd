@@ -1,17 +1,4 @@
-﻿<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
-<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
+﻿<!ENTITY foxclocksoverlay.menuitem.label "FoxClocks">
 <!ENTITY foxclocksoverlay.menuitem.accesskey "F">
 <!ENTITY foxclocksoverlay.menuitem.accelkey "Q">
 <!ENTITY foxclocksoverlay.toolbarbutton.clocks.label "FoxClocks">
@@ -94,6 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "File impostazioni di FoxClocks">
 <!ENTITY foxclocks.zonepicker.description.label "Selezione zone">
 <!ENTITY foxclocks.zonepicker.description.tooltip "Le zone diventano località aggiungendole alla lista degli orari">
+<!ENTITY foxclocks.zonepicker.search.initvalue "Cerca">
+<!ENTITY foxclocks.zonepicker.search.accesskey "C">
+<!ENTITY foxclocks.zonepicker.search.tooltip "Cerca nelle zone indicando città, località, ...">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "Fuso orario">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "Fuso orario">
 <!ENTITY foxclocks.zonepicker.col.offset.label "Aggiustamento GMC/UTC">
@@ -128,7 +118,7 @@
 <!ENTITY foxclocks.import.confirm.label "Sovrascrivere le impostazioni attuali?">
 <!ENTITY options.title "Opzioni">
 <!ENTITY options.format.caption "Formato data">
-<!ENTITY options.format.description "Imposta come visualizzare la data">
+<!ENTITY options.format.description "Impostare il formato di visualizzazione della data">
 <!ENTITY options.format.clockchoice.clock.label "nell&apos;orologio delle barre di stato e degli strumenti">
 <!ENTITY options.format.clockchoice.tooltip.label "nel suggerimento di FoxClocks delle barre di stato e degli strumenti">
 <!ENTITY options.format.clockchoice.foxclocks.label "nella finestra di FoxClocks">
@@ -147,7 +137,7 @@
 <!ENTITY options.format.custom.hours.12.2.label "12 ore, 2 cifre">
 <!ENTITY options.format.custom.hours.24.1.label "24 ore">
 <!ENTITY options.format.custom.hours.24.2.label "24 ore, 2 cifre">
-<!ENTITY options.format.custom.am.label "am/pm:">
+<!ENTITY options.format.custom.am.label "AM/PM:">
 <!ENTITY options.format.custom.am.lower.label "am/pm">
 <!ENTITY options.format.custom.am.upper.label "AM/PM">
 <!ENTITY options.format.custom.year.label "Anno:">
@@ -205,6 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "A">
 <!ENTITY options.data.update.checknow.button.label "Controlla ora">
 <!ENTITY options.data.update.checknow.button.accesskey "C">
+<!ENTITY options.advanced.caption "Avanzate">
+<!ENTITY options.advanced.newloc.caption.label "Opzioni per le zone aggiunte alla Lista degli orari">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "Visualizza l&apos;orario nelle barre di stato e degli strumenti">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "Visualizza le bandiere nelle barre di stato e degli strumenti">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "Visualizza l&apos;orario nel suggerimento di FoxClocks">
+<!ENTITY options.advanced.misc.caption.label "Varie">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "Visualizza le bandiere nel suggerimento di FoxClocks">
+<!ENTITY options.advanced.alert.autoupdate.label "Visualizza l&apos;avviso per l&apos;aggiornamento del database">
+<!ENTITY options.advanced.menuitem.hidden.label "Visualizza la voce FoxClocks nel menu strumenti">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "Chiedi conferma per la rimozione dalla Lista degli orari">
 <!ENTITY zoneinfo.title.zone "Proprietà fuso orario">
 <!ENTITY zoneinfo.title.location "Proprietà località">
 <!ENTITY zoneinfo.tab.zone.label "Fuso orario">
@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "C">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Sottolineato">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "t">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Mostra bandiera">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Visualizza bandiera">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "b">
 <!ENTITY zoneinfo.display.style.colour.caption "Colore">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Predefinito">
@@ -245,6 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "d">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "alle">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "l">
+<!ENTITY zoneinfo.display.flag.caption "Bandiera">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "Disattivata">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "Ufficiale">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "U">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "Personalizzata">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "R">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "Predefinita">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "P">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "Premere per impostare la bandiera personalizzata predefinita della località">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "Sfoglia...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "S">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "Premere per impostare un&apos;immagine personalizzata">
+<!ENTITY zoneinfo.display.customformat.caption.label "Formati personalizzati orari (avanzate)">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "Es. &apos;&lt;l&gt;-&lt;24h&gt;:&lt;m&gt;&apos; restituisce &apos;[Località]-15:23&apos;. Consultare Opzioni -&gt; Formato data per ulteriori formati">
+<!ENTITY zoneinfo.display.customformat.clock.label "Barra di stato e degli strumenti">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "B">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "Suggerimento di FoxClocks">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "S">
 <!ENTITY welcome.title "Benvenuti">
 <!ENTITY welcome.header "Benvenuti su FoxClocks">
 <!ENTITY welcome.message "FoxClocks può visualizzare l&apos;ora locale di alcune centinaia di città in tutto il mondo, mostrando fuso orario e ora legale. Se integrato con Google Earth permette di accedere ad ogni luogo contenuto nel database.|Alla prima installazione sarà necessario impostare quali orari locali visualizzare. Per ogni continente è stata preparata una lista esemplificativa delle località.|Questo messaggio non verrà mostrato in futuro ma sarà possibile accedere a FoxClocks attraverso il menu strumenti oppure facendo doppio clic sull&apos;orologio visualizzato nella barra di stato.">

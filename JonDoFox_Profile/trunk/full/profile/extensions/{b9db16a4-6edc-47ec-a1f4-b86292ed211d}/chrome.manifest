@@ -16,6 +16,7 @@ locale  dwhelper ja-JP jar:chrome/dwhelper.jar!/locale/ja-JP/
 locale  dwhelper fi-FI jar:chrome/dwhelper.jar!/locale/fi-FI/
 locale  dwhelper zh-TW jar:chrome/dwhelper.jar!/locale/zh-TW/
 locale  dwhelper ko-KR jar:chrome/dwhelper.jar!/locale/ko-KR/
+locale  dwhelper vi-VN jar:chrome/dwhelper.jar!/locale/vi-VN/
 style   chrome://global/content/customizeToolbar.xul    chrome://dwhelper/skin/classic/dwhelper.css
 overlay chrome://songbird/content/xul/layoutWithBrowserOverlay.xul chrome://dwhelper/content/dwhelper.xul
 style   chrome://songbird/content/xul/layoutWithBrowserOverlay.xul    chrome://dwhelper/skin/classic/dwhelper.css

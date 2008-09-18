@@ -30,6 +30,9 @@ pref("performancing.lastUploadMethod","");
 pref("performancing.display.autosave", true);
 pref("performancing.onetime.accountWizard", false);
 pref("performancing.onetime.welcomePage", false);
+pref("performancing.ads.username", "");
+pref("performancing.onetime.welcomePage", false);
 pref("performancing.imageMaxWidth", true);
-
+pref("performancing.adsIntroduction", false);
 pref("performancing.version", "");
+
