@@ -112,3 +112,7 @@ LangString DescSage ${LANG_ENGLISH} "A lightweight RSS and Atom feed reader"
 LangString DescScribeFire ${LANG_ENGLISH} "Post to your blog without ever leaving Firefox"
 
 LangString DescTinyUrlCreator ${LANG_ENGLISH} "Convenient tool to create small url redirects from longer ones"
+
+LangString DescPlainTexttoLink ${LANG_ENGLISH} "test"
+
+LangString DescCopyPlainText ${LANG_ENGLISH} "test"

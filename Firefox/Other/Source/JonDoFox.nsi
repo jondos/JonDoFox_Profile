@@ -193,10 +193,10 @@ ReserveFile "${NSISDIR}\Plugins\BGImage.dll"
 ##======================================================================================================================================================
 
 
-insttype $(InstTypeComplete)
-insttype $(InstTypeLite)
-insttype $(InstTypeProfileComplete)
-insttype $(InstTypeProfileLite)
+insttype $(InstTypeComplete)                 # 1
+insttype $(InstTypeLite)                     # 2
+insttype $(InstTypeProfileComplete)          # 3
+insttype $(InstTypeProfileLite)              # 4
 
 
 Section $(JonDoFox) JFPortable
@@ -775,12 +775,37 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
+        Section /o "Plain Text to Link" PlainTexttoLink
+        SectionIn 1 3
+
+                StrCpy $ExtensionGUID "{C90B0826-5A17-4970-A5BF-A43D22452E21}"
+                StrCpy $ExtensionName "Plain Text to Link"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{C90B0826-5A17-4970-A5BF-A43D22452E21}\*.*"
+
+        SectionEnd
+        
+        Section /o "Copy Plain Text" CopyPlainText
+        SectionIn 1 3
+
+                StrCpy $ExtensionGUID "{723AAF16-AF1F-4404-A5D7-0BFE39766605}"
+                StrCpy $ExtensionName "Copy Plain Text"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{723AAF16-AF1F-4404-A5D7-0BFE39766605}\*.*"
+
+        SectionEnd
+
 SectionGroupEnd
 
 ##===========================================================================
 ## End sections
 ##===========================================================================
-
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${JFPortable} $(DescJFPortable)
@@ -813,6 +838,8 @@ SectionGroupEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${ScribeFire} $(DescScribeFire)
   !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)
   !insertmacro MUI_DESCRIPTION_TEXT ${MRTechToolkit} $(DescMRTechToolkit)
+  !insertmacro MUI_DESCRIPTION_TEXT ${PlainTexttoLink} $(DescPlainTexttoLink)
+  !insertmacro MUI_DESCRIPTION_TEXT ${CopyPlainText} $(DescCopyPlainText)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 
@@ -1047,6 +1074,11 @@ Function SectionDebug
                 SectionGetFlags ${ScribeFire} $R5
                 SectionGetFlags ${TinyUrlCreator} $R6
                 SectionGetFlags ${MRTechToolkit} $R7
+                SectionGetFlags ${PlainTexttoLink} $R8
+                SectionGetFlags ${CopyPlainText} $R9
+                
+
+
 
 
                 StrCpy $DEBUGVALUE "instPre$\n \
@@ -1069,7 +1101,9 @@ Function SectionDebug
                                    Sage: $9$\n \
                                    ScribeFire: $R5$\n \
                                    TinyUrlCreator: $R6$\n \
-                                   MRTechToolkit: $R7"
+                                   MRTechToolkit: $R7$\n \
+                                   PlainTexttoLink: $R8$\n \
+                                   CopyPlainText: $R9"
 
                 Call DebugOutput
 
@@ -1389,6 +1423,10 @@ Push $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit
         SectionSetFlags ${MRTechToolkit} $R0
         
+        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions PlainTexttoLink
+        SectionSetFlags ${PlainTexttoLink} $R0
+        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions CopyPlainText
+        SectionSetFlags ${CopyPlainText} $R0
         
         StrCpy $varReload "true"
         
@@ -1527,7 +1565,12 @@ Function SaveOptions
         SectionGetFlags ${MRTechToolkit} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit $R0
         
-        
+        SectionGetFlags ${PlainTexttoLink} $R0
+        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions PlainTexttoLink $R0
+
+        SectionGetFlags ${CopyPlainText} $R0
+        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions CopyPlainText $R0
+
 #        LockWindow on
         HideWindow
 
