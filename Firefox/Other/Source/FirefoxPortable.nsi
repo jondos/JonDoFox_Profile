@@ -22,8 +22,8 @@
 !define PORTABLEAPPNAME "JonDoFox"
 !define APPNAME "JonDoFox"
 !define NAME "FirefoxPortable"
-!define VER "1.6.0.1"
-!define WEBSITE "www.jondos.de/en/jondofox"
+!define VER "1.6.0.2"
+!define WEBSITE "www.jondos.de/de/jondofox"
 !define DEFAULTEXE "firefox.exe"
 !define DEFAULTAPPDIR "firefox"
 !define LICENSEVERSION "3"
@@ -92,12 +92,12 @@ Page custom ShowLauncherOptions LeaveLauncherOptions ""
 !insertmacro MUI_PAGE_INSTFILES
 
 ;=== Languages
-;!insertmacro MUI_LANGUAGE "German"
-;!include PortableApps.comLauncherLANG_GERMAN.nsh
-;!include PortableApps.comLauncherOptionsLANG_GERMAN.nsh
-!insertmacro MUI_LANGUAGE "English"
-!include PortableApps.comLauncherLANG_ENGLISH.nsh
-!include PortableApps.comLauncherOptionsLANG_ENGLISH.nsh
+!insertmacro MUI_LANGUAGE "German"
+!include PortableApps.comLauncherLANG_GERMAN.nsh
+!include PortableApps.comLauncherOptionsLANG_GERMAN.nsh
+;!insertmacro MUI_LANGUAGE "English"
+;!include PortableApps.comLauncherLANG_ENGLISH.nsh
+;!include PortableApps.comLauncherOptionsLANG_ENGLISH.nsh
 
 ;=== Variables
 Var PROGRAMDIRECTORY

@@ -5,4 +5,4 @@ LangString LauncherOptionsOption1 ${LANG_ENGLISH} "Enable Session Store (Default
 LangString LauncherOptionsOption1Description ${LANG_ENGLISH} "Recommended for hard drives and faster flash drives"
 LangString LauncherOptionsOption2 ${LANG_ENGLISH} "Disable Session Store"
 LangString LauncherOptionsOption2Description ${LANG_ENGLISH} "Recommended for slower flash drives"
-LangString LauncherOptionsOutro ${LANG_ENGLISH} "You can also enable or disable Session Store later by following the instructions on the Mozilla Firefox, Portable Edition Support Page."
+LangString LauncherOptionsOutro ${LANG_ENGLISH} "You can also enable or disable Session Store later by reinstalling JonDoFox. You JonDoFox bookmarks will be kept on each reinstall."
