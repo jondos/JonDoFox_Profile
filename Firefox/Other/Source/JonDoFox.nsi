@@ -2014,47 +2014,71 @@ Function Update
 
         MessageBox MB_ICONINFORMATION|MB_OKCANCEL $(OverwriteProfile) IDCANCEL Exit
 
+        MSIBanner::Show /NOUNLOAD "Backup"
+
         IfFileExists $ProfilePath\BookmarkBackup\*.* +5
         CreateDirectory $ProfilePath\BookmarkBackup
         IfErrors Error
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
+        MSIBanner::Move /NOUNLOAD 10 "Backup"
+
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\*.* +3
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
+        MSIBanner::Move /NOUNLOAD 10 "Backup"
+
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\bookmarks.html 0 +2
         Goto Error
 
+        MSIBanner::Move /NOUNLOAD 10 "Backup"
+
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\places.sqlite 0 +2
         Goto Error
+
+        MSIBanner::Move /NOUNLOAD 10 "Backup"
 
         IfFileExists $ProfilePath\bookmarks.html 0 +3
         CopyFiles $ProfilePath\bookmarks.html $ProfilePath\BookmarkBackup
         IfErrors Error
 
+        MSIBanner::Move /NOUNLOAD 10 "Backup"
+
         IfFileExists $ProfilePath\places.sqlite 0 +3
         CopyFiles $ProfilePath\places.sqlite $ProfilePath\BookmarkBackup
         IfErrors Error
+
+        MSIBanner::Move /NOUNLOAD 10 "Backup"
 
         IfFileExists $ProfilePath\bookmarkbackups\*.* 0 +3
         CopyFiles $ProfilePath\bookmarkbackups\*.* $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
+        MSIBanner::Move /NOUNLOAD 10 "Backup"
+
         IfFileExists $varSystemTEMP\BookmarkBackup\*.* +3
         CreateDirectory $varSystemTEMP\BookmarkBackup
         IfErrors Error
 
+        MSIBanner::Move /NOUNLOAD 10 "Backup"
+
         IfFileExists $ProfilePath\BookmarkBackup\*.* 0 +3
         CopyFiles $ProfilePath\BookmarkBackup\*.* $varSystemTEMP\BookmarkBackup
         IfErrors Error
+
+        MSIBanner::Move /NOUNLOAD 20 "Backup"
+        
+        MSIBanner::Destroy
         
         Call DeleteProfile
 
         Goto done
 
           Error:
+          
+                  MSIBanner::Destroy
 
                   MessageBox MB_ICONEXCLAMATION|MB_OK $(BackupError)
 
