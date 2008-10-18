@@ -670,7 +670,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
         
         
-        Section "JSView" JSView
+        Section /o "JSView" JSView
         SectionIn 1 3
         
                 StrCpy $ExtensionGUID "{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}"
@@ -751,11 +751,17 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
         
-        Section "TabRenamizer" TabRenamizer
+        Section /o "TabRenamizer" TabRenamizer
         SectionIn 1 3
         
                 StrCpy $ExtensionGUID "{792BDDFE-2E7C-42ed-B18D-18154D2761BD}"
                 StrCpy $ExtensionName "TabRenamizer"
+
+								############################################################################################
+                StrCmp $DEBUG 1 0 +3
+                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
+                Call DebugOutput
+                ############################################################################################
 
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
@@ -1052,6 +1058,7 @@ Function SectionDebug
                 SectionGetFlags ${GrooweSearchToolbar} $6
                 SectionGetFlags ${ImageZoom} $7
                 SectionGetFlags ${Sage} $8
+                SectionGetFlags ${TabRenamizer} $9
                 SectionGetFlags ${ScribeFire} $R5
                 SectionGetFlags ${TinyUrlCreator} $R6
                 SectionGetFlags ${MRTechToolkit} $R7
@@ -1079,6 +1086,7 @@ Function SectionDebug
                                    GrooweSearchToolbar: $6$\n \
                                    ImageZoom: $7$\n \
                                    Sage: $8$\n \
+                                   TabRenamizer: $9$\n \
                                    ScribeFire: $R5$\n \
                                    TinyUrlCreator: $R6$\n \
                                    MRTechToolkit: $R7$\n \
@@ -1392,14 +1400,14 @@ Push $R0
         SectionSetFlags ${GrooweSearchToolbar} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ImageZoom
         SectionSetFlags ${ImageZoom} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions JSView
-        SectionSetFlags ${JSView} $R0  
+#        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions JSView
+#        SectionSetFlags ${JSView} $R0  
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions Sage
         SectionSetFlags ${Sage} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ScribeFire
         SectionSetFlags ${ScribeFire} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions TabRenamizer
-        SectionSetFlags ${TabRenamizer} $R0        
+#        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions TabRenamizer
+#        SectionSetFlags ${TabRenamizer} $R0        
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions TinyUrlCreator
         SectionSetFlags ${TinyUrlCreator} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit
@@ -1538,11 +1546,17 @@ Function SaveOptions
         SectionGetFlags ${ScribeFire} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ScribeFire $R0
 
-        SectionGetFlags ${TinyUrlCreator} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions TinyUrlCreator $R0
+#        SectionGetFlags ${TinyUrlCreator} $R0
+#        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions TinyUrlCreator $R0
 
         SectionGetFlags ${MRTechToolkit} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit $R0
+        
+        SectionGetFlags ${TabRenamizer} $R0
+        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions TabRenamizer $R0
+        
+#        SectionGetFlags ${JSView} $R0
+#        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions JSView $R0
         
         SectionGetFlags ${PlainTexttoLink} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions PlainTexttoLink $R0
