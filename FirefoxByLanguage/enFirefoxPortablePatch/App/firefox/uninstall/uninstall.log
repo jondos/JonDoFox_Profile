@@ -191,3 +191,5 @@ File: \defaults\pref\firefox-l10n.js
 File: \chrome\en-US.jar
 File: \chrome\en-US.manifest
 File: \components\nsIQTScriptablePlugin.xpt
+File: \components\nsBadCertHandler.js
+File: \removed-files
