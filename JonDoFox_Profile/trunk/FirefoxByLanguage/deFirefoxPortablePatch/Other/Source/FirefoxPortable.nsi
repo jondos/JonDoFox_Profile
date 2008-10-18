@@ -1,4 +1,4 @@
-;Copyright 2004-2008 John T. Haller of PortableApps.com
+;Copyright 2004-2008 John T. Haller of PortableApps.com, 2008 JonDos GmbH
 
 ;Website: http://PortableApps.com/FirefoxPortable
 
@@ -19,11 +19,11 @@
 ;along with this program; if not, write to the Free Software
 ;Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-!define PORTABLEAPPNAME "Mozilla Firefox, Portable Edition"
-!define APPNAME "Firefox"
+!define PORTABLEAPPNAME "JonDoFox"
+!define APPNAME "JonDoFox"
 !define NAME "FirefoxPortable"
-!define VER "1.6.0.0"
-!define WEBSITE "PortableApps.com/FirefoxPortable"
+!define VER "1.6.0.2"
+!define WEBSITE "www.jondos.de/de/jondofox"
 !define DEFAULTEXE "firefox.exe"
 !define DEFAULTAPPDIR "firefox"
 !define LICENSEVERSION "3"
@@ -31,12 +31,12 @@
 ;=== Program Details
 Name "${PORTABLEAPPNAME}"
 OutFile "..\..\${NAME}.exe"
-Caption "${PORTABLEAPPNAME} | PortableApps.com"
+Caption "${PORTABLEAPPNAME} | JonDos GmbH"
 VIProductVersion "${VER}"
 VIAddVersionKey ProductName "${PORTABLEAPPNAME}"
 VIAddVersionKey Comments "Allows ${APPNAME} to be run from a removable drive.  For additional details, visit ${WEBSITE}"
-VIAddVersionKey CompanyName "PortableApps.com"
-VIAddVersionKey LegalCopyright "John T. Haller"
+VIAddVersionKey CompanyName "JonDos GmbH"
+VIAddVersionKey LegalCopyright "JonDos GmbH, John T. Haller"
 VIAddVersionKey FileDescription "${PORTABLEAPPNAME}"
 VIAddVersionKey FileVersion "${VER}"
 VIAddVersionKey ProductVersion "${VER}"
@@ -95,6 +95,9 @@ Page custom ShowLauncherOptions LeaveLauncherOptions ""
 !insertmacro MUI_LANGUAGE "German"
 !include PortableApps.comLauncherLANG_GERMAN.nsh
 !include PortableApps.comLauncherOptionsLANG_GERMAN.nsh
+;!insertmacro MUI_LANGUAGE "English"
+;!include PortableApps.comLauncherLANG_ENGLISH.nsh
+;!include PortableApps.comLauncherOptionsLANG_ENGLISH.nsh
 
 ;=== Variables
 Var PROGRAMDIRECTORY
@@ -279,9 +282,18 @@ Section "Main"
 				Goto RunProgram
 
 	WarnAnotherInstance:
-		MessageBox MB_OK|MB_ICONINFORMATION `$(LauncherAlreadyRunning)`
+		MessageBox MB_YESNO|MB_ICONINFORMATION `$(LauncherAlreadyRunning)` IDNO "" IDYES KeepLoadingFirefox	
 		Abort
-	
+
+	KeepLoadingFirefox:
+		KillProcDLL::KillProc "firefox.exe" ;Kill firefox		
+		Pop $R0 
+		Sleep 1000		
+		StrCmp $R0 "603" ProfileWork ;someone has closed Firefox meanwhile...
+    StrCmp $R0 "0"  ProfileWork
+    MessageBox MB_OK `$(LauncherCouldNotCloseRunning)`
+    Abort	
+    
 	CheckForCrashReports:
 		IfFileExists "$APPDATA\Mozilla\Firefox\Crash Reports\*.*" "" CheckForExtensionsDirectory
 			Rename "$APPDATA\Mozilla\Firefox\Crash Reports" "$APPDATA\Mozilla\Firefox\Crash Reports-BackupByFirefoxPortable"

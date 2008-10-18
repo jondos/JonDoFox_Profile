@@ -29,7 +29,7 @@ LangString BackupError ${LANG_ENGLISH} "An error occured while creating the back
 
 LangString CreateFolderError ${LANG_ENGLISH} "Could not create folder for installation, installation will be aborted"
 
-LangString YouNeedAdminRights ${LANG_ENGLISH} "The selected folder requires administrator permissions!$\n$\nWould you like to run the installation with administrator rights?$\n$\nClick 'no' if you like to select a different folder."
+LangString YouNeedAdminRights ${LANG_ENGLISH} "The selected folder requires administrator permissions!$\n$\nAfter installation, you might not be able to start the application, as it need rights for writing. Would you like to run the installation with administrator rights?$\n$\nClick 'no' if you like to select a different folder."
 
 
 
@@ -40,13 +40,13 @@ LangString JonDoFoxProfile ${LANG_ENGLISH} "profile"
 
 
 
-LangString InstTypeComplete ${LANG_ENGLISH} "Complete (Firefox-Portable + Full profile)"
+LangString InstTypeComplete ${LANG_ENGLISH} "Complete for travelling (with Firefox Portable)"
 
-LangString InstTypeLite ${LANG_ENGLISH} "Lite (Firefox-Portable + Lite profile)"
+LangString InstTypeLite ${LANG_ENGLISH} "Lite for travelling (with Firefox Portable)"
 
-LangString InstTypeProfileComplete ${LANG_ENGLISH} "Only complete profile (without Firefox)"
+LangString InstTypeProfileComplete ${LANG_ENGLISH} "Complete (needs installed Firefox)"
 
-LangString InstTypeProfileLite ${LANG_ENGLISH} "Only lite profile (without Firefox)"
+LangString InstTypeProfileLite ${LANG_ENGLISH} "Lite (needs installed Firefox)"
 
 
 # Item Description

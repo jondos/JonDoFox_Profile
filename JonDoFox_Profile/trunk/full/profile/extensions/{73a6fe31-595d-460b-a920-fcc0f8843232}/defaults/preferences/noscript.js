@@ -26,15 +26,17 @@ pref("noscript.showBlockedObjects", true);
 pref("noscript.showTempAllowPage", true);
 pref("noscript.showAllowPage", true);
 pref("noscript.mandatory", "chrome: about: resource:");
-pref("noscript.default", "chrome: resource: about:blank about:neterror about:config about:plugins about:credits addons.mozilla.org flashgot.net google.com googlesyndication.com informaction.com yahoo.com yimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com recaptcha.net");
+pref("noscript.default", "chrome: resource: about:blank about:neterror about:config about:plugins about:credits addons.mozilla.org flashgot.net google.com googlesyndication.com informaction.com yahoo.com yimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com");
 pref("noscript.forbidJava", true);
 pref("noscript.forbidFlash", true);
 pref("noscript.forbidSilverlight", true);
 pref("noscript.forbidPlugins", true);
 pref("noscript.forbidActiveContentParentTrustCheck", true);
 pref("noscript.forbidIFrames", false);
-pref("noscript.forbidIFramesContext", 1);
+pref("noscript.forbidIFramesContext", 2);
 pref("noscript.forbidIFramesParentTrustCheck", true);
+pref("noscript.forbidFrames", false);
+pref("noscript.forbidMixedFrames", true);
 
 pref("noscript.forbidData", true);
 pref("noscript.sound.block", "chrome://noscript/skin/block.wav");
@@ -136,9 +138,11 @@ pref("noscript.lockPrivilegedUI", false);
 
 
 pref("noscript.collapseObject", false);
+pref("noscript.opacizeObject", 1);
+
 pref("noscript.showUntrustedPlaceholder", true);
 
-pref("noscript.jsHack", "window.urchinTracker = function() {}");
+pref("noscript.jsHack", "(function(){var _0=function(){};with(window)urchinTracker=_0,pageTracker={_setDomainName:_0,_trackPageview:_0,_initData:_0},_gat={_getTracker:function(){return window.pageTracker}}})()");
 pref("noscript.jsHackRegExp", "");
 pref("noscript.canonicalFQDN", true);
 
@@ -170,3 +174,10 @@ pref("noscript.httpsForced", "");
 pref("noscript.allowHttpsOnly", 0);
 
 pref("noscript.https.showInConsole", true);
+
+pref("noscript.clearClick", 1);
+pref("noscript.clearClick.plugins", true);
+pref("noscript.clearClick.prompt", true);
+pref("noscript.clearClick.debug", false);
+
+pref("noscript.emulateFrameBreak", true);

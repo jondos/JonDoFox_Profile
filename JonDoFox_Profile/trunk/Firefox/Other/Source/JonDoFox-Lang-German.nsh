@@ -29,7 +29,7 @@ LangString BackupError ${LANG_GERMAN} "Beim Erstellen des Backups trat ein Fehle
 
 LangString CreateFolderError ${LANG_GERMAN} "Beim Erstellen eines Ordners trat ein Fehler auf, die Installation wird abgebrochen."
 
-LangString YouNeedAdminRights ${LANG_GERMAN} "Der gewählte Ordner erfordert Administrator-Rechte!$\n$\nMöchten Sie die Installation mit Administrator-Rechten durchführen?$\n$\nKlicken Sie 'Nein' falls Sie einen anderen Ordner wählen wollen."
+LangString YouNeedAdminRights ${LANG_GERMAN} "Der gewählte Ordner erfordert Administrator-Rechte!$\n$\nMöglicherweise können Sie die Anwendung nach der Installation nicht starten, da dazu Schreibrechte benötigt werden. Möchten Sie die Installation mit Administrator-Rechten durchführen?$\n$\nKlicken Sie 'Nein' falls Sie einen anderen Ordner wählen wollen."
 
 
 
@@ -39,13 +39,13 @@ LangString JonDoFoxProfile ${LANG_GERMAN} "Profil"
 
 
 
-LangString InstTypeComplete ${LANG_GERMAN} "Voll (Firefox-zum-Mitnehmen + komplettes Profil)"
+LangString InstTypeComplete ${LANG_GERMAN} "Komplett für Unterwegs (mit Firefox-zum-Mitnehmen)"
 
-LangString InstTypeLite ${LANG_GERMAN} "Minimal (Firefox-zum-Mitnehmen + minimales Profil)"
+LangString InstTypeLite ${LANG_GERMAN} "Minimal für Unterwegs (mit Firefox-zum-Mitnehmen)"
 
-LangString InstTypeProfileComplete ${LANG_GERMAN} "Nur komplettes Profil (ohne Firefox)"
+LangString InstTypeProfileComplete ${LANG_GERMAN} "Komplett (setzt installierten Firefox voraus)"
 
-LangString InstTypeProfileLite ${LANG_GERMAN} "Nur minimales Profil (ohne Firefox)"
+LangString InstTypeProfileLite ${LANG_GERMAN} "Minimal (setzt installierten Firefox voraus)"
 
 
 # Item Description

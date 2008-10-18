@@ -133,7 +133,7 @@ pref("keyword.URL", "chrome://browser-region/locale/region.properties");
 
 pref("general.useragent.locale", "en-US");
 pref("general.skins.selectedSkin", "classic/1.0");
-pref("general.useragent.extra.firefox", "Firefox/3.0.1");
+pref("general.useragent.extra.firefox", "Firefox/3.0.3");
 
 pref("general.smoothScroll", false);
 //@line 182 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
@@ -565,25 +565,27 @@ pref("urlclassifier.gethashtables", "goog-phish-shavar,goog-malware-shavar");
 // the database.
 pref("urlclassifier.confirm-age", 2700);
 
-// Maximum size of the sqlite3 cache during an update, in bytes
-//@line 642 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
-pref("urlclassifier.updatecachemax", -1);
 //@line 644 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
+
+// Maximum size of the sqlite3 cache during an update, in bytes
+//@line 649 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
+pref("urlclassifier.updatecachemax", -1);
+//@line 651 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
 
 // URL for checking the reason for a malware warning.
 pref("browser.safebrowsing.malware.reportURL", "http://safebrowsing.clients.google.com/safebrowsing/diagnostic?client=%NAME%&hl=%LOCALE%&site=");
 
-//@line 649 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
+//@line 656 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
 
 // defaults to true on Windows and Mac, because the installer shows this
-//@line 654 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
+//@line 661 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
 pref("browser.EULA.3.accepted", true);
-//@line 658 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
+//@line 665 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
 
 // if we rev the EULA again, we should bump this so users agree to the new EULA
 pref("browser.EULA.version", 3);
 
-//@line 665 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
+//@line 672 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"
 
 pref("browser.sessionstore.enabled", true);
 pref("browser.sessionstore.resume_from_crash", true);

@@ -2,6 +2,7 @@ overlay	chrome://browser/content/browser.xul	chrome://abhere2/content/abhere2.xu
 content	abhere2	chrome/content/
 skin	abhere2	classic/1.0	chrome/skin/
 locale	abhere2	de-DE	chrome/locale/de-DE/
+locale	abhere2	el-GR	chrome/locale/el-GR/
 locale	abhere2	en-US	chrome/locale/en-US/
 locale	abhere2	es-ES	chrome/locale/es-ES/
 locale	abhere2	fr-FR	chrome/locale/fr-FR/
@@ -13,5 +14,6 @@ locale	abhere2	pl-PL	chrome/locale/pl-PL/
 locale	abhere2	pt-BR	chrome/locale/pt-BR/
 locale	abhere2	pt-PT	chrome/locale/pt-PT/
 locale	abhere2	sk-SK	chrome/locale/sk-SK/
+locale	abhere2	sv-SE	chrome/locale/sv-SE/
 locale	abhere2	zh-CN	chrome/locale/zh-CN/
 locale	abhere2	zh-TW	chrome/locale/zh-TW/

@@ -11,10 +11,8 @@ var abHere2 = {
               .createBundle('chrome://abhere2/locale/abhere2.properties'),
 
    hookCode: function(orgFunc, orgCode, myCode) {
-      try { eval(orgFunc + "=" + eval(orgFunc).toString().replace(orgCode, myCode)); }catch(e){
-          Components.classes["@mozilla.org/consoleservice;1"]
-          .getService(Components.interfaces.nsIConsoleService)
-          .logStringMessage("[ABHere2]ERR - hookCode: "+orgFunc);
+      try { eval(orgFunc + "=" + eval(orgFunc).toString().replace(orgCode, myCode)); } catch(e) {
+         Components.utils.reportError("[ABHere2]ERR - hookCode: "+orgFunc);
       }
    },
 
@@ -82,6 +80,18 @@ var abHere2 = {
       return null;
    },
 
+   closeMenus: function(target) {
+      var node = target;
+      while (node) {
+         if (node.localName == "menupopup" || node.localName == "popup") {
+            node.hidePopup();
+         } else if (node.localName != "menuitem" && node.localName != "menu") {
+            break;
+         }
+         node = node.parentNode;
+      }
+   },
+
    clickBookmarkHere: function(event) {
       if (event.button == 0) return;
       var target = event.originalTarget;
@@ -92,14 +102,15 @@ var abHere2 = {
          aIndex = document.popupNode.node.bookmarkIndex;
          aShowEditUI = document.popupNode.boxObject.element;
          document.popupNode.boxObject.element.parentNode._built = false;
+         setTimeout(abHere2.closeMenus, 0, aShowEditUI);
       } else {
          // bookmarksMenuPopup & bookmarksBarContent
          aItemId = target.parentNode._resultNode.itemId;
-         aIndex = null;
+         aIndex = ((aItemId != PlacesUtils.bookmarksMenuFolderId) && abHere2.isInsertTop ? 0 : -1);
          aShowEditUI = target;
          target.parentNode._built = false;
       }
-      closeMenus(target);
+      setTimeout(abHere2.closeMenus, 0, target);
 
       var aBrowser = getBrowser().selectedBrowser;
       var button = (event.button ? event.button : 0);
@@ -115,7 +126,7 @@ var abHere2 = {
          if (!aShowEditUI) abHere2.saveBookmarkFolderId(aItemId);
          break;
       case 2: // show AddMultiBookmarkUI
-         var aInsertionPoint = new InsertionPoint(aItemId, (aItemId != PlacesUtils.bookmarksMenuFolderId) && abHere2.isInsertTop ? 0 : -1);
+         var aInsertionPoint = new InsertionPoint(aItemId, aIndex);
          var aURIList = PlacesCommandHook._getUniqueTabInfo();
          var info = {
             action: "add",
@@ -148,9 +159,9 @@ var abHere2 = {
    },
 
    moveOpTabsAndHomePageItems: function(target) {
-      var optabs = abHere2.get1stElementByAttribute(target, "class", "openintabs-menuitem");
-      var ophome = abHere2.get1stElementByAttribute(target, "class", "openhomepage-menuitem");
-      var sprtor = abHere2.get1stElementByAttribute(target, "class", "openintabs-separator");
+      var sprtor = target._endOptSeparator;
+      var ophome = target._endOptOpenSiteURI;
+      var optabs = target._endOptOpenAllInTabs;
 
       if (sprtor) target.removeChild(sprtor);
       if (ophome) target.removeChild(ophome);
@@ -316,10 +327,9 @@ var abHere2 = {
       var bt = document.getElementById("bookmarksBarContent");
       if (!bt) return;
 
-      //*** allow to drag the bookmarks folder without press alt/shift key
-      abHere2.hookCode("document.getElementById('bookmarksBarContent')._DNDObserver.onDragStart",
-         "(!event.shiftKey && !event.altKey && !event.ctrlKey)",
-         "(!abHere2.isFolderDrag && $&)");
+      //*** hook BookmarksToolbar: move openintabs/openhomepage, add addbookmarkhere
+      bt.setAttribute("onpopupshowing", bt.getAttribute("onpopupshowing") + "abHere2.moveOpTabsAndHomePageItems(event.originalTarget);");
+      bt.setAttribute("onpopupshowing", bt.getAttribute("onpopupshowing") + "abHere2.createAddBookmarkHereItems(event.originalTarget);");
 
       //*** adjust bookmark position when user moved the bookmark
       abHere2.hookCode("document.getElementById('bookmarksBarContent')._viewer.itemMoved",
@@ -330,6 +340,11 @@ var abHere2 = {
       abHere2.hookCode("document.getElementById('bookmarksBarContent')._viewer.itemInserted",
          "var before = popup.childNodes[aIndex]",
          "var before = popup.childNodes[popup._startMarker + 1 + aIndex]");
+
+      //*** allow to drag the bookmarks folder without press alt/shift key
+      abHere2.hookCode("document.getElementById('bookmarksBarContent')._DNDObserver.onDragStart",
+         /!(\w+)\.shiftKey && !(\w+)\.altKey && !(\w+)\.ctrlKey/,
+         "!abHere2.isFolderDrag && $&");
    },
 
    init: function() {
@@ -369,17 +384,6 @@ var abHere2 = {
       abHere2.hookCode("BookmarksEventHandler.onPopupShowing",
             "target.appendChild(target._endOptOpenAllInTabs);",
             "target._endOptOpenAllInTabs.setAttribute('class','openintabs-menuitem'); $&");
-
-      //hook BookmarksToolbar: move openintabs/openhomepage, add addbookmarkhere
-      var bmb = document.getElementById("bookmarksBarContent");
-      bmb.setAttribute("onpopupshowing", bmb.getAttribute("onpopupshowing") + "abHere2.moveOpTabsAndHomePageItems(event.originalTarget);");
-      bmb.setAttribute("onpopupshowing", bmb.getAttribute("onpopupshowing") + "abHere2.createAddBookmarkHereItems(event.originalTarget);");
-
-      //hook BookmarksMenu: move openintabs/openhomepage, add addbookmarkhere, control BookmarksMenu menuitems hidden/show feature
-      var bmm = document.getElementById("bookmarksMenuPopup");
-      bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.moveOpTabsAndHomePageItems(event.originalTarget);");
-      bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.createAddBookmarkHereItems(event.originalTarget);");
-      bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.controlBookmarksMenuPopups(event.originalTarget);");
 
       //*** implement folderId.bookmark feature
       //decide folderId when user bookmark current page
@@ -426,11 +430,21 @@ var abHere2 = {
          'aEvent.target.localName != "tree"',
          '$& && aEvent.target.id != "editBMPanel_descriptionField"');
 
-      //*** hook initBookmarksToolbar() to implement some features
-      abHere2.hookCode("initBookmarksToolbar",
+      //*** hook BookmarksToolbar again after BrowserToolboxCustomizeDone()
+      abHere2.hookCode("BrowserToolboxCustomizeDone",
          /}$/,
          'abHere2.hookBookmarksToolbar(); $&');
 
+      //*** hook BookmarksToolbar to implenment the some features
+      abHere2.hookBookmarksToolbar();
+
+      //*** hook BookmarksMenu: move openintabs/openhomepage, add addbookmarkhere, control BookmarksMenu menuitems hidden/show feature
+      var bmm = document.getElementById("bookmarksMenuPopup");
+      if (bmm) {
+         bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.moveOpTabsAndHomePageItems(event.originalTarget);");
+         bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.createAddBookmarkHereItems(event.originalTarget);");
+         bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.controlBookmarksMenuPopups(event.originalTarget);");
+      }
       //*** add BookmarksContextMenu's popupshowing event handler
       var bmc = document.getElementById("placesContext");
       if (bmc) bmc.addEventListener("popupshowing", abHere2.onpopupBookmarksContextMenu, false);

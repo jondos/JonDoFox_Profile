@@ -391,19 +391,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
-
-        Section "JSView" JSView
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}"
-                StrCpy $ExtensionName "JSView"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}\*.*"
-
-        SectionEnd
         
         Section "Media Pirate" MediaPirate
         SectionIn 1 2 3 4
@@ -487,20 +474,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 #                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}\*.*"
 #
 #        SectionEnd
-
-
-        Section "TabRenamizer" TabRenamizer
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{792BDDFE-2E7C-42ed-B18D-18154D2761BD}"
-                StrCpy $ExtensionName "TabRenamizer"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{792BDDFE-2E7C-42ed-B18D-18154D2761BD}\*.*"
-
-        SectionEnd
 
         Section "Temporary Inbox" TemporaryInbox
         SectionIn 1 2 3 4
@@ -616,26 +589,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section /o "CuteMenus - Crystal SVG" CuteMenusCrystalSVG
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{63df8e21-711c-4074-a257-b065cadc28d8}"
-                StrCpy $ExtensionName "CuteMenus - Crystal SVG"
-
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{63df8e21-711c-4074-a257-b065cadc28d8}\*.*"
-
-        SectionEnd
-
-
         Section /o "Forecastbar Enhanced" ForecastbarEnhanced
         SectionIn 1 3
         
@@ -715,6 +668,20 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{1A2D0EC4-75F5-4c91-89C4-3656F6E44B68}\*.*"
 
         SectionEnd
+        
+        
+        Section "JSView" JSView
+        SectionIn 1 3
+        
+                StrCpy $ExtensionGUID "{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}"
+                StrCpy $ExtensionName "JSView"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}\*.*"
+
+        SectionEnd
 
 
         Section /o "MR Tech Toolkit" MRTechToolkit
@@ -783,6 +750,19 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{F807FACD-E46A-4793-B345-D58CB177673C}\*.*"
 
         SectionEnd
+        
+        Section "TabRenamizer" TabRenamizer
+        SectionIn 1 3
+        
+                StrCpy $ExtensionGUID "{792BDDFE-2E7C-42ed-B18D-18154D2761BD}"
+                StrCpy $ExtensionName "TabRenamizer"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{792BDDFE-2E7C-42ed-B18D-18154D2761BD}\*.*"
+
+        SectionEnd        
 
 
         Section /o "TinyUrl Creator" TinyUrlCreator
@@ -823,30 +803,29 @@ SectionGroupEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${DownloadHelper} $(DescDownloadHelper)
   !insertmacro MUI_DESCRIPTION_TEXT ${DrWebAntiVirus} $(DescDrWebAntiVirus)
   !insertmacro MUI_DESCRIPTION_TEXT ${DTWhois} $(DescDTWhois)
-  !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)
-  !insertmacro MUI_DESCRIPTION_TEXT ${JSView} $(DescJSView)
+  !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)  
   !insertmacro MUI_DESCRIPTION_TEXT ${MediaPirate} $(DescMediaPirate)
   !insertmacro MUI_DESCRIPTION_TEXT ${MenuEditor} $(DescMenuEditor)
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
 #  !insertmacro MUI_DESCRIPTION_TEXT ${RefControl} $(DescRefControl)
   !insertmacro MUI_DESCRIPTION_TEXT ${SafeCache} $(DescSafeCache)
-#  !insertmacro MUI_DESCRIPTION_TEXT ${SwitchProxyTool} $(DescSwitchProxyTool)
-  !insertmacro MUI_DESCRIPTION_TEXT ${TabRenamizer} $(DescTabRenamizer)
+#  !insertmacro MUI_DESCRIPTION_TEXT ${SwitchProxyTool} $(DescSwitchProxyTool)  
   !insertmacro MUI_DESCRIPTION_TEXT ${TemporaryInbox} $(DescTemporaryInbox)
   !insertmacro MUI_DESCRIPTION_TEXT ${AddBookmarkHere} $(DescAddBookmarkHere)
   !insertmacro MUI_DESCRIPTION_TEXT ${CacheIT} $(DescCacheIT)
   !insertmacro MUI_DESCRIPTION_TEXT ${Calculator} $(DescCalculator)
   !insertmacro MUI_DESCRIPTION_TEXT ${ChatZilla} $(DescChatZilla)
   !insertmacro MUI_DESCRIPTION_TEXT ${CopyPlainText} $(DescCopyPlainText)
-  !insertmacro MUI_DESCRIPTION_TEXT ${CuteMenusCrystalSVG} $(DescCuteMenusCrystalSVG)
   !insertmacro MUI_DESCRIPTION_TEXT ${ForecastbarEnhanced} $(DescForecastbarEnhanced)
   !insertmacro MUI_DESCRIPTION_TEXT ${FoxClocks} $(DescFoxClocks)
   !insertmacro MUI_DESCRIPTION_TEXT ${GrooweSearchToolbar} $(DescGrooweSearchToolbar)
   !insertmacro MUI_DESCRIPTION_TEXT ${ImageZoom} $(DescImageZoom)
+  !insertmacro MUI_DESCRIPTION_TEXT ${JSView} $(DescJSView)
   !insertmacro MUI_DESCRIPTION_TEXT ${MRTechToolkit} $(DescMRTechToolkit)
   !insertmacro MUI_DESCRIPTION_TEXT ${PlainTexttoLink} $(DescPlainTexttoLink)
   !insertmacro MUI_DESCRIPTION_TEXT ${Sage} $(DescSage)
   !insertmacro MUI_DESCRIPTION_TEXT ${ScribeFire} $(DescScribeFire)
+  !insertmacro MUI_DESCRIPTION_TEXT ${TabRenamizer} $(DescTabRenamizer)
   !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)  
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
@@ -1008,15 +987,10 @@ Function RequiredSelections
          SectionSetFlags ${DrWebAntiVirus} $0
          SectionSetFlags ${DTWhois} $0
          SectionSetFlags ${JonDoFox} $0
-         SectionSetFlags ${JSView} $0
          SectionSetFlags ${MediaPirate} $0
          SectionSetFlags ${MenuEditor} $0
-#         SectionSetFlags ${MRTechToolkit} $0
          SectionSetFlags ${NoScript} $0
-#         SectionSetFlags ${RefControl} $0
          SectionSetFlags ${SafeCache} $0
-#         SectionSetFlags ${SwitchProxyTool} $0
-         SectionSetFlags ${TabRenamizer} $0
          SectionSetFlags ${TemporaryInbox} $0
 
 FunctionEnd
@@ -1073,12 +1047,11 @@ Function SectionDebug
                 SectionGetFlags ${CacheIT} $1
                 SectionGetFlags ${Calculator} $2
                 SectionGetFlags ${ChatZilla} $3
-                SectionGetFlags ${CuteMenusCrystalSVG} $4
-                SectionGetFlags ${ForecastbarEnhanced} $5
-                SectionGetFlags ${FoxClocks} $6
-                SectionGetFlags ${GrooweSearchToolbar} $7
-                SectionGetFlags ${ImageZoom} $8
-                SectionGetFlags ${Sage} $9
+                SectionGetFlags ${ForecastbarEnhanced} $4
+                SectionGetFlags ${FoxClocks} $5
+                SectionGetFlags ${GrooweSearchToolbar} $6
+                SectionGetFlags ${ImageZoom} $7
+                SectionGetFlags ${Sage} $8
                 SectionGetFlags ${ScribeFire} $R5
                 SectionGetFlags ${TinyUrlCreator} $R6
                 SectionGetFlags ${MRTechToolkit} $R7
@@ -1101,12 +1074,11 @@ Function SectionDebug
                                    CacheIT: $1$\n \
                                    Calculator: $2$\n \
                                    ChatZilla: $3$\n \
-                                   CuteMenusCrystalSVG: $4$\n \
-                                   ForecastbarEnhanced: $5$\n \
-                                   FoxClocks: $6$\n \
-                                   GrooweSearchToolbar: $7$\n \
-                                   ImageZoom: $8$\n \
-                                   Sage: $9$\n \
+                                   ForecastbarEnhanced: 4$\n \
+                                   FoxClocks: $5$\n \
+                                   GrooweSearchToolbar: $6$\n \
+                                   ImageZoom: $7$\n \
+                                   Sage: $8$\n \
                                    ScribeFire: $R5$\n \
                                    TinyUrlCreator: $R6$\n \
                                    MRTechToolkit: $R7$\n \
@@ -1412,8 +1384,6 @@ Push $R0
         SectionSetFlags ${Calculator} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ChatZilla
         SectionSetFlags ${ChatZilla} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions CuteMenusCrystalSVG
-        SectionSetFlags ${CuteMenusCrystalSVG} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ForecastbarEnhanced
         SectionSetFlags ${ForecastbarEnhanced} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions FoxClocks
@@ -1422,10 +1392,14 @@ Push $R0
         SectionSetFlags ${GrooweSearchToolbar} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ImageZoom
         SectionSetFlags ${ImageZoom} $R0
+        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions JSView
+        SectionSetFlags ${JSView} $R0  
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions Sage
         SectionSetFlags ${Sage} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ScribeFire
         SectionSetFlags ${ScribeFire} $R0
+        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions TabRenamizer
+        SectionSetFlags ${TabRenamizer} $R0        
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions TinyUrlCreator
         SectionSetFlags ${TinyUrlCreator} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit
@@ -1545,9 +1519,6 @@ Function SaveOptions
 
         SectionGetFlags ${ChatZilla} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ChatZilla $R0
-
-        SectionGetFlags ${CuteMenusCrystalSVG} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions CuteMenusCrystalSVG $R0
         
         SectionGetFlags ${ForecastbarEnhanced} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ForecastbarEnhanced $R0

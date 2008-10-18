@@ -1,5 +1,5 @@
 <!ENTITY dialog.title "Opções de Add Bookmark Here">
-<!ENTITY position.group "Posição do ítem de Menu">
+<!ENTITY position.group "Posição do item de Menu">
 <!ENTITY position.item.abHere "Escolher [Add Bookmark Here...] posição:">
 <!ENTITY position.item.opTabs "Escolher [Abrir em todas as abas] posição:">
 <!ENTITY position.option.top "Topo">
@@ -19,6 +19,6 @@
 <!ENTITY starUI.expand.tagsRow "Expandir a Lista de Tags">
 <!ENTITY starUI.misc.singleClick "Clique Único na Estrela dos Favoritos para mostrar diálogo">
 <!ENTITY menubar.group "Menu dos Favoritos">
-<!ENTITY menubar.item.abHere "Mostrar [Add Bookmark Here...] como ítem de menu">
-<!ENTITY menubar.item.bmPage "Mostrar [Adicionar essa página] como ítem de menu">
-<!ENTITY menubar.item.bmTabs "Mostrar [Adicionar essa Todas as Abas] como ítem de menu">
+<!ENTITY menubar.item.abHere "Mostrar [Add Bookmark Here...] como item de menu">
+<!ENTITY menubar.item.bmPage "Mostrar [Adicionar essa página] como item de menu">
+<!ENTITY menubar.item.bmTabs "Mostrar [Adicionar essa Todas as Abas] como item de menu">
