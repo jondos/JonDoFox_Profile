@@ -1,0 +1,24 @@
+<!ENTITY dialog.title "Επιλογές του Add Bookmark Here 2">
+<!ENTITY position.group "Θέση στο μενού">
+<!ENTITY position.item.abHere "Θέση του [Προσθήκη Σελιδοδείκτη εδώ...]:">
+<!ENTITY position.item.opTabs "Θέση του [Άνοιγμα όλω σε καρτέλες]:">
+<!ENTITY position.option.top "Κορυφή">
+<!ENTITY position.option.bottom "Κάτω">
+<!ENTITY position.option.hidden "Κρυφό">
+<!ENTITY position.misc.context "Εμφάνιση του [Προσθήκη Σελιδοδείκτη εδώ...] στο μενού περιεχομένου">
+<!ENTITY clicking.group "Ενέργειες ποντικιού">
+<!ENTITY clicking.item.buttonL "Αριστερό κλικ σε:">
+<!ENTITY clicking.item.buttonM "Μεσαίο κλικ σε:">
+<!ENTITY clicking.item.buttonR "Δεξί κλικ σε:">
+<!ENTITY clicking.option.bmPage "Η σελίδα ως σελιδοδείκτης">
+<!ENTITY clicking.option.bmNoUI "Η σελίδα ως σελιδοδείκτης (χωρίς παράθυρο διαλόγου)">
+<!ENTITY clicking.option.bmTabs "Όλες οι καρτέλες ως σελιδοδείκτης">
+<!ENTITY clicking.misc.insertTop "Προσθήκη νέων σελιδοδεικτών στην κορυφή του μενού">
+<!ENTITY starUI.group "Παράθυρο διαλόγου αστερίσκου">
+<!ENTITY starUI.expand.folderRow "Ανάπτυξη του δένδρου φακέλων">
+<!ENTITY starUI.expand.tagsRow "Ανάπτυξη της λίστας ετικετών">
+<!ENTITY starUI.misc.singleClick "Κλικ στον αστερίσκο σελιδοδεικτών για εμφάνιση του διαλόγου">
+<!ENTITY menubar.group "Μενού &apos;Σελιδοδείκτες&apos;">
+<!ENTITY menubar.item.abHere "Εμφάνιση του [Προσθήκη Σελιδοδείκτη εδώ...]">
+<!ENTITY menubar.item.bmPage "Εμφάνιση του [Η σελίδα ως σελιδοδείκτης]">
+<!ENTITY menubar.item.bmTabs "Εμφάνιση του [Όλες οι καρτέλες ως σελιδοδείκτης]">

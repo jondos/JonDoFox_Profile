@@ -1,7 +1,17 @@
-Changes in version 0.2a1 - 16.09.2008
+Changes in version 0.2b1 - xx.10.2008:
+  
+  New features:
+    o Clearing all cookies on every state change
+    o Added a customizable proxy configuration to the proxy switcher
+    o Set the 'Accept'-header of every request to '*/*'
+    o Using different colors for different proxy states (red/green)
+    o Added icons to the statusbar popup
+    o Automatically restarting after uninstalling other extensions
+
+Changes in version 0.2a1 - 16.09.2008:
   
   Major features:
-    o Integrated a simple self-implemented proxy switcher
+    o Integrated a self-implemented proxy switcher
 
   New XPCOM components:
     o preferences-observer.js: unify certain browser prefs for all users
@@ -19,14 +29,14 @@ Changes in version 0.2a1 - 16.09.2008
     o Integrated compatibility for Firefox up to version 3.1a2
     o New license: modified BSD license
 
-Changes in version 0.1a3 - 05.08.2008
-
+Changes in version 0.1a3 - 05.08.2008:
+  
   Minor modifications:
     o Modified instruction text
     o Optimized png's in file sizes
 
-Changes in version 0.1a2 - 01.08.2008
-
+Changes in version 0.1a2 - 01.08.2008:
+  
   Major improvements:    
     o Replaced jpg's used in instructions by png's with transparent background
     o Making use of locales (until now only de-DE and en-US is supported)
@@ -38,6 +48,6 @@ Changes in version 0.1a2 - 01.08.2008
     o Removed 'contents.rdf' files since these are needed for backwards
       compatibility (to Firefox < 1.5) only
 
-Changes in version 0.1a1 - 29.07.2008
+Changes in version 0.1a1 - 29.07.2008:
 
   This is the initial version of the JonDoFox-Extension
