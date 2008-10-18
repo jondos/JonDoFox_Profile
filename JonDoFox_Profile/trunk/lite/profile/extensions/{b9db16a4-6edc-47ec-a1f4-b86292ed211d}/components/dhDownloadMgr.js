@@ -189,10 +189,10 @@ DhDownloadMgr.prototype.transferDone=function(status,request) {
 		} catch(e) {
 		}
 		dwcount++;
+		this.pref.setIntPref("download-count",dwcount);
 		if(dwcount%100==0) {
 			this.donate(dwcount);
 		}
-		this.pref.setIntPref("download-count",dwcount);
 		DWHUtil.setDWCountCookie(this.pref);
 	}
 
@@ -232,16 +232,11 @@ DhDownloadMgr.prototype.donate=function(count) {
 	if(notAgain)
 		return;
     var options="chrome,centerscreen,modal";
-    var data={ count: count }    
     try {
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                   .getService(Components.interfaces.nsIWindowMediator);
 		var w = wm.getMostRecentWindow("navigator:browser");
-	    var rc=w.openDialog('chrome://dwhelper/content/donate.xul','dwhelper-dialog',options, 
- 			data);
- 		if(data.ok) {
-			w.content.location.href="http://www.downloadhelper.net/donate.php";
-		}
+	    w.open('chrome://dwhelper/content/donate.xul','dwhelper-dialog',options);
 	} catch(e) {
 		dump("!!! [DhDownloadMgr] donate() "+e+"\n");
 	}

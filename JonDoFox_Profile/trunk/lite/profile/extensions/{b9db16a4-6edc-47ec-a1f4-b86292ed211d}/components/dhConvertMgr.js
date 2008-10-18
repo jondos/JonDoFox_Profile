@@ -43,6 +43,11 @@ function ConvertMgr() {
 		this.promptService=Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 			.getService(Components.interfaces.nsIPromptService);
 		
+		this.localstore=Components.classes["@mozilla.org/rdf/datasource;1?name=local-store"]
+		                                   .getService(Components.interfaces.nsIRDFDataSource);
+		this.RDF = Components.classes["@mozilla.org/rdf/rdf-service;1"].getService().
+			QueryInterface(Components.interfaces.nsIRDFService);
+
 		this.delayQueue=[];
 		
 		this.queueDatasource=Components.classes
@@ -53,6 +58,11 @@ function ConvertMgr() {
 		
 		this.currentEntry=null;
 		
+		if(Util.getPropertyValueSS(this.localstore,DHNS+"conv-confs",DHNS+"conf-inited")==null) {
+			Util.setPropertyValueSS(this.localstore,DHNS+"conv-confs",DHNS+"conf-inited","true");
+			this.setDefaultConfigs();
+		}
+
 	} catch(e) {
 		dump("[ConvertMgr] !!! constructor: "+e+"\n");
 	}
@@ -214,7 +224,8 @@ ConvertMgr.prototype.convertUnix=function(sourceFile,targetFile,params,extension
 		qRes: convRes,
 		autoClear: autoClear,
 		sourceFile: sourceFile,
-		targetFile: targetFile
+		targetFile: targetFile,
+		convConf: extension+"/"+params
 	}
 	
 	if(converterFile==ffmpegFile) {
@@ -252,7 +263,8 @@ ConvertMgr.prototype.convertDH=function(sourceFile,targetFile,params,extension,c
 		qRes: convRes,
 		autoClear: autoClear,
 		sourceFile: sourceFile,
-		targetFile: targetFile
+		targetFile: targetFile,
+		convConf: extension+"/"+params
 	}
 
 	this.setFFMPEGArgs(dEntry,params,sourceFile,targetFile,true,unreg);
@@ -932,6 +944,11 @@ ConvertMgr.prototype.scheduleNext = function(result) {
 		}
 		cvcount++;
 		this.pref.setIntPref("convert-count",cvcount);
+		try {
+			this.convConfShare(this.currentEntry.convConf);
+		} catch(e) {
+			dump("!!! [ConvertMgr] convConfShare: "+e+"\n");
+		}
 	} else {
 		Util.setPropertyValueRS(this.queueDatasource,this.currentEntry.qRes,DHNS+"Status","5");
 		Util.setPropertyValueRS(this.queueDatasource,this.currentEntry.qRes,DHNS+"EndDate",""+new Date());
@@ -964,6 +981,117 @@ ConvertMgr.prototype.showNotification = function(entry,result) {
 	} catch(e) {
 		dump("!!![ConvertMgr] showNotification: "+e+"\n");
 	}
+}
+
+ConvertMgr.prototype.convConfShare = function(convConf) {
+	var confs=Util.getChildResourcesS(this.localstore,DHNS+"conv-confs",{});
+	var convCount=0;
+	if(!isNaN(parseInt(Util.getPropertyValueSS(this.localstore,DHNS+"conv-confs",DHNS+"conv-count"))))
+		convCount=parseInt(Util.getPropertyValueSS(this.localstore,DHNS+"conv-confs",DHNS+"conv-count"));
+	convCount++;
+	Util.setPropertyValueSS(this.localstore,DHNS+"conv-confs",DHNS+"conv-count",""+convCount);
+	var shareStep=0;
+	if(!isNaN(parseInt(Util.getPropertyValueSS(this.localstore,DHNS+"conv-confs",DHNS+"share-step"))))
+		shareStep=parseInt(Util.getPropertyValueSS(this.localstore,DHNS+"conv-confs",DHNS+"share-step"));
+	var doPublish=false;
+	if(convCount>=10*Math.pow(2,shareStep)) {
+		doPublish=true;
+		Util.setPropertyValueSS(this.localstore,DHNS+"conv-confs",DHNS+"share-step",""+(shareStep+1));
+	}
+	var doShare=true;
+	try {
+		doShare=this.pref.getBoolPref("convert-helper.share-config");
+	} catch(e) {}
+	if(doShare==false)
+		doPublish=false;
+	var xml="<?xml version='1.0'?>\n<conversion-configs>\n";
+	for(var i=0;i<confs.length;i++) {
+		/* dump("Checking conf "+Util.getPropertyValueRS(this.localstore,confs[i],DHNS+"label")+" = "+
+				Util.getPropertyValueRS(this.localstore,confs[i],DHNS+"value")+"\n"); */
+		var cnt=0;
+		if(!isNaN(parseInt(Util.getPropertyValueRS(this.localstore,confs[i],DHNS+"conv-count"))))
+			cnt=parseInt(Util.getPropertyValueRS(this.localstore,confs[i],DHNS+"conv-count"));
+		var conf=Util.getPropertyValueRS(this.localstore,confs[i],DHNS+"value");
+		if(conf==convConf) {
+			cnt++;
+			Util.setPropertyValueRS(this.localstore,confs[i],DHNS+"conv-count",""+cnt);
+		}
+		if(cnt>=10) {
+			xml+="  <conversion-config>\n";
+			xml+="    <value>"+Util.xmlEscape(Util.getPropertyValueRS(this.localstore,confs[i],DHNS+"value"))+"</value>\n";
+			xml+="    <label>"+Util.xmlEscape(Util.getPropertyValueRS(this.localstore,confs[i],DHNS+"label"))+"</label>\n";
+			xml+="    <count>"+cnt+"</count>\n";
+			xml+="  </conversion-config>\n";
+			Util.setPropertyValueRS(this.localstore,confs[i],DHNS+"conv-count","0");
+		}
+	}
+	xml+="</conversion-configs>\n";
+	if(doPublish) {
+        var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"].
+        	createInstance(Components.interfaces.nsIXMLHttpRequest);
+	    xmlhttp.open ("POST", "http://www.downloadhelper.net/share-conv-confs.php")
+        xmlhttp.send(xml);
+	}
+}
+
+ConvertMgr.prototype.setDefaultConfigs = function() {
+	var formats=[
+	             {
+	            	 value: 'mpg/-acodec mp2 -b 800kbps -f mpeg -vcodec mpeg1video',
+	            	 title: 'MPEG (mpeg1+mp2)'
+	             },
+	             {
+	            	 value: 'wmv/-acodec wmav1 -b 1000kbps -f asf -vcodec wmv1',
+	            	 title: 'WMV (Windows Media Player)'
+	             },
+	             {
+	            	 value: 'm4v/-acodec libfaac -b 274kbps -f mp4 -r 24 -s 320x240 -vcodec mpeg4',
+	            	 title: 'iPod'
+	             },
+	             {
+	            	 value: 'avi/-acodec libmp3lame -f avi -vcodec mpeg4',
+	            	 title: 'AVI (mpeg4+mp3)'
+	             },
+	             {
+	            	 value: 'mp4/-ac 2 -acodec libmp3lame -ar 44100 -f avi -vcodec mpeg4',
+	            	 title: 'MPEG-4 '
+	             },
+	             {
+	            	 value: 'mpeg/-f mpeg2video -target pal-dvd',
+	            	 title: 'MPEG-2 DVD (PAL)'
+	             },
+	             {
+	            	 value: 'mpeg/-f mpeg2video -target ntsc-dvd',
+	            	 title: 'MPEG-2 DVD (NTSC)'
+	             },
+	             {
+	            	 value: 'mp3/-ab 128k -f mp3',
+	            	 title: 'MP3'
+	             },
+	];
+	this.localstore.beginUpdateBatch();
+	if(Util.getPropertyResourceSS(this.localstore,DHNS+"conv-confs","http://www.w3.org/1999/02/22-rdf-syntax-ns#instanceOf")==null) {
+		Util.createNodeRS(this.localstore,null,DHNS+"conv-confs");
+	} 
+	var convConfs=DHNS+"conv-confs";
+	for(var i=0;i<formats.length;i++) {
+		var format=formats[i];
+		var convConf=Util.createNodeSS(this.localstore,convConfs,null);
+		Util.setPropertyValueRS(this.localstore,convConf,DHNS+"value",format.value);
+		Util.setPropertyValueRS(this.localstore,convConf,DHNS+"label",format.title);
+	}
+	this.localstore.endUpdateBatch();
+}
+
+ConvertMgr.prototype.clearConfigs = function(full) {
+	this.localstore.beginUpdateBatch();
+	var confs=Util.getChildResourcesS(this.localstore,DHNS+"conv-confs",{});
+	for(var i=0;i<confs.length;i++) {
+		Util.removeReference(this.localstore,confs[i]);
+	}
+	if(full)
+		Util.removeReferenceS(this.localstore,DHNS+"conv-confs");
+	this.localstore.endUpdateBatch();
 }
 
 ConvertMgr.prototype.QueryInterface = function(iid) {
