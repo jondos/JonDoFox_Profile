@@ -20,7 +20,7 @@
 !define SHORTNAME "FirefoxPortable"
 !define VERSION "2.0.2.0"
 !define FILENAME "JonDoFox"
-!define CHECKRUNNING "JonDoFoxPortable.exe"
+!define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
 !define INSTALLERVERSION "1.0.0.0"
@@ -199,7 +199,7 @@ insttype $(InstTypeProfileComplete)          # 3
 insttype $(InstTypeProfileLite)              # 4
 
 
-Section $(JonDoFox) JFPortable
+Section /o $(JonDoFox) JFPortable
 SectionIn 1 2
 
         Call CheckUserAbort
@@ -219,6 +219,8 @@ SectionEnd
 
 Section /o -english JFPortableEnglish
 
+${If} $PROGRAMINSTALL == "true"
+     
         SetOutPath $ProgramPath
         SetOverwrite on
 
@@ -229,11 +231,13 @@ Section /o -english JFPortableEnglish
         ############################################################################################
 
         File /r /x .svn "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
-
+        
+${EndIf}
 SectionEnd
 
 Section /o -german  JFPortableGerman
 
+${If} $PROGRAMINSTALL == "true"
         SetOutPath $ProgramPath
         SetOverwrite on
 
@@ -244,7 +248,7 @@ Section /o -german  JFPortableGerman
         ############################################################################################
 
         File /r /x .svn "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
-
+${EndIf}
 SectionEnd
 
 ##======================================================================================================================================================
@@ -902,6 +906,7 @@ Function .onInit
 
           ${If} $R0 != ""
                 StrCpy $PORTABLEINSTALL "true"
+                SectionSetFlags ${JFPortable} ${SF_SELECTED}
                 StrCpy $INSTDIR "$R0${SHORTNAME}"
           ${Else}
                 Call SearchPortableApps
@@ -976,7 +981,8 @@ FunctionEnd
 
 Function InitSelection
 
-  SectionSetFlags ${JFPortable} 1
+#  SectionSetFlags ${JFPortable} 1
+#  SectionSetFlags ${JFPortable} 0
 
   Call RequiredSelections
 
@@ -1125,7 +1131,7 @@ Function dirPre                          # 1
                 ${If} $R0 == ${SF_SELECTED}
                         StrCpy $PROGRAMINSTALL "true"
                         Call LanguageSectionControl
-
+												Call CheckFirefoxRunning
                         Goto goon
                 ${EndIf}
                 
@@ -1675,6 +1681,9 @@ Function CheckFirefoxInstalled            # 2
 
                   no:
                   StrCpy $FFInstalled "false"
+                  StrCpy $PROGRAMINSTALL "true"
+                  SectionSetFlags ${JFPortable} ${SF_SELECTED}
+                  Call CheckFirefoxRunning
                   Goto next
                   
                   yes:
@@ -1695,10 +1704,18 @@ FunctionEnd
 
 
 Function CheckFirefoxRunning                    # 3
-
+      Var /GLOBAL KILL_PORTABLE_EXE
+      StrCpy $KILL_PORTABLE_EXE "false"
 Start:
 
-      FindProcDLL::FindProc "firefox.exe"
+			${If} $PROGRAMINSTALL == "false"
+          FindProcDLL::FindProc "firefox.exe"
+      ${ElseIf} $KILL_PORTABLE_EXE == "true"   
+          FindProcDLL::FindProc "firefox.exe"
+      ${Else}
+          StrCpy $KILL_PORTABLE_EXE "true"
+          FindProcDLL::FindProc "FirefoxPortable.exe"
+      ${EndIf}
 
 # 0 = Process was not found
 # 1 = Process was found
@@ -1715,8 +1732,12 @@ Start:
                  ${ElseIf} $Error != "true"
                        MessageBox MB_ICONQUESTION|MB_OKCANCEL $(FirefoxDetected) IDCANCEL Exit
                  ${EndIf}
-
-                     KillProcDLL::KillProc "firefox.exe"
+								    ${If} $PROGRAMINSTALL == "false"
+							          KillProcDLL::KillProc "firefox.exe"
+							      ${Else}										          				           
+							          KillProcDLL::KillProc "FirefoxPortable.exe"
+							          KillProcDLL::KillProc "firefox.exe"				          
+							      ${EndIf}                     
                      Sleep 1000
 
                      # 0 = Process was successfully terminated
@@ -1732,8 +1753,9 @@ Start:
                      # 702 = Unable to load KERNEL32.DLL
                      # 703 = Unable to get procedure address from KERNEL32.DLL
                      # 704 = CreateToolhelp32Snapshot failed
-
-                     StrCmp $R0 "1" dead notdead
+                     
+                     StrCmp $R0 "603" dead ;someone has closed Firefox meanwhile...
+    								 StrCmp $R0 "0" dead notdead
 
                      dead:
                           StrCpy $Error "false"
@@ -1751,7 +1773,9 @@ Start:
           Quit
           
         Exit:
-             StrCpy $UserAbort "true"
+             #StrCpy $UserAbort "true"
+             StrCpy $R9 "-1"
+             Call RelGotoPage
              Abort
 
         done:
@@ -1948,11 +1972,13 @@ Function instPre
                          Call SearchProfileFolder
 
                          StrCpy $ProgramPath $INSTDIR
+                         
+                         StrCpy $Update "true"
 
                          Call Update
 
                          StrCmp $IsJonDoFox "true" 0 install
-                         StrCpy $Update "true"
+                         # StrCpy $Update "true"  (Better do this before, as even if it is not jdf profile, bookmarks should be kept
                          
                          Goto done
 
@@ -2074,7 +2100,7 @@ Function Update
                   # Back to folder-selection page
 
                             StrCpy $varAskAgain "false"
-                            StrCpy $R9 "0"
+                            StrCpy $R9 "-1"
                             Call RelGotoPage
                             Abort
                   
@@ -2232,15 +2258,14 @@ FunctionEnd
 Function comPre         # Reset wrong path error
 
         ${If} $varReload == "true"
-
-        SectionGetFlags ${JFPortable} $R0
-
-        ${If} $R0 == 1
-                StrCpy $PROGRAMINSTALL "true"
-        ${EndIf}
-
-              Abort
-              Goto Reload
+		        SectionGetFlags ${JFPortable} $R0
+		
+		        ${If} $R0 == 1
+		                StrCpy $PROGRAMINSTALL "true"
+		        ${EndIf}
+		
+		        Abort
+		        Goto Reload
         ${EndIf}
 
          Call InitSelection
