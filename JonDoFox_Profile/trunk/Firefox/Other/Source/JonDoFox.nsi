@@ -18,7 +18,7 @@
 ;=== BEGIN: BASIC INFORMATION
 !define NAME "JonDoFox"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.0.2.0"
+!define VERSION "2.1.0.0"
 !define FILENAME "JonDoFox"
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -215,41 +215,14 @@ SectionIn 1 2
 
         File /r /x .svn "..\..\*.*"
         
-SectionEnd
-
-Section /o -english JFPortableEnglish
-
-${If} $PROGRAMINSTALL == "true"
-     
-        SetOutPath $ProgramPath
-        SetOverwrite on
-
-        ############################################################################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "English$\nPath: $OUTDIR"
-        Call DebugOutput
-        ############################################################################################
-
-        File /r /x .svn "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
+        ${If} $LANGUAGE == "1031"          # german
+              File /r /x .svn "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
+        ${ElseIf} $LANGUAGE == "1033"      # english
+        			File /r /x .svn "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
+        ${EndIf}
         
-${EndIf}
 SectionEnd
 
-Section /o -german  JFPortableGerman
-
-${If} $PROGRAMINSTALL == "true"
-        SetOutPath $ProgramPath
-        SetOverwrite on
-
-        ############################################################################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "German$\nPath: $OUTDIR"
-        Call DebugOutput
-        ############################################################################################
-
-        File /r /x .svn "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
-${EndIf}
-SectionEnd
 
 ##======================================================================================================================================================
 ##                                                                           Profile
@@ -271,8 +244,15 @@ SectionIn 1 2 3 4
         ############################################################################################
 
         File /r /x .svn /x extensions "..\..\..\full\profile\*.*"
+        ${If} $LANGUAGE == "1031"          # german
+              File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_de"
+        ${ElseIf} $LANGUAGE == "1033"      # english
+        			File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
+        ${EndIf}
 
 SectionEnd
+
+
 
 
 Section /o - ProfileCoreUpdate              #Update
@@ -291,6 +271,9 @@ Section /o - ProfileCoreUpdate              #Update
         File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\*.*"
 
 SectionEnd
+
+
+
 
         
 ##======================================================================================================================================================
@@ -973,8 +956,6 @@ FunctionEnd
 Function .onSelChange
 
         Call CheckSelected
-
-        Call UnselectOtherGroups
         
 FunctionEnd
 
@@ -1017,41 +998,13 @@ Function CheckSelected
 FunctionEnd
 
 
-Function UnselectOtherGroups
 
-  SectionGetFlags ${JFPortable} $R0
-  
-  ${If} $R0 == "0"
-        SectionSetFlags ${JFPortableGerman} 0
-        SectionSetFlags ${JFPortableEnglish} 0
-  ${EndIf}
-
-FunctionEnd
-
-
-Function LanguageSectionControl
-
-        ${If} $LANGUAGE == "1031"          # german
-
-              SectionSetFlags ${JFPortableGerman} 1
-              SectionSetFlags ${JFPortableEnglish} 0
-
-        ${ElseIf} $LANGUAGE == "1033"      # english
-
-              SectionSetFlags ${JFPortableEnglish} 1
-              SectionSetFlags ${JFPortableGerman} 0
-
-        ${EndIf}
-
-FunctionEnd
 
 Function SectionDebug
 
         ${If} $DEBUG == 1
 
                 SectionGetFlags ${JFPortable} $R0
-                SectionGetFlags ${JFPortableEnglish} $R1
-                SectionGetFlags ${JFPortableGerman} $R2
                 SectionGetFlags ${ProfileCore} $R3
                 SectionGetFlags ${ProfileCoreUpdate} $R4
 
@@ -1079,8 +1032,6 @@ Function SectionDebug
                                    FFInstalled: $FFInstalled$\n \
                                    PROGRAMINSTALL: $PROGRAMINSTALL$\n \
                                    JFPortable: $R0$\n \
-                                   JFPortableEnglish: $R1$\n \
-                                   JFPortableGerman: $R2$\n \
                                    ProfileCore: $R3$\n \
                                    ProfileCoreUpdate: $R4$\n \
                                    AddBookmarkHere: $0$\n \
@@ -1130,7 +1081,6 @@ Function dirPre                          # 1
 
                 ${If} $R0 == ${SF_SELECTED}
                         StrCpy $PROGRAMINSTALL "true"
-                        Call LanguageSectionControl
 												Call CheckFirefoxRunning
                         Goto goon
                 ${EndIf}
@@ -1381,10 +1331,6 @@ Push $R0
         
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions JFPortable
         SectionSetFlags ${JFPortable} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions JFPortableEnglish
-        SectionSetFlags ${JFPortableEnglish} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions JFPortableGerman
-        SectionSetFlags ${JFPortableGerman} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfileCore
         SectionSetFlags ${ProfileCore} $R0
         ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfileCoreUpdate
@@ -1507,12 +1453,6 @@ Function SaveOptions
 
         SectionGetFlags ${JFPortable} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions JFPortable $R0
-
-        SectionGetFlags ${JFPortableEnglish} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions JFPortableEnglish $R0
-
-        SectionGetFlags ${JFPortableGerman} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions JFPortableGerman $R0
 
         SectionGetFlags ${ProfileCore} $R0
         WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfileCore $R0
