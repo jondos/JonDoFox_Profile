@@ -81,7 +81,7 @@ variablesOsSpecific()
 		fi
 		#INSTALL_BUNDLE_RESOURCES="JonDoFox_Install.app/Contents/Resources/"
 		INSTALL_BUNDLE_RESOURCES=""
-		ECHO_ESCAPE=""
+		ECHO_ESCAPE="-e"
 		COPY_OVERWRITE_OPT="-f"
 		COPY_RECURSIVE_OPT="-R"
 	else
