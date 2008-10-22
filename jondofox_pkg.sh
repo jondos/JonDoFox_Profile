@@ -49,6 +49,23 @@ OS_X_INSTALLER_LANGFILE_NAME="jfx"
 OS_X_INSTALLER_LANGFILE_SUFFIX=".plist"
 OS_X_INSTALLER_LANGFILE="${OS_X_INSTALLER_LANGFILE_NAME}${OS_X_INSTALLER_LANGFILE_SUFFIX}"
 
+LITE_EXCLUSIONS="abhere2@moztw.org"
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {1A2D0EC4-75F5-4c91-89C4-3656F6E44B68}"
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {268ad77e-cff8-42d7-b479-da60a7b93305}"
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {59c81df5-4b7a-477b-912d-4e0fdf64e5f2}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {723AAF16-AF1F-4404-A5D7-0BFE39766605}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {792BDDFE-2E7C-42ed-B18D-18154D2761BD}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {89736E8E-4B14-4042-8C75-AD00B6BD3900}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {98449521-9320-4257-aa35-9e1a39c8cbe0}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {AA052FD6-366A-4771-A591-0D8DC551585D}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {C90B0826-5A17-4970-A5BF-A43D22452E21}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {F807FACD-E46A-4793-B345-D58CB177673C}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {a6ca9b3b-5e52-4f47-85d8-cca35bb57596}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {cf15270e-cf08-4def-b4ea-6a5ac23f3bca}" 
+LITE_EXCLUSIONS="$LITE_EXCLUSIONS {d37dc5d0-431d-44e5-8c91-49419370caa1}"
+
 LINUX_PKG="profile.zip"
 BASH_INSTALLER_SCRIPT="install_linux.sh"
 VB_INSTALLER_SCRIPT="install_win.vbs"
@@ -316,6 +333,7 @@ createWindowsPackage()
 getProfileFolder()
 {
 	local type=$1
+	local exclude=""
 	
 	checkType "${type}"
 	if [ $? -ne 0 ]; then
@@ -325,7 +343,7 @@ getProfileFolder()
 	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${JONDOFOX_PROFILE}_${type}" ]; then
 		echo "Checking out JonDoFox profile type '${type}'."
 		#if [ "${VERBOSE}" ]; then
-			svn export "${SVN_MODULE}/${type}/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}"
+			svn export "${SVN_MODULE}/full/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}"
 		#else
 		#	svn export "${SVN_MODULE}/${type}/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}" >& /dev/null
 		#fi
@@ -334,6 +352,17 @@ getProfileFolder()
 			echo "Error: could not check out profile type '${type}'"
 			return 1
 		fi
+		
+		case "${type}" in
+		
+		lite) for exclude in ${LITE_EXCLUSIONS}; do
+			  	rm -Rfv "${JONDOFOX_PROFILE}_${type}/extensions/${exclude}"
+			  done
+			  ;;
+		
+		*);;
+		
+		esac
 	fi
 	return 0
 	
@@ -504,33 +533,33 @@ do
 		   esac;;
 		c) SVN_MODULE="${OPTARG}";;
 		h) 
-			echo "JonDoFox Package Creator 0.1 (2008 Copyright (c) JonDos GmbH)"
+			echo 'JonDoFox Package Creator 0.1 (2008 Copyright (c) JonDos GmbH)'
 			echo "usage: $0 [options]"
-			echo "possible options are:"
-			echo "-v prints verbose information about the packaging progress."
-			echo "-p [mac | linux | win]"  
-			echo "   the platform of the JonDoFox installer to be created." 
-			echo "   Multiple platforms can be specified in quotes separated by whitespace"
-			echo "   If nothing is specified, all platforms are selected."
-			echo "-l [de | en]"
-			echo "   the language of the JonDoFox installer package to be created." 
-			echo "   Multiple languages can be specified in quotes separated by whitespace"
-			echo "   If nothing is specified, all languages are selected."
-			echo "-t [full | lite]"
-			echo "   the type of the JonDoFox installer package to be created." 
-			echo "   Multiple types can be specified in quotes separated by whitespace"
-			echo "   If nothing is specified, all types are selected."
-			echo "-s [svn | local]"
-			echo "   source for the package components. if 'svn' is specified the source components" 
-			echo "   will always be fetched from the specified subversion repository. if 'local' is"
-			echo "   specified components will only be fetched from svn when they are locally available."
-			echo "   than directly compiling the script source file from SVN. Default is 'svn'"
-			echo "   (Useful if you want to apply changes to the script source)."
-			echo "-c <Repository source URL>"
-			echo "   specify the URL of the SVN Repository containing the JonDoFox profiles module."
-			echo "   Default is https://svn.jondos.de/svnpub/JonDoFox_Profile/trunk/ ."
-			echo "-h prints this help text." 
-			echo ""
+			echo 'possible options are:'
+			echo '-v prints verbose information about the packaging progress.'
+			echo '-p [mac | linux | win]'  
+			echo '   the platform of the JonDoFox installer to be created.' 
+			echo '   Multiple platforms can be specified in quotes separated by whitespace'
+			echo '   If nothing is specified, all platforms are selected.'
+			echo '-l [de | en]'
+			echo '   the language of the JonDoFox installer package to be created.' 
+			echo '   Multiple languages can be specified in quotes separated by whitespace'
+			echo '   If nothing is specified, all languages are selected.'
+			echo '-t [full | lite]'
+			echo '   the type of the JonDoFox installer package to be created.' 
+			echo '   Multiple types can be specified in quotes separated by whitespace'
+			echo '   If nothing is specified, all types are selected.'
+			echo '-s [svn | local]'
+			echo '   source for the package components. if svn is specified the source components' 
+			echo '   will always be fetched from the specified subversion repository. if local is'
+			echo '   specified components will only be fetched from svn when they are locally available.'
+			echo '   than directly compiling the script source file from SVN. Default is svn'
+			echo '   (Useful if you want to apply changes to the script source).'
+			echo '-c <Repository source URL>'
+			echo '   specify the URL of the SVN Repository containing the JonDoFox profiles module.'
+			echo '   Default is https://svn.jondos.de/svnpub/JonDoFox_Profile/trunk/ .'
+			echo '-h prints this help text.' 
+			echo ''
 			exit 0
 			;;
 		u) uploadMacBundles
