@@ -18,7 +18,7 @@
 ;=== BEGIN: BASIC INFORMATION
 !define NAME "JonDoFox"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.1.0.0"
+!define VERSION "2.1.1.0"
 !define FILENAME "JonDoFox"
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
