@@ -88,7 +88,6 @@ user_pref("downbar.function.virusLoc", "PortableApps\\ClamWinPortable\\ClamWinPo
 user_pref("dwhelper.convert-free", true);
 user_pref("dwhelper.first-time", false);
 user_pref("dwhelper.last-version", "3.3");
-user_pref("dwhelper.storagedirectory", "C:\\Users\\jondos\\dwhelper");
 user_pref("extensions.adblockplus.checkedadblockinstalled", true);
 user_pref("extensions.adblockplus.checkedtoolbar", true);
 user_pref("extensions.adblockplus.showinstatusbar", true);
