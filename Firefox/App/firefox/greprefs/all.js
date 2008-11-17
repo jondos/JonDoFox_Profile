@@ -343,6 +343,8 @@ pref("capability.policy.mailnews.*.data.get", "noAccess");
 pref("capability.policy.mailnews.*.getAttribute", "noAccess");
 pref("capability.policy.mailnews.HTMLDivElement.getAttribute", "sameOrigin");
 pref("capability.policy.mailnews.*.getAttributeNS", "noAccess");
+pref("capability.policy.mailnews.*.getAttributeNode", "noAccess");
+pref("capability.policy.mailnews.*.getAttributeNodeNS", "noAccess");
 pref("capability.policy.mailnews.*.getNamedItem", "noAccess");
 pref("capability.policy.mailnews.*.getNamedItemNS", "noAccess");
 pref("capability.policy.mailnews.*.host.get", "noAccess");
@@ -356,11 +358,13 @@ pref("capability.policy.mailnews.*.protocol.get", "noAccess");
 pref("capability.policy.mailnews.*.src.get", "noAccess");
 pref("capability.policy.mailnews.*.substringData.get", "noAccess");
 pref("capability.policy.mailnews.*.text.get", "noAccess");
+pref("capability.policy.mailnews.*.textContent", "noAccess");
 pref("capability.policy.mailnews.*.title.get", "noAccess");
 pref("capability.policy.mailnews.DOMException.toString", "noAccess");
 pref("capability.policy.mailnews.HTMLAnchorElement.toString", "noAccess");
 pref("capability.policy.mailnews.HTMLDocument.domain", "noAccess");
 pref("capability.policy.mailnews.HTMLDocument.URL", "noAccess");
+pref("capability.policy.mailnews.*.documentURI", "noAccess");
 pref("capability.policy.mailnews.Location.toString", "noAccess");
 pref("capability.policy.mailnews.Range.toString", "noAccess");
 pref("capability.policy.mailnews.Window.blur", "noAccess");
@@ -523,7 +527,7 @@ pref("network.protocol-handler.external.data", false);
 pref("network.protocol-handler.external.ms-help", false);
 pref("network.protocol-handler.external.shell", false);
 pref("network.protocol-handler.external.vnd.ms.radio", false);
-//@line 532 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 536 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 pref("network.protocol-handler.external.disk", false);
 pref("network.protocol-handler.external.disks", false);
 pref("network.protocol-handler.external.afp", false);
@@ -639,6 +643,7 @@ pref("network.IDN_show_punycode", false);
 
 // ccTLDs
 pref("network.IDN.whitelist.ac", true);
+pref("network.IDN.whitelist.ar", true);
 pref("network.IDN.whitelist.at", true);
 pref("network.IDN.whitelist.br", true);
 pref("network.IDN.whitelist.ch", true);
@@ -752,12 +757,12 @@ pref("network.negotiate-auth.gsslib", "");
 // Specify if the gss lib comes standard with the OS
 pref("network.negotiate-auth.using-native-gsslib", true);
 
-//@line 761 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 766 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
 // Default to using the SSPI intead of GSSAPI on windows 
 pref("network.auth.use-sspi", true);
 
-//@line 766 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 771 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
 // The following prefs are used to enable automatic use of the operating
 // system's NTLM implementation to silently authenticate the user with their
@@ -781,9 +786,9 @@ pref("network.hosts.nntp_server",           "news.mozilla.org");
 
 pref("permissions.default.image",           1); // 1-Accept, 2-Deny, 3-dontAcceptForeign
 
-//@line 793 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
-pref("network.proxy.type",                  0);
 //@line 798 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+pref("network.proxy.type",                  0);
+//@line 803 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
 pref("network.proxy.ftp",                   "");
 pref("network.proxy.ftp_port",              0);
@@ -1117,7 +1122,7 @@ pref("font.minimum-size.x-western", 0);
 pref("font.minimum-size.x-unicode", 0);
 pref("font.minimum-size.x-user-def", 0);
 
-//@line 1132 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 1137 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 pref("font.name.serif.ar", "Times New Roman");
 pref("font.name.sans-serif.ar", "Arial");
 pref("font.name.monospace.ar", "Courier New");
@@ -1230,7 +1235,7 @@ pref("font.name.monospace.x-tamil", "Latha");
 pref("font.name-list.serif.x-tamil", "Latha, Code2000");
 pref("font.name-list.monospace.x-tamil", "Latha, Code2000");
 
-//@line 1245 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 1250 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
 pref("font.name.serif.x-armn", "Sylfaen");
 pref("font.name.sans-serif.x-armn", "Arial AMU");
@@ -1499,23 +1504,23 @@ pref("intl.jis0208.map", "CP932");
 // Switch the keyboard layout per window
 pref("intl.keyboard.per_window_layout", false);
 
-//@line 1515 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 1520 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
-//@line 1932 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 1937 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
-//@line 2129 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 2134 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
-//@line 2220 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 2225 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
-//@line 2485 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 2490 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
-//@line 2553 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 2558 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
-//@line 2579 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 2584 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
-//@line 2599 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 2604 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
-//@line 2607 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
+//@line 2612 "e:\fx19rel\WINNT_5.2_Depend\mozilla\modules\libpref\src\init\all.js"
 
 // Login Manager prefs
 pref("signon.rememberSignons",              true);

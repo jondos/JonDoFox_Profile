@@ -4,9 +4,9 @@
   <Description about="urn:mozilla:install-manifest">
 
     <em:id>{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}</em:id>
-    <em:name>MR Tech Toolkit (formerly Local Install)</em:name>
-    <em:version>6.0.1</em:version>
-    <em:description>Extension, theme and other power tools for all users.</em:description>
+    <em:name>MR Tech Toolkit</em:name>
+    <em:version>6.0.3.1</em:version>
+    <em:description>(Formerly Local Install) Extension, theme and other power tools for all users.</em:description>
     <em:creator>Mel Reyes (mrtech@gmail.com)</em:creator>
     <em:extension>true</em:extension>
 
@@ -35,56 +35,13 @@
         
     <!-- TRANSLATORS were removed to reduce the height of the About window. Their credits are listed in a text file (translators.txt) inside the xpi. A special window can be made for their credits in a future release. -->
 
-    <!-- FILES & LOCALIZATIONS -->
-
-  	<em:file>
-			<Description about="urn:mozilla:extension:file:local_install.jar">
-        <em:package>content/local_install/</em:package>
-        <em:skin>skin/classic/local_install/</em:skin>
-				<em:locale>locale/en-US/local_install/</em:locale>
-				<em:locale>locale/it-IT/local_install/</em:locale>
-				<em:locale>locale/es-ES/local_install/</em:locale>
-				<em:locale>locale/fr-FR/local_install/</em:locale>
-				<em:locale>locale/zh-CN/local_install/</em:locale>
-				<em:locale>locale/pl-PL/local_install/</em:locale>				
-				<em:locale>locale/pt-BR/local_install/</em:locale>				
-				<em:locale>locale/de-DE/local_install/</em:locale>				
-				<em:locale>locale/zh-TW/local_install/</em:locale>
-				<em:locale>locale/nl-NL/local_install/</em:locale>
-				<em:locale>locale/hu-HU/local_install/</em:locale>
-				<em:locale>locale/sr-YU/local_install/</em:locale>
-				<em:locale>locale/ro-RO/local_install/</em:locale>
-				<em:locale>locale/cs-CZ/local_install/</em:locale>
-				<em:locale>locale/ja/local_install/</em:locale>
-				<em:locale>locale/fi-FI/local_install/</em:locale>
-				<em:locale>locale/ru-RU/local_install/</em:locale>
-				<em:locale>locale/ko-KR/local_install/</em:locale>
-				<em:locale>locale/es-AR/local_install/</em:locale>
-				<em:locale>locale/sk/local_install/</em:locale>
-				<em:locale>locale/mk-MK/local_install/</em:locale>
-				<em:locale>locale/hr-HR/local_install/</em:locale>
-				<em:locale>locale/da-DK/local_install/</em:locale>
-				<em:locale>locale/lt-LT/local_install/</em:locale>
-				<em:locale>locale/he-IL/local_install/</em:locale>
-				<em:locale>locale/bg-BG/local_install/</em:locale>
-				<em:locale>locale/uk-UA/local_install/</em:locale>
-				<em:locale>locale/fa-IR/local_install/</em:locale>
-				<em:locale>locale/pt-PT/local_install/</em:locale>
-				<em:locale>locale/tr-TR/local_install/</em:locale>
-				<em:locale>locale/be-BY/local_install/</em:locale>
-				<em:locale>locale/el-GR/local_install/</em:locale>
-				<em:locale>locale/fy-NL/local_install/</em:locale>
-				<em:locale>locale/sv-SE/local_install/</em:locale>
-			</Description>
-		</em:file>
-
     <!-- TARGET APPLICATIONS & SUPPORTED VERSIONS -->
 
     <em:targetApplication> <!-- Firefox -->
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>3.0.*</em:maxVersion>
+        <em:maxVersion>3.1b2pre</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -92,7 +49,7 @@
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>3.0a2pre</em:maxVersion>
+        <em:maxVersion>3.0b1pre</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -100,7 +57,7 @@
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>1.5a</em:minVersion>
-        <em:maxVersion>2.0a1</em:maxVersion>
+        <em:maxVersion>2.0a2</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -116,7 +73,7 @@
       <Description>
         <em:id>{718e30fb-e89b-41dd-9da7-e25a45638b28}</em:id>
         <em:minVersion>0.7</em:minVersion>
-        <em:maxVersion>0.9pre</em:maxVersion>
+        <em:maxVersion>1.0pre</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -133,6 +90,14 @@
         <em:id>dlm4@emusic.com</em:id>
         <em:minVersion>4.0</em:minVersion>
         <em:maxVersion>4.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:targetApplication> <!-- Fennec -->
+      <Description>
+        <em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
+        <em:minVersion>0.1</em:minVersion>
+        <em:maxVersion>1.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
 

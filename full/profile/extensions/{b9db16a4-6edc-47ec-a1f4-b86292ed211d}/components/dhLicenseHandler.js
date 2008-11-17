@@ -16,14 +16,17 @@ var Util=null;
 * Object constructor
 */
 function LicenseHandler() {
-	try {
-		//dump("[LicenseHandler] constructor\n");
-	} catch(e) {
-		//dump("[LicenseHandler] !!! constructor: "+e+"\n");
-	}
+	//dump("[LicenseHandler] constructor\n");
+    var uriLoader = Components.classes["@mozilla.org/uriloader;1"].getService(Components.interfaces.nsIURILoader);
+    uriLoader.registerContentListener(this);
 }
 
-LicenseHandler.prototype = {}
+LicenseHandler.prototype = {
+		get loadCookie() { return this.mLoadCookie; },
+		set loadCookie(newval) { return this.mLoadCookie=newval; },
+		get parentContentListener() { return this.mParentContentListener; },
+		set parentContentListener(newval) { return this.mParentContentListener=newval; }
+}
 
 LicenseHandler.prototype.canHandleContent = function( 
 	contentType, 
@@ -152,7 +155,7 @@ LicenseHandler.prototype.isPreferred = function(
 	contentType , 
 	desiredContentType ) {
 
-	dump("[LicenseHandler] isPreferred contentType: "+contentType+"\n");
+	//dump("[LicenseHandler] isPreferred contentType: "+contentType+"\n");
 
 	if(contentType=="application/x-downloadhelper-license") 
 		return true;

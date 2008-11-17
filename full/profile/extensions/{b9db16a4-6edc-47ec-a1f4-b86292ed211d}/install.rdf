@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{b9db16a4-6edc-47ec-a1f4-b86292ed211d}</em:id>
-    <em:version>3.3</em:version>
+    <em:version>3.4</em:version>
     <em:type>2</em:type>
    
     <!-- Target Application this extension can install into, 
@@ -16,7 +16,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>1.5</em:minVersion>
-        <em:maxVersion>3.0.*</em:maxVersion>
+        <em:maxVersion>3.1b2pre</em:maxVersion>
       </Description>
     </em:targetApplication>
     
@@ -34,7 +34,7 @@
 		<Description>
 			<em:id>songbird@songbirdnest.com</em:id>
 			<em:minVersion>0.7.0</em:minVersion>
-			<em:maxVersion>0.7.*</em:maxVersion>
+			<em:maxVersion>1.0.*</em:maxVersion>
 		</Description>
 	</em:targetApplication>
 	

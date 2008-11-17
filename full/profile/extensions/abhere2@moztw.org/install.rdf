@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>abhere2@moztw.org</em:id>
-    <em:version>3.0.20081005</em:version>
+    <em:version>3.0.20081031</em:version>
 
     <em:targetApplication>
       <Description>
