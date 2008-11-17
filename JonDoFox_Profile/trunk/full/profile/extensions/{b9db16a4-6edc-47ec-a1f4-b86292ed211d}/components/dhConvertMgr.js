@@ -489,7 +489,7 @@ ConvertMgr.prototype.makeDefaultRule=function(datasource) {
 	Util.setPropertyValueRS(datasource,defRule,DHNS+"action","1");
 	Util.setPropertyValueRS(datasource,defRule,DHNS+"infile","flv");
 	Util.setPropertyValueRS(datasource,defRule,DHNS+"insite","");
-	Util.setPropertyValueRS(datasource,defRule,DHNS+"outformat","avi/-f avi -sameq");
+	Util.setPropertyValueRS(datasource,defRule,DHNS+"outformat","wmv/-acodec wmav1 -b 1000kbps -f asf -vcodec wmv1");
 	Util.setPropertyValueRS(datasource,defRule,DHNS+"outdir","");
 	Util.setPropertyValueRS(datasource,defRule,DHNS+"label",this.makeLabel(datasource,defRule.Value));
 	return defRule.Value;

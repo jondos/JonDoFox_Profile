@@ -13,7 +13,7 @@
 <!ENTITY clicking.option.bmPage "dodaje zakładkę do otwartej strony">
 <!ENTITY clicking.option.bmNoUI "dodaje zakładkę do otwartej strony (bez potwierdzania)">
 <!ENTITY clicking.option.bmTabs "dodaje zakładki do wszystkich kart">
-<!ENTITY clicking.misc.insertTop "Dodawaj zakładki na górze menu">
+<!ENTITY clicking.misc.insertTop "Dodawaj zakładki na początku menu">
 <!ENTITY starUI.group "Okno potwierdzenia">
 <!ENTITY starUI.expand.folderRow "Automatycznie rozwijaj drzewo folderów">
 <!ENTITY starUI.expand.tagsRow "Automatycznie rozwijaj listę etykiet">

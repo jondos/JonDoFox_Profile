@@ -20,9 +20,16 @@ function ConvConfHandler() {
 	                                   .getService(Components.interfaces.nsIRDFDataSource);
 	this.promptService=Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 	                          			.getService(Components.interfaces.nsIPromptService);
+    var uriLoader = Components.classes["@mozilla.org/uriloader;1"].getService(Components.interfaces.nsIURILoader);
+    uriLoader.registerContentListener(this);
 }
 
-ConvConfHandler.prototype = {}
+ConvConfHandler.prototype = {
+		get loadCookie() { return this.mLoadCookie; },
+		set loadCookie(newval) { return this.mLoadCookie=newval; },
+		get parentContentListener() { return this.mParentContentListener; },
+		set parentContentListener(newval) { return this.mParentContentListener=newval; }
+}
 
 ConvConfHandler.prototype.canHandleContent = function( 
 	contentType, 

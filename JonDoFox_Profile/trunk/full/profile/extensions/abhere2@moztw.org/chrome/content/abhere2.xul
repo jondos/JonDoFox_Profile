@@ -316,6 +316,8 @@ var abHere2 = {
                   break;
                case "tagsRow":
                   abHere2.expandRow(aRow);
+                  self._rebuildTagsSelectorList();
+                  aRow.nextSibling.addEventListener("CheckboxStateChange", gEditItemOverlay, false);
                   break;
                }
             }

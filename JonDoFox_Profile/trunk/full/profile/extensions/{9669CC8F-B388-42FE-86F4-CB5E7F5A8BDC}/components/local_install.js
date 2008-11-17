@@ -72,6 +72,11 @@ AboutKitchenSink.prototype = {
 
 // constructors for objects we want to XPCOMify
 var objects = [AboutAbout,AboutMyConfig,AboutKitchenSink];
+var tmpAppName = Components.classes['@mozilla.org/xre/app-info;1'].getService(Components.interfaces.nsIXULAppInfo).name;
+
+if (tmpAppName == "SeaMonkey") {
+  objects = [AboutMyConfig,AboutKitchenSink];
+}
 
 /* Common registration code. */
 const CI = Components.interfaces, CC = Components.classes, CR = Components.results;

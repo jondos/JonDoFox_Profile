@@ -97,13 +97,13 @@ function getPlatform()
 
 var srDest = 665;
 
-var err = initInstall("ChatZilla 0.9.83", "ChatZilla", "0.9.83"); 
+var err = initInstall("ChatZilla 0.9.84", "ChatZilla", "0.9.84"); 
 logComment("initInstall: " + err);
 
 if (verifyDiskSpace(getFolder("Program"), srDest))
 {
     addFile("ChatZilla service",
-            "0.9.83",
+            "0.9.84",
             "components/chatzilla-service.js",
             getFolder("Components"),
             "chatzilla-service.js",

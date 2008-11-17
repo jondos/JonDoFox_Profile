@@ -100,4 +100,6 @@ locale	local_install	be-BY	jar:chrome/local_install.jar!/locale/be-BY/local_inst
 locale	local_install	el-GR	jar:chrome/local_install.jar!/locale/el-GR/local_install/
 locale	local_install	fy-NL	jar:chrome/local_install.jar!/locale/fy-NL/local_install/
 locale	local_install	sv-SE	jar:chrome/local_install.jar!/locale/sv-SE/local_install/
+locale	local_install	nb-NO	jar:chrome/local_install.jar!/locale/nb-NO/local_install/
+locale	local_install	vi-VN	jar:chrome/local_install.jar!/locale/vi-VN/local_install/
 

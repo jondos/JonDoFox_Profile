@@ -90,7 +90,8 @@ ShowInstDetails show
 ;=== Program Details
 Name "${NAME}"
 OutFile "..\..\..\${FILENAME}.paf.exe"
-InstallDir "$PROFILE\${SHORTNAME}\"
+;InstallDir "$PROFILE\${SHORTNAME}\"
+InstallDir "\${SHORTNAME}"
 Caption "${NAME}"
 VIProductVersion "${VERSION}"
 VIAddVersionKey ProductName "${NAME}"

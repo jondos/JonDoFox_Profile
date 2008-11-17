@@ -31,3 +31,6 @@ pref("dwhelper.show-in-statusbar",false);
 pref("dwhelper.trigger-min-size","100");
 pref("dwhelper.convert-helper.notification",true);
 pref("dwhelper.convert-helper.share-config",true);
+pref("dwhelper.yt-check-hq",true);
+pref("dwhelper.yt-prefer-hq",true);
+pref("dwhelper.medialink-index-prefix",true);
