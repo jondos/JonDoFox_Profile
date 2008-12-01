@@ -156,6 +156,17 @@ ReserveFile "${NSISDIR}\Plugins\BGImage.dll"
 ###################################
 
 
+###################################
+!macro _StrContainsConstructor OUT NEEDLE HAYSTACK
+  Push "${HAYSTACK}"
+  Push "${NEEDLE}"
+  Call StrContains
+  Pop "${OUT}"
+!macroend
+ 
+!define StrContains '!insertmacro "_StrContainsConstructor"'
+###################################
+
 # Installer pages
 !define MUI_PAGE_CUSTOMFUNCTION_PRE WelcomePre
 !insertmacro MUI_PAGE_WELCOME
@@ -1128,9 +1139,15 @@ Function dirPost
 
               ${If} $IsRoot == "false"
 
-                      Push $INSTDIR
-                      Call CheckFolder                                             # CheckFolder
-
+                     # check if we are installing to a portableapps flash drive; then no test for admin rights is needed
+#                    ${StrContains} $0 $varFOUNDPORTABLEAPPSPATH $INSTDIR 
+#									   StrCmp $0 "" notfound
+#									   Goto portableinstall
+									   
+										 notfound:
+                      # check if admin rights are needed
+                      Push $INSTDIR                      
+                      Call CheckFolder                                           
                       ${If} $InstDirOkay == "Read only"
                             StrCpy $Error "true"
 
@@ -1153,6 +1170,8 @@ Function dirPost
                             next:
 
                       ${EndIf}
+                      
+                      portableinstall:
 
                 ${EndIf}
 
@@ -1557,8 +1576,8 @@ Function CheckFolder
         next:
         ${GetFileAttributes} "$R0" "DIRECTORY" $R1
         StrCmp $R1 0 parentLoop
-        ${GetFileAttributes} "$R0" "READONLY" $R1
-        StrCmp $R1 1 pathbad
+#        ${GetFileAttributes} "$R0" "READONLY" $R1
+#        StrCmp $R1 1 pathbad
         ClearErrors
         IfFileExists "$R0\$R2" pathgood 0
         CreateDirectory "$R0\$R2"
@@ -2406,3 +2425,49 @@ Function isRoot
   _end:
     Exch $0
 FunctionEnd
+
+
+
+
+
+
+; StrContains
+; This function does a case sensitive searches for an occurrence of a substring in a string. 
+; It returns the substring if it is found. 
+; Otherwise it returns null(""). 
+; Written by kenglish_hi
+; Adapted from StrReplace written by dandaman32
+ 
+ 
+Var STR_HAYSTACK
+Var STR_NEEDLE
+Var STR_CONTAINS_VAR_1
+Var STR_CONTAINS_VAR_2
+Var STR_CONTAINS_VAR_3
+Var STR_CONTAINS_VAR_4
+Var STR_RETURN_VAR
+ 
+Function StrContains
+  Exch $STR_NEEDLE
+  Exch 1
+  Exch $STR_HAYSTACK
+  ; Uncomment to debug
+  ;MessageBox MB_OK 'STR_NEEDLE = $STR_NEEDLE STR_HAYSTACK = $STR_HAYSTACK '
+    StrCpy $STR_RETURN_VAR ""
+    StrCpy $STR_CONTAINS_VAR_1 -1
+    StrLen $STR_CONTAINS_VAR_2 $STR_NEEDLE
+    StrLen $STR_CONTAINS_VAR_4 $STR_HAYSTACK
+    loop:
+      IntOp $STR_CONTAINS_VAR_1 $STR_CONTAINS_VAR_1 + 1
+      StrCpy $STR_CONTAINS_VAR_3 $STR_HAYSTACK $STR_CONTAINS_VAR_2 $STR_CONTAINS_VAR_1
+      StrCmp $STR_CONTAINS_VAR_3 $STR_NEEDLE found
+      StrCmp $STR_CONTAINS_VAR_1 $STR_CONTAINS_VAR_4 done
+      Goto loop
+    found:
+      StrCpy $STR_RETURN_VAR $STR_NEEDLE
+      Goto done
+    done:
+   Pop $STR_NEEDLE ;Prevent "invalid opcode" errors and keep the
+   Exch $STR_RETURN_VAR  
+FunctionEnd
+ 
