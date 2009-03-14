@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "К">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Підкреслено">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "П">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Показати прапорець">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Прапор">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "ь">
 <!ENTITY zoneinfo.display.style.colour.caption "Колір годинника на панелі/у рядку стану">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Звичайний колір">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "з">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "до">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "о">
-<!ENTITY zoneinfo.display.flag.caption "Прапор у смужці стану">
+<!ENTITY zoneinfo.display.flag.caption "Зображення прапора">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Вимкнено">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "В">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Стандартний">

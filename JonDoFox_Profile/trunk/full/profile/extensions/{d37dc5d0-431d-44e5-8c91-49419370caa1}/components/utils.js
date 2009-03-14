@@ -87,10 +87,24 @@ FoxClocks_Utils.prototype =
 					.getService(CI.nsIChromeRegistry)
 					.convertChromeURL(chromeFlagDirURI);
 			
-			if (localFlagDirURI.scheme == "file")
-			{				
-				var flagDirFile = CC["@mozilla.org/network/protocol;1?name=file"].getService(CI.nsIFileProtocolHandler)
-						.getFileFromURLSpec(localFlagDirURI.spec);
+			if (localFlagDirURI.scheme == "file" || localFlagDirURI.scheme == "resource")
+			{
+				var flagUrlSpec = null;
+				
+				if (localFlagDirURI.scheme == "file")
+				{
+					flagUrlSpec = localFlagDirURI.spec;
+				}
+				else
+				{
+					flagUrlSpec = CC["@mozilla.org/network/protocol;1?name=resource"]
+							.getService(CI.nsIResProtocolHandler)
+							.resolveURI(localFlagDirURI);
+				}
+					
+				var flagDirFile = CC["@mozilla.org/network/protocol;1?name=file"]
+						.getService(CI.nsIFileProtocolHandler)
+						.getFileFromURLSpec(flagUrlSpec);	
 				
 				var flagDirFileEnumerator = flagDirFile.directoryEntries;
 				while (flagDirFileEnumerator.hasMoreElements())
@@ -217,7 +231,7 @@ FoxClocks_Utils.prototype =
 		{
 			// AFM - SeaMonkey/XPFE - version written in by ant
 			//
-			return "2.4.97";
+			return "2.5.11";
 		}
 	},
 
@@ -511,6 +525,47 @@ FoxClocks_Utils.prototype =
 		{
 			logger.log("FoxClocks_Utils::_openURL(): " + ex, logger.ERROR);
 		}
+	},
+	
+	// ====================================================================================
+	timeZoneStringToMinOffset: function(timeZoneString)
+	{					
+		// AFM - convert e.g. timeZoneString +01:00 to +60
+		//	
+		var zoneMinOffset = 60 * Number(timeZoneString.substr(1, 2)) + Number(timeZoneString.substr(4, 2));
+		if (timeZoneString.substr(0, 1) != '+')
+			zoneMinOffset = -1 * zoneMinOffset;
+			
+		return zoneMinOffset;
+	},
+	
+	// ====================================================================================
+	dateStringToGmtDate: function(dateString)
+	{
+		// No regexp for expected string. Format: 2009-10-21T02:30:00-05:00
+		//
+		if (dateString == "")
+			return null;
+				
+		var zoneMinOffset = this.timeZoneStringToMinOffset(dateString.substr(19, 5));
+		
+		var dateTimeArray = dateString.split("T");
+		var datePart = dateTimeArray[0];
+				
+		var date = new Date();
+		date.setUTCFullYear(datePart.substr(0, 4), datePart.substr(5, 2) - 1, datePart.substr(8, 2));
+			
+		if (dateTimeArray.length == 2)
+		{	
+			var timePart = dateTimeArray[1];
+			date.setUTCHours(timePart.substr(0, 2), timePart.substr(3, 2) - zoneMinOffset, timePart.substr(6, 2));
+		}
+		else
+		{
+			date.setUTCHours(0, -1 * zoneMinOffset, 0);
+		}
+			
+		return date;
 	},
 	
 	// ====================================================================================

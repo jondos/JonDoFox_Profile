@@ -267,7 +267,7 @@ FoxClocks_Engine.prototype =
 				Math.round(this._updateManager.lastUpdateDate.getTime()/1000));
 		this._prefManager.addPrefObserver("extensions." + this._utils.FC_GUID_FOXCLOCKS + ".", this);
 
-		if (this._updateManager.lastUpdateResult == "OK_NEW")
+		if (this._updateManager.lastUpdateResult.result == "OK_NEW")
 		{	
 			if (this._prefManager.getPref("foxclocks.data.update.auto.alert.enabled") == true)
 				this._doDatabaseUpdateAlert();

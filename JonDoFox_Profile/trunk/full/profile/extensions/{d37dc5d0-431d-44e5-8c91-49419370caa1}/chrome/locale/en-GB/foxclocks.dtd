@@ -264,7 +264,7 @@ package or its installation directory on your computer.
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "I">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Underlined">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "U">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Show flag">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Flag">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.caption "Statusbar/toolbar clock colour">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Standard colour">
@@ -275,9 +275,9 @@ package or its installation directory on your computer.
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "until">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "n">
-<!ENTITY zoneinfo.display.flag.caption "Statusbar/toolbar flag">
-<!ENTITY zoneinfo.display.flag.radio.disabled.label "Disabled">
-<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
+<!ENTITY zoneinfo.display.flag.caption "Flag image">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "None">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "N">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Standard">
 <!ENTITY zoneinfo.display.flag.radio.standard.accesskey "R">
 <!ENTITY zoneinfo.display.flag.radio.custom.label "Custom">

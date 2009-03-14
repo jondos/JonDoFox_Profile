@@ -120,7 +120,6 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Africa/Ouagadougou" name="ワガドゥグ" />
 			<Leaf zone_id="Africa/Porto-Novo" name="ポルトノボ" />
 			<Leaf zone_id="Africa/Sao_Tome" name="サントメ" />
-			<Leaf zone_id="Africa/Timbuktu" name="ティンブクトゥ" />
 			<Leaf zone_id="Africa/Tripoli" name="トリポリ" />
 			<Leaf zone_id="Africa/Tunis" name="チュニス" />
 			<Leaf zone_id="Africa/Windhoek" name="ウイントフーク" />
@@ -307,9 +306,11 @@ package or its installation directory on your computer.
 					</Branch>
 					<Branch name="東部標準時">
 						<Branch name="インディアナ">
-							<Leaf zone_id="America/Indiana/Indianapolis" name="インディアナ全域" />
 							<Leaf zone_id="America/Indiana/Marengo" name="クロウフォード郡" />
-							<Leaf zone_id="America/Indiana/Knox" name="スターク郡" />
+							<Leaf zone_id="America/Indiana/Vincennes" name="デイヴィスズ, デュボイス, ノックス, マーティン郡" />
+							<Leaf zone_id="America/Indiana/Indianapolis" name="インディアナ全域" />
+							<Leaf zone_id="America/Indiana/Petersburg" name="パイク郡" />
+							<Leaf zone_id="America/Indiana/Winamac" name="プラスキ郡" />
 							<Leaf zone_id="America/Indiana/Vevay" name="スイッツランド郡" />
 						</Branch>
 						<Branch name="ケンタッキー">
@@ -345,6 +346,9 @@ package or its installation directory on your computer.
 			<Leaf zone_id="America/Boa_Vista" name="ボアヴィスタ" />
 			<Leaf zone_id="America/Bogota" name="ボゴタ" />
 			<Leaf zone_id="America/Boise" name="ボイシ" />
+			<Leaf zone_id="America/Sao_Paulo" name="ブラジリア">
+				<Coordinates latitude="-15.792" longitude="-47.898" />
+			</Leaf>
 			<Leaf zone_id="America/Barbados" name="ブリッジタウン" />
 			<Leaf zone_id="America/Argentina/Buenos_Aires" name="ブエノスアイレス" />
 			<Leaf zone_id="America/Cambridge_Bay" name="ケンブリッジベイ" />
@@ -356,7 +360,6 @@ package or its installation directory on your computer.
 			<Leaf zone_id="America/Chicago" name="シカゴ" />
 			<Leaf zone_id="America/Chihuahua" name="チャウチャウ" />
 			<Leaf zone_id="America/Grand_Turk" name="コックバーンタウン" />
-			<Leaf zone_id="America/Argentina/ComodRivadavia" name="コモドロリバダビア" />
 			<Leaf zone_id="America/Argentina/Cordoba" name="コルドバ" />
 			<Leaf zone_id="America/Cuiaba" name="キューバ" />
 			<Leaf zone_id="America/Danmarkshavn" name="デンマークシャウン" />
@@ -384,10 +387,11 @@ package or its installation directory on your computer.
 				<Leaf zone_id="America/Indiana/Knox" name="ノックス" />
 				<Leaf zone_id="America/Indiana/Marengo" name="マレンゴ" />
 				<Leaf zone_id="America/Indiana/Petersburg" name="ピーターズバーグ" />
+				<Leaf zone_id="America/Indiana/Tell_City" name="テル シティ" />
 				<Leaf zone_id="America/Indiana/Vevay" name="ビベー" />
 				<Leaf zone_id="America/Indiana/Vincennes" name="ヴィンセンズ" />
+				<Leaf zone_id="America/Indiana/Winamac" name="ウィナマック" />
 			</Branch>
-			<Leaf zone_id="America/Indianapolis" name="インディアナポリス" />
 			<Leaf zone_id="America/Inuvik" name="イヌヴィック" />
 			<Leaf zone_id="America/Iqaluit" name="イカリット" />
 			<Leaf zone_id="America/Argentina/Jujuy" name="フフイ" />
@@ -401,7 +405,6 @@ package or its installation directory on your computer.
 			<Leaf zone_id="America/Argentina/La_Rioja" name="ラリオハ" />
 			<Leaf zone_id="America/Lima" name="リマ" />
 			<Leaf zone_id="America/Los_Angeles" name="ロサンジェルス" />
-			<Leaf zone_id="America/Louisville" name="ルイヴィル" />
 			<Leaf zone_id="America/Maceio" name="マセイオ" />
 			<Leaf zone_id="America/Managua" name="マナグア" />
 			<Leaf zone_id="America/Manaus" name="マナウス" />
@@ -587,6 +590,7 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Asia/Dushanbe" name="タジキスタン" />
 			<Leaf zone_id="Asia/Bangkok" name="タイ" />
 			<Leaf zone_id="Asia/Ashgabat" name="トルクメニスタン" />
+			<Leaf zone_id="Europe/Istanbul" name="トルコ" />
 			<Leaf zone_id="Asia/Dubai" name="アラブ首長国連邦" />
 			<Branch name="ウズベキスタン">
 				<Leaf zone_id="Asia/Tashkent" name="東ウズベキスタン" />
@@ -598,6 +602,9 @@ package or its installation directory on your computer.
 			</Leaf>
 		</Branch>
 		<Branch name="都市名">
+			<Leaf zone_id="Asia/Dubai" name="アブダビ">
+				<Coordinates latitude="24.467" longitude="54.367" />
+			</Leaf>
 			<Leaf zone_id="Asia/Aden" name="アデン" />
 			<Leaf zone_id="Asia/Almaty" name="アルマトゥイ" />
 			<Leaf zone_id="Asia/Amman" name="アンマン" />
@@ -605,7 +612,7 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Asia/Aqtau" name="アクタウ" />
 			<Leaf zone_id="Asia/Aqtobe" name="アクトベ" />
 			<Leaf zone_id="Asia/Ashgabat" name="アシガバート" />
-			<Leaf zone_id="Asia/Baghdad" name="バグダード" />
+			<Leaf zone_id="Asia/Baghdad" name="バグダッド" />
 			<Leaf zone_id="Asia/Baku" name="バクー" />
 			<Leaf zone_id="Asia/Brunei" name="バンダルスリブガワン" />
 			<Leaf zone_id="Asia/Bangkok" name="バンコク" />
@@ -621,13 +628,16 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Asia/Dhaka" name="ダッカ" />
 			<Leaf zone_id="Asia/Dili" name="ディリ" />
 			<Leaf zone_id="Asia/Qatar" name="ドーハ" />
-			<Leaf zone_id="Asia/Dubai" name="ドゥバイ" />
+			<Leaf zone_id="Asia/Dubai" name="ドバイ" />
 			<Leaf zone_id="Asia/Dushanbe" name="ドゥシャンベ" />
 			<Leaf zone_id="Asia/Gaza" name="ガザ" />
 			<Leaf zone_id="Asia/Harbin" name="ハルビン" />
 			<Leaf zone_id="Asia/Hong_Kong" name="香港" />
 			<Leaf zone_id="Asia/Hovd" name="ホブド" />
 			<Leaf zone_id="Asia/Irkutsk" name="イルクーツク" />
+			<Leaf zone_id="Asia/Karachi" name="イスラマバード">
+				<Coordinates latitude="33.718" longitude="73.061" />
+			</Leaf>
 			<Leaf zone_id="Asia/Istanbul" name="イスタンブール" />
 			<Leaf zone_id="Asia/Jakarta" name="ジャカルタ" />
 			<Leaf zone_id="Asia/Jayapura" name="ジャヤプラ" />
@@ -704,7 +714,9 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Atlantic/Canary" name="カナリア諸島" />
 		</Branch>
 		<Branch name="スヴァールバル &amp; ヤンマイエン">
-			<Leaf zone_id="Atlantic/Jan_Mayen" name="ヤンマイエン" />
+			<Leaf zone_id="Atlantic/Jan_Mayen" name="ヤンマイエン">
+				<Coordinates latitude="70.983" longitude="-8.083" />
+			</Leaf>
 		</Branch>
 	</Branch>
 	<Branch name="オーストラリア">
@@ -749,6 +761,7 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Europe/Sarajevo" name="ボスニア &amp; ヘルツェゴヴィナ" />
 			<Leaf zone_id="Europe/Sofia" name="ブルガリア" />
 			<Leaf zone_id="Europe/Zagreb" name="クロアチア" />
+			<Leaf zone_id="Asia/Nicosia" name="キプロス共和国" />
 			<Leaf zone_id="Europe/Prague" name="チェコ共和国" />
 			<Leaf zone_id="Europe/Copenhagen" name="デンマーク" />
 			<Leaf zone_id="Europe/Tallinn" name="エストニア" />
@@ -808,7 +821,9 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Europe/Madrid" name="バルセロナ">
 				<Coordinates latitude="41.388" longitude="2.17" />
 			</Leaf>
-			<Leaf zone_id="Europe/Belfast" name="ベルファスト" />
+			<Leaf zone_id="Europe/London" name="ベルファスト">
+				<Coordinates latitude="54.597" longitude="-5.930" />
+			</Leaf>
 			<Leaf zone_id="Europe/Belgrade" name="ベオグラード" />
 			<Leaf zone_id="Europe/Berlin" name="ベルリン" />
 			<Leaf zone_id="Europe/Bratislava" name="ブラティスラヴァ" />
@@ -877,6 +892,53 @@ package or its installation directory on your computer.
 		<Leaf zone_id="Indian/Reunion" name="レユニオン" />
 		<Leaf zone_id="Indian/Mahe" name="セーシェル" />
 	</Branch>
+	<Branch name="中東">
+		<Branch name="国名">
+			<Leaf zone_id="Asia/Bahrain" name="バーレーン" />
+			<Leaf zone_id="Africa/Cairo" name="エジプト" />
+			<Leaf zone_id="Asia/Tehran" name="イラン" />
+			<Leaf zone_id="Asia/Baghdad" name="イラク" />
+			<Leaf zone_id="Asia/Jerusalem" name="イスラエル" />
+			<Leaf zone_id="Asia/Amman" name="ヨルダン" />
+			<Leaf zone_id="Asia/Kuwait" name="クウェート" />
+			<Leaf zone_id="Asia/Beirut" name="レバノン" />
+			<Leaf zone_id="Asia/Muscat" name="オマーン" />
+			<Leaf zone_id="Asia/Gaza" name="パレスチナ" />
+			<Leaf zone_id="Asia/Qatar" name="カタール" />
+			<Leaf zone_id="Asia/Riyadh" name="サウジアラビア" />
+			<Leaf zone_id="Africa/Khartoum" name="スーダン" />
+			<Leaf zone_id="Asia/Damascus" name="シリア" />
+			<Leaf zone_id="Asia/Dubai" name="アラブ首長国連邦" />
+			<Leaf zone_id="Asia/Aden" name="イエメン">
+				<Coordinates latitude="15.352" longitude="44.207" />
+			</Leaf>
+		</Branch>
+		<Branch name="都市名">
+			<Leaf zone_id="Asia/Dubai" name="アブダビ">
+				<Coordinates latitude="24.467" longitude="54.367" />
+			</Leaf>
+			<Leaf zone_id="Asia/Aden" name="アデン" />
+			<Leaf zone_id="Asia/Amman" name="アンマン" />
+			<Leaf zone_id="Asia/Baghdad" name="バグダッド" />
+			<Leaf zone_id="Asia/Beirut" name="ベイルート" />
+			<Leaf zone_id="Africa/Cairo" name="カイロ" />
+			<Leaf zone_id="Asia/Damascus" name="ダマスカス" />
+			<Leaf zone_id="Asia/Qatar" name="ドーハ" />
+			<Leaf zone_id="Asia/Dubai" name="ドバイ" />
+			<Leaf zone_id="Asia/Gaza" name="ガザ" />
+			<Leaf zone_id="Europe/Istanbul" name="イスタンブール" />
+			<Leaf zone_id="Asia/Jerusalem" name="エルサレム" />
+			<Leaf zone_id="Africa/Khartoum" name="ハルツーム" />
+			<Leaf zone_id="Asia/Kuwait" name="クウェート" />
+			<Leaf zone_id="Asia/Bahrain" name="マナマ" />
+			<Leaf zone_id="Asia/Muscat" name="マスカト" />
+			<Leaf zone_id="Asia/Riyadh" name="リャド" />
+			<Leaf zone_id="Asia/Aden" name="サヌア">
+				<Coordinates latitude="15.352" longitude="44.207" />
+			</Leaf>
+			<Leaf zone_id="Asia/Tehran" name="テヘラン" />
+		</Branch>
+	</Branch>
 	<Branch name="太平洋">
 		<Branch name="国名">
 			<Branch name="チリ">
@@ -914,7 +976,7 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Pacific/Niue" name="ニウエ" />
 			<Leaf zone_id="Pacific/Norfolk" name="ノーフォーク島" />
 			<Leaf zone_id="Pacific/Saipan" name="北マリアナ諸島" />
-			<Leaf zone_id="Pacific/Palau" name="パラウ" />
+			<Leaf zone_id="Pacific/Palau" name="パラオ" />
 			<Leaf zone_id="Pacific/Port_Moresby" name="パプアニューギニア" />
 			<Leaf zone_id="Pacific/Pitcairn" name="ピトケルン島" />
 			<Leaf zone_id="Pacific/Pago_Pago" name="サモア, アメリカ領" />
@@ -958,38 +1020,3 @@ package or its installation directory on your computer.
 	</Branch>
 	<Leaf zone_id="Etc/UTC" name="GMT/UTC" />
 </zonepicker>
-<!-- Do not remove this comment
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
--->

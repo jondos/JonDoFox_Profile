@@ -1,24 +1,38 @@
 <!ENTITY dialog.title "Opzioni di Add Bookmark Here ²">
+<!ENTITY tab.main.caption "Generali">
+<!ENTITY tab.interface.caption "Aspetto">
+<!ENTITY tab.advanced.caption "Avanzate">
 <!ENTITY position.group "Posizionamento delle voci di menu nelle cartelle dei segnalibri">
-<!ENTITY position.item.abHere "Posizione di &apos;Nuovo segnalibro…&apos;:">
+<!ENTITY position.item.abHere "Posizione di &apos;Nuovo segnalibro qui…&apos;:">
 <!ENTITY position.item.opTabs "Posizione di &apos;Apri tutti in schede&apos;:">
 <!ENTITY position.option.top "in cima">
 <!ENTITY position.option.bottom "in fondo">
 <!ENTITY position.option.hidden "nascosta">
-<!ENTITY position.misc.context "Mostra &apos;Nuovo segnalibro…&apos; nel menu contestuale">
-<!ENTITY clicking.group "Azioni da associare al clic del mouse">
-<!ENTITY clicking.item.buttonL "Clic con tasto sinistro:">
-<!ENTITY clicking.item.buttonM "Clic con tasto centrale:">
-<!ENTITY clicking.item.buttonR "Clic con tasto destro:">
+<!ENTITY clicking.group "Azioni da associare al clic del mouse sulla voce di menu &apos;Nuovo segnalibro qui…&apos;">
+<!ENTITY clicking.item.buttonL "Con tasto sinistro:">
+<!ENTITY clicking.item.buttonM "Con tasto centrale:">
+<!ENTITY clicking.item.buttonR "Con tasto destro:">
 <!ENTITY clicking.option.bmPage "aggiungi pagina nei segnalibri">
 <!ENTITY clicking.option.bmNoUI "aggiungi pagina nei segnalibri (senza finestra di dialogo)">
 <!ENTITY clicking.option.bmTabs "aggiungi tutte le schede nei segnalibri">
-<!ENTITY clicking.misc.insertTop "Aggiungi i segnalibri sopra a quelli presenti nella cartella">
 <!ENTITY starUI.group "Finestra di dialogo di inserimento/modifica segnalibro">
 <!ENTITY starUI.expand.folderRow "Espandi la visualizzazione ad albero">
 <!ENTITY starUI.expand.tagsRow "Espandi la lista delle etichette">
-<!ENTITY starUI.misc.singleClick "Mostra la finestra di dialogo con singolo clic sull&apos;icona a forma di stella">
-<!ENTITY menubar.group "Elementi da mostrare nel menu &quot;Segnalibri&quot;">
-<!ENTITY menubar.item.abHere "Mostra &apos;Nuovo segnalibro…&apos;">
+<!ENTITY menubar.group "Voci di menu da mostrare nel menu Segnalibri">
+<!ENTITY menubar.item.abHere "Mostra &apos;Nuovo segnalibro qui…&apos;">
 <!ENTITY menubar.item.bmPage "Mostra &apos;Aggiungi pagina nei segnalibri…&apos;">
 <!ENTITY menubar.item.bmTabs "Mostra &apos;Tutte le schede nei segnalibri…&apos;">
+<!ENTITY context.group "Voci di menu da mostrare nel menu contestuale dei segnalibri">
+<!ENTITY context.item.abHere "Mostra &apos;Nuovo segnalibro qui…&apos;">
+<!ENTITY starBtn.group "Azioni da associare al clic del mouse sull&apos;icona a forma di stella">
+<!ENTITY starBtn.clicking.item.buttonL "Con tasto sinistro:">
+<!ENTITY starBtn.clicking.item.buttonM "Con tasto centrale:">
+<!ENTITY starBtn.clicking.item.buttonR "Con tasto destro:">
+<!ENTITY starBtn.clicking.option.defaultBehavior "effettua azione predefinita">
+<!ENTITY starBtn.clicking.option.toggleMode "(con altro clic annulla l&apos;azione)">
+<!ENTITY starBtn.clicking.option.unsortedFolder "aggiungi segnalibro nella cartella dei non catalogati">
+<!ENTITY starBtn.clicking.option.singleClick "apri finestra di dialogo con singolo clic">
+<!ENTITY starBtn.clicking.option.optionsDialog "apri finestra delle opzioni di Add Bookmark Here ²">
+<!ENTITY misc.group "Varie">
+<!ENTITY misc.insertTop "Aggiungi i segnalibri sopra a quelli presenti nella cartella">
+<!ENTITY misc.folderDrag "Permetti il trascinamento della cartella dei segnalibri">

@@ -46,8 +46,6 @@ FoxClocks_WatchlistItem.prototype =
 	// ====================================================================================
 	toXml : function(parentNode)
 	{
-		// AFM - in order to create elements
-		//		
 		var doc = parentNode.ownerDocument;
 		
 		var watchlistItemNode = doc.createElement("WatchlistItem");

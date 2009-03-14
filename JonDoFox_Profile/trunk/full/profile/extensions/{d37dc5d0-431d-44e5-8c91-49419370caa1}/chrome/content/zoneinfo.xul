@@ -273,7 +273,7 @@ package or its installation directory on your computer.
 				<groupbox orient="vertical">
 					<caption label="&zoneinfo.display.style.caption;"/>
 				
-					<groupbox orient="horizontal">
+					<groupbox orient="horizontal" id="fc-zoneinfo-display-style-groupbox">
 						<checkbox	id="fc-zoneinfo-display-style-checkbox-bold"
 									label="&zoneinfo.display.style.checkbox.bold.label;"
 									accesskey="&zoneinfo.display.style.checkbox.bold.accesskey;"
@@ -287,6 +287,11 @@ package or its installation directory on your computer.
 						<checkbox	id="fc-zoneinfo-display-style-checkbox-underline"
 									label="&zoneinfo.display.style.checkbox.underline.label;"
 									accesskey="&zoneinfo.display.style.checkbox.underline.accesskey;"
+									observes="fc-zoneinfo-display-style-clock-disabled"/>
+
+						<checkbox	id="fc-zoneinfo-display-style-checkbox-flag"
+									label="&zoneinfo.display.style.checkbox.showflag.label;"
+									accesskey="&zoneinfo.display.style.checkbox.showflag.accesskey;"
 									observes="fc-zoneinfo-display-style-clock-disabled"/>
 					</groupbox>
 
@@ -443,38 +448,32 @@ package or its installation directory on your computer.
 											
 							<radio	id="fc-zoneinfo-display-flag-radio-none"
 									label="&zoneinfo.display.flag.radio.disabled.label;"
-									accesskey="&zoneinfo.display.flag.radio.disabled.accesskey;"
-									observes="fc-zoneinfo-display-style-clock-disabled"/>
+									accesskey="&zoneinfo.display.flag.radio.disabled.accesskey;"/>
 					
 							<radio	id="fc-zoneinfo-display-flag-radio-standard"
 									label="&zoneinfo.display.flag.radio.standard.label;"
-									accesskey="&zoneinfo.display.flag.radio.standard.accesskey;"
-									observes="fc-zoneinfo-display-style-clock-disabled"/>
+									accesskey="&zoneinfo.display.flag.radio.standard.accesskey;"/>
 	
 							<radio	id="fc-zoneinfo-display-flag-radio-custom"
 									label="&zoneinfo.display.flag.radio.custom.label;"
-									accesskey="&zoneinfo.display.flag.radio.custom.accesskey;"
-									observes="fc-zoneinfo-display-style-clock-disabled"/>
-											
+									accesskey="&zoneinfo.display.flag.radio.custom.accesskey;"/>
 						</radiogroup>
 						
 						<spacer style="width:1em"/>
 						
-						<image id="fc-zoneinfo-display-flag-image" observes="fc-zoneinfo-display-style-clock-disabled"/>
+						<image id="fc-zoneinfo-display-flag-image"/>
 					</hbox>
 
 					<vbox id="fc-zoneinfo-display-flag-custom-browse-box">
 
-						<textbox	id="fc-zoneinfo-custflag-textbox-url" readonly="true"
-									observes="fc-zoneinfo-display-style-clock-disabled"/>
+						<textbox	id="fc-zoneinfo-custflag-textbox-url" readonly="true"/>
 			
 						<hbox align="center">
 	
 							<button label="&zoneinfo.display.flag.custom.presets.label;"
 									accesskey="&zoneinfo.display.flag.custom.presets.accesskey;"
 									tooltiptext="&zoneinfo.display.flag.custom.presets.tooltiptext;"
-									popup="fc-zoneinfo-custflag-preset-popup" class="button-small"
-									observes="fc-zoneinfo-display-style-clock-disabled"/>
+									popup="fc-zoneinfo-custflag-preset-popup" class="button-small"/>
 							
 							<!-- AFM - should be a child of a button with type="menu", but the button
 							is ugly in Firefox 3 -->
@@ -486,8 +485,7 @@ package or its installation directory on your computer.
 							<button label="&zoneinfo.display.flag.custom.browse.label;"
 									accesskey="&zoneinfo.display.flag.custom.browse.accesskey;"
 									tooltiptext="&zoneinfo.display.flag.custom.browse.tooltiptext;"
-									command="cmd_custflag_browse" class="button-small"
-									observes="fc-zoneinfo-display-style-clock-disabled"/>
+									command="cmd_custflag_browse" class="button-small"/>
 	
 						</hbox>
 					</vbox>

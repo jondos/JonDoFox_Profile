@@ -164,7 +164,7 @@
 <!ENTITY options.format.custom.other.2.label "Doppelpunkt">
 <!ENTITY options.format.custom.other.2.value ":">
 <!ENTITY options.format.custom.other.3.label "Leerzeichen">
-<!ENTITY options.format.custom.other.3.value "">
+<!ENTITY options.format.custom.other.3.value " ">
 <!ENTITY options.clock.caption "Position und Aussehen">
 <!ENTITY options.clock.position.description.label "Anzeigen in:">
 <!ENTITY options.clock.position.radio.statusbar.label "der Statusleiste">
@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "K">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Unterstrichen">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "U">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Flagge anzeigen">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Flagge">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "a">
 <!ENTITY zoneinfo.display.style.colour.caption "Farbe der Zeitanzeige in der Status-/Symbolleiste">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Standardfarbe verwenden">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "v">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "bis">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "b">
-<!ENTITY zoneinfo.display.flag.caption "Flagge in der Status-/Symbolleiste">
+<!ENTITY zoneinfo.display.flag.caption "Flagge">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Deaktiviert">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Standard">

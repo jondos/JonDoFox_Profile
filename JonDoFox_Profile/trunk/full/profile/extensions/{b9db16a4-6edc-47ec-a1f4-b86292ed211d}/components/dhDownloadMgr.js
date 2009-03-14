@@ -1,13 +1,13 @@
 /******************************************************************************
- *            Copyright (c) 2006 Michel Gutierrez. All Rights Reserved.
+ *            Copyright (c) 2006-2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
 /**
  * Constants.
  */
 
-const NS_DH_DOWNLOAD_MGR_CID = Components.ID("{b45e0779-74ee-41d6-9dd0-76930783388e}");
-const NS_DH_DOWNLOAD_MGR_PROG_ID = "@downloadhelper.net/download-manager;1";
+const NS_DLMGR_CID = Components.ID("{dc9206a8-fe97-4214-b9a7-e07e584c6710}");
+const NS_DLMGR_PROG_ID = "@downloadhelper.net/download-manager;1";
 const DHNS = "http://downloadhelper.net/1.0#";
 
 var Util=null;
@@ -15,153 +15,120 @@ var Util=null;
 /**
 * Object constructor
 */
-function DhDownloadMgr() {
+function DLMgr() {
 	try {
-		this.datasource=Components.classes
-		      	['@mozilla.org/rdf/datasource;1?name=in-memory-datasource'].
-	    	      	createInstance(Components.interfaces.nsIRDFDataSource);
+		//dump("[DLMgr] constructor\n");
+		this.qDatasource=Components.classes['@mozilla.org/rdf/datasource;1?name=in-memory-datasource'].
+	      	createInstance(Components.interfaces.nsIRDFDataSource);
 		var prefService=Components.classes["@mozilla.org/preferences-service;1"]
 			.getService(Components.interfaces.nsIPrefService);
 		this.pref=prefService.getBranch("dwhelper.");
-		this.current=null;
 		this.counters=[];
-		//dump("[DhDownloadMgr] constructor\n");
+		this.queuedEntries={};
 	} catch(e) {
-		dump("!!! [DhDownloadMgr] constructor: "+e+"\n");
+		dump("[DLMgr] !!! constructor: "+e+"\n");
 	}
 }
 
-DhDownloadMgr.prototype = {}
-
-DhDownloadMgr.prototype.doDownload=function(url,file,shouldBypassCache,
-                      referrer, skipPrompt, pageUrl, orgFileName, format) {
-	//dump("[DhDownloadMgr] doDownload("+url+","+file.path+","+pageUrl+")\n");
-    try {
-
-	if (skipPrompt == undefined)
-    	skipPrompt = false;
-
-	var orgFile;
-	if(format) {
-	 	orgFile=Components.classes["@mozilla.org/file/directory_service;1"]
-			.getService(Components.interfaces.nsIProperties)
-	        .get("TmpD", Components.interfaces.nsIFile);
-		orgFile.append(orgFileName);
-		orgFile.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0644);
-	} else {
-		orgFile=file;
+DLMgr.prototype = {
+	get queueDatasource() { return this.qDatasource; },
+	get downloadMode() { 
+		var mode="one-by-one";
+		try { mode=this.pref.getCharPref("download-mode"); } catch(e) {}
+		return mode;
 	}
+}
 
-	var fileURL = makeFileURI(orgFile);
+DLMgr.prototype.download=function(listener,entry,ctx) {
+	//dump("[DLMgr] download()\n");
+	switch(this.downloadMode) {
+		case "normal":
+			this.doDownload(listener,entry,ctx);
+			break;
+		case "onebyone":
+			this.queueDownload(listener,entry,ctx);
+			break;
+	}
+}
+
+DLMgr.prototype.doDownload=function(listener,entry,ctx) {
 	
+	try {
+	
+	//dump("[DLMgr] doDownload()\n");
+	var file=null;
+	if(entry.has("dl-file")) {
+		file=entry.get("dl-file",Components.interfaces.nsIFile);
+	} else {
+	 	file=Components.classes["@mozilla.org/file/directory_service;1"]
+	 	                        .getService(Components.interfaces.nsIProperties)
+	 	                        .get("TmpD", Components.interfaces.nsIFile);
+	 	if(entry.has("file-name"))
+	 		file.append(Util.getPropsString(entry,"file-name"));
+	 	else
+	 		file.append("dwhelper-dl");
+	 	file.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0644);
+	 	entry.set("dl-file",file);
+	}
+	
+	var url = Components.classes["@mozilla.org/network/standard-url;1"].createInstance(Components.interfaces.nsIURI);
+	url.spec = Util.getPropsString(entry,"media-url");
+	var fileURL = makeFileURI(file);
 	var persist = makeWebBrowserPersist();
 	
-	const nsIWBP = Components.interfaces.nsIWebBrowserPersist;
-	const flags = nsIWBP.PERSIST_FLAGS_REPLACE_EXISTING_FILES;
-	if (shouldBypassCache)
-		persist.persistFlags = flags | nsIWBP.PERSIST_FLAGS_BYPASS_CACHE;
-	else
-		persist.persistFlags = flags | nsIWBP.PERSIST_FLAGS_FROM_CACHE;
+	const nsIWBP = Components.interfaces.nsIWebBrowserPersist;	
+	persist.persistFlags = nsIWBP.PERSIST_FLAGS_REPLACE_EXISTING_FILES | nsIWBP.PERSIST_FLAGS_FROM_CACHE;
 	persist.persistFlags |= nsIWBP.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
 	
 	var tr = Components.classes["@mozilla.org/transfer;1"].createInstance(Components.interfaces.nsITransfer);
 
-	var progress=new Progress(tr,this,orgFile,file,format);
+	var progress=new Progress(tr,this,listener,entry,ctx);
 
 	persist.progressListener = progress;
-
+	
+	var referrer=Util.getPropsString(entry,"referrer");
 	if(referrer!=null) {
 		var refStr=referrer;	
     	referrer = Components.classes["@mozilla.org/network/standard-url;1"].createInstance(Components.interfaces.nsIURI);
     	referrer.spec = refStr;
     }
 
-	persist.saveURI(url,
-	                null, referrer, null, null,
-	                fileURL);
+	persist.saveURI(url,null, referrer, null, null,fileURL);
 	tr.init(url,fileURL, "", null, null, null, persist);
 
 	} catch(e) {
-		dump("!!! [dbDownloadMgr] doDownload: "+e+"\n");
-	}    
-
+		dump("!!! [DLMgr] doDownload(): "+e+"\n");
+	}
 }
 
-DhDownloadMgr.prototype.addDownload=function(url,file,shouldBypassCache,
-                      referrer, skipPrompt, pageUrl, orgFileName, format) {
-	//dump("[DhDownloadMgr] addDownload("+url+","+file.path+","+pageUrl+",...,"+format+")\n");
-
+DLMgr.prototype.queueDownload=function(listener,entry,ctx) {
+	//dump("[DLMgr] queueDownload()\n");
 	try {
-		var entry=Util.createAnonymousNodeS(this.datasource,"urn:root");
-		Util.setPropertyValueRS(this.datasource,entry,DHNS+"url",url.spec);
-		Util.setPropertyValueRS(this.datasource,entry,DHNS+"file",escape(file.path));
-		Util.setPropertyValueRS(this.datasource,entry,DHNS+"filename",file.leafName);
-		if(referrer!=null)
-			Util.setPropertyValueRS(this.datasource,entry,DHNS+"referer",referrer);
-		if(pageUrl!=null)
-			Util.setPropertyValueRS(this.datasource,entry,DHNS+"pageurl",pageUrl.spec);
-		if(orgFileName!=null)
-			Util.setPropertyValueRS(this.datasource,entry,DHNS+"orgfilename",orgFileName);
-		if(format!=null)
-			Util.setPropertyValueRS(this.datasource,entry,DHNS+"format",format);
-		Util.setPropertyValueRS(this.datasource,entry,DHNS+"status","queued");
+		var dEntry=Util.createAnonymousNodeS(this.qDatasource,"urn:root");
+		Util.setPropertyValueRS(this.qDatasource,dEntry,DHNS+"label",Util.getPropsString(entry,"label"));
+		Util.setPropertyValueRS(this.qDatasource,dEntry,DHNS+"status","queued");
+		this.queuedEntries[dEntry.Value]={
+				listener: listener,
+				entry: entry,
+				ctx: ctx
+		}
 		this.checkTransfer();	
 	} catch(e) {
-		dump("!!! [DhDownloadMgr] addDownload("+url+","+file.path+"): "+e+"\n");
+		dump("!!! [DLMgr] queueDownload(): "+e+"\n");
 	}
 }
 
-DhDownloadMgr.prototype.getEntryData=function(entry) {
-	var url=Util.getPropertyValueRS(this.datasource,entry,DHNS+"url");
-	var uri = Components.classes["@mozilla.org/network/standard-url;1"].
-		createInstance(Components.interfaces.nsIURI);
- 	uri.spec = url;
- 	var filename=Util.getPropertyValueRS(this.datasource,entry,DHNS+"file");
- 	var file=Components.classes["@mozilla.org/file/local;1"].
-     	createInstance(Components.interfaces.nsILocalFile);
- 	file.initWithPath(unescape(filename));
- 	var referer=Util.getPropertyValueRS(this.datasource,entry,DHNS+"referer");
- 	var pageUrl=Util.getPropertyValueRS(this.datasource,entry,DHNS+"pageurl");
-	var puri=null;
-	if(pageUrl) {
-		var puri = Components.classes["@mozilla.org/network/standard-url;1"].
-			createInstance(Components.interfaces.nsIURI);
-	 	puri.spec = pageUrl;
-	}
-	var orgFileName=Util.getPropertyValueRS(this.datasource,entry,DHNS+"orgfilename");
-	var format=Util.getPropertyValueRS(this.datasource,entry,DHNS+"format");
- 	return {
- 		uri: uri,
- 		file: file,
- 		referer: referer,
- 		pageUrl: puri,
- 		orgFileName: orgFileName,
- 		format: format
- 	}
-}
-
-DhDownloadMgr.prototype.checkTransfer=function() {
-	var entries=Util.getChildResourcesS(this.datasource,"urn:root",{});
-	if(DWHUtil.getDownloadMode(this.pref)=="onebyone") {
-		if(this.current==null) {
-			if(entries.length>0) {
-			//dump("[DhDownloadMgr] checkTransfer: starting download of "+this.current.file.path+"\n");
-				var entry=entries[0];
-				var data=this.getEntryData(entry);
-				Util.setPropertyValueRS(this.datasource,entry,DHNS+"status","downloading");
-				this.doDownload(data.uri,data.file,false,data.referer,true,data.pageUrl,data.orgFileName,data.format);
-				this.current=entry;
-			}
+DLMgr.prototype.checkTransfer=function() {
+	//dump("[DLMgr] checkTransfer()\n");
+	var entries=Util.getChildResourcesS(this.qDatasource,"urn:root",{});
+	if(this.current==null) {
+		if(entries.length>0) {
+			var dEntry=entries[0];
+			var data=this.queuedEntries[dEntry.Value];
+			Util.setPropertyValueRS(this.qDatasource,dEntry,DHNS+"status","downloading");
+			this.doDownload(data.listener,data.entry,data.ctx);
+			this.current=dEntry;
 		}
-	} else {
-		for(var i in entries) {
-			var entry=entries[i];
-			var data=this.getEntryData(entry);
-			this.doDownload(data.uri,data.file,false,data.referer,true,data.pageUrl,data.orgFileName,data.format);
-			Util.removeChildSR(this.datasource,"urn:root",entry);
-			Util.removeReference(this.datasource,entry);			
-		}
-		this.current=null;
 	}
 	var count=entries.length;
 	for(var i in this.counters) {
@@ -172,7 +139,8 @@ DhDownloadMgr.prototype.checkTransfer=function() {
 	}
 }
 
-DhDownloadMgr.prototype.transferDone=function(status,request) {
+DLMgr.prototype.transferDone = function(status,request,listener,entry,ctx) {
+	//dump("[DLMgr] transferDone()\n");
 
 	var code=0;
 	try {
@@ -182,56 +150,63 @@ DhDownloadMgr.prototype.transferDone=function(status,request) {
 
 	try {
 
-	if(status==0 && code==200) {
-		var dwcount=0;
-		try {
-			dwcount=this.pref.getIntPref("download-count");
-		} catch(e) {
+		if(status==0 && code==200) {
+			this.incrementDownloadCount();
 		}
-		dwcount++;
-		this.pref.setIntPref("download-count",dwcount);
-		if(dwcount%100==0) {
-			this.donate(dwcount);
+		
+		delete this.queuedEntries[this.current.Value];
+	
+		if(this.current!=null) {
+			Util.removeChildSR(this.qDatasource,"urn:root",this.current);
+			Util.removeReference(this.qDatasource,this.current);			
 		}
-		DWHUtil.setDWCountCookie(this.pref);
-	}
-
-	if(this.current!=null) {
-		Util.removeChildSR(this.datasource,"urn:root",this.current);
-		Util.removeReference(this.datasource,this.current);			
-	}
-	this.current=null;
-	this.checkTransfer();
+		this.current=null;
+		this.checkTransfer();
 	
 	} catch(e) {
-		dump("!!! [DhDownloadMgr] transferDone "+e+"\n");
+		dump("!!! [DLMgr] transferDone(): "+e+"\n");
 	}
-}
 
-DhDownloadMgr.prototype.getDataSource=function() {
-	return this.datasource;
-}
-
-DhDownloadMgr.prototype.addCounter=function(counter) {
-	this.counters.push(counter);
-}
-
-DhDownloadMgr.prototype.removeCounter=function(counter) {
-	for(var i=this.counters.length-1;i>=0;i--) {
-		if(this.counters[i]==counter)
-			this.counters.splice(i,1);
-	}
-}
-
-DhDownloadMgr.prototype.donate=function(count) {
-	var notAgain=false;
 	try {
-		notAgain=this.pref.getBoolPref("donate-not-again");
+		if(listener)
+			listener.downloadFinished(status,request,entry,ctx);
+	} catch(e) {
+		dump("!!! [DLMgr] transferDone()/downloadFinished(): "+e+"\n");
+	}
+}
+
+DLMgr.prototype.incrementDownloadCount = function() {
+	var dwcount=0;
+	try {
+		dwcount=this.pref.getIntPref("download-count");
 	} catch(e) {
 	}
-	if(notAgain)
+	dwcount++;
+	this.pref.setIntPref("download-count",dwcount);
+	if(dwcount%100==0) {
+		this.donate(dwcount);
+	}
+	if(this.pref.getBoolPref("disable-dwcount-cookie")==false) {
+		try {
+			var cMgr = Components.classes["@mozilla.org/cookiemanager;1"].
+	           getService(Components.interfaces.nsICookieManager2);
+	        try {
+				cMgr.add(".downloadhelper.net","/","dwcount",""+dwcount,false,true,new Date().getTime()/1000+10000000);
+				cMgr.add(".vidohe.com","/","dwcount",""+dwcount,false,true,new Date().getTime()/1000+10000000);
+			} catch(e) {
+				cMgr.add(".downloadhelper.net","/","dwcount",""+dwcount,false,true,false,new Date().getTime()/1000+10000000);
+				cMgr.add(".vidohe.com","/","dwcount",""+dwcount,false,true,false,new Date().getTime()/1000+10000000);
+			}
+		} catch(e) {
+			dump("!!! [DhDownloadMgr] incrementDownloadCount() "+e+"\n");
+		}
+	}
+}
+
+DLMgr.prototype.donate=function(count) {
+	if(this.pref.getBoolPref("donate-not-again"))
 		return;
-    var options="chrome,centerscreen,modal";
+    var options="chrome,centerscreen";
     try {
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                   .getService(Components.interfaces.nsIWindowMediator);
@@ -242,7 +217,7 @@ DhDownloadMgr.prototype.donate=function(count) {
 	}
 }
 
-DhDownloadMgr.prototype.getDefaultDir=function() {
+DLMgr.prototype.getDefaultDir=function() {
 	var file=null;
 	try {
 		file = Components.classes["@mozilla.org/file/directory_service;1"]
@@ -263,7 +238,7 @@ DhDownloadMgr.prototype.getDefaultDir=function() {
 	return file;
 }
 
-DhDownloadMgr.prototype.getMainDir=function() {
+DLMgr.prototype.getDownloadDirectory=function() {
 
 	var fileName=Util.getUnicharPref(this.pref,"storagedirectory",null);
 	
@@ -271,73 +246,63 @@ DhDownloadMgr.prototype.getMainDir=function() {
 	if(fileName==null || fileName.length==0) {
 		file=this.getDefaultDir();
 	} else {
-	    file=Components.classes["@mozilla.org/file/local;1"].
-	        createInstance(Components.interfaces.nsILocalFile);
-	    file.initWithPath(fileName);
-	    if(file.exists()==false || file.isWritable()==false || file.isDirectory()==false)
+		try {
+		    file=Components.classes["@mozilla.org/file/local;1"].
+		        createInstance(Components.interfaces.nsILocalFile);
+		    file.initWithPath(fileName);
+		    if(file.exists()==false || file.isWritable()==false || file.isDirectory()==false)
+		    	file=this.getDefaultDir();
+		} catch(e) {
 	    	file=this.getDefaultDir();
+		}
 	}
 	if(!file.exists()) {
-		file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 0775);
+		file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 0755);
 	}
 	Util.setUnicharPref(this.pref,"storagedirectory",file.path);
 	return file;
 }
 
-DhDownloadMgr.prototype.getUniqueFile=function(filename) {
-	//dump("[DhDownloadMgr] getUniqueFile("+filename+")\n");	
-	try {
-	var dir=this.getMainDir();
-	var file=dir.clone();
-	file.append(filename);
-	if(!file.exists())
-		return file;
-	var fileParts=/^(.*?)(?:\-([0-9]+))?(\.[a-zA-Z0-9]+)?$/.exec(filename);
-	var baseName=fileParts[1];
-	var index=fileParts[2];
-	if(index==null)
-		index=1;
-	var suffix=fileParts[3];
-	if(suffix==null)
-		suffix="";
-	while(true) {
-		var file=dir.clone();
-		filename=baseName+"-"+index+suffix;
-		file.append(filename);
-		if(!file.exists())
-			return file;
-		index++;
-	}
-	} catch(e) {
-		dump("!!! [DhDownloadMgr] getUniqueFile: "+e+"\n");	
-		return null;
-	}
+DLMgr.prototype.setDownloadDirectory=function(fileDir) {
+	if(!fileDir.isDirectory())
+		fileDir=fileDir.parent;
+	Util.setUnicharPref(this.pref,"storagedirectory",fileDir.path);
 }
 
-DhDownloadMgr.prototype.removeDownloads=function(entries,length) {
+DLMgr.prototype.removeFromQueue=function(entries,length) {
 	for(var i in entries) {
 		var entry=entries[i];
-		var status=Util.getPropertyValueRS(this.datasource,entry,DHNS+"status");
+		var status=Util.getPropertyValueRS(this.qDatasource,entry,DHNS+"status");
 		if(status=="queued") {
-			Util.removeChildSR(this.datasource,"urn:root",entry);
-			Util.removeReference(this.datasource,entry);			
+			delete this.queuedEntries[entry.Value]
+			Util.removeChildSR(this.qDatasource,"urn:root",entry);
+			Util.removeReference(this.qDatasource,entry);			
 		}
 	}
 }
- 
 
-DhDownloadMgr.prototype.QueryInterface = function(iid) {
-	//dump("[DhDownloadMgr] QueryInterface("+iid+")\n");
-    if(
-    	iid.equals(Components.interfaces.dhIDownloadMgr)==false &&
-    	iid.equals(Components.interfaces.nsISupports)==false
-	) {
-            throw Components.results.NS_ERROR_NO_INTERFACE;
-        }
-    return this;
+DLMgr.prototype.registerCounter = function(counter) {
+	//dump("[DLMgr] registerCounter()\n");
+	this.counters.push(counter);
 }
 
-var vDhDownloadMgrModule = {
+DLMgr.prototype.unregisterCounter = function(counter) {
+	//dump("[DLMgr] unregisterCounter()\n");
+	this.counters.splice(this.counters.indexOf(counter),1);
+}
+
+DLMgr.prototype.QueryInterface = function(iid) {
+	//dump("[DLMgr] QueryInterface("+iid+")\n");
+    if(
+    	iid.equals(Components.interfaces.dhIDownloadMgr) ||
+    	iid.equals(Components.interfaces.nsISupports)
+	) {
+	    return this;
+    }
+	throw Components.results.NS_ERROR_NO_INTERFACE;
+}
+
+var vDLMgrModule = {
     firstTime: true,
     
     /*
@@ -355,9 +320,9 @@ var vDhDownloadMgrModule = {
             throw Components.results.NS_ERROR_FACTORY_REGISTER_AGAIN;
         }
         compMgr = compMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
-        compMgr.registerFactoryLocation(NS_DH_DOWNLOAD_MGR_CID,
-                                        "DhDownloadMgr",
-                                        NS_DH_DOWNLOAD_MGR_PROG_ID, 
+        compMgr.registerFactoryLocation(NS_DLMGR_CID,
+                                        "DLMgr",
+                                        NS_DLMGR_PROG_ID, 
                                         fileSpec,
                                         location,
                                         type);
@@ -365,7 +330,7 @@ var vDhDownloadMgrModule = {
 
 	unregisterSelf: function(compMgr, fileSpec, location) {
     	compMgr = compMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
-    	compMgr.unregisterFactoryLocation(NS_DH_DH_DOWNLOAD_MGR_CID, fileSpec);
+    	compMgr.unregisterFactoryLocation(NS_DH_DLMGR_CID, fileSpec);
 	},
 
     /*
@@ -373,7 +338,7 @@ var vDhDownloadMgrModule = {
      * SingletonFactory objects (the latter are specialized for services).
      */
     getClassObject: function (compMgr, cid, iid) {
-        if (!cid.equals(NS_DH_DOWNLOAD_MGR_CID)) {
+        if (!cid.equals(NS_DLMGR_CID)) {
 	    	throw Components.results.NS_ERROR_NO_INTERFACE;
 		}
 
@@ -381,11 +346,11 @@ var vDhDownloadMgrModule = {
 	    	throw Components.results.NS_ERROR_NOT_IMPLEMENTED;
 		}
 
-        return this.vDhDownloadMgrFactory;
+        return this.vDLMgrFactory;
     },
 
     /* factory object */
-    vDhDownloadMgrFactory: {
+    vDLMgrFactory: {
         /*
          * Construct an instance of the interface specified by iid, possibly
          * aggregating it with the provided outer.  (If you don't know what
@@ -393,25 +358,23 @@ var vDhDownloadMgrModule = {
          * mightiest of XPCOM warriors to snivelling cowards.)
          */
         createInstance: function (outer, iid) {
-			//dump("[dhDownloadMgr] createInstance\n");
             if (outer != null) {
 				throw Components.results.NS_ERROR_NO_AGGREGATION;
 	    	}
 	
-	    	if(Util==null)  {
+	    	if(Util==null) {
 	    		Util=Components.classes["@downloadhelper.net/util-service;1"]
 					.getService(Components.interfaces.dhIUtilService);
-				try {
-				var jsLoader=Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
-					.getService(Components.interfaces.mozIJSSubScriptLoader);
-				jsLoader.loadSubScript("chrome://dwhelper/content/dwhutil.js");
-				jsLoader.loadSubScript("chrome://global/content/contentAreaUtils.js");
+	    		try {
+					var jsLoader=Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
+						.getService(Components.interfaces.mozIJSSubScriptLoader);
+					jsLoader.loadSubScript("chrome://global/content/contentAreaUtils.js");
 				} catch(e) {
 					dump("!!! [dhDownloadMgr] createInstance: "+e+"\n");
 				}
-			}
+	    	}
 
-			return new DhDownloadMgr().QueryInterface(iid);
+			return new DLMgr().QueryInterface(iid);
         }
     },
 
@@ -432,22 +395,17 @@ var vDhDownloadMgrModule = {
 };
 
 function NSGetModule(compMgr, fileSpec) {
-    return vDhDownloadMgrModule;
+    return vDLMgrModule;
 }
 
-//------------------------------------------------------------------------------
+/*---------------------------------------------------------------------------------------*/
 
-
-/******************************************************************************
- *            Copyright (c) 2006 Michel Gutierrez. All Rights Reserved.
- ******************************************************************************/
-
-function Progress(tr,observer,orgFile,targetFile,format) {
+function Progress(tr,observer,listener,entry,ctx) {
 	this.tr=tr;
 	this.observer=observer;
-	this.orgFile=orgFile;
-	this.targetFile=targetFile;
-	this.format=format;
+	this.listener=listener;
+	this.entry=entry;
+	this.ctx=ctx;
 }
 
 Progress.prototype.onLocationChange=function(webProgress, request, location ) {
@@ -465,14 +423,7 @@ Progress.prototype.onSecurityChange=function(webProgress, request, state ) {
 Progress.prototype.onStateChange=function(webProgress, request, stateFlags, status ) {
 	this.tr.onStateChange(webProgress, request, stateFlags, status );
 	if(stateFlags & Components.interfaces.nsIWebProgressListener.STATE_STOP) {
-		this.observer.transferDone(status,request);
-		if(status==0) {
-			if(this.format) {
-				var convertMgr=Components.classes["@downloadhelper.net/convert-manager-component"]
-					.getService(Components.interfaces.dhIConvertMgr);
-				convertMgr.addConvert(this.orgFile,this.targetFile,this.format,true);
-			}
-		}
+		this.observer.transferDone(status,request,this.listener,this.entry,this.ctx);
 	}
 }
 

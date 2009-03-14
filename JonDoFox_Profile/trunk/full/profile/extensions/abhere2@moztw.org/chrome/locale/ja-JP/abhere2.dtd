@@ -1,11 +1,13 @@
 <!ENTITY dialog.title "Add Bookmark Here ² オプション">
+<!ENTITY tab.main.caption "メイン">
+<!ENTITY tab.interface.caption "インターフェイス">
+<!ENTITY tab.advanced.caption "高度な設定">
 <!ENTITY position.group "メニューアイテムの表示位置">
-<!ENTITY position.item.abHere "[ここにブックマークを追加...]　を:">
+<!ENTITY position.item.abHere "[ここにブックマークを追加]　を:">
 <!ENTITY position.item.opTabs "[タブですべて開く]　を:">
 <!ENTITY position.option.top "上部に選択">
 <!ENTITY position.option.bottom "下部に選択">
 <!ENTITY position.option.hidden "非表示に選択">
-<!ENTITY position.misc.context "[ここにブックマークを追加...] ブックマークコンテキストメニューに表示">
 <!ENTITY clicking.group "マウスクリック">
 <!ENTITY clicking.item.buttonL "左-クリック:">
 <!ENTITY clicking.item.buttonM "中-クリック:">
@@ -13,12 +15,24 @@
 <!ENTITY clicking.option.bmPage "このページをブックマーク">
 <!ENTITY clicking.option.bmNoUI "このページをブックマーク(ダイアログウインドウを非表示)">
 <!ENTITY clicking.option.bmTabs "すべてのタブをブックマーク">
-<!ENTITY clicking.misc.insertTop "ブックマークコンテキストメニューの先頭に追加します">
 <!ENTITY starUI.group "ブックマークスター ダイアログウインドウ">
 <!ENTITY starUI.expand.folderRow "フォルダツリーを拡張">
 <!ENTITY starUI.expand.tagsRow "タグ・リストを拡張">
-<!ENTITY starUI.misc.singleClick "ブックマークスターをシングル-クリックでダイアログウインドウを表示します">
 <!ENTITY menubar.group "ブックマークメニューに項目を表示">
-<!ENTITY menubar.item.abHere "[ここにブックマークを追加...] メニュー">
+<!ENTITY menubar.item.abHere "[ここにブックマークを追加] メニュー">
 <!ENTITY menubar.item.bmPage "[このページをブックマーク] メニュー">
 <!ENTITY menubar.item.bmTabs "[すべてのタブをブックマーク] メニュー">
+<!ENTITY context.group "ブックマークコンテキストメニュー">
+<!ENTITY context.item.abHere "[ここにブックマークを追加] を表示">
+<!ENTITY starBtn.group "ブックマークスター">
+<!ENTITY starBtn.clicking.item.buttonL "左-クリック:">
+<!ENTITY starBtn.clicking.item.buttonM "中-クリック:">
+<!ENTITY starBtn.clicking.item.buttonR "右-クリック:">
+<!ENTITY starBtn.clicking.option.defaultBehavior "デフォルトの操作">
+<!ENTITY starBtn.clicking.option.toggleMode "(トグル)">
+<!ENTITY starBtn.clicking.option.unsortedFolder "ソートされていないブックマークフォルダーにブックマークを追加">
+<!ENTITY starBtn.clicking.option.singleClick "ブックマークスターをシングル-クリックでダイアログウインドウを表示">
+<!ENTITY starBtn.clicking.option.optionsDialog "Add Bookmark Here ² オプションを開く">
+<!ENTITY misc.group "その他">
+<!ENTITY misc.insertTop "ブックマークコンテキストメニューの先頭に追加します">
+<!ENTITY misc.folderDrag "ブックマークのフォルダをドラッグ＆ドロッブを許可">

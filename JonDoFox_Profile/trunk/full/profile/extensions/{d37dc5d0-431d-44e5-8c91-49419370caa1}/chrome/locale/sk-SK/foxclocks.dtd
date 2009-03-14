@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "z">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Podčiarknuté">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "k">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Zobraziť vlajku">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Vlajka">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "v">
 <!ENTITY zoneinfo.display.style.colour.caption "Farba hodín v stavovom riadku/na paneli s nástrojmi">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Štandardná farba">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "o">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "do">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "d">
-<!ENTITY zoneinfo.display.flag.caption "Vlajka v stavovom riadku/paneli nástrojov">
+<!ENTITY zoneinfo.display.flag.caption "Vlajka">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Zakázaná">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "Z">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Štandardná">

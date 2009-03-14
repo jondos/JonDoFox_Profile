@@ -1,5 +1,5 @@
 /******************************************************************************
- *            Copyright (c) 2006 Michel Gutierrez. All Rights Reserved.
+ *            Copyright (c) 2006-2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
 /**
@@ -30,7 +30,7 @@ function DhMediaListMgr() {
     		.getService(Components.interfaces.nsIProperties)
         	.get("ProfD", Components.interfaces.nsIFile);
         this.storageFile.append("dh-media-lists.rdf");
-		if(this.storageFile.exists()) {
+		if(this.storageFile.exists() && this.pref.getBoolPref("history-enabled")) {
 			this.dataSource=Util.getDatasourceFromRDFFile(this.storageFile);
 		} else {
 			this.dataSource=Components.classes
@@ -41,10 +41,10 @@ function DhMediaListMgr() {
 			this.needSaving=true;
 		}
 
-		var observerService =
+		this.observerService =
 			Components.classes["@mozilla.org/observer-service;1"]
 				.getService(Components.interfaces.nsIObserverService);
-		observerService.addObserver(this,"quit-application",false);
+		this.observerService.addObserver(this,"quit-application",false);
 		
 	} catch(e) {
 		dump("!!! [DhMediaListMgr] constructor: "+e+"\n");
@@ -68,6 +68,8 @@ DhMediaListMgr.prototype.getDataSource=function() {
 
 DhMediaListMgr.prototype.addToList=function(list,url,type,pageurl,filename,referer) {
 	//dump("[DhMediaListMgr] addToList("+list+","+url+","+type+","+pageurl+","+filename+","+referer+")\n");
+	if(!this.pref.getBoolPref("history-enabled"))
+		return null;
 	try {
 	if(Util.getPropertyValueSS(this.dataSource,list,DHNS+"name")==null) {
 		dump("!!! [DhMediaListMgr] addToList(): list "+list+" does not exist\n");
@@ -204,6 +206,7 @@ DhMediaListMgr.prototype.observe=function(subject,topic,data) {
 		} catch(e) {}
 		if(coe)
 			this.clearHistory();
+		this.observerService.removeObserver(this,"quit-application");
 	}
 }
 

@@ -36,6 +36,14 @@ function BrowserGlue() {
 }
 
 BrowserGlue.prototype = {
+  __prefs: null,
+  get _prefs() {
+    if (!this.__prefs)
+      this.__prefs = Cc["@mozilla.org/preferences-service;1"].
+                     getService(Ci.nsIPrefBranch);
+    return this.__prefs;
+  },
+
   _saveSession: false,
 
   _setPrefToSaveSession: function()
@@ -138,33 +146,6 @@ BrowserGlue.prototype = {
   // profile startup handler (contains profile initialization routines)
   _onProfileStartup: function() 
   {
-    // Check to see if the EULA must be shown on startup
-
-    var prefBranch = Cc["@mozilla.org/preferences-service;1"].
-                     getService(Ci.nsIPrefBranch);
-    var mustDisplayEULA = false;
-    try {
-      mustDisplayEULA = !prefBranch.getBoolPref("browser.EULA.override");
-    } catch (e) {
-      // Pref might not exist
-    }
-
-    // Make sure it hasn't already been accepted
-    if (mustDisplayEULA) {
-      try {
-        var EULAVersion = prefBranch.getIntPref("browser.EULA.version");
-        mustDisplayEULA = !prefBranch.getBoolPref("browser.EULA." + EULAVersion + ".accepted");
-      } catch(ex) {
-      }
-    }
-
-    if (mustDisplayEULA) {
-      var ww2 = Cc["@mozilla.org/embedcomp/window-watcher;1"].
-                getService(Ci.nsIWindowWatcher);
-      ww2.openWindow(null, "chrome://browser/content/EULA.xul", 
-                     "_blank", "chrome,centerscreen,modal,resizable=yes", null);
-    }
-
     this.Sanitizer.onStartup();
     // check if we're in safe mode
     var app = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo).
@@ -203,6 +184,10 @@ BrowserGlue.prototype = {
   // Browser startup complete. All initial windows have opened.
   _onBrowserStartup: function()
   {
+    // Show about:rights notification, if needed.
+    if (this._shouldShowRights())
+      this._showRightsNotification();
+
     var prefBranch = Cc["@mozilla.org/preferences-service;1"].
                      getService(Ci.nsIPrefBranch);
     // If new add-ons were installed during startup open the add-ons manager.
@@ -341,6 +326,78 @@ BrowserGlue.prototype = {
       }
       break;
     }
+  },
+
+  /*
+   * _shouldShowRights - Determines if the user should be shown the
+   * about:rights notification. The notification should *not* be shown if
+   * we've already shown the current version, or if the override pref says to
+   * never show it. The notification *should* be shown if it's never been seen
+   * before, if a newer version is available, or if the override pref says to
+   * always show it.
+   */
+  _shouldShowRights : function () {
+    // Look for an unconditional override pref. If set, do what it says.
+    // (true --> never show, false --> always show)
+    try {
+      return !this._prefs.getBoolPref("browser.rights.override");
+    } catch (e) { }
+    // Ditto, for the legacy EULA pref.
+    try {
+      return !this._prefs.getBoolPref("browser.EULA.override");
+    } catch (e) { }
+
+//@line 391 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserGlue.js"
+
+    // Look to see if the user has seen the current version or not.
+    var currentVersion = this._prefs.getIntPref("browser.rights.version");
+    try {
+      return !this._prefs.getBoolPref("browser.rights." + currentVersion + ".shown");
+    } catch (e) { }
+
+    // Legacy: If the user accepted a EULA, we won't annoy them with the
+    // equivalent about:rights page until the version changes.
+    try {
+      return !this._prefs.getBoolPref("browser.EULA." + currentVersion + ".accepted");
+    } catch (e) { }
+
+    // We haven't shown the notification before, so do so now.
+    return true;
+  },
+
+  _showRightsNotification : function () {
+    // Stick the notification onto the selected tab of the active browser window.
+    var win = this._getMostRecentBrowserWindow();
+    var browser = win.gBrowser; // for closure in notification bar callback
+    var notifyBox = browser.getNotificationBox();
+
+    var bundleService = Cc["@mozilla.org/intl/stringbundle;1"].
+                        getService(Ci.nsIStringBundleService);
+    var brandBundle  = bundleService.createBundle("chrome://branding/locale/brand.properties");
+    var rightsBundle = bundleService.createBundle("chrome://browser/locale/aboutRights.properties");
+
+    var buttonLabel     = rightsBundle.GetStringFromName("buttonLabel");
+    var buttonAccessKey = rightsBundle.GetStringFromName("buttonAccessKey");
+    var productName     = brandBundle.GetStringFromName("brandFullName");
+    var notifyText      = rightsBundle.formatStringFromName("notifyText", [productName], 1);
+    
+    var buttons = [
+                    {
+                      label:     buttonLabel,
+                      accessKey: buttonAccessKey,
+                      popup:     null,
+                      callback: function(aNotificationBar, aButton) {
+                        browser.selectedTab = browser.addTab("about:rights");
+                      }
+                    }
+                  ];
+
+    // Set pref to indicate we've shown the notification.
+    var currentVersion = this._prefs.getIntPref("browser.rights.version");
+    this._prefs.setBoolPref("browser.rights." + currentVersion + ".shown", true);
+
+    var box = notifyBox.appendNotification(notifyText, "about-rights", null, notifyBox.PRIORITY_INFO_LOW, buttons);
+    box.persistence = 3; // // arbitrary number, just so bar sticks around for a bit
   },
 
   // returns the (cached) Sanitizer constructor
@@ -738,6 +795,31 @@ BrowserGlue.prototype = {
       prefBranch.setIntPref(SMART_BOOKMARKS_PREF, SMART_BOOKMARKS_VERSION);
       prefBranch.QueryInterface(Ci.nsIPrefService).savePrefFile(null);
     }
+  },
+
+//@line 848 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserGlue.js"
+
+  // this returns the most recent non-popup browser window
+  _getMostRecentBrowserWindow : function ()
+  {
+    var wm = Cc["@mozilla.org/appshell/window-mediator;1"].
+             getService(Components.interfaces.nsIWindowMediator);
+
+//@line 870 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserGlue.js"
+    var windowList = wm.getZOrderDOMWindowEnumerator("navigator:browser", true);
+    if (!windowList.hasMoreElements())
+      return null;
+
+    var win = windowList.getNext();
+    while (win.document.documentElement.getAttribute("chromehidden")) {
+      if (!windowList.hasMoreElements())
+        return null;
+
+      win = windowList.getNext();
+    }
+//@line 882 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserGlue.js"
+
+    return win;
   },
 
   // for XPCOM

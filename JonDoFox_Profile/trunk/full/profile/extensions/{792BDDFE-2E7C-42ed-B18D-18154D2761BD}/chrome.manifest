@@ -3,6 +3,7 @@ style	chrome://global/content/customizeToolbar.xul	chrome://tabrenamizer/skin/ta
 content	tabrenamizer	jar:chrome/tabrenamizer.jar!/content/
 locale	tabrenamizer	en-US	jar:chrome/tabrenamizer.jar!/locale/en-US/
 locale	tabrenamizer	es-ES	jar:chrome/tabrenamizer.jar!/locale/es-ES/
+locale	tabrenamizer	ar	jar:chrome/tabrenamizer.jar!/locale/ar/
 locale	tabrenamizer	cs-CZ	jar:chrome/tabrenamizer.jar!/locale/cs-CZ/
 locale	tabrenamizer	da-DK	jar:chrome/tabrenamizer.jar!/locale/da-DK/
 locale	tabrenamizer	de-DE	jar:chrome/tabrenamizer.jar!/locale/de-DE/
@@ -13,7 +14,7 @@ locale	tabrenamizer	he-IL	jar:chrome/tabrenamizer.jar!/locale/he-IL/
 locale	tabrenamizer	it-IT	jar:chrome/tabrenamizer.jar!/locale/it-IT/
 locale	tabrenamizer	ja-JP	jar:chrome/tabrenamizer.jar!/locale/ja-JP/
 locale	tabrenamizer	ko-KR	jar:chrome/tabrenamizer.jar!/locale/ko-KR/
-locale	tabrenamizer	nb-NO	jar:chrome/tabrenamizer.jar!/locale/ko-KR/
+locale	tabrenamizer	nb-NO	jar:chrome/tabrenamizer.jar!/locale/nb-NO/
 locale	tabrenamizer	nl-NL	jar:chrome/tabrenamizer.jar!/locale/nl-NL/
 locale	tabrenamizer	pl-PL	jar:chrome/tabrenamizer.jar!/locale/pl-PL/
 locale	tabrenamizer	pt-BR	jar:chrome/tabrenamizer.jar!/locale/pt-BR/

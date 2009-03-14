@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "К">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Падкрэсьлены">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "П">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Паказваць сьцяг">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Сьцяг">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "с">
 <!ENTITY zoneinfo.display.style.colour.caption "Колер у радку статусу ці панэлі інструмэнтаў">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Стандартны колер">

@@ -116,7 +116,13 @@ FoxClocks_OptionsManager.prototype =
 	// ====================================================================================
 	onTimer : function()
 	{
-		document.getElementById("fc-data-gmt-label").setAttribute("value", (new Date()).toUTCString());
+		var timeFormatter = Components.classes["@stemhaus.com/firefox/foxclocks/timeformatter;1"]
+					.getService(Components.interfaces.nsISupports).wrappedJSObject;
+
+		var formatString = document.getElementById("foxclocks-bundle").getString("options.data.gmt.format");
+		var currentTimeString = timeFormatter.getUTCTimeStringFromFormat(new Date(), formatString);	
+		
+		document.getElementById("fc-data-gmt-label").setAttribute("value", currentTimeString);
 	},
 		
 	// ====================================================================================
@@ -190,34 +196,45 @@ FoxClocks_OptionsManager.prototype =
 	setZoneDataDetails : function()
 	{
 		// fc_gLogger.log("+FoxClocks_OptionsManager::setZoneDataDetails()");
-		
+
 		document.getElementById("fc-data-info-source-value").setAttribute("value", fc_gZoneManager.dataSource.name);
 		document.getElementById("fc-data-info-version-value").setAttribute("value", fc_gZoneManager.dataSource.version);
 		document.getElementById("fc-data-info-date-value").setAttribute("value", fc_gZoneManager.dataSource.date);
 		
+		var timeFormatter = Components.classes["@stemhaus.com/firefox/foxclocks/timeformatter;1"]
+				.getService(Components.interfaces.nsISupports).wrappedJSObject;
+		var formatString = document.getElementById("foxclocks-bundle").getString("options.data.gmt.format");
+		var lastUpdateElement = document.getElementById("fc-data-update-last-date-value");
+		var lastUpdateResult = fc_gUpdateManager.lastUpdateResult;
+
 		// AFM - last update date (getTime() is zero when no update checks have been run)
 		//
-		var lastUpdateDateText = "";
 		var hasLastUpdate = fc_gUpdateManager.lastUpdateDate != null && fc_gUpdateManager.lastUpdateDate.getTime() != 0;
 		
-		if (hasLastUpdate)
-			lastUpdateDateText = fc_gUpdateManager.lastUpdateDate.toLocaleString();
-		else
-			lastUpdateDateText = document.getElementById("fc-data-update-last-date-value").getAttribute("novalue");
+		var lastUpdateDateText = hasLastUpdate ? 
+			timeFormatter.getLocalTimeStringFromFormat(fc_gUpdateManager.lastUpdateDate, formatString) :
+			lastUpdateElement.getAttribute("novalue");
 
-		document.getElementById("fc-data-update-last-date-value").setAttribute("value", lastUpdateDateText);			
+		var lastUpdateServerTimeText = lastUpdateResult.server_time != null ?
+			timeFormatter.getUTCTimeStringFromFormat(lastUpdateResult.server_time, formatString) : "";	
+
+		var nextUpdateDateText = (fc_gUpdateManager.nextUpdateDate != null && fc_gUpdateManager.nextUpdateDate.getTime() != 0) ?
+			timeFormatter.getLocalTimeStringFromFormat(fc_gUpdateManager.nextUpdateDate, formatString) : "";
+			
+		lastUpdateElement.setAttribute("value", lastUpdateDateText);
+		lastUpdateElement.setAttribute("tooltiptext", lastUpdateServerTimeText);
+		document.getElementById("fc-data-update-next-value").setAttribute("value", nextUpdateDateText);
 		
 		// AFM - last update status. Since we don't store the result of the last update check
-		// as a param, lastUpdateResult will be OK_NONE on restart, so we persist the value of this label
+		// as a param, lastUpdateResult.result will be OK_NONE on restart, so we persist the value of this label
 		// If the lastUpdateDate param is reset, we go back to N/A. Actually, no we don't since we're not
 		// observing that param...
 		//
-		var lastUpdateResult = fc_gUpdateManager.lastUpdateResult;
-		if (lastUpdateResult != null && (lastUpdateResult == "OK_NO" ||
-				lastUpdateResult == "OK_NEW" || lastUpdateResult == "ERROR"))
+		if (lastUpdateResult != null && lastUpdateResult.result != null &&
+			(lastUpdateResult.result == "OK_NO" || lastUpdateResult.result == "OK_NEW" || lastUpdateResult.result == "ERROR"))
 		{
 			var lastUpdateStatusText = document.getElementById("foxclocks-bundle").
-				getString("options.data.update.last.status." + lastUpdateResult.toLowerCase() + ".label");
+				getString("options.data.update.last.status." + lastUpdateResult.result.toLowerCase() + ".label");
 					
 			document.getElementById("fc-data-update-last-status-value").setAttribute("value", lastUpdateStatusText);
 		}
@@ -226,14 +243,6 @@ FoxClocks_OptionsManager.prototype =
 			var noValue = document.getElementById("fc-data-update-last-status-value").getAttribute("novalue");
 			document.getElementById("fc-data-update-last-status-value").setAttribute("value", noValue);
 		}
-		
-		// AFM - next update date
-		//
-		var nextUpdateStateText = "";
-		if (fc_gUpdateManager.nextUpdateDate != null && fc_gUpdateManager.nextUpdateDate.getTime() != 0)
-			nextUpdateStateText = fc_gUpdateManager.nextUpdateDate.toLocaleString();
-							
-		document.getElementById("fc-data-update-next-value").setAttribute("value", nextUpdateStateText);		
 		
 		// AFM - (re-)enable checknow button, which may have been disabled during update
 		//
@@ -407,7 +416,7 @@ FoxClocks_OptionsManager.prototype =
 			//
 			var menuItem = document.createElement("menuitem");
 			
-			menuItem.setAttribute("label", timeFormatter.getTimeStringFromFormat(null, this.exampleDate, formatString));
+			menuItem.setAttribute("label", timeFormatter.getUTCTimeStringFromFormat(this.exampleDate, formatString));
 			menuItem.setAttribute("value", formatString);
 			menuItem.setAttribute("oncommand", "document.getElementById('cmd_fcop_stdformsel').doCommand()");
 			
@@ -622,6 +631,6 @@ FoxClocks_OptionsManager.prototype =
 						.getService(Components.interfaces.nsISupports).wrappedJSObject;
 							
 		var customPreview = document.getElementById("fc-format-custom-textbox-preview");
-		customPreview.setAttribute("value", timeFormatter.getTimeStringFromFormat(null, this.exampleDate, this.customFormatBox.value));
+		customPreview.setAttribute("value", timeFormatter.getUTCTimeStringFromFormat(this.exampleDate, this.customFormatBox.value));
 	}
 }

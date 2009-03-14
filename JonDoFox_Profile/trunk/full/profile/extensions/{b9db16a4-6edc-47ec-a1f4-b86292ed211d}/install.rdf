@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{b9db16a4-6edc-47ec-a1f4-b86292ed211d}</em:id>
-    <em:version>3.4</em:version>
+    <em:version>4.2</em:version>
     <em:type>2</em:type>
    
     <!-- Target Application this extension can install into, 
@@ -16,7 +16,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>1.5</em:minVersion>
-        <em:maxVersion>3.1b2pre</em:maxVersion>
+        <em:maxVersion>3.2a1pre</em:maxVersion>
       </Description>
     </em:targetApplication>
     
@@ -43,7 +43,7 @@
     <em:description>Download videos and images from many sites</em:description>
     <em:creator>Michel Gutierrez</em:creator>
     <em:homepageURL>http://www.downloadhelper.net</em:homepageURL>
-    <em:optionsURL>chrome://dwhelper/content/preferences.xul</em:optionsURL>
+    <em:optionsURL>chrome://dwhelper/content/preferences-new.xul</em:optionsURL>
     <em:iconURL>chrome://dwhelper/skin/logo-32x32.png</em:iconURL>
     
 	<em:file>
@@ -55,7 +55,7 @@
 		    <em:locale>locale/de-DE/</em:locale>
 		    <em:locale>locale/es-ES/</em:locale>
 		    <em:locale>locale/it-IT/</em:locale>
-		    <em:locale>locale/pt-BR/</em:locale>
+		    <em:locale>locale/pt-PT/</em:locale>
 		    <em:locale>locale/sk-SK/</em:locale>
 		    <em:locale>locale/zh-CN/</em:locale>
 		    <em:locale>locale/pl-PL/</em:locale>
@@ -65,6 +65,9 @@
 		    <em:locale>locale/zh-TW/</em:locale> 	
 		    <em:locale>locale/ko-KR/</em:locale> 	
 		    <em:locale>locale/vi-VN/</em:locale> 	
+		    <em:locale>locale/pt-BR/</em:locale>
+		    <em:locale>locale/bg-BG/</em:locale>
+		    <em:locale>locale/ru-RU/</em:locale>
 		    <em:skin>skin/classic/</em:skin>
 		</Description>
 	</em:file>

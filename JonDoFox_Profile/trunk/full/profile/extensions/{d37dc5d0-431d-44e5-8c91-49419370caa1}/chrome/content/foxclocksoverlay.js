@@ -35,7 +35,7 @@ FoxClocks_Overlay.prototype =
 			for each (var stylesheet in document.styleSheets)
 			{
 				if (stylesheet.href == "chrome://foxclocks/skin/foxclocks.css")
-					stylesheet.insertRule(FC_STATUSBAR_FIX_CSS, 0);
+					stylesheet.insertRule(FC_STATUSBAR_FIX_CSS, stylesheet.cssRules.length);
 			}
 		}
 		
@@ -107,7 +107,7 @@ FoxClocks_Overlay.prototype =
 		{
 			if (data == "engine:zone-data-update-complete")
 			{		
-				if (subject.wrappedJSObject.lastUpdateResult == "OK_NEW")
+				if (subject.wrappedJSObject.lastUpdateResult.result == "OK_NEW")
 				{
 					self.createClocks();
 				}

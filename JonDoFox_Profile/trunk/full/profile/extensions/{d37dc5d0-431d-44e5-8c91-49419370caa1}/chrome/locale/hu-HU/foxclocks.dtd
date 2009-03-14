@@ -234,8 +234,8 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "D">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Aláhúzott">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "A">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "zászló mutatása">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "z">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Zászló">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "Z">
 <!ENTITY zoneinfo.display.style.colour.caption "Az óra színe az eszközsoron/státuszsorban">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Alapszín">
 <!ENTITY zoneinfo.display.style.colour.standard.accesskey "S">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "T">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "-ig">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "I">
-<!ENTITY zoneinfo.display.flag.caption "Státuszsor/eszköztár zászló">
+<!ENTITY zoneinfo.display.flag.caption "Zászló">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Letiltva">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "L">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Általános">

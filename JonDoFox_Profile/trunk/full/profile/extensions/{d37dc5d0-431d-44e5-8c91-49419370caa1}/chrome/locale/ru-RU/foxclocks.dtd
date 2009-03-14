@@ -234,8 +234,8 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "К">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Подчеркивание">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "П">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Показать флаг">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "ф">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Флаг">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "Ф">
 <!ENTITY zoneinfo.display.style.colour.caption "Цвет часов строки статуса/панели инструментов">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Стандартный цвет">
 <!ENTITY zoneinfo.display.style.colour.standard.accesskey "ц">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "с">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "по">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "п">
-<!ENTITY zoneinfo.display.flag.caption "Флаг в панели статуса/инструментов">
+<!ENTITY zoneinfo.display.flag.caption "Флаг">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Отключён">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "к">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Стандартный">

@@ -4,6 +4,7 @@ overlay   chrome://messenger/content/mailWindowOverlay.xul chrome://adblockplus/
 overlay   chrome://songbird/content/xul/layoutWithBrowserOverlay.xul chrome://adblockplus/content/overlay.xul
 overlay   chrome://midbrowser/content/midbrowser.xul chrome://adblockplus/content/overlay.xul
 overlay   chrome://emusic/content/startup.xul chrome://adblockplus/content/overlay.xul
+overlay   chrome://webrunner/content/webrunner.xul chrome://adblockplus/content/prismOverlay.xul
 content   adblockplus jar:chrome/adblockplus.jar!/content/
 skin      adblockplus classic/1.0 jar:chrome/adblockplus.jar!/skin/classic/
 style     chrome://global/content/customizeToolbar.xul  chrome://adblockplus/skin/overlay.css
@@ -21,11 +22,16 @@ locale    adblockplus fa-IR jar:chrome/adblockplus.jar!/locale/fa-IR/
 locale    adblockplus fi-FI jar:chrome/adblockplus.jar!/locale/fi-FI/
 locale    adblockplus fr-FR jar:chrome/adblockplus.jar!/locale/fr-FR/
 locale    adblockplus fy-NL jar:chrome/adblockplus.jar!/locale/fy-NL/
+locale    adblockplus gl-ES jar:chrome/adblockplus.jar!/locale/gl-ES/
 locale    adblockplus he-IL jar:chrome/adblockplus.jar!/locale/he-IL/
 locale    adblockplus hr-HR jar:chrome/adblockplus.jar!/locale/hr-HR/
 locale    adblockplus hu-HU jar:chrome/adblockplus.jar!/locale/hu-HU/
+locale    adblockplus hy-AM jar:chrome/adblockplus.jar!/locale/hy-AM/
+locale    adblockplus id-ID jar:chrome/adblockplus.jar!/locale/id-ID/
+locale    adblockplus is-IS jar:chrome/adblockplus.jar!/locale/is-IS/
 locale    adblockplus it-IT jar:chrome/adblockplus.jar!/locale/it-IT/
 locale    adblockplus ja-JP jar:chrome/adblockplus.jar!/locale/ja-JP/
+locale    adblockplus kk-KZ jar:chrome/adblockplus.jar!/locale/kk-KZ/
 locale    adblockplus ko-KR jar:chrome/adblockplus.jar!/locale/ko-KR/
 locale    adblockplus lt-LT jar:chrome/adblockplus.jar!/locale/lt-LT/
 locale    adblockplus mn-MN jar:chrome/adblockplus.jar!/locale/mn-MN/
@@ -47,3 +53,5 @@ locale    adblockplus vi-VN jar:chrome/adblockplus.jar!/locale/vi-VN/
 locale    adblockplus zh-CN jar:chrome/adblockplus.jar!/locale/zh-CN/
 locale    adblockplus zh-TW jar:chrome/adblockplus.jar!/locale/zh-TW/
 
+# Work-around for bug 465991 (to be removed once Prism 0.9 is no longer supported)
+override  chrome://webrunner/content/overlays/inspector.xul data:text/xml,<nada/> application=prism@developer.mozilla.org appversion=0.9

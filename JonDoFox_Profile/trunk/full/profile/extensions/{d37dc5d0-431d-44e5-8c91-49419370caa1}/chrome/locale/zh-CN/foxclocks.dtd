@@ -235,7 +235,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "I">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "下划线">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "U">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "显示标签">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "旗">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.caption "状态栏/工具栏 时钟颜色">
 <!ENTITY zoneinfo.display.style.colour.standard.label "标准色">
@@ -246,7 +246,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "截至时间">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "n">
-<!ENTITY zoneinfo.display.flag.caption "状态栏/工具栏 国旗">
+<!ENTITY zoneinfo.display.flag.caption "旗">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "禁用">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "标准">

@@ -1,11 +1,13 @@
 <!ENTITY dialog.title "Add Bookmark Here ² 選項">
+<!ENTITY tab.main.caption "主要">
+<!ENTITY tab.interface.caption "介面">
+<!ENTITY tab.advanced.caption "進階">
 <!ENTITY position.group "選單項目位置">
-<!ENTITY position.item.abHere "選擇 [加入書籤至此...] 的位置:">
+<!ENTITY position.item.abHere "選擇 [加入書籤至此] 的位置:">
 <!ENTITY position.item.opTabs "選擇 [用新分頁開啓所有項目] 的位置:">
 <!ENTITY position.option.top "頂端">
 <!ENTITY position.option.bottom "底端">
 <!ENTITY position.option.hidden "隱藏">
-<!ENTITY position.misc.context "顯示 [加入書籤至此...] 於右鍵功能表">
 <!ENTITY clicking.group "滑鼠點擊功能">
 <!ENTITY clicking.item.buttonL "點擊左鍵:">
 <!ENTITY clicking.item.buttonM "點擊中鍵:">
@@ -13,12 +15,24 @@
 <!ENTITY clicking.option.bmPage "此頁加入書籤">
 <!ENTITY clicking.option.bmNoUI "此頁加入書籤(無編輯窗)">
 <!ENTITY clicking.option.bmTabs "所有分頁加入書籤">
-<!ENTITY clicking.misc.insertTop "由書籤選單頂端加入書籤">
 <!ENTITY starUI.group "書籤編輯窗">
 <!ENTITY starUI.expand.folderRow "展開樹狀目錄">
 <!ENTITY starUI.expand.tagsRow "展開標籤列表">
-<!ENTITY starUI.misc.singleClick "首次點擊星號時即顯示編輯窗">
-<!ENTITY menubar.group "主功能表書籤選單">
-<!ENTITY menubar.item.abHere "顯示 [加入書籤至此...] 選單項目">
+<!ENTITY menubar.group "書籤功能表">
+<!ENTITY menubar.item.abHere "顯示 [加入書籤至此] 選單項目">
 <!ENTITY menubar.item.bmPage "顯示 [此頁加入書籤] 選單項目">
 <!ENTITY menubar.item.bmTabs "顯示 [所有分頁加入書籤] 選單項目">
+<!ENTITY context.group "書籤右鍵功能表">
+<!ENTITY context.item.abHere "顯示 [加入書籤至此] 選單項目">
+<!ENTITY starBtn.group "星號按鈕">
+<!ENTITY starBtn.clicking.item.buttonL "點擊左鍵:">
+<!ENTITY starBtn.clicking.item.buttonM "點擊中鍵:">
+<!ENTITY starBtn.clicking.item.buttonR "點擊右鍵:">
+<!ENTITY starBtn.clicking.option.defaultBehavior "預設行為">
+<!ENTITY starBtn.clicking.option.toggleMode "(開關模式)">
+<!ENTITY starBtn.clicking.option.unsortedFolder "加入未排序書籤">
+<!ENTITY starBtn.clicking.option.singleClick "首次點擊星號時即顯示編輯窗">
+<!ENTITY starBtn.clicking.option.optionsDialog "顯示 Add Bookmark Here ² 選項">
+<!ENTITY misc.group "其他">
+<!ENTITY misc.insertTop "由書籤選單頂端加入書籤">
+<!ENTITY misc.folderDrag "允許直接拖曳書籤資料夾">

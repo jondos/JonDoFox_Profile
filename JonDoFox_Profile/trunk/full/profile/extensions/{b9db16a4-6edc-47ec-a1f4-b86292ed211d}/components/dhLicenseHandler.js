@@ -1,5 +1,5 @@
 /******************************************************************************
- *            Copyright (c) 2006 Michel Gutierrez. All Rights Reserved.
+ *            Copyright (c) 2006-2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
 /**
@@ -183,13 +183,13 @@ LicenseHandler.prototype.GetWeakReference = function( ) {
 LicenseHandler.prototype.QueryInterface = function(iid) {
 	//dump("[LicenseHandler] QueryInterface("+iid+")\n");
     if(
-    	iid.equals(Components.interfaces.nsISupport)==false &&
-    	!iid.equals(Components.interfaces.nsIURIContentListener) &&
-    	!iid.equals(Components.interfaces.nsISupportsWeakReference)
+    	iid.equals(Components.interfaces.nsISupports) ||
+    	iid.equals(Components.interfaces.nsIURIContentListener) ||
+    	iid.equals(Components.interfaces.nsISupportsWeakReference)
 	) {
-            throw Components.results.NS_ERROR_NO_INTERFACE;
+        return this;
         }
-    return this;
+    throw Components.results.NS_ERROR_NO_INTERFACE;
 }
 
 var vLicenseHandlerModule = {

@@ -11,9 +11,12 @@ var abHere2 = {
               .createBundle('chrome://abhere2/locale/abhere2.properties'),
 
    hookCode: function(orgFunc, orgCode, myCode) {
-      try { eval(orgFunc + "=" + eval(orgFunc).toString().replace(orgCode, myCode)); } catch(e) {
-         Components.utils.reportError("[ABHere2]ERR - hookCode: "+orgFunc);
-      }
+      try{ if (eval(orgFunc).toString() == eval(orgFunc + "=" + eval(orgFunc).toString().replace(orgCode, myCode))) throw orgFunc; }
+      catch(e){ Components.utils.reportError("Failed to hook function: "+orgFunc); }
+   },
+
+   get isInsertTop() {
+      return nsPreferences.getBoolPref("abhere2.insertTop", true);
    },
 
    get isFolderDrag() {
@@ -22,14 +25,6 @@ var abHere2 = {
 
    get isAnchorPopup() {
       return nsPreferences.getBoolPref("abhere2.anchorPopup", false);
-   },
-
-   get isInsertTop() {
-      return nsPreferences.getBoolPref("abhere2.insertTop", true);
-   },
-
-   get isSingleClickShowUI() {
-      return nsPreferences.getBoolPref("abhere2.starUI.singleClick", false);
    },
 
    get panelWidth() {
@@ -102,7 +97,7 @@ var abHere2 = {
          aIndex = document.popupNode.node.bookmarkIndex;
          aShowEditUI = document.popupNode.boxObject.element;
          document.popupNode.boxObject.element.parentNode._built = false;
-         setTimeout(abHere2.closeMenus, 0, aShowEditUI);
+         abHere2.closeMenus(aShowEditUI);
       } else {
          // bookmarksMenuPopup & bookmarksBarContent
          aItemId = target.parentNode._resultNode.itemId;
@@ -110,7 +105,7 @@ var abHere2 = {
          aShowEditUI = target;
          target.parentNode._built = false;
       }
-      setTimeout(abHere2.closeMenus, 0, target);
+      abHere2.closeMenus(target);
 
       var aBrowser = getBrowser().selectedBrowser;
       var button = (event.button ? event.button : 0);
@@ -131,7 +126,7 @@ var abHere2 = {
          var info = {
             action: "add",
             type: "folder",
-            hiddenRows: ["folder picker"],
+            hiddenRows: ["folderPicker"],
             defaultInsertionPoint: aInsertionPoint,
             URIList: aURIList
          };
@@ -301,6 +296,7 @@ var abHere2 = {
             if (!aRow.hidden) {
                switch(id) {
                case "folderRow":
+                  if (StarUI._newBookmark) break;
                   abHere2.expandRow(aRow);
                   self._element("newFolderBox").collapsed = false;
                   self._element("chooseFolderSeparator").hidden = self._element("chooseFolderMenuItem").hidden = true;
@@ -325,13 +321,56 @@ var abHere2 = {
       }
    },
 
+   removeBookmarksForCurrentPage: function() {
+      var itemIds = PlacesUtils.getBookmarksForURI(getBrowser().currentURI);
+      for (var i=0; i<itemIds.length; i++) {
+         var txn = PlacesUIUtils.ptm.removeItem(itemIds[i]);
+         PlacesUIUtils.ptm.doTransaction(txn);
+      }
+   },
+
+   clickStarButton: function(event) {
+      var button = (event.button ? event.button : 0);
+      var action = nsPreferences.getIntPref("abhere2.starUI.clicking."+["left","middle","right"][button], 0);
+      if (action & 8) { // do show the ABHere2 options dialog
+         window.openDialog("chrome://abhere2/content/prefsDialog.xul", "abHere2Prefs", "chrome,centerscreen,dependent");
+         return true;
+      }
+      if (action & 1) { // do remove all bookmarks for current URI
+         if (PlacesStarButton._starred) {
+            abHere2.removeBookmarksForCurrentPage();
+            return true;
+         }
+      }
+      if (action & 2) { // do bookmark current page to the unsorted bookmarks folder
+         PlacesCommandHook.bookmarkCurrentPage(PlacesStarButton._starred);
+         return true;
+      }
+      if (action & 4) { // do bookmark current page with a single click
+         PlacesCommandHook.bookmarkCurrentPage(true);
+         return true;
+      }
+      return false;
+   },
+
+   dragStart: function(event) {
+      if (!abHere2.isFolderDrag) return;
+      var bmBar = document.getElementById("bookmarksBarContent");
+      var dragNode = event.target;
+      if (dragNode.parentNode != bmBar || !dragNode.node) return;
+      if (dragNode.localName == "toolbarbutton" && dragNode.getAttribute("type") == "menu") dragNode.firstChild.hidePopup();
+      bmBar._draggedNode = dragNode.node;
+      bmBar.focus();
+      bmBar._controller.setDataTransfer(event);
+   },
+
    hookBookmarksToolbar: function() {
-      var bt = document.getElementById("bookmarksBarContent");
-      if (!bt) return;
+      var bmBar = document.getElementById("bookmarksBarContent");
+      if (!bmBar) return;
 
       //*** hook BookmarksToolbar: move openintabs/openhomepage, add addbookmarkhere
-      bt.setAttribute("onpopupshowing", bt.getAttribute("onpopupshowing") + "abHere2.moveOpTabsAndHomePageItems(event.originalTarget);");
-      bt.setAttribute("onpopupshowing", bt.getAttribute("onpopupshowing") + "abHere2.createAddBookmarkHereItems(event.originalTarget);");
+      bmBar.setAttribute("onpopupshowing", bmBar.getAttribute("onpopupshowing") + "abHere2.moveOpTabsAndHomePageItems(event.originalTarget);");
+      bmBar.setAttribute("onpopupshowing", bmBar.getAttribute("onpopupshowing") + "abHere2.createAddBookmarkHereItems(event.originalTarget);");
 
       //*** adjust bookmark position when user moved the bookmark
       abHere2.hookCode("document.getElementById('bookmarksBarContent')._viewer.itemMoved",
@@ -344,9 +383,12 @@ var abHere2 = {
          "var before = popup.childNodes[popup._startMarker + 1 + aIndex]");
 
       //*** allow to drag the bookmarks folder without press alt/shift key
-      abHere2.hookCode("document.getElementById('bookmarksBarContent')._DNDObserver.onDragStart",
-         /!(\w+)\.shiftKey && !(\w+)\.altKey && !(\w+)\.ctrlKey/,
-         "!abHere2.isFolderDrag && $&");
+      bmBar.addEventListener("dragstart", abHere2.dragStart, false);
+      if (bmBar._DNDObserver) { //fx3.0
+         abHere2.hookCode("document.getElementById('bookmarksBarContent')._DNDObserver.onDragStart",
+            /!(\w+)\.shiftKey && !(\w+)\.altKey && !(\w+)\.ctrlKey/,
+            "!abHere2.isFolderDrag && $&");
+      }
    },
 
    init: function() {
@@ -402,10 +444,10 @@ var abHere2 = {
          "var toolbarIP = new InsertionPoint(PlacesUtils.bookmarks.toolbarFolder, -1);",
          "var aItemId = abHere2.prefLivemarkFolderId; var toolbarIP = new InsertionPoint(aItemId, (aItemId != PlacesUtils.bookmarksMenuFolderId) && abHere2.isInsertTop ? 0 : -1); gEditItemOverlay._markFolderAsRecentlyUsed(PlacesUtils.bookmarks.getFolderIdForItem(aItemId));");
 
-      //*** implement SingleClickShowUI feature
+      //*** implement StarButton's clicking features
       abHere2.hookCode("PlacesStarButton.onClick",
-         "this._starred",
-         "abHere2.isSingleClickShowUI ? true : this._starred");
+         /{/,
+         "$& if (abHere2.clickStarButton(aEvent)) { aEvent.preventDefault(); aEvent.stopPropagation(); return; }");
 
       //*** customize editBookmarkPanel each row's hidden/show
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
@@ -417,12 +459,10 @@ var abHere2 = {
          /}$/,
          'if (abHere2.panelWidth>0) this.panel.width = abHere2.panelWidth; $&');
 
-      //*** hide the FolderRow if the bookmark is not bookmarked yet
+      //*** expand the FolderTree if the bookmark has already existed
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
          'gEditItemOverlay.initPanel',
-         'this._element("editBMPanel_folderRow").hidden = (["menuitem", "toolbarbutton"].indexOf(aAnchorElement.localName)>=0) && this._element("editBookmarkPanelRemoveButton").hidden; $&');
-
-      //*** expand the FolderTree if the bookmark has already existed
+         'this._newBookmark = (["menuitem", "toolbarbutton"].indexOf(aAnchorElement.localName)>=0) && this._element("editBookmarkPanelRemoveButton").hidden; $&');
       abHere2.hookCode("gEditItemOverlay._showHideRows",
          /}$/,
          'abHere2.expandRows(this); $&');

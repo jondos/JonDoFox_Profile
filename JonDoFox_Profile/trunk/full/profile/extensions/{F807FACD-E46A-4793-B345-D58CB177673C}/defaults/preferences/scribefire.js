@@ -15,7 +15,6 @@ pref("performancing.display.sortcats", true);
 pref("performancing.display.enablertl", false);
 pref("extensions.{F807FACD-E46A-4793-B345-D58CB177673C}.description", "chrome://performancing/locale/overlay.properties");
 pref("performancing.extra.insertpfftext2", false);
-pref("performancing.extra.doSpellCheck", true);
 pref("performancing.onfirstrun", true); //For general
 pref("performancing.display.statusbar", true);
 pref("performancing.saveAsNoteOnChange", true);
@@ -30,9 +29,11 @@ pref("performancing.lastUploadMethod","");
 pref("performancing.display.autosave", true);
 pref("performancing.onetime.accountWizard", false);
 pref("performancing.onetime.welcomePage", false);
-pref("performancing.ads.username", "");
 pref("performancing.onetime.welcomePage", false);
 pref("performancing.imageMaxWidth", true);
-pref("performancing.adsIntroduction", false);
 pref("performancing.version", "");
 
+pref("performancing.zemanta.key", "");
+pref("performancing.zemanta.config_url", "");
+pref("performancing.zemanta.track", true);
+pref("performancing.zemanta.tos", false);

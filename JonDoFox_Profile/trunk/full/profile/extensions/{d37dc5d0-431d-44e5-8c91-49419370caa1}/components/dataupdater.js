@@ -28,7 +28,7 @@ function FoxClocks_UpdateManager()
 	
 	this.updateIntervalSecs = null;
 	this.nextUpdateDate = null; // null if automatic updates disabled
-	this.lastUpdateResult = "NONE"; // "ERROR", "OK_NEW", "OK_NO"
+	this.lastUpdateResult = { result: "NONE", server_time: null }; // result: "ERROR", "OK_NEW", "OK_NO"
 	this.lastUpdateDate = null;
 	this.lastUpdateAuto = null;
 	
@@ -182,7 +182,7 @@ FoxClocks_UpdateManager.prototype =
 		if (state != self._utils.XHR_STATE_LOADED)
 			return;
 
-		var updateResult = "ERROR";
+		var updateResult = { result: "ERROR", server_time: null };
 		var httpStatus = null;
 		
 		// AFM - make sure exception is due to accessing _httpRequest.status
@@ -233,7 +233,9 @@ FoxClocks_UpdateManager.prototype =
 	// ====================================================================================
 	_setUpdateComplete: function(updateResult)
 	{
-		this._logger.log("FoxClocks_UpdateManager::_setUpdateComplete(): result: " + updateResult);
+		var serverTimeString = updateResult.server_time != null ? updateResult.server_time.toUTCString() : "unavailable";			
+		this._logger.log("FoxClocks_UpdateManager::_setUpdateComplete(): result: "
+					+ updateResult.result + ", server time: " + serverTimeString, this._logger.INFO);
 			
 		// AFM - do not reset the connection here. Connection is already 'done' even if it's LOADED
 		// (usually request complete) or OPEN (when file not found in send(), eg). The connection
@@ -295,7 +297,7 @@ FoxClocks_UpdateManager.prototype =
 		var zoneManager = CC["@stemhaus.com/firefox/foxclocks/zonemanager;1"].
 			getService(CI.nsISupports).wrappedJSObject;
 
-		var retVal = "ERROR";
+		var retVal = { result: "ERROR", server_time: null };
 		var updateStatus = this.SERVER_UPDATE_NO_NEW;
 		
 		try
@@ -332,6 +334,10 @@ FoxClocks_UpdateManager.prototype =
 				var bodyNode = this._utils.getFirstEltByTagAsNode(root, "body");
 				var updateStatusNode = this._utils.getFirstEltByTagAsNode(bodyNode, "update-status");
 				updateStatus = updateStatusNode.getAttribute("code");
+				
+				var currentTimeNode = this._utils.getFirstEltByTagAsNode(bodyNode, "current-time");
+				if (currentTimeNode != null && currentTimeNode.firstChild != null)
+					retVal.server_time = this._utils.dateStringToGmtDate(currentTimeNode.firstChild.nodeValue);
 			}
 			else
 			{
@@ -381,18 +387,18 @@ FoxClocks_UpdateManager.prototype =
 				outConvStream.close();
 				
 				this._logger.log("FoxClocks_UpdateManager::_processXMLResponse(): success - new data");
-				retVal = "OK_NEW";
+				retVal.result = "OK_NEW";
 			}
 			else
 			{
 				this._logger.log("FoxClocks_UpdateManager::_processXMLResponse(): success - local data is current");
-				retVal = "OK_NO";
+				retVal.result = "OK_NO";
 			}
 		}
 		catch (ex)
 		{
 			this._logger.log("FoxClocks_UpdateManager::_processXMLResponse(): error processing zone data: " + ex, this._logger.ERROR);
-			retVal = "ERROR";
+			retVal.result = "ERROR";
 		}
 		
 		return retVal;

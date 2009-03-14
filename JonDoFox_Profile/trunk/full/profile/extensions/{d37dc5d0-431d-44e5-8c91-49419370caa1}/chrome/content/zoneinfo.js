@@ -121,7 +121,8 @@ FoxClocks_ZoneInfo.prototype =
 			 zoneCaptionText += " (" + countryCode + ")";
 	
 		document.getElementById("fc-zoneinfo-zone-extendedinfo").setAttribute("label", zoneCaptionText);
-			 
+
+		var noneFlagRadio = document.getElementById("fc-zoneinfo-display-flag-radio-none");
 		var standardFlagRadio = document.getElementById("fc-zoneinfo-display-flag-radio-standard");
 		
 		var imageURL = this.workingLocation.zone.getFlagUrl();	
@@ -134,11 +135,12 @@ FoxClocks_ZoneInfo.prototype =
 			//
 			var anonImage = document.getAnonymousElementByAttribute(this.zoneCaption, "src", imageURL);
 			anonImage.setAttribute("class", anonImage.getAttribute("class") + " foxclocks-zoneinfo-flag");
+			
+			noneFlagRadio.setAttribute("hidden", "true");
 		}
 		else
 		{
-			standardFlagRadio.setAttribute("disabled", "true");
-			standardFlagRadio.removeAttribute("observes"); // AFM - so it stays disabled 
+			standardFlagRadio.setAttribute("hidden", "true");
 		}
 
 		var dstBeginValue = document.getElementById("fc-zoneinfo-daylightsaving-begin-value");
@@ -220,6 +222,7 @@ FoxClocks_ZoneInfo.prototype =
 		document.getElementById("fc-zoneinfo-display-style-checkbox-bold").checked = this.watchlistItem.bold;
 		document.getElementById("fc-zoneinfo-display-style-checkbox-italic").checked = this.watchlistItem.italic;
 		document.getElementById("fc-zoneinfo-display-style-checkbox-underline").checked = this.watchlistItem.underline;
+		document.getElementById("fc-zoneinfo-display-style-checkbox-flag").checked = this.watchlistItem.showClock_statusbarFlag;
 		document.getElementById("fc-zoneinfo-display-style-colour-standard-picker").color = this.watchlistItem.colour;
 		document.getElementById("fc-zoneinfo-display-style-colour-alternate-checkbox").checked = this.watchlistItem.altColour_enabled;
 		document.getElementById("fc-zoneinfo-display-style-colour-alternate-picker").color = this.watchlistItem.altColour;
@@ -259,13 +262,12 @@ FoxClocks_ZoneInfo.prototype =
 		
 		var displayFlagRadioGroup = document.getElementById("fc-zoneinfo-display-flag-radiogroup");
 		
-		if (this.watchlistItem.showClock_statusbarFlag == true && this.watchlistItem.useCustomFlag == true)
+		if (this.watchlistItem.useCustomFlag == true)
 			displayFlagRadioGroup.selectedItem = document.getElementById("fc-zoneinfo-display-flag-radio-custom");
-		else if (this.watchlistItem.showClock_statusbarFlag == true && this.watchlistItem.useCustomFlag == false &&
-						standardFlagRadio.getAttribute("disabled") != "true")
+		else if (standardFlagRadio.getAttribute("hidden") != "true")
 			displayFlagRadioGroup.selectedItem = standardFlagRadio;
 		else
-			displayFlagRadioGroup.selectedItem = document.getElementById("fc-zoneinfo-display-flag-radio-none");		
+			displayFlagRadioGroup.selectedItem = noneFlagRadio;		
 
 		// AFM - disable stuff irrelevant to icon mode. We don't bother handling changes to this pref
 		//
@@ -389,6 +391,7 @@ FoxClocks_ZoneInfo.prototype =
 		this.watchlistItem.bold = document.getElementById("fc-zoneinfo-display-style-checkbox-bold").checked == true;
 		this.watchlistItem.italic = document.getElementById("fc-zoneinfo-display-style-checkbox-italic").checked == true;
 		this.watchlistItem.underline = document.getElementById("fc-zoneinfo-display-style-checkbox-underline").checked == true;
+		this.watchlistItem.showClock_statusbarFlag = document.getElementById("fc-zoneinfo-display-style-checkbox-flag").checked == true;
 		this.watchlistItem.colour = document.getElementById("fc-zoneinfo-display-style-colour-standard-picker").color;
 		this.watchlistItem.altColour_enabled = document.getElementById("fc-zoneinfo-display-style-colour-alternate-checkbox").checked == true;
 		this.watchlistItem.altColour = document.getElementById("fc-zoneinfo-display-style-colour-alternate-picker").color;
@@ -408,23 +411,8 @@ FoxClocks_ZoneInfo.prototype =
 		this.watchlistItem.customFlagUrl = document.getElementById("fc-zoneinfo-custflag-textbox-url").value;
 		
 		var displayFlagRadioGroup = document.getElementById("fc-zoneinfo-display-flag-radiogroup");
-		
-		if (displayFlagRadioGroup.selectedItem == document.getElementById("fc-zoneinfo-display-flag-radio-custom"))
-		{
-			this.watchlistItem.showClock_statusbarFlag = true;
-			this.watchlistItem.useCustomFlag = true;
-		}
-		else if (displayFlagRadioGroup.selectedItem == document.getElementById("fc-zoneinfo-display-flag-radio-standard"))
-		{
-			this.watchlistItem.showClock_statusbarFlag = true;
-			this.watchlistItem.useCustomFlag = false;
-		}
-		else
-		{
-			this.watchlistItem.showClock_statusbarFlag = false;
-			this.watchlistItem.useCustomFlag = false;
-		}
-		
+		this.watchlistItem.useCustomFlag = (displayFlagRadioGroup.selectedItem.getAttribute("id") ==
+								"fc-zoneinfo-display-flag-radio-custom");
 					
 		// AFM - specifically, location won't be set if the user cancels this dialog
 		//
@@ -488,33 +476,6 @@ FoxClocks_ZoneInfo.prototype =
 		if (this.zoneCaption == null)
 			return;
 	
-		var displayFlagRadioGroup = document.getElementById("fc-zoneinfo-display-flag-radiogroup");
-		var customFlagUrlTextBox = document.getElementById("fc-zoneinfo-custflag-textbox-url");
-		var flagImage = document.getElementById("fc-zoneinfo-display-flag-image");
-		var customFlagSelected = false;
-		var flagUrlString = "";
-
-		if (displayFlagRadioGroup.selectedItem.getAttribute("id") == "fc-zoneinfo-display-flag-radio-custom")
-		{
-			flagUrlString = customFlagUrlTextBox.value;
-			customFlagSelected = true;
-		}
-		else if (displayFlagRadioGroup.selectedItem.getAttribute("id") == "fc-zoneinfo-display-flag-radio-standard")
-		{
-			flagUrlString = this.workingLocation.zone.getFlagUrl();
-		}
-		
-		if (flagUrlString != "" && fc_gUtils.isUriAvailable(flagUrlString))
-		{
-			flagImage.setAttribute("src", flagUrlString);
-			flagImage.setAttribute("tooltiptext", flagUrlString);
-		}
-		else
-		{
-			flagImage.removeAttribute("src");
-			flagImage.removeAttribute("tooltiptext");
-		}
-	
 		this.setStates();
 		
 		// AFM - work around window.sizeToContent() failing if previously called when not necessary
@@ -523,7 +484,9 @@ FoxClocks_ZoneInfo.prototype =
 		var currFlagBrowseBoxHiddenAtt = flagBrowseBox.getAttribute("hidden");
 		if (currFlagBrowseBoxHiddenAtt == null)
 			currFlagBrowseBoxHiddenAtt = "false";
-			
+	
+		var displayFlagRadioGroup = document.getElementById("fc-zoneinfo-display-flag-radiogroup");
+		var customFlagSelected = (displayFlagRadioGroup.selectedItem.getAttribute("id") == "fc-zoneinfo-display-flag-radio-custom");
 		var newFlagBrowseBoxHiddenAtt = customFlagSelected ? "false" : "true";
 		
 		if (currFlagBrowseBoxHiddenAtt != newFlagBrowseBoxHiddenAtt)
@@ -576,6 +539,12 @@ FoxClocks_ZoneInfo.prototype =
 			clockStyleDisabledBcaster.setAttribute("disabled", "true");
 			
 		document.getElementById("fc-zoneinfo-display-style-colour-standard-picker").disabled = (truth == false);
+		
+		// AFM - special handling for this checkbox: we don't want to stomp on the 'disabled' state set due to
+		// unavailable flag
+		//
+		if (truth == true && !document.getElementById("fc-zoneinfo-display-flag-image").hasAttribute("src"))
+			document.getElementById("fc-zoneinfo-display-style-checkbox-flag").disabled = true;
 	},
 	
 	// ====================================================================================
@@ -592,13 +561,9 @@ FoxClocks_ZoneInfo.prototype =
 	},
 
 	// ====================================================================================
-	setCustomFlagUrl : function(urlString)
-	{					
-		document.getElementById("fc-zoneinfo-custflag-textbox-url").value = urlString;
-
- 		var flagImage = document.getElementById("fc-zoneinfo-display-flag-image");
-		flagImage.setAttribute("src", urlString);
-		flagImage.setAttribute("tooltiptext", urlString);
+	setCustomFlagUrl : function(flagUrlString)
+	{			
+		document.getElementById("fc-zoneinfo-custflag-textbox-url").value = flagUrlString;
 		this.setStates();
 	},
 		
@@ -632,7 +597,7 @@ FoxClocks_ZoneInfo.prototype =
 	
 	// ====================================================================================
 	setStates : function()
-	{		
+	{
 		// AFM - throw all validation in here
 		//
 		var locationTab = document.getElementById("fc-zoneinfo-tab-location");
@@ -738,16 +703,38 @@ FoxClocks_ZoneInfo.prototype =
 		}
 		
 		var displayFlagRadioGroup = document.getElementById("fc-zoneinfo-display-flag-radiogroup");
+ 		var flagImage = document.getElementById("fc-zoneinfo-display-flag-image");
+		var showFlagCheckbox = document.getElementById("fc-zoneinfo-display-style-checkbox-flag");
 		var customFlagUrlTextBox = document.getElementById("fc-zoneinfo-custflag-textbox-url");
-		var customFlagSelected = displayFlagRadioGroup.selectedItem == document.getElementById("fc-zoneinfo-display-flag-radio-custom");	
-		var customFlagError = customFlagSelected &&
-					(customFlagUrlTextBox.value == "" || !fc_gUtils.isUriAvailable(customFlagUrlTextBox.value));
+		
+		var flagUrlString = "";
+		if (displayFlagRadioGroup.selectedItem.getAttribute("id") == "fc-zoneinfo-display-flag-radio-custom")
+			flagUrlString = customFlagUrlTextBox.value;
+		else if (displayFlagRadioGroup.selectedItem.getAttribute("id") == "fc-zoneinfo-display-flag-radio-standard")
+			flagUrlString = this.workingLocation.zone.getFlagUrl();
+		
+		if (flagUrlString != "" && fc_gUtils.isUriAvailable(flagUrlString))
+		{
+			flagImage.setAttribute("src", flagUrlString);
+			flagImage.setAttribute("tooltiptext", flagUrlString);
+			
+			if (!document.getElementById("fc-zoneinfo-display-style-clock-disabled").hasAttribute("disabled"))
+				showFlagCheckbox.disabled = false;
+		}
+		else
+		{
+			flagImage.removeAttribute("src");
+			flagImage.removeAttribute("tooltiptext");
+			showFlagCheckbox.disabled = true;
+		}
+		
+		var customFlagError = displayFlagRadioGroup.selectedItem.getAttribute("id") == 
+								"fc-zoneinfo-display-flag-radio-custom" && !flagImage.hasAttribute("src");
 			
 		if (customFlagError)
 			customFlagUrlTextBox.setAttribute("class", "foxclocks-errorstate");
 		else
 			customFlagUrlTextBox.removeAttribute("class");
-		
 		
 		this.acceptButton.disabled = locationError || customFlagError;
 		this.applyButton.disabled = locationError || customFlagError;
@@ -756,7 +743,7 @@ FoxClocks_ZoneInfo.prototype =
 			this.googleEarthButton.disabled = locationError;
 		else
 			this.googleEarthButton.disabled = true;
-			
+
 		// fc_gLogger.log("FoxClocks_ZoneInfo::setStates(): lat <" + this.workingLocation.latitudeAsLocaleString() +
 		//	">, long <" + this.workingLocation.longitudeAsLocaleString() + ">");
 	}

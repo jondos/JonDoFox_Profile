@@ -100,6 +100,13 @@ function needHomepageOverride(prefb) {
                          .getService(nsIHttpProtocolHandler).misc;
 
   if (mstone != savedmstone) {
+    // Bug 462254. Previous releases had a default pref to suppress the EULA
+    // agreement if the platform's installer had already shown one. Now with
+    // about:rights we've removed the EULA stuff and default pref, but we need
+    // a way to make existing profiles retain the default that we removed.
+    if (savedmstone)
+      prefb.setBoolPref("browser.rights.3.shown", true);
+    
     prefb.setCharPref("browser.startup.homepage_override.mstone", mstone);
     return (savedmstone ? OVERRIDE_NEW_MSTONE : OVERRIDE_NEW_PROFILE);
   }
@@ -215,14 +222,14 @@ function getMostRecentWindow(aType) {
   return wm.getMostRecentWindow(aType);
 }
 
-//@line 261 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 268 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
 
 // this returns the most recent non-popup browser window
 function getMostRecentBrowserWindow() {
   var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                      .getService(Components.interfaces.nsIWindowMediator);
 
-//@line 281 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 288 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
   var windowList = wm.getZOrderDOMWindowEnumerator("navigator:browser", true);
   if (!windowList.hasMoreElements())
     return null;
@@ -234,7 +241,7 @@ function getMostRecentBrowserWindow() {
 
     win = windowList.getNext();
   }
-//@line 293 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 300 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
 
   return win;
 }
@@ -453,7 +460,7 @@ var nsBrowserContentHandler = {
       cmdLine.preventDefault = true;
     }
 
-//@line 512 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 519 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
     // Handle "? searchterm" for Windows Vista start menu integration
     for (var i = cmdLine.length - 1; i >= 0; --i) {
       var param = cmdLine.getArgument(i);
@@ -465,7 +472,7 @@ var nsBrowserContentHandler = {
         doSearch(searchParam, cmdLine);
       }
     }
-//@line 524 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 531 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
   },
 
   helpInfo : "  -browser            Open a browser window.\n",
@@ -674,15 +681,15 @@ var nsDefaultCommandLineHandler = {
   // running and have already been handled. This is compared against uri's
   // opened using DDE on Win32 so we only open one of the requests.
   _handledURIs: [ ],
-//@line 733 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 740 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
   _haveProfile: false,
-//@line 735 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 742 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
 
   /* nsICommandLineHandler */
   handle : function dch_handle(cmdLine) {
     var urilist = [];
 
-//@line 741 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 748 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
     // If we don't have a profile selected yet (e.g. the Profile Manager is
     // displayed) we will crash if we open an url and then select a profile. To
     // prevent this handle all url command line flags and set the command line's
@@ -702,7 +709,7 @@ var nsDefaultCommandLineHandler = {
         cmdLine.preventDefault = true;
       }
     }
-//@line 761 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 768 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
 
     try {
       var ar;
@@ -857,9 +864,9 @@ var Module = {
 
     registerType("text/html");
     registerType("application/vnd.mozilla.xul+xml");
-//@line 916 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 923 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
     registerType("image/svg+xml");
-//@line 918 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 925 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
     registerType("text/rdf");
     registerType("text/xml");
     registerType("application/xhtml+xml");

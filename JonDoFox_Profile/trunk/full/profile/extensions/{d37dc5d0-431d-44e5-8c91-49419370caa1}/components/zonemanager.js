@@ -54,7 +54,7 @@ function FoxClocks_Zone(zoneNode)
 	this.st_to_string = standardNode.getAttribute("offset").replace(/^-/, FC_MINUS_SYMBOL);
 	this.st_name = standardNode.getAttribute("tzname");
 		
-	this.st_to = FoxClocks_Zone.timeZoneStringToMinOffset(this.st_to_string);
+	this.st_to = utils.timeZoneStringToMinOffset(this.st_to_string);
 	
 	var daylightNodes = zoneNode.getElementsByTagName("DaylightTime");
 	if (daylightNodes.length == 1)
@@ -67,9 +67,9 @@ function FoxClocks_Zone(zoneNode)
 		var startTime = utils.getFirstEltByTagAsNode(daylightNode, "Start").firstChild.nodeValue;
 		var endTime = utils.getFirstEltByTagAsNode(daylightNode, "End").firstChild.nodeValue;
 		
-		this.dl_to = FoxClocks_Zone.timeZoneStringToMinOffset(this.dl_to_string);
-		this.dl_start_gmt = FoxClocks_Zone.dateStringToGmtDate(startTime);
-		this.dl_end_gmt = FoxClocks_Zone.dateStringToGmtDate(endTime);
+		this.dl_to = utils.timeZoneStringToMinOffset(this.dl_to_string);
+		this.dl_start_gmt = utils.dateStringToGmtDate(startTime);
+		this.dl_end_gmt = utils.dateStringToGmtDate(endTime);
 	}
 	
 	// AFM - lat and long - convert e.g. +0522200 to 52.366667 - no rounding
@@ -155,48 +155,6 @@ FoxClocks_Zone.prototype =
 	{			
 		return this.country_code != null ? "chrome://foxclocks/skin/flags/" + this.country_code.toLowerCase() + ".png" : "";
 	}
-}
-	
-// ====================================================================================
-FoxClocks_Zone.dateStringToGmtDate = function(dateString)
-{
-	// AFM - static utility function. No regexp for expected string...
-	// dateString eg: 2009-10-21T02:30:00-05:00
-	//
-	if (dateString == "")
-		return null;
-			
-	var zoneMinOffset = FoxClocks_Zone.timeZoneStringToMinOffset(dateString.substr(19, 5));
-	
-	var dateTimeArray = dateString.split("T");
-	var datePart = dateTimeArray[0];
-			
-	var date = new Date();
-	date.setUTCFullYear(datePart.substr(0, 4), datePart.substr(5, 2) - 1, datePart.substr(8, 2));
-		
-	if (dateTimeArray.length == 2)
-	{	
-		var timePart = dateTimeArray[1];
-		date.setUTCHours(timePart.substr(0, 2), timePart.substr(3, 2) - zoneMinOffset, timePart.substr(6, 2));
-	}
-	else
-	{
-		date.setUTCHours(0, -1 * zoneMinOffset, 0);
-	}
-		
-	return date;
-}
-
-// ====================================================================================
-FoxClocks_Zone.timeZoneStringToMinOffset = function(timeZoneString)
-{					
-	// AFM - convert e.g. timeZoneString +01:00 to +60 - static utility funtion
-		
-	var zoneMinOffset = 60 * Number(timeZoneString.substr(1, 2)) + Number(timeZoneString.substr(4, 2));
-	if (timeZoneString.substr(0, 1) != '+')
-		zoneMinOffset = -1 * zoneMinOffset;
-		
-	return zoneMinOffset;
 }
 
 // ====================================================================================

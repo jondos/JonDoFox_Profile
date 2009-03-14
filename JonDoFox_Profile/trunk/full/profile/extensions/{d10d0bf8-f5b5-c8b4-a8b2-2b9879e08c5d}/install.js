@@ -2,7 +2,7 @@
 const APP_DISPLAY_NAME = "Adblock Plus";
 const APP_NAME = "adblockplus";
 const APP_PACKAGE = "/adblockplus.mozdev.org";
-const APP_VERSION = "0.7.5.5";
+const APP_VERSION = "1.0.1";
 const WARNING = "WARNING: You need administrator privileges to install Adblock Plus. It will be installed in the application directory for all users. Installing Adblock Plus in your profile is currently not supported in SeaMonkey. Proceed with the installation?";
 const VERSION_ERROR = "This extension can only be installed in a browser based on Gecko 1.8 or higher, please upgrade your browser. Compatible browsers include Firefox 1.5, SeaMonkey 1.0 and Flock 0.5.";
 const NOT_WRITABLE_ERROR = "This extension requires write access to the application directory to install properly. Currently write access to some of the relevant subdirectories is forbidden, you probably have to log in as root before installing. After installation no elevated privileges will be necessary, read access is sufficient to use Adblock Plus."
@@ -21,11 +21,16 @@ const locales = [
 	"fi-FI",
 	"fr-FR",
 	"fy-NL",
+	"gl-ES",
 	"he-IL",
 	"hr-HR",
 	"hu-HU",
+	"hy-AM",
+	"id-ID",
+	"is-IS",
 	"it-IT",
 	"ja-JP",
+	"kk-KZ",
 	"ko-KR",
 	"lt-LT",
 	"mn-MN",
@@ -71,40 +76,6 @@ if (!incompatible) {
 }
 
 if (!incompatible && confirm(WARNING, APP_DISPLAY_NAME)) {
-	/* Pre-Install Cleanup (for prior versions) */
-	
-	// List of files to be checked
-	var checkFiles = [
-		[getFolder("Profile", "chrome"), "adblockplus.jar"],      // Profile jar
-		[getFolder("Chrome"), "adblockplus.jar"],                 // Root jar
-		[getFolder("Components"), "nsAdblockPlus.js"],            // Root component
-		[getFolder("Components"), "nsAdblockPlus.xpt"],           // Component interface
-		[getFolder("Profile", "components"), "nsAdblockPlus.js"], // Profile component
-		[getFolder("Profile"), "XUL FastLoad File"],              // XUL cache Mac Classic
-		[getFolder("Profile"), "XUL.mfast"],                      // XUL cache MacOS X
-		[getFolder("Profile"), "XUL.mfasl"],                      // XUL cache Linux
-		[getFolder("Profile"), "XUL.mfl"]                         // XUL cache Windows
-	];
-
-	// Remove any existing files
-	initInstall("pre-install", "/rename", "0.0");  // open dummy-install
-	for (var i = 0 ; i < checkFiles.length ; i++) {
-		var currentDir = checkFiles[i][0];
-		var name = checkFiles[i][1];
-		var oldFile = getFolder(currentDir, name);
-
-		// Find a name to rename the file into
-		var newName = name + "-uninstalled";
-		for (var n = 1; File.exists(oldFile) && File.exists(getFolder(currentDir, newName)); n++)
-			newName = name + n + "-uninstalled";
-	
-		if (File.exists(oldFile))
-			File.rename(oldFile, newName);
-	}
-	performInstall(); // commit renamed files
-
-	/* Main part of the installation */
-
 	var chromeType = DELAYED_CHROME;
 
 	var files = [

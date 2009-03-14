@@ -6,6 +6,7 @@ pref("tabrenamizer.autorename", false);
 pref("tabrenamizer.allbutactive", true);
 pref("tabrenamizer.useshortcutkey", true);
 pref("tabrenamizer.shortcutkey", "Z");
+pref("tabrenamizer.useshortcutkey2", true);
 pref("tabrenamizer.clicktorename", true);
 pref("tabrenamizer.clicktorenamebutton", "3");
 pref("tabrenamizer.showcustom", true);

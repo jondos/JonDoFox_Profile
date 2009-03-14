@@ -1,24 +1,38 @@
 <!ENTITY dialog.title "Add Bookmark Here ² Options">
+<!ENTITY tab.main.caption "Main">
+<!ENTITY tab.interface.caption "Interface">
+<!ENTITY tab.advanced.caption "Advanced">
 <!ENTITY position.group "Menuitem Position">
-<!ENTITY position.item.abHere "Choose [Add Bookmark Here...] position:">
+<!ENTITY position.item.abHere "Choose [Add Bookmark Here] position:">
 <!ENTITY position.item.opTabs "Choose [Open All in Tabs] position:">
 <!ENTITY position.option.top "Top">
 <!ENTITY position.option.bottom "Bottom">
 <!ENTITY position.option.hidden "Hidden">
-<!ENTITY position.misc.context "Show [Add Bookmark Here...] in Context Menu">
 <!ENTITY clicking.group "Mouse Clicking">
-<!ENTITY clicking.item.buttonL "Left-Click to:">
-<!ENTITY clicking.item.buttonM "Middle-Click to:">
-<!ENTITY clicking.item.buttonR "Right-Click to:">
+<!ENTITY clicking.item.buttonL "Left-Click:">
+<!ENTITY clicking.item.buttonM "Middle-Click:">
+<!ENTITY clicking.item.buttonR "Right-Click:">
 <!ENTITY clicking.option.bmPage "Bookmark This Page">
 <!ENTITY clicking.option.bmNoUI "Bookmark This Page (without Dialog)">
 <!ENTITY clicking.option.bmTabs "Bookmark All Tabs">
-<!ENTITY clicking.misc.insertTop "Insert Bookmarks to the Top of Menu">
-<!ENTITY starUI.group "Bookmark Star Dialog">
+<!ENTITY starUI.group "Bookmark Dialog">
 <!ENTITY starUI.expand.folderRow "Expand the Folder Tree">
 <!ENTITY starUI.expand.tagsRow "Expand the Tags List">
-<!ENTITY starUI.misc.singleClick "Single-Click the Bookmark Star to show the Dialog">
 <!ENTITY menubar.group "Bookmarks Menu">
-<!ENTITY menubar.item.abHere "Show [Add Bookmark Here...] menuitem">
+<!ENTITY menubar.item.abHere "Show [Add Bookmark Here] menuitem">
 <!ENTITY menubar.item.bmPage "Show [Bookmark This Page] menuitem">
 <!ENTITY menubar.item.bmTabs "Show [Bookmark All Tabs] menuitem">
+<!ENTITY context.group "Bookmarks Context Menu">
+<!ENTITY context.item.abHere "Show [Add Bookmark Here] menuitem">
+<!ENTITY starBtn.group "Bookmark Star">
+<!ENTITY starBtn.clicking.item.buttonL "Left-Click:">
+<!ENTITY starBtn.clicking.item.buttonM "Middle-Click:">
+<!ENTITY starBtn.clicking.item.buttonR "Right-Click:">
+<!ENTITY starBtn.clicking.option.defaultBehavior "Default Behavior">
+<!ENTITY starBtn.clicking.option.toggleMode "(Toggle)">
+<!ENTITY starBtn.clicking.option.unsortedFolder "Bookmark to Unsorted Bookmarks folder">
+<!ENTITY starBtn.clicking.option.singleClick "Show the Dialog with a Single Click">
+<!ENTITY starBtn.clicking.option.optionsDialog "Open Add Bookmark Here ² Options">
+<!ENTITY misc.group "Miscellaneous">
+<!ENTITY misc.insertTop "Insert Bookmarks to the Top of Menu">
+<!ENTITY misc.folderDrag "Allow to drag the Bookmarks Folder">
