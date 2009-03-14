@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "I">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Souligné">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "S">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Afficher le drapeau">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Drapeau">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "d">
 <!ENTITY zoneinfo.display.style.colour.caption "Couleur de l&apos;horloge des barres d&apos;état/d&apos;outils">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Couleur standard">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "d">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "jusqu&apos;à">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "j">
-<!ENTITY zoneinfo.display.flag.caption "Drapeau de la barre d&apos;état/barre d&apos;outils">
+<!ENTITY zoneinfo.display.flag.caption "Image de Drapeau">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Désactivé">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Standard">

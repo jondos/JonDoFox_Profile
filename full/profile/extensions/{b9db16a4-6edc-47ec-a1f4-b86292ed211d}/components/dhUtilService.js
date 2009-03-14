@@ -1,9 +1,5 @@
 /******************************************************************************
- *
- * This code belongs to its author. All rights reserved.
- *
- * Author    : michel.gutierrez@gmail.com
- *
+ *            Copyright (c) 2006-2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
 /**
@@ -327,6 +323,11 @@ UtilService.prototype.dumpDatasource=function(ds) {
 			}
 		}
 	}
+}
+
+UtilService.prototype.exceptionDesc=function(e) {
+	e=e.QueryInterface(Components.interfaces.nsIException);
+	return e.message+" "+e.filename+":"+e.lineNumber;
 }
 
 UtilService.prototype.getDatasource=function(tree) {
@@ -852,6 +853,28 @@ UtilService.prototype.setUnicharPref = function(pref, prefName, value) {
 	//dump("setUnicharPref("+prefName+"): done - check="+this.getUnicharPref(pref,prefName,null)+"\n");
 }
 
+UtilService.prototype.getStringSupport = function(str) {
+	var strSupport=Components.classes["@mozilla.org/supports-string;1"].
+		createInstance(Components.interfaces.nsISupportsString);
+	strSupport.data=str;
+	return strSupport;
+}
+
+UtilService.prototype.setPropsString = function(props, key, value) {
+	var strSupport=Components.classes["@mozilla.org/supports-string;1"].
+		createInstance(Components.interfaces.nsISupportsString);
+	strSupport.data=value;
+	props.set(key,strSupport);
+}
+
+UtilService.prototype.getPropsString = function(props, key) {
+	try {
+		var value=props.get(key,Components.interfaces.nsISupportsString);
+		if(value)
+			return value.toString();
+	} catch(e) {}
+	return null;
+}
 
 UtilService.prototype.QueryInterface = function(iid) {
     if (!iid.equals(Components.interfaces.nsISupports) && 

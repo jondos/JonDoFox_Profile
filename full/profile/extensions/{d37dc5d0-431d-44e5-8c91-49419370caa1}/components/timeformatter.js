@@ -158,12 +158,24 @@ FoxClocks_TimeFormatter.prototype =
 	// ====================================================================================
 	getTimeStringFromFormat : function(location, date, formatString)
 	{
-		// AFM - could be static, but it's not clear to me how to call static methods in a component
-		//
 		var formatArray = FoxClocks_TimeFormatter._createFormatArray(formatString);
 		return FoxClocks_TimeFormatter._getTimeString(location, date, formatArray);
 	},
 
+	// ====================================================================================
+	getUTCTimeStringFromFormat : function(date, formatString)
+	{
+		var formatArray = FoxClocks_TimeFormatter._createFormatArray(formatString);
+		return FoxClocks_TimeFormatter._getTimeString(null, date, formatArray, false);
+	},
+
+		// ====================================================================================
+	getLocalTimeStringFromFormat : function(date, formatString)
+	{
+		var formatArray = FoxClocks_TimeFormatter._createFormatArray(formatString);
+		return FoxClocks_TimeFormatter._getTimeString(null, date, formatArray, true);
+	},
+	
 	// ====================================================================================
 	setTimeFormat : function(formatString)
 	{
@@ -248,11 +260,18 @@ FoxClocks_TimeFormatter.prototype =
 };
 
 // ====================================================================================
-FoxClocks_TimeFormatter._getTimeString = function(location, date, formatArray)
+FoxClocks_TimeFormatter._getTimeString = function(location, date, formatArray, defaultToLocal)
 {	
-	var displayDate = location ? location.zone.currDisplayDate(date) : date;
-	var timeString = "";
+	var displayDate = null;
 	
+	if (location != null)
+		displayDate = location.zone.currDisplayDate(date);
+	else if (defaultToLocal == true)
+		displayDate = new Date(date.getTime() - date.getTimezoneOffset()*1000*60);
+	else
+		displayDate = date;
+	
+	var timeString = "";
 	for (var i=0; i < formatArray.length; i++)
 	{
 		// AFM - pass in the original date for things like FC_FormatZoneName.dateToZoneName

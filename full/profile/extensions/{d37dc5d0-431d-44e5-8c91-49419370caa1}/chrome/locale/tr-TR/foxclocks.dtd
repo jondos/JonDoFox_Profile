@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "E">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Altı Çizili">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "A">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Bayrak Göster">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Bayrak">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "B">
 <!ENTITY zoneinfo.display.style.colour.caption "Durum Ç./Araç Ç. saat rengi">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Standart renk">

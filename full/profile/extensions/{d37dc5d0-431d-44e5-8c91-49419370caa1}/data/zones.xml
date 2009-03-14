@@ -1,7 +1,7 @@
 <zones xmlns="http://www.stemhaus.com/firefox/foxclocks/zones" version="1.1">
 	<Source id="ftp://elsie.nci.nih.gov/pub/" name="tz database">
-		<Version>2008e-1</Version>
-		<Date>2008-09-02</Date>
+		<Version>2008i</Version>
+		<Date>2008-10-27</Date>
 	</Source>
 	<Year>2008</Year>
 	<ZoneList>
@@ -326,7 +326,7 @@
 			<Comments lang="en">Buenos Aires (BA, CF)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Catamarca">
@@ -334,24 +334,18 @@
 			<Country code="AR"/>
 			<Comments lang="en">Catamarca (CT), Chubut (CH)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/ComodRivadavia" deprecated="true">
 			<AliasFor>America/Argentina/Catamarca</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Cordoba">
 			<Coordinates latitude="-0312400" longitude="-0641100"/>
 			<Country code="AR"/>
-			<Comments lang="en">most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)</Comments>
+			<Comments lang="en">most locations (CB, CC, CN, ER, FM, MN, SE, SF)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Jujuy">
@@ -359,45 +353,36 @@
 			<Country code="AR"/>
 			<Comments lang="en">Jujuy (JY)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/La_Rioja">
 			<Coordinates latitude="-0292600" longitude="-0665100"/>
 			<Country code="AR"/>
 			<Comments lang="en">La Rioja (LR)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Mendoza">
 			<Coordinates latitude="-0325300" longitude="-0684900"/>
 			<Country code="AR"/>
 			<Comments lang="en">Mendoza (MZ)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Rio_Gallegos">
 			<Coordinates latitude="-0513800" longitude="-0691300"/>
 			<Country code="AR"/>
 			<Comments lang="en">Santa Cruz (SC)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
+		</Zone>
+		<Zone id="America/Argentina/Salta">
+			<Coordinates latitude="-0244700" longitude="-0652500"/>
+			<Country code="AR"/>
+			<Comments lang="en">(SA, LP, NQ, RN)</Comments>
+			<StandardTime offset="-03:00" tzname="ART"/>
 		</Zone>
 		<Zone id="America/Argentina/San_Juan">
 			<Coordinates latitude="-0313200" longitude="-0683100"/>
 			<Country code="AR"/>
 			<Comments lang="en">San Juan (SJ)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/San_Luis">
 			<Coordinates latitude="-0331900" longitude="-0662100"/>
@@ -411,7 +396,7 @@
 			<Comments lang="en">Tucuman (TM)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Ushuaia">
@@ -419,9 +404,6 @@
 			<Country code="AR"/>
 			<Comments lang="en">Tierra del Fuego (TF)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Aruba">
 			<Coordinates latitude="+0123000" longitude="-0695800"/>
@@ -501,7 +483,7 @@
 			<AliasFor>America/Argentina/Buenos_Aires</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Cambridge_Bay">
@@ -519,7 +501,7 @@
 			<Comments lang="en">Mato Grosso do Sul</Comments>
 			<StandardTime offset="-04:00" tzname="AMT"/>
 			<DaylightTime offset="-03:00" tzname="AMST">
-				<Start>2008-10-12T00:00:00-04:00</Start><End>2008-02-17T00:00:00-03:00</End>
+				<Start>2008-10-19T00:00:00-04:00</Start><End>2008-02-17T00:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Cancun">
@@ -539,9 +521,6 @@
 		<Zone id="America/Catamarca" deprecated="true">
 			<AliasFor>America/Argentina/Catamarca</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Cayenne">
 			<Coordinates latitude="+0045600" longitude="-0522000"/>
@@ -579,7 +558,7 @@
 			<AliasFor>America/Argentina/Cordoba</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Costa_Rica">
@@ -593,7 +572,7 @@
 			<Comments lang="en">Mato Grosso</Comments>
 			<StandardTime offset="-04:00" tzname="AMT"/>
 			<DaylightTime offset="-03:00" tzname="AMST">
-				<Start>2008-10-12T00:00:00-04:00</Start><End>2008-02-17T00:00:00-03:00</End>
+				<Start>2008-10-19T00:00:00-04:00</Start><End>2008-02-17T00:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Curacao">
@@ -781,7 +760,7 @@
 		<Zone id="America/Indiana/Knox">
 			<Coordinates latitude="+0411745" longitude="-0863730"/>
 			<Country code="US"/>
-			<Comments lang="en">Eastern Time - Indiana - Starke County</Comments>
+			<Comments lang="en">Central Time - Indiana - Starke County</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
 				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
@@ -799,7 +778,7 @@
 		<Zone id="America/Indiana/Petersburg">
 			<Coordinates latitude="+0382931" longitude="-0871643"/>
 			<Country code="US"/>
-			<Comments lang="en">Central Time - Indiana - Pike County</Comments>
+			<Comments lang="en">Eastern Time - Indiana - Pike County</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
 				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
@@ -874,9 +853,6 @@
 		<Zone id="America/Jujuy" deprecated="true">
 			<AliasFor>America/Argentina/Jujuy</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Juneau">
 			<Coordinates latitude="+0581807" longitude="-1342511"/>
@@ -978,9 +954,6 @@
 		<Zone id="America/Mendoza" deprecated="true">
 			<AliasFor>America/Argentina/Mendoza</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
-			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="America/Menominee">
 			<Coordinates latitude="+0450628" longitude="-0873651"/>
@@ -1212,7 +1185,7 @@
 			<AliasFor>America/Argentina/Cordoba</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-05T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Santarem">
@@ -1241,7 +1214,7 @@
 			<Comments lang="en">S &amp; SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)</Comments>
 			<StandardTime offset="-03:00" tzname="BRT"/>
 			<DaylightTime offset="-02:00" tzname="BRST">
-				<Start>2008-10-12T00:00:00-03:00</Start><End>2008-02-17T00:00:00-02:00</End>
+				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-02-17T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Scoresbysund">
@@ -1604,7 +1577,7 @@
 			<Country code="SY"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-04-04T00:00:00+02:00</Start><End>2008-10-01T00:00:00+03:00</End>
+				<Start>2008-04-04T00:00:00+02:00</Start><End>2008-11-01T00:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Dhaka">
@@ -1632,7 +1605,7 @@
 			<Country code="PS"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-04-01T00:00:00+02:00</Start><End>2008-09-11T02:00:00+03:00</End>
+				<Start>2008-04-01T00:00:00+02:00</Start><End>2008-08-28T02:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Harbin">
@@ -1712,7 +1685,7 @@
 			<Country code="PK"/>
 			<StandardTime offset="+05:00" tzname="PKT"/>
 			<DaylightTime offset="+06:00" tzname="PKST">
-				<Start>2008-06-01T00:00:00+05:00</Start><End>2008-09-01T00:00:00+06:00</End>
+				<Start>2008-06-01T00:00:00+05:00</Start><End>2008-11-01T00:00:00+06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Kashgar">
@@ -2269,7 +2242,7 @@
 			<AliasFor>America/Sao_Paulo</AliasFor>
 			<StandardTime offset="-03:00" tzname="BRT"/>
 			<DaylightTime offset="-02:00" tzname="BRST">
-				<Start>2008-10-12T00:00:00-03:00</Start><End>2008-02-17T00:00:00-02:00</End>
+				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-02-17T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Brazil/West" deprecated="true">
@@ -3079,7 +3052,7 @@
 			<Country code="MU"/>
 			<StandardTime offset="+04:00" tzname="MUT"/>
 			<DaylightTime offset="+05:00" tzname="MUST">
-				<Start>2008-10-26T02:00:00+04:00</Start><End>2009-03-27T02:00:00+04:00</End>
+				<Start>2008-10-26T02:00:00+04:00</Start><End>2009-03-29T02:00:00+04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Indian/Mayotte">
@@ -3323,7 +3296,7 @@
 			<StandardTime offset="+12:00" tzname="NRT"/>
 		</Zone>
 		<Zone id="Pacific/Niue">
-			<Coordinates latitude="-0190100" longitude="+1695500"/>
+			<Coordinates latitude="-0190100" longitude="-1695500"/>
 			<Country code="NU"/>
 			<StandardTime offset="-11:00" tzname="NUT"/>
 		</Zone>

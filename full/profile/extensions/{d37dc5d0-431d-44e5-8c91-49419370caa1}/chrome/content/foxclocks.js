@@ -650,7 +650,7 @@ FoxClocks.prototype =
 		{
 			if (data == "engine:zone-data-update-complete")
 			{
-				if (subject.wrappedJSObject.lastUpdateResult == "OK_NEW")
+				if (subject.wrappedJSObject.lastUpdateResult.result == "OK_NEW")
 				{
 					this.populateZonePicker();
 					this.populateWatchlist();
@@ -1021,15 +1021,27 @@ FoxClocks.prototype =
 	// ====================================================================================
 	onDragOver: function(event, flavour, session)
 	{
-		// fc_gLogger.log("+FoxClocks::onDragOver():" + event.target.getAttribute("id"));
+		// fc_gLogger.log("+FoxClocks::onDragOver(): " + event.target.getAttribute("id"));
+		
+		this.removeDropIndicator();
+		this.watchlistDropAtIndex = null;
 		
 		session.canDrop = false; // AFM - unless we can show otherwise
-		this.removeDropIndicator();
 		
 		// AFM - Watchlist row we're currently over
 		//
-		var row = {}, col = {}, childElt = {}; 
-	    this.watchlistTree.boxObject.getCellAt(event.clientX, event.clientY, row, col, childElt);
+		var row = {}, col = {}, childElt = {};
+
+		// AFM - handle weird Firefox 3.1 beta bug
+		//
+		if (this.watchlistTree.boxObject == null || this.watchlistTree.boxObject.getCellAt == null)
+		{
+			fc_gLogger.log("FoxClocks::onDragOver(): getCellAt() not available");
+			session.canDrop = true;
+			return;
+		}
+		
+		this.watchlistTree.boxObject.getCellAt(event.clientX, event.clientY, row, col, childElt);
 			    					
 		var fromWatchlist = flavour.contentType == "foxclocks/watchlist";
 		var toWatchlist = event.target.getAttribute("id") == "fc-watchlist-treechildren-root";
@@ -1158,7 +1170,6 @@ FoxClocks.prototype =
 		fc_gLogger.log("+FoxClocks::onDragExit()");
 		
 		this.removeDropIndicator();
-		this.watchlistDropAtIndex = null;
 		
 		fc_gLogger.log("-FoxClocks::onDragExit()");	
 	},
@@ -1167,8 +1178,6 @@ FoxClocks.prototype =
 	onDrop: function(event, dropdata, session)
 	{
 		fc_gLogger.log("+FoxClocks::onDrop()");
-		
-		this.removeDropIndicator();
 
 		var fromWatchlist = dropdata.data == "foxclocks/watchlist";
 		var toWatchlist = event.target.getAttribute("id") == "fc-watchlist-treechildren-root";
@@ -1179,6 +1188,9 @@ FoxClocks.prototype =
 			this.onRemoveCmd();
 		else if (fromWatchlist && toWatchlist)
 			this.moveInWatchlist(this.watchlistDropAtIndex);
+
+		this.removeDropIndicator();
+		this.watchlistDropAtIndex = null;
 		
 		fc_gLogger.log("-FoxClocks::onDrop()");
 	},

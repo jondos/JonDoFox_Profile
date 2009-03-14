@@ -6,6 +6,7 @@ locale  performancing   en-US            jar:chrome/performancing.jar!/locale/en
 locale  performancing   bg-BG            jar:chrome/performancing.jar!/locale/bg-BG/
 locale  performancing   cs-CZ            jar:chrome/performancing.jar!/locale/cs-CZ/
 locale  performancing   de-DE            jar:chrome/performancing.jar!/locale/de-DE/
+locale  performancing   el-GR            jar:chrome/performancing.jar!/locale/el-GR/
 locale  performancing   es-ES            jar:chrome/performancing.jar!/locale/es-ES/
 locale  performancing   fi-FI            jar:chrome/performancing.jar!/locale/fi-FI/
 locale  performancing   fr-FR            jar:chrome/performancing.jar!/locale/fr-FR/

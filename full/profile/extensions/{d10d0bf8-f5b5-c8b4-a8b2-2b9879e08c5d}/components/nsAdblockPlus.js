@@ -43,11 +43,16 @@ const locales = [
 	"fi-FI",
 	"fr-FR",
 	"fy-NL",
+	"gl-ES",
 	"he-IL",
 	"hr-HR",
 	"hu-HU",
+	"hy-AM",
+	"id-ID",
+	"is-IS",
 	"it-IT",
 	"ja-JP",
+	"kk-KZ",
 	"ko-KR",
 	"lt-LT",
 	"mn-MN",
@@ -73,13 +78,16 @@ const locales = [
 
 const loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
 												 .getService(Components.interfaces.mozIJSSubScriptLoader);
+const ioService = Components.classes["@mozilla.org/network/io-service;1"]
+														.getService(Components.interfaces.nsIIOService);
 
 /*
  * Module object
  */
 
 const module = {
-	registerSelf: function(compMgr, fileSpec, location, type) {
+	registerSelf: function(compMgr, fileSpec, location, type)
+	{
 		compMgr = compMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
 		compMgr.registerFactoryLocation(ABP_CID, 
 										"Adblock content policy",
@@ -99,7 +107,8 @@ const module = {
 							ABP_CONTRACTID, true, true);
 	},
 
-	unregisterSelf: function(compMgr, fileSpec, location) {
+	unregisterSelf: function(compMgr, fileSpec, location)
+	{
 		compMgr = compMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
 
 		compMgr.unregisterFactoryLocation(ABP_CID, fileSpec);
@@ -109,7 +118,8 @@ const module = {
 		catman.deleteCategoryEntry("content-policy", ABP_CONTRACTID, true);
 	},
 
-	getClassObject: function(compMgr, cid, iid) {
+	getClassObject: function(compMgr, cid, iid)
+	{
 		if (!cid.equals(ABP_CID) && !cid.equals(ABP_PROT_CID))
 			throw Components.results.NS_ERROR_NO_INTERFACE;
 
@@ -119,12 +129,14 @@ const module = {
 		return factory;
 	},
 
-	canUnload: function(compMgr) {
+	canUnload: function(compMgr)
+	{
 		return true;
 	}
 };
 
-function NSGetModule(comMgr, fileSpec) {
+function NSGetModule(comMgr, fileSpec)
+{
 	return module;
 }
 
@@ -135,7 +147,8 @@ function NSGetModule(comMgr, fileSpec) {
 var initialized = false;
 const factory = {
 	// nsIFactory interface implementation
-	createInstance: function(outer, iid) {
+	createInstance: function(outer, iid)
+	{
 		if (outer != null)
 			throw Components.results.NS_ERROR_NO_AGGREGATION;
 
@@ -146,7 +159,8 @@ const factory = {
 	},
 
 	// nsISupports interface implementation
-	QueryInterface: function(iid) {
+	QueryInterface: function(iid)
+	{
 		if (iid.equals(Components.interfaces.nsISupports) ||
 				iid.equals(Components.interfaces.nsIFactory))
 			return this;
@@ -171,11 +185,13 @@ var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1
 															 .getService(Components.interfaces.nsIWindowMediator);
 var windowWatcher= Components.classes["@mozilla.org/embedcomp/window-watcher;1"]
 														 .getService(Components.interfaces.nsIWindowWatcher);
-try {
+try
+{
 	var headerParser = Components.classes["@mozilla.org/messenger/headerparser;1"]
 															 .getService(Components.interfaces.nsIMsgHeaderParser);
 }
-catch(e) {
+catch(e)
+{
 	headerParser = null;
 }
 
@@ -183,12 +199,14 @@ catch(e) {
  * Content policy class definition
  */
 
-const abp = {
+const abp =
+{
 	//
 	// nsISupports interface implementation
 	//
 
-	QueryInterface: function(iid) {
+	QueryInterface: function(iid)
+	{
 		if (iid.equals(Components.interfaces.nsIContentPolicy))
 			return policy;
 
@@ -207,250 +225,303 @@ const abp = {
 	},
 
 	//
-	// nsIAdblockPlus interface implementation
+	// IAdblockPlus interface implementation
 	//
 
-	// Return current subscription count
-	get subscriptionCount() {
-		return prefs.subscriptions.length;
+	/**
+	 * Returns current subscription count
+	 * @type Integer
+	 */
+	get subscriptionCount()
+	{
+		return filterStorage.subscriptions.length;
 	},
 
-	// Retrieves a subscription
-	getSubscription: function(id) {
-		if (!(id in prefs.knownSubscriptions))
+	/**
+	 * Wraps a subscription into IAdblockPlusSubscription structure.
+	 */
+	_getSubscriptionWrapper: function(/**Subscription*/ subscription) /**IAdblockPlusSubscription*/
+	{
+		if (!subscription)
 			return null;
 
-		return prefs.knownSubscriptions[id];
-	},
-
-	// Retrieves a subscription by list index
-	getSubscriptionAt: function(index) {
-		if (index < 0 || index >= prefs.subscriptions.length)
-			return null;
-
-		return prefs.subscriptions[index];
-	},
-
-	// Updates an external subscription and creates it if necessary
-	updateExternalSubscription: function(id, title, patterns, length) {
-		var subscription;
-		if (id in prefs.knownSubscriptions)
-			subscription = prefs.knownSubscriptions[id];
-		else
-			subscription = prefs.createExternalSubscription(id, title);
-
-		if (!subscription.external)
-			return false;
-
-		subscription.lastDownload = subscription.lastSuccess = parseInt(new Date().getTime() / 1000);
-		subscription.downloadStatus = "synchronize_ok";
-		subscription.patterns = [];
-		for (var i = 0; i < patterns.length; i++) {
-			var pattern = prefs.patternFromText(patterns[i]);
-			if (pattern)
-				subscription.patterns.push(pattern);
-		}
-
-		var found = false;
-		for (i = 0; i < prefs.subscriptions.length; i++)
-			if (prefs.subscriptions[i] == subscription)
-				found = true;
-
-		if (!found)
-			prefs.subscriptions.push(subscription);
-
-		prefs.initMatching();
-		prefs.savePatterns();
-		synchronizer.notifyListeners(subscription, "add");
-
-		return true;
-	},
-
-	removeExternalSubscription: function(id) {
-		var index = -1;
-		for (var i = 0; index < 0 && i < prefs.subscriptions.length; i++)
-			if (prefs.subscriptions[i].url == id)
-				index = i;
-
-		if (index < 0 || !prefs.subscriptions[index].external)
-			return false;
-		
-		synchronizer.notifyListeners(prefs.subscriptions[index], "remove");
-
-		prefs.subscriptions.splice(index, 1);
-		prefs.initMatching();
-		prefs.savePatterns();
-
-		return true;
-	},
-
-	addPatterns: function(patterns, length) {
-		for (var i = 0; i < patterns.length; i++) {
-			var text = patterns[i];
-			var found = false;
-			for (var j = 0; j < prefs.userPatterns.length; j++)
-				if (prefs.userPatterns[j].text == text)
-					found = true;
-
-			if (!found) {
-				var pattern = prefs.patternFromText(text);
-				if (pattern)
-					prefs.userPatterns.push(pattern);
+		return {
+			url: subscription.url,
+			special: subscription instanceof SpecialSubscription,
+			title: subscription.title,
+			autoDownload: subscription instanceof DownloadableSubscription && subscription.autoDownload,
+			disabled: subscription.disabled,
+			external: subscription instanceof ExternalSubscription,
+			lastDownload: subscription instanceof RegularSubscription ? subscription.lastDownload : 0,
+			downloadStatus: subscription instanceof DownloadableSubscription ? subscription.downloadStatus : "synchronize_ok",
+			lastModified: subscription instanceof DownloadableSubscription ? subscription.lastModified : null,
+			expires: subscription instanceof DownloadableSubscription ? subscription.expires : 0,
+			getPatterns: function(length)
+			{
+				let result = subscription.filters.map(function(filter)
+				{
+					return filter.text;
+				});
+				if (typeof length == "object")
+					length.value = result.length;
+				return result;
 			}
+		};
+	},
+
+	/**
+	 * Gets a subscription by its URL
+	 */
+	getSubscription: function(/**String*/ id) /**IAdblockPlusSubscription*/
+	{
+		if (id in filterStorage.knownSubscriptions)
+			return this._getSubscriptionWrapper(filterStorage.knownSubscriptions[id]);
+
+		return null;
+	},
+
+	/**
+	 * Gets a subscription by its position in the list
+	 */
+	getSubscriptionAt: function(/**Integer*/ index) /**IAdblockPlusSubscription*/
+	{
+		if (index < 0 || index >= filterStorage.subscriptions.length)
+			return null;
+
+		return this._getSubscriptionWrapper(filterStorage.subscriptions[index]);
+	},
+
+	/**
+	 * Updates an external subscription and creates it if necessary
+	 */
+	updateExternalSubscription: function(/**String*/ id, /**String*/ title, /**Array of Filter*/ filters, /**Integer*/ length) /**Boolean*/
+	{
+		if (id == "Filterset.G" && this.denyFiltersetG)
+			return false;
+
+		try
+		{
+			// Don't allow valid URLs as IDs for external subscriptions
+			if (ioService.newURI(id, null, null))
+				return false;
+		} catch (e) {}
+
+		let subscription = Subscription.fromURL(id);
+		if (!subscription)
+			subscription = new ExternalSubscription(id, title);
+
+		if (!(subscription instanceof ExternalSubscription))
+			return false;
+
+		subscription.lastDownload = parseInt(new Date().getTime() / 1000);
+
+		let newFilters = [];
+		for each (let filter in filters)
+		{
+			filter = Filter.fromText(normalizeFilter(filter));
+			if (filter)
+				newFilters.push(filter);
 		}
-	
-		synchronizer.notifyListeners(patterns, "add");
 
-		prefs.initMatching();
-		prefs.savePatterns();
-	},
-
-	removePatterns: function(patterns, length) {
-		for (var i = 0; i < patterns.length; i++) {
-			var text = patterns[i];
-			for (var j = 0; j < prefs.userPatterns.length; j++)
-				if (prefs.userPatterns[j].text == text)
-					prefs.userPatterns.splice(j--, 1);
+		if (id in filterStorage.knownSubscriptions)
+			filterStorage.updateSubscriptionFilters(subscription, newFilters);
+		else
+		{
+			subscription.filters = newFilters;
+			filterStorage.addSubscription(subscription);
 		}
-	
-		synchronizer.notifyListeners(patterns, "remove");
+		filterStorage.saveToDisk();
 
-		prefs.initMatching();
-		prefs.savePatterns();
+		return true;
 	},
 
-	// Allows an address to be loaded once regardless the filters
-	allowOnce: function(address) {
-		policy.allowOnce = address;
+	/**
+	 * Removes an external subscription by its identifier
+	 */
+	removeExternalSubscription: function(/**String*/ id) /**Boolean*/
+	{
+		if (!(id in filterStorage.knownSubscriptions && filterStorage.knownSubscriptions[id] instanceof ExternalSubscription))
+			return false;
+
+		filterStorage.removeSubscription(filterStorage.knownSubscriptions[id]);
+		return true;
 	},
 
-	// Returns installed Adblock Plus version
-	getInstalledVersion: function() {
-		return "0.7.5.5";
+	/**
+	 * Adds user-defined filters to the list
+	 */
+	addPatterns: function(/**Array of String*/ filters, /**Integer*/ length)
+	{
+		for each (let filter in filters)
+		{
+			filter = Filter.fromText(normalizeFilter(filter));
+			if (filter)
+				filterStorage.addFilter(filter);
+		}
+		filterStorage.saveToDisk();
+	},
+
+	/**
+	 * Removes user-defined filters from the list
+	 */
+	removePatterns: function(/**Array of String*/ filters, /**Integer*/ length)
+	{
+		for each (let filter in filters)
+		{
+			filter = Filter.fromText(normalizeFilter(filter));
+			if (filter)
+				filterStorage.removeFilter(filter);
+		}
+		filterStorage.saveToDisk();
+	},
+
+	/**
+	 * Returns installed Adblock Plus version
+	 */
+	getInstalledVersion: function() /**String*/
+	{
+		return "1.0.1";
 	},
 
 	//
 	// Custom methods
 	//
 
-	// Adds a new subscription to the list
-	addSubscription: function(url, title, autoDownload, disabled) {
+	/**
+	 * If true, incoming updates for Filterset.G should be rejected.
+	 */
+	denyFiltersetG: false,
+
+	/**
+	 * Adds a new subscription to the list or changes the parameters of
+	 * an existing filter subscription.
+	 */
+	addSubscription: function(/**String*/ url, /**String*/ title, /**Boolean*/ autoDownload, /**Boolean*/ disabled)
+	{
 		if (typeof autoDownload == "undefined")
 			autoDownload = true;
 		if (typeof disabled == "undefined")
 			disabled = false;
 
-		var subscription = (url in prefs.knownSubscriptions ? prefs.knownSubscriptions[url] : prefs.subscriptionFromURL(url));
+		let subscription = Subscription.fromURL(url);
 		if (!subscription)
 			return;
 
-		var found = false;
-		for (var j = 0; j < prefs.subscriptions.length; j++)
-			if (prefs.subscriptions[j] == subscription)
-				found = true;
+		filterStorage.addSubscription(subscription);
 
-		if (found)
-			return;
-
-		subscription.title = title;
-		subscription.disabled = disabled;
-		subscription.autoDownload = autoDownload;
-		prefs.subscriptions.push(subscription);
-
-		synchronizer.notifyListeners(subscription, "add");
-		synchronizer.execute(subscription);
-
-		prefs.savePatterns();
-	},
-
-	// Returns update item for Adblock Plus (only when extension manager is available)
-	getUpdateItem: function() {
-		if (!("@mozilla.org/extensions/manager;1" in Components.classes))
-			return null;
-
-		var extensionManager = Components.classes["@mozilla.org/extensions/manager;1"]
-																		.getService(Components.interfaces.nsIExtensionManager);
-
-		// FF 1.1+
-		if ('getItemForID' in extensionManager)
-			return extensionManager.getItemForID(ABP_EXTENSION_ID);
-
-		// FF 1.0
-		var itemList = extensionManager.getItemList(ABP_EXTENSION_ID, Components.interfaces.nsIUpdateItem.TYPE_EXTENSION, {});
-		if (itemList && itemList.length > 0)
-			return itemList[0];
-
-		return null;
-	},
-
-	// Retrieves settings dialog if it is currently open
-	getSettingsDialog: function() {
-		return windowMediator.getMostRecentWindow("abp:settings");
-	},
-
-	// Opens preferences dialog for the supplied window and filter suggestion
-	openSettingsDialog: function(insecWnd, location, filter) {
-		var dlg = this.getSettingsDialog();
-		var func = function() {
-			dlg.setContentWindow(insecWnd);
-			if (typeof location != "undefined" && location)
-				dlg.setLocation(location);
-			if (typeof filter != "undefined" && filter)
-				dlg.selectPattern(filter);
+		if (disabled != subscription.disabled)
+		{
+			subscription.disabled = disabled;
+			filterStorage.triggerSubscriptionObservers(disabled ? "disable" : "enable", [subscription]);
 		}
 
-		if (dlg) {
+		subscription.title = title;
+		if (subscription instanceof DownloadableSubscription)
+			subscription.autoDownload = autoDownload;
+		filterStorage.triggerSubscriptionObservers("updateinfo", [subscription]);
+
+		if (subscription instanceof DownloadableSubscription && !subscription.lastDownload)
+			synchronizer.execute(subscription);
+		filterStorage.saveToDisk();
+	},
+
+	/**
+	 * Opens preferences dialog or focused already open dialog.
+	 * @param {String} location  (optional) filter suggestion
+	 * @param {Filter} filter    (optional) filter to be selected
+	 */
+	openSettingsDialog: function(location, filter)
+	{
+		var dlg = windowMediator.getMostRecentWindow("abp:settings");
+		var func = function()
+		{
+			if (typeof location == "string")
+				dlg.setLocation(location);
+			if (filter instanceof Filter)
+				dlg.selectFilter(filter);
+		}
+
+		if (dlg)
+		{
 			func();
 
-			try {
+			try
+			{
 				dlg.focus();
 			}
-			catch (e) {
+			catch (e)
+			{
 				// There must be some modal dialog open
-				dlg = windowMediator.getMostRecentWindow("abp:subscription");
-				if (!dlg)
-					dlg = windowMediator.getMostRecentWindow("abp:about");
-
+				dlg = windowMediator.getMostRecentWindow("abp:subscription") || windowMediator.getMostRecentWindow("abp:about");
 				if (dlg)
 					dlg.focus();
 			}
 		}
-		else {
+		else
+		{
 			dlg = windowWatcher.openWindow(null, "chrome://adblockplus/content/settings.xul", "_blank", "chrome,centerscreen,resizable,dialog=no", null);
 			dlg.addEventListener("post-load", func, false);
 		}
 	},
 
-	// Loads a URL in the browser window
-	loadInBrowser: function(url) {
-		var currentWindow = windowMediator.getMostRecentWindow("navigator:browser") || windowMediator.getMostRecentWindow("emusic:window");
-		if (currentWindow) {
-			try {
-				currentWindow.delayedOpenTab(url);
+	/**
+	 * Opens a URL in the browser window. If browser window isn't passed as parameter,
+	 * this function attempts to find a browser window.
+	 */
+	loadInBrowser: function(/**String*/ url, /**Window*/ currentWindow)
+	{
+		currentWindow = currentWindow ||
+										windowMediator.getMostRecentWindow("navigator:browser") ||
+										windowMediator.getMostRecentWindow("Songbird:Main") ||
+										windowMediator.getMostRecentWindow("emusic:window");
+		function tryWindowMethod(method, parameters)
+		{
+			if (!currentWindow)
+				return false;
+
+			try
+			{
+				currentWindow[method].apply(currentWindow, parameters);
 			}
-			catch(e) {
-				currentWindow.loadURI(url);
+			catch(e)
+			{
+				return false;
 			}
+
+			try
+			{
+				currentWindow.focus();
+			} catch(e) {}
+			return true;
 		}
-		else {
-			var protocolService = Components.classes["@mozilla.org/uriloader/external-protocol-service;1"]
-																			.getService(Components.interfaces.nsIExternalProtocolService);
-			var uri = Components.classes["@mozilla.org/network/io-service;1"]
-													.getService(Components.interfaces.nsIIOService)
-													.newURI(url, null, null);
-			protocolService.loadURI(uri, null);
-		}
+
+		if (tryWindowMethod("delayedOpenTab", [url]))
+			return;
+		if (tryWindowMethod("openUILinkIn", [url, "tab"]))
+			return;
+		if (tryWindowMethod("loadURI", [url]))
+			return;
+
+		var protocolService = Components.classes["@mozilla.org/uriloader/external-protocol-service;1"]
+																		.getService(Components.interfaces.nsIExternalProtocolService);
+		protocolService.loadURI(makeURL(url), null);
 	},
 
 	params: null,
 
-	// Saves sidebar state before detaching/reattaching
-	setParams: function(params) {
+	/**
+	 * Saves sidebar state before detaching/reattaching
+	 */
+	setParams: function(params)
+	{
 		this.params = params;
 	},
 
-	// Retrieves sidebar state
-	getParams: function() {
+	/**
+	 * Retrieves and removes sidebar state after detaching/reattaching
+	 */
+	getParams: function()
+	{
 		var ret = this.params;
 		this.params = null;
 		return ret;
@@ -465,27 +536,34 @@ abp.wrappedJSObject = abp;
  */
 
 // Initialization and registration
-function init() {
+function init()
+{
 	initialized = true;
 
-	if ("nsIChromeRegistrySea" in Components.interfaces) {
+
+	if ("nsIChromeRegistrySea" in Components.interfaces)
+	{
 		// Autoregister chrome in SeaMonkey
 		var registry = Components.classes["@mozilla.org/chrome/chrome-registry;1"]
 														 .getService(Components.interfaces.nsIChromeRegistrySea);
 
-		try {
+		try
+		{
 			registry.installPackage("jar:resource:/chrome/adblockplus.jar!/content/", false);
 		} catch(e) {}
 
-		try {
+		try
+		{
 			registry.installSkin("jar:resource:/chrome/adblockplus.jar!/skin/classic/", false, true);
 		} catch(e) {}
 
-		for (var i = 0; i < locales.length; i++) {
+		for (var i = 0; i < locales.length; i++)
+		{
 			if (!locales[i])
 				continue;
 
-			try {
+			try
+			{
 				registry.installLocale("jar:resource:/chrome/adblockplus.jar!/locale/" + locales[i] + "/", false);
 			} catch(e) {}
 		}
@@ -495,52 +573,51 @@ function init() {
 																		.createInstance(Components.interfaces.nsIVersionComparator);
 
 	loader.loadSubScript('chrome://adblockplus/content/utils.js');
+	loader.loadSubScript('chrome://adblockplus/content/filterClasses.js');
+	loader.loadSubScript('chrome://adblockplus/content/subscriptionClasses.js');
+	loader.loadSubScript('chrome://adblockplus/content/filterStorage.js');
+	loader.loadSubScript('chrome://adblockplus/content/matcher.js');
+	loader.loadSubScript('chrome://adblockplus/content/elemhide.js');
+	loader.loadSubScript('chrome://adblockplus/content/filterListener.js');
 	loader.loadSubScript('chrome://adblockplus/content/protocol.js');
 	loader.loadSubScript('chrome://adblockplus/content/policy.js');
 	loader.loadSubScript('chrome://adblockplus/content/data.js');
 	loader.loadSubScript('chrome://adblockplus/content/prefs.js');
 	loader.loadSubScript('chrome://adblockplus/content/synchronizer.js');
 	loader.loadSubScript('chrome://adblockplus/content/flasher.js');
+	
 
-	// Clean up uninstalled files
-	var dirService = Components.classes["@mozilla.org/file/directory_service;1"]
-														 .getService(Components.interfaces.nsIProperties);
-	var dirArray = ["AChrom", "UChrm", "ProfD", "ComsD"];
-	for (var i = 0, n ; i < dirArray.length ; i++) {
-		try {
-			var currentDir = dirService.get(dirArray[i], Components.interfaces.nsIFile);
-			var dirEntries = currentDir.directoryEntries;
-			while (dirEntries.hasMoreElements()) {
-				var file = dirEntries.getNext().QueryInterface(Components.interfaces.nsIFile);
-				if (file.path.match(/-uninstalled$/))
-					file.remove(false);
-			}
-		} catch(e) {}
-	}
 }
 
 // Try to fix selected locale (SeaMonkey doesn't do it correctly)
-function fixPackageLocale() {
-	try {
+function fixPackageLocale()
+{
+	try
+	{
 		var locale = "en-US";
-		try {
+		try
+		{
 			var branch = Components.classes["@mozilla.org/preferences-service;1"]
 														 .getService(Components.interfaces.nsIPrefBranch);
-			try {
+			try
+			{
 				var complex = branch.getComplexValue("general.useragent.locale", Components.interfaces.nsIPrefLocalizedString);
 				locale = complex.data;
 			}
-			catch (e) {
+			catch (e)
+			{
 				locale = branch.getCharPref("general.useragent.locale");
 			}
 		} catch (e) {}
 
 		var select = null;
-		for (var i = 0; i < locales.length; i++) {
+		for (var i = 0; i < locales.length; i++)
+		{
 			if (!locales[i])
 				continue;
 
-			if (locales[i] == locale) {
+			if (locales[i] == locale)
+			{
 				select = locales[i];
 				break;
 			}
@@ -556,3 +633,26 @@ function fixPackageLocale() {
 		registry.selectLocaleForPackage(select, "adblockplus", true);
 	} catch(e) {}
 }
+
+/**
+ * Time logging module, used to measure startup time of Adblock Plus (development builds only).
+ * @class
+ */
+var timeLine = {
+	_lastTimeStamp: null,
+
+	/**
+	 * Logs an event to console together with the time it took to get there.
+	 */
+	log: function(/**String*/ msg)
+	{
+		let now = (new Date()).getTime();
+		let diff = this._lastTimeStamp ? (now - this._lastTimeStamp) : "first event";
+		this._lastTimeStamp = now;
+		
+		let padding = [];
+		for (var i = msg.toString().length; i < 40; i++)
+			padding.push(" ");
+		dump("ABP timeline: " + msg + padding.join("") + "\t (" + diff + ")\n");
+	}
+};

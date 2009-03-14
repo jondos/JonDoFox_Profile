@@ -4,6 +4,7 @@ pref("noscript.autoReload.global", true);
 pref("noscript.autoReload.allTabs", true);
 pref("noscript.autoReload.allTabsOnPageAction", true);
 pref("noscript.autoReload.allTabsOnGlobal", false);
+pref("noscript.autoReload.onMultiContent", false);
 pref("noscript.autoReload.useHistory", false);
 pref("noscript.autoReload.useHistory.exceptCurrent", true);
 pref("noscript.ctxMenu", true);
@@ -25,8 +26,8 @@ pref("noscript.showRevokeTemp", true);
 pref("noscript.showBlockedObjects", true);
 pref("noscript.showTempAllowPage", true);
 pref("noscript.showAllowPage", true);
-pref("noscript.mandatory", "chrome: about: resource:");
-pref("noscript.default", "chrome: resource: about:blank about:neterror about:config about:plugins about:credits addons.mozilla.org flashgot.net google.com googlesyndication.com informaction.com yahoo.com yimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com");
+pref("noscript.mandatory", "chrome: about: about:config about:neterror about:certerror about:plugins about:privatebrowsing about:sessionrestore resource:");
+pref("noscript.default", "about:blank about:credits addons.mozilla.org flashgot.net google.com googlesyndication.com informaction.com yahoo.com yimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com");
 pref("noscript.forbidJava", true);
 pref("noscript.forbidFlash", true);
 pref("noscript.forbidSilverlight", true);
@@ -89,11 +90,12 @@ pref("noscript.xss.trustTemp", true);
 
 pref("noscript.filterXPost", true);
 pref("noscript.filterXGet", true);
-pref("noscript.filterXGetRx", "(?:<+(?=[^<>=\\d\\. ])|[\\\\\"\\x00-\\x07\\x09\\x0B\\x0C\\x0E-\\x1F\\x7F])");
+pref("noscript.filterXGetRx", "<+(?=[^<>=\\d\\. ])|[\\\\\"\\x00-\\x07\\x09\\x0B\\x0C\\x0E-\\x1F\\x7F]");
 pref("noscript.filterXGetUserRx", "");
 pref("noscript.filterXExceptions", "^http://([a-z]+)\\.google\\.(?:[a-z]{1,3}\\.)?[a-z]+/(?:search|custom|\\1)\\?\n^http://([a-z]*)\\.?search\\.yahoo\\.com/search(?:\\?|/\\1\\b)\n^http://[a-z]+\\.wikipedia\\.org/wiki/[^\"<>\?%]+$"); 
 pref("noscript.injectionCheck", 2);
 pref("noscript.injectionCheckPost", true);
+pref("noscript.injectionCheckHTML", true);
 
 pref("noscript.blockXIntranet", true);
 pref("noscript.intranetMaskRx", "^(127\\.[\\d.]+)");
@@ -130,6 +132,8 @@ pref("noscript.jarDoc.notify", true);
 pref("noscript.forbidXBL", 4);
 pref("noscript.forbidXHR", 1);
 
+pref("noscript.xblHack", "hackademix.net");
+
 pref("noscript.whitelistRegExp", "");
 
 pref("noscript.tempGlobal", false);
@@ -142,8 +146,9 @@ pref("noscript.opacizeObject", 1);
 
 pref("noscript.showUntrustedPlaceholder", true);
 
-pref("noscript.jsHack", "(function(){var _0=function(){};with(window)urchinTracker=_0,pageTracker={_setDomainName:_0,_trackPageview:_0,_initData:_0},_gat={_getTracker:function(){return window.pageTracker}}})()");
+pref("noscript.jsHack", "");
 pref("noscript.jsHackRegExp", "");
+
 pref("noscript.canonicalFQDN", true);
 
 pref("noscript.allowedMimeRegExp", "");
@@ -179,6 +184,7 @@ pref("noscript.clearClick", 3);
 pref("noscript.clearClick.plugins", true);
 pref("noscript.clearClick.prompt", true);
 pref("noscript.clearClick.debug", false);
+pref("noscript.clearClick.exceptions", "noscript.net/getit flashgot.net/getit *.ebay.com");
 
 pref("noscript.emulateFrameBreak", true);
 
@@ -186,4 +192,19 @@ pref("noscript.stickyUI.liveReload", false);
 pref("noscript.stickyUI", true);
 pref("noscript.stickyUI.onKeyboard", true);
 
-pref("noscript.ignorePorts", true)
+pref("noscript.ignorePorts", true);
+
+pref("noscript.cp.last", true);
+pref("noscript.abp.removeTabs", false);
+pref("noscript.checkHijackings", true);
+
+pref("noscript.surrogate.enabled", true);
+pref("noscript.surrogate.ga.replacement", "var _0=function(){};with(window)urchinTracker=_0,_gat={_getTracker:function(){return {__noSuchMethod__:_0}}}");
+pref("noscript.surrogate.ga.sources", "*.google-analytics.com");
+pref("noscript.surrogate.ga.exceptions", "");
+pref("noscript.surrogate.yieldman.replacement", "with(window)rmAddKey=rmAddCustomKey=rmShowAd=rmShowPop=rmShowInterstitial=rmGetQueryParameters=rmGetSize=rmGetWindowUrl=rmGetPubRedirect=rmGetClickUrl=rmReplace=rmTrim=rmUrlEncode=rmCanShowPop=rmCookieExists=rmWritePopFrequencyCookie=rmWritePopExpirationCookie=flashIntalledCookieExists=writeFlashInstalledCookie=flashDetection=rmGetCookie=function(){}");
+pref("noscript.surrogate.yieldman.sources", "*.yieldmanager.com");
+pref("noscript.placeholderMinSize", 32);
+
+pref("noscript.compat.evernote", true);
+

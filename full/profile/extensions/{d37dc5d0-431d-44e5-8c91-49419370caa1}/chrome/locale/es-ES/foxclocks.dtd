@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "I">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Subrayado">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "U">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Mostrar bandera">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Bandera">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "b">
 <!ENTITY zoneinfo.display.style.colour.caption "Color del reloj de la barra de estado/herramientas">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Color estándar">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "d">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "hasta el">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "h">
-<!ENTITY zoneinfo.display.flag.caption "Bandera en la barra de estado/barra de herramientas">
+<!ENTITY zoneinfo.display.flag.caption "Imagen de bandera">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Deshabilitado">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Estandar">

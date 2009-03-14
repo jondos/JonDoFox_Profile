@@ -1,5 +1,5 @@
 /******************************************************************************
- *            Copyright (c) 2008 Michel Gutierrez. All Rights Reserved.
+ *            Copyright (c) 2008-2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
 /**
@@ -213,7 +213,7 @@ ConvConfHandler.prototype.GetWeakReference = function( ) {
 ConvConfHandler.prototype.QueryInterface = function(iid) {
 	//dump("[ConvConfHandler] QueryInterface("+iid+")\n");
     if(
-    	iid.equals(Components.interfaces.nsISupport)==false &&
+    	iid.equals(Components.interfaces.nsISupports)==false &&
     	!iid.equals(Components.interfaces.nsIURIContentListener) &&
     	!iid.equals(Components.interfaces.nsISupportsWeakReference)
 	) {

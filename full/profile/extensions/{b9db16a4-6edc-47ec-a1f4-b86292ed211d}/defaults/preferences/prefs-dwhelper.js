@@ -1,3 +1,7 @@
+/******************************************************************************
+ *            Copyright (c) 2006-2009 Michel Gutierrez. All Rights Reserved.
+ ******************************************************************************/
+
 pref("dwhelper.download-mode", "onebyone");
 pref("dwhelper.first-time", true);
 pref("dwhelper.alert-update-version", "");
@@ -34,3 +38,25 @@ pref("dwhelper.convert-helper.share-config",true);
 pref("dwhelper.yt-check-hq",true);
 pref("dwhelper.yt-prefer-hq",true);
 pref("dwhelper.medialink-index-prefix",true);
+pref("dwhelper.processor-keymap","0:download,2:convert-choice,3:quick-download");
+pref("dwhelper.show-in-toolsmenu",true);
+pref("dwhelper.quick-processor","quick-download");
+pref("dwhelper.preferred-converter","ffmpeg");
+pref("dwhelper.converter-path-ffmpeg","/usr/bin/ffmpeg");
+pref("dwhelper.converter-path-mencoder","/usr/bin/mencoder");
+pref("dwhelper.mp3tunes.username","");
+pref("dwhelper.mp3tunes.password","");
+pref("dwhelper.mp3tunes.phonenumber","");
+pref("dwhelper.mp3tunes.enabled",true);
+pref("dwhelper.highlight-media-from-current-page",true);
+pref("dwhelper.mp3tunes.last-status","unchecked");
+pref("dwhelper.system-menu-icons",true);
+pref("dwhelper.donate-not-again",false);
+pref("dwhelper.mp3tunes.show-no-converter-warning",true);
+pref("dwhelper.mp3tunes.visible",true);
+pref("dwhelper.yt-inpage",true);
+pref("dwhelper.yt-inpage.default-processor","quick-download");
+pref("dwhelper.mp3tunes.allow-video-upload",true);
+pref("dwhelper.mp3tunes.upload.mobile","ask");
+pref("dwhelper.mp3tunes.upload.locker","ask");
+pref("dwhelper.ythq-formats","6,18,35,22");

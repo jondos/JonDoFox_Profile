@@ -81,9 +81,9 @@
 <!ENTITY foxclocks.dialog.importexport.filter.label "FoxClocks設定ファイル">
 <!ENTITY foxclocks.zonepicker.description.label "Zone Picker">
 <!ENTITY foxclocks.zonepicker.description.tooltip "利用できるゾーンをすべて表示しています。表示リストに追加するとゾーンは利用地域と認識されます。">
-<!ENTITY foxclocks.zonepicker.search.initvalue "">
-<!ENTITY foxclocks.zonepicker.search.accesskey "">
-<!ENTITY foxclocks.zonepicker.search.tooltip "">
+<!ENTITY foxclocks.zonepicker.search.initvalue "検索">
+<!ENTITY foxclocks.zonepicker.search.accesskey "Q">
+<!ENTITY foxclocks.zonepicker.search.tooltip "国名または都市名でゾーンを検索します">
 <!ENTITY foxclocks.zonepicker.col.timezone.label "タイムゾーン">
 <!ENTITY foxclocks.zonepicker.col.timezone.tooltip "タイムゾーン">
 <!ENTITY foxclocks.zonepicker.col.offset.label "GMT/UTC との時差">
@@ -95,7 +95,7 @@
 <!ENTITY foxclocks.zonepicker.context.add.accesskey "A">
 <!ENTITY foxclocks.zonepicker.context.addas.label "新しく追加">
 <!ENTITY foxclocks.zonepicker.context.addas.accesskey "S">
-<!ENTITY foxclocks.zonepicker.context.google.label "「Google Earth」">
+<!ENTITY foxclocks.zonepicker.context.google.label "Google Earth...">
 <!ENTITY foxclocks.zonepicker.context.google.accesskey "G">
 <!ENTITY foxclocks.locationlist.description.label "表示リスト">
 <!ENTITY foxclocks.locationlist.description.tooltip "地域を FoxClocks のツールチップと(設定していれば)ステータスバー/ツールバーに表示します">
@@ -112,7 +112,7 @@
 <!ENTITY foxclocks.locationlist.context.details.accesskey "E">
 <!ENTITY foxclocks.locationlist.context.remove.label "除外">
 <!ENTITY foxclocks.locationlist.context.remove.accesskey "R">
-<!ENTITY foxclocks.locationlist.context.google.label "「Google Earth」">
+<!ENTITY foxclocks.locationlist.context.google.label "Google Earth...">
 <!ENTITY foxclocks.locationlist.context.google.accesskey "G">
 <!ENTITY foxclocks.remove.confirm.label "選択した地域を除外してよろしいですか？?">
 <!ENTITY foxclocks.import.confirm.label "既に存在するFoxClocks設定を上書きしてよろしいですか？">
@@ -151,7 +151,7 @@
 <!ENTITY options.format.custom.day.label "日、曜日:">
 <!ENTITY options.format.custom.day.num.1.label "日付の数値(例：1)">
 <!ENTITY options.format.custom.day.num.2.label "日付の数値, 2桁(例：01)">
-<!ENTITY options.format.custom.day.name.long.label "曜日(例：(月))">
+<!ENTITY options.format.custom.day.name.long.label "曜日(例：月)">
 <!ENTITY options.format.custom.day.name.short.label "曜日, 英語表記(例：Mon)">
 <!ENTITY options.format.custom.day.ordinal.label "日付(例：1日)">
 <!ENTITY options.format.custom.day.ofyear.label "年初からの日数">
@@ -195,16 +195,16 @@
 <!ENTITY options.data.update.auto.enable.accesskey "E">
 <!ENTITY options.data.update.checknow.button.label "今すぐデータベースを確認する">
 <!ENTITY options.data.update.checknow.button.accesskey "n">
-<!ENTITY options.advanced.caption "">
-<!ENTITY options.advanced.newloc.caption.label "">
-<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "">
-<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "">
-<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "">
-<!ENTITY options.advanced.misc.caption.label "">
-<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "">
-<!ENTITY options.advanced.alert.autoupdate.label "">
-<!ENTITY options.advanced.menuitem.hidden.label "">
-<!ENTITY options.advanced.watchlist.remove.confirm.label "">
+<!ENTITY options.advanced.caption "拡張設定">
+<!ENTITY options.advanced.newloc.caption.label "表示リストに地域を追加するときに">
+<!ENTITY options.advanced.newloc.statusbar.clockvisible.label "ステータスバー/ツールバーに時刻を表示する">
+<!ENTITY options.advanced.newloc.statusbar.flagvisible.label "ステータスバー/ツールバーに旗を表示する">
+<!ENTITY options.advanced.newloc.tooltip.clockvisible.label "ステータスバー/ツールバーのツールチップに時刻を表示する">
+<!ENTITY options.advanced.misc.caption.label "その他">
+<!ENTITY options.advanced.allloc.tooltip.flagvisible.label "ステータスバー/ツールバーのツールチップに旗を表示する">
+<!ENTITY options.advanced.alert.autoupdate.label "タイムゾーンデータベースを更新するときには警告する">
+<!ENTITY options.advanced.menuitem.hidden.label "[ツール]メニューに FoxClocks の項目を表示する">
+<!ENTITY options.advanced.watchlist.remove.confirm.label "表示リストから地域を削除するときには確認する">
 <!ENTITY zoneinfo.title.zone "タイムゾーンの詳細">
 <!ENTITY zoneinfo.title.location "地域詳細">
 <!ENTITY zoneinfo.tab.zone.label "タイムゾーン情報">
@@ -220,7 +220,7 @@
 <!ENTITY zoneinfo.addas.name.label "地域名">
 <!ENTITY zoneinfo.addas.latitude.label "緯度">
 <!ENTITY zoneinfo.addas.longitude.label "経度">
-<!ENTITY zoneinfo.button.google.label "「Google Earth」">
+<!ENTITY zoneinfo.button.google.label "Google Earth...">
 <!ENTITY zoneinfo.display.description "ステータスバー/ツールバーへの表示設定は、FoxClocksが&apos;アイコン&apos;モードの時は適用されません(オプション-&gt;位置と表示形式タブで設定して下さい)">
 <!ENTITY zoneinfo.display.showclock.caption "時計の表示/非表示">
 <!ENTITY zoneinfo.display.showclock.checkbox.statusbar.label "時計をステータスバー/ツールバーに表示">
@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "I">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "下線">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "U">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "表示フラグ">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "旗">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.caption "ステータスバー/ツールバーの時計の色">
 <!ENTITY zoneinfo.display.style.colour.standard.label "標準の色">
@@ -245,25 +245,25 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "～まで">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "n">
-<!ENTITY zoneinfo.display.flag.caption "">
-<!ENTITY zoneinfo.display.flag.radio.disabled.label "">
-<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "">
-<!ENTITY zoneinfo.display.flag.radio.standard.label "">
-<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "">
-<!ENTITY zoneinfo.display.flag.radio.custom.label "">
-<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "">
-<!ENTITY zoneinfo.display.flag.custom.presets.label "">
-<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "">
-<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "">
-<!ENTITY zoneinfo.display.flag.custom.browse.label "">
-<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "">
-<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "">
-<!ENTITY zoneinfo.display.customformat.caption.label "">
-<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "">
-<!ENTITY zoneinfo.display.customformat.clock.label "">
-<!ENTITY zoneinfo.display.customformat.clock.accesskey "">
-<!ENTITY zoneinfo.display.customformat.tooltip.label "">
-<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "">
+<!ENTITY zoneinfo.display.flag.caption "旗">
+<!ENTITY zoneinfo.display.flag.radio.disabled.label "表示しない">
+<!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
+<!ENTITY zoneinfo.display.flag.radio.standard.label "標準">
+<!ENTITY zoneinfo.display.flag.radio.standard.accesskey "R">
+<!ENTITY zoneinfo.display.flag.radio.custom.label "カスタム">
+<!ENTITY zoneinfo.display.flag.radio.custom.accesskey "O">
+<!ENTITY zoneinfo.display.flag.custom.presets.label "プリセット...">
+<!ENTITY zoneinfo.display.flag.custom.presets.accesskey "P">
+<!ENTITY zoneinfo.display.flag.custom.presets.tooltiptext "クリックするとプリセットされた旗を選択できます">
+<!ENTITY zoneinfo.display.flag.custom.browse.label "選択...">
+<!ENTITY zoneinfo.display.flag.custom.browse.accesskey "W">
+<!ENTITY zoneinfo.display.flag.custom.browse.tooltiptext "クリックすると旗の画像ファイルを選択できます">
+<!ENTITY zoneinfo.display.customformat.caption.label "拡張カスタム設定">
+<!ENTITY zoneinfo.display.customformat.caption.tooltiptext "例：&quot;&lt;l&gt;-&lt;24h&gt;&lt;m&gt;&quot; と指定すると &quot;[Location]-1523&quot; になります。[オプション] - [時間設定]タブで有効な置き換えが参照できます。">
+<!ENTITY zoneinfo.display.customformat.clock.label "ステータスバー/ツールバーの時刻">
+<!ENTITY zoneinfo.display.customformat.clock.accesskey "L">
+<!ENTITY zoneinfo.display.customformat.tooltip.label "ステータスバー/ツールバーのツールチップの時刻">
+<!ENTITY zoneinfo.display.customformat.tooltip.accesskey "K">
 <!ENTITY welcome.title "ようこそ！">
 <!ENTITY welcome.header "FoxClocksにようこそ！">
 <!ENTITY welcome.message "FoxClocks はタイムゾーンのデータベースと夏時間情報を使って世界中の何百もの都市から選択し、複数の時刻をアプリケーションのステータスバーやツールバーに表示します。FoxClocks は Google Earth を使って(インストールしていれば)、FoxClocks データベースにある地域を見ることもできます。|FoxClocks の初回使用時なので FoxClocks でどの時間を表示するのか、よかったら設定してください。地域リストの例として、大陸ごとに一つあげています。|このメッセージは今後表示されません; ツールメニュー、時計のダブルクリック、FoxClocks ボタンのクリック(表示されていれば)から FoxClocks にアクセスできます。">

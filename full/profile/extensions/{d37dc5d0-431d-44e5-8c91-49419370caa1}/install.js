@@ -7,28 +7,26 @@
 //
 // Philip Chee: Added installation of prefs, components, and locales.
 // deathburger: Refactored to move all changable items to the top of the file.
+// Philip Chee: This version is for NON-jar, flat directory structured XPIs.
 
 // Editable Items Begin
 var displayName         = "FoxClocks"; // The name displayed to the user (don't include the version)
-var version             = "2.4.97"; // AFM - version written in by ant
-var name                = "foxclocks"; // The leafname of the JAR file (without the .jar part)
+var version             = "2.5.11"; // AFM - version written in by ant
+var name                = "foxclocks"; // The directory name/chrome name to be used
 
 // The following three sets of variables tell this installer script how your
 // extension directory structure looks.
 // If your jar file contains content/packagename use the second packageDir
 // variable. Same rule applies for skinDir and localeDir. I set them up
 // independent of each other just in case an extension layout is wacky.
-
 var packageDir           = "/"
 //var packageDir           = "/" + name + "/"
-
-//var skinDir           = ""
 var skinDir           = "/"
 //var skinDir           = "/" + name + "/"
-
 var localeDir           = "/"
 //var localeDir           = "/" + name + "/"
 
+var installDirs         = ["chrome"];
 var locales             = ["en-US", "en-GB"];
 
 var skins               = [ "classic" ]; // "modern"
@@ -61,8 +59,7 @@ var disambiguatePrefs   = false;
 
 // Editable Items End
 
-var jarName             = name + ".jar";
-var jarFolder           = "content" + packageDir
+var contentFolder       = "content" + packageDir;
 var error               = null;
 
 var folder              = getFolder("Profile", "chrome");
@@ -70,8 +67,13 @@ var prefFolder          = getFolder(getFolder("Program", "defaults"), "pref");
 var compFolder          = getFolder("Components");
 var searchFolder        = getFolder("Plugins");
 
-var existsInApplication = File.exists(getFolder(getFolder("Chrome"), jarName));
-var existsInProfile     = File.exists(getFolder(folder, jarName));
+var existsInApplication = File.exists(getFolder(getFolder("Chrome"), name));
+
+// AFM - this will (harmlessly) always return true after install to either
+// Chrome or the user's profile, since zones.xml is created under the user
+// profile
+//
+var existsInProfile     = File.exists(getFolder(folder, name));
 
 var contentFlag         = CONTENT | PROFILE_CHROME;
 var localeFlag          = LOCALE | PROFILE_CHROME;
@@ -80,7 +82,6 @@ var skinFlag            = SKIN | PROFILE_CHROME;
 // If the extension exists in the application folder or it doesn't exist
 // in the profile folder and the user doesn't want it installed to the
 // profile folder
-/*
 if(existsInApplication ||
     (!existsInProfile &&
       !confirm( "Do you want to install the " + displayName +
@@ -88,28 +89,34 @@ if(existsInApplication ||
                 "(Cancel will install into the application folder)")))
 {
     contentFlag = CONTENT | DELAYED_CHROME;
-    folder      = getFolder("chrome");
+    folder      = getFolder("Chrome");
     localeFlag  = LOCALE | DELAYED_CHROME;
     skinFlag    = SKIN | DELAYED_CHROME;
 }
-*/
 
 initInstall(displayName, name, version);
 setPackageFolder(folder);
-error = addFile(name, version, "chrome/" + jarName, folder, null);
 
-// If adding the JAR file succeeded
+for (var i = 0; i < installDirs.length; i++) {
+    error = addDirectory ( name , version , installDirs[i] , getFolder(folder , name), null );
+    if(error != SUCCESS) {
+        displayError(error);
+        cancelInstall(error);
+    }
+}
+
+// If adding the directory succeeded
 if(error == SUCCESS)
 {
-    folder = getFolder(folder, jarName);
+    folder = getFolder(folder, name);
+    registerChrome(contentFlag, getFolder(folder, contentFolder));
 
-    registerChrome(contentFlag, folder, jarFolder);
     for (var i = 0; i < locales.length; i++) {
-        registerChrome(localeFlag, folder, "locale/" + locales[i] + localeDir);
+        registerChrome(localeFlag, getFolder(folder, "locale/" + locales[i] + localeDir));
     }
 
     for (var i = 0; i < skins.length; i++) {
-        registerChrome(skinFlag, folder, "skin/" + skins[i] + skinDir);
+        registerChrome(skinFlag, getFolder(folder, "skin/" + skins[i] + skinDir));
     }
 
     for (var i = 0; i < prefs.length; i++) {
@@ -153,7 +160,7 @@ if(error == SUCCESS)
 else
 {
     displayError(error);
-	cancelInstall(error);
+    cancelInstall(error);
 }
 
 // Displays the error message to the user

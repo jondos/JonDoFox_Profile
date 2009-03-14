@@ -877,7 +877,7 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Europe/Zurich" name="Zurich" />
 		</Branch>
 	</Branch>
-	<Branch name="Ocenao Índico">
+	<Branch name="Oceano Índico">
 		<Leaf zone_id="Indian/Chagos" name="Território Britânico do Oceano Índico" />
 		<Leaf zone_id="Indian/Christmas" name="Ilha Christmas" />
 		<Leaf zone_id="Indian/Cocos" name="Ilha do Coco" />

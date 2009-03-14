@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "C">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Sottolineato">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "t">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Visualizza bandiera">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Bandiera">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "b">
 <!ENTITY zoneinfo.display.style.colour.caption "Colore">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Predefinito">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "d">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "alle">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "l">
-<!ENTITY zoneinfo.display.flag.caption "Bandiera">
+<!ENTITY zoneinfo.display.flag.caption "Immagine di bandiera">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Disattivata">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "D">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Ufficiale">

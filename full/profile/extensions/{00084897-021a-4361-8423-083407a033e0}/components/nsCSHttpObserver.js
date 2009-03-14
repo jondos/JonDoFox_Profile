@@ -2,7 +2,7 @@
 Name: CS Lite
 Description: Control cookie permissions.
 Author: Ron Beckman
-Homepage: http://forum.softwareblaze.com
+Homepage: http://addons.mozilla.org
 
 Copyright (C) 2007  Ron Beckman
 

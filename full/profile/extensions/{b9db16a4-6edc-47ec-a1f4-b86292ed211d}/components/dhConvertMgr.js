@@ -1,5 +1,5 @@
 /******************************************************************************
- *            Copyright (c) 2006 Michel Gutierrez. All Rights Reserved.
+ *            Copyright (c) 2006-2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
 /**
@@ -32,7 +32,7 @@ function ConvertMgr() {
 			var datasource=Components.classes
 	      		['@mozilla.org/rdf/datasource;1?name=in-memory-datasource'].
 	          		createInstance(Components.interfaces.nsIRDFDataSource);
-			this.makeDefaultDataSource(datasource);
+			this.makeEmptyDataSource(datasource);
 			this.setDataSource(datasource);
 		}
 
@@ -70,7 +70,7 @@ function ConvertMgr() {
 
 ConvertMgr.prototype = {}
 
-ConvertMgr.prototype.convert=function(sourceFile,targetFile,format,autoClear) {
+ConvertMgr.prototype.convert=function(sourceFile,targetFile,format,autoClear,listener,entry,ctx) {
 	//dump("[ConvertMgr] convert("+sourceFile.path+","+targetFile+","+format+")\n");
 	
 	try {
@@ -96,7 +96,7 @@ ConvertMgr.prototype.convert=function(sourceFile,targetFile,format,autoClear) {
 	
 	switch(convMethod) {
 		case CONV_METHOD_UNIX:
-			this.convertUnix(sourceFile,targetFile,params,extension,convRes,autoClear);
+			this.convertUnix(sourceFile,targetFile,params,extension,convRes,autoClear,listener,entry,ctx);
 			break;
 		case CONV_METHOD_WIN_DH:
 			try {
@@ -106,7 +106,7 @@ ConvertMgr.prototype.convert=function(sourceFile,targetFile,format,autoClear) {
 				dump("!!! checkConverterVersion: "+e+"\n");
 				return;
 			}
-			this.convertDH(sourceFile,targetFile,params,extension,convRes,autoClear);
+			this.convertDH(sourceFile,targetFile,params,extension,convRes,autoClear,listener,entry,ctx);
 			break;
 	}
 	
@@ -170,13 +170,13 @@ ConvertMgr.prototype.setFFMPEGArgs=function(dEntry,params,sourceFile,targetFile,
 	*/
 }
 
-ConvertMgr.prototype.convertUnix=function(sourceFile,targetFile,params,extension,convRes,autoClear) {
+ConvertMgr.prototype.convertUnix=function(sourceFile,targetFile,params,extension,convRes,autoClear,listener,entry,ctx) {
 	var ffmpegFile = Components.classes["@mozilla.org/file/local;1"]
     	.createInstance(Components.interfaces.nsILocalFile);
 
 	var ffmpegPath="/usr/bin/ffmpeg";
 	try {
-		ffmpegPath=this.pref.getCharPref("ffmpeg-path");
+		ffmpegPath=this.pref.getCharPref("converter-path-ffmpeg");
 	} catch(e) {
 	}
 	ffmpegFile.initWithPath(ffmpegPath);
@@ -188,7 +188,7 @@ ConvertMgr.prototype.convertUnix=function(sourceFile,targetFile,params,extension
     	.createInstance(Components.interfaces.nsILocalFile);
 	var mencoderPath="/usr/bin/mencoder";
 	try {
-		mencoderPath=this.pref.getCharPref("mencoder-path");
+		mencoderPath=this.pref.getCharPref("converter-path-mencoder");
 	} catch(e) {
 	}
 	mencoderFile.initWithPath(mencoderPath);
@@ -225,7 +225,10 @@ ConvertMgr.prototype.convertUnix=function(sourceFile,targetFile,params,extension
 		autoClear: autoClear,
 		sourceFile: sourceFile,
 		targetFile: targetFile,
-		convConf: extension+"/"+params
+		convConf: extension+"/"+params,
+		listener: listener,
+		entry: entry,
+		ctx: ctx
 	}
 	
 	if(converterFile==ffmpegFile) {
@@ -249,7 +252,7 @@ ConvertMgr.prototype.escapePath=function(path) {
 	return path;
 }
 
-ConvertMgr.prototype.convertDH=function(sourceFile,targetFile,params,extension,convRes,autoClear) {
+ConvertMgr.prototype.convertDH=function(sourceFile,targetFile,params,extension,convRes,autoClear,listener,entry,ctx) {
 
 	try {
 
@@ -264,7 +267,10 @@ ConvertMgr.prototype.convertDH=function(sourceFile,targetFile,params,extension,c
 		autoClear: autoClear,
 		sourceFile: sourceFile,
 		targetFile: targetFile,
-		convConf: extension+"/"+params
+		convConf: extension+"/"+params,
+		listener: listener,
+		entry: entry,
+		ctx: ctx
 	}
 
 	this.setFFMPEGArgs(dEntry,params,sourceFile,targetFile,true,unreg);
@@ -338,7 +344,11 @@ ConvertMgr.prototype.execConvert=function(dEntry) {
 			} else {
 				success=false;
 				if(this.dEntry.autoClear) {
-					this.dEntry.targetFile.remove(false);
+					try {
+						this.dEntry.targetFile.remove(false);
+					} catch(e) {
+						dump("!!! [ConvertMgr/Processor] execConvert [run] failed: "+e+"\n");
+					}
 					var keepOriginalOnFailure=true;
 					try {
 						keepOriginalOnFailure=this.pref.getBoolPref("convert.keep-original-on-failure");
@@ -381,7 +391,7 @@ ConvertMgr.prototype.execConvert=function(dEntry) {
 		        );
 	} catch(e) {
 		try {
-			dump("!!! [ConvertMgr/Processor] execConvert [creating thread]: "+e+"\n");
+			//dump("!!! [ConvertMgr/Processor] execConvert [creating thread]: "+e+"\n");
 			var threadMgr = Components.classes["@mozilla.org/thread-manager;1"].getService();
 			var thread=threadMgr.newThread(0);
 			thread.dispatch(new Processor(this,dEntry),thread.DISPATCH_NORMAL);
@@ -403,13 +413,13 @@ ConvertMgr.prototype.checkConvert=function() {
 	}
 }
 
-ConvertMgr.prototype.addConvert=function(sourceFile,targetFile,format,autoClear) {
+ConvertMgr.prototype.addConvert=function(sourceFile,targetFile,format,autoClear,listener,entry,ctx) {
 
 	//dump("[ConvertMgr] addConvert("+sourceFile.path+","+targetFile.path+","+format+")\n");
 
 	if(!this.isEnabled())
 		return;
-	this.convert(sourceFile,targetFile,format,autoClear);
+	this.convert(sourceFile,targetFile,format,autoClear,listener,entry,ctx);
 }
 
 ConvertMgr.prototype.getFormat=function(filename,mediaUrl,pageUrl) {
@@ -554,8 +564,7 @@ ConvertMgr.prototype.getInstallDir=function() {
 	}
 }
 
-ConvertMgr.prototype.makeDefaultDataSource=function(datasource) {
-
+ConvertMgr.prototype.clearDataSource=function(datasource) {
 	var i = datasource.GetAllResources();
 	datasource.beginUpdateBatch();
 	while(i.hasMoreElements()) {
@@ -570,7 +579,15 @@ ConvertMgr.prototype.makeDefaultDataSource=function(datasource) {
 			}
 		}
 	}
-	datasource.endUpdateBatch();
+	datasource.endUpdateBatch();	
+}
+
+ConvertMgr.prototype.makeEmptyDataSource=function(datasource) {
+	this.clearDataSource(datasource);
+}
+
+ConvertMgr.prototype.makeDefaultDataSource=function(datasource) {
+	this.clearDataSource(datasource);
     this.makeDefaultRule(datasource);
 }
 
@@ -619,7 +636,7 @@ ConvertMgr.prototype.updateUnregistered = function() {
 	var cf=true;
 	
 	var method=this.getConvMethod();
-	if(method==CONV_METHOD_WIN_DH) {
+	if(this.isEnabled() && method==CONV_METHOD_WIN_DH) {
 		try {
 			var reg=Components.classes["@mozilla.org/windows-registry-key;1"]
 				.createInstance(Components.interfaces.nsIWindowsRegKey);
@@ -692,83 +709,107 @@ ConvertMgr.prototype.getConvMethod = function() {
 }
 
 ConvertMgr.prototype.checkLicense = function(key) {
-
-	//dump("checkLicense\n");
-
-	function TimerCallBack(self) {
-		this.self=self;
+	
+	function XMLStreamListener(service) {
+		this.service=service;
 	}
 	
-	TimerCallBack.prototype={
+	XMLStreamListener.prototype={
+		QueryInterface: function(iid) {
+		    if (!iid.equals(Components.interfaces.nsISupports) && 
+		    	!iid.equals(Components.interfaces.nsIStreamListener)) {
+		            throw Components.results.NS_ERROR_NO_INTERFACE;
+		        }
+		    return this;
+		},
+		onStartRequest: function(request,context) {
+			this.data="";
+		},
+		onDataAvailable: function(request,context,inputStream,offset,count) {
+			var sstream = Components.classes["@mozilla.org/intl/converter-input-stream;1"]
+	               .createInstance(Components.interfaces.nsIConverterInputStream);
+			sstream.init(inputStream, "utf-8", 256, 
+				Components.interfaces.nsIConverterInputStream.DEFAULT_REPLACEMENT_CHARACTER);
 	
-		notify: function(timer) { 
-
-			var body="<check-license>\n"+
-				"  <license-key>"+key+"</license-key>\n"+
-				"  <product>converthelper</product>\n"+
-				"</check-license>";
-			
-			var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"].
-					createInstance(Components.interfaces.nsIXMLHttpRequest);
-			this.xmlhttp=xmlhttp;
-			xmlhttp.service=this.self;
-			xmlhttp.onload=function(ev) {
-				if(xmlhttp.status==200) {
-					try {
-						//xmlhttp.service.promptService.alert(null,"Debug",xmlhttp.responseText);
-						//dump("checkLicenseResponse: "+xmlhttp.responseText+"\n");
-						var xml=xmlhttp.responseXML.documentElement;
-						var status=Util.xpGetString(xml,"/check-license-response/status/text()");
-					    var name=Util.xpGetString(xml,"/check-license-response/name/text()");
-					    var email=Util.xpGetString(xml,"/check-license-response/email/text()");
-						//xmlhttp.service.promptService.alert(null,"Debug",status);
-						if(status=="accepted") {
-							var reg = Components.classes["@mozilla.org/windows-registry-key;1"]
-		            	        .createInstance(Components.interfaces.nsIWindowsRegKey);
-							reg.open(reg.ROOT_KEY_CURRENT_USER,
-						         "SOFTWARE",
-						         reg.ACCESS_ALL);
-					    	reg=reg.createChild("DownloadHelper\\ConvertHelper",
-						         reg.ACCESS_ALL);
-						    var existingKey=null;
-						    try {
-								existingKey=reg.readStringValue("LicenseKey");
-						    } catch(e) {}
-						    reg.writeStringValue("CustomerName",name);
-						    reg.writeStringValue("CustomerEmail",email);
-						    reg.writeStringValue("LicenseKey",key);
-						    var licenseCheck=xmlhttp.service.md5("converthelper"+key+name+email);
-						    reg.writeStringValue("LicenseCheck",licenseCheck);
-						    reg.close();
-						    var profile=Util.getProfileDir().leafName;
-						    var profileCheck=xmlhttp.service.md5("converthelper"+profile);
-						    xmlhttp.service.pref.setCharPref("converthelper-key",profileCheck);
-						    xmlhttp.service.updateUnregistered();
-						    if(existingKey==null) {
-								xmlhttp.service.promptService.alert(null,Util.getText("title.converter-registration"),
-									Util.getText("message.converter-registration-succeeded"));
-						    }
-						} else if(status=="need-validation") {
-							xmlhttp.service.promptService.alert(null,Util.getText("title.converthelper.revalidate"),
-								Util.getFText("message.converthelper.revalidate",
-									[name,email],2));
-						} else {
-							xmlhttp.service.promptService.alert(null,Util.getText("title.converthelper.invalid-license"),
-								Util.getText("message.converthelper.invalid-license"));
-						}
-					} catch(e) {
-						dump("!!! [ConvertMgr] checkLicense: "+e+"\n"); 
-					}
-				} else {
-				}
+			var str={};
+			var n=sstream.readString(128,str);
+			while(n>0) {
+				this.data+=str.value;
+				str={};
+				n=sstream.readString(128,str);
 			}
-			xmlhttp.open("POST", "http://www.downloadhelper.net/license-check.php",true);
-		   	xmlhttp.send(body);
+		},
+		onStopRequest: function(request,context,nsresult) {
+			var responseStatus=request.QueryInterface(Components.interfaces.nsIHttpChannel).responseStatus;
+			if(responseStatus==200) {
+				try {
+					var parser=Components.classes["@mozilla.org/xmlextras/domparser;1"].
+						createInstance(Components.interfaces.nsIDOMParser);
+					var doc=parser.parseFromString(this.data,"text/xml");
+					var xml=doc.documentElement;
+					var status=Util.xpGetString(xml,"/check-license-response/status/text()");
+				    var name=Util.xpGetString(xml,"/check-license-response/name/text()");
+				    var email=Util.xpGetString(xml,"/check-license-response/email/text()");
+					if(status=="accepted") {
+						var reg = Components.classes["@mozilla.org/windows-registry-key;1"]
+	            	        .createInstance(Components.interfaces.nsIWindowsRegKey);
+						reg.open(reg.ROOT_KEY_CURRENT_USER,
+					         "SOFTWARE",
+					         reg.ACCESS_ALL);
+				    	reg=reg.createChild("DownloadHelper\\ConvertHelper",
+					         reg.ACCESS_ALL);
+					    var existingKey=null;
+					    try {
+							existingKey=reg.readStringValue("LicenseKey");
+					    } catch(e) {}
+					    reg.writeStringValue("CustomerName",name);
+					    reg.writeStringValue("CustomerEmail",email);
+					    reg.writeStringValue("LicenseKey",key);
+					    var licenseCheck=this.service.md5("converthelper"+key+name+email);
+					    reg.writeStringValue("LicenseCheck",licenseCheck);
+					    reg.close();
+					    var profile=Util.getProfileDir().leafName;
+					    var profileCheck=this.service.md5("converthelper"+profile);
+					    this.service.pref.setCharPref("converthelper-key",profileCheck);
+					    this.service.updateUnregistered();
+					    if(existingKey==null) {
+							this.service.promptService.alert(null,Util.getText("title.converter-registration"),
+								Util.getText("message.converter-registration-succeeded"));
+					    }
+					} else if(status=="need-validation") {
+						this.service.promptService.alert(null,Util.getText("title.converthelper.revalidate"),
+							Util.getFText("message.converthelper.revalidate",
+								[name,email],2));
+					} else {
+						this.service.promptService.alert(null,Util.getText("title.converthelper.invalid-license"),
+							Util.getText("message.converthelper.invalid-license"));
+					}
+				} catch(e) {
+					dump("!!! [ConvertMgr] checkLicense: "+e+"\n"); 
+				}
+			} else {
+				dump("!!! [ConvertMgr] checkLicense: response "+responseStatus+"\n"); 
+			}
 		}
 	}
-	var timer = Components.classes["@mozilla.org/timer;1"].
-			createInstance(Components.interfaces.nsITimer);
-	timer.initWithCallback(new TimerCallBack(this),0,Components.interfaces.nsITimer.TYPE_ONE_SHOT);
+	var body="<check-license>\n"+
+		"  <license-key>"+key+"</license-key>\n"+
+		"  <product>converthelper</product>\n"+
+		"</check-license>";
+	var ios=Components.classes["@mozilla.org/network/io-service;1"]
+	                           .getService(Components.interfaces.nsIIOService);
+	var uri = ios.newURI("http://www.downloadhelper.net/license-check.php", null, null);
+	var channel = ios.newChannelFromURI(uri);
+	var httpChannel = channel.QueryInterface(Components.interfaces.nsIHttpChannel);
+	httpChannel.requestMethod = "POST";
+	var datais = Components.classes["@mozilla.org/io/string-input-stream;1"]
+	                                .createInstance(Components.interfaces.nsIStringInputStream);
+	datais.setData(body, body.length);
+	var uploadChannel = channel.QueryInterface(Components.interfaces.nsIUploadChannel);
+	uploadChannel.setUploadStream(datais, "application/x-binary", -1);
+	var listener = new XMLStreamListener(this);
+	channel.notificationCallbacks = listener;
+	channel.asyncOpen(listener, null);
 }
 
 ConvertMgr.prototype.md5 = function(str) {
@@ -828,6 +869,7 @@ ConvertMgr.prototype.getInfo = function() {
 
 	if(method==CONV_METHOD_WIN_DH) {
 
+		var exeFound=false;			
 		var reg=Components.classes["@mozilla.org/windows-registry-key;1"]
 			.createInstance(Components.interfaces.nsIWindowsRegKey);
 		try {
@@ -835,7 +877,6 @@ ConvertMgr.prototype.getInfo = function() {
 				         "SOFTWARE\\DownloadHelper\\ConvertHelper",
 				         reg.ACCESS_READ);
 
-			var exeFound=false;			
 			try {
 				var folderPath = reg.readStringValue("InstallFolder");
 				var file = Components.classes["@mozilla.org/file/local;1"]
@@ -846,9 +887,6 @@ ConvertMgr.prototype.getInfo = function() {
 					exeFound=true;
 				}
 			} catch(e) {}
-			var sExeFound = Components.classes["@mozilla.org/supports-PRBool;1"].createInstance(Components.interfaces.nsISupportsPRBool);
-			sExeFound.data=exeFound;
-			props.set("exefound",sExeFound);
 			
 			try {
 				var version = reg.readStringValue("Version");
@@ -888,6 +926,11 @@ ConvertMgr.prototype.getInfo = function() {
 				props.set("license",sLicense);
 			}
 		} catch(e) {}
+
+		var sExeFound = Components.classes["@mozilla.org/supports-PRBool;1"].createInstance(Components.interfaces.nsISupportsPRBool);
+		sExeFound.data=exeFound;
+		props.set("exefound",sExeFound);
+
 		try {
 			reg.close();
 		} catch(e) {}
@@ -903,6 +946,25 @@ ConvertMgr.prototype.getInfo = function() {
 	sWindows.data=windows;
 	props.set("windows",sWindows);
 
+	if(!windows) {
+		var exeFound=false;
+		var encoder="ffmpeg";
+		try {
+			encoder=this.pref.getCharPref("preferred-converter");
+		} catch(e) {}
+		try {
+			var encoderFile = Components.classes["@mozilla.org/file/local;1"]
+			                                     .createInstance(Components.interfaces.nsILocalFile);
+			encoderFile.initWithPath(this.pref.getCharPref("converter-path-"+encoder));
+			if(encoderFile.exists()) {
+				exeFound=true;
+			}
+		} catch(e) {}
+		var sExeFound = Components.classes["@mozilla.org/supports-PRBool;1"].createInstance(Components.interfaces.nsISupportsPRBool);
+		sExeFound.data=exeFound;
+		props.set("exefound",sExeFound);
+	}
+	
 	return props;
 }
 
@@ -955,6 +1017,13 @@ ConvertMgr.prototype.scheduleNext = function(result) {
 		Util.setPropertyValueRS(this.queueDatasource,this.currentEntry.qRes,DHNS+"ErrorMessage","Converter error");
 	}
 	this.showNotification(this.currentEntry,result);
+	if(this.currentEntry.listener) {
+		try {
+			this.currentEntry.listener.conversionFinished(result,this.currentEntry.entry,this.currentEntry.ctx);
+		} catch(e) {
+			dump("!!! [ConvertMgr] scheduleNext()/listener: "+e+"\n");
+		}
+	}
 	this.currentEntry=null;
 	this.checkConvert();
 }
@@ -979,7 +1048,7 @@ ConvertMgr.prototype.showNotification = function(entry,result) {
 				title,message);
 		}
 	} catch(e) {
-		dump("!!![ConvertMgr] showNotification: "+e+"\n");
+		//dump("!!![ConvertMgr] showNotification: "+e+"\n");
 	}
 }
 
@@ -1037,7 +1106,7 @@ ConvertMgr.prototype.convConfShare = function(convConf) {
 ConvertMgr.prototype.setDefaultConfigs = function() {
 	var formats=[
 	             {
-	            	 value: 'mpg/-acodec mp2 -b 800kbps -f mpeg -vcodec mpeg1video',
+	            	 value: 'mpg/-acodec mp2 -b 800kbps -f mpeg -r 24 -vcodec mpeg1video',
 	            	 title: 'MPEG (mpeg1+mp2)'
 	             },
 	             {
@@ -1047,6 +1116,22 @@ ConvertMgr.prototype.setDefaultConfigs = function() {
 	             {
 	            	 value: 'm4v/-acodec libfaac -b 274kbps -f mp4 -r 24 -s 320x240 -vcodec mpeg4',
 	            	 title: 'iPod'
+	             },
+	             {
+	            	 value: 'm4v/-acodec libfaac -b 548kbps -f mp4 -r 24 -s 480x320 -vcodec mpeg4',
+	            	 title: 'iPhone'
+	             },
+	             {
+	            	 value: '3gp/-ab 12kbps -ac 1 -acodec libfaac -ar 8000 -b 64kbps -f 3gp -r 24 -s 176x144 -vcodec h263',
+	            	 title: 'Mobile 3GP (Qcif)'
+	             },
+	             {
+	            	 value: 'wmv/-ab 128000 -ac 2 -acodec wmav2 -b 640000 -bufsize 2048000 -f asf -maxrate 1350000 -s 320x240 -vcodec wmv2',
+	            	 title: 'Zune'
+	             },
+	             {
+	            	 value: 'mov/-f mov -sameq',
+	            	 title: 'Quicktime (MOV)'
 	             },
 	             {
 	            	 value: 'avi/-acodec libmp3lame -f avi -vcodec mpeg4',
@@ -1092,6 +1177,47 @@ ConvertMgr.prototype.clearConfigs = function(full) {
 	if(full)
 		Util.removeReferenceS(this.localstore,DHNS+"conv-confs");
 	this.localstore.endUpdateBatch();
+}
+
+ConvertMgr.prototype.getConvertedFileName = function(filename,format) {
+	var extension=null;
+	if(format!=null && /^.+\/.*/.test(format))
+		extension=/^(.+?)\/.*$/.exec(format)[1];
+	if(extension!=null) {
+		if(/^.+\..+$/.test(filename)) {
+			filename=/^(.+\.)[^\.]{1,5}$/.exec(filename)[1]+extension;
+		} else {
+			filename=filename+"."+extension;
+		}
+	}
+	return filename;
+}
+
+ConvertMgr.prototype.checkConverter= function(interactive) {
+	//dump("[ConvertMgr] checkConverter()\n");
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                                .getService(Components.interfaces.nsIWindowMediator);
+	var window = wm.getMostRecentWindow("navigator:browser");
+	var info=this.getInfo();
+	while(info.get("enabled",Components.interfaces.nsISupportsPRBool).data==false || 
+			info.get("exefound",Components.interfaces.nsISupportsPRBool).data==false) {
+		if(!interactive)
+			return false;
+		var msgTag="";
+		if(info.get("enabled",Components.interfaces.nsISupportsPRBool).data==false)
+			msgTag="confirm.conversion-not-enabled.configure";
+		else if(info.get("exefound",Components.interfaces.nsISupportsPRBool).data==false)
+			msgTag="confirm.converter-not-found.configure";
+		var rc=window.confirm(Util.getText(msgTag));
+		if(!rc)
+			return false;
+	    var options="chrome,centerscreen,titlebar,toolbar,modal";
+	    var data={ selectedPanel: "panel-conversion" }
+	    window.openDialog("chrome://dwhelper/content/preferences-new.xul",'_blank',options, data );
+	    info=this.getInfo();
+	}
+	//dump("[ConvertMgr] checkConverter() => true\n");
+	return true;
 }
 
 ConvertMgr.prototype.QueryInterface = function(iid) {

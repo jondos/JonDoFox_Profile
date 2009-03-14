@@ -13,15 +13,16 @@ toolbar[iconsize="small"] #foxclocksoverlay-toolbarbutton-clocks, #foxclocksover
 
 #foxclocksoverlay-clock-tooltip { max-height: none; max-width: none; }
 
-#fc-zonepicker-searchbox { height: 1.4em; padding: 1px; }
 /*
 AFM - not enough for our needs
-#fc-zonepicker-searchbox input { color: graytext }
-#fc-zonepicker-searchbox input:focus { color: inherit }
+#fc-zonepicker-searchbox input { color: graytext; }
+#fc-zonepicker-searchbox input:focus { color: inherit; }
 */
-#fc-zonepicker-searchbox.fc-zonepicker-searchbox-active { color: inherit }
-#fc-zonepicker-searchbox.fc-zonepicker-searchbox-inactive { color: graytext }
-#fc-zonepicker-searchbox.fc-zonepicker-searchbox-no-match { color: red }
+#fc-zonepicker-header, #fc-locationlist-header { height: 2.2em; }
+#fc-zonepicker-searchbox { padding: 1px; }
+#fc-zonepicker-searchbox.fc-zonepicker-searchbox-active { color: inherit; }
+#fc-zonepicker-searchbox.fc-zonepicker-searchbox-inactive { color: graytext; }
+#fc-zonepicker-searchbox.fc-zonepicker-searchbox-no-match { color: red; }
 
 /* AFM - don't want the link to be obtrusive */
 #fc-foxclocks-version-label { text-decoration: none; }
@@ -41,7 +42,7 @@ until it was too late, but they're not immediately working. To revisit */
 #fc-watchlist treechildren::-moz-tree-row(foxclocks-drop-above) { border-top-width: 1px; border-top-color: -moz-dialogtext; border-top-style: solid; }
 #fc-watchlist treechildren::-moz-tree-row(foxclocks-drop-below) { border-bottom-width: 1px; border-bottom-color: -moz-dialogtext; border-bottom-style: solid; }
 
-/* AFM - hopefully big enough to hold long dates returned by toLocaleString() */
+/* AFM - hopefully big enough to hold long date formats */
 #fc-data-update-last-status-value, fc-data-update-next-value { min-width: 20em; }
 	
 #fc-format-custom-textbox-input, #fc-format-custom-textbox-preview { min-width: 16em; }
@@ -57,6 +58,8 @@ until it was too late, but they're not immediately working. To revisit */
 .foxclocks-paneloverflow-mitigation { overflow-x: hidden; }
 #fc-zoneinfo-currentlocation-caption  { min-width: 1em; max-width: 24em; }
 #fc-zoneinfo-caption { min-width: 1em; max-width: 30em; }
+
+#fc-zoneinfo-display-style-groupbox checkbox { margin-left: 2px; margin-right: 2px; }
 
 .foxclocks-errorstate { color: red; }
 .foxclocks-simpleinfo-window { min-width: 275px; }

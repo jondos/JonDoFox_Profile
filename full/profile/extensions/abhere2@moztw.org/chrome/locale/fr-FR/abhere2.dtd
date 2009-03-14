@@ -1,11 +1,13 @@
 <!ENTITY dialog.title "Options d&apos;Add Bookmark Here ²">
+<!ENTITY tab.main.caption "Général">
+<!ENTITY tab.interface.caption "Interface">
+<!ENTITY tab.advanced.caption "Avancé">
 <!ENTITY position.group "Position de l&apos;élément de menu">
-<!ENTITY position.item.abHere "Choisir la position de [Ajouter un marque-page ici...] :">
+<!ENTITY position.item.abHere "Choisir la position de [Ajouter un marque-page ici] :">
 <!ENTITY position.item.opTabs "Choisir la position de [Tout ouvrir dans des onglets] :">
 <!ENTITY position.option.top "Haut">
 <!ENTITY position.option.bottom "Bas">
 <!ENTITY position.option.hidden "Masquer">
-<!ENTITY position.misc.context "Afficher [Ajouter un marque-page ici...] dans le menu contextuel">
 <!ENTITY clicking.group "Clic de souris">
 <!ENTITY clicking.item.buttonL "Clic gauche :">
 <!ENTITY clicking.item.buttonM "Clic du milieu :">
@@ -13,12 +15,24 @@
 <!ENTITY clicking.option.bmPage "Marquer cette page">
 <!ENTITY clicking.option.bmNoUI "Marquer cette page (sans dialogue)">
 <!ENTITY clicking.option.bmTabs "Marquer tous les onglets">
-<!ENTITY clicking.misc.insertTop "Insert Bookmarks to the Top of Menu">
-<!ENTITY starUI.group "Dialogue étoile de marque-page">
+<!ENTITY starUI.group "Dialogue de marque-page">
 <!ENTITY starUI.expand.folderRow "Dérouler l&apos;arbre des dossiers">
 <!ENTITY starUI.expand.tagsRow "Dérouler la liste des tags">
-<!ENTITY starUI.misc.singleClick "Cliquez sur l&apos;étoile pour afficher le dialogue">
 <!ENTITY menubar.group "Menu des marques pages">
-<!ENTITY menubar.item.abHere "Afficher [Ajouter un marque-page ici...]">
+<!ENTITY menubar.item.abHere "Afficher [Ajouter un marque-page ici]">
 <!ENTITY menubar.item.bmPage "Afficher [Marquer cette page]">
 <!ENTITY menubar.item.bmTabs "Afficher [Marquer tous les onglets]">
+<!ENTITY context.group "Menu contextuel de marque-page">
+<!ENTITY context.item.abHere "Afficher l&apos;élément de menu [Ajouter un marque-page ici]">
+<!ENTITY starBtn.group "Etoile de marque-page">
+<!ENTITY starBtn.clicking.item.buttonL "Clic gauche :">
+<!ENTITY starBtn.clicking.item.buttonM "Clic du milieu :">
+<!ENTITY starBtn.clicking.item.buttonR "Clic droit :">
+<!ENTITY starBtn.clicking.option.defaultBehavior "Comportement par défaut">
+<!ENTITY starBtn.clicking.option.toggleMode "(Basculer)">
+<!ENTITY starBtn.clicking.option.unsortedFolder "Marque dans le dossier des marques-page non triés">
+<!ENTITY starBtn.clicking.option.singleClick "Cliquez sur l&apos;étoile pour afficher le dialogue">
+<!ENTITY starBtn.clicking.option.optionsDialog "Ouvrir les options d&apos;Add Bookmark Here ²">
+<!ENTITY misc.group "Divers">
+<!ENTITY misc.insertTop "Insert Bookmarks to the Top of Menu">
+<!ENTITY misc.folderDrag "Autoriser à glisser le dossier des marques-page">

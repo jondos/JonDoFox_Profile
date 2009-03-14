@@ -1,24 +1,38 @@
 <!ENTITY dialog.title "Add Bookmark Here ² - beállítások">
+<!ENTITY tab.main.caption "Általános">
+<!ENTITY tab.interface.caption "Felület">
+<!ENTITY tab.advanced.caption "Haladó">
 <!ENTITY position.group "Menüpontok pozíciójának kiválasztása">
-<!ENTITY position.item.abHere "Könyvjelző hozzáadása...">
+<!ENTITY position.item.abHere "Könyvjelző hozzáadása">
 <!ENTITY position.item.opTabs "Mindegyik megnyitása külön lapon">
 <!ENTITY position.option.top "Felül">
 <!ENTITY position.option.bottom "Alul">
 <!ENTITY position.option.hidden "Rejtett">
-<!ENTITY position.misc.context "[Könyvjelző hozzáadása...] megjelenítése a helyi menüben">
 <!ENTITY clicking.group "Az egérgomb-kattintások funkciói">
-<!ENTITY clicking.item.buttonL "Bal:">
-<!ENTITY clicking.item.buttonM "Középső:">
-<!ENTITY clicking.item.buttonR "Jobb:">
+<!ENTITY clicking.item.buttonL "Bal kattintás:">
+<!ENTITY clicking.item.buttonM "Kattintás a középsővel:">
+<!ENTITY clicking.item.buttonR "Jobb kattintás:">
 <!ENTITY clicking.option.bmPage "Aktuális lap könyvjelzőbe">
 <!ENTITY clicking.option.bmNoUI "Aktuális lap könyvjelzőbe (párbeszédablak nélkül)">
 <!ENTITY clicking.option.bmTabs "Minden lap egy könyvjelzőbe">
-<!ENTITY clicking.misc.insertTop "Könyvjelzők beillesztése a menü tetejére">
-<!ENTITY starUI.group "A csillag könyvjelző párbeszédablaka">
+<!ENTITY starUI.group "Könyvjelző párbeszédablak">
 <!ENTITY starUI.expand.folderRow "Mappák fa struktúrájának kibontása">
 <!ENTITY starUI.expand.tagsRow "Címke lista kibontása">
-<!ENTITY starUI.misc.singleClick "Egy kattintás a csillagra megnyitja a párbeszédablakot">
 <!ENTITY menubar.group "A könyvjelzők menü menüpontjainak megjelenítése">
-<!ENTITY menubar.item.abHere "Könyvjelző hozzáadása...">
+<!ENTITY menubar.item.abHere "Könyvjelző hozzáadása">
 <!ENTITY menubar.item.bmPage "Aktuális lap könyvjelzőbe">
 <!ENTITY menubar.item.bmTabs "Minden lap egy könyvjelzőbe">
+<!ENTITY context.group "Könyvjelzők helyi menüje">
+<!ENTITY context.item.abHere "A [Könyvjelző hozzáadása...] menüpont megjelenítése">
+<!ENTITY starBtn.group "Könyvjelző csillag">
+<!ENTITY starBtn.clicking.item.buttonL "Bal kattintás:">
+<!ENTITY starBtn.clicking.item.buttonM "Kattintás a középsővel:">
+<!ENTITY starBtn.clicking.item.buttonR "Jobb kattintás:">
+<!ENTITY starBtn.clicking.option.defaultBehavior "Alapértelmezett működés">
+<!ENTITY starBtn.clicking.option.toggleMode "(Átváltás)">
+<!ENTITY starBtn.clicking.option.unsortedFolder "Hozzáadás a rendezetlen könyvjelzők mappájába">
+<!ENTITY starBtn.clicking.option.singleClick "Egy kattintás a csillagra megnyitja a párbeszédablakot">
+<!ENTITY starBtn.clicking.option.optionsDialog "Az Add Bookmark Here ² beállításainak megnyitása">
+<!ENTITY misc.group "Vegyes">
+<!ENTITY misc.insertTop "Könyvjelzők beillesztése a menü tetejére">
+<!ENTITY misc.folderDrag "A könyvjelzők mappa áthúzásának engedélyezése">

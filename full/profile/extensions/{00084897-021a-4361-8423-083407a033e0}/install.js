@@ -2,7 +2,7 @@
 Name: CS Lite
 Description: Control cookie permissions.
 Author: Ron Beckman
-Homepage: http://forum.softwareblaze.com
+Homepage: http://addons.mozilla.org
 
 Install.js script inspired by code from MonkeeSage, Pike, Henrik Gemal and Stephen Clavering
 
@@ -33,7 +33,7 @@ var XpiInstaller = {
   // --- Editable items begin ---
   extFullName    : 'CS Lite', // The name displayed to the user (don't include the version)
   extShortName   : 'cookiesafe', // The leafname of the JAR file (without the .jar part)
-  extVersion     : '1.3.9',
+  extVersion     : '1.4',
   extAuthor      : 'Ron Beckman',
   extLocaleNames : ['en-US','bg-BG','de-DE','es-ES','fr-FR','hu-HU','it-IT','ja-JP','ko-KR','nl-NL','pl-PL','pt-BR','ro-RO','ru-RU','uk-UA','zh-CN'],
   extSkinNames   : ['classic'], // e.g., ['classic','modern']

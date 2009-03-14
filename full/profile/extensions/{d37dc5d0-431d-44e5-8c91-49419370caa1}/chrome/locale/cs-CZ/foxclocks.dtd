@@ -234,8 +234,8 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "K">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Podtržené">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "P">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Show flag">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "f">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Vlajka">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "V">
 <!ENTITY zoneinfo.display.style.colour.caption "Stavový řádek/nástrojová lišta barva hodin">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Standartní barvy">
 <!ENTITY zoneinfo.display.style.colour.standard.accesskey "b">

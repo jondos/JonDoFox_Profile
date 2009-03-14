@@ -2,6 +2,7 @@ TabRenamizer extension for Mozilla Firefox
 Copyright (C) 2006-2008  Valadrem
 
 Translations:
+  Arabic: Copyright (C) Alfoulad
   Czech: Copyright (C) Dave
   Danish: Copyright (C) Joergen
   German: Copyright (C) Andileinchen

@@ -1,4 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+FoxClocks extension for Mozilla Firefox/Thunderbird/Sunbird
+Copyright (C) 2005-2008 Andy McDonald / www.stemhaus.com
+For licensing terms, please refer to readme.txt in this extension's '.xpi'
+package or its installation directory on your computer.
+-->
+
+<!-- Please see 'NOTES FOR TRANSLATORS' in readme.txt -->
+
 <zonepicker xmlns="http://www.stemhaus.com/firefox/foxclocks/zonepicker" version="2.0" locale="nl-NL">
 	<Branch name="Afrika">
 		<Branch name="Landen">
@@ -178,10 +188,10 @@
 					<Leaf zone_id="America/Cambridge_Bay" name="Westelijk Nunavut" />
 					<Leaf zone_id="America/Inuvik" name="West NWT" />
 				</Branch>
-				<Branch name="Newfoundland Tijd (NT)">
+				<Branch name="Newfoundland Tijd">
 					<Leaf zone_id="America/St_Johns" name="NF &amp; ZO Labrador" />
 				</Branch>
-				<Branch name="Pacifische Tijd (PT)">
+				<Branch name="Pacifische Tijd">
 					<Leaf zone_id="America/Dawson" name="N Yukon" />
 					<Leaf zone_id="America/Whitehorse" name="Z Yukon" />
 					<Leaf zone_id="America/Vancouver" name="W British Columbia" />
@@ -224,7 +234,7 @@
 			</Leaf>
 			<Leaf zone_id="America/El_Salvador" name="El Salvador" />
 			<Leaf zone_id="America/Cayenne" name="Frans Guyana" />
-			<Branch name="Greenland">
+			<Branch name="Groenland">
 				<Leaf zone_id="America/Godthab" name="Groenland (grotendeels)" />
 				<Leaf zone_id="America/Scoresbysund" name="Scoresbysund/Ittoqqortoormiit" />
 				<Leaf zone_id="America/Thule" name="Thule/Pituffik" />
@@ -282,7 +292,7 @@
 				<Leaf zone_id="America/Denver" name="VS Bergen" />
 				<Leaf zone_id="America/Los_Angeles" name="VS Stille Oceaan" />
 				<Branch name="Uitzonderingen">
-					<Branch name="Centraal Tijd (CT)">
+					<Branch name="Centraal Tijd">
 						<Branch name="Indiana">
 							<Leaf zone_id="America/Indiana/Vincennes" name="Daviess, Dubois, Knox, Martin, Perry &amp; Pulaski Cos" />
 							<Leaf zone_id="America/Indiana/Petersburg" name="Pike Co" />
@@ -295,11 +305,13 @@
 							<Leaf zone_id="America/North_Dakota/Center" name="Oliver Co" />
 						</Branch>
 					</Branch>
-					<Branch name="Oostelijke Tijd (ET)">
+					<Branch name="Oostelijke Tijd">
 						<Branch name="Indiana">
 							<Leaf zone_id="America/Indiana/Indianapolis" name="Indiana (grotendeels)" />
 							<Leaf zone_id="America/Indiana/Marengo" name="Crawford Co" />
-							<Leaf zone_id="America/Indiana/Knox" name="Starke Co" />
+							<Leaf zone_id="America/Indiana/Vincennes" name="Daviess, Dubois, Knox &amp; Martin Cos" />
+              <Leaf zone_id="America/Indiana/Petersburg" name="Pike Co" />
+							<Leaf zone_id="America/Indiana/Winamac" name="Pulaski Co" />
 							<Leaf zone_id="America/Indiana/Vevay" name="Switzerland Co" />
 						</Branch>
 						<Branch name="Kentucky">
@@ -308,7 +320,7 @@
 						</Branch>
 						<Leaf zone_id="America/Detroit" name="Michigan (grotendeels)" />
 					</Branch>
-					<Branch name="Mountain Time">
+					<Branch name="Bergtijd">
 						<Leaf zone_id="America/Phoenix" name="Arizona" />
 						<Leaf zone_id="America/Shiprock" name="Navajo" />
 						<Leaf zone_id="America/Boise" name="Z Idaho &amp; O Oregon" />
@@ -346,7 +358,6 @@
 			<Leaf zone_id="America/Chicago" name="Chicago" />
 			<Leaf zone_id="America/Chihuahua" name="Chihuahua" />
 			<Leaf zone_id="America/Grand_Turk" name="Cockburn Town" />
-			<Leaf zone_id="America/Argentina/ComodRivadavia" name="Comodoro Rivadavia" />
 			<Leaf zone_id="America/Argentina/Cordoba" name="Córdoba" />
 			<Leaf zone_id="America/Cuiaba" name="Cuiaba" />
 			<Leaf zone_id="America/Danmarkshavn" name="Danmarkshavn" />
@@ -374,10 +385,11 @@
 				<Leaf zone_id="America/Indiana/Knox" name="Knox" />
 				<Leaf zone_id="America/Indiana/Marengo" name="Marengo" />
 				<Leaf zone_id="America/Indiana/Petersburg" name="Petersburg" />
+				<Leaf zone_id="America/Indiana/Tell_City" name="Tell City" />
 				<Leaf zone_id="America/Indiana/Vevay" name="Vevay" />
 				<Leaf zone_id="America/Indiana/Vincennes" name="Vincennes" />
+			  <Leaf zone_id="America/Indiana/Winamac" name="Winamac" />
 			</Branch>
-			<Leaf zone_id="America/Indianapolis" name="Indianapolis" />
 			<Leaf zone_id="America/Inuvik" name="Inuvik" />
 			<Leaf zone_id="America/Iqaluit" name="Iqaluit" />
 			<Leaf zone_id="America/Argentina/Jujuy" name="Jujuy" />
@@ -505,7 +517,9 @@
 			<Leaf zone_id="Atlantic/Canary" name="Canarische Eilanden" />
 		</Branch>
 		<Branch name="Svalbard &amp; Jan Mayen">
-			<Leaf zone_id="Atlantic/Jan_Mayen" name="Jan Mayen" />
+			<Leaf zone_id="Europe/Oslo" name="Jan Mayen">
+				<Coordinates latitude="70.983" longitude="-8.083" />
+			</Leaf>
 		</Branch>
 	</Branch>
 	<Branch name="Australië">
@@ -603,7 +617,7 @@
 			<Leaf zone_id="Asia/Katmandu" name="Nepal" />
 			<Leaf zone_id="Asia/Muscat" name="Oman" />
 			<Leaf zone_id="Asia/Karachi" name="Pakistan" />
-			<Leaf zone_id="Asia/Gaza" name="Palestina" />
+			<Leaf zone_id="Asia/Gaza" name="Palestijnse Gebieden" />
 			<Leaf zone_id="Asia/Manila" name="Philippijnen" />
 			<Leaf zone_id="Asia/Qatar" name="Qatar" />
 			<Branch name="Rusland">
@@ -627,6 +641,7 @@
 			<Leaf zone_id="Asia/Dushanbe" name="Tadzjikistan" />
 			<Leaf zone_id="Asia/Bangkok" name="Thailand" />
 			<Leaf zone_id="Asia/Ashgabat" name="Turkmenistan" />
+			<Leaf zone_id="Europe/Istanbul" name="Turkije" />
 			<Leaf zone_id="Asia/Dubai" name="VAE" />
 			<Branch name="Oezbekistan">
 				<Leaf zone_id="Asia/Tashkent" name="O Oezbekistan" />
@@ -638,6 +653,9 @@
 			</Leaf>
 		</Branch>
 		<Branch name="Steden">
+			<Leaf zone_id="Asia/Dubai" name="Abu Dhabi">
+				<Coordinates latitude="24.467" longitude="54.367" />
+			</Leaf>
 			<Leaf zone_id="Asia/Aden" name="Aden" />
 			<Leaf zone_id="Asia/Almaty" name="Almaty" />
 			<Leaf zone_id="Asia/Amman" name="Amman" />
@@ -668,6 +686,9 @@
 			<Leaf zone_id="Asia/Hong_Kong" name="Hong Kong" />
 			<Leaf zone_id="Asia/Hovd" name="Hovd" />
 			<Leaf zone_id="Asia/Irkutsk" name="Irkoetsk" />
+			<Leaf zone_id="Asia/Karachi" name="Islamabad">
+				<Coordinates latitude="33.718" longitude="73.061" />
+			</Leaf>
 			<Leaf zone_id="Asia/Istanbul" name="Istanboel" />
 			<Leaf zone_id="Asia/Jakarta" name="Jakarta" />
 			<Leaf zone_id="Asia/Jayapura" name="Jayapura" />
@@ -739,6 +760,7 @@
 			<Leaf zone_id="Europe/Sarajevo" name="Bosnië &amp; Herzegovina" />
 			<Leaf zone_id="Europe/Sofia" name="Bulgarije" />
 			<Leaf zone_id="Europe/Zagreb" name="Kroatië" />
+			<Leaf zone_id="Asia/Nicosia" name="Cyprus" />
 			<Leaf zone_id="Europe/Prague" name="Tsjechië" />
 			<Leaf zone_id="Europe/Copenhagen" name="Denemarken" />
 			<Leaf zone_id="Europe/Tallinn" name="Estland" />
@@ -798,7 +820,9 @@
 			<Leaf zone_id="Europe/Madrid" name="Barcelona">
 				<Coordinates latitude="41.388" longitude="2.17" />
 			</Leaf>
-			<Leaf zone_id="Europe/Belfast" name="Belfast" />
+			<Leaf zone_id="Europe/Belfast" name="Belfast">
+				<Coordinates latitude="54.597" longitude="-5.930" />
+			</Leaf>
 			<Leaf zone_id="Europe/Belgrade" name="Belgrado" />
 			<Leaf zone_id="Europe/Berlin" name="Berlijn" />
 			<Leaf zone_id="Europe/Bratislava" name="Bratislava" />
@@ -866,6 +890,53 @@
 		<Leaf zone_id="Indian/Mayotte" name="Mayotte" />
 		<Leaf zone_id="Indian/Reunion" name="Réunion" />
 		<Leaf zone_id="Indian/Mahe" name="Seychellen" />
+	</Branch>
+	<Branch name="Midden-Oosten">
+		<Branch name="Landen">
+			<Leaf zone_id="Asia/Bahrain" name="Bahrein" />
+			<Leaf zone_id="Africa/Cairo" name="Egypte" />
+			<Leaf zone_id="Asia/Tehran" name="Iran" />
+			<Leaf zone_id="Asia/Baghdad" name="Irak" />
+			<Leaf zone_id="Asia/Jerusalem" name="Israël" />
+			<Leaf zone_id="Asia/Amman" name="Jordanië" />
+			<Leaf zone_id="Asia/Kuwait" name="Koeweit" />
+			<Leaf zone_id="Asia/Beirut" name="Libanon" />
+			<Leaf zone_id="Asia/Muscat" name="Oman" />
+			<Leaf zone_id="Asia/Gaza" name="Palestijnse Gebieden" />
+			<Leaf zone_id="Asia/Qatar" name="Qatar" />
+			<Leaf zone_id="Asia/Riyadh" name="Saudi-Arabië" />
+			<Leaf zone_id="Africa/Khartoum" name="Soedan" />
+			<Leaf zone_id="Asia/Damascus" name="Syrië" />
+			<Leaf zone_id="Asia/Dubai" name="VAE" />
+			<Leaf zone_id="Asia/Aden" name="Jemen">
+				<Coordinates latitude="15.352" longitude="44.207" />
+			</Leaf>
+		</Branch>
+		<Branch name="Steden">
+			<Leaf zone_id="Asia/Dubai" name="Abu Dhabi">
+				<Coordinates latitude="24.467" longitude="54.367" />
+			</Leaf>
+			<Leaf zone_id="Asia/Aden" name="Aden" />
+			<Leaf zone_id="Asia/Amman" name="Amman" />
+			<Leaf zone_id="Asia/Baghdad" name="Baghdad" />
+			<Leaf zone_id="Asia/Beirut" name="Beiroet" />
+			<Leaf zone_id="Africa/Cairo" name="Caïro" />
+			<Leaf zone_id="Asia/Damascus" name="Damascus" />
+			<Leaf zone_id="Asia/Qatar" name="Doha" />
+			<Leaf zone_id="Asia/Dubai" name="Dubai" />
+			<Leaf zone_id="Asia/Gaza" name="Gaza" />
+			<Leaf zone_id="Europe/Istanbul" name="Istanboel" />
+			<Leaf zone_id="Asia/Jerusalem" name="Jeruzalem" />
+			<Leaf zone_id="Africa/Khartoum" name="Khartoum" />
+			<Leaf zone_id="Asia/Kuwait" name="Koeweit-Stad" />
+			<Leaf zone_id="Asia/Bahrain" name="Manama" />
+			<Leaf zone_id="Asia/Muscat" name="Muscat" />
+			<Leaf zone_id="Asia/Riyadh" name="Riyaad" />
+			<Leaf zone_id="Asia/Aden" name="San‘a’">
+				<Coordinates latitude="15.352" longitude="44.207" />
+			</Leaf>
+			<Leaf zone_id="Asia/Tehran" name="Teheran" />
+		</Branch>
 	</Branch>
 	<Branch name="Stille Oceaan">
 		<Branch name="Landen">

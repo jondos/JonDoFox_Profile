@@ -234,7 +234,7 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "K">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Understreget">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "U">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Vis flag">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Flag">
 <!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "f">
 <!ENTITY zoneinfo.display.style.colour.caption "Statuslinje/værktøjslinje urfarve">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Standard farve">

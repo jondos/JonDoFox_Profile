@@ -234,8 +234,8 @@
 <!ENTITY zoneinfo.display.style.checkbox.italic.accesskey "S">
 <!ENTITY zoneinfo.display.style.checkbox.underline.label "Onderstreept">
 <!ENTITY zoneinfo.display.style.checkbox.underline.accesskey "O">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Markering weergeven">
-<!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "M">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.label "Vlag">
+<!ENTITY zoneinfo.display.style.checkbox.showflag.accesskey "l">
 <!ENTITY zoneinfo.display.style.colour.caption "Klokkleur in statusbalk/werkbalk">
 <!ENTITY zoneinfo.display.style.colour.standard.label "Standaardkleur">
 <!ENTITY zoneinfo.display.style.colour.standard.accesskey "k">
@@ -245,7 +245,7 @@
 <!ENTITY zoneinfo.display.style.colour.alternate.from.accesskey "v">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.label "tot">
 <!ENTITY zoneinfo.display.style.colour.alternate.to.accesskey "t">
-<!ENTITY zoneinfo.display.flag.caption "Statusbalk-/werkbalkvlag">
+<!ENTITY zoneinfo.display.flag.caption "Vlag imago">
 <!ENTITY zoneinfo.display.flag.radio.disabled.label "Uitgeschakeld">
 <!ENTITY zoneinfo.display.flag.radio.disabled.accesskey "U">
 <!ENTITY zoneinfo.display.flag.radio.standard.label "Standaard">

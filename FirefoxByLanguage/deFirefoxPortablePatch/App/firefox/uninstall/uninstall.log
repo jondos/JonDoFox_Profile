@@ -192,3 +192,4 @@ File: \chrome\de.manifest
 File: \components\nsIQTScriptablePlugin.xpt
 File: \components\nsBadCertHandler.js
 File: \removed-files
+File: \components\aboutRights.js
