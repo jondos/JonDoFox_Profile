@@ -47,7 +47,7 @@ user_pref("browser.preferences.advanced.selectedTabIndex", 0);
 user_pref("browser.preferences.privacy.selectedTabIndex", 5);
 user_pref("browser.rights.3.shown", true);
 user_pref("browser.safebrowsing.enabled", false);
-user_pref("browser.search.selectedEngine", "Ixquick (en)");
+user_pref("browser.search.selectedEngine", "Cuil");
 user_pref("browser.search.update", false);
 user_pref("browser.search.useDBForOrder", true);
 user_pref("browser.sessionstore.enabled", false);
