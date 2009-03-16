@@ -347,14 +347,10 @@ end copy_bookmarks
 -- create a backup of profile.ini
 on backup_profile_ini()
 	try
-		tell application "Finder"
-			if (the file (firefox_profiles_path & profile_ini_backup_name) exists) then
-				delete (firefox_profiles_path & profile_ini_backup_name) as alias
-				empty trash
-			end if
-			set backup_file to (duplicate profiles_ini to (firefox_profiles_path as alias))
-			set name of backup_file to profile_ini_backup_name as Unicode text
-		end tell
+		tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
+		set tempFirefox_profiles_path to getAbsolutePath(tempFirefox_profiles_URL)
+		do shell script "cp -f " & tempFirefox_profiles_path & "/profiles.ini " & Â
+			tempFirefox_profiles_path & "/" & profile_ini_backup_name
 	on error
 		display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} Â
 			with icon stop with title jfx_dialog_title default button buttonOK
@@ -363,19 +359,11 @@ end backup_profile_ini
 
 -- restore old settings in case the copy process of the JonDoFox profile folder fails 
 on restore_old_settings()
-	try
-		tell application "Finder"
-			if (the file (firefox_profiles_path & profile_ini_backup_name) exists) then
-				delete profiles_ini
-				empty trash
-				set backup_file to the file (firefox_profiles_path & profile_ini_backup_name)
-				set name of backup_file to "profiles.ini" as Unicode text
-			end if
-		end tell
-	on error
-		--display dialog getLangProperty("ErrorRestoreOldSettings") buttons {buttonOK} with icon stop with title jfx_dialog_title
-		return 1
-	end try
+	
+	tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
+	set tempFirefox_profiles_path to getAbsolutePath(tempFirefox_profiles_URL)
+	do shell script "mv -f " & tempFirefox_profiles_path & "/" & profile_ini_backup_name & Â
+		" " & tempFirefox_profiles_path & "/profiles.ini "
 	return 0
 end restore_old_settings
 
