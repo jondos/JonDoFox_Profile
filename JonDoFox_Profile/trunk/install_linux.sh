@@ -112,7 +112,8 @@ variablesOsSpecific()
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
 		
-	JONDOFOX_PROFILE_ENTRY="[General]\nStartWithLastProfile=0\n\n[Profile0]\nName=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"    	
+	#JONDOFOX_PROFILE_ENTRY="[General]\nStartWithLastProfile=0\n\n[Profile0]\nName=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"    	
+	JONDOFOX_PROFILE_ENTRY="Name=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"
 
 	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
 	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
@@ -124,37 +125,6 @@ variablesOsSpecific()
 		echo "Firefox settings path: ${FIREFOX_SETTINGS_PATH}"
 		echo "Install Destination: ${DEST_PROFILE}"
 	fi
-}
-
-## modifies each line of the profiles.ini
-profilesIniModifications()
-{
-	local i=1
-	echo ${ECHO_ESCAPE} ${JONDOFOX_PROFILE_ENTRY}
-	while [ ${i} -le $1 ];
-	do
-		modFilter $(head -n ${i} "${PROFILES_INI_BACKUP_FILE}" | tail -n 1)
-		i=$[$i+1]
-	done
-	
-}
-
-## filter for profiles.ini modifications 
-modFilter()
-{
-	local newProfileNr
-	local line=$1
-	case "$line" in
-		"StartWithLastProfile"*) ;;
-		"[General]") ;;
-		"Default=1") ;;
-		"[Profile"*) 
-			newProfileNr=${line##"[Profile"}
-			newProfileNr=${newProfileNr%%"]"}
-			newProfileNr=$[$newProfileNr+1]
-			echo "[Profile${newProfileNr}]";;
-		*) echo "$1";;
-	esac
 }
 
 ## store bookmarks of old JonDoFox profile
@@ -216,11 +186,15 @@ editProfilesIni()
 		return 1
 	fi
 	
-	lastLineStr=$(cat "${PROFILES_INI_BACKUP_FILE}" | tail -n 1)
-	lastLineNr=$(cat -n "${PROFILES_INI_BACKUP_FILE}" | tail -n 1)
-	lastLineNr=${lastLineNr%${lastLineStr}}
+	nextProfileNr=$(grep \\[Profile "${PROFILES_INI_FILE}" | tail -n 1 | xargs -I % expr % : ".*Profile\([0-9]*\).*" | xargs -I % expr % + 1)
 	
-	profilesIniModifications ${lastLineNr} > "${PROFILES_INI_FILE}"
+	#unset default profile and force profile choose dialog at startup.
+	sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ \
+		-e s/Default=1// "${PROFILES_INI_BACKUP_FILE}" > "${PROFILES_INI_FILE}"
+	
+	echo >> "${PROFILES_INI_FILE}"
+	echo "[Profile${nextProfileNr}]" >> "${PROFILES_INI_FILE}"
+	echo ${ECHO_ESCAPE} ${JONDOFOX_PROFILE_ENTRY} >> "${PROFILES_INI_FILE}"
 }
 
 removeOldProfileFolder()
