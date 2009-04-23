@@ -224,6 +224,7 @@ user_pref("network.proxy.socks_remote_dns", true);
 user_pref("network.proxy.ssl", "127.0.0.1");
 user_pref("network.proxy.ssl_port", 4001);
 user_pref("network.proxy.type", 1);
+user_pref("noscript.autoReload", false);
 user_pref("noscript.blockNSWB", true);
 user_pref("noscript.canonicalFQDN", false);
 user_pref("noscript.contentBlocker", true);
