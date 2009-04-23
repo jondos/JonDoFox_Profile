@@ -185,6 +185,7 @@ pref("noscript.clearClick.plugins", true);
 pref("noscript.clearClick.prompt", true);
 pref("noscript.clearClick.debug", false);
 pref("noscript.clearClick.exceptions", "noscript.net/getit flashgot.net/getit *.ebay.com");
+pref("noscript.clearClick.subexceptions", "http://w.sharethis.com/share3x/lightbox.html?*");
 
 pref("noscript.emulateFrameBreak", true);
 
@@ -207,4 +208,8 @@ pref("noscript.surrogate.yieldman.sources", "*.yieldmanager.com");
 pref("noscript.placeholderMinSize", 32);
 
 pref("noscript.compat.evernote", true);
+pref("noscript.compat.gnotes", true);
 
+pref("noscript.forbidXSLT", true);
+
+pref("nosript.oldStylePartial", false);

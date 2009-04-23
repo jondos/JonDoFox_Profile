@@ -457,6 +457,7 @@ ConvertMgr.prototype.getFormat=function(filename,mediaUrl,pageUrl) {
 			}
 		}
 	}
+	return null;
 	} catch(e) {
 		dump("!!! [ConvertMgr] getFormat(): "+e+"\n");
 		return null;

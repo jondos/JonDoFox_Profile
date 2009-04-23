@@ -3,19 +3,19 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>{F807FACD-E46A-4793-B345-D58CB177673C}</em:id>
 		<em:name>ScribeFire</em:name>
-		<em:version>3.2.3</em:version>
+		<em:version>3.3</em:version>
 		<em:description>A full featured blog editor that integrates with your browser and lets you easily post to your blog.</em:description>
 		<em:creator>ScribeFire.com</em:creator>
 		<em:homepageURL>http://www.scribefire.com/</em:homepageURL>
-		<em:iconURL>chrome://performancing/skin/scribefire-icon-32x32.png</em:iconURL>
+		<em:iconURL>chrome://scribefire/skin/scribefire-icon-32x32.png</em:iconURL>
 		
 		<!-- Firefox -->
 		
 		<em:targetApplication>          
 			<Description>
 			<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-			<em:minVersion>2.0</em:minVersion>
-			<em:maxVersion>3.1b3pre</em:maxVersion>
+			<em:minVersion>3.0</em:minVersion>
+			<em:maxVersion>3.5b4pre</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 		
@@ -34,7 +34,7 @@
 		<em:targetApplication>
 			<Description>
 			<em:id>{a463f10c-3994-11da-9945-000d60ca027b}</em:id>
-			<em:minVersion>1.0</em:minVersion>
+			<em:minVersion>2.0</em:minVersion>
 			<em:maxVersion>2.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
@@ -45,7 +45,7 @@
 		<em:targetApplication>
 			<Description>
 				<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
-				<em:minVersion>1.1</em:minVersion>
+				<em:minVersion>2.0a1</em:minVersion>
 				<em:maxVersion>2.0a1</em:maxVersion>
 			</Description>
 		</em:targetApplication>
@@ -55,8 +55,8 @@
 		<em:targetApplication>
 			<Description>
 				<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-				<em:minVersion>2.0</em:minVersion>
-				<em:maxVersion>2.0.0.*</em:maxVersion>
+				<em:minVersion>3.0</em:minVersion>
+				<em:maxVersion>3.0.0.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 		

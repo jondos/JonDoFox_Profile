@@ -1,38 +1,37 @@
-content performancing   jar:chrome/performancing.jar!/content/ 
-content performancing   jar:chrome/performancing.jar!/content/ contentaccessible=yes
+content scribefire   jar:chrome/scribefire.jar!/content/ contentaccessible=yes
 
 
-locale  performancing   en-US            jar:chrome/performancing.jar!/locale/en-US/
-locale  performancing   bg-BG            jar:chrome/performancing.jar!/locale/bg-BG/
-locale  performancing   cs-CZ            jar:chrome/performancing.jar!/locale/cs-CZ/
-locale  performancing   de-DE            jar:chrome/performancing.jar!/locale/de-DE/
-locale  performancing   el-GR            jar:chrome/performancing.jar!/locale/el-GR/
-locale  performancing   es-ES            jar:chrome/performancing.jar!/locale/es-ES/
-locale  performancing   fi-FI            jar:chrome/performancing.jar!/locale/fi-FI/
-locale  performancing   fr-FR            jar:chrome/performancing.jar!/locale/fr-FR/
-locale  performancing   he-IL            jar:chrome/performancing.jar!/locale/he-IL/
-locale  performancing   id-ID            jar:chrome/performancing.jar!/locale/id-ID/
-locale  performancing   is-IS            jar:chrome/performancing.jar!/locale/is-IS/
-locale  performancing   it-IT            jar:chrome/performancing.jar!/locale/it-IT/
-locale  performancing   ja-JP            jar:chrome/performancing.jar!/locale/ja-JP/
-locale  performancing   ko-KR            jar:chrome/performancing.jar!/locale/ko-KR/
-locale  performancing   nl-NL            jar:chrome/performancing.jar!/locale/nl-NL/
-locale  performancing   pl-PL            jar:chrome/performancing.jar!/locale/pl-PL/
-locale  performancing   pt-BR            jar:chrome/performancing.jar!/locale/pt-BR/
-locale  performancing   ru-RU            jar:chrome/performancing.jar!/locale/ru-RU/
-locale  performancing   sr-RS            jar:chrome/performancing.jar!/locale/sr-RS/
-locale  performancing   sr-YU            jar:chrome/performancing.jar!/locale/sr-YU/
-locale  performancing   sv-SE            jar:chrome/performancing.jar!/locale/sv-SE/
-locale  performancing   th-TH            jar:chrome/performancing.jar!/locale/th-TH/
-locale  performancing   tr-TR            jar:chrome/performancing.jar!/locale/tr-TR/
-locale  performancing   zh-CN            jar:chrome/performancing.jar!/locale/zh-CN/
-locale  performancing   zh-TW            jar:chrome/performancing.jar!/locale/zh-TW/
+locale  scribefire   en-US            jar:chrome/scribefire.jar!/locale/en-US/
+locale  scribefire   bg-BG            jar:chrome/scribefire.jar!/locale/bg-BG/
+locale  scribefire   cs-CZ            jar:chrome/scribefire.jar!/locale/cs-CZ/
+locale  scribefire   de-DE            jar:chrome/scribefire.jar!/locale/de-DE/
+locale  scribefire   el-GR            jar:chrome/scribefire.jar!/locale/el-GR/
+locale  scribefire   es-ES            jar:chrome/scribefire.jar!/locale/es-ES/
+locale  scribefire   fi-FI            jar:chrome/scribefire.jar!/locale/fi-FI/
+locale  scribefire   fr-FR            jar:chrome/scribefire.jar!/locale/fr-FR/
+locale  scribefire   he-IL            jar:chrome/scribefire.jar!/locale/he-IL/
+locale  scribefire   id-ID            jar:chrome/scribefire.jar!/locale/id-ID/
+locale  scribefire   is-IS            jar:chrome/scribefire.jar!/locale/is-IS/
+locale  scribefire   it-IT            jar:chrome/scribefire.jar!/locale/it-IT/
+locale  scribefire   ja-JP            jar:chrome/scribefire.jar!/locale/ja-JP/
+locale  scribefire   ko-KR            jar:chrome/scribefire.jar!/locale/ko-KR/
+locale  scribefire   nl-NL            jar:chrome/scribefire.jar!/locale/nl-NL/
+locale  scribefire   pl-PL            jar:chrome/scribefire.jar!/locale/pl-PL/
+locale  scribefire   pt-BR            jar:chrome/scribefire.jar!/locale/pt-BR/
+locale  scribefire   ru-RU            jar:chrome/scribefire.jar!/locale/ru-RU/
+locale  scribefire   sr-RS            jar:chrome/scribefire.jar!/locale/sr-RS/
+locale  scribefire   sr-YU            jar:chrome/scribefire.jar!/locale/sr-YU/
+locale  scribefire   sv-SE            jar:chrome/scribefire.jar!/locale/sv-SE/
+locale  scribefire   th-TH            jar:chrome/scribefire.jar!/locale/th-TH/
+locale  scribefire   tr-TR            jar:chrome/scribefire.jar!/locale/tr-TR/
+locale  scribefire   zh-CN            jar:chrome/scribefire.jar!/locale/zh-CN/
+locale  scribefire   zh-TW            jar:chrome/scribefire.jar!/locale/zh-TW/
 
-skin    performancing   classic/1.0      jar:chrome/performancing.jar!/skin/
+skin    scribefire   classic/1.0      jar:chrome/scribefire.jar!/skin/
 
-overlay chrome://browser/content/browser.xul         chrome://performancing/content/overlay.xul
-overlay chrome://emusic/content/startup.xul          chrome://performancing/content/overlay.xul
-overlay chrome://navigator/content/navigator.xul     chrome://performancing/content/overlay_suite.xul
+overlay chrome://browser/content/browser.xul         chrome://scribefire/content/overlay.xul
+overlay chrome://emusic/content/startup.xul          chrome://scribefire/content/overlay.xul
+overlay chrome://navigator/content/navigator.xul     chrome://scribefire/content/overlay_suite.xul
 
-style   chrome://global/content/customizeToolbar.xul chrome://performancing/skin/overlay.css
-style   chrome://global/content/customizeToolbar.xul chrome://performancing/skin/browser.css
+style   chrome://global/content/customizeToolbar.xul chrome://scribefire/skin/overlay.css
+style   chrome://global/content/customizeToolbar.xul chrome://scribefire/skin/browser.css

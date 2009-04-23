@@ -876,6 +876,19 @@ UtilService.prototype.getPropsString = function(props, key) {
 	return null;
 }
 
+UtilService.prototype.alert = function(message,title) {
+	var promptService=Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
+	promptService.alert(null,title,message);
+}
+
+UtilService.prototype.alertError = function(message) {
+	this.alert(message,this.getText("alert.title.error"));
+}
+
+UtilService.prototype.alertWarning = function(message) {
+	this.alert(message,this.getText("alert.title.warning"));
+}
+
 UtilService.prototype.QueryInterface = function(iid) {
     if (!iid.equals(Components.interfaces.nsISupports) && 
     	!iid.equals(Components.interfaces.dhIUtilService)) {

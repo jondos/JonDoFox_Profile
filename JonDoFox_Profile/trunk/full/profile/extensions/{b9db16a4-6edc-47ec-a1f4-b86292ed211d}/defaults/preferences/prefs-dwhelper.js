@@ -60,3 +60,7 @@ pref("dwhelper.mp3tunes.allow-video-upload",true);
 pref("dwhelper.mp3tunes.upload.mobile","ask");
 pref("dwhelper.mp3tunes.upload.locker","ask");
 pref("dwhelper.ythq-formats","6,18,35,22");
+pref("dwhelper.media-host-blacklist","pop6.com|redlightcenter.com|dtiserv.com|mp3tunes.com");
+pref("dwhelper.last-media-host-blacklist","pop6.com|redlightcenter.com|dtiserv.com|mp3tunes.com");
+pref("dwhelper.share-blacklist",true);
+pref("dwhelper.last-shared-blacklist","0");

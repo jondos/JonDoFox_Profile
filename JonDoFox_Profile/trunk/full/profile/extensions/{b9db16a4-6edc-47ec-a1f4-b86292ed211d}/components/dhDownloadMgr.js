@@ -105,7 +105,15 @@ DLMgr.prototype.queueDownload=function(listener,entry,ctx) {
 	//dump("[DLMgr] queueDownload()\n");
 	try {
 		var dEntry=Util.createAnonymousNodeS(this.qDatasource,"urn:root");
-		Util.setPropertyValueRS(this.qDatasource,dEntry,DHNS+"label",Util.getPropsString(entry,"label"));
+		var label;
+		if(entry.has("cv-file")) {
+			label=entry.get("cv-file",Components.interfaces.nsILocalFile).leafName;
+		} else if(entry.has("dl-file")) {
+			label=entry.get("dl-file",Components.interfaces.nsILocalFile).leafName;
+		} else {
+			label=Util.getPropsString(entry,"label")
+		}
+		Util.setPropertyValueRS(this.qDatasource,dEntry,DHNS+"label",label);
 		Util.setPropertyValueRS(this.qDatasource,dEntry,DHNS+"status","queued");
 		this.queuedEntries[dEntry.Value]={
 				listener: listener,

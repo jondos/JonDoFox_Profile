@@ -45,6 +45,7 @@ locale    adblockplus ro-RO jar:chrome/adblockplus.jar!/locale/ro-RO/
 locale    adblockplus ru-RU jar:chrome/adblockplus.jar!/locale/ru-RU/
 locale    adblockplus sk-SK jar:chrome/adblockplus.jar!/locale/sk-SK/
 locale    adblockplus sl-SI jar:chrome/adblockplus.jar!/locale/sl-SI/
+locale    adblockplus sr-RS jar:chrome/adblockplus.jar!/locale/sr-RS/
 locale    adblockplus sv-SE jar:chrome/adblockplus.jar!/locale/sv-SE/
 locale    adblockplus th-TH jar:chrome/adblockplus.jar!/locale/th-TH/
 locale    adblockplus tr-TR jar:chrome/adblockplus.jar!/locale/tr-TR/

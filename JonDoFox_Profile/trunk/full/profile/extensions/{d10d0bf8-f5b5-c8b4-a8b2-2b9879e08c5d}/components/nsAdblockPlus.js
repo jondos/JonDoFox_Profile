@@ -66,6 +66,7 @@ const locales = [
 	"ru-RU",
 	"sk-SK",
 	"sl-SI",
+	"sr-RS",
 	"sv-SE",
 	"th-TH",
 	"tr-TR",
@@ -380,7 +381,7 @@ const abp =
 	 */
 	getInstalledVersion: function() /**String*/
 	{
-		return "1.0.1";
+		return "1.0.2";
 	},
 
 	//
