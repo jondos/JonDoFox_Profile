@@ -13,7 +13,7 @@ pref("performancing.display.state.lastviewopened", "tab-normal-edit");
 pref("performancing.settings.defaults.encoding", "UTF-8");
 pref("performancing.display.sortcats", true);
 pref("performancing.display.enablertl", false);
-pref("extensions.{F807FACD-E46A-4793-B345-D58CB177673C}.description", "chrome://performancing/locale/overlay.properties");
+pref("extensions.{F807FACD-E46A-4793-B345-D58CB177673C}.description", "chrome://scribefire/locale/overlay.properties");
 pref("performancing.extra.insertpfftext2", false);
 pref("performancing.onfirstrun", true); //For general
 pref("performancing.display.statusbar", true);
@@ -32,6 +32,8 @@ pref("performancing.onetime.welcomePage", false);
 pref("performancing.onetime.welcomePage", false);
 pref("performancing.imageMaxWidth", true);
 pref("performancing.version", "");
+
+pref("performancing.inlinksIntroduction", false);
 
 pref("performancing.zemanta.key", "");
 pref("performancing.zemanta.config_url", "");

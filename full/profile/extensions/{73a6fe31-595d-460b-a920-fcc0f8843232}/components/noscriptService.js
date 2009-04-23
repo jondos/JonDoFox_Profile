@@ -864,7 +864,7 @@ function NoscriptService() {
 }
 
 NoscriptService.prototype = {
-  VERSION: "1.9.1",
+  VERSION: "1.9.1.91",
   
   get wrappedJSObject() {
     return this;
@@ -1154,7 +1154,8 @@ NoscriptService.prototype = {
       break;
       
       case "clearClick.exceptions":
-        ClearClickHandler.prototype.exceptions = URIPatternList.create(this.getPref(name, ''));
+      case "clearClick.subexceptions":
+        ClearClickHandler.prototype[name.split('.')[1]] = URIPatternList.create(this.getPref(name, ''));
       break;
 
       case "secureCookiesExceptions":
@@ -1491,7 +1492,7 @@ NoscriptService.prototype = {
       "jsHack", "jsHackRegExp",
       "emulateFrameBreak",
       "nselNever", "nselForce",
-      "clearClick", "clearClick.exceptions", "opaqueObject",
+      "clearClick", "clearClick.exceptions", "clearClick.subexceptions", "opaqueObject",
       "showPlaceholder", "showUntrustedPlaceholder", "collapseObject", "abp.removeTabs",
       "temp", "untrusted", "gtemp",
       "silverlightPatch",
@@ -1606,7 +1607,7 @@ NoscriptService.prototype = {
           try {
             ph.setBoolPref(key, true);
             prots.push(key.replace("expose.", ""));
-            if (ph.hasUserPref(key)) ph.clearUserPref(key);
+            if (ph.prefHasUserValue(key)) ph.clearUserPref(key);
           } catch(e1) {}
         }
         if (prots.length) this.extraCapturedProtocols = prots;
@@ -2486,12 +2487,20 @@ NoscriptService.prototype = {
           arguments[0] = aContentType;
         }
         
+        scheme = aContentLocation.scheme;
+        if (this.httpsForced && !aInternalCall &&
+              (aContentType != 6 && aContentType != 7
+                || !this.POLICY_OBJSUB // Gecko < 1.9, early check for documents as well
+            ) && scheme == "http")
+          HTTPS.forceHttpsPolicy(aContentLocation, aContext, aContentType);
+        
         if (logIntercept && this.cpConsoleFilter.indexOf(aContentType) > -1) {
           this.cpDump("processing", aContentType, aContentLocation, aRequestOrigin, aContext, aMimeTypeGuess, aInternalCall);
           if (this.consoleDump & LOG_CONTENT_CALL)
              this.dump(new Error().stack);
         }
 
+        
         switch (aContentType) {
           case 9: // XBL - warning, in 1.8.x could also be XMLHttpRequest...
             return this.forbidXBL && 
@@ -2531,7 +2540,13 @@ NoscriptService.prototype = {
 
             this.resetPolicyState();
             return CP_OK;
-
+          
+          case 4: // STYLESHEETS
+            if (/\/x/i.test(aMimeTypeGuess) && !/chrome|resource/.test(aContentLocation.scheme) && this.getPref("forbidXSLT", true)
+              && !((this.isJSEnabled(this.getSite(aContentLocation.spec)) || aContentLocation.schemeIs("data")) && this.isJSEnabled(this.getSite(aRequestOrigin.spec))))
+              return this.reject("XSLT", arguments);
+            return CP_OK;
+          
           case 5:
             if (aContentLocation && aRequestOrigin && 
                 (locationURL = aContentLocation.spec) == (originURL = aRequestOrigin.spec) && 
@@ -2577,10 +2592,11 @@ NoscriptService.prototype = {
                 contentDocument = aContext.contentDocument;
               } catch(e) {}
            
-              blockThisIFrame = aInternalCall == 2 && !(
+              blockThisIFrame = aInternalCall == CP_FRAMECHECK && !(
                       this.knownFrames.isKnown(locationURL, originSite = this.getSite(originURL)) ||
                       /^(?:chrome|resource|wyciwyg):/.test(locationURL) ||
                       locationURL == this._silverlightInstalledHack ||
+                      locationURL == this.compatGNotes ||
                       (
                         originURL
                           ? (/^chrome:/.test(originURL) ||
@@ -2601,7 +2617,7 @@ NoscriptService.prototype = {
             if (this.checkJarDocument(aContentLocation, aContext)) 
               return this.reject("JAR Document", arguments);
             
-            scheme = aContentLocation.scheme;
+           
             
             if (aRequestOrigin && aRequestOrigin != aContentLocation) {
               
@@ -2836,7 +2852,7 @@ NoscriptService.prototype = {
         }
          
         if (/\binnerHTML\b/.test(new Error().stack)) {
-          aContext.ownerDocument.location.href = 'javascript:window.__defineGetter__("top", Window.prototype.__lookupGetter__("top"))';
+          aContext.ownerDocument.location.href = 'javascript:window.__defineGetter__("top", (Window.prototype || window).__lookupGetter__("top"))';
           if (this.consoleDump) this.dump("Locked window.top (bug 453825 work-around)");
           aContext.ownerDocument.defaultView.addEventListener("DOMNodeRemoved", this._domNodeRemoved, true);
           if (this.consoleDump) this.dump("Added DOMNodeRemoved (bug 472495 work-around)");
@@ -3960,7 +3976,7 @@ NoscriptService.prototype = {
           }
         }
         
-        if(collapse) {
+        if (collapse || style.display == "none" || style.visibility == "hidden") {
           innerDiv.style.maxWidth = anchor.style.maxWidth = "32px";
           innerDiv.style.maxHeight = anchor.style.maxHeight = "32px";
         }
@@ -4014,9 +4030,12 @@ NoscriptService.prototype = {
       try {
         if (r.extras.pluginDocument) {
           this.setPluginExtras(r.object, null);
-          r.object.parentNode.insertBefore(r.placeholder, r.object);
+        }
+        if (r.extras.pluginDocument) {
+          this.setPluginExtras(r.object, null);
+          if (r.object.parentNode) r.object.parentNode.insertBefore(r.placeholder, r.object);
         } else {
-          r.object.parentNode.replaceChild(r.placeholder, r.object);
+          if (r.object.parentNode) r.object.parentNode.replaceChild(r.placeholder, r.object);
         }
         r.extras.placeholder = r.placeholder;
         this._collectPluginExtras(pluginExtras, r.extras);
@@ -4172,7 +4191,7 @@ NoscriptService.prototype = {
     sites.pluginCount = 0;
     sites.pluginExtras = [];
     sites.pluginSites = [];
-
+    sites.docSites = [];
     try {
       sites = this._enumerateSites(browser, sites);
     } catch(ex) {
@@ -4281,6 +4300,8 @@ NoscriptService.prototype = {
            sites.unshift(document.domain);
           }
         } catch(e) {}
+        
+        sites.docSites.push(url);
         sites.push(url);
 
         for each(redir in this.getRedirCache(browser, docURI)) {
@@ -4396,7 +4417,12 @@ NoscriptService.prototype = {
           
         }
         
-        if (this.shouldLoad.apply(this, ph) != CP_OK) { // forbid
+        if ((type == 6 || type == 7) && HTTPS.forceHttps(newChannel)) throw "NoScript aborted non-HTTPS redirection to " + uri.spec;
+        
+        var scheme = uri.scheme;
+        if (this.shouldLoad.apply(this, ph) != CP_OK
+            || scheme != uri.scheme // forced HTTPS policy
+            ) {
           if (this.consoleDump) {
             this.dump("Blocked " + oldChannel.URI.spec + " -> " + uri.spec + " redirection of type " + type);
           }
@@ -4404,7 +4430,10 @@ NoscriptService.prototype = {
         }
         
         ABE.attachToChannel(newChannel, "noscript.policyHints", ph);
-      } 
+      } else {
+        // no Policy Hints, likely an image loading
+        if (!uri.schemeIs("https") && HTTPS.forceHttpsPolicy(uri.clone())) throw "NoScript aborted non-HTTPS background redirection to " + uri.spec;
+      }
     } finally {
       this.resetPolicyState();
     }
@@ -4467,7 +4496,7 @@ NoscriptService.prototype = {
         }
         
         this._handleDocJS1(w, req);
-        if (HTTPS.forceHttps(req)) {
+        if (HTTPS.forceHttps(req, w)) {
           this._handleDocJS2(w, req);
         }
       } else try {
@@ -4475,7 +4504,7 @@ NoscriptService.prototype = {
   
         if (ph) {
           if (ph[0] == 2 && (req instanceof CI.nsIHttpChannel)) {
-            var originSite = (this.requestWatchdog.extractInternalReferrer(req) || ph[2]).prePath;
+            var originSite = (ABE.extractInternalReferrer(req) || ph[2]).prePath;
             var scriptSite = req.URI.prePath;
             if (scriptSite != originSite && this.getPref("checkHijackings"))
               new RequestFilter(req, new HijackChecker(this));
@@ -5052,6 +5081,12 @@ NoscriptService.prototype = {
     }
   },
   
+  get compatGNotes() {
+    delete this.__proto__.compatGNotes;
+    return this.__proto__.compatGNotes = ("@google.com/gnotes/app-context;1" in CC) && this.getPref("compat.gnotes") &&
+      "http://www.google.com/notebook/static_files/blank.html";
+  },
+  
   consoleService: CC["@mozilla.org/consoleservice;1"].getService(CI.nsIConsoleService),
   
   log: function(msg, dump) {
@@ -5210,16 +5245,7 @@ RequestWatchdog.prototype = {
     return this.ns.getExpando(browser, "untrustedReload");
   },
   
-  extractInternalReferrer: function(channel) {
-    if (channel instanceof CI.nsIPropertyBag2) try {
-      return channel.getPropertyAsInterface("docshell.internalReferrer", CI.nsIURL);
-    } catch(e) {}
-    return null;
-  },
-  extractInternalReferrerSpec: function(channel) {
-    var ref = this.extractInternalReferrer(channel);
-    return ref && ref.spec || null;
-  },
+  
   
   detectBackFrame: function(prev, next, ds) {
     if (prev.ID != next.ID) return prev.URI.spec;
@@ -5400,8 +5426,8 @@ RequestWatchdog.prototype = {
     
     var origin = xorigin && xorigin.spec || 
         channel.originalURI.spec != originalSpec && channel.originalURI.spec 
-        || this.extractInternalReferrerSpec(channel) || null;
-
+        || ABE.extractInternalReferrerSpec(channel) || null;
+    
     var untrustedReload = false;
 
     var originSite = null;
@@ -5447,7 +5473,7 @@ RequestWatchdog.prototype = {
             (!window || window == window.top || window == unsafeRequest.window)) {
           this.setUnsafeRequest(browser, null);
         }
-      }
+      } else origin = origin.replace(/^view-source:/, '');
       if (ns.consoleDump) this.dump(channel, "ORIGIN: " + origin + ", xorigin: " + (xorigin && xorigin.spec) + ", originalURI: " + channel.originalURI.spec);
     }
     
@@ -6478,7 +6504,7 @@ var InjectionChecker = {
         /\\/.test(s) && this.attributesChecker.test(this.unescapeCSS(s));
   },
   
-  HTMLChecker: new RegExp("<[^\w<>]*(?:[^<>\"\'\\s]*:)?[^\w<>]*(?:" + // take in account quirks and namespaces
+  HTMLChecker: new RegExp("<[^\\w<>]*(?:[^<>\"'\\s]*:)?[^\\w<>]*(?:" + // take in account quirks and namespaces
    fuzzify("script|form|style|link|object|embed|applet|iframe|frame|base|body|meta|img|svg|video|audio") + 
     ")|[/'\"]\\W*(?:FSCommand|on(?:error|[a-df-z][a-z]{2,}))[\\s\\x08]*=", 
     "i"),
@@ -6487,7 +6513,7 @@ var InjectionChecker = {
     return this.HTMLChecker.test(s);
   },
   
-  NoscriptChecker: new RegExp("<[^\w<>]*(?:[^<>\"\'\\s]*:)?[^\w<>]*(?:" +
+  NoscriptChecker: new RegExp("<[^\\w<>]*(?:[^<>\"'\\s]*:)?[^\\w<>]*(?:" +
     fuzzify("form|style|link|object|embed|applet|iframe|frame|meta|svg|video|audio") + ")"
     ),
   checkNoscript: function(s) {
@@ -7504,19 +7530,40 @@ var HTTPS = {
     }
   },
   
-  forceHttps: function(req) {
+  forceHttps: function(req, w) {
     const ns = this.service;
     var uri;
-    if (ns.httpsForced && (uri = req.URI).schemeIs("http") && ns.httpsForced.test(uri.spec) &&
+    if (ns.httpsForced && !(uri = req.URI).schemeIs("https") && ns.httpsForced.test(uri.spec) &&
           !(ns.httpsForcedExceptions && ns.httpsForcedExceptions.test(uri.spec))) {
         uri = uri.clone();
         uri.scheme = "https";
         req.cancel(NS_BINDING_ABORTED);
-        ns.requestWatchdog.findWindow(req).location = uri.spec;
-        this.log("Forced HTTPS on " + uri.spec);
+        (w || ns.requestWatchdog.findWindow(req)).location = uri.spec;
+        this.log("Forced HTTPS document on " + uri.spec);
         return true;
       }
-      return false;
+    return false;
+  },
+  
+  forceHttpsPolicy: function(uri, ctx, type) {
+    const ns = this.service;
+    if (ns.httpsForced && ns.httpsForced.test(uri.spec) && !(ns.httpsForcedExceptions && ns.httpsForcedExceptions.test(uri.spec))) {
+      var httpsURI = uri.clone();
+      httpsURI.scheme = "https";
+      if (ctx && type != 6 && type != 7) {  
+        for each (var attr in ["src", "data", "href"]) {
+          try {
+            if (attr in ctx) {
+              ctx[attr] = httpsURI.spec;
+            }
+          } catch(e) { this.log(e.message); }
+        }
+      }
+      this.log("Forcing HTTPS policy on " + uri.spec);
+      uri.spec = httpsURI.spec;
+      return true;
+    }
+    return false;
   }
   
 }
@@ -7565,7 +7612,7 @@ URIPatternList.prototype = {
           // glob matching
           if (hasPath) p += '$'; 
 
-          return '^' + p.replace(/^([^\/:]+:\/*)\*/, "$1[^/]*").replace(/\*/g, '.*?');
+          return '^' + p.replace(/\*/g, '.*?').replace(/^([^\/:]+:\/*)\.\*/, "$1[^/]*");
         } 
         // raw regexp!
         try {
@@ -7669,6 +7716,10 @@ ClearClickHandler.prototype = {
     const ns = this.ns;
     return ns.appliesHere(ns.clearClick, url) &&
      !(this.exceptions && this.exceptions.test(url) && ns.isJSEnabled(ns.getSite(url)));
+  },
+  
+  checkSubexception: function(url) {
+    return this.subexceptions && this.subexceptions.test(url);
   },
   
   _whitelist: {},
@@ -7872,7 +7923,7 @@ ClearClickHandler.prototype = {
   isSupported: function(doc) {
     return "_supported" in this
       ? this._supported
-      : this._supported = typeof(this.createCanvas(doc).toDataURL) == "function";  
+      : this._supported = typeof(this.createCanvas(doc).toDataURL) == "function" && typeof(doc.getBoxObjectFor) == "function";  
   },
   
   _semanticContainers: [CI.nsIDOMHTMLParagraphElement, CI.nsIDOMHTMLQuoteElement,
@@ -7899,7 +7950,6 @@ ClearClickHandler.prototype = {
     
     const top = w.top;
     const ns = this.ns;
-    var topURL;
     
     var isEmbed;
     
@@ -7912,7 +7962,8 @@ ClearClickHandler.prototype = {
             (w == w.top || w.__clearClickUnlocked ||
               (w.__clearClickUnlocked = this.isWhitelisted(w))
               || this.sameSiteParents(w)) || // cross-site document?
-        ns.getPluginExtras(o) // NS placeholder?
+        ns.getPluginExtras(o) || // NS placeholder?
+        this.checkSubexception(isEmbed && (o.src || o.data) || w.location.href)
         )
       ) return;
     
@@ -7987,7 +8038,8 @@ ClearClickHandler.prototype = {
               img: ctx.img,
               locked: false,
               pageX: ev.pageX,
-              pageY: ev.pageY
+              pageY: ev.pageY,
+              zoom: this._zoom
             };
             ns.domUtils.findBrowserForNode(w).ownerDocument.defaultView.openDialog(
               "chrome://noscript/content/clearClick.xul",
@@ -8302,10 +8354,11 @@ ClearClickHandler.prototype = {
         curtain = d.createElementNS(HTML_NS, "div");
         if (docPatcher) curtain.className = docPatcher.shownCS;
         with(curtain.style) {
-          top = o.offsetTop + "px";
-          left = o.offsetLeft + "px";
-          width = o.offsetWidth + "px";
-          height = o.offsetHeight + "px";
+          // we expand by 1 pixel in order to avoid antialias effects on the edge at zoom != 1 (GMail Flash attachment)
+          top = (o.offsetTop - 1) + "px";
+          left = (o.offsetLeft -1) + "px";
+          width = (o.offsetWidth +2) + "px";
+          height = (o.offsetHeight +2) + "px";
           position = "absolute";
           zIndex = w.getComputedStyle(o, '').zIndex;
           background = this.rndColor();
@@ -8864,6 +8917,18 @@ var ABE = {
       } catch(e) {}
     }
     return null;
+  },
+  
+  
+  extractInternalReferrer: function(channel) {
+    if (channel instanceof CI.nsIPropertyBag2) try {
+      return channel.getPropertyAsInterface("docshell.internalReferrer", CI.nsIURL);
+    } catch(e) {}
+    return null;
+  },
+  extractInternalReferrerSpec: function(channel) {
+    var ref = this.extractInternalReferrer(channel);
+    return ref && ref.spec || null;
   },
   
   checkFrameOpt: function(w, chan) {
