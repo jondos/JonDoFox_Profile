@@ -133,7 +133,7 @@ pref("keyword.URL", "chrome://browser-region/locale/region.properties");
 
 pref("general.useragent.locale", "en-US");
 pref("general.skins.selectedSkin", "classic/1.0");
-pref("general.useragent.extra.firefox", "Firefox/3.0.9");
+pref("general.useragent.extra.firefox", "Firefox/3.0.10");
 
 pref("general.smoothScroll", false);
 //@line 182 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\app\profile\firefox.js"

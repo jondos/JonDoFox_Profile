@@ -57,6 +57,14 @@ const WHERE_UNTRUSTED = 1;
 const WHERE_TRUSTED = 2;
 const ANYWHERE = 3;
 
+const ABID = "@mozilla.org/adblockplus;1";
+
+
+const INCLUDE = function(file) {
+   CC["@mozilla.org/moz/jssubscript-loader;1"].getService(CI.mozIJSSubScriptLoader)
+    .loadSubScript("chrome://noscript/content/"+ file);
+}
+
 // component defined in this file
 const EXTENSION_ID="{73a6fe31-595d-460b-a920-fcc0f8843232}";
 const SERVICE_NAME="NoScript Service";
@@ -80,7 +88,6 @@ CI.nsIChannelEventSink
 
 // categories which this component is registered in
 const SERVICE_CATS = ["app-startup", "content-policy"];
-
 
 // Factory object
 const SERVICE_FACTORY = {
@@ -142,7 +149,7 @@ var Module = {
     compMgr.QueryInterface(CI.nsIComponentRegistrar
       ).unregisterFactoryLocation(SERVICE_CID, fileSpec);
     const catman = this.categoryManager;
-    for (var j = 0, len=SERVICE_CATS.length; j<len; j++) {
+    for (var j = 0, len = SERVICE_CATS.length; j < len; j++) {
       catman.deleteCategoryEntry(SERVICE_CATS[j], SERVICE_CTRID, true);
     }
   },
@@ -864,7 +871,7 @@ function NoscriptService() {
 }
 
 NoscriptService.prototype = {
-  VERSION: "1.9.1.91",
+  VERSION: "1.9.2.6",
   
   get wrappedJSObject() {
     return this;
@@ -1042,7 +1049,7 @@ NoscriptService.prototype = {
     var children = prefs.getChildList("", {});
     for (var j = children.length; j-- > 0;) {
       if (exclude.indexOf(children[j]) < 0) {
-        if (prefs.prefHasUserValue( children[j])) {
+        if (prefs.prefHasUserValue(children[j])) {
           dump("Resetting noscript." + children[j] + "\n");
           try {
             prefs.clearUserPref(children[j]);
@@ -1349,7 +1356,7 @@ NoscriptService.prototype = {
     if (!sssClass) return;
     
     const sss = sssClass.getService(CI.nsIStyleSheetService);
-    const uri = SiteUtils.ios.newURI("data:text/css," + sheet, null, null);
+    const uri = SiteUtils.ios.newURI("data:text/css;charset=utf8," + sheet, null, null);
     if (sss.sheetRegistered(uri, sss.USER_SHEET)) {
       if (!enabled) sss.unregisterSheet(uri, sss.USER_SHEET);
     } else {
@@ -1409,17 +1416,7 @@ NoscriptService.prototype = {
     }
     this.pluginPlaceholder = this.skinBase + "icon32.png";
   },
-  _initXBL: function() {
-    try {
-      const def = this.prefService.getDefaultBranch(this.prefs.root).getCharPref("default");
-      if (!def) return;
-      const bindNone = "{ -moz-binding: none !important }";
-      var dd = function(a,s) { return "@-moz-document domain(" + a.join("),domain(") + "){" + s + "}" };
-      this.updateStyleSheet(dd(def.match(/\w+[^r].\.n\w+|in\w+on\.c\w+/g).concat(this.getPref("xblHack", "").split(/\s*/)), "body iframe[name] " + bindNone), true);
-      this.updateStyleSheet(dd(def.match(/\w+[^r].\.n\w+|\w+on\.c\w+/g), "body div.a\x64 " + bindNone), true);
-    } catch (e) {}
-  },
-  
+ 
   init: function() {
     if (this._inited) return false;
     try {
@@ -1543,16 +1540,23 @@ NoscriptService.prototype = {
     
     this.reloadWhereNeeded(); // init snapshot
     
-    this.savePrefs(); // flush preferences to file
-    
-    this._initXBL();
-    
+    this.savePrefs(true); // flush preferences to file
+
     // hook on redirections (non persistent, otherwise crashes on 1.8.x)
     CC['@mozilla.org/categorymanager;1'].getService(CI.nsICategoryManager)
       .addCategoryEntry("net-channel-event-sinks", SERVICE_CTRID, SERVICE_CTRID, false, true);
     
+    if (this.abpInstalled) try {
+      // remove the NoScript Development Support Filterset if it exists
+      CC[ABID].createInstance().wrappedJSObject.removeExternalSubscription("NoScript.net");
+    } catch(e) {
+      this.dump(e);
+    }
+    
     return true;
   },
+  
+  
   
   dispose: function() {
     try {
@@ -1586,7 +1590,7 @@ NoscriptService.prototype = {
     }
   },
   
-  
+ 
   reportLeaks: function() {
     // leakage detection
     this.dump("DUMPING " + this.__parent__);
@@ -1779,10 +1783,23 @@ NoscriptService.prototype = {
     return s?/^[,\s]*$/.test(s)?[]:s.split(/\s*[,\s]\s*/):[];
   }
 ,
-  savePrefs: function() {
-    return this.prefService.savePrefFile(null);
-  }
-,
+  get placesPrefs() {
+    delete this.__proto__.placesPrefs;
+    try {
+      INCLUDE('placesPrefs.js');
+      PlacesPrefs.init(this);
+    } catch(e) {
+      PlacesPrefs = null;
+    }
+    return this.__proto__.placesPrefs = PlacesPrefs;
+  },
+
+  savePrefs: function(skipPlaces) {
+    var res = this.prefService.savePrefFile(null);
+    if (this.getPref("placesPrefs", false) && this.placesPrefs && !skipPlaces) this.placesPrefs.save();
+    return res;
+  },
+
   sortedSiteSet: function(s) { return  SiteUtils.sortedSet(s); }
 ,
   globalJS: false,
@@ -1856,9 +1873,7 @@ NoscriptService.prototype = {
             return this._tldService = srv;
           }
         }
-        CC["@mozilla.org/moz/jssubscript-loader;1"]
-            .getService(CI["mozIJSSubScriptLoader"])
-            .loadSubScript('chrome://noscript/content/tldEmulation.js');
+        INCLUDE('tldEmulation.js');
         return this._tldService = EmulatedTLDService;
       } catch(ex) {
         this.dump(ex);
@@ -2205,7 +2220,7 @@ NoscriptService.prototype = {
       } catch(ex1) {}
       
       this.eraseTemp();
-      this.savePrefs();
+      this.savePrefs(true);
     } catch(ex) {}
   }
 ,
@@ -2234,18 +2249,35 @@ NoscriptService.prototype = {
 ,
   setPref: function(name, value) {
     const prefs = this.prefs;
-    switch (typeof(value)) {
-      case "string":
-          prefs.setCharPref(name,value);
+    try {
+      switch (typeof(value)) {
+        case "string":
+            prefs.setCharPref(name,value);
+            break;
+        case "boolean":
+          prefs.setBoolPref(name,value);
           break;
-      case "boolean":
-        prefs.setBoolPref(name,value);
-        break;
-      case "number":
-        prefs.setIntPref(name,value);
-        break;
-      default:
-        throw new Error("Unsupported type " + typeof(value) + " for preference "+name);
+        case "number":
+          prefs.setIntPref(name,value);
+          break;
+        default:
+          throw new Error("Unsupported type " + typeof(value) + " for preference "+name);
+      }
+    } catch(e) {
+      const IPC = CI.nsIPrefBranch;
+      try {
+        switch (prefs.getPrefType(name)) {
+          case IPC.PREF_STRING:
+            prefs.setCharPref(name, value);
+            break;
+          case IPC.PREF_INT:
+            prefs.setIntPref(name, parseInt(value));
+            break;
+          case IPC.PREF_BOOL:
+            prefs.setBoolPref(name, !!value && value != "false");
+            break;
+        }
+      } catch(e2) {}
     }
   }
 ,
@@ -2320,7 +2352,8 @@ NoscriptService.prototype = {
   initContentPolicy: function() {
     const last = this.getPref("cp.last");
     const catman = Module.categoryManager;
-    if (last) catman.deleteCategoryEntry("content-policy", SERVICE_CTRID, true);
+    const cat = "content-policy"; 
+    if (last) catman.deleteCategoryEntry(cat, SERVICE_CTRID, false);
     
     var delegate = this.disabled || (this.globalJS && !(this.alwaysBlockUntrustedContent || this.contentBlocker))   
       ? this.noopContentPolicy
@@ -2331,8 +2364,7 @@ NoscriptService.prototype = {
     if (last && delegate != this.noopContentPolicy) {
       // removing and adding the category late in the game allows to be the latest policy to run,
       // and nice to AdBlock Plus
-      catman.addCategoryEntry("content-policy",
-          SERVICE_CTRID, SERVICE_CTRID, true, true);
+      catman.addCategoryEntry(cat, SERVICE_CTRID, SERVICE_CTRID, true, true);
     }
     
     if (!this.mimeService) {
@@ -2415,6 +2447,23 @@ NoscriptService.prototype = {
   // REJECT_SERVER = -3
   // ACCEPT = 1
   
+  
+  versionComparator: CC["@mozilla.org/xpcom/version-comparator;1"].createInstance(CI.nsIVersionComparator),
+  geckoVersion: ("nsIXULAppInfo" in  Components.interfaces) ? CC["@mozilla.org/xre/app-info;1"].getService(CI.nsIXULAppInfo).platformVersion : "0.0",
+  geckoVersionCheck: function(v) {
+    return this.versionComparator.compare(this.geckoVersion, v);
+  },
+  
+  
+  _bug453825: true,
+  _bug472495: true,
+  /*
+  get _bug472495() {
+    delete this.__proto__._bug472495;
+    return this.__proto__._bug472495 = this.geckoVersionCheck("1.9.0.9") < 0;
+  },
+  */
+  
   POLICY_XBL: "TYPE_XBL" in CI.nsIContentPolicy,
   POLICY_OBJSUB: "TYPE_OBJECT_SUBREQUEST" in CI.nsIContentPolicy,
   noopContentPolicy: {
@@ -2463,7 +2512,7 @@ NoscriptService.prototype = {
     shouldLoad: function(aContentType, aContentLocation, aRequestOrigin, aContext, aMimeTypeGuess, aInternalCall) {
       
       var originURL, locationURL, originSite, locationSite, scheme,
-          forbid, isJS, isJava, isFlash, isSilverlight,
+          forbid, isScript, isJava, isFlash, isSilverlight,
           isLegacyFrame, blockThisIFrame, contentDocument,
           logIntercept, logBlock;
       
@@ -2524,7 +2573,7 @@ NoscriptService.prototype = {
             if (this.forbidChromeScripts && this.checkForbiddenChrome(aContentLocation, aRequestOrigin)) {
               return this.reject("Chrome Access", arguments);
             }
-            forbid = isJS = true;
+            forbid = isScript = true;
             break;
           case 3: // IMAGES
             if (this.blockNSWB && aContext instanceof CI.nsIDOMHTMLImageElement) {
@@ -2542,11 +2591,13 @@ NoscriptService.prototype = {
             return CP_OK;
           
           case 4: // STYLESHEETS
-            if (/\/x/i.test(aMimeTypeGuess) && !/chrome|resource/.test(aContentLocation.scheme) && this.getPref("forbidXSLT", true)
-              && !((this.isJSEnabled(this.getSite(aContentLocation.spec)) || aContentLocation.schemeIs("data")) && this.isJSEnabled(this.getSite(aRequestOrigin.spec))))
-              return this.reject("XSLT", arguments);
+            if (/\/x/i.test(aMimeTypeGuess) && !/chrome|resource/.test(aContentLocation.scheme) &&
+                (aContext instanceof CI.nsIDOMXMLDocument) && this.getPref("forbidXSLT", true)) {
+              forbid = isScript = true; // we treat XSLT like scripts
+              break;
+            }
             return CP_OK;
-          
+            
           case 5:
             if (aContentLocation && aRequestOrigin && 
                 (locationURL = aContentLocation.spec) == (originURL = aRequestOrigin.spec) && 
@@ -2721,27 +2772,28 @@ NoscriptService.prototype = {
         if(logBlock)
           this.dump("[CP PASS 2] " + aMimeTypeGuess + "*" + locationURL);
 
-        if (isJS) {
+        if (isScript) {
           
-          originSite = aRequestOrigin && this.getSite(aRequestOrigin.spec);
+          originSite = originSite || aRequestOrigin && this.getSite(aRequestOrigin.spec);
           
           // we must guess the right context here, see https://bugzilla.mozilla.org/show_bug.cgi?id=464754
           
-          aContext = aContext.ownerDocument || aContext; // this way we always have a document
+          aContext = aContext && aContext.ownerDocument || aContext; // this way we always have a document
           
-          // Silverlight hack
+          if (aContentType == 2) { // "real" JavaScript include
           
-          if (this.contentBlocker && this.forbidSilverlight && this.silverlightPatch &&
-                originSite && /^(?:https?|file):/.test(originSite)) {
-            this.applySilverlightPatch(aContext);
-          }
+            // Silverlight hack
+            
+            if (this.contentBlocker && this.forbidSilverlight && this.silverlightPatch &&
+                  originSite && /^(?:https?|file):/.test(originSite)) {
+              this.applySilverlightPatch(aContext);
+            }
+                    
+            if (originSite && locationSite == originSite) return CP_OK;
+          } else isScript = false;
           
-          
-          
-          
-          if (originSite && locationSite == originSite) return CP_OK;
-          
-          this.getExpando(aContext.defaultView.top, "codeSites", []).push(locationSite);
+          if (aContext) // XSLT comes with no context sometimes...
+            this.getExpando(aContext.defaultView.top, "codeSites", []).push(locationSite);
           
           
           forbid = !this.isJSEnabled(locationSite);
@@ -2750,8 +2802,8 @@ NoscriptService.prototype = {
           }
 
           if ((untrusted || forbid) && aContentLocation.scheme != "data") {
-            ScriptSurrogate.apply(aContext, locationURL);
-            return this.reject("Script", arguments);
+            if (isScript) ScriptSurrogate.apply(aContext, locationURL);
+            return this.reject(isScript ? "Script" : "XSLT", arguments);
           } else {
             return CP_OK;
           }
@@ -2852,10 +2904,14 @@ NoscriptService.prototype = {
         }
          
         if (/\binnerHTML\b/.test(new Error().stack)) {
-          aContext.ownerDocument.location.href = 'javascript:window.__defineGetter__("top", (Window.prototype || window).__lookupGetter__("top"))';
-          if (this.consoleDump) this.dump("Locked window.top (bug 453825 work-around)");
-          aContext.ownerDocument.defaultView.addEventListener("DOMNodeRemoved", this._domNodeRemoved, true);
-          if (this.consoleDump) this.dump("Added DOMNodeRemoved (bug 472495 work-around)");
+          if (this._bug453825) {
+            aContext.ownerDocument.location.href = 'javascript:window.__defineGetter__("top", (Window.prototype || window).__lookupGetter__("top"))';
+            if (this.consoleDump) this.dump("Locked window.top (bug 453825 work-around)");
+          }
+          if (this._bug472495) {
+            aContext.ownerDocument.defaultView.addEventListener("DOMNodeRemoved", this._domNodeRemoved, true);
+            if (this.consoleDump) this.dump("Added DOMNodeRemoved (bug 472495 work-around)");
+          }
         }
         
         
@@ -4075,7 +4131,7 @@ NoscriptService.prototype = {
   
   get abpInstalled() {
     delete this.__proto__.abpInstalled;
-    return this.__proto__.abpInstalled = "@mozilla.org/adblockplus;1" in CC;
+    return this.__proto__.abpInstalled = ABID in CC;
   },
   
   grabAbpTab: function(ref) {
@@ -4528,14 +4584,16 @@ NoscriptService.prototype = {
   },
   
   onLocationChange: function(wp, req, location) {
-    try {      
+    try {
       
       if (req && (req instanceof CI.nsIChannel)) {
+        
         this._handleDocJS2(wp.DOMWindow, req);
-
+        
         if (this.consoleDump & LOG_JS)
           this.dump("Location Change - req.URI: " + req.URI.spec + ", window.location: " +
                   (wp.DOMWindow && wp.DOMWindow.location.href) + ", location: " + location.spec);
+
         this.onBeforeLoad(req, wp.DOMWindow, location);
       }
     } catch(e) {
@@ -4558,8 +4616,9 @@ NoscriptService.prototype = {
       }
       const rw = this.requestWatchdog;
       const domWindow = rw.findWindow(req);
-      if (domWindow && domWindow == domWindow.top) return; // for top windows we call onBeforeLoad in onLocationChange
-      
+      if (domWindow && domWindow == domWindow.top) {
+        return; // for top windows we call onBeforeLoad in onLocationChange
+      }
       if (ABE.checkFrameOpt(domWindow, req)) {
         req.cancel(NS_BINDING_ABORTED);
         this.showFrameOptError(domWindow, req.URI.spec);
@@ -4897,7 +4956,7 @@ NoscriptService.prototype = {
     }
   },
   
-  attemptNavigation: function(doc, destURL, callback) {
+  _attemptNavigationInternal: function(doc, destURL, callback) {
     var cs = doc.characterSet;
     var uri = SiteUtils.ios.newURI(destURL, cs, SiteUtils.ios.newURI(doc.documentURI, cs, null));
     
@@ -4919,6 +4978,10 @@ NoscriptService.prototype = {
       }
       req.send(null);
     }
+  },
+  attemptNavigation: function(doc, destURL, callback) {
+    // delay is needed on Gecko < 1.9 to detach browser context
+    this.delayExec(this._attemptNavigationInternal, 0, doc, destURL, callback);
   },
   
   // simulate onchange on selects if options look like URLs
@@ -5483,7 +5546,23 @@ RequestWatchdog.prototype = {
     var host = channel.URI.host;
     if (host[host.length - 1] == "." && this.ns.getPref("canonicalFQDN", true)) {
       try {
-        channel.URI.host = this.dns.resolve(host, 2).canonicalName;
+        var canDoDNS;
+        var proxyInfo = this.getProxyInfo(channel);
+        switch(ns.getPref("proxiedDNS", 0)) {
+          case 1:
+            canDoDNS = proxyInfo && (proxyInfo.flags & CI.nsIProxyInfo.TRANSPARENT_PROXY_RESOLVES_HOST);
+            break;
+          case 2:
+            canDoDNS = true;
+            break;
+          default:
+            canDoDNS = !proxyInfo || proxyInfo.type == "direct";   
+        }
+        
+        if (canDoDNS) {
+          channel.URI.host = this.dns.resolve(host, 2).canonicalName;
+          if (ns.consoleDump) ns.dump("Resolving FQDN " + host);
+        }
       } catch(ex) {
         this.dump(channel, ex);
       }
@@ -5790,15 +5869,19 @@ RequestWatchdog.prototype = {
     return m && this.ns.getPublicSuffix(host) != m[1];
   },
   
-  proxyHack: function(channel) {
-    // Work-around for channel.URI not being used directly here:
-    // http://mxr.mozilla.org/mozilla/source/netwerk/protocol/http/src/nsHttpChannel.cpp#504
-    
-    var proxyInfo = CI.nsIProxiedChannel && (channel instanceof CI.nsIProxiedChannel) 
+  getProxyInfo: function(channel) {
+    return CI.nsIProxiedChannel && (channel instanceof CI.nsIProxiedChannel) 
       ? channel.proxyInfo
       : Components.classes["@mozilla.org/network/protocol-proxy-service;1"]
           .getService(Components.interfaces.nsIProtocolProxyService)
           .resolve(channel.URI, 0);
+  },
+  
+  proxyHack: function(channel) {
+    // Work-around for channel.URI not being used directly here:
+    // http://mxr.mozilla.org/mozilla/source/netwerk/protocol/http/src/nsHttpChannel.cpp#504
+    
+    var proxyInfo = this.getProxyInfo(channel);
      if (proxyInfo && proxyInfo.type == "http") {
        if (channel.URI.userPass == "") {
          channel.URI.userPass = "xss:xss";
@@ -5888,13 +5971,21 @@ RequestWatchdog.prototype = {
   
   
   
-  findWindow: function(channel) {
-    try {
-      return (channel.notificationCallbacks || channel.loadGroup.notificationCallbacks)
-        .QueryInterface(
-          CI.nsIInterfaceRequestor).getInterface(
-          CI.nsIDOMWindow);
-    } catch(e) {}
+  findWindow: function(channel) {  
+    for each(var cb in [ channel.notificationCallbacks,
+                         channel.loadGroup && channel.loadGroup.notificationCallbacks]) {
+      if (cb instanceof CI.nsIInterfaceRequestor) {
+        try {
+        // For Gecko 1.9.1
+          return cb.getInterface(CI.nsILoadContext).associatedWindow;
+        } catch(e) {}
+        
+        try {
+          // For Gecko 1.9.0
+          return cb.getInterface(CI.nsIDOMWindow);
+        } catch(e) {}
+      }
+    }
     return null;
   },
   findBrowser: function(channel, window) {
@@ -7633,46 +7724,6 @@ URIPatternList.prototype = {
 }
 
 
-var PlacesPrefs = {
-  save: function(prefs) {
-    // http://developer.mozilla.org/en/nsINavBookmarksService
-    var bmsvc = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
-                      .getService(Components.interfaces.nsINavBookmarksService);
-    const folderName = "... NoScript ...";
-    const bookmarkName = folderName;
-    
-    var parentId = bmsvc.bookmarksMenuFolder;
-    var folderId = bmsvc.getChildFolder(parentId, folderName);
-    
-    // bmsvc.removeItem(folderId); folderId = 0;
-    
-    if (folderId == 0) {
-      folderId = bmsvc.createFolder(parentId, folderName, -1);
-      bmsvc.setFolderReadonly(folderId, true);
-    }
-    
-    //print(folderId);
-    
-    var query = "build=here&a=query";
-    
-    var ios = Components.classes["@mozilla.org/network/io-service;1"]
-                       .getService(Components.interfaces.nsIIOService);
-    var uri = ios.newURI("noscript://preferences?" + query, null, null);
-    
-    try {
-      id = bmsvc.getIdForItemAt(folderId, 0);
-    } catch(e) {
-      id = 0;
-    }
-    if (id) {
-      bmsvc.changeBookmarkURI(id, uri);
-    } else {
-      bmsvc.insertBookmark(folderId, uri, 0, bookmarkName);
-    }
-    // print(id);
-  }
-}
-
 function ClearClickHandler(ns) {
   this.ns = ns; 
 }
@@ -8948,3 +8999,4 @@ var ABE = {
     return false;
   }
 }
+

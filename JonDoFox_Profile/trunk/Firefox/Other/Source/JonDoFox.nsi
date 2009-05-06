@@ -390,20 +390,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
-        
-        Section "Media Pirate" MediaPirate
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}"
-                StrCpy $ExtensionName "Media Pirate"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}\*.*"
-
-        SectionEnd
-
 
         Section "Menu Editor" MenuEditor
         SectionIn 1 2 3 4
@@ -473,19 +459,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 #                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}\*.*"
 #
 #        SectionEnd
-
-        Section "Temporary Inbox" TemporaryInbox
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{ac1e10b8-206d-4746-a18e-0483852dc20b}"
-                StrCpy $ExtensionName "Temporary Inbox"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{ac1e10b8-206d-4746-a18e-0483852dc20b}\*.*"
-
-        SectionEnd
 
 
 ##======================================================================================================================================================
@@ -809,13 +782,11 @@ SectionGroupEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${DrWebAntiVirus} $(DescDrWebAntiVirus)
   !insertmacro MUI_DESCRIPTION_TEXT ${DTWhois} $(DescDTWhois)
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)  
-  !insertmacro MUI_DESCRIPTION_TEXT ${MediaPirate} $(DescMediaPirate)
   !insertmacro MUI_DESCRIPTION_TEXT ${MenuEditor} $(DescMenuEditor)
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
 #  !insertmacro MUI_DESCRIPTION_TEXT ${RefControl} $(DescRefControl)
   !insertmacro MUI_DESCRIPTION_TEXT ${SafeCache} $(DescSafeCache)
 #  !insertmacro MUI_DESCRIPTION_TEXT ${SwitchProxyTool} $(DescSwitchProxyTool)  
-  !insertmacro MUI_DESCRIPTION_TEXT ${TemporaryInbox} $(DescTemporaryInbox)
   !insertmacro MUI_DESCRIPTION_TEXT ${AddBookmarkHere} $(DescAddBookmarkHere)
   !insertmacro MUI_DESCRIPTION_TEXT ${CacheIT} $(DescCacheIT)
   !insertmacro MUI_DESCRIPTION_TEXT ${Calculator} $(DescCalculator)
@@ -992,11 +963,9 @@ Function RequiredSelections
          SectionSetFlags ${DrWebAntiVirus} $0
          SectionSetFlags ${DTWhois} $0
          SectionSetFlags ${JonDoFox} $0
-         SectionSetFlags ${MediaPirate} $0
          SectionSetFlags ${MenuEditor} $0
          SectionSetFlags ${NoScript} $0
          SectionSetFlags ${SafeCache} $0
-         SectionSetFlags ${TemporaryInbox} $0
 
 FunctionEnd
 

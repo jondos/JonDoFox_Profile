@@ -1,5 +1,5 @@
 TabRenamizer extension for Mozilla Firefox
-Copyright (C) 2006-2008  Valadrem
+Copyright (C) 2006-2009  Valadrem
 
 Translations:
   Arabic: Copyright (C) Alfoulad
@@ -35,7 +35,7 @@ based on Silk icon set 1.3 by Mark James (http://www.famfamfam.com/lab/icons/sil
 
 Tabrenamizer contains code from:
   Mozilla Firefox
-  Copyright (C) 1998-2008  Contributors
+  Copyright (C) 1998-2009  Contributors
 
   Firesomething extension for Mozilla Firefox
   Copyright (C) 2004-2005  Michael O'Rourke / Cosmic Cat Creations (www.cosmicat.com)
