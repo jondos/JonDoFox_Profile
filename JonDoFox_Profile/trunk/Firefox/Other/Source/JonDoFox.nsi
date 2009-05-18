@@ -6,34 +6,26 @@
 
 ;Website: http://www.jondos.de/
 
-
-# Use this for debug:
-#
-##############################################
-# StrCmp $DEBUG 1 0 +3
-# StrCpy $DEBUGVALUE YourValue
-# Call DebugOutput
-##############################################
-
 ;=== BEGIN: BASIC INFORMATION
 !define NAME "JonDoFox"
+!define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
 !define VERSION "2.1.5.0"
 !define FILENAME "JonDoFox"
+!define FF_VERSION "3.0.10"
+!define FF_URL "http://download.mozilla.org/?product=firefox_${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
 !define INSTALLERVERSION "1.0.0.0"
-!define INSTALLERCOMMENTS "For additional details, visit jondos.de" ; changed by JonDos GmbH 2008
+!define INSTALLERCOMMENTS "For additional details, visit jondos.de"
 !define INSTALLERADDITIONALTRADEMARKS "Firefox is a Trademark of The Mozilla Foundation. " ;end this entry with a period and a space if used
 !define INSTALLERLEGALCOPYRIGHT "JonDos GmbH"
 !define LICENSEAGREEMENT "eula.rtf"
 ; NOTE: For no license agreement, comment out the above line by placing a semicolon at the start of it
 ;=== END: BASIC INFORMATION
 
-
 Var /GLOBAL FFInstalled
-Var /GLOBAL UserAbort
 Var /GLOBAL Error
 Var /GLOBAL PathSelectionText
 
@@ -47,24 +39,27 @@ Var /GLOBAL IsJonDoFox
 Var /GLOBAL PrefsFileHandle
 Var /GLOBAL i
 
-
-Var /GLOBAL DEBUG          # Set to 1 to get debug messages; see .onInit
-Var /GLOBAL DEBUGVALUE     # Set this value and call DebugOutput to get debug-infos
-
 Var /GLOBAL PORTABLEINSTALL
 Var /GLOBAL PROGRAMINSTALL
 
-Var /GLOBAL IsRoot
 Var /GLOBAL InstDirOkay
 
 Var /GLOBAL ExtensionGUID
 Var /GLOBAL ExtensionName
 
+Var InstMode
+
+Var hKey
+
+Var AppdataFolder
+
+Var SMProgramsFolder
+
+Var FF_DOWNLOAD_URL
+
+Var /GLOBAL IsRoot
+
 Var /GLOBAL varMakeUserAdministrator
-
-Var /GLOBAL varReload
-
-Var /GLOBAL varSystemTEMP
 
 Var /GLOBAL varPortableAppsPath
 
@@ -106,7 +101,21 @@ VIAddVersionKey LegalTrademarks "${INSTALLERADDITIONALTRADEMARKS}PortableApps.co
 VIAddVersionKey OriginalFilename "${FILENAME}.paf.exe"
 VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 
+!define MUI_LANGDLL_REGISTRY_ROOT "HKCU"
+!define MUI_LANGDLL_REGISTRY_KEY "Software\JonDoFox"
+!define MUI_LANGDLL_REGISTRY_VALUENAME "InstallerLanguage"
 
+# Included files
+!include Sections.nsh
+!include MUI.nsh
+!include FileFunc.nsh
+!include RemoveFilesAndSubDirs.nsh
+
+!insertmacro GetOptions
+!insertmacro GetFileAttributes
+!insertmacro GetParent
+!insertmacro GetDrives
+!insertmacro GetParameters
 
 # MUI defines
 #!define MUI_ICON "..\..\App\AppInfo\appicon.ico"
@@ -130,20 +139,6 @@ VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "blau.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Wizard\orange-uninstall.bmp"
 
-# Included files
-!include Sections.nsh
-!include MUI.nsh
-!include FileFunc.nsh
-!include UAC.nsh
-!include ReplaceSubStr.nsh
-!include RemoveFilesAndSubDirs.nsh
-
-
-!insertmacro GetOptions
-!insertmacro GetFileAttributes
-!insertmacro GetParent
-!insertmacro GetDrives
-
 # Reserved Files
 ReserveFile "${NSISDIR}\Plugins\BGImage.dll"
 
@@ -156,22 +151,21 @@ ReserveFile "${NSISDIR}\Plugins\BGImage.dll"
 ###################################
 
 
-###################################
-!macro _StrContainsConstructor OUT NEEDLE HAYSTACK
-  Push "${HAYSTACK}"
-  Push "${NEEDLE}"
-  Call StrContains
-  Pop "${OUT}"
+/* If we have to enable or disable a button we are going to use this macro */
+
+!macro EnableCtrl dlg id state
+  push $0
+  GetDlgItem $0 ${dlg} ${id}
+  EnableWindow $0 ${state}
+  pop $0
 !macroend
- 
-!define StrContains '!insertmacro "_StrContainsConstructor"'
-###################################
+
 
 # Installer pages
-!define MUI_PAGE_CUSTOMFUNCTION_PRE WelcomePre
+!define MUI_PAGE_CUSTOMFUNCTION_PRE SkipPageInElvModePreCB
 !insertmacro MUI_PAGE_WELCOME
 
-!define MUI_PAGE_CUSTOMFUNCTION_PRE LicencePre
+!define MUI_PAGE_CUSTOMFUNCTION_PRE SkipPageInElvModePreCB
 !insertmacro MUI_PAGE_LICENSE EULA.rtf
 
 !define MUI_PAGE_CUSTOMFUNCTION_PRE comPre
@@ -191,14 +185,147 @@ ReserveFile "${NSISDIR}\Plugins\BGImage.dll"
 
 
 !define MUI_PAGE_CUSTOMFUNCTION_LEAVE FinishedInstall
+
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_FUNCTION FinishRun
 !insertmacro MUI_PAGE_FINISH
 
 
 # Installer languages
 !insertmacro MUI_LANGUAGE "German"
 !insertmacro MUI_LANGUAGE "English"
+
+/* In UAC_JonDo.nsh we have added some german language support. Because all
+the warnings and error messages which may occur during elevating were, of 
+course, just in english. Well, and if we want language support we have to load
+the UAC_JonDo.nsh after we included the relevant language-macro. */
+
+!include UAC_JonDo.nsh
+
 !include JonDoFox-Lang-English.nsh
 !include JonDoFox-Lang-German.nsh
+
+############################################################
+
+!macro SetMode IsAdmin
+!if "${IsAdmin}" > 0
+        SetShellVarContext all
+	StrCpy $InstMode 1
+	StrCpy $hKey HKLM
+	!else
+	SetShellVarContext current
+	StrCpy $InstMode 0
+	StrCpy $hKey HKCU
+	!endif
+!macroend
+
+############################################################
+
+##======================================================================================================================================================
+##                                                                           .onInit
+##======================================================================================================================================================
+
+Function un.onInit
+   !insertmacro MUI_UNGETLANGUAGE
+FunctionEnd
+
+Function .onInit
+
+   !insertmacro SetMode 0
+   ${GetParameters} $R9
+   ${GetOptions} "$R9" UAC $0 ;look for special /UAC:???? parameter (sort of undocumented)
+   ${Unless} ${Errors}
+	UAC::IsAdmin
+	${If} $0 < 1 
+		SetErrorLevel 666 ;special return value for outer instance so it knows we did not have admin rights
+			Quit 
+		${EndIf}
+	!insertmacro SetMode 1
+	StrCpy $InstMode 2
+   ${EndIf}
+	
+/* We have to check whether the user is already elevated and if so jump to the
+end of this function. Otherwise we wouldn't get a silent second installer. And
+we would waste time in checking whether we find PortableApps because the user
+has already declared that he does not want to install the portable JonDoFox. */
+
+    ${If} $InstMode > 1
+       StrCpy $FFInstalled "false"
+       StrCpy $PROGRAMINSTALL "false"
+       Goto start_elevated
+    ${EndIf}
+      
+        ${GetOptions} "$CMDLINE" "/DESTINATION=" $R0
+
+          StrCpy $PORTABLEINSTALL "false"
+          StrCpy $IsRoot "false"
+
+          ${If} $R0 != ""
+                StrCpy $PORTABLEINSTALL "true"
+                StrCpy $INSTDIR "$R0${SHORTNAME}"
+          ${Else}
+                Call SearchPortableApps
+                StrCpy $INSTDIR $varPortableAppsPath
+          ${EndIf}
+
+          InitPluginsDir
+          StrCpy $Error "false"
+
+        !insertmacro MUI_LANGDLL_DISPLAY
+    start_elevated:
+FunctionEnd
+
+
+Function CustomGUIInit
+
+           ${If} $InstMode >= 2
+	         ${UAC.GetOuterInstanceHwndParent} $0
+	         ${If} $0 <> 0 
+		       System::Call /NOUNLOAD "*(i,i,i,i)i.r1"
+		       System::Call /NOUNLOAD 'user32::GetWindowRect(i $0,i r1)i.r2'
+		       ${If} $2 <> 0
+			     System::Call /NOUNLOAD "*$1(i.r2,i.r3)"
+			     System::Call /NOUNLOAD 'user32::SetWindowPos(i $hwndParent,i0,ir2,ir3,i0,i0,i 4|1)'
+		       ${EndIf}
+		       ShowWindow $hwndParent ${SW_SHOW}
+		       ShowWindow $0 ${SW_HIDE} ;hide outer instance installer window
+		       System::Free $1
+		 ${EndIf}
+                 Goto guiinit_end
+	    ${EndIf}
+           
+            Push $R1
+            Push $R2
+            BgImage::SetReturn /NOUNLOAD on
+            BgImage::SetBg /NOUNLOAD /GRADIENT 255 255 255 255 255 255
+            Pop $R1
+            Strcmp $R1 success 0 error
+            File /oname=$PLUGINSDIR\bgimage.bmp jondofox.bmp
+
+            System::call "user32::GetSystemMetrics(i 0)i.R1"
+            System::call "user32::GetSystemMetrics(i 1)i.R2"
+            IntOp $R1 $R1 - 800
+            IntOp $R1 $R1 / 2
+            IntOp $R2 $R2 - 799
+            IntOp $R2 $R2 / 2
+            BGImage::AddImage /NOUNLOAD $PLUGINSDIR\bgimage.bmp $R1 $R2
+            CreateFont $R1 "Times New Roman" 26 700 /ITALIC
+            BGImage::AddText /NOUNLOAD "$(^SetupCaption)" $R1 255 255 255 16 8 500 100
+            Pop $R1
+            Strcmp $R1 success 0 error
+            BGImage::Redraw /NOUNLOAD
+            Goto done
+        error:
+            MessageBox MB_OK|MB_ICONSTOP $R1
+        done:
+            Pop $R2
+            Pop $R1
+        guiinit_end:
+FunctionEnd
+
+Function .onGUIEnd
+    BGImage::Destroy
+FunctionEnd
 
 ##======================================================================================================================================================
 ##                                                                           JFPortable
@@ -213,17 +340,11 @@ insttype $(InstTypeProfileLite)              # 4
 
 Section /o $(JonDoFox) JFPortable
 SectionIn 1 2
-
-        Call CheckUserAbort
-
+        ${If} $PROFILE == ""
+              MessageBox MB_ICONEXCLAMATION|MB_OK $(FF30Win9x)
+        ${EndIf}
         SetOutPath $ProgramPath
         SetOverwrite on
-
-        ############################################################################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "JFPortable$\nPath: $OUTDIR"
-        Call DebugOutput
-        ############################################################################################
 
         File /r /x .svn "..\..\*.*"
         
@@ -244,22 +365,20 @@ SectionEnd
 Section - ProfileCore
 SectionIn 1 2 3 4
 
-        Call CheckUserAbort
-
         SetOutPath $ProfilePath
         SetOverwrite on
-
-        ############################################################################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "Core$\nPath: $OUTDIR"
-        Call DebugOutput
-        ############################################################################################
-
+        File appicon.ico
         File /r /x .svn /x extensions "..\..\..\full\profile\*.*"
         ${If} $LANGUAGE == "1031"          # german
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_de"
+              ${If} $PROGRAMINSTALL == "true"
+                    File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
+              ${EndIf}
         ${ElseIf} $LANGUAGE == "1033"      # english
-        			File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
+              File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
+              ${If} $PROGRAMINSTALL == "true"
+                    File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
+              ${EndIf}
         ${EndIf}
 
 SectionEnd
@@ -269,18 +388,17 @@ SectionEnd
 
 Section /o - ProfileCoreUpdate              #Update
 
-        Call CheckUserAbort
-
         SetOutPath $ProfilePath
         SetOverwrite on
         
-        ############################################################################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "CoreUPDATE$\nPath: $OUTDIR"
-        Call DebugOutput
-        ############################################################################################
-
         File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\*.*"
+        ${If} $LANGUAGE == "1031" 
+        ${AndIf} $PROGRAMINSTALL == "true"
+              File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
+        ${ElseIf} $LANGUAGE == "1033"
+        ${AndIf} $PROGRAMINSTALL == "true"
+              File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
+        ${EndIf}
 
 SectionEnd
 
@@ -390,6 +508,20 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
+        
+       /* Section "Media Pirate" MediaPirate
+        SectionIn 1 2 3 4
+        
+                StrCpy $ExtensionGUID "{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}"
+                StrCpy $ExtensionName "Media Pirate"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}\*.*"
+
+        SectionEnd*/
+
 
         Section "Menu Editor" MenuEditor
         SectionIn 1 2 3 4
@@ -460,6 +592,19 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 #
 #        SectionEnd
 
+       /* Section "Temporary Inbox" TemporaryInbox
+        SectionIn 1 2 3 4
+        
+                StrCpy $ExtensionGUID "{ac1e10b8-206d-4746-a18e-0483852dc20b}"
+                StrCpy $ExtensionName "Temporary Inbox"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{ac1e10b8-206d-4746-a18e-0483852dc20b}\*.*"
+
+        SectionEnd*/
+
 
 ##======================================================================================================================================================
 ##                                                                           Optional Extensions
@@ -471,12 +616,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         
                 StrCpy $ExtensionGUID "abhere2@moztw.org"
                 StrCpy $ExtensionName "Add Bookmark Here"
-
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
 
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
@@ -492,12 +631,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 StrCpy $ExtensionGUID "{98449521-9320-4257-aa35-9e1a39c8cbe0}"
                 StrCpy $ExtensionName "CacheIT!"
 
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
-
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
@@ -512,12 +645,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 StrCpy $ExtensionGUID "{AA052FD6-366A-4771-A591-0D8DC551585D}"
                 StrCpy $ExtensionName "Calculator"
 
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
-
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
@@ -531,12 +658,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         
                 StrCpy $ExtensionGUID "{59c81df5-4b7a-477b-912d-4e0fdf64e5f2}"
                 StrCpy $ExtensionName "ChatZilla"
-
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
 
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
@@ -567,12 +688,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 StrCpy $ExtensionGUID "{3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}"
                 StrCpy $ExtensionName "Forecastbar Enhanced"
 
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
-
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
@@ -587,12 +702,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 StrCpy $ExtensionGUID "{d37dc5d0-431d-44e5-8c91-49419370caa1}"
                 StrCpy $ExtensionName "FoxClocks"
 
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
-
+               
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
@@ -606,12 +716,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         
                 StrCpy $ExtensionGUID "{268ad77e-cff8-42d7-b479-da60a7b93305}"
                 StrCpy $ExtensionName "Groowe Search Toolbar"
-
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
 
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
@@ -627,12 +731,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         
                 StrCpy $ExtensionGUID "{1A2D0EC4-75F5-4c91-89C4-3656F6E44B68}"
                 StrCpy $ExtensionName "Image Zoom"
-
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
 
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
@@ -690,12 +788,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 StrCpy $ExtensionGUID "{a6ca9b3b-5e52-4f47-85d8-cca35bb57596}"
                 StrCpy $ExtensionName "Sage"
 
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
-
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
@@ -710,12 +802,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 StrCpy $ExtensionGUID "{F807FACD-E46A-4793-B345-D58CB177673C}"
                 StrCpy $ExtensionName "ScribeFire"
 
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
-
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
@@ -728,12 +814,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         
                 StrCpy $ExtensionGUID "{792BDDFE-2E7C-42ed-B18D-18154D2761BD}"
                 StrCpy $ExtensionName "TabRenamizer"
-
-								############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
 
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
@@ -749,12 +829,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 StrCpy $ExtensionGUID "{89736E8E-4B14-4042-8C75-AD00B6BD3900}"
                 StrCpy $ExtensionName "TinyUrl Creator"
 
-                ############################################################################################
-                StrCmp $DEBUG 1 0 +3
-                StrCpy $DEBUGVALUE "ProfileCore$\nPath: $OUTDIR"
-                Call DebugOutput
-                ############################################################################################
-
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
@@ -762,12 +836,37 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
         
-
-
-
-
-
 SectionGroupEnd
+
+Section Uninstall
+       MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DeletingProfile) IDYES deleting
+       Quit
+     deleting:
+       Call un.GetLastProfilCounter
+       Pop $i
+     loop:
+       ReadINIStr $0 $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Name
+       StrCmp $0 "JonDoFox" deleting_ini searching_ini
+       deleting_ini:
+         DeleteINISec $APPDATA\Mozilla\Firefox\profiles.ini Profile$i
+
+        #GEORG: Normally, we could jump to deleting_sm now. But maybe the
+        #       user has deleted the JonDoFox-files before by hand but has
+        #       not adapted the profiles.ini as well. So we check all entries to
+        #       be sure that all JonDoFox stuff is gone.
+        # Goto deleting_sm
+
+       searching_ini:
+         ${If} $i == 0 
+            Goto deleting_sm
+         ${EndIf}
+         IntOp $i $i - 1
+         Goto loop
+       deleting_sm:
+       RMDir /r $SMPROGRAMS\JonDoFox
+       RMDir /r $APPDATA\Mozilla\Firefox\Profiles\JonDoFox
+       DeleteRegKey HKCU "Software\JonDoFox"
+SectionEnd
 
 ##===========================================================================
 ## End sections
@@ -782,11 +881,13 @@ SectionGroupEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${DrWebAntiVirus} $(DescDrWebAntiVirus)
   !insertmacro MUI_DESCRIPTION_TEXT ${DTWhois} $(DescDTWhois)
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)  
+ # !insertmacro MUI_DESCRIPTION_TEXT ${MediaPirate} $(DescMediaPirate)
   !insertmacro MUI_DESCRIPTION_TEXT ${MenuEditor} $(DescMenuEditor)
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
 #  !insertmacro MUI_DESCRIPTION_TEXT ${RefControl} $(DescRefControl)
   !insertmacro MUI_DESCRIPTION_TEXT ${SafeCache} $(DescSafeCache)
 #  !insertmacro MUI_DESCRIPTION_TEXT ${SwitchProxyTool} $(DescSwitchProxyTool)  
+#  !insertmacro MUI_DESCRIPTION_TEXT ${TemporaryInbox} $(DescTemporaryInbox)
   !insertmacro MUI_DESCRIPTION_TEXT ${AddBookmarkHere} $(DescAddBookmarkHere)
   !insertmacro MUI_DESCRIPTION_TEXT ${CacheIT} $(DescCacheIT)
   !insertmacro MUI_DESCRIPTION_TEXT ${Calculator} $(DescCalculator)
@@ -813,96 +914,6 @@ SectionGroupEnd
 ##                                                                           Functions
 ##======================================================================================================================================================
 
-
-Function CustomGUIInit
-            Push $R1
-            Push $R2
-            BgImage::SetReturn /NOUNLOAD on
-            BgImage::SetBg /NOUNLOAD /GRADIENT 255 255 255 255 255 255
-            Pop $R1
-            Strcmp $R1 success 0 error
-            File /oname=$PLUGINSDIR\bgimage.bmp jondofox.bmp
-
-            System::call "user32::GetSystemMetrics(i 0)i.R1"
-            System::call "user32::GetSystemMetrics(i 1)i.R2"
-            IntOp $R1 $R1 - 800
-            IntOp $R1 $R1 / 2
-            IntOp $R2 $R2 - 799
-            IntOp $R2 $R2 / 2
-            BGImage::AddImage /NOUNLOAD $PLUGINSDIR\bgimage.bmp $R1 $R2
-            CreateFont $R1 "Times New Roman" 26 700 /ITALIC
-            BGImage::AddText /NOUNLOAD "$(^SetupCaption)" $R1 255 255 255 16 8 500 100
-            Pop $R1
-            Strcmp $R1 success 0 error
-            BGImage::Redraw /NOUNLOAD
-            Goto done
-        error:
-            MessageBox MB_OK|MB_ICONSTOP $R1
-        done:
-            Pop $R2
-            Pop $R1
-FunctionEnd
-
-Function .onGUIEnd
-    BGImage::Destroy
-FunctionEnd
-
-
-##======================================================================================================================================================
-##                                                                           .onInit
-##======================================================================================================================================================
-
-
-Function .onInit
-        ##############################################
-        StrCpy $DEBUG 0
-        ##############################################
-
-        ${GetOptions} "$CMDLINE" "/DESTINATION=" $R0
-
-        Call GetSystemTempPath
-
-        ##############################################
-        #StrCmp $DEBUG 1 0 +3
-        #StrCpy $DEBUGVALUE ".onInit$\nParameter: $R0"
-        #Call DebugOutput
-        ##############################################
-
-          StrCpy $PORTABLEINSTALL "false"
-
-          ${If} $R0 != ""
-                StrCpy $PORTABLEINSTALL "true"
-                SectionSetFlags ${JFPortable} ${SF_SELECTED}
-                StrCpy $INSTDIR "$R0${SHORTNAME}"
-          ${Else}
-                Call SearchPortableApps
-                StrCpy $INSTDIR $varPortableAppsPath
-          ${EndIf}
-
-          InitPluginsDir
-          StrCpy $Error "false"
-
-          Call CheckIsUserTheAdministrator
-
-          # Maybe its a elevated User-Install
-          ${If} $IsRoot == "true"
-
-                    Call LoadOptions
-
-                    Call SectionDebug
-
-          ${EndIf}
-
-        ${If} $varReload == "true"
-              Goto Reload
-        ${EndIf}
-
-        !insertmacro MUI_LANGDLL_DISPLAY
-
-Reload:
-FunctionEnd
-
-
 Function SearchPortableApps
 
 	ClearErrors
@@ -912,7 +923,11 @@ Function SearchPortableApps
         Goto done
 
 	DefaultDestination:
-		StrCpy $varPortableAppsPath "$PROFILE\${SHORTNAME}\"
+                ${If} $PROFILE == ""
+                      StrCpy $varPortableAppsPath "$PROGRAMFILES\${SHORTNAME}\"
+                ${Else}
+		      StrCpy $varPortableAppsPath "$PROFILE\${SHORTNAME}\"
+                ${EndIf}
 done:
 
 FunctionEnd
@@ -943,16 +958,6 @@ Function .onSelChange
 FunctionEnd
 
 
-Function InitSelection
-
-#  SectionSetFlags ${JFPortable} 1
-#  SectionSetFlags ${JFPortable} 0
-
-  Call RequiredSelections
-
-FunctionEnd
-
-
 Function RequiredSelections
 
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
@@ -963,9 +968,11 @@ Function RequiredSelections
          SectionSetFlags ${DrWebAntiVirus} $0
          SectionSetFlags ${DTWhois} $0
          SectionSetFlags ${JonDoFox} $0
+         #SectionSetFlags ${MediaPirate} $0
          SectionSetFlags ${MenuEditor} $0
          SectionSetFlags ${NoScript} $0
          SectionSetFlags ${SafeCache} $0
+         #SectionSetFlags ${TemporaryInbox} $0
 
 FunctionEnd
 
@@ -979,120 +986,27 @@ Function CheckSelected
 FunctionEnd
 
 
-
-
-Function SectionDebug
-
-        ${If} $DEBUG == 1
-
-                SectionGetFlags ${JFPortable} $R0
-                SectionGetFlags ${ProfileCore} $R3
-                SectionGetFlags ${ProfileCoreUpdate} $R4
-
-                SectionGetFlags ${AddBookmarkHere} $0
-                SectionGetFlags ${CacheIT} $1
-                SectionGetFlags ${Calculator} $2
-                SectionGetFlags ${ChatZilla} $3
-                SectionGetFlags ${ForecastbarEnhanced} $4
-                SectionGetFlags ${FoxClocks} $5
-                SectionGetFlags ${GrooweSearchToolbar} $6
-                SectionGetFlags ${ImageZoom} $7
-                SectionGetFlags ${Sage} $8
-                SectionGetFlags ${TabRenamizer} $9
-                SectionGetFlags ${ScribeFire} $R5
-                SectionGetFlags ${TinyUrlCreator} $R6
-                SectionGetFlags ${MRTechToolkit} $R7
-                SectionGetFlags ${PlainTexttoLink} $R8
-                SectionGetFlags ${CopyPlainText} $R9
-                
-
-
-
-
-                StrCpy $DEBUGVALUE "instPre$\n \
-                                   FFInstalled: $FFInstalled$\n \
-                                   PROGRAMINSTALL: $PROGRAMINSTALL$\n \
-                                   JFPortable: $R0$\n \
-                                   ProfileCore: $R3$\n \
-                                   ProfileCoreUpdate: $R4$\n \
-                                   AddBookmarkHere: $0$\n \
-                                   CacheIT: $1$\n \
-                                   Calculator: $2$\n \
-                                   ChatZilla: $3$\n \
-                                   ForecastbarEnhanced: 4$\n \
-                                   FoxClocks: $5$\n \
-                                   GrooweSearchToolbar: $6$\n \
-                                   ImageZoom: $7$\n \
-                                   Sage: $8$\n \
-                                   TabRenamizer: $9$\n \
-                                   ScribeFire: $R5$\n \
-                                   TinyUrlCreator: $R6$\n \
-                                   MRTechToolkit: $R7$\n \
-                                   PlainTexttoLink: $R8$\n \
-                                   CopyPlainText: $R9"
-
-                Call DebugOutput
-
-        ${EndIf}
-
-FunctionEnd
-
-
-
-
 ##======================================================================================================================================================
 ##                                                                           dirPre
 ##======================================================================================================================================================
 
 
 Function dirPre                          # 1
+        ${If} $InstMode > 0
+            ${If} $PROGRAMINSTALL == "false"
+            ${AndIf} $FFInstalled == "false"
 
-        ${If} $varReload == "true"
-              Abort
-              Goto Reload
+               ExecWait '"$TEMP\Firefox Setup ${FF_VERSION}.exe"'
+               StrCpy $FFInstalled "true"
+               Delete '"$TEMP\Firefox Setup ${FF_VERSION}.exe"'
+               Call instPre
+               Abort
+            ${ElseIf} $PROGRAMINSTALL == "false"
+               Abort
+            ${EndIf}
+        ${ElseIf} $PROGRAMINSTALL == "false"
+               Abort
         ${EndIf}
-
-
-        # Check if Portable is selected
-
-                StrCpy $FFInstalled "false"
-
-                SectionGetFlags ${JFPortable} $R0
-                IntOp $R0 $R0 & ${SF_SELECTED}
-
-                ${If} $R0 == ${SF_SELECTED}
-                        StrCpy $PROGRAMINSTALL "true"
-												Call CheckFirefoxRunning
-                        Goto goon
-                ${EndIf}
-                
-                # Check if Firefox is installed
-
-                StrCpy $PROGRAMINSTALL "false"
-
-                ${If} $PORTABLEINSTALL == "false"
-                      ${If} $varAskAgain == "true"
-                            Call CheckFirefoxInstalled     # -> 2
-                      ${EndIf}
-                ${EndIf}
-
-        goon:
-
-                ${If} $FFInstalled == "false"  # Show MUI_PAGE_DIRECTORY, change text
-
-                      ${If} $Error == "false"
-
-                        StrCpy $PathSelectionText $(SelectFirefoxPortable)
-
-                      ${ElseIf} $Error == "true"
-
-                        StrCpy $PathSelectionText $(SelectedFolderInvalid)
-                        
-                      ${EndIf}
-                      
-                ${EndIf}
-
-Reload:
 FunctionEnd
 
 
@@ -1108,12 +1022,6 @@ Function dirPost
 
               ${If} $IsRoot == "false"
 
-                     # check if we are installing to a portableapps flash drive; then no test for admin rights is needed
-#                    ${StrContains} $0 $varFOUNDPORTABLEAPPSPATH $INSTDIR 
-#									   StrCmp $0 "" notfound
-#									   Goto portableinstall
-									   
-										 notfound:
                       # check if admin rights are needed
                       Push $INSTDIR                      
                       Call CheckFolder                                           
@@ -1137,17 +1045,17 @@ Function dirPost
                             StrCpy $varMakeUserAdministrator "true"
 
                             next:
-
                       ${EndIf}
                       
-                      portableinstall:
-
+                     
                 ${EndIf}
 
         ${ElseIf} $PROGRAMINSTALL == "false"
-        
+            
+    
                 ${If} $FFInstalled == "false"  # check user select folder
 
+                                          
                       ${If} $IsRoot == "false"
 
                               Push $INSTDIR
@@ -1210,9 +1118,10 @@ Function .onVerifyInstDir
 
                       wrong:                            # Folder invalid, back to Folderselection Window
                       
-
-                            StrCpy $Error "true"
-                            Abort
+                            
+                            # Call CheckInstallingFirefox
+                            #StrCpy $Error "true"
+                            #Abort
 
                 ${EndIf}
                 
@@ -1223,70 +1132,77 @@ Function .onVerifyInstDir
         
 FunctionEnd
 
-##======================================================================================================================================================
-##                                                                           CheckIsUserTheAdministrator
-##======================================================================================================================================================
 
-Function CheckIsUserTheAdministrator
-
-        Push $1
-        
-        # call userInfo plugin to get user info.  The plugin puts the result in the stack
-        userInfo::getAccountType
-
-        # pop the result from the stack into $0
-        pop $1
-
-##############################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "CheckIsUserTheAdministrator$\n$1"
-        Call DebugOutput
-##############################################
-        
-        ${If} $1 == "Admin"
-
-              StrCpy $IsRoot "true"
-              
-        ${Else}
-
-              StrCpy $IsRoot "false"
-
-        ${EndIf}
-
-        Pop $1
-
+Function CheckInstallingFirefox
+      IfFileExists "$TEMP\Firefox Setup ${FF_VERSION}.exe" 0 +6
+      MessageBox MB_YESNO $(FirefoxFound) IDYES ff_yes IDNO +6
+    ff_yes:
+      UAC::IsAdmin
+      ${If} $0 < 1
+            Call ElevatingUser
+      ${Else}
+            StrCpy $InstMode "1"
+      ${EndIf}
+      Goto install_done  
+      MessageBox MB_ICONEXCLAMATION|MB_YESNO $(FirefoxDownloading) IDYES ff_down_yes IDNO done
+    ff_down_yes:
+      ${If} $LANGUAGE == "1031"
+            StrCpy $FF_DOWNLOAD_URL "${FF_URL}de"
+      ${ElseIf} $LANGUAGE == "1033"
+            StrCpy $FF_DOWNLOAD_URL "${FF_URL}en-US"
+      ${EndIf}
+    loop:
+      NSISdl::download /TIMEOUT=30000 /NOIEPROXY $FF_DOWNLOAD_URL "$TEMP\Firefox Setup ${FF_VERSION}.exe"
+      Pop $R0
+      StrCmp $R0 "success" +2
+      MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadingErrorRetry) IDYES loop IDNO done
+      UAC::IsAdmin
+      ${If} $0 < 1
+            Call ElevatingUser
+      ${Else}
+            StrCpy $InstMode "1"
+      ${EndIf}
+      Goto install_done
+    done:
+      Abort
+    install_done:
 FunctionEnd
 
+#######################################################
 
-##======================================================================================================================================================
-##                                                                           MakeUserAdministrator
-##======================================================================================================================================================
-
-Function MakeUserAdministrator
-
-         Call SaveOptions
-
-        UAC_Elevate:
-            UAC::RunElevated "test"
-            StrCmp 1223 $0 UAC_ElevationAborted ; UAC dialog aborted by user?
-            StrCmp 0 $0 0 UAC_Err ; Error?
-            StrCmp 1 $1 0 UAC_Success ;Are we the real deal or just the wrapper?
-            Quit
-        UAC_Err:
-            MessageBox mb_iconstop "Unable to elevate, error $0"
-            Abort
-
-        UAC_ElevationAborted:
-            # elevation was aborted, run as normal?
-            MessageBox mb_iconstop "This installer requires admin access, aborting!"
-            Abort
-        UAC_Success:
-            StrCmp 1 $3 +4 ;Admin?
-            StrCmp 3 $1 0 UAC_ElevationAborted ;Try again?
-            MessageBox mb_iconstop "This installer requires admin access, try again"
-            goto UAC_Elevate
-
+Function SkipPageInElvModePreCB
+  ${IfThen} $InstMode > 1 ${|} Abort ${|} ;skip this page so we get to the mode selection page
 FunctionEnd
+
+#######################################################
+
+Function ElevatingUser
+        StrCpy $1 $APPDATA
+        StrcPy $2 $SMPROGRAMS
+        SetShellVarContext all
+        FileOpen $0 $APPDATA\UserElevating_app w
+        FileWrite $0 "$1"
+        FileClose $0
+        FileOpen $0 $APPDATA\UserElevating_smp w
+        FileWrite $0 "$2"
+        FileClose $0
+        SetShellVarContext current
+        System::Call /NoUnload 'user32::GetWindowText(i $HwndParent,t.R1,i ${NSIS_MAX_STRLEN})' ;get original window title
+	System::Call /NoUnload 'user32::SetWindowText(i $HwndParent,t "${ELEVATIONTITLE}")' ;set out special title
+	StrCpy $2 "" ;reset special return, only gets set when sub process is executed, not when user cancels
+	!insertmacro EnableCtrl $HWNDParent 1 0 ;Disable next button, just because it looks good ;)
+	${UAC.RunElevatedAndProcessMessages}
+	!insertmacro EnableCtrl $HWNDParent 1 1
+	System::Call 'user32::SetWindowText(i $HwndParent,t "$R1")' ;restore title
+	${If} $2 = 666 ;our special return, the new process was not admin after all 
+		MessageBox MB_ICONEXCLAMATION $(AdminLogin)
+		Abort 
+		${ElseIf} $0 = 1223 ;cancel
+		Abort
+		${EndIf} 
+	Quit ;We now have a new process, the install will continue there, we have nothing left to do here
+FunctionEnd
+
 
 Function .OnInstFailed
     UAC::Unload ;Must call unload!
@@ -1294,215 +1210,6 @@ FunctionEnd
 
 Function .OnInstSuccess
     UAC::Unload ;Must call unload!
-FunctionEnd
-
-##======================================================================================================================================================
-##                                                                           LoadOptions
-##======================================================================================================================================================
-
-Function LoadOptions
-
-Push $R0
-        StrCpy $varReload "false"
-
-        IfFileExists "$varSystemTEMP\SelectedOptions.ini" 0 done
-
-        ReadINIStr $INSTDIR $varSystemTEMP\SelectedOptions.ini SelectedOptions ProgramPath
-        
-
-        StrCpy $ProgramPath $INSTDIR
-
-        ReadINIStr $ProfilePath $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfilePath
-
-        StrCpy $ProfileExtensionPath "$ProfilePath\extensions"
-        
-        Call RequiredSelections
-        
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions JFPortable
-        SectionSetFlags ${JFPortable} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfileCore
-        SectionSetFlags ${ProfileCore} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfileCoreUpdate
-        SectionSetFlags ${ProfileCoreUpdate} $R0
-
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions AddBookmarkHere
-        SectionSetFlags ${AddBookmarkHere} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions CacheIT
-        SectionSetFlags ${CacheIT} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions Calculator
-        SectionSetFlags ${Calculator} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ChatZilla
-        SectionSetFlags ${ChatZilla} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ForecastbarEnhanced
-        SectionSetFlags ${ForecastbarEnhanced} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions FoxClocks
-        SectionSetFlags ${FoxClocks} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions GrooweSearchToolbar
-        SectionSetFlags ${GrooweSearchToolbar} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ImageZoom
-        SectionSetFlags ${ImageZoom} $R0
-#        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions JSView
-#        SectionSetFlags ${JSView} $R0  
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions Sage
-        SectionSetFlags ${Sage} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions ScribeFire
-        SectionSetFlags ${ScribeFire} $R0
-#        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions TabRenamizer
-#        SectionSetFlags ${TabRenamizer} $R0        
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions TinyUrlCreator
-        SectionSetFlags ${TinyUrlCreator} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit
-        SectionSetFlags ${MRTechToolkit} $R0
-        
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions PlainTexttoLink
-        SectionSetFlags ${PlainTexttoLink} $R0
-        ReadINIStr $R0 $varSystemTEMP\SelectedOptions.ini SelectedOptions CopyPlainText
-        SectionSetFlags ${CopyPlainText} $R0
-        
-        StrCpy $varReload "true"
-        
-        Delete "$varSystemTEMP\SelectedOptions.ini"
-        
-        done:
-
-        Pop $R0
-
-        Call SectionDebug
-
-FunctionEnd
-
-
-
-Function GetSystemTempPath
-
-Push $R0
-
-        ReadRegStr $R0 HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment" TEMP
-
-        Push $R0
-        Call ParseTempPath
-        Pop $R0
-
-        Push $R0
-        Call CheckFolder
-
-        ${If} $InstDirOkay == "okay"
-              StrCpy $varSystemTEMP $R0
-        ${Else}
-              StrCpy $varSystemTEMP $TEMP
-        ${EndIf}
-        
-        # Bugfix !! ignore Code above
-        StrCpy $varSystemTEMP $TEMP
-        
-Pop $R0
-
-FunctionEnd
-
-
-
-Function ParseTempPath
-
-        Pop $R0
-
-        # %SystemRoot% = C:\Windows = $WINDIR
-
-        !insertmacro ReplaceSubStr $R0 %SystemRoot% $WINDIR
-
-        Push $MODIFIED_STR
-
-FunctionEnd
-
-##======================================================================================================================================================
-##                                                                           SaveOptions
-##======================================================================================================================================================
-
-Function SaveOptions
-
-        # Check write permissions first
-
-        Push $varSystemTEMP
-        Call CheckFolder
-
-        # Delete SelectedOptions.ini if exists
-        
-        IfFileExists "$varSystemTEMP\SelectedOptions.ini" 0 +2
-        Delete "$varSystemTEMP\SelectedOptions.ini"
-        
-        # Create SelectedOptions.ini
-        
-        FileOpen $0 "$varSystemTEMP\SelectedOptions.ini" r
-        FileClose $0
-
-
-        # Write SelectedOptions.ini
-
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ProgramPath $INSTDIR
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfilePath $ProfilePath
-
-        SectionGetFlags ${JFPortable} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions JFPortable $R0
-
-        SectionGetFlags ${ProfileCore} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfileCore $R0
-
-        SectionGetFlags ${ProfileCoreUpdate} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ProfileCoreUpdate $R0
-
-
-        
-        SectionGetFlags ${AddBookmarkHere} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions AddBookmarkHere $R0
-
-        SectionGetFlags ${CacheIT} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions CacheIT $R0
-
-        SectionGetFlags ${Calculator} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions Calculator $R0
-
-        SectionGetFlags ${ChatZilla} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ChatZilla $R0
-        
-        SectionGetFlags ${ForecastbarEnhanced} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ForecastbarEnhanced $R0
-
-        SectionGetFlags ${FoxClocks} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions FoxClocks $R0
-
-        SectionGetFlags ${GrooweSearchToolbar} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions GrooweSearchToolbar $R0
-
-        SectionGetFlags ${ImageZoom} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ImageZoom $R0
-
-        SectionGetFlags ${Sage} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions Sage $R0
-
-        SectionGetFlags ${ScribeFire} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions ScribeFire $R0
-
-#        SectionGetFlags ${TinyUrlCreator} $R0
-#        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions TinyUrlCreator $R0
-
-        SectionGetFlags ${MRTechToolkit} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions MRTechToolkit $R0
-        
-        SectionGetFlags ${TabRenamizer} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions TabRenamizer $R0
-        
-#        SectionGetFlags ${JSView} $R0
-#        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions JSView $R0
-        
-        SectionGetFlags ${PlainTexttoLink} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions PlainTexttoLink $R0
-
-        SectionGetFlags ${CopyPlainText} $R0
-        WriteINIStr $varSystemTEMP\SelectedOptions.ini SelectedOptions CopyPlainText $R0
-
-#        LockWindow on
-        HideWindow
-
-
 FunctionEnd
 
 
@@ -1623,7 +1330,7 @@ Function CheckFirefoxInstalled            # 2
 
                   Call instPre
 
-                  Abort # Dont show MUI_PAGE_DIRECTORY
+                  #Abort # Dont show MUI_PAGE_DIRECTORY
                   
                   next:
         ende:
@@ -1633,82 +1340,35 @@ FunctionEnd
 
 
 Function CheckFirefoxRunning                    # 3
-      Var /GLOBAL KILL_PORTABLE_EXE
-      StrCpy $KILL_PORTABLE_EXE "false"
-Start:
-
-			${If} $PROGRAMINSTALL == "false"
-          FindProcDLL::FindProc "firefox.exe"
-      ${ElseIf} $KILL_PORTABLE_EXE == "true"   
-          FindProcDLL::FindProc "firefox.exe"
+      Push $5
+      ${If} $PROGRAMINSTALL == "false"
+          Push "firefox.exe"
+          processwork::existsprocess
       ${Else}
-          StrCpy $KILL_PORTABLE_EXE "true"
-          FindProcDLL::FindProc "FirefoxPortable.exe"
+          Push "FirefoxPortable.exe"
+          processwork::existsprocess
       ${EndIf}
+      Pop $5
+      IntCmp $5 1 is1 is0 is0
 
-# 0 = Process was not found
-# 1 = Process was found
-# 605 = Unable to search for process
-# 606 = Unable to identify system type
-# 607 = Unsupported OS
-# 632 = Process name is invalid
-
-        IntCmp $R0 1 is1 is0 morethan1
         is1:
         # Firefox is running
-                 ${If} $Error == "true"
-                       MessageBox MB_ICONQUESTION|MB_RETRYCANCEL $(CantKillFirefox) IDCANCEL Exit        # Error
-                 ${ElseIf} $Error != "true"
-                       MessageBox MB_ICONQUESTION|MB_OKCANCEL $(FirefoxDetected) IDCANCEL Exit
-                 ${EndIf}
-								    ${If} $PROGRAMINSTALL == "false"
-							          KillProcDLL::KillProc "firefox.exe"
-							      ${Else}										          				           
-							          KillProcDLL::KillProc "FirefoxPortable.exe"
-							          KillProcDLL::KillProc "firefox.exe"				          
-							      ${EndIf}                     
-                     Sleep 1000
-
-                     # 0 = Process was successfully terminated
-                     # 603 = Process was not currently running
-                     # 604 = No permission to terminate process
-                     # 605 = Unable to load PSAPI.DLL
-                     # 602 = Unable to terminate process for some other reason
-                     # 606 = Unable to identify system type
-                     # 607 = Unsupported OS
-                     # 632 = Invalid process name
-                     # 700 = Unable to get procedure address from PSAPI.DLL
-                     # 701 = Unable to get process list, EnumProcesses failed
-                     # 702 = Unable to load KERNEL32.DLL
-                     # 703 = Unable to get procedure address from KERNEL32.DLL
-                     # 704 = CreateToolhelp32Snapshot failed
-                     
-                     StrCmp $R0 "603" dead ;someone has closed Firefox meanwhile...
-    								 StrCmp $R0 "0" dead notdead
-
-                     dead:
-                          StrCpy $Error "false"
-                          Goto Start
-
-                     notdead:
-                          StrCpy $Error "true"
-          Goto Start
+        MessageBox MB_ICONQUESTION|MB_YESNO $(FirefoxDetected) IDYES quitFF IDNO Exit
+        quitFF:
+	       Push "firefox.exe"
+	       processwork::KillProcess
+	       Sleep 1000
+        
         is0:
         # Everything is fine
           Goto done
-        morethan1:
-        # System Error, abort
-          MessageBox MB_ICONEXCLAMATION|MB_ICONSTOP $(FirefoxDetectedErrorOccured)
-          Quit
-          
+                 
         Exit:
-             #StrCpy $UserAbort "true"
              StrCpy $R9 "-1"
              Call RelGotoPage
              Abort
 
         done:
-
 FunctionEnd
 
 
@@ -1721,13 +1381,6 @@ Function SearchProfileFolder
 
 
     IfFileExists $INSTDIR\Data\settings\FirefoxPortableSettings.ini exists 0      # exists ini?
-
-
-##############################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "SearchProfileFolder$\nexists not$\n$INSTDIR\Data\settings\FirefoxPortableSettings.ini"
-        Call DebugOutput
-##############################################
 
     # NO
                  StrCpy $Error ""
@@ -1753,20 +1406,8 @@ Function SearchProfileFolder
 
 exists:
 
-##############################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "SearchProfileFolder$\nexists$\n$INSTDIR\Data\settings\FirefoxPortableSettings.ini"
-        Call DebugOutput
-##############################################
-
                  StrCpy $Error "$INSTDIR\Data\settings\FirefoxPortableSettings.ini"
                  ReadINIStr $0 $INSTDIR\Data\settings\FirefoxPortableSettings.ini FirefoxPortableSettings LastProfileDirectory          # Get profile directory
-
-##############################################
-        StrCmp $DEBUG 1 0 +3
-        StrCpy $DEBUGVALUE "SearchProfileFolder$\nLastProfileDirectory:$\n$0"
-        Call DebugOutput
-##############################################
 
                  IfErrors INIreaderror INIreadokay
 
@@ -1847,9 +1488,23 @@ Function instPre
                         # Check if folder "JonDoFox" exists
                         # if yes, update only
                         # else normal install
-
-                        StrCpy $ProfilePath "$APPDATA\Mozilla\Firefox\Profiles\JonDoFox"
-                        StrCpy $ProfileExtensionPath "$APPDATA\Mozilla\Firefox\Profiles\JonDoFox\extensions"
+                        ${If} $InstMode > 1
+                              SetShellVarContext all
+                              FileOpen $0 $APPDATA\UserElevating_app r
+                              FileRead $0 $AppdataFolder
+                              FileClose $0
+                              Delete $APPDATA\UserElevating_app
+                              FileOpen $0 $APPDATA\UserElevating_smp r
+                              FileRead $0 $SMProgramsFolder
+                              FileClose $0
+                              Delete $APPDATA\UserElevating_smp
+                              SetShellVarContext current
+                        Goto +3
+                        ${EndIf}
+                        StrCpy $AppdataFolder "$APPDATA"
+                        StrCpy $SMProgramsFolder "$SMPROGRAMS"
+                        StrCpy $ProfilePath "$AppdataFolder\Mozilla\Firefox\Profiles\JonDoFox"
+                        StrCpy $ProfileExtensionPath "$AppdataFolder\Mozilla\Firefox\Profiles\JonDoFox\extensions"
 
                         IfFileExists $ProfilePath\*.* update create
 
@@ -1883,7 +1538,7 @@ Function instPre
                           Goto done
 
                   create:
-
+                          ClearErrors
                           CreateDirectory $ProfilePath
                           IfErrors 0 +3
                           MessageBox MB_ICONEXCLAMATION|MB_OK $(CreateFolderError)
@@ -1930,10 +1585,8 @@ done:
                 SectionSetFlags ${ProfileCore} 1
         ${EndIf}
         
-        Call SectionDebug
-
         ${If} $varMakeUserAdministrator == "true"
-                    Call MakeUserAdministrator
+                    #Call MakeUserAdministrator
         ${EndIf}
 
 FunctionEnd
@@ -1952,8 +1605,8 @@ Function Update
 
         # BackupBookmarks:
 
-        MessageBox MB_ICONINFORMATION|MB_OKCANCEL $(OverwriteProfile) IDCANCEL Exit
-
+        MessageBox MB_ICONINFORMATION|MB_YESNO $(OverwriteProfile) IDYES updating IDNO Exit
+        updating:
         MSIBanner::Show /NOUNLOAD "Backup"
 
         IfFileExists $ProfilePath\BookmarkBackup\*.* +5
@@ -1998,14 +1651,14 @@ Function Update
 
         MSIBanner::Move /NOUNLOAD 10 "Backup"
 
-        IfFileExists $varSystemTEMP\BookmarkBackup\*.* +3
-        CreateDirectory $varSystemTEMP\BookmarkBackup
+        IfFileExists $TEMP\BookmarkBackup\*.* +3
+        CreateDirectory $TEMP\BookmarkBackup
         IfErrors Error
 
         MSIBanner::Move /NOUNLOAD 10 "Backup"
 
         IfFileExists $ProfilePath\BookmarkBackup\*.* 0 +3
-        CopyFiles $ProfilePath\BookmarkBackup\*.* $varSystemTEMP\BookmarkBackup
+        CopyFiles $ProfilePath\BookmarkBackup\*.* $TEMP\BookmarkBackup
         IfErrors Error
 
         MSIBanner::Move /NOUNLOAD 20 "Backup"
@@ -2055,14 +1708,8 @@ FunctionEnd
 Function RestoreBackup
 ClearErrors
 
-           CopyFiles "$varSystemTEMP\BookmarkBackup\*.*" $ProfilePath
+           CopyFiles "$TEMP\BookmarkBackup\*.*" $ProfilePath
            IfErrors 0 done
-
-           ##############################################
-           StrCmp $DEBUG 1 0 +3
-           StrCpy $DEBUGVALUE "RestoreBackup Error"
-           Call DebugOutput
-          ##############################################
 
            done:
         
@@ -2101,32 +1748,24 @@ FunctionEnd
 
 Function EditProfilesIni
 
-##############################################
-          StrCmp $DEBUG 1 0 +3
-          StrCpy $DEBUGVALUE "EditProfilesIni$\nFFInstalled: $FFInstalled$\nUpdate: $Update"
-          Call DebugOutput
-##############################################
-
-
         ${If} $FFInstalled == "true"
-
-              StrCmp $Update "false" 0 done
 
               Call GetLastProfilCounter
 
               Pop $i
 
         #insert:
-
-              WriteINIStr $APPDATA\Mozilla\Firefox\profiles.ini General StartWithLastProfile 0
+              ClearErrors
+              WriteINIStr $AppdataFolder\Mozilla\Firefox\profiles.ini General StartWithLastProfile 0
               IfErrors writeerror
 
+              StrCmp $Update "false" 0 done
         
-              WriteINIStr $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Name JonDoFox
+              WriteINIStr $AppdataFolder\Mozilla\Firefox\profiles.ini Profile$i Name JonDoFox
               IfErrors writeerror
-              WriteINIStr $APPDATA\Mozilla\Firefox\profiles.ini Profile$i IsRelative 1
+              WriteINIStr $AppdataFolder\Mozilla\Firefox\profiles.ini Profile$i IsRelative 1
               IfErrors writeerror
-              WriteINIStr $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Path Profiles/JonDoFox
+              WriteINIStr $AppdataFolder\Mozilla\Firefox\profiles.ini Profile$i Path Profiles/JonDoFox
               IfErrors writeerror
 
               writeerror:
@@ -2137,22 +1776,40 @@ Function EditProfilesIni
 
         StrCpy $FFInstalled "done"
 
+        ${If} $PROGRAMINSTALL == "false"
+
+              CreateDirectory "$SMProgramsFolder\JonDoFox"
+              CreateShortcut "$SMProgramsFolder\JonDoFox\$(^InstallLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox" "$ProfilePath\appicon.ico"
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^ProfilMLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P"
+              SetOutPath $ProfilePath
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^UninstallLink).lnk" "$ProfilePath\uninstall.exe" "" "$ProfilePath\appicon.ico"
+              ${If} $LANGUAGE == "1031"
+                    StrCpy $0 "de"
+              ${Else}
+                    StrCpy $0 "en"
+              ${EndIf}
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^HelpLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox https://www.jondos.de/$0/jondofox/help" "$ProfilePath\appicon.ico"
+              WriteUninstaller "$ProfilePath\uninstall.exe"
+
+        ${EndIf}
+        
+
 FunctionEnd
 
 
-
-Function GetLastProfilCounter
+!macro GetLastProfilCounter_macro un
+   Function ${un}GetLastProfilCounter
 
         StrCpy $i 0
 
         start:
 
-        FileOpen $PrefsFileHandle $APPDATA\Mozilla\Firefox\profiles.ini r
+        FileOpen $PrefsFileHandle $AppdataFolder\Mozilla\Firefox\profiles.ini r
         Push $PrefsFileHandle
         Push ''
         Push '[Profile$i]'
         Push 'begin'
-        Call SearchInFile
+        Call ${un}SearchInFile
         Pop $0
         FileClose $PrefsFileHandle
 
@@ -2164,59 +1821,76 @@ Function GetLastProfilCounter
 
         Push $i
 
-FunctionEnd
+   FunctionEnd
+!macroend
 
-Function WelcomePre
-        ${If} $varReload == "true"
-              Abort
-              Goto Reload
-        ${EndIf}
+!insertmacro GetLastProfilCounter_macro ""
+!insertmacro GetLastProfilCounter_macro "un."
 
-Reload:
-FunctionEnd
-
-Function LicencePre
-        ${If} $varReload == "true"
-              Abort
-              Goto Reload
-        ${EndIf}
-
-Reload:
-FunctionEnd
 
 Function comPre         # Reset wrong path error
+         ${If} $InstMode > 1
+               Abort
+         ${EndIf}
+         ${If} $PORTABLEINSTALL == "true"
+               SectionSetFlags ${JFPortable} ${SF_SELECTED}
+         ${EndIf}
 
-        ${If} $varReload == "true"
-		        SectionGetFlags ${JFPortable} $R0
-		
-		        ${If} $R0 == 1
-		                StrCpy $PROGRAMINSTALL "true"
-		        ${EndIf}
-		
-		        Abort
-		        Goto Reload
-        ${EndIf}
-
-         Call InitSelection
+         Call RequiredSelections
          
          StrCpy $Error "false"
          StrCpy $varAskAgain "true"
          
-
-Reload:
 FunctionEnd
 
 Function comPost
-
          StrCpy $varAskAgain "true"
+         
+          # Check if Portable is selected
 
-FunctionEnd
+                StrCpy $FFInstalled "false"
 
-Function CheckUserAbort
-        ${If} $UserAbort == "true"
-              SetErrors
-              Abort
-        ${EndIf}
+                SectionGetFlags ${JFPortable} $R0
+                IntOp $R0 $R0 & ${SF_SELECTED}
+
+                ${If} $R0 == ${SF_SELECTED}
+                        StrCpy $PROGRAMINSTALL "true"
+			Call CheckFirefoxRunning
+                        Goto goon
+                ${EndIf}
+                
+                # Check if Firefox is installed
+
+                StrCpy $PROGRAMINSTALL "false"
+
+                ${If} $PORTABLEINSTALL == "false"
+                            ${If} $varAskAgain == "true"
+                            Call CheckFirefoxInstalled     # -> 2
+                      ${EndIf}
+                ${EndIf}
+
+        goon:
+
+                ${If} $FFInstalled == "false"  # Show MUI_PAGE_DIRECTORY, change text
+                ${AndIf} $PROGRAMINSTALL == "false"
+                      
+                     Call CheckInstallingFirefox
+                 
+                    
+
+                ${ElseIf} $FFInstalled == "false"
+
+                      ${If} $Error == "false"
+
+                        StrCpy $PathSelectionText $(SelectFirefoxPortable)
+
+                      ${ElseIf} $Error == "true"
+
+                        StrCpy $PathSelectionText $(SelectedFolderInvalid)
+                        
+                      ${EndIf}
+                      
+                ${EndIf}
 FunctionEnd
 
 Function RelGotoPage
@@ -2230,20 +1904,61 @@ FunctionEnd
 
 
 Function FinishedInstall
+        ReadINIStr $0 "$PLUGINSDIR\iospecial.ini" "Field 4" "State"
+        StrCmp $0 "0" install_done
+        StrCpy $5 "" 
+        Push $5
+        Push "firefox.exe"
+        processwork::existsprocess
+        Pop $5
+        IntCmp $5 1 is1 install_done install_done
 
+        is1:
+        # Firefox is running
+        MessageBox MB_ICONQUESTION|MB_YESNO $(FirefoxDetected) IDYES quitFF IDNO ExitFinishInstall
+        quitFF:
+	       Push "firefox.exe"
+	       processwork::KillProcess
+	       Sleep 1000
+          
+        Goto install_done
+        ExitFinishInstall:
+          Abort
+        install_done:
         ${If} $Update == "true"
               Call RestoreBackup
         ${EndIf}
 
         ${If} $PROGRAMINSTALL == "true"
-                ExecShell "open" $INSTDIR
+              ExecShell "open" $INSTDIR
+        ${ElseIf} $InstMode > 1
+              GetFunctionAddress $0 InstallerLanguage
+              UAC::ExecCodeSegment $0
         ${EndIf}
-        
+FunctionEnd
+
+Function FinishRun
+        ${If} $LANGUAGE == "1031"
+              StrCpy $0 "de"
+        ${ElseIf} $LANGUAGE == "1033"
+              StrCpy $0 "en"
+        ${EndIf}
+        ${If} $PROGRAMINSTALL == "true"
+              Exec "$INSTDIR\FirefoxPortable.exe"
+        ${Else} 
+              ${If} $FFInstalled == "done"
+                 UAC::Exec '' '"$PROGRAMFILES\Mozilla Firefox\firefox.exe" -P JonDoFox https://www.jondos.de/$0/jondofox/help' '' ''
+              ${EndIf}
+        ${EndIf}
+FunctionEnd
+
+Function InstallerLanguage
+        WriteRegStr HKCU "Software\JonDoFox" "InstallerLanguage" "$LANGUAGE"
 FunctionEnd
 
 
-Function SearchInFile
-
+!macro SearchInFile_macro un
+   Function ${un}SearchInFile
         ; HOW USE
         ; FileOpen $1 'C:\WINNT\system32\drivers\etc\services' r
         ; Push $handle  ; handle of file (open in 'a' or 'r' mode)
@@ -2331,19 +2046,11 @@ Function SearchInFile
         Pop $1
         Exch $0 ;output yes/no
 
-FunctionEnd
+   FunctionEnd
+!macroend 
 
-
-
-Function DebugOutput
-
-             MessageBox MB_ICONINFORMATION|MB_OKCANCEL $DEBUGVALUE IDOK done IDCANCEL Exit
-
-        Exit:
-             Quit
-
-        done:
-FunctionEnd
+!insertmacro SearchInFile_macro ""
+!insertmacro SearchInFile_macro "un."
 
 
 Function isRoot
@@ -2398,45 +2105,3 @@ FunctionEnd
 
 
 
-
-
-; StrContains
-; This function does a case sensitive searches for an occurrence of a substring in a string. 
-; It returns the substring if it is found. 
-; Otherwise it returns null(""). 
-; Written by kenglish_hi
-; Adapted from StrReplace written by dandaman32
- 
- 
-Var STR_HAYSTACK
-Var STR_NEEDLE
-Var STR_CONTAINS_VAR_1
-Var STR_CONTAINS_VAR_2
-Var STR_CONTAINS_VAR_3
-Var STR_CONTAINS_VAR_4
-Var STR_RETURN_VAR
- 
-Function StrContains
-  Exch $STR_NEEDLE
-  Exch 1
-  Exch $STR_HAYSTACK
-  ; Uncomment to debug
-  ;MessageBox MB_OK 'STR_NEEDLE = $STR_NEEDLE STR_HAYSTACK = $STR_HAYSTACK '
-    StrCpy $STR_RETURN_VAR ""
-    StrCpy $STR_CONTAINS_VAR_1 -1
-    StrLen $STR_CONTAINS_VAR_2 $STR_NEEDLE
-    StrLen $STR_CONTAINS_VAR_4 $STR_HAYSTACK
-    loop:
-      IntOp $STR_CONTAINS_VAR_1 $STR_CONTAINS_VAR_1 + 1
-      StrCpy $STR_CONTAINS_VAR_3 $STR_HAYSTACK $STR_CONTAINS_VAR_2 $STR_CONTAINS_VAR_1
-      StrCmp $STR_CONTAINS_VAR_3 $STR_NEEDLE found
-      StrCmp $STR_CONTAINS_VAR_1 $STR_CONTAINS_VAR_4 done
-      Goto loop
-    found:
-      StrCpy $STR_RETURN_VAR $STR_NEEDLE
-      Goto done
-    done:
-   Pop $STR_NEEDLE ;Prevent "invalid opcode" errors and keep the
-   Exch $STR_RETURN_VAR  
-FunctionEnd
- 
