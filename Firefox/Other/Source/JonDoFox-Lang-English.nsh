@@ -116,3 +116,23 @@ LangString DescTinyUrlCreator ${LANG_ENGLISH} "Convenient tool to create small u
 LangString DescPlainTexttoLink ${LANG_ENGLISH} "Open links written in plain text"
 
 LangString DescCopyPlainText ${LANG_ENGLISH} "Copies text without formatting"
+
+LangString FF30Win9x ${LANG_ENGLISH} "This portable version of Firefox is not compatible with Win9x and WinME!"
+
+LangString DeletingProfile ${LANG_ENGLISH} "Do you really want to delete your JonDoFox profile?"
+
+LangString FirefoxFound ${LANG_ENGLISH} "A Firefox version was found. Do you want to install it?"
+
+LangString FirefoxDownloading ${LANG_ENGLISH} "No Firefox version was found. Do you want to download and install one?"
+
+LangString DownloadingErrorRetry ${LANG_ENGLISH} "Download failed! Do you want to retry?"
+
+LangString AdminLogin ${LANG_ENGLISH} "You need to login with an account that is a member of the admin group to continue..."
+
+LangString ^InstallLink ${LANG_ENGLISH} "Start $(^NAME)"
+
+LangString ^ProfilMLink ${LANG_ENGLISH} "Firefox Profile Manager"
+
+LangString ^UninstallLink ${LANG_ENGLISH} "Delete $(^NAME)"
+
+LangString ^HelpLink ${LANG_ENGLISH} "$(^NAME) Help"
