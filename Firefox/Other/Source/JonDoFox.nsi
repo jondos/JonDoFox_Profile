@@ -6,6 +6,7 @@
 
 ;Website: http://www.jondos.de/
 
+
 ;=== BEGIN: BASIC INFORMATION
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
@@ -18,7 +19,7 @@
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
 !define INSTALLERVERSION "1.0.0.0"
-!define INSTALLERCOMMENTS "For additional details, visit jondos.de"
+!define INSTALLERCOMMENTS "For additional details, visit jondos.de" ; changed by JonDos GmbH 2008
 !define INSTALLERADDITIONALTRADEMARKS "Firefox is a Trademark of The Mozilla Foundation. " ;end this entry with a period and a space if used
 !define INSTALLERLEGALCOPYRIGHT "JonDos GmbH"
 !define LICENSEAGREEMENT "eula.rtf"
@@ -39,6 +40,8 @@ Var /GLOBAL IsJonDoFox
 Var /GLOBAL PrefsFileHandle
 Var /GLOBAL i
 
+Var /GLOBAL j
+
 Var /GLOBAL PORTABLEINSTALL
 Var /GLOBAL PROGRAMINSTALL
 
@@ -54,6 +57,8 @@ Var hKey
 Var AppdataFolder
 
 Var SMProgramsFolder
+
+Var TempDir
 
 Var FF_DOWNLOAD_URL
 
@@ -842,6 +847,7 @@ Section Uninstall
        MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DeletingProfile) IDYES deleting
        Quit
      deleting:
+       StrCpy $AppdataFolder "$APPDATA"
        Call un.GetLastProfilCounter
        Pop $i
      loop:
@@ -853,7 +859,7 @@ Section Uninstall
         #GEORG: Normally, we could jump to deleting_sm now. But maybe the
         #       user has deleted the JonDoFox-files before by hand but has
         #       not adapted the profiles.ini as well. So we check all entries to
-        #       be sure that all JonDoFox stuff is gone.
+        #       be sure that all JonDoFox stuff is gone. War mit altem Installer noch möglich und vermutlich in den Fällen, wo "mittlere" Profile gelöscht werden!
         # Goto deleting_sm
 
        searching_ini:
@@ -991,14 +997,24 @@ FunctionEnd
 ##======================================================================================================================================================
 
 
-Function dirPre                          # 1
+Function dirPre
+        ${If} $InstMode > 1
+              SetShellVarContext all
+                              FileOpen $0 $APPDATA\UserElevating_tmp r
+                              FileRead $0 $TempDir
+                              FileClose $0
+                              Delete $APPDATA\UserElevating_tmp
+              SetShellVarContext current
+        ${ElseIf} $InstMode == 1
+              StrCpy $TempDir "$TEMP"
+        ${EndIf}
+                     
         ${If} $InstMode > 0
             ${If} $PROGRAMINSTALL == "false"
             ${AndIf} $FFInstalled == "false"
-
-               ExecWait '"$TEMP\Firefox Setup ${FF_VERSION}.exe"'
+               ExecWait '"$TempDir\Firefox Setup ${FF_VERSION}.exe"'
                StrCpy $FFInstalled "true"
-               Delete '"$TEMP\Firefox Setup ${FF_VERSION}.exe"'
+               Delete '$TempDir\Firefox Setup ${FF_VERSION}.exe'
                Call instPre
                Abort
             ${ElseIf} $PROGRAMINSTALL == "false"
@@ -1134,8 +1150,8 @@ FunctionEnd
 
 
 Function CheckInstallingFirefox
-      IfFileExists "$TEMP\Firefox Setup ${FF_VERSION}.exe" 0 +6
-      MessageBox MB_YESNO $(FirefoxFound) IDYES ff_yes IDNO +6
+      IfFileExists "$TEMP\Firefox Setup ${FF_VERSION}.exe" 0 download_check
+      MessageBox MB_YESNO $(FirefoxFound) IDYES ff_yes IDNO download_check
     ff_yes:
       UAC::IsAdmin
       ${If} $0 < 1
@@ -1144,6 +1160,7 @@ Function CheckInstallingFirefox
             StrCpy $InstMode "1"
       ${EndIf}
       Goto install_done  
+    download_check:
       MessageBox MB_ICONEXCLAMATION|MB_YESNO $(FirefoxDownloading) IDYES ff_down_yes IDNO done
     ff_down_yes:
       ${If} $LANGUAGE == "1031"
@@ -1178,13 +1195,17 @@ FunctionEnd
 
 Function ElevatingUser
         StrCpy $1 $APPDATA
-        StrcPy $2 $SMPROGRAMS
+        StrCpy $2 $SMPROGRAMS
+        StrCpy $3 $TEMP
         SetShellVarContext all
         FileOpen $0 $APPDATA\UserElevating_app w
         FileWrite $0 "$1"
         FileClose $0
         FileOpen $0 $APPDATA\UserElevating_smp w
         FileWrite $0 "$2"
+        FileClose $0
+        FileOpen $0 $APPDATA\UserElevating_tmp w
+        FileWrite $0 "$3"
         FileClose $0
         SetShellVarContext current
         System::Call /NoUnload 'user32::GetWindowText(i $HwndParent,t.R1,i ${NSIS_MAX_STRLEN})' ;get original window title
@@ -1753,14 +1774,24 @@ Function EditProfilesIni
               Call GetLastProfilCounter
 
               Pop $i
-
-        #insert:
+              StrCpy $j "$i"
+              IntOp $j $j - 1
               ClearErrors
               WriteINIStr $AppdataFolder\Mozilla\Firefox\profiles.ini General StartWithLastProfile 0
               IfErrors writeerror
-
-              StrCmp $Update "false" 0 done
-        
+     loop:
+         ClearErrors
+         ReadINIStr $0 $AppdataFolder\Mozilla\Firefox\profiles.ini Profile$j Name
+         IfErrors write_profileini
+         StrCmp $0 "JonDoFox" done searching_ini
+       searching_ini:
+         ${If} $j == 0
+            Goto write_profileini
+         ${EndIf}
+         IntOp $j $j - 1
+         Goto loop
+      
+          write_profileini:
               WriteINIStr $AppdataFolder\Mozilla\Firefox\profiles.ini Profile$i Name JonDoFox
               IfErrors writeerror
               WriteINIStr $AppdataFolder\Mozilla\Firefox\profiles.ini Profile$i IsRelative 1
@@ -1779,16 +1810,16 @@ Function EditProfilesIni
         ${If} $PROGRAMINSTALL == "false"
 
               CreateDirectory "$SMProgramsFolder\JonDoFox"
-              CreateShortcut "$SMProgramsFolder\JonDoFox\$(^InstallLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox" "$ProfilePath\appicon.ico"
+              CreateShortcut "$SMProgramsFolder\JonDoFox\$(^InstallLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox" "$ProfilePath\FirefoxPortable_neu.ico"
               CreateShortCut "$SMProgramsFolder\JonDoFox\$(^ProfilMLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P"
               SetOutPath $ProfilePath
-              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^UninstallLink).lnk" "$ProfilePath\uninstall.exe" "" "$ProfilePath\appicon.ico"
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^UninstallLink).lnk" "$ProfilePath\uninstall.exe" "" "$ProfilePath\FirefoxPortable_neu.ico"
               ${If} $LANGUAGE == "1031"
                     StrCpy $0 "de"
               ${Else}
                     StrCpy $0 "en"
               ${EndIf}
-              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^HelpLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox https://www.jondos.de/$0/jondofox/help" "$ProfilePath\appicon.ico"
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^HelpLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox https://www.jondos.de/$0/jondofox/help" "$ProfilePath\FirefoxPortable_neu.ico"
               WriteUninstaller "$ProfilePath\uninstall.exe"
 
         ${EndIf}
@@ -1803,7 +1834,6 @@ FunctionEnd
         StrCpy $i 0
 
         start:
-
         FileOpen $PrefsFileHandle $AppdataFolder\Mozilla\Firefox\profiles.ini r
         Push $PrefsFileHandle
         Push ''
