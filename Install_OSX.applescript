@@ -139,7 +139,7 @@ on edit_profiles_ini()
 			with icon stop with title jfx_dialog_title default button buttonOK
 		return 1
 	end if
-	set complete_entry to {next_profile_header, "Name=JonDoFox", "IsRelative=1", "Path=Profiles/" & jondoprofile_foldername}
+	set complete_entry to {next_profile_header, "Name=JonDoFox", "IsRelative=1", "Path=Profiles/" & jondoprofile_foldername, "Default=1"}
 	
 	-- Detection of an already installed JonDoFox profile. 
 	-- (Then replace it without messing up the profiles.ini with useless entries)
@@ -151,35 +151,28 @@ on edit_profiles_ini()
 		if (old_version_str is equal to new_version_str) then
 			display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) Â
 				buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
-			if (button returned of result = buttonContinue) then
-				copy_bookmarks()
-				return 0
-				(*else
-				return 2*)
-			end if
 		else
 			if (old_version_str is greater than new_version_str) then
 				set new_ver_replaced to replacePlaceHolder(getLangProperty("WarningOlderVersion"), "%newerversion", old_version_str)
 				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", new_version_str) buttons {buttonContinue, buttonCancel} Â
 					with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
-				if (button returned of result = buttonContinue) then
-					copy_bookmarks()
-					return 0
-					(*else
-					return 2*)
-				end if
 			else
 				set new_ver_replaced to replacePlaceHolder(getLangProperty("NoteOverwriteOlderVersion"), "%newerversion", new_version_str)
 				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", old_version_str) buttons {buttonContinue, buttonCancel} Â
 					with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
-				if (button returned of result = buttonContinue) then
-					copy_bookmarks()
-					return 0
-					(*else
-					return 2*)
-				end if
 			end if -- installed version is newer 
 		end if -- versions equal
+		-- in either case copy bookmarks
+		copy_bookmarks()
+		-- reset the entry "StartWithLastProfile"
+		tell application "Finder" to set prftemp_parent_URL to the URL of the parent of profiles_ini
+		set prftemp_path to getAbsolutePath(prftemp_parent_URL) & "/pfrtemp"
+		
+		do shell script "cp " & profiles_ini_path & " " & prftemp_path
+		do shell script "cat " & prftemp_path & " | sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ > " & profiles_ini_path
+		do shell script "rm -f " & prftemp_path
+		
+		return 0
 	end if -- JonDoFox profile already installed
 	-- saving old version of profiles.ini
 	backup_profile_ini()
@@ -197,7 +190,7 @@ on edit_profiles_ini()
 	
 	set profiles_ini_bak_path to getAbsolutePath(profiles_ini_bak_URL)
 	
-	do shell script "cat " & profiles_ini_bak_path & "| sed /StartWithLastProfile=1/s//StartWithLastProfile=0/  > " & profiles_ini_path
+	do shell script "cat " & profiles_ini_bak_path & "| sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/  -e s/Default=1// > " & profiles_ini_path
 	do shell script "echo >>  " & profiles_ini_path
 	
 	repeat with curr_line in complete_entry
@@ -340,7 +333,7 @@ on copy_bookmarks()
 			return
 		end if
 		set temp_folder to firefox_profiles_path as alias
-		move the jondofox_bookmarks_file to the temp_folder with replacing
+		duplicate the jondofox_bookmarks_file to the temp_folder with replacing
 	end tell
 end copy_bookmarks
 
@@ -362,8 +355,12 @@ on restore_old_settings()
 	
 	tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
 	set tempFirefox_profiles_path to getAbsolutePath(tempFirefox_profiles_URL)
-	do shell script "mv -f " & tempFirefox_profiles_path & "/" & profile_ini_backup_name & Â
-		" " & tempFirefox_profiles_path & "/profiles.ini "
+	try
+		do shell script "mv -f " & tempFirefox_profiles_path & "/" & profile_ini_backup_name & Â
+			" " & tempFirefox_profiles_path & "/profiles.ini "
+	on error
+		return 0
+	end try
 	return 0
 end restore_old_settings
 
