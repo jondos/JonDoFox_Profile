@@ -116,6 +116,8 @@ LangString DescPlainTexttoLink ${LANG_GERMAN} "Öffnet in bloßem Text geschrieben
 
 LangString DescCopyPlainText ${LANG_GERMAN} "Kopiert Text ohne Formatierung"
 
+LangString DescProfileSwitcher ${LANG_GERMAN} "Öffnet zwei Profile gleichzeitig (nur für die Desktop-Installation verfügbar)"
+
 LangString FF30Win9x ${LANG_GERMAN} "Diese portable Version von Firefox ist nicht kompatibel mit Win9x und WinME!"
 
 LangString DeletingProfile ${LANG_GERMAN} "Wollen Sie wirklich Ihr JonDoFox-Profil löschen?"
