@@ -197,6 +197,14 @@ editProfilesIni()
 	echo ${ECHO_ESCAPE} ${JONDOFOX_PROFILE_ENTRY} >> "${PROFILES_INI_FILE}"
 }
 
+resetStartWithLastProfile()
+{
+	local prftemp="${FIREFOX_SETTINGS_PATH}/prftemp"
+	cp "${PROFILES_INI_FILE}" "${prftemp}"
+	cat "${prftemp}" | sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ > "${PROFILES_INI_FILE}"
+	rm -f "${prftemp}"
+}
+
 removeOldProfileFolder()
 {
 	rm -rf ${VERBOSE} "${DEST_PROFILE}"
@@ -376,6 +384,7 @@ else
 	echo "saving bookmarks."
 	saveInstalledBookmarks
 	removeOldProfileFolder
+	resetStartWithLastProfile
 fi
 
 echo "installing profile."
