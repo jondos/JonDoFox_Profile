@@ -168,6 +168,7 @@ backupProfilesIni()
 ## restores the profiles.ini from the corresponding backup-file
 restoreOldSettings()
 {
+	echo "restoring old settings"
 	if [ -e "${PROFILES_INI_BACKUP_FILE}" ]; then
 		mv -f  ${VERBOSE} "${PROFILES_INI_BACKUP_FILE}" "${PROFILES_INI_FILE}"
 	fi
@@ -211,6 +212,14 @@ removeOldProfileFolder()
 {
 	echo "remove old profile"
 	rm -rf ${VERBOSE} "${DEST_PROFILE}"
+}
+
+uninstallJonDoFox()
+{
+	echo "removing JonDoFox"
+	#depends on existing profiles.ini.bak
+	restoreOldSettings
+	removeOldProfileFolder
 }
 
 ##copies the JonDoFox profile to the corresponding firefox folder 
@@ -322,27 +331,29 @@ promptOverwrite()
 		clear
 		return ${dialog_return}
 	else
-		echo ${ECHO_ESCAPE} "${OVERWRITE_DIALOG_TEXT}\n(y/n) ?\c"
+		echo ${ECHO_ESCAPE} "${OVERWRITE_DIALOG_TEXT}\n [y]es / [n]o / [d]elete ?\c"
 		read conf
-		conf=${conf%%"es"}
-		if [ "${conf}" = y ]; then	
-			return 0
-		fi
+		case $conf in
+			y*) return 0;;
+			n*) return 1;;
+			d*) return 2;;
+			*) return 1;;
+		esac
 	fi
-	return 1
 }
 
 ##################### the main installation routine ############################
 
 ## handle command line options
-
-OPTSTR="f:vh"	
+REMOVE=""
+OPTSTR="f:vhr"	
 getopts "${OPTSTR}" CMD_OPT
 while [ $? -eq 0 ]; 
 do
 	case ${CMD_OPT} in
 		v) VERBOSE="-v";;
 		f) FIREFOX_SETTINGS_PATH="${OPTARG}";;
+		r) REMOVE="TRUE";;
 		h) 
 			echo "JonDoFox $(getNewVersion) Installation for Linux (2008 Copyright (c) JonDos GmbH)"
 			echo "usage: ./install_linux [options]"
@@ -350,6 +361,7 @@ do
 			echo "-v prints verbose about the installation progress."
 			echo "-f <path to firefox settings> Manually set the path to where the profile shall be installed."
 			echo "   (Must be the same one where the profiles.ini can be found)."
+			echo "-r removes the JonDoFox-profile installed by this script." 
 			echo "-h prints this help text." 
 			echo ""
 			exit 0
@@ -364,8 +376,20 @@ variablesOsSpecific
 
 isFirefoxRunning
 if [ $? -ne 0 ]; then
-	echo ${ECHO_ESCAPE} "ERROR: Your Firefox is running.\nPlease quit Firefox before installing JonDoFox."
+	echo ${ECHO_ESCAPE} "ERROR: Your Firefox is running.\nPlease quit Firefox before running this script."
 	exit 1
+fi
+
+## in this case: just remove the JonDoFox-profile (if installed) and exit
+if [ "${REMOVE}" = "TRUE" ]; then
+	isJonDoFoxInstalled
+	if [ $? -eq 0 ]; then
+		echo "Cannot remove JonDoFox, because it is not installed."
+		exit 1
+	else
+		uninstallJonDoFox
+		exit 0
+	fi
 fi
 
 isJonDoFoxInstalled
@@ -376,13 +400,19 @@ if [ $? -eq 0 ]; then
 		restoreOldSettings
 		exit 1
 	fi
-else
+else 
 	compareVersions $(getInstalledVersion) $(getNewVersion)
 	promptOverwrite $?
-
-	if [ $? -ne 0 ]; then
-		echo "Installation aborted"
-		exit 1
+	overwriteRet=$?
+	if [ $overwriteRet -ne 0 ]; then
+		#in this case: remove the JonDoFox-profile and exit and exit
+		if [ $overwriteRet -eq 2 ]; then
+			uninstallJonDoFox
+			exit 0
+		else
+			echo "Installation aborted"
+			exit 1
+		fi
 	fi
 	saveInstalledBookmarks
 	removeOldProfileFolder
