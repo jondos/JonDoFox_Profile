@@ -130,6 +130,7 @@ variablesOsSpecific()
 ## store bookmarks of old JonDoFox profile
 saveInstalledBookmarks()
 {
+	echo "saving bookmarks."
 	SAVED_BOOKMARKS=""
 	if [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/places.sqlite"
@@ -199,6 +200,7 @@ editProfilesIni()
 
 resetStartWithLastProfile()
 {
+	echo "reset profiles.ini"
 	local prftemp="${FIREFOX_SETTINGS_PATH}/prftemp"
 	cp "${PROFILES_INI_FILE}" "${prftemp}"
 	cat "${prftemp}" | sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ > "${PROFILES_INI_FILE}"
@@ -207,6 +209,7 @@ resetStartWithLastProfile()
 
 removeOldProfileFolder()
 {
+	echo "remove old profile"
 	rm -rf ${VERBOSE} "${DEST_PROFILE}"
 }
 
@@ -381,7 +384,6 @@ else
 		echo "Installation aborted"
 		exit 1
 	fi
-	echo "saving bookmarks."
 	saveInstalledBookmarks
 	removeOldProfileFolder
 	resetStartWithLastProfile
