@@ -68,6 +68,9 @@ DIALOG_TEXT_SAME_VERSION=""
 DIALOG_TEXT_OW_OLDER_VERSION=""
 DIALOG_TEXT_OW_NEWER_VERSION=""
 
+DIALOG_DELETE_OPT="Delete"
+DIALOG_OVERWRITE_OPT="Overwrite"
+
 OLDER_VERSION="<=2.0.1"
 
 ## assign OS specific values for the global variables
@@ -116,9 +119,9 @@ variablesOsSpecific()
 	JONDOFOX_PROFILE_ENTRY="Name=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"
 
 	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
-	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
-	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
-	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it?\n(Your bookmarks will be kept)"
+	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
+	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
+	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
 
 	if [ "${VERBOSE}" ]; then
 		echo "Installing JonDoFox $(getInstalledVersion) with these settings:"
@@ -318,6 +321,9 @@ promptOverwrite()
 {
 	local conf=""
 	local dialog_return
+	local dialogTempFile="${FIREFOX_SETTINGS_PATH}/.dialogTemp"
+	local dialogReturnTag=""
+
 	case $1 in
 		0) OVERWRITE_DIALOG_TEXT=${DIALOG_TEXT_SAME_VERSION};;
 		1) OVERWRITE_DIALOG_TEXT=${DIALOG_TEXT_OW_NEWER_VERSION};;
@@ -326,9 +332,25 @@ promptOverwrite()
 
 	dialog --version >& /dev/null
 	if [ $? -eq 0 ]; then
-		dialog --clear --title "${OVERWRITE_DIALOG_TITLE}" --yesno  "${OVERWRITE_DIALOG_TEXT}" 9 50
+		#the result of this radiolist dialog is written to the tempfile ".dialogTemp"
+		dialog --clear --radiolist "${OVERWRITE_DIALOG_TEXT}" 9 80 2 \
+			"${DIALOG_OVERWRITE_OPT}" "" "on" \
+			"${DIALOG_DELETE_OPT}" "" "off" 2> "${dialogTempFile}"
 		dialog_return=$?		
+		if [ $dialog_return -eq 0 ]; then
+			#read the result from ".dialogTemp"
+			dialogReturnTag=$(cat "${dialogTempFile}")
+			if [ "${dialogReturnTag}" = "${DIALOG_OVERWRITE_OPT}" ]; then
+				dialog_return=0
+			elif [ "${dialogReturnTag}" = "${DIALOG_DELETE_OPT}" ]; then
+				dialog_return=2
+			else			
+				dialog_return=1
+			fi
+		fi
+		rm -f "${dialogTempFile}"
 		clear
+		echo ${dialog_return}
 		return ${dialog_return}
 	else
 		echo ${ECHO_ESCAPE} "${OVERWRITE_DIALOG_TEXT}\n [y]es / [n]o / [d]elete ?\c"
