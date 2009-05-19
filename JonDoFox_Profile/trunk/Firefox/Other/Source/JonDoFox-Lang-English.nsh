@@ -89,7 +89,7 @@ LangString DescTemporaryInbox ${LANG_ENGLISH} "A temporary inbox is a disposable
 
 # Optional
 
-LangString DescAddBookmarkHere ${LANG_ENGLISH} "Add a menuitem 'Add Bookmark Here...' to Bookmarks."
+LangString DescAddBookmarkHere ${LANG_ENGLISH} "Adds a menuitem 'Add Bookmark Here...' to Bookmarks."
 
 LangString DescCacheIT ${LANG_ENGLISH} "Displays an archived version of a webpage"
 
@@ -113,9 +113,11 @@ LangString DescScribeFire ${LANG_ENGLISH} "Post to your blog without ever leavin
 
 LangString DescTinyUrlCreator ${LANG_ENGLISH} "Convenient tool to create small url redirects from longer ones"
 
-LangString DescPlainTexttoLink ${LANG_ENGLISH} "Open links written in plain text"
+LangString DescPlainTexttoLink ${LANG_ENGLISH} "Opens links written in plain text"
 
 LangString DescCopyPlainText ${LANG_ENGLISH} "Copies text without formatting"
+
+LangString DescProfileSwitcher ${LANG_ENGLICH} "Opens two profiles at the same time (available for a Desktop installation only)"
 
 LangString FF30Win9x ${LANG_ENGLISH} "This portable version of Firefox is not compatible with Win9x and WinME!"
 

@@ -337,10 +337,10 @@ FunctionEnd
 ##======================================================================================================================================================
 
 
-insttype $(InstTypeComplete)                 # 1
-insttype $(InstTypeLite)                     # 2
-insttype $(InstTypeProfileComplete)          # 3
-insttype $(InstTypeProfileLite)              # 4
+InstType $(InstTypeComplete)                 # 1
+InstType $(InstTypeLite)                     # 2
+InstType $(InstTypeProfileComplete)          # 3
+InstType $(InstTypeProfileLite)              # 4
 
 
 Section /o $(JonDoFox) JFPortable
@@ -378,11 +378,15 @@ SectionIn 1 2 3 4
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_de"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
+              ${Else} 
+                    File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
               ${EndIf}
         ${ElseIf} $LANGUAGE == "1033"      # english
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
+              ${Else}
+                    File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
               ${EndIf}
         ${EndIf}
 
@@ -399,10 +403,16 @@ Section /o - ProfileCoreUpdate              #Update
         File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\*.*"
         ${If} $LANGUAGE == "1031" 
         ${AndIf} $PROGRAMINSTALL == "true"
-              File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
+              File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"   
+        ${ElseIf} $LANGUAGE == "1031"
+        ${AndIf} $PROGRAMINSTALL == "false"
+                File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
         ${ElseIf} $LANGUAGE == "1033"
         ${AndIf} $PROGRAMINSTALL == "true"
               File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
+        ${ElseIf} $LANGUAGE == "1033"
+        ${AndIf} $PROGRAMINSTALL == "false" 
+                File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
         ${EndIf}
 
 SectionEnd
@@ -840,6 +850,20 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{89736E8E-4B14-4042-8C75-AD00B6BD3900}\*.*"
 
         SectionEnd
+
+        Section /o "ProfileSwitcher" ProfileSwitcher
+        SectionIn 3
+        
+
+                StrCpy $ExtensionGUID "{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}"
+                StrCpy $ExtensionName "ProfileSwitcher"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}\*.*"
+
+        SectionEnd
         
 SectionGroupEnd
 
@@ -909,7 +933,8 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${Sage} $(DescSage)
   !insertmacro MUI_DESCRIPTION_TEXT ${ScribeFire} $(DescScribeFire)
   !insertmacro MUI_DESCRIPTION_TEXT ${TabRenamizer} $(DescTabRenamizer)
-  !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)  
+  !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)
+  !insertmacro MUI_DESCRIPTION_TEXT ${ProfileSwitcher} $(DescProfileSwitcher)  
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 
@@ -988,7 +1013,11 @@ Function CheckSelected
   ${If} $PORTABLEINSTALL == "true"
         SectionSetFlags ${JFPortable} ${SF_SELECTED}
   ${EndIf}
-
+  SectionGetFlags ${ProfileSwitcher} $0
+  ${If} $0 == 1
+        SectionSetFlags ${JFPortable} 0
+  ${EndIf}
+  
 FunctionEnd
 
 
@@ -1810,16 +1839,16 @@ Function EditProfilesIni
         ${If} $PROGRAMINSTALL == "false"
 
               CreateDirectory "$SMProgramsFolder\JonDoFox"
-              CreateShortcut "$SMProgramsFolder\JonDoFox\$(^InstallLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox" "$ProfilePath\FirefoxPortable_neu.ico"
+              CreateShortcut "$SMProgramsFolder\JonDoFox\$(^InstallLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox" "$ProfilePath\appicon.ico"
               CreateShortCut "$SMProgramsFolder\JonDoFox\$(^ProfilMLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P"
               SetOutPath $ProfilePath
-              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^UninstallLink).lnk" "$ProfilePath\uninstall.exe" "" "$ProfilePath\FirefoxPortable_neu.ico"
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^UninstallLink).lnk" "$ProfilePath\uninstall.exe" "" "$ProfilePath\appicon.ico"
               ${If} $LANGUAGE == "1031"
                     StrCpy $0 "de"
               ${Else}
                     StrCpy $0 "en"
               ${EndIf}
-              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^HelpLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox https://www.jondos.de/$0/jondofox/help" "$ProfilePath\FirefoxPortable_neu.ico"
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^HelpLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox $\"file:///$ProfilePath\help.html$\"" "$ProfilePath\appicon.ico"
               WriteUninstaller "$ProfilePath\uninstall.exe"
 
         ${EndIf}
