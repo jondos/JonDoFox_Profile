@@ -130,6 +130,8 @@ LangString DownloadingErrorRetry ${LANG_GERMAN} "Der Download ist fehlgeschlagen
 
 LangString AdminLogin ${LANG_GERMAN} "Sie müssen sich mit einem Account anmelden, der zur Administratorgruppe gehört..."
 
+LangString JonDoFoxDeleteError ${LANG_GERMAN} "Ihr JonDoFox-Profil kann nicht vollständig gelöscht werden, während Firefox noch läuft!"
+
 LangString ^InstallLink ${LANG_GERMAN} "$(^NAME) starten"
 
 LangString ^ProfilMLink ${LANG_GERMAN} "Firefox-Profilmanager"
