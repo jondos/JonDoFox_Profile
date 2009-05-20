@@ -852,9 +852,8 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
         Section /o "ProfileSwitcher" ProfileSwitcher
-        SectionIn 3
+        SectionIn 3 4
         
-
                 StrCpy $ExtensionGUID "{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}"
                 StrCpy $ExtensionName "ProfileSwitcher"
 
@@ -871,6 +870,8 @@ Section Uninstall
        MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DeletingProfile) IDYES deleting
        Quit
      deleting:
+       StrCpy $PROGRAMINSTALL "false" 
+       Call un.CheckFirefoxRunning
        StrCpy $AppdataFolder "$APPDATA"
        Call un.GetLastProfilCounter
        Pop $i
@@ -1010,15 +1011,21 @@ FunctionEnd
 
 Function CheckSelected
 
-  ${If} $PORTABLEINSTALL == "true"
-        SectionSetFlags ${JFPortable} ${SF_SELECTED}
-  ${EndIf}
   SectionGetFlags ${ProfileSwitcher} $0
-  ${If} $0 == 1
-        SectionSetFlags ${JFPortable} 0
-  ${EndIf}
+   SectionGetFlags ${JFPortable} $1
+  IntOp $2 $0 & ${SF_RO}
+   IntOp $3 $1 & ${SF_SELECTED}
   
-FunctionEnd
+  ${If} $3 == 0
+  ${AndIf} $2 > 1
+        IntOp $0 $0 ^ ${SF_RO}
+        SectionSetFlags ${ProfileSwitcher} $0
+  ${ElseIf} $3 == 1
+        IntOp $0 0 | ${SF_RO}
+        SectionSetFlags ${ProfileSwitcher} $0
+  ${EndIf}
+
+ FunctionEnd
 
 
 ##======================================================================================================================================================
@@ -1339,7 +1346,6 @@ done:
 FunctionEnd
 
 
-
 Function CheckFirefoxInstalled            # 2
 
 # Get Firefox Folder from Registry, just to see if it is installed
@@ -1388,8 +1394,8 @@ Function CheckFirefoxInstalled            # 2
 FunctionEnd
 
 
-
-Function CheckFirefoxRunning                    # 3
+!macro CheckFirefoxRunning_macro un
+   Function ${un}CheckFirefoxRunning                    # 3
       Push $5
       ${If} $PROGRAMINSTALL == "false"
           Push "firefox.exe"
@@ -1414,12 +1420,18 @@ Function CheckFirefoxRunning                    # 3
           Goto done
                  
         Exit:
+             StrCmp ${un} "un." 0 +2
+                 MessageBox MB_ICONEXCLAMATION|MB_OK $(JonDoFoxDeleteError)
              StrCpy $R9 "-1"
-             Call RelGotoPage
+             Call ${un}RelGotoPage
              Abort
 
         done:
-FunctionEnd
+   FunctionEnd
+!macroend
+
+!insertmacro CheckFirefoxRunning_macro ""
+!insertmacro CheckFirefoxRunning_macro "un."
 
 
 ##======================================================================================================================================================
@@ -1842,13 +1854,13 @@ Function EditProfilesIni
               CreateShortcut "$SMProgramsFolder\JonDoFox\$(^InstallLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox" "$ProfilePath\appicon.ico"
               CreateShortCut "$SMProgramsFolder\JonDoFox\$(^ProfilMLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P"
               SetOutPath $ProfilePath
-              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^UninstallLink).lnk" "$ProfilePath\uninstall.exe" "" "$ProfilePath\appicon.ico"
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^UninstallLink).lnk" "$ProfilePath\uninstall.exe"
               ${If} $LANGUAGE == "1031"
                     StrCpy $0 "de"
               ${Else}
                     StrCpy $0 "en"
               ${EndIf}
-              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^HelpLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox $\"file:///$ProfilePath\help.html$\"" "$ProfilePath\appicon.ico"
+              CreateShortCut "$SMProgramsFolder\JonDoFox\$(^HelpLink).lnk" "$PROGRAMFILES\Mozilla Firefox\firefox.exe" "-P JonDoFox $\"file:///$ProfilePath\help.html$\"" "noicon_ico" #otherwise the default one is used
               WriteUninstaller "$ProfilePath\uninstall.exe"
 
         ${EndIf}
@@ -1952,7 +1964,8 @@ Function comPost
                 ${EndIf}
 FunctionEnd
 
-Function RelGotoPage
+!macro RelGotoPage_macro un
+Function ${un}RelGotoPage
           IntCmp $R9 0 0 Move Move
             StrCmp $R9 "X" 0 Move
               StrCpy $R9 "120"
@@ -1960,6 +1973,10 @@ Function RelGotoPage
           Move:
           SendMessage $HWNDPARENT "0x408" "$R9" ""
 FunctionEnd
+!macroend
+
+!insertmacro RelGotoPage_macro ""
+!insertmacro RelGotoPage_macro "un."
 
 
 Function FinishedInstall
