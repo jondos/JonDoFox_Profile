@@ -126,11 +126,17 @@ LangString FirefoxFound ${LANG_GERMAN} "Eine Firefox-Version wurde gefunden. Wol
 
 LangString FirefoxDownloading ${LANG_GERMAN} "Es wurde keine Firefox-Version gefunden. Wollen Sie eine herunterladen und installieren?"
 
-LangString DownloadingErrorRetry ${LANG_GERMAN} "Der Download ist fehlgeschlagen! Wollen Sie es noch einmal versuchen?"
+LangString FirefoxDownload ${LANG_GERMAN} "Firefox wird herunter geladen... Bitte haben Sie etwas Geduld."
+
+LangString DownloadErrorRetry ${LANG_GERMAN} "Der Download ist fehlgeschlagen! Wollen Sie es noch einmal versuchen?"
 
 LangString AdminLogin ${LANG_GERMAN} "Sie müssen sich mit einem Account anmelden, der zur Administratorgruppe gehört..."
 
 LangString JonDoFoxDeleteError ${LANG_GERMAN} "Ihr JonDoFox-Profil kann nicht vollständig gelöscht werden, während Firefox noch läuft!"
+
+LangString InstallingJonDo ${LANG_GERMAN} "Um anonym zu Surfen, benötigen Sie noch JonDo! Wollen Sie es jetzt herunterladen und installieren?"
+
+LangString InstallingPortableJonDo ${LANG_GERMAN} "Wollen Sie noch JonDo herunterladen und die portable Version installieren (notwendig, um anonym zu surfen)?"
 
 LangString ^InstallLink ${LANG_GERMAN} "$(^NAME) starten"
 
