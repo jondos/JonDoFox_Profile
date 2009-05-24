@@ -127,11 +127,17 @@ LangString FirefoxFound ${LANG_ENGLISH} "A Firefox version was found. Do you wan
 
 LangString FirefoxDownloading ${LANG_ENGLISH} "No Firefox version was found. Do you want to download and install one?"
 
-LangString DownloadingErrorRetry ${LANG_ENGLISH} "Download failed! Do you want to retry?"
+LangString FirefoxDownload ${LANG_ENGLISH} "Downloading Firefox... Please wait."
+
+LangString DownloadErrorRetry ${LANG_ENGLISH} "Download failed! Do you want to retry?"
 
 LangString AdminLogin ${LANG_ENGLISH} "You need to login with an account that is a member of the admin group to continue..."
 
 LangString JonDoFoxDeleteError ${LANG_ENGLISH} "Your JonDoFox profile cannot be deleted properly while Firefox is running!"
+
+LangString InstallingJonDo ${LANG_ENGLISH} "In order to surf anonymously you need JonDo as well! Do you want to download and install it now?"
+
+LangString InstallingPortableJonDo ${LANG_ENGLISH} "Do you want to download JonDo and install the portable Version as well (necessary for surfing anonymously)?"
 
 LangString ^InstallLink ${LANG_ENGLISH} "Start $(^NAME)"
 
