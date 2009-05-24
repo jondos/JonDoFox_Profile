@@ -14,7 +14,7 @@
 !define VERSION "2.1.6.0"
 !define FILENAME "JonDoFox"
 !define FF_VERSION "3.0.10"
-!define FF_URL "http://download.mozilla.org/?product=firefox_${FF_VERSION}&os=win&lang="
+!define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
@@ -53,6 +53,8 @@ Var /GLOBAL ExtensionName
 Var InstMode
 
 Var hKey
+
+Var install
 
 Var AppdataFolder
 
@@ -1205,10 +1207,10 @@ Function CheckInstallingFirefox
             StrCpy $FF_DOWNLOAD_URL "${FF_URL}en-US"
       ${EndIf}
     loop:
-      NSISdl::download /TIMEOUT=30000 /NOIEPROXY $FF_DOWNLOAD_URL "$TEMP\Firefox Setup ${FF_VERSION}.exe"
+      InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - Firefox Download" $(FirefoxDownload) $FF_DOWNLOAD_URL "$TEMP\Firefox Setup ${FF_VERSION}.exe"
       Pop $R0
-      StrCmp $R0 "success" +2
-      MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadingErrorRetry) IDYES loop IDNO done
+      StrCmp $R0 "OK" +2
+      MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO done
       UAC::IsAdmin
       ${If} $0 < 1
             Call ElevatingUser
@@ -1980,6 +1982,24 @@ FunctionEnd
 
 
 Function FinishedInstall
+        ${If} $PROGRAMINSTALL == "true"
+             MessageBox MB_YESNO $(InstallingPortableJonDo) IDYES 0 IDNO finish_install
+             StrCpy $install "portable"
+        ${Else}
+             ClearErrors
+             ReadRegStr $1 HKLM "Software\JonDo\Components" Main
+             IfErrors 0 finish_install 
+             MessageBox MB_ICONEXCLAMATION|MB_YESNO $(InstallingJonDo) IDYES 0 IDNO finish_install
+             StrCpy $install "desktop"
+        ${EndIf}
+       loop:
+        NSISdl::download /TIMEOUT=30000 /NOIEPROXY https://www.jondos.de/downloads/JonDoSetup.paf.exe "$TEMP\JonDoSetup.paf.exe"
+        Pop $R0
+        StrCmp $R0 "success" +2
+        MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO finish_install
+        ExecWait '"$TEMP\JonDoSetup.paf.exe" -INSTALLATION=$install' # -INSTALLPATH= -LANGUAGE=${LANGUAGE}'
+        Delete $TEMP\JonDoSetup.paf.exe
+       finish_install:
         ReadINIStr $0 "$PLUGINSDIR\iospecial.ini" "Field 4" "State"
         StrCmp $0 "0" install_done
         StrCpy $5 "" 
