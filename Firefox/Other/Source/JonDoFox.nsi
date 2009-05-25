@@ -1997,11 +1997,11 @@ Function FinishedInstall
              StrCpy $install "desktop"
         ${EndIf}
        loop:
-        NSISdl::download /TIMEOUT=30000 /NOIEPROXY https://www.jondos.de/downloads/JonDoSetup.paf.exe "$TEMP\JonDoSetup.paf.exe"
+        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" https://www.jondos.de/downloads/JonDoSetup.paf.exe "$TEMP\JonDoSetup.paf.exe"
         Pop $R0
-        StrCmp $R0 "success" +2
+        StrCmp $R0 "OK" +2
         MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO finish_install
-        ExecWait '"$TEMP\JonDoSetup.paf.exe" -INSTALLATION=$install' # -INSTALLPATH= -LANGUAGE=${LANGUAGE}'
+        ExecWait '"$TEMP\JonDoSetup.paf.exe" -INSTALLATION=$install -INSTALLPATH=$INSTDIR' #-LANGUAGE=${LANGUAGE}'
         Delete $TEMP\JonDoSetup.paf.exe
        finish_install:
         ReadINIStr $0 "$PLUGINSDIR\iospecial.ini" "Field 4" "State"
