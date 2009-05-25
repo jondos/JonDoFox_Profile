@@ -855,7 +855,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         Section /o "ProfileSwitcher" ProfileSwitcher
         SectionIn 3 4
-        
+                
                 StrCpy $ExtensionGUID "{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}"
                 StrCpy $ExtensionName "ProfileSwitcher"
 
@@ -865,7 +865,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}\*.*"
 
         SectionEnd
-        
+
 SectionGroupEnd
 
 Section Uninstall
@@ -1007,6 +1007,10 @@ Function RequiredSelections
          SectionSetFlags ${NoScript} $0
          SectionSetFlags ${SafeCache} $0
          #SectionSetFlags ${TemporaryInbox} $0
+
+ #GEORG: This is a trick to avoid that the custom insttype is shown as default
+
+         SectionSetFlags ${ProfileSwitcher} ${SF_SELECTED}
 
 FunctionEnd
 
