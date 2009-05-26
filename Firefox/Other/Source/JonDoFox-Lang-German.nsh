@@ -130,6 +130,8 @@ LangString FirefoxDownload ${LANG_GERMAN} "Firefox wird herunter geladen... Bitt
 
 LangString DownloadErrorRetry ${LANG_GERMAN} "Der Download ist fehlgeschlagen! Wollen Sie es noch einmal versuchen?"
 
+LangString JonDoDownload ${LANG_GERMAN} "Der JonDo-Installer wird herunter geladen... Bitte haben Sie etwas Geduld."
+
 LangString AdminLogin ${LANG_GERMAN} "Sie müssen sich mit einem Account anmelden, der zur Administratorgruppe gehört..."
 
 LangString JonDoFoxDeleteError ${LANG_GERMAN} "Ihr JonDoFox-Profil kann nicht vollständig gelöscht werden, während Firefox noch läuft!"

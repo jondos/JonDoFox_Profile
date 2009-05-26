@@ -131,6 +131,8 @@ LangString FirefoxDownload ${LANG_ENGLISH} "Downloading Firefox... Please wait."
 
 LangString DownloadErrorRetry ${LANG_ENGLISH} "Download failed! Do you want to retry?"
 
+LangString JonDoDownload ${LANG_ENGLISH} "Downloading JonDo installer... Please wait."
+
 LangString AdminLogin ${LANG_ENGLISH} "You need to login with an account that is a member of the admin group to continue..."
 
 LangString JonDoFoxDeleteError ${LANG_ENGLISH} "Your JonDoFox profile cannot be deleted properly while Firefox is running!"
