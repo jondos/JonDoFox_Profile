@@ -1008,10 +1008,6 @@ Function RequiredSelections
          SectionSetFlags ${SafeCache} $0
          #SectionSetFlags ${TemporaryInbox} $0
 
- #GEORG: This is a trick to avoid that the custom insttype is shown as default
-
-         SectionSetFlags ${ProfileSwitcher} ${SF_SELECTED}
-
 FunctionEnd
 
 
@@ -1911,9 +1907,17 @@ Function comPre         # Reset wrong path error
          ${EndIf}
          ${If} $PORTABLEINSTALL == "true"
                SectionSetFlags ${JFPortable} ${SF_SELECTED}
+               IntOp $0 0 | ${SF_RO}
+               SectionSetFlags ${ProfileSwitcher} $0 
+               Goto +2
          ${EndIf}
 
+ #GEORG: This is a trick to avoid the custom insttype being shown as default
+
+         SectionSetFlags ${ProfileSwitcher} ${SF_SELECTED}
+
          Call RequiredSelections
+
          
          StrCpy $Error "false"
          StrCpy $varAskAgain "true"
@@ -1997,12 +2001,15 @@ Function FinishedInstall
              StrCpy $install "desktop"
         ${EndIf}
        loop:
-        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" https://www.jondos.de/downloads/JonDoSetup.paf.exe "$TEMP\JonDoSetup.paf.exe"
+        SetShellVarContext all
+        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) https://www.jondos.de/downloads/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe"
         Pop $R0
         StrCmp $R0 "OK" +2
         MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO finish_install
-        ExecWait '"$TEMP\JonDoSetup.paf.exe" -INSTALLATION=$install -INSTALLPATH=$INSTDIR' #-LANGUAGE=${LANGUAGE}'
-        Delete $TEMP\JonDoSetup.paf.exe
+        ExecWait '"$APPDATA\JonDoSetup.paf.exe" -INSTALLATION=$install -INSTALLPATH=$INSTDIR -LANGUAGE=$LANGUAGE'
+        Sleep 1000
+        Delete $APPDATA\JonDoSetup.paf.exe
+        SetShellVarContext current
        finish_install:
         ReadINIStr $0 "$PLUGINSDIR\iospecial.ini" "Field 4" "State"
         StrCmp $0 "0" install_done
@@ -2030,6 +2037,7 @@ Function FinishedInstall
         ${EndIf}
 
         ${If} $PROGRAMINSTALL == "true"
+              DeleteRegKey HKCU "Software\JonDoFox"
               ExecShell "open" $INSTDIR
         ${ElseIf} $InstMode > 1
               GetFunctionAddress $0 InstallerLanguage
