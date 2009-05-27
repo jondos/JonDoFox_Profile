@@ -139,7 +139,7 @@ LangString JonDoFoxDeleteError ${LANG_ENGLISH} "Your JonDoFox profile cannot be 
 
 LangString InstallingJonDo ${LANG_ENGLISH} "In order to surf anonymously you need JonDo as well! Do you want to download and install it now?"
 
-LangString InstallingPortableJonDo ${LANG_ENGLISH} "Do you want to download JonDo and install the portable Version as well (necessary for surfing anonymously)?"
+LangString InstallingPortableJonDo ${LANG_ENGLISH} "Do you want to download JonDo and install the portable version as well (necessary for surfing anonymously)?"
 
 LangString ^InstallLink ${LANG_ENGLISH} "Start $(^NAME)"
 

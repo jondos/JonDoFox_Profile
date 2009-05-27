@@ -136,7 +136,7 @@ LangString AdminLogin ${LANG_GERMAN} "Sie müssen sich mit einem Account anmelden
 
 LangString JonDoFoxDeleteError ${LANG_GERMAN} "Ihr JonDoFox-Profil kann nicht vollständig gelöscht werden, während Firefox noch läuft!"
 
-LangString InstallingJonDo ${LANG_GERMAN} "Um anonym zu Surfen, benötigen Sie noch JonDo! Wollen Sie es jetzt herunterladen und installieren?"
+LangString InstallingJonDo ${LANG_GERMAN} "Um anonym zu surfen, benötigen Sie noch JonDo! Wollen Sie es jetzt herunterladen und installieren?"
 
 LangString InstallingPortableJonDo ${LANG_GERMAN} "Wollen Sie noch JonDo herunterladen und die portable Version installieren (notwendig, um anonym zu surfen)?"
 
