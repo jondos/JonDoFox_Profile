@@ -56,6 +56,8 @@ Var hKey
 
 Var install
 
+Var JonDoInstallation
+
 Var AppdataFolder
 
 Var SMProgramsFolder
@@ -117,12 +119,14 @@ VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 !include MUI.nsh
 !include FileFunc.nsh
 !include RemoveFilesAndSubDirs.nsh
+!include WordFunc.nsh
 
 !insertmacro GetOptions
 !insertmacro GetFileAttributes
 !insertmacro GetParent
 !insertmacro GetDrives
 !insertmacro GetParameters
+!insertmacro WordReplace
 
 # MUI defines
 #!define MUI_ICON "..\..\App\AppInfo\appicon.ico"
@@ -240,6 +244,24 @@ Function .onInit
 
    !insertmacro SetMode 0
    ${GetParameters} $R9
+${GetOptions} "$R9" "-INSTALLATION=" $0
+IfErrors jondo_checking_done 0
+   StrCmp $0 "portable" 0 jondo_desktop
+      ${GetOptions} "$R9" "-INSTALLPATH=" $0
+      ${WordReplace} "$0" "JonDoPortable" "" "+" $0
+      StrCpy $INSTDIR "$0${SHORTNAME}"
+      ${GetOptions} "$R9" "-LANGUAGE=" $0
+      StrCpy $LANGUAGE "$0"
+      StrCpy $JonDoInstallation "portable"
+      Goto jondo_checking_done
+   jondo_desktop:
+      ${GetOptions} "$R9" "-LANGUAGE=" $0
+      StrCpy $LANGUAGE "$0"
+      StrCpy $JonDoInstallation "desktop"
+      StrCpy $PORTABLEINSTALL "false"
+   jondo_checking_done:
+
+   ClearErrors
    ${GetOptions} "$R9" UAC $0 ;look for special /UAC:???? parameter (sort of undocumented)
    ${Unless} ${Errors}
 	UAC::IsAdmin
@@ -261,8 +283,7 @@ has already declared that he does not want to install the portable JonDoFox. */
        StrCpy $PROGRAMINSTALL "false"
        Goto start_elevated
     ${EndIf}
-      
-        ${GetOptions} "$CMDLINE" "/DESTINATION=" $R0
+          ${GetOptions} "$CMDLINE" "/DESTINATION=" $R0
 
           StrCpy $PORTABLEINSTALL "false"
           StrCpy $IsRoot "false"
@@ -274,7 +295,7 @@ has already declared that he does not want to install the portable JonDoFox. */
                 Call SearchPortableApps
                 StrCpy $INSTDIR $varPortableAppsPath
           ${EndIf}
-
+         StrCmp $JonDoInstallation "" 0 start_elevated
           InitPluginsDir
           StrCpy $Error "false"
 
@@ -1227,6 +1248,9 @@ FunctionEnd
 
 Function SkipPageInElvModePreCB
   ${IfThen} $InstMode > 1 ${|} Abort ${|} ;skip this page so we get to the mode selection page
+  ${If} $JonDoInstallation != ""
+        Abort
+  ${EndIf}
 FunctionEnd
 
 #######################################################
@@ -1351,7 +1375,6 @@ FunctionEnd
 Function CheckFirefoxInstalled            # 2
 
 # Get Firefox Folder from Registry, just to see if it is installed
-
         ClearErrors
         ReadRegStr $0  HKLM "SOFTWARE\Mozilla\Mozilla Firefox" 'CurrentVersion'
 
@@ -1902,10 +1925,12 @@ FunctionEnd
 
 
 Function comPre         # Reset wrong path error
+
          ${If} $InstMode > 1
                Abort
          ${EndIf}
          ${If} $PORTABLEINSTALL == "true"
+         ${OrIf} $JonDoInstallation == "portable"
                SectionSetFlags ${JFPortable} ${SF_SELECTED}
                IntOp $0 0 | ${SF_RO}
                SectionSetFlags ${ProfileSwitcher} $0 
@@ -1921,10 +1946,14 @@ Function comPre         # Reset wrong path error
          
          StrCpy $Error "false"
          StrCpy $varAskAgain "true"
-         
+
+         #GEORG: If installing within JonDo it can happen that the window is in the background, so...
+         BringToFront
+
 FunctionEnd
 
 Function comPost
+       
          StrCpy $varAskAgain "true"
          
           # Check if Portable is selected
@@ -1945,7 +1974,8 @@ Function comPost
                 StrCpy $PROGRAMINSTALL "false"
 
                 ${If} $PORTABLEINSTALL == "false"
-                            ${If} $varAskAgain == "true"
+                 
+                      ${If} $varAskAgain == "true"
                             Call CheckFirefoxInstalled     # -> 2
                       ${EndIf}
                 ${EndIf}
@@ -1990,6 +2020,7 @@ FunctionEnd
 
 
 Function FinishedInstall
+        StrCmp $JonDoInstallation "" 0 finish_install
         ${If} $PROGRAMINSTALL == "true"
              MessageBox MB_YESNO $(InstallingPortableJonDo) IDYES 0 IDNO finish_install
              StrCpy $install "portable"
