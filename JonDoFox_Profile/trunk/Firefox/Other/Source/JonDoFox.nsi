@@ -2027,7 +2027,10 @@ Function FinishedInstall
         ${Else}
              ClearErrors
              ReadRegStr $1 HKLM "Software\JonDo\Components" Main
-             IfErrors 0 finish_install 
+             IfErrors 0 finish_install
+             ClearErrors
+             ReadRegStr $1 HKLM "Software\JAP\Components" Main
+             IfErrors 0 finish_install
              MessageBox MB_ICONEXCLAMATION|MB_YESNO $(InstallingJonDo) IDYES 0 IDNO finish_install
              StrCpy $install "desktop"
         ${EndIf}
