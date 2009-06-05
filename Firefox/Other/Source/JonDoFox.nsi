@@ -42,6 +42,12 @@ Var /GLOBAL i
 
 Var /GLOBAL j
 
+Var /GLOBAL k
+
+Var /GLOBAL l
+
+Var /GLOBAL m
+
 Var /GLOBAL PORTABLEINSTALL
 Var /GLOBAL PROGRAMINSTALL
 
@@ -890,6 +896,8 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 SectionGroupEnd
 
 Section Uninstall
+       StrCpy $k 0
+       StrCpy $l 0
        MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DeletingProfile) IDYES deleting
        Quit
      deleting:
@@ -898,11 +906,13 @@ Section Uninstall
        StrCpy $AppdataFolder "$APPDATA"
        Call un.GetLastProfilCounter
        Pop $i
+       StrCpy $j "$i"
      loop:
        ReadINIStr $0 $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Name
        StrCmp $0 "JonDoFox" deleting_ini searching_ini
        deleting_ini:
          DeleteINISec $APPDATA\Mozilla\Firefox\profiles.ini Profile$i
+         IntOp $k $k + 1
 
         #GEORG: Normally, we could jump to deleting_sm now. But maybe the
         #       user has deleted the JonDoFox-files before by hand but has
@@ -917,6 +927,44 @@ Section Uninstall
          IntOp $i $i - 1
          Goto loop
        deleting_sm:
+       Call un.GetLastProfilCounter
+       Pop $i
+       IntOp $m $k + $i
+       ${If} $m < $j
+         IntOp $i $i + 1
+        loop_adapting_profiles:
+         ClearErrors
+         ReadINIStr $0 $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Name
+         IfErrors 0 +5
+           IntOp $i $i + 1
+           IntOp $l $l + 1
+           IntCmp $i $j loop_deleting_sections 0
+           Goto loop_adapting_profiles
+         ReadINIStr $1 $APPDATA\Mozilla\Firefox\profiles.ini Profile$i IsRelative
+         ReadINIStr $2 $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Path
+         ClearErrors
+         ReadINIStr $3 $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Default
+         IfErrors 0 +2
+         StrCpy $3 "nodefault"
+         IntOp $i $i - 1
+         IntOp $i $i - $l
+         WriteINIStr $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Name $0
+         WriteINIStr $APPDATA\Mozilla\Firefox\profiles.ini Profile$i IsRelative $1
+         WriteINIStr $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Path $2
+         StrCmp $3 "nodefault" +2 0
+         WriteINIStr $APPDATA\Mozilla\Firefox\profiles.ini Profile$i Default $3
+         IntOp $i $i + 2
+         IntOp $i $i + $l
+         ${If} $i < $j
+           Goto loop_adapting_profiles
+         ${Else}
+          loop_deleting_sections:
+           IntOp $i $i - 1
+           DeleteINISec $APPDATA\Mozilla\Firefox\profiles.ini Profile$i
+           IntOp $k $k - 1
+           IntCmp $k 0 0 0 loop_deleting_sections
+         ${EndIf}
+       ${EndIf}
        RMDir /r $SMPROGRAMS\JonDoFox
        RMDir /r $APPDATA\Mozilla\Firefox\Profiles\JonDoFox
        DeleteRegKey HKCU "Software\JonDoFox"
