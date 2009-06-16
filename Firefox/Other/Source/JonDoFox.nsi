@@ -1276,7 +1276,7 @@ Function CheckInstallingFirefox
             StrCpy $FF_DOWNLOAD_URL "${FF_URL}en-US"
       ${EndIf}
     loop:
-      InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - Firefox Download" $(FirefoxDownload) $FF_DOWNLOAD_URL "$TEMP\Firefox Setup ${FF_VERSION}.exe"
+      InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - Firefox Download" $(FirefoxDownload) $FF_DOWNLOAD_URL "$TEMP\Firefox Setup ${FF_VERSION}.exe" /END
       Pop $R0
       StrCmp $R0 "OK" +2
       MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO done
@@ -2084,7 +2084,7 @@ Function FinishedInstall
         ${EndIf}
        loop:
         SetShellVarContext all
-        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) https://www.jondos.de/downloads/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe" /END
+        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) https://www.jondos.de/downloads/beta/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe" /END
         Pop $R0
         StrCmp $R0 "OK" +2
         MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO finish_install
@@ -2137,7 +2137,7 @@ Function FinishRun
               Exec "$INSTDIR\FirefoxPortable.exe"
         ${Else} 
               ${If} $FFInstalled == "done"
-                 UAC::Exec '' '"$PROGRAMFILES\Mozilla Firefox\firefox.exe" -P JonDoFox https://www.jondos.de/$0/jondofox/help' '' ''
+                 UAC::Exec '' '"$PROGRAMFILES\Mozilla Firefox\firefox.exe" -P JonDoFox  $\"file:///$ProfilePath\help.html$\"' '' ''
               ${EndIf}
         ${EndIf}
 FunctionEnd
