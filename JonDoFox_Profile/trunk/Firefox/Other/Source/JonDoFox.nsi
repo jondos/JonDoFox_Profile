@@ -2084,7 +2084,7 @@ Function FinishedInstall
         ${EndIf}
        loop:
         SetShellVarContext all
-        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) https://www.jondos.de/downloads/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe"
+        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) https://www.jondos.de/downloads/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe" /END
         Pop $R0
         StrCmp $R0 "OK" +2
         MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO finish_install
