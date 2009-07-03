@@ -600,7 +600,7 @@
 				<Leaf zone_id="Asia/Choibalsan" name="Dornod, Sukhbaatar" />
 			</Branch>
 			<Leaf zone_id="Asia/Rangoon" name="Myanmar (Burma)" />
-			<Leaf zone_id="Asia/Katmandu" name="Nepal" />
+			<Leaf zone_id="Asia/Kathmandu" name="Nepal" />
 			<Leaf zone_id="Asia/Muscat" name="Oman" />
 			<Leaf zone_id="Asia/Karachi" name="Pakistan" />
 			<Leaf zone_id="Asia/Gaza" name="Palestyna" />
@@ -675,7 +675,7 @@
 			<Leaf zone_id="Asia/Kabul" name="Kabul" />
 			<Leaf zone_id="Asia/Karachi" name="Karaczi" />
 			<Leaf zone_id="Asia/Kashgar" name="Kaszgar" />
-			<Leaf zone_id="Asia/Katmandu" name="Katmandu" />
+			<Leaf zone_id="Asia/Kathmandu" name="Katmandu" />
 			<Leaf zone_id="Asia/Calcutta" name="Kolkata (Kalkuta)" />
 			<Leaf zone_id="Asia/Krasnoyarsk" name="Krasnojarsk" />
 			<Leaf zone_id="Asia/Kuala_Lumpur" name="Kuala Lumpur" />

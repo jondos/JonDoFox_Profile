@@ -544,7 +544,7 @@
 				<Leaf zone_id="Asia/Ulaanbaatar" name="Oulan-Bator" />
 			</Branch>
 			<Leaf zone_id="Asia/Rangoon" name="Myanmar (Birmanie)" />
-			<Leaf zone_id="Asia/Katmandu" name="Népal" />
+			<Leaf zone_id="Asia/Kathmandu" name="Népal" />
 			<Leaf zone_id="Asia/Muscat" name="Oman" />
 			<Branch name="Ouzbékistan">
 				<Leaf zone_id="Asia/Tashkent" name="Tachkent" />
@@ -627,7 +627,7 @@
 			<Leaf zone_id="Asia/Kabul" name="Kaboul" />
 			<Leaf zone_id="Asia/Karachi" name="Karâchi" />
 			<Leaf zone_id="Asia/Kashgar" name="Kachgar" />
-			<Leaf zone_id="Asia/Katmandu" name="Katmandou" />
+			<Leaf zone_id="Asia/Kathmandu" name="Katmandou" />
 			<Leaf zone_id="Asia/Kuwait" name="Koweït" />
 			<Leaf zone_id="Asia/Krasnoyarsk" name="Krasnoïarsk" />
 			<Leaf zone_id="Asia/Kuala_Lumpur" name="Kuala Lumpur" />

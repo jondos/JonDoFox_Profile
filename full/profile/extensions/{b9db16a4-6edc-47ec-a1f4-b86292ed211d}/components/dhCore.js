@@ -40,6 +40,9 @@ function Core() {
 			                        	.getService(Components.interfaces.dhIDownloadMgr);
 		this.cvMgr=Components.classes["@downloadhelper.net/convert-manager-component"]
 		              					.getService(Components.interfaces.dhIConvertMgr);
+		this.smartNamer = Components.classes["@downloadhelper.net/smart-namer;1"]
+		                                .getService(Components.interfaces.dhISmartNamer);
+
 		this.regMenus=[];
 		this.probes=[];
 		this.entries=[];
@@ -190,7 +193,7 @@ Core.prototype.observe=function(subject, topic , data) {
 					try {
 						probe.handleResponse(request);
 					} catch(e) {
-						dump("=>"+e+"\n");
+						dump("!!! [Core] observe("+subject+","+topic+","+data+"): "+e+"\n");
 					}
 				}
 			}
@@ -302,6 +305,7 @@ Core.prototype.addEntryForDocument=function(entry,document,window) {
 		entry.set("document",document);
 		entry.set("window",window);
 		if(this.filterBlackList(entry)) {
+			this.smartNamer.updateEntry(entry);
 			this.entries.push(entry);
 			this.updateMenus(document,window);
 		}
@@ -319,6 +323,7 @@ Core.prototype.addEntry=function(entry) {
 		Util.setPropsString(entry,"entry-type","expirable");
 		Util.setPropsString(entry,"creation-date",""+new Date().getTime());
 		if(this.filterBlackList(entry)) {
+			this.smartNamer.updateEntry(entry);
 			this.entries.push(entry);
 			this.updateMenus(null,null);
 		}
@@ -333,7 +338,7 @@ Core.prototype.filterBlackList=function(entry) {
 		return true;
 	for(var i in this.blacklist) {
 		if(new RegExp("//[^/]*"+this.blacklist[i]+"/").test(url)) {
-			dump("[Core] filterBlackList(): filtered out "+url+"\n");
+			//dump("[Core] filterBlackList(): filtered out "+url+"\n");
 			return false;
 		}
 	}
@@ -386,35 +391,12 @@ Core.prototype.updateMenus=function(document,window) {
 							entryWindow=entry.get("window",Components.interfaces.nsIDOMWindow);
 						if(window==null || entryWindow==null || window==entryWindow) {
 							var classes=[];
-							var menuitem=menupopup.ownerDocument.createElement("menuitem");
-							var eventTarget=menuitem.QueryInterface(Components.interfaces.nsIDOMNSEventTarget);
-							var label=Util.getPropsString(entry,"label");
-							if(label)
-								menuitem.setAttribute("label",label);
-							var icon=Util.getPropsString(entry,"icon-url");
-							if(icon) {
-								menuitem.setAttribute("image",icon);
-								classes.push("menuitem-iconic");
-								classes.push("controler-entry");
+							var menuitem;
+							if(this.pref.getBoolPref("extended-download-menu")) {
+								menuitem=this.makeDownloadMenu(menupopup,entry,classes);
+							} else {
+								menuitem=this.makeDownloadMenuitem(menupopup,entry,classes);
 							}
-							
-							function CommandListener(entry,commandListener) {
-								this.entry=entry;
-								this.commandListener=commandListener;
-							}
-							CommandListener.prototype={
-								handleEvent: function(event) {
-									if(event.type=="command") {
-										var key=(event.ctrlKey?CTRL_KEY:0) |
-											(event.shiftKey?SHIFT_KEY:0) |
-											(event.altKey?ALT_KEY:0) |
-											(event.metaKey?META_KEY:0);
-										this.commandListener.handleCommand(this.entry,key);
-									}
-								}
-							}
-							var commandListener=new CommandListener(entry,this);
-							eventTarget.addEventListener("command",commandListener,false,false);
 
 							if(entry.has("mouse-listener")) {
 								function MouseListener(entry,probeListener) {
@@ -434,6 +416,7 @@ Core.prototype.updateMenus=function(document,window) {
 									}
 								}
 								var listener=new MouseListener(entry,entry.get("mouse-listener",Components.interfaces.dhIProbeMouseListener));
+								var eventTarget=menuitem.QueryInterface(Components.interfaces.nsIDOMNSEventTarget);
 								eventTarget.addEventListener("mouseover",listener,false,false);
 								eventTarget.addEventListener("mouseout",listener,false,false);
 							}
@@ -512,6 +495,107 @@ Core.prototype.updateMenus=function(document,window) {
 	} catch(e) {
 		dump("!!! [Core] updateMenus(): "+e+"\n");
 	}
+}
+
+Core.prototype.makeDownloadMenuitem=function(menupopup,entry,classes) {
+	var menuitem=menupopup.ownerDocument.createElement("menuitem");
+	var eventTarget=menuitem.QueryInterface(Components.interfaces.nsIDOMNSEventTarget);
+	var label=Util.getPropsString(entry,"label");
+	if(label)
+		menuitem.setAttribute("label",label);
+	var icon=Util.getPropsString(entry,"icon-url");
+	if(icon) {
+		menuitem.setAttribute("image",icon);
+		classes.push("menuitem-iconic");
+		classes.push("controler-entry");
+	}
+	
+	function CommandListener(entry,commandListener) {
+		this.entry=entry;
+		this.commandListener=commandListener;
+	}
+	CommandListener.prototype={
+		handleEvent: function(event) {
+			if(event.type=="command") {
+				var key=(event.ctrlKey?CTRL_KEY:0) |
+					(event.shiftKey?SHIFT_KEY:0) |
+					(event.altKey?ALT_KEY:0) |
+					(event.metaKey?META_KEY:0);
+				this.commandListener.handleCommand(this.entry,key);
+			}
+		}
+	}
+	var commandListener=new CommandListener(entry,this);
+	eventTarget.addEventListener("command",commandListener,false,false);
+	return menuitem;
+}
+
+Core.prototype.makeDownloadMenu=function(menupopup,entry,classes) {
+	var uiDocument=menupopup.ownerDocument;
+	var menuitem=uiDocument.createElement("menu");
+	var menupopup1=uiDocument.createElement("menupopup");
+	menuitem.appendChild(menupopup1);
+
+	function CommandListener(core,entry,processor) {
+		this.core=core;
+		this.entry=entry;
+		this.processor=processor;
+	}
+	CommandListener.prototype={
+		handleEvent: function(event) {
+			try {
+				this.core.processEntry(this.processor,this.entry);
+			} catch(e) {
+				dump("!!! [Core/DownloadMenu] CommandListener.handleEvent(): "+e+"\n");
+			}
+			event.stopPropagation(); 
+		}
+	}
+	
+	var i=this.getProcessors().enumerate();
+	while(i.hasMoreElements()) {
+		var processor=i.getNext().QueryInterface(Components.interfaces.dhIProcessor);
+		if(processor.canHandle(entry)) {
+			var menuitem1=uiDocument.createElement("menuitem");
+			menuitem1.setAttribute("label",processor.title);
+			menuitem1.setAttribute("tooltiptext",processor.description);
+			menuitem1.setAttribute("class","download-processor-entry");
+			menuitem1.QueryInterface(Components.interfaces.nsIDOMNSEventTarget).
+				addEventListener("command",new CommandListener(this,entry,processor),false,false);
+			menupopup1.appendChild(menuitem1);
+		}
+	}
+
+	var eventTarget=menuitem.QueryInterface(Components.interfaces.nsIDOMNSEventTarget);
+	var label=Util.getPropsString(entry,"label");
+	if(label)
+		menuitem.setAttribute("label",label);
+	var icon=Util.getPropsString(entry,"icon-url");
+	if(icon) {
+		menuitem.setAttribute("image",icon);
+		classes.push("menu-iconic");
+		classes.push("controler-entry");
+	}
+	
+	function ClickListener(entry,commandListener) {
+		this.entry=entry;
+		this.commandListener=commandListener;
+	}
+	ClickListener.prototype={
+		handleEvent: function(event) {
+			if(event.target.localName=="menu" && event.type=="click") {
+				var key=(event.ctrlKey?CTRL_KEY:0) |
+					(event.shiftKey?SHIFT_KEY:0) |
+					(event.altKey?ALT_KEY:0) |
+					(event.metaKey?META_KEY:0);
+				event.target.parentNode.hidePopup();
+				this.commandListener.handleCommand(this.entry,key);
+			}
+		}
+	}
+	var commandListener=new ClickListener(entry,this);
+	eventTarget.addEventListener("click",commandListener,false,false);	
+	return menuitem;
 }
 
 Core.prototype.clearMenu=function(menupopup) {
@@ -594,7 +678,7 @@ Core.prototype.monitorWindow=function(win) {
 		}
 		Listener.prototype={
 			handleEvent: function(event) {
-				if(event.target.id=="contentAreaContextMenu")
+				if(event.target.id=="contentAreaContextMenu" || event.target.getAttribute("dwhelper-monitored-context-submenu")=="true")
 					this.core.contextMenuOpened(event);
 			}
 		}
@@ -1201,7 +1285,7 @@ Core.prototype.buttonClicked=function(window) {
 }
 
 Core.prototype.registerContextItem=function(item) {
-	//dump("[Core] registerContextItem()\n");
+	//dump("[Core] registerContextItem("+item.tagName+")\n");
 	try {
 		var service=Components.classes[item.getAttribute("context-item-handler")].
 			getService(Components.interfaces.dhIContextItem);
@@ -1217,7 +1301,7 @@ Core.prototype.registerContextItem=function(item) {
 		Listener.prototype={
 			handleEvent: function(event) {
 				var window=event.target.ownerDocument.defaultView;
-				this.itemData.service.handle(window.content.document,window);
+				this.itemData.service.handle(window.content.document,window,this.itemData.item);
 			}
 		}
 		item=item.QueryInterface(Components.interfaces.nsIDOMNSEventTarget);
@@ -1228,7 +1312,7 @@ Core.prototype.registerContextItem=function(item) {
 }
 
 Core.prototype.unregisterContextItem=function(item) {
-	//dump("[Core] unregisterContextItem()\n");
+	//dump("[Core] unregisterContextItem("+item.tagName+")\n");
 	for(var i in this.ctxItems) {
 		if(this.ctxItems[i].item==item) {
 			this.ctxItem.splice(i,1);
@@ -1244,7 +1328,7 @@ Core.prototype.contextMenuOpened=function(event) {
 		for(var i in this.ctxItems) {
 			var ctxItem=this.ctxItems[i];
 			if(window==ctxItem.window) {
-				var canHandle=ctxItem.service.canHandle(window.content.document,window);
+				var canHandle=ctxItem.service.canHandle(window.content.document,window,ctxItem.item);
 				if(canHandle)
 					ctxItem.item.setAttribute("hidden","false");
 				else
@@ -1380,6 +1464,12 @@ Core.prototype.doSearchVideos=function(adult) {
     	url="http://www.downloadhelper.net/video-search-results.php?cx=005536796155304041479%3Ahbixpuuu7l8&cof=FORID%3A11&from=dh-family";
     url+="&q="+window.escape(query.value);
 	browser.selectedTab=browser.addTab(url);
+}
+
+Core.prototype.updateSmartName=function() {
+	for(var i in this.entries)
+		this.smartNamer.updateEntry(this.entries[i]);
+	this.updateMenus(null,null);	
 }
 
 Core.prototype.isAdultEnabled=function() {

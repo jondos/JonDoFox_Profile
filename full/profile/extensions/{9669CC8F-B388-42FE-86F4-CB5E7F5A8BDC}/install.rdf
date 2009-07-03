@@ -5,7 +5,7 @@
 
     <em:id>{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}</em:id>
     <em:name>MR Tech Toolkit</em:name>
-    <em:version>6.0.3.3</em:version>
+    <em:version>6.0.3.4</em:version>
     <em:description>(Formerly Local Install) Extension, theme and other power tools for all users.</em:description>
     <em:creator>Mel Reyes (mrtech@gmail.com)</em:creator>
     <em:extension>true</em:extension>
@@ -41,7 +41,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>3.1b3</em:maxVersion>
+        <em:maxVersion>3.6a1pre</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -57,7 +57,7 @@
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>1.5a</em:minVersion>
-        <em:maxVersion>2.0a3</em:maxVersion>
+        <em:maxVersion>2.0b1</em:maxVersion>
       </Description>
     </em:targetApplication>
 

@@ -231,7 +231,7 @@ FoxClocks_Utils.prototype =
 		{
 			// AFM - SeaMonkey/XPFE - version written in by ant
 			//
-			return "2.5.11";
+			return "2.5.33";
 		}
 	},
 

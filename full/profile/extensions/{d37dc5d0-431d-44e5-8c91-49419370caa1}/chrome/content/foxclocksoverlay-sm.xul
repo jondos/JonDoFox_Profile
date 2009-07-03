@@ -50,9 +50,8 @@ package or its installation directory on your computer.
 	<key	id="foxclocksoverlay-foxclocks-open-key" modifiers="control shift"
 			key="&foxclocksoverlay.menuitem.accelkey;" command="cmd_fcov_openfc"/>
 
-	<!-- AFM - for Firefox, id="menu_ToolsPopup", insertbefore="devToolsSeparator";
-	for Thunderbird id="taskPopup", insertbefore="prefSep";
-	for Sunbird id="toolsPopup", insertbefore="devToolsSeparator" -->
+	<!-- AFM - for Firefox, id="menu_ToolsPopup", insertbefore="devToolsSeparator"; for Thunderbird id="taskPopup", insertbefore="prefSep";
+	for Sunbird id="toolsPopup"/"menu_ToolsPopup", insertbefore="devToolsSeparator" -->
 	<!-- PC  - for SeaMonkey id="taskPopup", insertafter="downloadmgr" -->
 	<menupopup id="taskPopup">
 		<menuitem	id="foxclocksoverlay-menuitem"

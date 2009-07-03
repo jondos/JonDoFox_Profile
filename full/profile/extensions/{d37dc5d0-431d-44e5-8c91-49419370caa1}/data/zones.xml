@@ -1,9 +1,9 @@
 <zones xmlns="http://www.stemhaus.com/firefox/foxclocks/zones" version="1.1">
 	<Source id="ftp://elsie.nci.nih.gov/pub/" name="tz database">
-		<Version>2008i</Version>
-		<Date>2008-10-27</Date>
+		<Version>2009g</Version>
+		<Date>2009-04-27</Date>
 	</Source>
-	<Year>2008</Year>
+	<Year>2009</Year>
 	<ZoneList>
 		<Zone id="Africa/Abidjan">
 			<Coordinates latitude="+0051900" longitude="-0040200"/>
@@ -74,7 +74,7 @@
 			<Country code="EG"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-04-25T00:00:00+02:00</Start><End>2008-08-29T00:00:00+03:00</End>
+				<Start>2009-04-24T00:00:00+02:00</Start><End>2009-09-25T00:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Africa/Casablanca">
@@ -82,7 +82,7 @@
 			<Country code="MA"/>
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-06-01T00:00:00+00:00</Start><End>2008-09-01T00:00:00+01:00</End>
+				<Start>2009-06-01T00:00:00+00:00</Start><End>2009-08-21T00:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Africa/Ceuta">
@@ -91,7 +91,7 @@
 			<Comments lang="en">Ceuta &amp; Melilla</Comments>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Africa/Conakry">
@@ -274,16 +274,13 @@
 			<Coordinates latitude="+0364800" longitude="+0101100"/>
 			<Country code="TN"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
-			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="Africa/Windhoek">
 			<Coordinates latitude="-0223400" longitude="+0170600"/>
 			<Country code="NA"/>
 			<StandardTime offset="+01:00" tzname="WAT"/>
 			<DaylightTime offset="+02:00" tzname="WAST">
-				<Start>2008-09-07T02:00:00+01:00</Start><End>2008-04-06T02:00:00+02:00</End>
+				<Start>2009-09-06T02:00:00+01:00</Start><End>2009-04-05T02:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Adak">
@@ -292,7 +289,7 @@
 			<Comments lang="en">Aleutian Islands</Comments>
 			<StandardTime offset="-10:00" tzname="HAST"/>
 			<DaylightTime offset="-09:00" tzname="HADT">
-				<Start>2008-03-09T02:00:00-10:00</Start><End>2008-11-02T02:00:00-09:00</End>
+				<Start>2009-03-08T02:00:00-10:00</Start><End>2009-11-01T02:00:00-09:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Anchorage">
@@ -301,7 +298,7 @@
 			<Comments lang="en">Alaska Time</Comments>
 			<StandardTime offset="-09:00" tzname="AKST"/>
 			<DaylightTime offset="-08:00" tzname="AKDT">
-				<Start>2008-03-09T02:00:00-09:00</Start><End>2008-11-02T02:00:00-08:00</End>
+				<Start>2009-03-08T02:00:00-09:00</Start><End>2009-11-01T02:00:00-08:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Anguilla">
@@ -326,7 +323,7 @@
 			<Comments lang="en">Buenos Aires (BA, CF)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2009-10-18T00:00:00-03:00</Start><End>2009-03-15T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Catamarca">
@@ -345,7 +342,7 @@
 			<Comments lang="en">most locations (CB, CC, CN, ER, FM, MN, SE, SF)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2009-10-18T00:00:00-03:00</Start><End>2009-03-15T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Jujuy">
@@ -388,7 +385,10 @@
 			<Coordinates latitude="-0331900" longitude="-0662100"/>
 			<Country code="AR"/>
 			<Comments lang="en">San Luis (SL)</Comments>
-			<StandardTime offset="-03:00" tzname="ART"/>
+			<StandardTime offset="-04:00" tzname="ART"/>
+			<DaylightTime offset="-03:00" tzname="ARST">
+				<Start>2009-10-18T00:00:00-04:00</Start><End>2010-03-21T00:00:00-03:00</End>
+			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Tucuman">
 			<Coordinates latitude="-0264900" longitude="-0651300"/>
@@ -396,7 +396,7 @@
 			<Comments lang="en">Tucuman (TM)</Comments>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2009-10-18T00:00:00-03:00</Start><End>2009-03-15T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Argentina/Ushuaia">
@@ -415,7 +415,7 @@
 			<Country code="PY"/>
 			<StandardTime offset="-04:00" tzname="PYT"/>
 			<DaylightTime offset="-03:00" tzname="PYST">
-				<Start>2008-10-19T00:00:00-04:00</Start><End>2008-03-09T00:00:00-03:00</End>
+				<Start>2009-10-18T00:00:00-04:00</Start><End>2009-03-08T00:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Atikokan">
@@ -428,7 +428,7 @@
 			<AliasFor>America/Adak</AliasFor>
 			<StandardTime offset="-10:00" tzname="HAST"/>
 			<DaylightTime offset="-09:00" tzname="HADT">
-				<Start>2008-03-09T02:00:00-10:00</Start><End>2008-11-02T02:00:00-09:00</End>
+				<Start>2009-03-08T02:00:00-10:00</Start><End>2009-11-01T02:00:00-09:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Bahia">
@@ -476,14 +476,14 @@
 			<Comments lang="en">Mountain Time - south Idaho &amp; east Oregon</Comments>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Buenos_Aires" deprecated="true">
 			<AliasFor>America/Argentina/Buenos_Aires</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2009-10-18T00:00:00-03:00</Start><End>2009-03-15T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Cambridge_Bay">
@@ -492,7 +492,7 @@
 			<Comments lang="en">Mountain Time - west Nunavut</Comments>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Campo_Grande">
@@ -501,7 +501,7 @@
 			<Comments lang="en">Mato Grosso do Sul</Comments>
 			<StandardTime offset="-04:00" tzname="AMT"/>
 			<DaylightTime offset="-03:00" tzname="AMST">
-				<Start>2008-10-19T00:00:00-04:00</Start><End>2008-02-17T00:00:00-03:00</End>
+				<Start>2009-10-18T00:00:00-04:00</Start><End>2009-02-15T00:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Cancun">
@@ -510,7 +510,7 @@
 			<Comments lang="en">Central Time - Quintana Roo</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-04-06T02:00:00-06:00</Start><End>2008-10-26T02:00:00-05:00</End>
+				<Start>2009-04-05T02:00:00-06:00</Start><End>2009-10-25T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Caracas">
@@ -538,7 +538,7 @@
 			<Comments lang="en">Central Time</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Chihuahua">
@@ -547,7 +547,7 @@
 			<Comments lang="en">Mountain Time - Chihuahua</Comments>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-04-06T02:00:00-07:00</Start><End>2008-10-26T02:00:00-06:00</End>
+				<Start>2009-04-05T02:00:00-07:00</Start><End>2009-10-25T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Coral_Harbour" deprecated="true">
@@ -558,7 +558,7 @@
 			<AliasFor>America/Argentina/Cordoba</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2009-10-18T00:00:00-03:00</Start><End>2009-03-15T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Costa_Rica">
@@ -572,7 +572,7 @@
 			<Comments lang="en">Mato Grosso</Comments>
 			<StandardTime offset="-04:00" tzname="AMT"/>
 			<DaylightTime offset="-03:00" tzname="AMST">
-				<Start>2008-10-19T00:00:00-04:00</Start><End>2008-02-17T00:00:00-03:00</End>
+				<Start>2009-10-18T00:00:00-04:00</Start><End>2009-02-15T00:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Curacao">
@@ -592,7 +592,7 @@
 			<Comments lang="en">Pacific Time - north Yukon</Comments>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Dawson_Creek">
@@ -607,7 +607,7 @@
 			<Comments lang="en">Mountain Time</Comments>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Detroit">
@@ -616,7 +616,7 @@
 			<Comments lang="en">Eastern Time - Michigan - most locations</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Dominica">
@@ -630,7 +630,7 @@
 			<Comments lang="en">Mountain Time - Alberta, east British Columbia &amp; west Saskatchewan</Comments>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Eirunepe">
@@ -648,14 +648,14 @@
 			<AliasFor>America/Tijuana</AliasFor>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-04-06T02:00:00-08:00</Start><End>2008-10-26T02:00:00-07:00</End>
+				<Start>2009-04-05T02:00:00-08:00</Start><End>2009-10-25T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Fort_Wayne" deprecated="true">
 			<AliasFor>America/Indiana/Indianapolis</AliasFor>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Fortaleza">
@@ -670,7 +670,7 @@
 			<Comments lang="en">Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971</Comments>
 			<StandardTime offset="-04:00" tzname="AST"/>
 			<DaylightTime offset="-03:00" tzname="ADT">
-				<Start>2008-03-09T02:00:00-04:00</Start><End>2008-11-02T02:00:00-03:00</End>
+				<Start>2009-03-08T02:00:00-04:00</Start><End>2009-11-01T02:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Godthab">
@@ -679,7 +679,7 @@
 			<Comments lang="en">most locations</Comments>
 			<StandardTime offset="-03:00" tzname="WGT"/>
 			<DaylightTime offset="-02:00" tzname="WGST">
-				<Start>2008-03-29T22:00:00-03:00</Start><End>2008-10-25T23:00:00-02:00</End>
+				<Start>2009-03-28T22:00:00-03:00</Start><End>2009-10-24T23:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Goose_Bay">
@@ -688,7 +688,7 @@
 			<Comments lang="en">Atlantic Time - Labrador - most locations</Comments>
 			<StandardTime offset="-04:00" tzname="AST"/>
 			<DaylightTime offset="-03:00" tzname="ADT">
-				<Start>2008-03-09T00:01:00-04:00</Start><End>2008-11-02T00:01:00-03:00</End>
+				<Start>2009-03-08T00:01:00-04:00</Start><End>2009-11-01T00:01:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Grand_Turk">
@@ -696,7 +696,7 @@
 			<Country code="TC"/>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Grenada">
@@ -731,7 +731,7 @@
 			<Comments lang="en">Atlantic Time - Nova Scotia (most places), PEI</Comments>
 			<StandardTime offset="-04:00" tzname="AST"/>
 			<DaylightTime offset="-03:00" tzname="ADT">
-				<Start>2008-03-09T02:00:00-04:00</Start><End>2008-11-02T02:00:00-03:00</End>
+				<Start>2009-03-08T02:00:00-04:00</Start><End>2009-11-01T02:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Havana">
@@ -739,7 +739,7 @@
 			<Country code="CU"/>
 			<StandardTime offset="-05:00" tzname="CST"/>
 			<DaylightTime offset="-04:00" tzname="CDT">
-				<Start>2008-03-16T00:00:00-05:00</Start><End>2008-10-26T01:00:00-04:00</End>
+				<Start>2009-03-08T00:00:00-05:00</Start><End>2009-10-25T01:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Hermosillo">
@@ -754,7 +754,7 @@
 			<Comments lang="en">Eastern Time - Indiana - most locations</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Indiana/Knox">
@@ -763,7 +763,7 @@
 			<Comments lang="en">Central Time - Indiana - Starke County</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Indiana/Marengo">
@@ -772,7 +772,7 @@
 			<Comments lang="en">Eastern Time - Indiana - Crawford County</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Indiana/Petersburg">
@@ -781,7 +781,7 @@
 			<Comments lang="en">Eastern Time - Indiana - Pike County</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Indiana/Tell_City">
@@ -790,7 +790,7 @@
 			<Comments lang="en">Central Time - Indiana - Perry County</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Indiana/Vevay">
@@ -799,7 +799,7 @@
 			<Comments lang="en">Eastern Time - Indiana - Switzerland County</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Indiana/Vincennes">
@@ -808,7 +808,7 @@
 			<Comments lang="en">Eastern Time - Indiana - Daviess, Dubois, Knox &amp; Martin Counties</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Indiana/Winamac">
@@ -817,14 +817,14 @@
 			<Comments lang="en">Eastern Time - Indiana - Pulaski County</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Indianapolis" deprecated="true">
 			<AliasFor>America/Indiana/Indianapolis</AliasFor>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Inuvik">
@@ -833,7 +833,7 @@
 			<Comments lang="en">Mountain Time - west Northwest Territories</Comments>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Iqaluit">
@@ -842,7 +842,7 @@
 			<Comments lang="en">Eastern Time - east Nunavut - most locations</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Jamaica">
@@ -860,7 +860,7 @@
 			<Comments lang="en">Alaska Time - Alaska panhandle</Comments>
 			<StandardTime offset="-09:00" tzname="AKST"/>
 			<DaylightTime offset="-08:00" tzname="AKDT">
-				<Start>2008-03-09T02:00:00-09:00</Start><End>2008-11-02T02:00:00-08:00</End>
+				<Start>2009-03-08T02:00:00-09:00</Start><End>2009-11-01T02:00:00-08:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Kentucky/Louisville">
@@ -869,7 +869,7 @@
 			<Comments lang="en">Eastern Time - Kentucky - Louisville area</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Kentucky/Monticello">
@@ -878,14 +878,14 @@
 			<Comments lang="en">Eastern Time - Kentucky - Wayne County</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Knox_IN" deprecated="true">
 			<AliasFor>America/Indiana/Knox</AliasFor>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/La_Paz">
@@ -904,14 +904,14 @@
 			<Comments lang="en">Pacific Time</Comments>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Louisville" deprecated="true">
 			<AliasFor>America/Kentucky/Louisville</AliasFor>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Maceio">
@@ -948,7 +948,7 @@
 			<Comments lang="en">Mountain Time - S Baja, Nayarit, Sinaloa</Comments>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-04-06T02:00:00-07:00</Start><End>2008-10-26T02:00:00-06:00</End>
+				<Start>2009-04-05T02:00:00-07:00</Start><End>2009-10-25T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Mendoza" deprecated="true">
@@ -961,7 +961,7 @@
 			<Comments lang="en">Central Time - Michigan - Dickinson, Gogebic, Iron &amp; Menominee Counties</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Merida">
@@ -970,7 +970,7 @@
 			<Comments lang="en">Central Time - Campeche, Yucatan</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-04-06T02:00:00-06:00</Start><End>2008-10-26T02:00:00-05:00</End>
+				<Start>2009-04-05T02:00:00-06:00</Start><End>2009-10-25T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Mexico_City">
@@ -979,7 +979,7 @@
 			<Comments lang="en">Central Time - most locations</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-04-06T02:00:00-06:00</Start><End>2008-10-26T02:00:00-05:00</End>
+				<Start>2009-04-05T02:00:00-06:00</Start><End>2009-10-25T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Miquelon">
@@ -987,7 +987,7 @@
 			<Country code="PM"/>
 			<StandardTime offset="-03:00" tzname="PMST"/>
 			<DaylightTime offset="-02:00" tzname="PMDT">
-				<Start>2008-03-09T02:00:00-03:00</Start><End>2008-11-02T02:00:00-02:00</End>
+				<Start>2009-03-08T02:00:00-03:00</Start><End>2009-11-01T02:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Moncton">
@@ -996,7 +996,7 @@
 			<Comments lang="en">Atlantic Time - New Brunswick</Comments>
 			<StandardTime offset="-04:00" tzname="AST"/>
 			<DaylightTime offset="-03:00" tzname="ADT">
-				<Start>2008-03-09T02:00:00-04:00</Start><End>2008-11-02T02:00:00-03:00</End>
+				<Start>2009-03-08T02:00:00-04:00</Start><End>2009-11-01T02:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Monterrey">
@@ -1005,7 +1005,7 @@
 			<Comments lang="en">Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-04-06T02:00:00-06:00</Start><End>2008-10-26T02:00:00-05:00</End>
+				<Start>2009-04-05T02:00:00-06:00</Start><End>2009-10-25T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Montevideo">
@@ -1013,7 +1013,7 @@
 			<Country code="UY"/>
 			<StandardTime offset="-03:00" tzname="UYT"/>
 			<DaylightTime offset="-02:00" tzname="UYST">
-				<Start>2008-10-05T02:00:00-03:00</Start><End>2008-03-09T02:00:00-02:00</End>
+				<Start>2009-10-04T02:00:00-03:00</Start><End>2009-03-08T02:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Montreal">
@@ -1022,7 +1022,7 @@
 			<Comments lang="en">Eastern Time - Quebec - most locations</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Montserrat">
@@ -1035,7 +1035,7 @@
 			<Country code="BS"/>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/New_York">
@@ -1044,7 +1044,7 @@
 			<Comments lang="en">Eastern Time</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Nipigon">
@@ -1053,7 +1053,7 @@
 			<Comments lang="en">Eastern Time - Ontario &amp; Quebec - places that did not observe DST 1967-1973</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Nome">
@@ -1062,7 +1062,7 @@
 			<Comments lang="en">Alaska Time - west Alaska</Comments>
 			<StandardTime offset="-09:00" tzname="AKST"/>
 			<DaylightTime offset="-08:00" tzname="AKDT">
-				<Start>2008-03-09T02:00:00-09:00</Start><End>2008-11-02T02:00:00-08:00</End>
+				<Start>2009-03-08T02:00:00-09:00</Start><End>2009-11-01T02:00:00-08:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Noronha">
@@ -1077,7 +1077,7 @@
 			<Comments lang="en">Central Time - North Dakota - Oliver County</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/North_Dakota/New_Salem">
@@ -1086,7 +1086,7 @@
 			<Comments lang="en">Central Time - North Dakota - Morton County (except Mandan area)</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Panama">
@@ -1100,7 +1100,7 @@
 			<Comments lang="en">Eastern Time - Pangnirtung, Nunavut</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Paramaribo">
@@ -1145,7 +1145,7 @@
 			<Comments lang="en">Central Time - Rainy River &amp; Fort Frances, Ontario</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Rankin_Inlet">
@@ -1154,7 +1154,7 @@
 			<Comments lang="en">Central Time - central Nunavut</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Recife">
@@ -1172,8 +1172,11 @@
 		<Zone id="America/Resolute">
 			<Coordinates latitude="+0744144" longitude="-0944945"/>
 			<Country code="CA"/>
-			<Comments lang="en">Eastern Time - Resolute, Nunavut</Comments>
+			<Comments lang="en">Eastern Standard Time - Resolute, Nunavut</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
+			<DaylightTime offset="-05:00" tzname="CDT">
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-05:00</End>
+			</DaylightTime>
 		</Zone>
 		<Zone id="America/Rio_Branco">
 			<Coordinates latitude="-0095800" longitude="-0674800"/>
@@ -1185,7 +1188,7 @@
 			<AliasFor>America/Argentina/Cordoba</AliasFor>
 			<StandardTime offset="-03:00" tzname="ART"/>
 			<DaylightTime offset="-02:00" tzname="ARST">
-				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-03-16T00:00:00-02:00</End>
+				<Start>2009-10-18T00:00:00-03:00</Start><End>2009-03-15T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Santarem">
@@ -1200,7 +1203,7 @@
 			<Comments lang="en">most locations</Comments>
 			<StandardTime offset="-04:00" tzname="CLT"/>
 			<DaylightTime offset="-03:00" tzname="CLST">
-				<Start>2008-10-12T00:00:00-04:00</Start><End>2008-03-30T00:00:00-03:00</End>
+				<Start>2009-10-11T00:00:00-04:00</Start><End>2009-03-15T00:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Santo_Domingo">
@@ -1214,7 +1217,7 @@
 			<Comments lang="en">S &amp; SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)</Comments>
 			<StandardTime offset="-03:00" tzname="BRT"/>
 			<DaylightTime offset="-02:00" tzname="BRST">
-				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-02-17T00:00:00-02:00</End>
+				<Start>2009-10-18T00:00:00-03:00</Start><End>2009-02-15T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Scoresbysund">
@@ -1223,7 +1226,7 @@
 			<Comments lang="en">Scoresbysund / Ittoqqortoormiit</Comments>
 			<StandardTime offset="-01:00" tzname="EGT"/>
 			<DaylightTime offset="+00:00" tzname="EGST">
-				<Start>2008-03-30T00:00:00-01:00</Start><End>2008-10-26T01:00:00+00:00</End>
+				<Start>2009-03-29T00:00:00-01:00</Start><End>2009-10-25T01:00:00+00:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Shiprock">
@@ -1233,7 +1236,7 @@
 			<AliasFor>America/Denver</AliasFor>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/St_Barthelemy">
@@ -1248,7 +1251,7 @@
 			<Comments lang="en">Newfoundland Time, including SE Labrador</Comments>
 			<StandardTime offset="-03:30" tzname="NST"/>
 			<DaylightTime offset="-02:30" tzname="NDT">
-				<Start>2008-03-09T00:01:00-03:30</Start><End>2008-11-02T00:01:00-02:30</End>
+				<Start>2009-03-08T00:01:00-03:30</Start><End>2009-11-01T00:01:00-02:30</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/St_Kitts">
@@ -1288,7 +1291,7 @@
 			<Comments lang="en">Thule / Pituffik</Comments>
 			<StandardTime offset="-04:00" tzname="AST"/>
 			<DaylightTime offset="-03:00" tzname="ADT">
-				<Start>2008-03-09T02:00:00-04:00</Start><End>2008-11-02T02:00:00-03:00</End>
+				<Start>2009-03-08T02:00:00-04:00</Start><End>2009-11-01T02:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Thunder_Bay">
@@ -1297,7 +1300,7 @@
 			<Comments lang="en">Eastern Time - Thunder Bay, Ontario</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Tijuana">
@@ -1306,7 +1309,7 @@
 			<Comments lang="en">Pacific Time</Comments>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-04-06T02:00:00-08:00</Start><End>2008-10-26T02:00:00-07:00</End>
+				<Start>2009-04-05T02:00:00-08:00</Start><End>2009-10-25T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Toronto">
@@ -1315,7 +1318,7 @@
 			<Comments lang="en">Eastern Time - Ontario - most locations</Comments>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Tortola">
@@ -1329,7 +1332,7 @@
 			<Comments lang="en">Pacific Time - west British Columbia</Comments>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Virgin" deprecated="true">
@@ -1342,7 +1345,7 @@
 			<Comments lang="en">Pacific Time - south Yukon</Comments>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Winnipeg">
@@ -1351,7 +1354,7 @@
 			<Comments lang="en">Central Time - Manitoba &amp; west Ontario</Comments>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Yakutat">
@@ -1360,7 +1363,7 @@
 			<Comments lang="en">Alaska Time - Alaska panhandle neck</Comments>
 			<StandardTime offset="-09:00" tzname="AKST"/>
 			<DaylightTime offset="-08:00" tzname="AKDT">
-				<Start>2008-03-09T02:00:00-09:00</Start><End>2008-11-02T02:00:00-08:00</End>
+				<Start>2009-03-08T02:00:00-09:00</Start><End>2009-11-01T02:00:00-08:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="America/Yellowknife">
@@ -1369,7 +1372,7 @@
 			<Comments lang="en">Mountain Time - central Northwest Territories</Comments>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Antarctica/Casey">
@@ -1402,7 +1405,7 @@
 			<Comments lang="en">McMurdo Station, Ross Island</Comments>
 			<StandardTime offset="+12:00" tzname="NZST"/>
 			<DaylightTime offset="+13:00" tzname="NZDT">
-				<Start>2008-09-28T02:00:00+12:00</Start><End>2008-04-06T03:00:00+13:00</End>
+				<Start>2009-09-27T02:00:00+12:00</Start><End>2009-04-05T03:00:00+13:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Antarctica/Palmer">
@@ -1411,7 +1414,7 @@
 			<Comments lang="en">Palmer Station, Anvers Island</Comments>
 			<StandardTime offset="-04:00" tzname="CLT"/>
 			<DaylightTime offset="-03:00" tzname="CLST">
-				<Start>2008-10-12T00:00:00-04:00</Start><End>2008-03-09T00:00:00-03:00</End>
+				<Start>2009-10-11T00:00:00-04:00</Start><End>2009-03-15T00:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Antarctica/Rothera">
@@ -1427,7 +1430,7 @@
 			<AliasFor>Antarctica/McMurdo</AliasFor>
 			<StandardTime offset="+12:00" tzname="NZST"/>
 			<DaylightTime offset="+13:00" tzname="NZDT">
-				<Start>2008-09-28T02:00:00+12:00</Start><End>2008-04-06T03:00:00+13:00</End>
+				<Start>2009-09-27T02:00:00+12:00</Start><End>2009-04-05T03:00:00+13:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Antarctica/Syowa">
@@ -1448,7 +1451,7 @@
 			<AliasFor>Europe/Oslo</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Aden">
@@ -1467,7 +1470,7 @@
 			<Country code="JO"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-27T00:00:00+02:00</Start><End>2008-10-31T01:00:00+03:00</End>
+				<Start>2009-03-27T00:00:00+02:00</Start><End>2009-10-30T01:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Anadyr">
@@ -1476,7 +1479,7 @@
 			<Comments lang="en">Moscow+10 - Bering Sea</Comments>
 			<StandardTime offset="+12:00" tzname="ANAT"/>
 			<DaylightTime offset="+13:00" tzname="ANAST">
-				<Start>2008-03-30T02:00:00+12:00</Start><End>2008-10-26T03:00:00+13:00</End>
+				<Start>2009-03-29T02:00:00+12:00</Start><End>2009-10-25T03:00:00+13:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Aqtau">
@@ -1515,7 +1518,7 @@
 			<Country code="AZ"/>
 			<StandardTime offset="+04:00" tzname="AZT"/>
 			<DaylightTime offset="+05:00" tzname="AZST">
-				<Start>2008-03-30T04:00:00+04:00</Start><End>2008-10-26T05:00:00+05:00</End>
+				<Start>2009-03-29T04:00:00+04:00</Start><End>2009-10-25T05:00:00+05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Bangkok">
@@ -1528,7 +1531,7 @@
 			<Country code="LB"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T00:00:00+02:00</Start><End>2008-10-26T00:00:00+03:00</End>
+				<Start>2009-03-29T00:00:00+02:00</Start><End>2009-10-25T00:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Bishkek">
@@ -1577,7 +1580,7 @@
 			<Country code="SY"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-04-04T00:00:00+02:00</Start><End>2008-11-01T00:00:00+03:00</End>
+				<Start>2009-03-27T00:00:00+02:00</Start><End>2009-11-01T00:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Dhaka">
@@ -1605,7 +1608,7 @@
 			<Country code="PS"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-04-01T00:00:00+02:00</Start><End>2008-08-28T02:00:00+03:00</End>
+				<Start>2009-03-27T00:00:00+02:00</Start><End>2009-09-28T02:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Harbin">
@@ -1636,14 +1639,14 @@
 			<Comments lang="en">Moscow+05 - Lake Baikal</Comments>
 			<StandardTime offset="+08:00" tzname="IRKT"/>
 			<DaylightTime offset="+09:00" tzname="IRKST">
-				<Start>2008-03-30T02:00:00+08:00</Start><End>2008-10-26T03:00:00+09:00</End>
+				<Start>2009-03-29T02:00:00+08:00</Start><End>2009-10-25T03:00:00+09:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Istanbul" deprecated="true">
 			<AliasFor>Europe/Istanbul</AliasFor>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Jakarta">
@@ -1663,7 +1666,7 @@
 			<Country code="IL"/>
 			<StandardTime offset="+02:00" tzname="IST"/>
 			<DaylightTime offset="+03:00" tzname="IDT">
-				<Start>2008-03-28T02:00:00+02:00</Start><End>2008-10-05T02:00:00+03:00</End>
+				<Start>2009-03-27T02:00:00+02:00</Start><End>2009-09-27T02:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Kabul">
@@ -1677,7 +1680,7 @@
 			<Comments lang="en">Moscow+09 - Kamchatka</Comments>
 			<StandardTime offset="+12:00" tzname="PETT"/>
 			<DaylightTime offset="+13:00" tzname="PETST">
-				<Start>2008-03-30T02:00:00+12:00</Start><End>2008-10-26T03:00:00+13:00</End>
+				<Start>2009-03-29T02:00:00+12:00</Start><End>2009-10-25T03:00:00+13:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Karachi">
@@ -1685,7 +1688,7 @@
 			<Country code="PK"/>
 			<StandardTime offset="+05:00" tzname="PKT"/>
 			<DaylightTime offset="+06:00" tzname="PKST">
-				<Start>2008-06-01T00:00:00+05:00</Start><End>2008-11-01T00:00:00+06:00</End>
+				<Start>2009-04-15T00:00:00+05:00</Start><End>2009-11-01T00:00:00+06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Kashgar">
@@ -1694,9 +1697,13 @@
 			<Comments lang="en">west Tibet &amp; Xinjiang</Comments>
 			<StandardTime offset="+08:00" tzname="CST"/>
 		</Zone>
-		<Zone id="Asia/Katmandu">
+		<Zone id="Asia/Kathmandu">
 			<Coordinates latitude="+0274300" longitude="+0851900"/>
 			<Country code="NP"/>
+			<StandardTime offset="+05:45" tzname="NPT"/>
+		</Zone>
+		<Zone id="Asia/Katmandu" deprecated="true">
+			<AliasFor>Asia/Kathmandu</AliasFor>
 			<StandardTime offset="+05:45" tzname="NPT"/>
 		</Zone>
 		<Zone id="Asia/Kolkata">
@@ -1710,7 +1717,7 @@
 			<Comments lang="en">Moscow+04 - Yenisei River</Comments>
 			<StandardTime offset="+07:00" tzname="KRAT"/>
 			<DaylightTime offset="+08:00" tzname="KRAST">
-				<Start>2008-03-30T02:00:00+07:00</Start><End>2008-10-26T03:00:00+08:00</End>
+				<Start>2009-03-29T02:00:00+07:00</Start><End>2009-10-25T03:00:00+08:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Kuala_Lumpur">
@@ -1745,7 +1752,7 @@
 			<Comments lang="en">Moscow+08 - Magadan</Comments>
 			<StandardTime offset="+11:00" tzname="MAGT"/>
 			<DaylightTime offset="+12:00" tzname="MAGST">
-				<Start>2008-03-30T02:00:00+11:00</Start><End>2008-10-26T03:00:00+12:00</End>
+				<Start>2009-03-29T02:00:00+11:00</Start><End>2009-10-25T03:00:00+12:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Makassar">
@@ -1769,7 +1776,7 @@
 			<Country code="CY"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Novosibirsk">
@@ -1778,7 +1785,7 @@
 			<Comments lang="en">Moscow+03 - Novosibirsk</Comments>
 			<StandardTime offset="+06:00" tzname="NOVT"/>
 			<DaylightTime offset="+07:00" tzname="NOVST">
-				<Start>2008-03-30T02:00:00+06:00</Start><End>2008-10-26T03:00:00+07:00</End>
+				<Start>2009-03-29T02:00:00+06:00</Start><End>2009-10-25T03:00:00+07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Omsk">
@@ -1787,7 +1794,7 @@
 			<Comments lang="en">Moscow+03 - west Siberia</Comments>
 			<StandardTime offset="+06:00" tzname="OMST"/>
 			<DaylightTime offset="+07:00" tzname="OMSST">
-				<Start>2008-03-30T02:00:00+06:00</Start><End>2008-10-26T03:00:00+07:00</End>
+				<Start>2009-03-29T02:00:00+06:00</Start><End>2009-10-25T03:00:00+07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Oral">
@@ -1845,7 +1852,7 @@
 			<Comments lang="en">Moscow+07 - Sakhalin Island</Comments>
 			<StandardTime offset="+10:00" tzname="SAKT"/>
 			<DaylightTime offset="+11:00" tzname="SAKST">
-				<Start>2008-03-30T02:00:00+10:00</Start><End>2008-10-26T03:00:00+11:00</End>
+				<Start>2009-03-29T02:00:00+10:00</Start><End>2009-10-25T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Samarkand">
@@ -1891,14 +1898,14 @@
 			<Country code="IR"/>
 			<StandardTime offset="+03:30" tzname="IRST"/>
 			<DaylightTime offset="+04:30" tzname="IRDT">
-				<Start>2008-03-21T00:00:00+03:30</Start><End>2008-09-21T00:00:00+04:30</End>
+				<Start>2009-03-22T00:00:00+03:30</Start><End>2009-09-22T00:00:00+04:30</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Tel_Aviv" deprecated="true">
 			<AliasFor>Asia/Jerusalem</AliasFor>
 			<StandardTime offset="+02:00" tzname="IST"/>
 			<DaylightTime offset="+03:00" tzname="IDT">
-				<Start>2008-03-28T02:00:00+02:00</Start><End>2008-10-05T02:00:00+03:00</End>
+				<Start>2009-03-27T02:00:00+02:00</Start><End>2009-09-27T02:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Thimbu" deprecated="true">
@@ -1946,7 +1953,7 @@
 			<Comments lang="en">Moscow+07 - Amur River</Comments>
 			<StandardTime offset="+10:00" tzname="VLAT"/>
 			<DaylightTime offset="+11:00" tzname="VLAST">
-				<Start>2008-03-30T02:00:00+10:00</Start><End>2008-10-26T03:00:00+11:00</End>
+				<Start>2009-03-29T02:00:00+10:00</Start><End>2009-10-25T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Yakutsk">
@@ -1955,7 +1962,7 @@
 			<Comments lang="en">Moscow+06 - Lena River</Comments>
 			<StandardTime offset="+09:00" tzname="YAKT"/>
 			<DaylightTime offset="+10:00" tzname="YAKST">
-				<Start>2008-03-30T02:00:00+09:00</Start><End>2008-10-26T03:00:00+10:00</End>
+				<Start>2009-03-29T02:00:00+09:00</Start><End>2009-10-25T03:00:00+10:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Yekaterinburg">
@@ -1964,7 +1971,7 @@
 			<Comments lang="en">Moscow+02 - Urals</Comments>
 			<StandardTime offset="+05:00" tzname="YEKT"/>
 			<DaylightTime offset="+06:00" tzname="YEKST">
-				<Start>2008-03-30T02:00:00+05:00</Start><End>2008-10-26T03:00:00+06:00</End>
+				<Start>2009-03-29T02:00:00+05:00</Start><End>2009-10-25T03:00:00+06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Yerevan">
@@ -1972,7 +1979,7 @@
 			<Country code="AM"/>
 			<StandardTime offset="+04:00" tzname="AMT"/>
 			<DaylightTime offset="+05:00" tzname="AMST">
-				<Start>2008-03-30T02:00:00+04:00</Start><End>2008-10-26T03:00:00+05:00</End>
+				<Start>2009-03-29T02:00:00+04:00</Start><End>2009-10-25T03:00:00+05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Atlantic/Azores">
@@ -1981,7 +1988,7 @@
 			<Comments lang="en">Azores</Comments>
 			<StandardTime offset="-01:00" tzname="AZOT"/>
 			<DaylightTime offset="+00:00" tzname="AZOST">
-				<Start>2008-03-30T00:00:00-01:00</Start><End>2008-10-26T01:00:00+00:00</End>
+				<Start>2009-03-29T00:00:00-01:00</Start><End>2009-10-25T01:00:00+00:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Atlantic/Bermuda">
@@ -1989,7 +1996,7 @@
 			<Country code="BM"/>
 			<StandardTime offset="-04:00" tzname="AST"/>
 			<DaylightTime offset="-03:00" tzname="ADT">
-				<Start>2008-03-09T02:00:00-04:00</Start><End>2008-11-02T02:00:00-03:00</End>
+				<Start>2009-03-08T02:00:00-04:00</Start><End>2009-11-01T02:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Atlantic/Canary">
@@ -1998,7 +2005,7 @@
 			<Comments lang="en">Canary Islands</Comments>
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Atlantic/Cape_Verde">
@@ -2010,7 +2017,7 @@
 			<AliasFor>Atlantic/Faroe</AliasFor>
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Atlantic/Faroe">
@@ -2018,14 +2025,14 @@
 			<Country code="FO"/>
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Atlantic/Jan_Mayen" deprecated="true">
 			<AliasFor>Europe/Oslo</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Atlantic/Madeira">
@@ -2034,7 +2041,7 @@
 			<Comments lang="en">Madeira Islands</Comments>
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Atlantic/Reykjavik">
@@ -2057,14 +2064,14 @@
 			<Country code="FK"/>
 			<StandardTime offset="-04:00" tzname="FKT"/>
 			<DaylightTime offset="-03:00" tzname="FKST">
-				<Start>2008-09-07T02:00:00-04:00</Start><End>2008-04-20T02:00:00-03:00</End>
+				<Start>2009-09-06T02:00:00-04:00</Start><End>2009-04-19T02:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/ACT" deprecated="true">
 			<AliasFor>Australia/Sydney</AliasFor>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Adelaide">
@@ -2073,7 +2080,7 @@
 			<Comments lang="en">South Australia</Comments>
 			<StandardTime offset="+09:30" tzname="CST"/>
 			<DaylightTime offset="+10:30" tzname="CST">
-				<Start>2008-10-05T02:00:00+09:30</Start><End>2008-04-06T03:00:00+10:30</End>
+				<Start>2009-10-04T02:00:00+09:30</Start><End>2009-04-05T03:00:00+10:30</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Brisbane">
@@ -2088,14 +2095,14 @@
 			<Comments lang="en">New South Wales - Yancowinna</Comments>
 			<StandardTime offset="+09:30" tzname="CST"/>
 			<DaylightTime offset="+10:30" tzname="CST">
-				<Start>2008-10-05T02:00:00+09:30</Start><End>2008-04-06T03:00:00+10:30</End>
+				<Start>2009-10-04T02:00:00+09:30</Start><End>2009-04-05T03:00:00+10:30</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Canberra" deprecated="true">
 			<AliasFor>Australia/Sydney</AliasFor>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Currie">
@@ -2104,7 +2111,7 @@
 			<Comments lang="en">Tasmania - King Island</Comments>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Darwin">
@@ -2119,7 +2126,7 @@
 			<Comments lang="en">Western Australia - Eucla area</Comments>
 			<StandardTime offset="+08:45" tzname="CWST"/>
 			<DaylightTime offset="+09:45" tzname="CWST">
-				<Start>2008-10-26T02:00:00+08:45</Start><End>2008-03-30T03:00:00+09:45</End>
+				<Start>2008-10-26T02:00:00+08:45</Start><End>2009-03-29T03:00:00+09:45</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Hobart">
@@ -2128,14 +2135,14 @@
 			<Comments lang="en">Tasmania - most locations</Comments>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/LHI" deprecated="true">
 			<AliasFor>Australia/Lord_Howe</AliasFor>
 			<StandardTime offset="+10:30" tzname="LHST"/>
 			<DaylightTime offset="+11:00" tzname="LHST">
-				<Start>2008-10-05T02:00:00+10:30</Start><End>2008-04-06T02:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:30</Start><End>2009-04-05T02:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Lindeman">
@@ -2150,7 +2157,7 @@
 			<Comments lang="en">Lord Howe Island</Comments>
 			<StandardTime offset="+10:30" tzname="LHST"/>
 			<DaylightTime offset="+11:00" tzname="LHST">
-				<Start>2008-10-05T02:00:00+10:30</Start><End>2008-04-06T02:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:30</Start><End>2009-04-05T02:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Melbourne">
@@ -2159,14 +2166,14 @@
 			<Comments lang="en">Victoria</Comments>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/NSW" deprecated="true">
 			<AliasFor>Australia/Sydney</AliasFor>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/North" deprecated="true">
@@ -2179,7 +2186,7 @@
 			<Comments lang="en">Western Australia - most locations</Comments>
 			<StandardTime offset="+08:00" tzname="WST"/>
 			<DaylightTime offset="+09:00" tzname="WST">
-				<Start>2008-10-26T02:00:00+08:00</Start><End>2008-03-30T03:00:00+09:00</End>
+				<Start>2008-10-26T02:00:00+08:00</Start><End>2009-03-29T03:00:00+09:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Queensland" deprecated="true">
@@ -2190,7 +2197,7 @@
 			<AliasFor>Australia/Adelaide</AliasFor>
 			<StandardTime offset="+09:30" tzname="CST"/>
 			<DaylightTime offset="+10:30" tzname="CST">
-				<Start>2008-10-05T02:00:00+09:30</Start><End>2008-04-06T03:00:00+10:30</End>
+				<Start>2009-10-04T02:00:00+09:30</Start><End>2009-04-05T03:00:00+10:30</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Sydney">
@@ -2199,35 +2206,35 @@
 			<Comments lang="en">New South Wales - most locations</Comments>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Tasmania" deprecated="true">
 			<AliasFor>Australia/Hobart</AliasFor>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Victoria" deprecated="true">
 			<AliasFor>Australia/Melbourne</AliasFor>
 			<StandardTime offset="+10:00" tzname="EST"/>
 			<DaylightTime offset="+11:00" tzname="EST">
-				<Start>2008-10-05T02:00:00+10:00</Start><End>2008-04-06T03:00:00+11:00</End>
+				<Start>2009-10-04T02:00:00+10:00</Start><End>2009-04-05T03:00:00+11:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/West" deprecated="true">
 			<AliasFor>Australia/Perth</AliasFor>
 			<StandardTime offset="+08:00" tzname="WST"/>
 			<DaylightTime offset="+09:00" tzname="WST">
-				<Start>2008-10-26T02:00:00+08:00</Start><End>2008-03-30T03:00:00+09:00</End>
+				<Start>2008-10-26T02:00:00+08:00</Start><End>2009-03-29T03:00:00+09:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Australia/Yancowinna" deprecated="true">
 			<AliasFor>Australia/Broken_Hill</AliasFor>
 			<StandardTime offset="+09:30" tzname="CST"/>
 			<DaylightTime offset="+10:30" tzname="CST">
-				<Start>2008-10-05T02:00:00+09:30</Start><End>2008-04-06T03:00:00+10:30</End>
+				<Start>2009-10-04T02:00:00+09:30</Start><End>2009-04-05T03:00:00+10:30</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Brazil/Acre" deprecated="true">
@@ -2242,7 +2249,7 @@
 			<AliasFor>America/Sao_Paulo</AliasFor>
 			<StandardTime offset="-03:00" tzname="BRT"/>
 			<DaylightTime offset="-02:00" tzname="BRST">
-				<Start>2008-10-19T00:00:00-03:00</Start><End>2008-02-17T00:00:00-02:00</End>
+				<Start>2009-10-18T00:00:00-03:00</Start><End>2009-02-15T00:00:00-02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Brazil/West" deprecated="true">
@@ -2252,27 +2259,27 @@
 		<Zone id="CET">
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="CST6CDT">
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Canada/Atlantic" deprecated="true">
 			<AliasFor>America/Halifax</AliasFor>
 			<StandardTime offset="-04:00" tzname="AST"/>
 			<DaylightTime offset="-03:00" tzname="ADT">
-				<Start>2008-03-09T02:00:00-04:00</Start><End>2008-11-02T02:00:00-03:00</End>
+				<Start>2009-03-08T02:00:00-04:00</Start><End>2009-11-01T02:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Canada/Central" deprecated="true">
 			<AliasFor>America/Winnipeg</AliasFor>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Canada/East-Saskatchewan" deprecated="true">
@@ -2283,28 +2290,28 @@
 			<AliasFor>America/Toronto</AliasFor>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Canada/Mountain" deprecated="true">
 			<AliasFor>America/Edmonton</AliasFor>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Canada/Newfoundland" deprecated="true">
 			<AliasFor>America/St_Johns</AliasFor>
 			<StandardTime offset="-03:30" tzname="NST"/>
 			<DaylightTime offset="-02:30" tzname="NDT">
-				<Start>2008-03-09T00:01:00-03:30</Start><End>2008-11-02T00:01:00-02:30</End>
+				<Start>2009-03-08T00:01:00-03:30</Start><End>2009-11-01T00:01:00-02:30</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Canada/Pacific" deprecated="true">
 			<AliasFor>America/Vancouver</AliasFor>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Canada/Saskatchewan" deprecated="true">
@@ -2315,34 +2322,34 @@
 			<AliasFor>America/Whitehorse</AliasFor>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Chile/Continental" deprecated="true">
 			<AliasFor>America/Santiago</AliasFor>
 			<StandardTime offset="-04:00" tzname="CLT"/>
 			<DaylightTime offset="-03:00" tzname="CLST">
-				<Start>2008-10-12T00:00:00-04:00</Start><End>2008-03-30T00:00:00-03:00</End>
+				<Start>2009-10-11T00:00:00-04:00</Start><End>2009-03-15T00:00:00-03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Chile/EasterIsland" deprecated="true">
 			<AliasFor>Pacific/Easter</AliasFor>
 			<StandardTime offset="-06:00" tzname="EAST"/>
 			<DaylightTime offset="-05:00" tzname="EASST">
-				<Start>2008-10-11T22:00:00-06:00</Start><End>2008-03-29T22:00:00-05:00</End>
+				<Start>2009-10-10T22:00:00-06:00</Start><End>2009-03-14T22:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Cuba" deprecated="true">
 			<AliasFor>America/Havana</AliasFor>
 			<StandardTime offset="-05:00" tzname="CST"/>
 			<DaylightTime offset="-04:00" tzname="CDT">
-				<Start>2008-03-16T00:00:00-05:00</Start><End>2008-10-26T01:00:00-04:00</End>
+				<Start>2009-03-08T00:00:00-05:00</Start><End>2009-10-25T01:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="EET">
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="EST">
@@ -2351,21 +2358,21 @@
 		<Zone id="EST5EDT">
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Egypt" deprecated="true">
 			<AliasFor>Africa/Cairo</AliasFor>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-04-25T00:00:00+02:00</Start><End>2008-08-29T00:00:00+03:00</End>
+				<Start>2009-04-24T00:00:00+02:00</Start><End>2009-09-25T00:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Eire" deprecated="true">
 			<AliasFor>Europe/Dublin</AliasFor>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="IST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Etc/GMT">
@@ -2484,7 +2491,7 @@
 			<Country code="NL"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Andorra">
@@ -2492,7 +2499,7 @@
 			<Country code="AD"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Athens">
@@ -2500,14 +2507,14 @@
 			<Country code="GR"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Belfast" deprecated="true">
 			<AliasFor>Europe/London</AliasFor>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="BST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Belgrade">
@@ -2515,7 +2522,7 @@
 			<Country code="RS"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Berlin">
@@ -2523,7 +2530,7 @@
 			<Country code="DE"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Bratislava">
@@ -2532,7 +2539,7 @@
 			<AliasFor>Europe/Prague</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Brussels">
@@ -2540,7 +2547,7 @@
 			<Country code="BE"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Bucharest">
@@ -2548,7 +2555,7 @@
 			<Country code="RO"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Budapest">
@@ -2556,7 +2563,7 @@
 			<Country code="HU"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Chisinau">
@@ -2564,7 +2571,7 @@
 			<Country code="MD"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Copenhagen">
@@ -2572,7 +2579,7 @@
 			<Country code="DK"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Dublin">
@@ -2580,7 +2587,7 @@
 			<Country code="IE"/>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="IST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Gibraltar">
@@ -2588,7 +2595,7 @@
 			<Country code="GI"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Guernsey">
@@ -2597,7 +2604,7 @@
 			<AliasFor>Europe/London</AliasFor>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="BST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Helsinki">
@@ -2605,7 +2612,7 @@
 			<Country code="FI"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Isle_of_Man">
@@ -2614,7 +2621,7 @@
 			<AliasFor>Europe/London</AliasFor>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="BST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Istanbul">
@@ -2622,7 +2629,7 @@
 			<Country code="TR"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Jersey">
@@ -2631,7 +2638,7 @@
 			<AliasFor>Europe/London</AliasFor>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="BST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Kaliningrad">
@@ -2640,7 +2647,7 @@
 			<Comments lang="en">Moscow-01 - Kaliningrad</Comments>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T02:00:00+02:00</Start><End>2008-10-26T03:00:00+03:00</End>
+				<Start>2009-03-29T02:00:00+02:00</Start><End>2009-10-25T03:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Kiev">
@@ -2649,7 +2656,7 @@
 			<Comments lang="en">most locations</Comments>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Lisbon">
@@ -2658,7 +2665,7 @@
 			<Comments lang="en">mainland</Comments>
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Ljubljana">
@@ -2667,7 +2674,7 @@
 			<AliasFor>Europe/Belgrade</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/London">
@@ -2675,7 +2682,7 @@
 			<Country code="GB"/>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="BST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Luxembourg">
@@ -2683,7 +2690,7 @@
 			<Country code="LU"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Madrid">
@@ -2692,7 +2699,7 @@
 			<Comments lang="en">mainland</Comments>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Malta">
@@ -2700,7 +2707,7 @@
 			<Country code="MT"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Mariehamn">
@@ -2709,7 +2716,7 @@
 			<AliasFor>Europe/Helsinki</AliasFor>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Minsk">
@@ -2717,7 +2724,7 @@
 			<Country code="BY"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T02:00:00+02:00</Start><End>2008-10-26T03:00:00+03:00</End>
+				<Start>2009-03-29T02:00:00+02:00</Start><End>2009-10-25T03:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Monaco">
@@ -2725,7 +2732,7 @@
 			<Country code="MC"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Moscow">
@@ -2734,14 +2741,14 @@
 			<Comments lang="en">Moscow+00 - west Russia</Comments>
 			<StandardTime offset="+03:00" tzname="MSK"/>
 			<DaylightTime offset="+04:00" tzname="MSD">
-				<Start>2008-03-30T02:00:00+03:00</Start><End>2008-10-26T03:00:00+04:00</End>
+				<Start>2009-03-29T02:00:00+03:00</Start><End>2009-10-25T03:00:00+04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Nicosia" deprecated="true">
 			<AliasFor>Asia/Nicosia</AliasFor>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Oslo">
@@ -2749,7 +2756,7 @@
 			<Country code="NO"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Paris">
@@ -2757,7 +2764,7 @@
 			<Country code="FR"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Podgorica">
@@ -2766,7 +2773,7 @@
 			<AliasFor>Europe/Belgrade</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Prague">
@@ -2774,7 +2781,7 @@
 			<Country code="CZ"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Riga">
@@ -2782,7 +2789,7 @@
 			<Country code="LV"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Rome">
@@ -2790,7 +2797,7 @@
 			<Country code="IT"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Samara">
@@ -2799,7 +2806,7 @@
 			<Comments lang="en">Moscow+01 - Samara, Udmurtia</Comments>
 			<StandardTime offset="+04:00" tzname="SAMT"/>
 			<DaylightTime offset="+05:00" tzname="SAMST">
-				<Start>2008-03-30T02:00:00+04:00</Start><End>2008-10-26T03:00:00+05:00</End>
+				<Start>2009-03-29T02:00:00+04:00</Start><End>2009-10-25T03:00:00+05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/San_Marino">
@@ -2808,7 +2815,7 @@
 			<AliasFor>Europe/Rome</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Sarajevo">
@@ -2817,7 +2824,7 @@
 			<AliasFor>Europe/Belgrade</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Simferopol">
@@ -2826,7 +2833,7 @@
 			<Comments lang="en">central Crimea</Comments>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Skopje">
@@ -2835,7 +2842,7 @@
 			<AliasFor>Europe/Belgrade</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Sofia">
@@ -2843,7 +2850,7 @@
 			<Country code="BG"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Stockholm">
@@ -2851,7 +2858,7 @@
 			<Country code="SE"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Tallinn">
@@ -2859,7 +2866,7 @@
 			<Country code="EE"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Tirane">
@@ -2867,14 +2874,14 @@
 			<Country code="AL"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Tiraspol" deprecated="true">
 			<AliasFor>Europe/Chisinau</AliasFor>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Uzhgorod">
@@ -2883,7 +2890,7 @@
 			<Comments lang="en">Ruthenia</Comments>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Vaduz">
@@ -2891,7 +2898,7 @@
 			<Country code="LI"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Vatican">
@@ -2900,7 +2907,7 @@
 			<AliasFor>Europe/Rome</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Vienna">
@@ -2908,7 +2915,7 @@
 			<Country code="AT"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Vilnius">
@@ -2916,7 +2923,7 @@
 			<Country code="LT"/>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Volgograd">
@@ -2925,7 +2932,7 @@
 			<Comments lang="en">Moscow+00 - Caspian Sea</Comments>
 			<StandardTime offset="+03:00" tzname="VOLT"/>
 			<DaylightTime offset="+04:00" tzname="VOLST">
-				<Start>2008-03-30T02:00:00+03:00</Start><End>2008-10-26T03:00:00+04:00</End>
+				<Start>2009-03-29T02:00:00+03:00</Start><End>2009-10-25T03:00:00+04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Warsaw">
@@ -2933,7 +2940,7 @@
 			<Country code="PL"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Zagreb">
@@ -2942,7 +2949,7 @@
 			<AliasFor>Europe/Belgrade</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Zaporozhye">
@@ -2951,7 +2958,7 @@
 			<Comments lang="en">Zaporozh&apos;ye, E Lugansk / Zaporizhia, E Luhansk</Comments>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Zurich">
@@ -2959,21 +2966,21 @@
 			<Country code="CH"/>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="GB" deprecated="true">
 			<AliasFor>Europe/London</AliasFor>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="BST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="GB-Eire" deprecated="true">
 			<AliasFor>Europe/London</AliasFor>
 			<StandardTime offset="+00:00" tzname="GMT"/>
 			<DaylightTime offset="+01:00" tzname="BST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="GMT" deprecated="true">
@@ -3052,7 +3059,7 @@
 			<Country code="MU"/>
 			<StandardTime offset="+04:00" tzname="MUT"/>
 			<DaylightTime offset="+05:00" tzname="MUST">
-				<Start>2008-10-26T02:00:00+04:00</Start><End>2009-03-29T02:00:00+04:00</End>
+				<Start>2009-10-25T02:00:00+04:00</Start><End>2009-03-29T03:00:00+05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Indian/Mayotte">
@@ -3069,14 +3076,14 @@
 			<AliasFor>Asia/Tehran</AliasFor>
 			<StandardTime offset="+03:30" tzname="IRST"/>
 			<DaylightTime offset="+04:30" tzname="IRDT">
-				<Start>2008-03-21T00:00:00+03:30</Start><End>2008-09-21T00:00:00+04:30</End>
+				<Start>2009-03-22T00:00:00+03:30</Start><End>2009-09-22T00:00:00+04:30</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Israel" deprecated="true">
 			<AliasFor>Asia/Jerusalem</AliasFor>
 			<StandardTime offset="+02:00" tzname="IST"/>
 			<DaylightTime offset="+03:00" tzname="IDT">
-				<Start>2008-03-28T02:00:00+02:00</Start><End>2008-10-05T02:00:00+03:00</End>
+				<Start>2009-03-27T02:00:00+02:00</Start><End>2009-09-27T02:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Jamaica" deprecated="true">
@@ -3098,7 +3105,7 @@
 		<Zone id="MET">
 			<StandardTime offset="+01:00" tzname="MET"/>
 			<DaylightTime offset="+02:00" tzname="MEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="MST">
@@ -3107,49 +3114,49 @@
 		<Zone id="MST7MDT">
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Mexico/BajaNorte" deprecated="true">
 			<AliasFor>America/Tijuana</AliasFor>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-04-06T02:00:00-08:00</Start><End>2008-10-26T02:00:00-07:00</End>
+				<Start>2009-04-05T02:00:00-08:00</Start><End>2009-10-25T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Mexico/BajaSur" deprecated="true">
 			<AliasFor>America/Mazatlan</AliasFor>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-04-06T02:00:00-07:00</Start><End>2008-10-26T02:00:00-06:00</End>
+				<Start>2009-04-05T02:00:00-07:00</Start><End>2009-10-25T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Mexico/General" deprecated="true">
 			<AliasFor>America/Mexico_City</AliasFor>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-04-06T02:00:00-06:00</Start><End>2008-10-26T02:00:00-05:00</End>
+				<Start>2009-04-05T02:00:00-06:00</Start><End>2009-10-25T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="NZ" deprecated="true">
 			<AliasFor>Pacific/Auckland</AliasFor>
 			<StandardTime offset="+12:00" tzname="NZST"/>
 			<DaylightTime offset="+13:00" tzname="NZDT">
-				<Start>2008-09-28T02:00:00+12:00</Start><End>2008-04-06T03:00:00+13:00</End>
+				<Start>2009-09-27T02:00:00+12:00</Start><End>2009-04-05T03:00:00+13:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="NZ-CHAT" deprecated="true">
 			<AliasFor>Pacific/Chatham</AliasFor>
 			<StandardTime offset="+12:45" tzname="CHAST"/>
 			<DaylightTime offset="+13:45" tzname="CHADT">
-				<Start>2008-09-28T02:45:00+12:45</Start><End>2008-04-06T03:45:00+13:45</End>
+				<Start>2009-09-27T02:45:00+12:45</Start><End>2009-04-05T03:45:00+13:45</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Navajo" deprecated="true">
 			<AliasFor>America/Denver</AliasFor>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="PRC" deprecated="true">
@@ -3159,7 +3166,7 @@
 		<Zone id="PST8PDT">
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Pacific/Apia">
@@ -3173,7 +3180,7 @@
 			<Comments lang="en">most locations</Comments>
 			<StandardTime offset="+12:00" tzname="NZST"/>
 			<DaylightTime offset="+13:00" tzname="NZDT">
-				<Start>2008-09-28T02:00:00+12:00</Start><End>2008-04-06T03:00:00+13:00</End>
+				<Start>2009-09-27T02:00:00+12:00</Start><End>2009-04-05T03:00:00+13:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Pacific/Chatham">
@@ -3182,7 +3189,7 @@
 			<Comments lang="en">Chatham Islands</Comments>
 			<StandardTime offset="+12:45" tzname="CHAST"/>
 			<DaylightTime offset="+13:45" tzname="CHADT">
-				<Start>2008-09-28T02:45:00+12:45</Start><End>2008-04-06T03:45:00+13:45</End>
+				<Start>2009-09-27T02:45:00+12:45</Start><End>2009-04-05T03:45:00+13:45</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Pacific/Easter">
@@ -3191,7 +3198,7 @@
 			<Comments lang="en">Easter Island &amp; Sala y Gomez</Comments>
 			<StandardTime offset="-06:00" tzname="EAST"/>
 			<DaylightTime offset="-05:00" tzname="EASST">
-				<Start>2008-10-11T22:00:00-06:00</Start><End>2008-03-29T22:00:00-05:00</End>
+				<Start>2009-10-10T22:00:00-06:00</Start><End>2009-03-14T22:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Pacific/Efate">
@@ -3392,14 +3399,14 @@
 			<AliasFor>Europe/Warsaw</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
 			<DaylightTime offset="+02:00" tzname="CEST">
-				<Start>2008-03-30T02:00:00+01:00</Start><End>2008-10-26T03:00:00+02:00</End>
+				<Start>2009-03-29T02:00:00+01:00</Start><End>2009-10-25T03:00:00+02:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Portugal" deprecated="true">
 			<AliasFor>Europe/Lisbon</AliasFor>
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="ROC" deprecated="true">
@@ -3418,7 +3425,7 @@
 			<AliasFor>Europe/Istanbul</AliasFor>
 			<StandardTime offset="+02:00" tzname="EET"/>
 			<DaylightTime offset="+03:00" tzname="EEST">
-				<Start>2008-03-30T03:00:00+02:00</Start><End>2008-10-26T04:00:00+03:00</End>
+				<Start>2009-03-29T03:00:00+02:00</Start><End>2009-10-25T04:00:00+03:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="UCT" deprecated="true">
@@ -3429,14 +3436,14 @@
 			<AliasFor>America/Anchorage</AliasFor>
 			<StandardTime offset="-09:00" tzname="AKST"/>
 			<DaylightTime offset="-08:00" tzname="AKDT">
-				<Start>2008-03-09T02:00:00-09:00</Start><End>2008-11-02T02:00:00-08:00</End>
+				<Start>2009-03-08T02:00:00-09:00</Start><End>2009-11-01T02:00:00-08:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Aleutian" deprecated="true">
 			<AliasFor>America/Adak</AliasFor>
 			<StandardTime offset="-10:00" tzname="HAST"/>
 			<DaylightTime offset="-09:00" tzname="HADT">
-				<Start>2008-03-09T02:00:00-10:00</Start><End>2008-11-02T02:00:00-09:00</End>
+				<Start>2009-03-08T02:00:00-10:00</Start><End>2009-11-01T02:00:00-09:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Arizona" deprecated="true">
@@ -3447,21 +3454,21 @@
 			<AliasFor>America/Chicago</AliasFor>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/East-Indiana" deprecated="true">
 			<AliasFor>America/Indiana/Indianapolis</AliasFor>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Eastern" deprecated="true">
 			<AliasFor>America/New_York</AliasFor>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Hawaii" deprecated="true">
@@ -3472,35 +3479,35 @@
 			<AliasFor>America/Indiana/Knox</AliasFor>
 			<StandardTime offset="-06:00" tzname="CST"/>
 			<DaylightTime offset="-05:00" tzname="CDT">
-				<Start>2008-03-09T02:00:00-06:00</Start><End>2008-11-02T02:00:00-05:00</End>
+				<Start>2009-03-08T02:00:00-06:00</Start><End>2009-11-01T02:00:00-05:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Michigan" deprecated="true">
 			<AliasFor>America/Detroit</AliasFor>
 			<StandardTime offset="-05:00" tzname="EST"/>
 			<DaylightTime offset="-04:00" tzname="EDT">
-				<Start>2008-03-09T02:00:00-05:00</Start><End>2008-11-02T02:00:00-04:00</End>
+				<Start>2009-03-08T02:00:00-05:00</Start><End>2009-11-01T02:00:00-04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Mountain" deprecated="true">
 			<AliasFor>America/Denver</AliasFor>
 			<StandardTime offset="-07:00" tzname="MST"/>
 			<DaylightTime offset="-06:00" tzname="MDT">
-				<Start>2008-03-09T02:00:00-07:00</Start><End>2008-11-02T02:00:00-06:00</End>
+				<Start>2009-03-08T02:00:00-07:00</Start><End>2009-11-01T02:00:00-06:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Pacific" deprecated="true">
 			<AliasFor>America/Los_Angeles</AliasFor>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Pacific-New" deprecated="true">
 			<AliasFor>America/Los_Angeles</AliasFor>
 			<StandardTime offset="-08:00" tzname="PST"/>
 			<DaylightTime offset="-07:00" tzname="PDT">
-				<Start>2008-03-09T02:00:00-08:00</Start><End>2008-11-02T02:00:00-07:00</End>
+				<Start>2009-03-08T02:00:00-08:00</Start><End>2009-11-01T02:00:00-07:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="US/Samoa" deprecated="true">
@@ -3518,13 +3525,13 @@
 			<AliasFor>Europe/Moscow</AliasFor>
 			<StandardTime offset="+03:00" tzname="MSK"/>
 			<DaylightTime offset="+04:00" tzname="MSD">
-				<Start>2008-03-30T02:00:00+03:00</Start><End>2008-10-26T03:00:00+04:00</End>
+				<Start>2009-03-29T02:00:00+03:00</Start><End>2009-10-25T03:00:00+04:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="WET">
 			<StandardTime offset="+00:00" tzname="WET"/>
 			<DaylightTime offset="+01:00" tzname="WEST">
-				<Start>2008-03-30T01:00:00+00:00</Start><End>2008-10-26T02:00:00+01:00</End>
+				<Start>2009-03-29T01:00:00+00:00</Start><End>2009-10-25T02:00:00+01:00</End>
 			</DaylightTime>
 		</Zone>
 		<Zone id="Zulu" deprecated="true">

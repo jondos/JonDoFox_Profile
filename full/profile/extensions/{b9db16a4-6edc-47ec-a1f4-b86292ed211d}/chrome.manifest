@@ -20,6 +20,7 @@ locale  dwhelper vi-VN jar:chrome/dwhelper.jar!/locale/vi-VN/
 locale  dwhelper bg-BG jar:chrome/dwhelper.jar!/locale/bg-BG/
 locale  dwhelper pt-BR jar:chrome/dwhelper.jar!/locale/pt-BR/
 locale  dwhelper ru-RU jar:chrome/dwhelper.jar!/locale/ru-RU/
+locale  dwhelper cs-CZ jar:chrome/dwhelper.jar!/locale/cs-CZ/
 style   chrome://global/content/customizeToolbar.xul    chrome://dwhelper/skin/classic/dwhelper.css
 overlay chrome://songbird/content/xul/layoutWithBrowserOverlay.xul chrome://dwhelper/content/dwhelper.xul
 style   chrome://songbird/content/xul/layoutWithBrowserOverlay.xul    chrome://dwhelper/skin/classic/dwhelper.css

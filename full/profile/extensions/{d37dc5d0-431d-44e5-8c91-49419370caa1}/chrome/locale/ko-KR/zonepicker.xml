@@ -560,7 +560,7 @@ package or its installation directory on your computer.
 				<Leaf zone_id="Asia/Choibalsan" name="더르너드, 수흐바타르" />
 			</Branch>
 			<Leaf zone_id="Asia/Rangoon" name="미얀마 (버마)" />
-			<Leaf zone_id="Asia/Katmandu" name="네팔" />
+			<Leaf zone_id="Asia/Kathmandu" name="네팔" />
 			<Leaf zone_id="Asia/Muscat" name="오만" />
 			<Leaf zone_id="Asia/Karachi" name="파키스탄" />
 			<Leaf zone_id="Asia/Gaza" name="팔레스타인" />
@@ -635,7 +635,7 @@ package or its installation directory on your computer.
 			<Leaf zone_id="Asia/Kabul" name="카불" />
 			<Leaf zone_id="Asia/Karachi" name="카라치" />
 			<Leaf zone_id="Asia/Kashgar" name="카슈가르" />
-			<Leaf zone_id="Asia/Katmandu" name="카트만두" />
+			<Leaf zone_id="Asia/Kathmandu" name="카트만두" />
 			<Leaf zone_id="Asia/Calcutta" name="콜카타 (켈커타)" />
 			<Leaf zone_id="Asia/Krasnoyarsk" name="크라스노야르스크" />
 			<Leaf zone_id="Asia/Kuala_Lumpur" name="콸라룸푸르" />

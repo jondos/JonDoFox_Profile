@@ -1179,6 +1179,8 @@ FoxClocks.prototype =
 	{
 		fc_gLogger.log("+FoxClocks::onDrop()");
 
+		this.removeDropIndicator(); // AFM - before we modify the Watchlist
+		
 		var fromWatchlist = dropdata.data == "foxclocks/watchlist";
 		var toWatchlist = event.target.getAttribute("id") == "fc-watchlist-treechildren-root";
 			
@@ -1189,7 +1191,6 @@ FoxClocks.prototype =
 		else if (fromWatchlist && toWatchlist)
 			this.moveInWatchlist(this.watchlistDropAtIndex);
 
-		this.removeDropIndicator();
 		this.watchlistDropAtIndex = null;
 		
 		fc_gLogger.log("-FoxClocks::onDrop()");
@@ -1214,7 +1215,7 @@ FoxClocks.prototype =
 		else
 		{
 			var treeChildrenRoot = document.getElementById("fc-watchlist-treechildren-root");
-			
+
 			if (treeChildrenRoot.childNodes.length > 0)
 				treeChildrenRoot.lastChild.firstChild.removeAttribute("properties");
 		}

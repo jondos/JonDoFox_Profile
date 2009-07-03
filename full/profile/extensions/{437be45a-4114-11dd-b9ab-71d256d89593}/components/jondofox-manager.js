@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2008, JonDos GmbH
+ * Copyright 2008-2009, JonDos GmbH
  * Author: Johannes Renner
  *
  * JonDoFox extension management and compatibility tasks + utilities
@@ -39,9 +39,9 @@ var JDFManager = {
   // Extension version
   VERSION: null,
 
-  // The proxy state preference
+  // Some preferences
   STATE_PREF: 'extensions.jondofox.proxy.state',
-  NO_PROXIES: 'extensions.jondofox.proxy.no_proxies_on',
+  NO_PROXIES: 'extensions.jondofox.no_proxies_on',
   REF_PREF: 'extensions.jondofox.set_referrer',
  
   // Possible values of the 'STATE_PREF'
@@ -170,11 +170,12 @@ var JDFManager = {
           } else {
             log('Found ' + e + ', uninstalling ..');
             // Prompt a message window for every extension
-            this.showAlert(this.getString('jondofox.dialog.attention'), 
-                   this.formatString('jondofox.dialog.message.extension', [e]));
-            // Uninstall and set restart to true
-            this.uninstallExtension(this.extensions[e]);
-            restart = true;
+            if (this.showConfirm(this.getString('jondofox.dialog.attention'), 
+                   this.formatString('jondofox.dialog.message.extension', [e]))) {
+              // Uninstall and set restart to true
+              this.uninstallExtension(this.extensions[e]);
+              restart = true;
+            }
           }
         } else {
           log(e + ' not found');
@@ -189,7 +190,7 @@ var JDFManager = {
     }
   },
 
-  // Call this on final-ui-startup
+  // Call this on 'final-ui-startup'
   onUIStartup: function() {
     log("Starting up, checking conditions ..");
     try {
@@ -205,21 +206,22 @@ var JDFManager = {
       prefs.QueryInterface(CI.nsIPrefBranch2);
       prefs.addObserver("", this, false);
       log("Observing privacy-related preferences ..");
-      // XXX: Reset 'set_referrer' to true
-      if (!this.prefsHandler.getBoolPref(this.REF_PREF) && 
-             !this.isInstalled(this.extensions['RefControl']) ) {
-        log("Resetting 'set_referrer'");
-	this.prefsHandler.setBoolPref(this.REF_PREF, true);
+      // Optionally disable the history
+      if (this.prefsHandler.getBoolPref('extensions.jondofox.disable_history')) {
+        this.prefsHandler.setIntPref('browser.history_expire_days', 0);
       }
-      // Disable the history
-      this.prefsHandler.setIntPref('browser.history_expire_days', 0);
+      // Disable proxy keep-alive connections
+      // XXX What about 'network.http.keep_alive'?
+      this.prefsHandler.setBoolPref('network.http.proxy.keep_alive', false);
       // If cookies are accepted from *all* sites --> reject 3rd-party cookies
       var cookiePref = this.prefsHandler.
                                getIntPref('network.cookie.cookieBehavior');
       if (cookiePref == 0) {
         this.prefsHandler.setIntPref('network.cookie.cookieBehavior', 1);
       }
-      // If this is set, set it to false
+      // Disable client-side session and persistent storage for web pages
+      this.prefsHandler.setBoolPref('dom.storage.enabled', false);
+      // If this is set (MR Tech Toolkit), set it to false       
       if (this.prefsHandler.
                   isPreferenceSet('local_install.showBuildinWindowTitle')) {
         this.prefsHandler.
@@ -358,7 +360,6 @@ var JDFManager = {
     }
   },
 
-
   /**
    * Return true if a given extension is installed, else return false
    */
@@ -375,6 +376,29 @@ var JDFManager = {
       log("isInstalled(): " + err);
     }    
   },
+
+  /**
+   * TODO: Check whether a given extension is enabled
+   */
+  isEnabled: function(eID) {
+    //log('Checking for ' + eID);
+    try { 
+      var RDFService = CC["@mozilla.org/rdf/rdf-service;1"].
+                          getService(CI.nsIRDFService);
+      var extensionsDS= CC["@mozilla.org/extensions/manager;1"].
+                           getService(CI.nsIExtensionManager).datasource;
+      // Get the extension element
+      var element = RDFService.GetResource("" + eID); 
+      var disabled = getRDFValue(element, "isDisabled");
+      if (disabled && disabled == 'true') {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      log("isEnabled(): " + err);
+    }
+  }, 
 
   /**
    * Uninstall a given extension
@@ -521,6 +545,8 @@ var JDFManager = {
         // State is not 'STATE_NONE' --> enable
         switch (state) {
           case this.STATE_JONDO:
+            // Ensure that share_proxy_settings is unset
+            this.prefsHandler.setBoolPref("network.proxy.share_proxy_settings", false);
             // Set proxies for all protocols but SOCKS
             this.proxyManager.setProxyAll('127.0.0.1', 4001);
             this.proxyManager.setProxySOCKS('', 0, 5);
@@ -530,6 +556,8 @@ var JDFManager = {
             break; 
  
           case this.STATE_TOR:
+            // Ensure that share_proxy_settings is unset
+            this.prefsHandler.setBoolPref("network.proxy.share_proxy_settings", false);
             // Set SOCKS proxy only
             this.proxyManager.setProxySOCKS('127.0.0.1', 9050, 5);
             this.proxyManager.setSocksRemoteDNS(true);
@@ -540,26 +568,28 @@ var JDFManager = {
             break;
 
           case this.STATE_CUSTOM:
-            // Get custom prefs ..
             var prefix = "extensions.jondofox.custom.";
+            // Set share_proxy_settings to custom.share_proxy_settings
+            this.prefsHandler.setBoolPref("network.proxy.share_proxy_settings", 
+                this.prefsHandler.getBoolPref(prefix + "share_proxy_settings"));
             this.proxyManager.setProxyHTTP(
-                    this.prefsHandler.getStringPref(prefix + "http_host"),
-                    this.prefsHandler.getIntPref(prefix + "http_port"));
+                this.prefsHandler.getStringPref(prefix + "http_host"),
+                this.prefsHandler.getIntPref(prefix + "http_port"));
             this.proxyManager.setProxySSL(
-                    this.prefsHandler.getStringPref(prefix + "ssl_host"),
-                    this.prefsHandler.getIntPref(prefix + "ssl_port"));
+                this.prefsHandler.getStringPref(prefix + "ssl_host"),
+                this.prefsHandler.getIntPref(prefix + "ssl_port"));
             this.proxyManager.setProxyFTP(
-                    this.prefsHandler.getStringPref(prefix + "ftp_host"),
-                    this.prefsHandler.getIntPref(prefix + "ftp_port"));
+                this.prefsHandler.getStringPref(prefix + "ftp_host"),
+                this.prefsHandler.getIntPref(prefix + "ftp_port"));
             this.proxyManager.setProxyGopher(
-                    this.prefsHandler.getStringPref(prefix + "gopher_host"),
-                    this.prefsHandler.getIntPref(prefix + "gopher_port"));
+                this.prefsHandler.getStringPref(prefix + "gopher_host"),
+                this.prefsHandler.getIntPref(prefix + "gopher_port"));
             this.proxyManager.setProxySOCKS(
-                    this.prefsHandler.getStringPref(prefix + "socks_host"),
-                    this.prefsHandler.getIntPref(prefix + "socks_port"),
-                    this.prefsHandler.getIntPref(prefix + "socks_version"));
+                this.prefsHandler.getStringPref(prefix + "socks_host"),
+                this.prefsHandler.getIntPref(prefix + "socks_port"),
+                this.prefsHandler.getIntPref(prefix + "socks_version"));
             this.proxyManager.setExceptions(
-                    this.prefsHandler.getStringPref(prefix + "no_proxies_on"));
+                this.prefsHandler.getStringPref(prefix + "no_proxies_on"));
             break;
 
           default:

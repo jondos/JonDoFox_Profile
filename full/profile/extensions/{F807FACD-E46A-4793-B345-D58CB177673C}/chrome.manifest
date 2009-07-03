@@ -3,6 +3,7 @@ content scribefire   jar:chrome/scribefire.jar!/content/ contentaccessible=yes
 
 locale  scribefire   en-US            jar:chrome/scribefire.jar!/locale/en-US/
 locale  scribefire   bg-BG            jar:chrome/scribefire.jar!/locale/bg-BG/
+locale  scribefire   cs               jar:chrome/scribefire.jar!/locale/cs/
 locale  scribefire   cs-CZ            jar:chrome/scribefire.jar!/locale/cs-CZ/
 locale  scribefire   de-DE            jar:chrome/scribefire.jar!/locale/de-DE/
 locale  scribefire   el-GR            jar:chrome/scribefire.jar!/locale/el-GR/
@@ -19,11 +20,12 @@ locale  scribefire   nl-NL            jar:chrome/scribefire.jar!/locale/nl-NL/
 locale  scribefire   pl-PL            jar:chrome/scribefire.jar!/locale/pl-PL/
 locale  scribefire   pt-BR            jar:chrome/scribefire.jar!/locale/pt-BR/
 locale  scribefire   ru-RU            jar:chrome/scribefire.jar!/locale/ru-RU/
+locale  scribefire   sl-SI            jar:chrome/scribefire.jar!/locale/sl-SI/
 locale  scribefire   sr-RS            jar:chrome/scribefire.jar!/locale/sr-RS/
-locale  scribefire   sr-YU            jar:chrome/scribefire.jar!/locale/sr-YU/
 locale  scribefire   sv-SE            jar:chrome/scribefire.jar!/locale/sv-SE/
 locale  scribefire   th-TH            jar:chrome/scribefire.jar!/locale/th-TH/
 locale  scribefire   tr-TR            jar:chrome/scribefire.jar!/locale/tr-TR/
+locale  scribefire   uk-UA            jar:chrome/scribefire.jar!/locale/uk-UA/
 locale  scribefire   zh-CN            jar:chrome/scribefire.jar!/locale/zh-CN/
 locale  scribefire   zh-TW            jar:chrome/scribefire.jar!/locale/zh-TW/
 
@@ -35,3 +37,6 @@ overlay chrome://navigator/content/navigator.xul     chrome://scribefire/content
 
 style   chrome://global/content/customizeToolbar.xul chrome://scribefire/skin/overlay.css
 style   chrome://global/content/customizeToolbar.xul chrome://scribefire/skin/browser.css
+
+style chrome://scribefire/content/scribefire.xul chrome://scribefire/skin/scribefire.css
+style chrome://scribefire/content/editBlog.xul chrome://scribefire/skin/scribefire.css

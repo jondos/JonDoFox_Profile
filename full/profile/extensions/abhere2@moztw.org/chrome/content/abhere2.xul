@@ -23,12 +23,32 @@ var abHere2 = {
       return nsPreferences.getBoolPref("abhere2.folderDrag", true);
    },
 
+   get isTagsInline() {
+      return nsPreferences.getBoolPref("abhere2.tagsInline", true);
+   },
+
    get isAnchorPopup() {
       return nsPreferences.getBoolPref("abhere2.anchorPopup", false);
    },
 
+   get folderTreeHeight() {
+      return nsPreferences.getIntPref("abhere2.starUI.height.folderTree", 150);
+   },
+
+   set folderTreeHeight(value) {
+      return nsPreferences.setIntPref("abhere2.starUI.height.folderTree", (value < 0 ? 0 : value));
+   },
+
+   get tagsSelectorHeight() {
+      return nsPreferences.getIntPref("abhere2.starUI.height.tagsSelector", 150);
+   },
+
+   set tagsSelectorHeight(value) {
+      return nsPreferences.setIntPref("abhere2.starUI.height.tagsSelector", (value < 0 ? 0 : value));
+   },
+
    get panelWidth() {
-      return nsPreferences.getIntPref("abhere2.starUI.width", 400);
+      return nsPreferences.getIntPref("abhere2.starUI.width", 350);
    },
 
    getPrefFolderId: function(prefName, defaultId) {
@@ -391,6 +411,38 @@ var abHere2 = {
       }
    },
 
+   createFolderTreeResizer: function() {
+      var resizer = document.getElementById("editBMPanel_folderTreeResizer");
+      if (resizer) return;
+      resizer = document.createElement("speacer");
+      resizer.id = "editBMPanel_folderTreeResizer";
+      resizer.height = "3";
+      resizer.onmouseover = function(){ this.style.cursor = "s-resize"; };
+
+      var box = document.getElementById("editBMPanel_folderTree");
+      box.parentNode.insertBefore(resizer, box.nextSibling);
+      box.style.marginBottom = "0px";
+
+      var panel = document.getElementById("editBookmarkPanelGrid");
+      panel.onmousedown = function(e) {
+         if (e.target == resizer) {
+            box.isDrag = true;
+            box.clientY = e.clientY;
+         }
+      }
+      panel.onmousemove = function(e) {
+         if (box.isDrag) {
+            box.height = abHere2.folderTreeHeight + (e.clientY - box.clientY);
+         }
+      }
+      panel.onmouseup = function(e) {
+         if (box.isDrag) {
+            box.isDrag = false;
+            abHere2.folderTreeHeight = box.height;
+         }
+      }
+   },
+
    init: function() {
       //*** implement insertTop feature
       //decide insert position when user bookmark a page
@@ -454,10 +506,30 @@ var abHere2 = {
          /hiddenRows: \[.*\]/,
          "hiddenRows: abHere2.hiddenRows");
 
+      //*** customize folderTree's height
+      abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
+         /}$/,
+         'this._element("editBMPanel_folderTree").height = abHere2.folderTreeHeight; $&');
+
+      //*** customize tagsSelector's height
+      abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
+         /}$/,
+         'this._element("editBMPanel_tagsSelector").height = (abHere2.isTagsInline ? 0 : abHere2.tagsSelectorHeight); $&');
+
       //*** customize editBookmarkPanel's width
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
          /}$/,
-         'if (abHere2.panelWidth>0) this.panel.width = abHere2.panelWidth; $&');
+         'this._element("editBookmarkPanelGrid").width = abHere2.panelWidth; $&');
+
+      //*** group the tags in line
+      abHere2.hookCode("gEditItemOverlay._showHideRows",
+         /}$/,
+         'document.getAnonymousNodes(this._element("tagsSelector"))[1].firstChild.style.display = (abHere2.isTagsInline ? "inline" : ""); $&');
+
+      //*** create folderTree resizer
+      abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
+         /}$/,
+         'abHere2.createFolderTreeResizer(); $&');
 
       //*** expand the FolderTree if the bookmark has already existed
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",

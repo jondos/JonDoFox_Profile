@@ -11,7 +11,7 @@
 
 // Editable Items Begin
 var displayName         = "FoxClocks"; // The name displayed to the user (don't include the version)
-var version             = "2.5.11"; // AFM - version written in by ant
+var version             = "2.5.33"; // AFM - version written in by ant
 var name                = "foxclocks"; // The directory name/chrome name to be used
 
 // The following three sets of variables tell this installer script how your

@@ -43,7 +43,7 @@ package or its installation directory on your computer.
 	</keyset>
 
 	<!-- AFM - for Firefox, id="menu_ToolsPopup", insertbefore="devToolsSeparator"; for Thunderbird id="taskPopup", insertbefore="prefSep";
-	for Sunbird id="toolsPopup", insertbefore="devToolsSeparator" -->
+	for Sunbird id="toolsPopup"/"menu_ToolsPopup", insertbefore="devToolsSeparator" -->
 	<menupopup id="menu_ToolsPopup">
 		<menuitem	id="foxclocksoverlay-menuitem" insertbefore="devToolsSeparator"
 					label="&foxclocksoverlay.menuitem.label;" accesskey="&foxclocksoverlay.menuitem.accesskey;"

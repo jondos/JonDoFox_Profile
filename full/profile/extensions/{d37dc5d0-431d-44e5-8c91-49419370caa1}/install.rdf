@@ -7,7 +7,7 @@
 		<em:id>{d37dc5d0-431d-44e5-8c91-49419370caa1}</em:id>
 		<em:name>FoxClocks</em:name>
 		<em:type>2</em:type> <!-- ie extension -->
-		<em:version>2.5.11</em:version>
+		<em:version>2.5.33</em:version>
 		<em:description>Displays local times around the world in the statusbar/toolbar. Supports virtually all time zones.</em:description>
 		<em:creator>Andy McDonald</em:creator>
 
@@ -29,7 +29,7 @@
 		<em:contributor>hu-HU: fenya25, misibacsi</em:contributor>
 		<!-- <em:contributor>id-ID: AuGee</em:contributor> -->
 		<em:contributor>it-IT: Pedro (Luca Pedrazzi)</em:contributor>
-		<em:contributor>ja-JP: William Barnes, Reuentahl, Victory, T.R. Satoh</em:contributor>
+		<em:contributor>ja-JP: William Barnes, Reuentahl, Victory, T.R. Satoh, Shadow912</em:contributor>
 		<em:contributor>ko-KR: Hunimini</em:contributor>
 		<!-- <em:contributor>mk-MK: Zoriv Ivanovski</em:contributor> -->
 		<em:contributor>mn-MN: Natsagdorj Shagdar</em:contributor>
@@ -54,7 +54,7 @@
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> 
 				<em:minVersion>1.5</em:minVersion>
-				<em:maxVersion>3.1b2</em:maxVersion>
+				<em:maxVersion>3.5.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 
@@ -63,7 +63,7 @@
 			<Description>
 				<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
 				<em:minVersion>1.5</em:minVersion>
-				<em:maxVersion>3.0b1</em:maxVersion>
+				<em:maxVersion>3.0b2</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 
@@ -72,7 +72,7 @@
 			<Description>
 				<em:id>{718e30fb-e89b-41dd-9da7-e25a45638b28}</em:id> 
 				<em:minVersion>0.3</em:minVersion>
-				<em:maxVersion>0.8</em:maxVersion>
+				<em:maxVersion>0.9</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 		

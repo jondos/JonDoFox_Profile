@@ -604,7 +604,7 @@
 				<Leaf zone_id="Asia/Hovd" name="Bayan-Olgiy, Hovd atď." />
 				<Leaf zone_id="Asia/Choibalsan" name="Dornod, Sukhbaatar" />
 			</Branch>
-			<Leaf zone_id="Asia/Katmandu" name="Nepál" />
+			<Leaf zone_id="Asia/Kathmandu" name="Nepál" />
 			<Leaf zone_id="Asia/Muscat" name="Omán" />
 			<Leaf zone_id="Asia/Karachi" name="Pakistan" />
 			<Leaf zone_id="Asia/Gaza" name="Palestína" />
@@ -682,7 +682,7 @@
 			<Leaf zone_id="Asia/Kabul" name="Kábul" />
 			<Leaf zone_id="Asia/Karachi" name="Karáčí" />
 			<Leaf zone_id="Asia/Kashgar" name="Kashgar" />
-			<Leaf zone_id="Asia/Katmandu" name="Káthmandú" />
+			<Leaf zone_id="Asia/Kathmandu" name="Káthmandú" />
 			<Leaf zone_id="Asia/Calcutta" name="Kalkata" />
 			<Leaf zone_id="Asia/Krasnoyarsk" name="Krasnojarsk" />
 			<Leaf zone_id="Asia/Kuala_Lumpur" name="Kuala Lumpur" />

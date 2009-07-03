@@ -2,10 +2,11 @@
 const APP_DISPLAY_NAME = "Adblock Plus: Element Hiding Helper";
 const APP_NAME = "elemhidehelper";
 const APP_PACKAGE = "/elemhidehelper.adblockplus.org";
-const APP_VERSION = "1.0.5";
+const APP_VERSION = "1.0.6";
 const VERSION_ERROR = "This extension can only be installed in a browser based on Gecko 1.8 or higher, please upgrade your browser. Compatible browsers include Firefox 1.5, SeaMonkey 1.0 and Flock 0.5.";
 const locales = [
 	"en-US",
+	"ar",
 	"ca-AD",
 	"cs-CZ",
 	"da-DK",
@@ -14,13 +15,17 @@ const locales = [
 	"en-GB",
 	"es-ES",
 	"et-EE",
+	"eu-ES",
 	"fi-FI",
 	"fr-FR",
+	"gl-ES",
 	"he-IL",
 	"hr-HR",
 	"hu-HU",
+	"hy-AM",
 	"it-IT",
 	"ja-JP",
+	"kk-KZ",
 	"ko-KR",
 	"lt-LT",
 	"nb-NO",
@@ -32,6 +37,7 @@ const locales = [
 	"ru-RU",
 	"sk-SK",
 	"sq-AL",
+	"sr-RS",
 	"sv-SE",
 	"th-TH",
 	"tr-TR",

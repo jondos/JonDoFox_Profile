@@ -179,11 +179,16 @@ ConvertMgr.prototype.convertUnix=function(sourceFile,targetFile,params,extension
 		ffmpegPath=this.pref.getCharPref("converter-path-ffmpeg");
 	} catch(e) {
 	}
-	ffmpegFile.initWithPath(ffmpegPath);
-	if(!ffmpegFile.exists()) {
-		dump("!!![ConvertMgr] convert(): no ffmpeg found\n");
+	try {
+		ffmpegFile.initWithPath(ffmpegPath);
+		if(!ffmpegFile.exists()) {
+			dump("!!![ConvertMgr] convert(): no ffmpeg found\n");
+			ffmpegFile=null;
+		}
+	} catch(e) {
+		dump("!!![ConvertMgr] convert(): invalid ffmpeg path\n");
 		ffmpegFile=null;
-	} 
+	}
 	var mencoderFile = Components.classes["@mozilla.org/file/local;1"]
     	.createInstance(Components.interfaces.nsILocalFile);
 	var mencoderPath="/usr/bin/mencoder";
@@ -191,9 +196,14 @@ ConvertMgr.prototype.convertUnix=function(sourceFile,targetFile,params,extension
 		mencoderPath=this.pref.getCharPref("converter-path-mencoder");
 	} catch(e) {
 	}
-	mencoderFile.initWithPath(mencoderPath);
-	if(!mencoderFile.exists()) {
-		dump("!!![ConvertMgr] convert(): no mencoder found\n");
+	try {
+		mencoderFile.initWithPath(mencoderPath);
+		if(!mencoderFile.exists()) {
+			dump("!!![ConvertMgr] convert(): no mencoder found\n");
+			mencoderFile=null;
+		}
+	} catch(e) {
+		dump("!!![ConvertMgr] convert(): invalid mencoder path\n");
 		mencoderFile=null;
 	}
 	

@@ -421,7 +421,9 @@ Progress.prototype.onLocationChange=function(webProgress, request, location ) {
 }
 
 Progress.prototype.onProgressChange=function(webProgress, request, curSelfProgress, maxSelfProgress, curTotalProgress, maxTotalProgress ) {
-	this.tr.onProgressChange(webProgress, request, curSelfProgress, maxSelfProgress, curTotalProgress, maxTotalProgress );
+	try {
+		this.tr.onProgressChange(webProgress, request, curSelfProgress, maxSelfProgress, curTotalProgress, maxTotalProgress );
+	} catch(e) {}
 }
 
 Progress.prototype.onSecurityChange=function(webProgress, request, state ) {

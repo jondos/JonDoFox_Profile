@@ -58,7 +58,8 @@ style	chrome://global/content/customizeToolbar.xul						chrome://foxclocks/skin/
 
 # Sunbird-specific
 #
-overlay chrome://calendar/content/calendar.xul			chrome://foxclocks/content/foxclocksoverlay-sb.xul	application={718e30fb-e89b-41dd-9da7-e25a45638b28}
+overlay chrome://calendar/content/calendar.xul			chrome://foxclocks/content/foxclocksoverlay-sb-pre0.9.xul	application={718e30fb-e89b-41dd-9da7-e25a45638b28}	appversion<0.9
+overlay chrome://calendar/content/calendar.xul			chrome://foxclocks/content/foxclocksoverlay-sb.xul	application={718e30fb-e89b-41dd-9da7-e25a45638b28}			appversion>=0.9
 style	chrome://calendar/content/calendar.xul			chrome://foxclocks/skin/foxclocks.css				application={718e30fb-e89b-41dd-9da7-e25a45638b28}
 style	chrome://calendar/content/customizeToolbar.xul	chrome://foxclocks/skin/foxclocks.css				application={718e30fb-e89b-41dd-9da7-e25a45638b28}
 
