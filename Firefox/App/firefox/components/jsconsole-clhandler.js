@@ -1,4 +1,4 @@
-//@line 41 "e:\fx19rel\WINNT_5.2_Depend\mozilla\toolkit\components\console\jsconsole-clhandler.js"
+//@line 41 "e:\builds\moz2_slave\win32_build\build\toolkit\components\console\jsconsole-clhandler.js"
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");

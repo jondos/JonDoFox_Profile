@@ -1,4 +1,4 @@
-//@line 40 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\microsummaries\src\nsMicrosummaryService.js"
+//@line 40 "e:\builds\moz2_slave\win32_build\build\browser\components\microsummaries\src\nsMicrosummaryService.js"
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;

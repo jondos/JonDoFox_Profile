@@ -1,4 +1,4 @@
-//@line 39 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\feeds\src\FeedConverter.js"
+//@line 39 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\FeedConverter.js"
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -355,7 +355,7 @@ var FeedConverterFactory = {
     if (iid.equals(Ci.nsIFactory) ||
         iid.equals(Ci.nsISupports))
       return this;
-    throw Cr.NS_ERROR_NOT_IMPLEMENTED;
+    throw Cr.NS_ERROR_NO_INTERFACE;
   },
 };
 
@@ -410,10 +410,22 @@ var FeedResultService = {
       else
         spec = "feed:" + spec;
 
-      var ss = 
-          Cc["@mozilla.org/browser/shell-service;1"].
-          getService(Ci.nsIShellService);
-      ss.openApplicationWithURI(clientApp, spec);
+      // Retrieving the shell service might fail on some systems, most
+      // notably systems where GNOME is not installed.
+      try {
+        var ss =
+            Cc["@mozilla.org/browser/shell-service;1"].
+            getService(Ci.nsIShellService);
+        ss.openApplicationWithURI(clientApp, spec);
+      } catch(e) {
+        // If we couldn't use the shell service, fallback to using a
+        // nsIProcess instance
+        var p =
+            Cc["@mozilla.org/process/util;1"].
+            createInstance(Ci.nsIProcess);
+        p.init(clientApp);
+        p.run(false, [spec], 1);
+      }
       break;
 
     default:
@@ -650,7 +662,7 @@ function NSGetModule(cm, file) {
   return Module;
 }
 
-//@line 44 "e:\fx19rel\WINNT_5.2_Depend\mozilla\toolkit\content\debug.js"
+//@line 44 "e:\builds\moz2_slave\win32_build\build\toolkit\content\debug.js"
 
 var EXPORTED_SYMBOLS = ["NS_ASSERT"];
 
@@ -732,7 +744,7 @@ function NS_ASSERT(condition, message) {
            getService(Components.interfaces.nsIPromptService);
   ps.alert(source, "Assertion Failed", assertionText + stackText);
 }
-//@line 37 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\feeds\src\GenericFactory.js"
+//@line 37 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\GenericFactory.js"
 
 /**
  * An object implementing nsIFactory that can construct other objects upon

@@ -1,9 +1,9 @@
-//@line 37 "e:\fx19rel\WINNT_5.2_Depend\mozilla\toolkit\components\url-classifier\src\nsUrlClassifierListManager.js"
+//@line 37 "e:\builds\moz2_slave\win32_build\build\toolkit\components\url-classifier\src\nsUrlClassifierListManager.js"
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 
-//@line 37 "e:\fx19rel\WINNT_5.2_Depend\mozilla\toolkit\components\url-classifier\content\listmanager.js"
+//@line 37 "e:\builds\moz2_slave\win32_build\build\toolkit\components\url-classifier\content\listmanager.js"
 
 
 // A class that manages lists, namely white and black lists for
@@ -47,7 +47,7 @@ function PROT_ListManager() {
   this.tablesData = {};
 
   this.observerServiceObserver_ = new G_ObserverServiceObserver(
-                                          'xpcom-shutdown',
+                                          'quit-application',
                                           BindToObject(this.shutdown_, this),
                                           true /*only once*/);
 
@@ -89,6 +89,10 @@ function PROT_ListManager() {
  * Delete all of our data tables which seem to leak otherwise.
  */
 PROT_ListManager.prototype.shutdown_ = function() {
+  if (this.keyManager_) {
+    this.keyManager_.shutdown();
+  }
+
   for (var name in this.tablesData) {
     delete this.tablesData[name];
   }
@@ -412,7 +416,7 @@ PROT_ListManager.prototype.makeUpdateRequest_ = function(tableData) {
   // For each requested table that didn't have chunk data in the database,
   // request it fresh
   for (var tableName in tableNames) {
-    request += tableName + ";:mac\n";
+    request += tableName + ";mac\n";
   }
 
   G_Debug(this, 'checkForUpdates: scheduling request..');
@@ -537,7 +541,7 @@ PROT_ListManager.prototype.QueryInterface = function(iid) {
   Components.returnCode = Components.results.NS_ERROR_NO_INTERFACE;
   return null;
 }
-//@line 42 "e:\fx19rel\WINNT_5.2_Depend\mozilla\toolkit\components\url-classifier\src\nsUrlClassifierListManager.js"
+//@line 42 "e:\builds\moz2_slave\win32_build\build\toolkit\components\url-classifier\src\nsUrlClassifierListManager.js"
 
 var modScope = this;
 function Init() {
