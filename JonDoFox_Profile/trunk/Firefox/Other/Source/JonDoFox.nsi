@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.1.6.0"
+!define VERSION "2.2.0.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "3.0.10"
+!define FF_VERSION "3.5"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -1056,7 +1056,7 @@ FunctionEnd
 
 Function .onSelChange
 
-        #Call CheckSelected
+        Call CheckSelected
         
 FunctionEnd
 
