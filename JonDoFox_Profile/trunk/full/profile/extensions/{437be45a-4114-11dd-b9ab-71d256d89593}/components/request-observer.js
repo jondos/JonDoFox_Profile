@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2008, JonDos GmbH
+ * Copyright 2008, 2009 JonDos GmbH
  * Author: Johannes Renner
  *
  * This component is instanciated once on app-startup and does the following:
@@ -43,7 +43,7 @@ var requestObserver = {
   init: function() {
     try {
       this.prefsHandler = CC['@jondos.de/preferences-handler;1'].
-                             getService().wrappedJSObject;
+          getService().wrappedJSObject;
     } catch (e) {
       log("init(): " + e);
     }
@@ -52,30 +52,21 @@ var requestObserver = {
   // This is called on every event occurrence
   modifyRequest: function(channel) {
     try {
-      // Check if 'set_referrer' is true
-      // XXX: Is this a performance issue?
+      // Check if 'set_referrer' is true, is this a performance issue?
       if (this.prefsHandler.getBoolPref('extensions.jondofox.set_referrer')) {
-	// Determine the base uri
+        //log("BEFORE: " + channel.getRequestHeader("Referer"));        
+        // Set the request header
         var ref = channel.URI.scheme + "://" + channel.URI.hostPort + "/";
-        //log("Forging referrer to " + ref);
-        // Set 'referer' header here
         channel.setRequestHeader("Referer", ref, false);
-        // Set the referrer attribute to the channel object
-        if (channel.referrer) {
-          // Set referrer.spec only if necessary
-          // XXX: Is this test a performance issue?
-          if (channel.referrer.spec != ref) {
-            channel.referrer.spec = ref;
-          } else {
-            //log("!! channel.referrer.spec is already = " + ref);
-          }
-        }
+        // Set the referrer attribute to channel object (necessary?)
+        //channel.referrer.spec = ref;
+        //log("AFTER: " + channel.getRequestHeader("Referer"));
       }
       // Set other headers here
       channel.setRequestHeader("Accept", "*/*", false);
       return true;
-    } catch (ex) {
-      log("Got exception: " + ex);
+    } catch (e) {
+      log("modifyRequest(): " + e);
     }
     return false;
   },

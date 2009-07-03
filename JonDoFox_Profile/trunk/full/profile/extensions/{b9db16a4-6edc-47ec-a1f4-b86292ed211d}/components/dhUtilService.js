@@ -373,6 +373,24 @@ UtilService.prototype.clearDatasource=function(tree) {
 	}
 }
 
+UtilService.prototype.emptyDatasource=function(ds) {
+	var i = ds.GetAllResources();
+	ds.beginUpdateBatch();
+	while(i.hasMoreElements()) {
+		var source = i.getNext();
+		var j = ds.ArcLabelsOut(source);
+		while(j.hasMoreElements()) {
+			var predicate = j.getNext();
+			var k = ds.GetTargets(source,predicate,true);
+			while(k.hasMoreElements()) {
+				var target = k.getNext();
+				ds.Unassert(source,predicate,target);
+			}
+		}
+	}
+	ds.endUpdateBatch();
+}
+
 UtilService.prototype.removeDatasources=function(tree) {
 	if(tree.database==null)
 		return;
@@ -421,6 +439,24 @@ UtilService.prototype.copyDatasource=function(ds) {
 	memDS.endUpdateBatch();
 	
 	return memDS;
+}
+
+UtilService.prototype.concatDatasource=function(ds0,ds) {
+	var i = ds.GetAllResources();
+	ds0.beginUpdateBatch();
+	while(i.hasMoreElements()) {
+		var source = i.getNext();
+		var j = ds.ArcLabelsOut(source);
+		while(j.hasMoreElements()) {
+			var predicate = j.getNext();
+			var k = ds.GetTargets(source,predicate,true);
+			while(k.hasMoreElements()) {
+				var target = k.getNext();
+				ds0.Assert(source,predicate,target,true);
+			}
+		}
+	}
+	ds0.endUpdateBatch();
 }
 
 UtilService.prototype.getParentNode=function(ds,node) {
@@ -758,9 +794,10 @@ UtilService.prototype.xmlEscape = function(str) {
 	str=str.replace(/&/g,"&amp;");
 	str=str.replace(/</g,"&lt;");
 	str=str.replace(/>/g,"&gt;");
-	return str;
+	//return str;
 	str=str.replace(/'/g,"&apos;");
 	str=str.replace(/"/g,"&quot;");
+	return str;
 	var str0="";
 	for(var i=0;i<str.length;i++) {
 		var cc=str.charCodeAt(i);

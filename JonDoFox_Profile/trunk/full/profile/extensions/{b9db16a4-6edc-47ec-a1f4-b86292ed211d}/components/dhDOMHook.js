@@ -61,6 +61,7 @@ Hook.prototype.ytHook=function(document) {
 		img.style.top="-3px";
 		
 		var menupopup=document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menupopup");
+		menupopup.setAttribute("position","end_before");
 		img.appendChild(menupopup);
 
 		var entries=this.core.getEntriesForDocument(document);

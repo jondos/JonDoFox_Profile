@@ -23,9 +23,7 @@ function YTHQChecker() {
 		var prefService=Components.classes["@mozilla.org/preferences-service;1"]
 		                                   .getService(Components.interfaces.nsIPrefService);
 		this.pref=prefService.getBranch("dwhelper.");
-		this.formats=this.pref.getCharPref("ythq-formats").split(",");
-		for(var i in this.formats) 
-			this.formats[i]=parseInt(this.formats[i]);
+		this.updateFormats();
 		this.ios = Components.classes["@mozilla.org/network/io-service;1"]
 			                             .getService(Components.interfaces.nsIIOService);
 		this.formatIndex=0;
@@ -115,7 +113,8 @@ YTHQChecker.prototype.checkMulti=function(url,listener,args) {
 	try {
 	this.url=url;
 	this.listener=listener;
-	this.args=args;
+	this.args=args;	
+	this.updateFormats();
 	for(var i in this.formats) {
 		var format=this.formats[i];
 		var uri=this.ios.newURI(this.url+"&fmt="+format,null,null);
@@ -135,6 +134,13 @@ YTHQChecker.prototype.getExtension=function(format) {
 	else
 		return "flv";
 }
+
+YTHQChecker.prototype.updateFormats=function() {
+	this.formats=this.pref.getCharPref("ythq-formats").split(",");
+	for(var i in this.formats) 
+		this.formats[i]=parseInt(this.formats[i]);
+}
+
 
 
 YTHQChecker.prototype.QueryInterface = function(iid) {

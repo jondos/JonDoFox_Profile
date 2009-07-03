@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{b9db16a4-6edc-47ec-a1f4-b86292ed211d}</em:id>
-    <em:version>4.3</em:version>
+    <em:version>4.5</em:version>
     <em:type>2</em:type>
    
     <!-- Target Application this extension can install into, 
@@ -34,7 +34,7 @@
 		<Description>
 			<em:id>songbird@songbirdnest.com</em:id>
 			<em:minVersion>0.7.0</em:minVersion>
-			<em:maxVersion>1.0.*</em:maxVersion>
+			<em:maxVersion>1.2.*</em:maxVersion>
 		</Description>
 	</em:targetApplication>
 	
@@ -68,6 +68,7 @@
 		    <em:locale>locale/pt-BR/</em:locale>
 		    <em:locale>locale/bg-BG/</em:locale>
 		    <em:locale>locale/ru-RU/</em:locale>
+		    <em:locale>locale/cs-CZ/</em:locale>
 		    <em:skin>skin/classic/</em:skin>
 		</Description>
 	</em:file>

@@ -169,18 +169,22 @@ NetProbe.prototype.handleResponse=function(request) {
 		} catch(e) {
 		}
 		try {
-			if(filename.substr(-4)==".flv") {
-				var wnd=null;
-				try {
-					wnd=httpChannel.notificationCallbacks.getInterface(Components.interfaces.nsIDOMWindow);
-				} catch(e) {
-				}
-				var url=null;
-				if(wnd!=null && wnd.document!=null)
-					url=wnd.document.URL;
-				if(!/^http:\/\/[^\/]*downloadhelper.net\/watch\.php/.test(murl)) {
-					this.listMgr.addToList("http://downloadhelper.net/1.0#history-list",
-						murl,"flv",url,filename,referer);
+			if(/\..{3}$/.test(filename)) {
+				var extension=/\.(.{3})$/.exec(filename)[1];
+				
+				if(extension=="flv" || extension=="mp4") {
+					var wnd=null;
+					try {
+						wnd=httpChannel.notificationCallbacks.getInterface(Components.interfaces.nsIDOMWindow);
+					} catch(e) {
+					}
+					var url=null;
+					if(wnd!=null && wnd.document!=null)
+						url=wnd.document.URL;
+					if(!/^http:\/\/[^\/]*downloadhelper.net\/watch\.php/.test(murl)) {
+						this.listMgr.addToList("http://downloadhelper.net/1.0#history-list",
+							murl,extension,url,filename,referer);
+					}
 				}
 			}
 		} catch(e) {

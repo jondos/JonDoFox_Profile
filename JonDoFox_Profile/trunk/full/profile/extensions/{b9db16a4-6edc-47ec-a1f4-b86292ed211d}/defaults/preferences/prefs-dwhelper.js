@@ -64,3 +64,10 @@ pref("dwhelper.media-host-blacklist","pop6.com|redlightcenter.com|dtiserv.com|mp
 pref("dwhelper.last-media-host-blacklist","pop6.com|redlightcenter.com|dtiserv.com|mp3tunes.com");
 pref("dwhelper.share-blacklist",true);
 pref("dwhelper.last-shared-blacklist","0");
+pref("dwhelper.extended-download-menu",true);
+pref("dwhelper.smartnamer.enabled",true);
+pref("dwhelper.smartnamer.fname.keep-spaces",true);
+pref("dwhelper.smartnamer.fname.keep-nonascii",true);
+pref("dwhelper.smartnamer.fname.maxlen",64);
+pref("dwhelper.smartnamer.manual-share",false);
+pref("dwhelper.smartnamer.auto-share",true);

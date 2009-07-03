@@ -33,7 +33,7 @@ function YTLCItem() {
 
 YTLCItem.prototype = {}
 
-YTLCItem.prototype.canHandle=function(document,window) {
+YTLCItem.prototype.canHandle=function(document,window,item) {
 	//dump("[YTLCItem] canHandle()\n");
 	try {
 		var popupNode=document.popupNode;
@@ -56,7 +56,7 @@ YTLCItem.prototype.canHandle=function(document,window) {
 	}
 }
 
-YTLCItem.prototype.handle=function(document,window) {
+YTLCItem.prototype.handle=function(document,window,item) {
 	//dump("[YTLCItem] handle()\n");
 	try {
 		var popupNode=document.popupNode;
@@ -290,7 +290,7 @@ YTLCItem.prototype.loadedPage=function(url,text) {
 				else
 					fileName=fileName.replace(/[^a-zA-Z0-9\.\-]/g,"_");
 			} else {
-				fileName=fileName.replace(/[\/"]/g,"_");
+				fileName=fileName.replace(/[\/"\|\?\*:]/g,"_");
 			}
 			Util.setPropsString(desc,"file-name",fileName);
 			Util.setPropsString(desc,"icon-url","http://www.youtube.com/favicon.ico");
