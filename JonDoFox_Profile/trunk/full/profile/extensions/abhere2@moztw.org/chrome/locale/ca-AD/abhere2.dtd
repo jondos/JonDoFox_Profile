@@ -1,0 +1,38 @@
+<!ENTITY dialog.title "Opcions de l&apos;Add Bookmark Here ²">
+<!ENTITY tab.main.caption "Principal">
+<!ENTITY tab.interface.caption "Interfície">
+<!ENTITY tab.advanced.caption "Avançat">
+<!ENTITY position.group "Posició de l&apos;element del menú">
+<!ENTITY position.item.abHere "Trieu la posició de l&apos;[Add Bookmark Here]:">
+<!ENTITY position.item.opTabs "Trieu la posició de [Open All in Tabs]:">
+<!ENTITY position.option.top "Dalt">
+<!ENTITY position.option.bottom "Baix">
+<!ENTITY position.option.hidden "Ocult">
+<!ENTITY clicking.group "Clic del ratolí">
+<!ENTITY clicking.item.buttonL "Clic esquerre">
+<!ENTITY clicking.item.buttonM "Clic central">
+<!ENTITY clicking.item.buttonR "Clic dret">
+<!ENTITY clicking.option.bmPage "Afegeix la pàgina a les adreces d&apos;interès">
+<!ENTITY clicking.option.bmNoUI "Afegeix la pàgina a les adreces d&apos;interès (sense diàleg)">
+<!ENTITY clicking.option.bmTabs "Afegeix totes les pestanyes a les adreces d&apos;interès">
+<!ENTITY starUI.group "Diàleg de les adreces d&apos;interès">
+<!ENTITY starUI.expand.folderRow "Desplega l&apos;arbre de carpetes">
+<!ENTITY starUI.expand.tagsRow "Desplega la llista d&apos;etiquetes">
+<!ENTITY menubar.group "Menú d&apos;adreces d&apos;interès">
+<!ENTITY menubar.item.abHere "Mostra l&apos;element [Add Bookmark Here]">
+<!ENTITY menubar.item.bmPage "Mostra l&apos;element [Bookmark This Page]">
+<!ENTITY menubar.item.bmTabs "Mostra l&apos;element [Bookmark All Tabs]">
+<!ENTITY context.group "Menú contextual de les adreces d&apos;interès">
+<!ENTITY context.item.abHere "Mostra l&apos;element [Add Bookmark Here]">
+<!ENTITY starBtn.group "Destaca l&apos;adreça d&apos;interès">
+<!ENTITY starBtn.clicking.item.buttonL "Clic esquerre">
+<!ENTITY starBtn.clicking.item.buttonM "Clic central">
+<!ENTITY starBtn.clicking.item.buttonR "Clic dret">
+<!ENTITY starBtn.clicking.option.defaultBehavior "Comportament predeterminat">
+<!ENTITY starBtn.clicking.option.toggleMode "(intercanvia)">
+<!ENTITY starBtn.clicking.option.unsortedFolder "Adreça d&apos;interés a la carpeta d&apos;adreces desordenades">
+<!ENTITY starBtn.clicking.option.singleClick "Mostra el diàleg amb un clic">
+<!ENTITY starBtn.clicking.option.optionsDialog "Obre les opcions de l&apos;Add Bookmark Here ²">
+<!ENTITY misc.group "Miscel·lània">
+<!ENTITY misc.insertTop "Insereix les adreces d&apos;interès a dalt del menú">
+<!ENTITY misc.folderDrag "Permet arrastrar les carpetes d&apos;adreces d&apos;interès">

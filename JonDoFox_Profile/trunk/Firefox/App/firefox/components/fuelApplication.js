@@ -142,7 +142,7 @@ Window.prototype = {
    * Helper event callback used to redirect events made on the XBL element
    */
   _event : function win_event(aEvent) {
-    this._events.dispatch(aEvent.type, "");
+    this._events.dispatch(aEvent.type, new BrowserTab(this, aEvent.originalTarget.linkedBrowser));
   },
 
   get tabs() {
@@ -150,17 +150,16 @@ Window.prototype = {
     var browsers = this._tabbrowser.browsers;
 
     for (var i=0; i<browsers.length; i++)
-      tabs.push(new BrowserTab(this._window, browsers[i]));
-
+      tabs.push(new BrowserTab(this, browsers[i]));
     return tabs;
   },
 
   get activeTab() {
-    return new BrowserTab(this._window, this._tabbrowser.selectedBrowser);
+    return new BrowserTab(this, this._tabbrowser.selectedBrowser);
   },
 
   open : function win_open(aURI) {
-    return new BrowserTab(this._window, this._tabbrowser.addTab(aURI.spec).linkedBrowser);
+    return new BrowserTab(this, this._tabbrowser.addTab(aURI.spec).linkedBrowser);
   },
 
   _shutdown : function win_shutdown() {
@@ -179,9 +178,9 @@ Window.prototype = {
 
 //=================================================
 // BrowserTab implementation
-function BrowserTab(aWindow, aBrowser) {
-  this._window = aWindow;
-  this._tabbrowser = aWindow.getBrowser();
+function BrowserTab(aFUELWindow, aBrowser) {
+  this._window = aFUELWindow;
+  this._tabbrowser = aFUELWindow._tabbrowser;
   this._browser = aBrowser;
   this._events = new Events();
   this._cleanup = {};
@@ -241,7 +240,7 @@ BrowserTab.prototype = {
         return;
     }
 
-    this._events.dispatch(aEvent.type, "");
+    this._events.dispatch(aEvent.type, this);
   },
 
   /*
@@ -1355,7 +1354,6 @@ extApplication.prototype = {
   // for nsIObserver
   observe: function app_observe(aSubject, aTopic, aData) {
     if (aTopic == "app-startup") {
-      this._extensions = new Extensions();
       this.events.dispatch("load", "application");
     }
     else if (aTopic == "final-ui-startup") {
@@ -1414,6 +1412,9 @@ extApplication.prototype = {
   },
 
   get extensions() {
+    if (this._extensions == null)
+      this._extensions = new Extensions();
+
     return this._extensions;
   },
 
@@ -1422,6 +1423,31 @@ extApplication.prototype = {
         this._events = new Events();
 
     return this._events;
+  },
+
+  // helper method for correct quitting/restarting
+  _quitWithFlags: function app__quitWithFlags(aFlags) {
+    let os = Components.classes["@mozilla.org/observer-service;1"]
+                       .getService(Components.interfaces.nsIObserverService);
+    let cancelQuit = Components.classes["@mozilla.org/supports-PRBool;1"]
+                               .createInstance(Components.interfaces.nsISupportsPRBool);
+    os.notifyObservers(cancelQuit, "quit-application-requested", null);
+    if (cancelQuit.data)
+      return false; // somebody canceled our quit request
+    
+    let appStartup = Components.classes['@mozilla.org/toolkit/app-startup;1']
+                               .getService(Components.interfaces.nsIAppStartup);
+    appStartup.quit(aFlags);
+    return true;
+  },
+
+  quit: function app_quit() {
+    return this._quitWithFlags(Components.interfaces.nsIAppStartup.eAttemptQuit);
+  },
+
+  restart: function app_restart() {
+    return this._quitWithFlags(Components.interfaces.nsIAppStartup.eAttemptQuit |
+                               Components.interfaces.nsIAppStartup.eRestart);
   },
 
   QueryInterface : XPCOMUtils.generateQI([Ci.extIApplication, Ci.nsISupportsWeakReference])

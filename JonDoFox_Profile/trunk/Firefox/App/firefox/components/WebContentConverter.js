@@ -1,4 +1,4 @@
-//@line 39 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\feeds\src\WebContentConverter.js"
+//@line 39 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\WebContentConverter.js"
 
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -129,7 +129,10 @@ ServiceInfo.prototype = {
   }
 };
 
-function WebContentConverterRegistrar() {}
+function WebContentConverterRegistrar() {
+  this._contentTypes = { };
+  this._autoHandleContentTypes = { };
+}
 
 WebContentConverterRegistrar.prototype = {
   get stringBundle() {
@@ -147,14 +150,6 @@ WebContentConverterRegistrar.prototype = {
   _getString: function WCCR_getString(key) {
     return this.stringBundle.GetStringFromName(key);
   },
-
-  _contentTypes: { },
-
-  /**
-   * Track auto handlers for various content types using a content-type to 
-   * handler map.
-   */
-  _autoHandleContentTypes: { },
 
   /**
    * See nsIWebContentConverterService
@@ -908,7 +903,7 @@ function NSGetModule(cm, file) {
   return XPCOMUtils.generateModule([WebContentConverterRegistrar]);
 }
 
-//@line 44 "e:\fx19rel\WINNT_5.2_Depend\mozilla\toolkit\content\debug.js"
+//@line 44 "e:\builds\moz2_slave\win32_build\build\toolkit\content\debug.js"
 
 var EXPORTED_SYMBOLS = ["NS_ASSERT"];
 
@@ -990,5 +985,5 @@ function NS_ASSERT(condition, message) {
            getService(Components.interfaces.nsIPromptService);
   ps.alert(source, "Assertion Failed", assertionText + stackText);
 }
-//@line 949 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\feeds\src\WebContentConverter.js"
+//@line 944 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\WebContentConverter.js"
 

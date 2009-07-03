@@ -1,4 +1,4 @@
-//@line 37 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 37 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
 
 const nsISupports            = Components.interfaces.nsISupports;
 
@@ -29,7 +29,7 @@ const nsIWebNavigationInfo   = Components.interfaces.nsIWebNavigationInfo;
 const nsIBrowserSearchService = Components.interfaces.nsIBrowserSearchService;
 const nsICommandLineValidator = Components.interfaces.nsICommandLineValidator;
 
-const NS_BINDING_ABORTED = 0x804b0002;
+const NS_BINDING_ABORTED = Components.results.NS_BINDING_ABORTED;
 const NS_ERROR_WONT_HANDLE_CONTENT = 0x805d0001;
 const NS_ERROR_ABORT = Components.results.NS_ERROR_ABORT;
 
@@ -115,7 +115,7 @@ function needHomepageOverride(prefb) {
 }
 
 // Copies a pref override file into the user's profile pref-override folder,
-// and then tells the pref service to reload it's default prefs.
+// and then tells the pref service to reload its default prefs.
 function copyPrefOverride() {
   try {
     var fileLocator = Components.classes["@mozilla.org/file/directory_service;1"]
@@ -222,28 +222,11 @@ function getMostRecentWindow(aType) {
   return wm.getMostRecentWindow(aType);
 }
 
-//@line 268 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
-
 // this returns the most recent non-popup browser window
 function getMostRecentBrowserWindow() {
-  var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                     .getService(Components.interfaces.nsIWindowMediator);
-
-//@line 288 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
-  var windowList = wm.getZOrderDOMWindowEnumerator("navigator:browser", true);
-  if (!windowList.hasMoreElements())
-    return null;
-
-  var win = windowList.getNext();
-  while (win.document.documentElement.getAttribute("chromehidden")) {
-    if (!windowList.hasMoreElements()) 
-      return null;
-
-    win = windowList.getNext();
-  }
-//@line 300 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
-
-  return win;
+  var browserGlue = Components.classes["@mozilla.org/browser/browserglue;1"]
+                              .getService(Components.interfaces.nsIBrowserGlue);
+  return browserGlue.getMostRecentBrowserWindow();
 }
 
 function doSearch(searchTerm, cmdLine) {
@@ -460,7 +443,19 @@ var nsBrowserContentHandler = {
       cmdLine.preventDefault = true;
     }
 
-//@line 519 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+    var fileParam = cmdLine.handleFlagWithParam("file", false);
+    if (fileParam) {
+      var file = cmdLine.resolveFile(fileParam);
+      var ios = Components.classes["@mozilla.org/network/io-service;1"]
+                          .getService(Components.interfaces.nsIIOService);
+      var uri = ios.newFileURI(file);
+      openWindow(null, this.chromeURL, "_blank", 
+                 "chrome,dialog=no,all" + this.getFeatures(cmdLine),
+                 uri.spec);
+      cmdLine.preventDefault = true;
+    }
+
+//@line 494 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
     // Handle "? searchterm" for Windows Vista start menu integration
     for (var i = cmdLine.length - 1; i >= 0; --i) {
       var param = cmdLine.getArgument(i);
@@ -472,7 +467,7 @@ var nsBrowserContentHandler = {
         doSearch(searchParam, cmdLine);
       }
     }
-//@line 531 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 506 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
   },
 
   helpInfo : "  -browser            Open a browser window.\n",
@@ -681,15 +676,15 @@ var nsDefaultCommandLineHandler = {
   // running and have already been handled. This is compared against uri's
   // opened using DDE on Win32 so we only open one of the requests.
   _handledURIs: [ ],
-//@line 740 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 715 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
   _haveProfile: false,
-//@line 742 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 717 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
 
   /* nsICommandLineHandler */
   handle : function dch_handle(cmdLine) {
     var urilist = [];
 
-//@line 748 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 723 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
     // If we don't have a profile selected yet (e.g. the Profile Manager is
     // displayed) we will crash if we open an url and then select a profile. To
     // prevent this handle all url command line flags and set the command line's
@@ -709,7 +704,7 @@ var nsDefaultCommandLineHandler = {
         cmdLine.preventDefault = true;
       }
     }
-//@line 768 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 743 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
 
     try {
       var ar;
@@ -864,9 +859,9 @@ var Module = {
 
     registerType("text/html");
     registerType("application/vnd.mozilla.xul+xml");
-//@line 923 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 898 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
     registerType("image/svg+xml");
-//@line 925 "e:\fx19rel\WINNT_5.2_Depend\mozilla\browser\components\nsBrowserContentHandler.js"
+//@line 900 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
     registerType("text/rdf");
     registerType("text/xml");
     registerType("application/xhtml+xml");

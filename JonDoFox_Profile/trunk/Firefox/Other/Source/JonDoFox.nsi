@@ -1056,7 +1056,7 @@ FunctionEnd
 
 Function .onSelChange
 
-        Call CheckSelected
+        #Call CheckSelected
         
 FunctionEnd
 

@@ -42,7 +42,7 @@ const SEARCH_RESPONSE_SUGGESTION_JSON = "application/x-suggestions+json";
 const BROWSER_SUGGEST_PREF = "browser.search.suggest.enabled";
 const XPCOM_SHUTDOWN_TOPIC              = "xpcom-shutdown";
 const NS_PREFBRANCH_PREFCHANGE_TOPIC_ID = "nsPref:changed";
-const SEARCH_BUNDLE = "chrome://browser/locale/search.properties";
+const SEARCH_BUNDLE = "chrome://global/locale/search/search.properties";
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -55,7 +55,6 @@ const HTTP_BAD_GATEWAY           = 502;
 const HTTP_SERVICE_UNAVAILABLE   = 503;
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://gre/modules/JSON.jsm");
 
 /**
  * SuggestAutoCompleteResult contains the results returned by the Suggest
@@ -523,7 +522,7 @@ SuggestAutoComplete.prototype = {
 
     this._clearServerErrors();
 
-    var serverResults = JSON.fromString(responseText);
+    var serverResults = JSON.parse(responseText);
     var searchString = serverResults[0] || "";
     var results = serverResults[1] || [];
 
