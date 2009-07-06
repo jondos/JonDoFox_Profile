@@ -51,6 +51,8 @@ Var /GLOBAL m
 Var /GLOBAL PORTABLEINSTALL
 Var /GLOBAL PROGRAMINSTALL
 
+Var /GLOBAL JONDOPORTABLE_PATH
+
 Var /GLOBAL InstDirOkay
 
 Var /GLOBAL ExtensionGUID
@@ -297,6 +299,7 @@ has already declared that he does not want to install the portable JonDoFox. */
           ${If} $R0 != ""
                 StrCpy $PORTABLEINSTALL "true"
                 StrCpy $INSTDIR "$R0${SHORTNAME}"
+                StrCpy $JONDOPORTABLE_PATH "$R0\JonDoPortable"
           ${Else}
                 Call SearchPortableApps
                 StrCpy $INSTDIR $varPortableAppsPath
@@ -1277,8 +1280,8 @@ Function CheckInstallingFirefox
       ${EndIf}
     loop:
       InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - Firefox Download" $(FirefoxDownload) $FF_DOWNLOAD_URL "$TEMP\Firefox Setup ${FF_VERSION}.exe" /END
-      Pop $R0
-      StrCmp $R0 "OK" +2
+      Pop $R1
+      StrCmp $R1 "OK" +2
       MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO done
       UAC::IsAdmin
       ${If} $0 < 1
@@ -2072,6 +2075,7 @@ Function FinishedInstall
         ClearErrors
         ${If} $PROGRAMINSTALL == "true"
              IfFileExists $PROFILE\JonDoPortable\*.* finish_install 0
+             StrCmp $JONDOPORTABLE_PATH "" 0 finish_install
              MessageBox MB_YESNO $(InstallingPortableJonDo) IDYES 0 IDNO finish_install
              StrCpy $install "portable"
         ${Else}
