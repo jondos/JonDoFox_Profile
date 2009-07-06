@@ -133,7 +133,6 @@ VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 !insertmacro GetDrives
 !insertmacro GetParameters
 !insertmacro WordReplace
-!insertmacro Wordfind
 
 # MUI defines
 #!define MUI_ICON "..\..\App\AppInfo\appicon.ico"
