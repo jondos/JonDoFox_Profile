@@ -2072,8 +2072,7 @@ Function FinishedInstall
         StrCmp $JonDoInstallation "" 0 finish_install
         ClearErrors
         ${If} $PROGRAMINSTALL == "true"
-             ${Wordfind} "$INSTDIR" "JonDoPortable" "+1" $R4
-             StrCmp $R4 "$INSTDIR" 0 finish_install 
+             IfFileExists $PROFILE\JonDoPortable\*.* finish_install 0
              MessageBox MB_YESNO $(InstallingPortableJonDo) IDYES 0 IDNO finish_install
              StrCpy $install "portable"
         ${Else}
