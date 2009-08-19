@@ -3667,10 +3667,23 @@ ExtensionManager.prototype = {
     if (PendingOperations.size != 0)
       isDirty = true;
 
+    var ds = this.datasource;
+    var inactiveItemIDs = [];
+    var ctr = getContainer(ds, ds._itemRoot);
+    var elements = ctr.GetElements();
+    while (elements.hasMoreElements()) {
+      var itemResource = elements.getNext().QueryInterface(Ci.nsIRDFResource);
+      var id = stripPrefix(itemResource.Value, PREFIX_ITEM_URI);
+      var appDisabled = ds.getItemProperty(id, "appDisabled");
+      var userDisabled = ds.getItemProperty(id, "userDisabled")
+      if (appDisabled == "true" || appDisabled == OP_NEEDS_DISABLE ||
+          userDisabled == "true" || userDisabled == OP_NEEDS_DISABLE)
+        inactiveItemIDs.push(id);
+    }
+
     if (isDirty)
       this._finishOperations();
 
-    var ds = this.datasource;
     // During app upgrade cleanup invalid entries in the extensions datasource.
     ds.beginUpdateBatch();
     var allResources = ds.GetAllResources();
@@ -3685,8 +3698,7 @@ ExtensionManager.prototype = {
 
     var badItems = [];
     var allAppManaged = true;
-    var ctr = getContainer(ds, ds._itemRoot);
-    var elements = ctr.GetElements();
+    elements = ctr.GetElements();
     while (elements.hasMoreElements()) {
       var itemResource = elements.getNext().QueryInterface(Ci.nsIRDFResource);
       var id = stripPrefix(itemResource.Value, PREFIX_ITEM_URI);
@@ -3778,7 +3790,7 @@ ExtensionManager.prototype = {
     // Always check for compatibility updates when upgrading if we have add-ons
     // that aren't managed by the application.
     if (!allAppManaged)
-      this._showMismatchWindow();
+      this._showMismatchWindow(inactiveItemIDs);
 
     // Finish any pending upgrades from the compatibility update to avoid an
     // additional restart.
@@ -3812,6 +3824,9 @@ ExtensionManager.prototype = {
 
   /**
    * Shows the "Compatibility Updates" UI
+   * @param   items
+   *          an array of item IDs that were not enabled in the previous version
+   *          of the application.
    */
   _showMismatchWindow: function EM__showMismatchWindow(items) {
     var wm = Cc["@mozilla.org/appshell/window-mediator;1"].
@@ -3820,12 +3835,15 @@ ExtensionManager.prototype = {
     if (wizard)
       wizard.focus();
     else {
+      var variant = Cc["@mozilla.org/variant;1"].
+                    createInstance(Ci.nsIWritableVariant);
+      variant.setFromVariant(items);
       var features = "chrome,centerscreen,dialog,titlebar,modal";
       // This *must* be modal so as not to break startup! This code is invoked before
       // the main event loop is initiated (via checkForMismatches).
       var ww = Cc["@mozilla.org/embedcomp/window-watcher;1"].
                getService(Ci.nsIWindowWatcher);
-      ww.openWindow(null, URI_EXTENSION_UPDATE_DIALOG, "", features, null);
+      ww.openWindow(null, URI_EXTENSION_UPDATE_DIALOG, "", features, variant);
     }
   },
 
@@ -5702,13 +5720,13 @@ ExtensionManager.prototype = {
       // count to 0 to prevent this dialog from being displayed again.
       this._downloadCount = 0;
       var result;
-//@line 5673 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 5691 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
       result = this._confirmCancelDownloads(this._downloadCount,
                                             "quitCancelDownloadsAlertTitle",
                                             "quitCancelDownloadsAlertMsgMultiple",
                                             "quitCancelDownloadsAlertMsg",
                                             "dontQuitButtonWin");
-//@line 5685 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 5703 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
       if (subject instanceof Ci.nsISupportsPRBool)
         subject.data = result;
     }
@@ -6233,7 +6251,7 @@ ExtensionItemUpdater.prototype = {
   _listener           : null,
 
   /* ExtensionItemUpdater
-//@line 6235 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 6253 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
   */
   checkForUpdates: function ExtensionItemUpdater_checkForUpdates(aItems,
                                                                  aItemCount,
@@ -6616,7 +6634,7 @@ RDFItemUpdater.prototype = {
 
   onDatasourceLoaded: function RDFItemUpdater_onDatasourceLoaded(aDatasource, aLocalItem) {
     /*
-//@line 6658 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 6676 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
     */
     if (!aDatasource.GetAllResources().hasMoreElements()) {
       LOG("RDFItemUpdater:onDatasourceLoaded: Datasource empty.\r\n" +

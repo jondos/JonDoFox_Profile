@@ -1394,6 +1394,9 @@ UpdateService.prototype = {
     var vc = Cc["@mozilla.org/xpcom/version-comparator;1"].
              getService(Ci.nsIVersionComparator);
     for (var i = 0; i < updates.length; ++i) {
+      // Ignore updates for older versions of the application
+      if (vc.compare(updates[i].extensionVersion, gApp.version) < 0)
+        continue;
       if (updates[i].type == "major" &&
           vc.compare(newestMajor.version, updates[i].version) <= 0)
         majorUpdate = newestMajor = updates[i];
@@ -1445,7 +1448,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1447 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1450 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
 
     // Encode version since it could be a non-ascii string (bug 359093)
@@ -1459,7 +1462,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1476 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1479 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
     if (update.type == "major") {
       LOG("Checker", "_selectAndInstallUpdate - prompting because it is a " +
@@ -1538,7 +1541,7 @@ UpdateService.prototype = {
 
     if (currentAddons.length > 0) {
       /**
-//@line 1572 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1575 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
        */
       this._incompatAddonsCount = currentAddons.length;
       LOG("UpdateService", "_checkAddonCompatibility - checking for " +
@@ -1639,7 +1642,7 @@ UpdateService.prototype = {
         upDirFile.create(Ci.nsILocalFile.NORMAL_FILE_TYPE, PERMS_FILE);
         upDirFile.remove(false);
       }
-//@line 1673 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1676 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
       var sysInfo = Cc["@mozilla.org/system-info;1"].
                     getService(Ci.nsIPropertyBag2);
 
@@ -1714,7 +1717,7 @@ UpdateService.prototype = {
           actualAppDirFile.remove(false);
         }
       }
-//@line 1748 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1751 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
     }
     catch (e) {
        LOG("UpdateService", "canUpdate - unable to update. Exception: " + e);
@@ -1781,9 +1784,9 @@ UpdateService.prototype = {
              getService(Ci.nsIVersionComparator);
     // Don't download the update if the update's version is less than the
     // current application's version.
-    if (update.version && vc.compare(update.version, ai.version) < 0) {
+    if (update.extensionVersion && vc.compare(update.extensionVersion, ai.version) < 0) {
       LOG("UpdateService", "downloadUpdate - removing update for previous " +
-          "application version " + update.version);
+          "application version " + update.extensionVersion);
       cleanupActiveUpdate();
       return STATE_NONE;
     }
@@ -2732,7 +2735,8 @@ Downloader.prototype = {
       um.activeUpdate = null;
     }
     else {
-      um.activeUpdate.state = state;
+      if (um.activeUpdate)
+        um.activeUpdate.state = state;
     }
     um.saveUpdates();
 

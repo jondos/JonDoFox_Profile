@@ -2265,11 +2265,21 @@ SessionStoreService.prototype = {
       aWindow[aItem].visible = hidden.indexOf(aItem) == -1;
     });
     
-    if (aWinData.isPopup)
+    if (aWinData.isPopup) {
       this._windows[aWindow.__SSi].isPopup = true;
-    else
+      if (aWindow.gURLBar) {
+        aWindow.gURLBar.readOnly = true;
+        aWindow.gURLBar.setAttribute("enablehistory", "false");
+      }
+    }
+    else {
       delete this._windows[aWindow.__SSi].isPopup;
-    
+      if (aWindow.gURLBar) {
+        aWindow.gURLBar.readOnly = false;
+        aWindow.gURLBar.setAttribute("enablehistory", "true");
+      }
+    }
+
     var _this = this;
     aWindow.setTimeout(function() {
       _this.restoreDimensions.apply(_this, [aWindow, aWinData.width || 0, 
@@ -2750,7 +2760,7 @@ SessionStoreService.prototype = {
     if (this._closedWindows.length <= maxWindowsUndo)
       return;
     let spliceTo = maxWindowsUndo;
-//@line 2758 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 2768 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     let normalWindowIndex = 0;
     // try to find a non-popup window in this._closedWindows
     while (normalWindowIndex < this._closedWindows.length &&
@@ -2758,7 +2768,7 @@ SessionStoreService.prototype = {
       normalWindowIndex++;
     if (normalWindowIndex >= maxWindowsUndo)
       spliceTo = normalWindowIndex + 1;
-//@line 2766 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 2776 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     this._closedWindows.splice(spliceTo);
   },
 

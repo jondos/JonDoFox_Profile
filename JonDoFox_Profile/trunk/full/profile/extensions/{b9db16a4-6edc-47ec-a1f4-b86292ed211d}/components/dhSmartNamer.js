@@ -1,5 +1,5 @@
 /******************************************************************************
- *            Copyright (c) 2006 Michel Gutierrez. All Rights Reserved.
+ *            Copyright (c) 2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
 /**
@@ -28,13 +28,27 @@ function SmartNamer() {
     		.getService(Components.interfaces.nsIProperties)
         	.get("ProfD", Components.interfaces.nsIFile);
 	    this.file.append("dh-smart-names.rdf");
-		if(this.file.exists()) {
-			this.datasource=Util.getDatasourceFromRDFFile(this.file);
-		} else {
-			this.datasource=Components.classes
-	      		['@mozilla.org/rdf/datasource;1?name=in-memory-datasource'].
-	          		createInstance(Components.interfaces.nsIRDFDataSource);
+		if(!this.file.exists()) {
+			var IOS= Components.classes["@mozilla.org/network/io-service;1"]
+			                    	    .getService(Components.interfaces.nsIIOService);
+			var channel=IOS.newChannel("chrome://dwhelper/content/smartname.rdf",null,null);
+			var input=channel.open();
+			var bstream = Components.classes["@mozilla.org/binaryinputstream;1"].
+				createInstance(Components.interfaces.nsIBinaryInputStream);
+			bstream.setInputStream(input);
+			var bytes = bstream.readBytes(bstream.available());
+			input.close();
+			var stream = Components.classes["@mozilla.org/network/safe-file-output-stream;1"].
+				createInstance(Components.interfaces.nsIFileOutputStream);
+			stream.init(this.file, 0x04 | 0x08 | 0x20, 0644, 0); // write, create, truncate
+			stream.write(bytes, bytes.length);
+			if (stream instanceof Components.interfaces.nsISafeOutputStream) {
+				stream.finish();
+			} else {
+				stream.close();
+			}
 		}
+		this.datasource=Util.getDatasourceFromRDFFile(this.file);
 	} catch(e) {
 		dump("[SmartNamer] !!! constructor: "+e+"\n");
 	}
@@ -46,11 +60,11 @@ SmartNamer.prototype = {
 
 SmartNamer.prototype.updateEntry=function(entry) {
 	
-	//dump("[SmartNamer] updateEntry()\n");
+	dump("[SmartNamer] updateEntry()\n");
 	if(!this.enabled)
 		return;
 	var method=Util.getPropsString(entry,"capture-method");
-	if(method!="network")
+	if(method!="network" && method!="youtube" && method!="youtube-hq")
 		return;
 	var pageUrl=Util.getPropsString(entry,"page-url");
 	if(pageUrl==null)
@@ -154,18 +168,22 @@ SmartNamer.prototype.updateEntry=function(entry) {
 											var maxlength=this.pref.getIntPref("fname.maxlen");
 											var extension=Util.getPropsString(entry,"file-extension");
 											if(text.length+extension.length+1>maxlength)
-												text=text.substr(maxlength-extension.length-1,maxlength);
+												text=text.substr(-(maxlength-extension.length-1),maxlength);
 											fname=text+"."+extension;
 											Util.setPropsString(entry,"file-name",fname);
-											Util.setPropsString(entry,"label",fname);
+											var label=fname;
+											if(entry.has("label-prefix")) {
+												label=Util.getPropsString(entry,"label-prefix")+label;
+											}
+											Util.setPropsString(entry,"label",label);
 										}
 										break;
 									}
 								} else {
 									if(Util.getPropsString(entry,"sn-has-org-filename")=="yes") {
-										var orgName=Util.setPropsString("sn-org-filename");
-										Util.setPropsString("file-name",orgName);
-										Util.setPropsString("label",orgName);
+										var orgName=Util.getPropsString(entry,"sn-org-filename");
+										Util.setPropsString(entry,"file-name",orgName);
+										Util.setPropsString(entry,"label",orgName);
 									}
 									this.incrStat(source,"xpnfound");
 								}
@@ -540,7 +558,7 @@ SmartNamer.prototype.mayShare=function() {
 	var now=new Date().getTime()/1000;
 	try {
 		var last=this.pref.getIntPref("last-shared");
-		if(now-last>(60*60)) { // update freq to 1 week
+		if(now-last>(60*60*24)) { // once a day
 			this.share();
 			this.pref.setIntPref("last-shared",now);
 		}

@@ -53,8 +53,15 @@ var abHere2 = {
 
    getPrefFolderId: function(prefName, defaultId) {
       var folderId = nsPreferences.getIntPref(prefName, 0);
-      if (folderId == 0) folderId = defaultId;
-      return Math.abs(folderId);
+      folderId = (folderId ? Math.abs(folderId) : defaultId);
+      function isFolderIdValid(aItemId) {
+         try {
+            return (PlacesUtils.bookmarks.getItemType(aItemId) == PlacesUtils.bookmarks.TYPE_FOLDER);
+         } catch(e) {
+            return false;
+         }
+      }
+      return (isFolderIdValid(folderId) ? folderId : defaultId);
    },
 
    get prefBookmarkFolderId() {
@@ -298,6 +305,20 @@ var abHere2 = {
         }
    },
 
+   getMostRecentLivemarkFolderId: function() {
+      var folderIds = PlacesUtils.annotations.getItemsWithAnnotation(LAST_USED_ANNO, {});
+      var folderId = PlacesUtils.toolbarFolderId;
+      var lastUsedMax = 0;
+      for (var i=0; i<folderIds.length; i++) {
+         var lastUsed = PlacesUtils.annotations.getItemAnnotation(folderIds[i], LAST_USED_ANNO);
+         if (lastUsed > lastUsedMax) {
+            lastUsedMax = lastUsed;
+            folderId = folderIds[i];
+         }
+      }
+      return folderId;
+   },
+
    expandRow: function(aRow) {
       aRow.nextSibling.collapsed = false;
       var expander = aRow.getElementsByTagName("button")[0];
@@ -404,11 +425,6 @@ var abHere2 = {
 
       //*** allow to drag the bookmarks folder without press alt/shift key
       bmBar.addEventListener("dragstart", abHere2.dragStart, false);
-      if (bmBar._DNDObserver) { //fx3.0
-         abHere2.hookCode("document.getElementById('bookmarksBarContent')._DNDObserver.onDragStart",
-            /!(\w+)\.shiftKey && !(\w+)\.altKey && !(\w+)\.ctrlKey/,
-            "!abHere2.isFolderDrag && $&");
-      }
    },
 
    createFolderTreeResizer: function() {
@@ -486,7 +502,13 @@ var abHere2 = {
       abHere2.hookCode("PlacesCommandHook.bookmarkCurrentPage",
          "aParent,",
          "aShowEditUI ? abHere2.prefBookmarkFolderId : aParent,");
-      //remember last selected folder when user bookmark a page
+
+      //remember last selected folder when user press [ENTER] to bookmark a page
+      abHere2.hookCode("StarUI.handleEvent",
+         "this.panel.hidePopup();",
+         "$& abHere2.saveBookmarkFolderId(gEditItemOverlay._getFolderIdFromMenuList());");
+
+      //remember last selected folder when user click [Done] to bookmark a page
       var btn = document.getElementById("editBookmarkPanelDoneButton");
       if (btn) btn.setAttribute("oncommand", btn.getAttribute("oncommand")+"abHere2.saveBookmarkFolderId(gEditItemOverlay._getFolderIdFromMenuList());");
 
@@ -494,7 +516,12 @@ var abHere2 = {
       //decide folderId when user add a livemark
       abHere2.hookCode("PlacesCommandHook.addLiveBookmark",
          "var toolbarIP = new InsertionPoint(PlacesUtils.bookmarks.toolbarFolder, -1);",
-         "var aItemId = abHere2.prefLivemarkFolderId; var toolbarIP = new InsertionPoint(aItemId, (aItemId != PlacesUtils.bookmarksMenuFolderId) && abHere2.isInsertTop ? 0 : -1); gEditItemOverlay._markFolderAsRecentlyUsed(PlacesUtils.bookmarks.getFolderIdForItem(aItemId));");
+         "var aItemId = abHere2.prefLivemarkFolderId; var toolbarIP = new InsertionPoint(aItemId, (aItemId != PlacesUtils.bookmarksMenuFolderId) && abHere2.isInsertTop ? 0 : -1);");
+
+      //remember last selected folder when user click [Done] to add a livemark
+      abHere2.hookCode("PlacesUIUtils.showMinimalAddLivemarkUI",
+         /}$/,
+         "if (info.performed) abHere2.prefLivemarkFolderId = abHere2.getMostRecentLivemarkFolderId(); $&");
 
       //*** implement StarButton's clicking features
       abHere2.hookCode("PlacesStarButton.onClick",

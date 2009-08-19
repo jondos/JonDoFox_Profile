@@ -136,7 +136,7 @@ pref("keyword.URL", "chrome://browser-region/locale/region.properties");
 
 pref("general.useragent.locale", "en-US");
 pref("general.skins.selectedSkin", "classic/1.0");
-pref("general.useragent.extra.firefox", "Firefox/3.5.1");
+pref("general.useragent.extra.firefox", "Firefox/3.5.2");
 
 pref("general.smoothScroll", false);
 //@line 185 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"

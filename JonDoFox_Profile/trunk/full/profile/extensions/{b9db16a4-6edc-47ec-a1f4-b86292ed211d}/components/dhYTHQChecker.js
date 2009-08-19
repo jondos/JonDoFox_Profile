@@ -129,19 +129,23 @@ YTHQChecker.prototype.checkMulti=function(url,listener,args) {
 }
 
 YTHQChecker.prototype.getExtension=function(format) {
-	if(format==18 || format==22)
+	if(format==13 || format==17)
+		return "3gp";
+	else if(format==18 || format==22)
 		return "mp4";
 	else
 		return "flv";
 }
 
 YTHQChecker.prototype.updateFormats=function() {
-	this.formats=this.pref.getCharPref("ythq-formats").split(",");
-	for(var i in this.formats) 
-		this.formats[i]=parseInt(this.formats[i]);
+	var formats=this.pref.getCharPref("ythq-formats").split(",");
+	this.formats=[];
+	for(var i in formats) {
+		if(formats[i].length>0) {
+			this.formats.push(parseInt(formats[i]));
+		}
+	}
 }
-
-
 
 YTHQChecker.prototype.QueryInterface = function(iid) {
 	//dump("[YTHQChecker] QueryInterface("+iid+")\n");

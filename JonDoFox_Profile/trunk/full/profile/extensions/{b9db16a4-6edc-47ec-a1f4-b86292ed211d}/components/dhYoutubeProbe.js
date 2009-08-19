@@ -41,17 +41,34 @@ YTProbe.prototype.handleDocument=function(document,window) {
 			var t=null;
 			for(var i=0;i<scripts.length;i++) {
 				var script=scripts[i];
-				var match=/video_id=([^&]+)(?:&.*)&t=([^&]+)/m.exec(script);
+				var match=/\"video_id\": \"(.*?)\".*\"t\": \"(.*?)\"/m.exec(script);
 				if(match!=null && match.length==3) {
 					videoId=match[1];
 					t=match[2];
 					break;
 				}
-				var match=/[&\?]t=(.*?)&.*video_id=(.*?)(?:&|")/m.exec(script);
+				var match=/\"t\": \"(.*?)\".*\"video_id\": \"(.*?)\"/m.exec(script);
 				if(match!=null && match.length==3) {
 					videoId=match[2];
 					t=match[1];
 					break;
+				}
+			}
+			if(videoId==null || t==null) {
+				for(var i=0;i<scripts.length;i++) {
+					var script=scripts[i];
+					var match=/video_id=([^&]+)(?:&.*)&t=([^&]+)/m.exec(script);
+					if(match!=null && match.length==3) {
+						videoId=match[1];
+						t=match[2];
+						break;
+					}
+					var match=/[&\?]t=(.*?)&.*video_id=(.*?)(?:&|")/m.exec(script);
+					if(match!=null && match.length==3) {
+						videoId=match[2];
+						t=match[1];
+						break;
+					}
 				}
 			}
 			if(videoId==null || t==null) {
@@ -114,6 +131,8 @@ YTProbe.prototype.handleDocument=function(document,window) {
 			Util.setPropsString(desc,"label",title);
 			Util.setPropsString(desc,"base-name",fileName);
 			Util.setPropsString(desc,"file-name",fileName+".flv");
+			Util.setPropsString(desc,"file-extension","flv");
+			Util.setPropsString(desc,"capture-method","youtube");
 			Util.setPropsString(desc,"icon-url","http://www.youtube.com/favicon.ico");
 			this.core.addEntryForDocument(desc,document,window);
 		} 
@@ -131,8 +150,12 @@ YTProbe.prototype.checkedYTHQ=function(url,args,format,extension) {
 		var window=desc.get("window",Components.interfaces.nsIDOMWindow);
 		var fileName=Util.getPropsString(desc,"file-name");
 		Util.setPropsString(desc,"file-name",fileName+"."+extension);
+		Util.setPropsString(desc,"file-extension",extension);
+		Util.setPropsString(desc,"capture-method","youtube-hq");
 		var title=Util.getPropsString(desc,"youtube-title");
-		Util.setPropsString(desc,"label",Util.getFText("label.high-quality-prefix2",[""+format],1)+" "+title);
+		var prefix=Util.getFText("label.high-quality-prefix2",[""+format],1)+" ";
+		Util.setPropsString(desc,"label-prefix",prefix);
+		Util.setPropsString(desc,"label",prefix+title);
 		this.core.addEntryForDocument(desc,document,window);
 	}
 }
