@@ -18,8 +18,14 @@ content	noscript	jar:chrome/noscript.jar!/content/noscript/ xpcnativewrappers=ye
 skin	noscript	classic/1.0	jar:chrome/noscript.jar!/skin/classic/noscript/
 style	chrome://global/content/customizeToolbar.xul	chrome://noscript/skin/browser.css
 
+# Work around for breakages caused by the .NET Framework Assistant
+override chrome://dotnetassistant/content/bootstrap.xul data:text/xml,<lame/>
+
 locale	noscript	en-US	jar:chrome/noscript.jar!/content/noscript/en-US/
 locale	noscript	de-DE	jar:chrome/noscript.jar!/locale/de-DE/noscript/
+locale	noscript	de-AT	jar:chrome/noscript.jar!/locale/de-AT/noscript/
+locale	noscript	es-CL	jar:chrome/noscript.jar!/locale/es-CL/noscript/
+locale	noscript	eu-ES	jar:chrome/noscript.jar!/locale/eu-ES/noscript/
 locale	noscript	fr-FR	jar:chrome/noscript.jar!/locale/fr-FR/noscript/
 locale	noscript	ar	jar:chrome/noscript.jar!/locale/ar/noscript/
 locale	noscript	fi-FI	jar:chrome/noscript.jar!/locale/fi-FI/noscript/
@@ -58,7 +64,6 @@ locale	noscript	vi-VN	jar:chrome/noscript.jar!/locale/vi-VN/noscript/
 locale	noscript	gl-ES	jar:chrome/noscript.jar!/locale/gl-ES/noscript/
 locale	noscript	km-KH	jar:chrome/noscript.jar!/locale/km-KH/noscript/
 locale	noscript	lt-LT	jar:chrome/noscript.jar!/locale/lt-LT/noscript/
-locale	noscript	sr-YU	jar:chrome/noscript.jar!/locale/sr-YU/noscript/
 locale	noscript	es-ES	jar:chrome/noscript.jar!/locale/es-ES/noscript/
 locale	noscript	es-AR	jar:chrome/noscript.jar!/locale/es-AR/noscript/
 locale	noscript	et-EE	jar:chrome/noscript.jar!/locale/et-EE/noscript/
@@ -66,3 +71,6 @@ locale	noscript	cy-GB	jar:chrome/noscript.jar!/locale/cy-GB/noscript/
 locale	noscript	sr-RS	jar:chrome/noscript.jar!/locale/sr-RS/noscript/
 locale	noscript	ms-MY jar:chrome/noscript.jar!/locale/ms-MY/noscript/
 locale	noscript	kk-KZ jar:chrome/noscript.jar!/locale/kk-KZ/noscript/
+locale	noscript	bn-IN jar:chrome/noscript.jar!/locale/bn-IN/noscript/
+locale	noscript	te-IN jar:chrome/noscript.jar!/locale/te-IN/noscript/
+locale	noscript	ur-PK jar:chrome/noscript.jar!/locale/ur-PK/noscript/

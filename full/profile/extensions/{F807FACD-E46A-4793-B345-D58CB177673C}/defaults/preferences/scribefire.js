@@ -37,3 +37,4 @@ pref("performancing.zemanta.key", "");
 pref("performancing.zemanta.config_url", "");
 pref("performancing.zemanta.track", true);
 pref("performancing.zemanta.tos", false);
+pref("performancing.zemanta.pixie","");

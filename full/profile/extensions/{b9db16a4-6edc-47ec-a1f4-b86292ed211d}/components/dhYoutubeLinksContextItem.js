@@ -248,17 +248,18 @@ YTLCItem.prototype.loadedPage=function(url,text) {
 		var m=/meta name="title" content="(.*)"/.exec(text);
 		if(m!=null && m.length==2)
 			title=m[1];
-		m=/video_id=([^&]+)(?:&.*)&t=([^&]+)/.exec(text);
+		m=/\"video_id\": \"(.*?)\".*\"t\": \"(.*?)\"/.exec(text);
 		if(m!=null && m.length==3) {
 			videoId=m[1];
 			tParam=m[2];
 		} else {
-			m=/[&\?]t=([^&]+)(?:&.*)&video_id=([^&]+)/.exec(text);
+			m=/\"t\": \"(.*?)\".*\"video_id\": \"(.*?)\"/.exec(text);
 			if(m!=null && m.length==3) {
 				videoId=m[2];
 				tParam=m[1];
 			}
 		}
+		
 		if(title!=null && videoId!=null & tParam!=null) {
 			var url="http://www.youtube.com/get_video?video_id=";
 			url+=videoId;

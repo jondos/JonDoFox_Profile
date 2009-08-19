@@ -3,7 +3,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>{F807FACD-E46A-4793-B345-D58CB177673C}</em:id>
 		<em:name>ScribeFire</em:name>
-		<em:version>3.4.1</em:version>
+		<em:version>3.4.4</em:version>
 		<em:description>A full featured blog editor that integrates with your browser and lets you easily post to your blog.</em:description>
 		<em:creator>ScribeFire.com</em:creator>
 		<em:homepageURL>http://www.scribefire.com/</em:homepageURL>

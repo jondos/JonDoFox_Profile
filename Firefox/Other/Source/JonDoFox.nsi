@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.2.3.0"
+!define VERSION "2.2.4.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "3.5"
+!define FF_VERSION "3.5.2"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -729,18 +729,18 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section /o "Forecastbar Enhanced" ForecastbarEnhanced
-        SectionIn 1 3
+#        Section /o "Forecastbar Enhanced" ForecastbarEnhanced
+#        SectionIn 1 3
         
-                StrCpy $ExtensionGUID "{3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}"
-                StrCpy $ExtensionName "Forecastbar Enhanced"
+#                StrCpy $ExtensionGUID "{3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}"
+#                StrCpy $ExtensionName "Forecastbar Enhanced"
 
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
+#                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+#                SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}\*.*"
+#                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}\*.*"
 
-        SectionEnd
+#        SectionEnd
 
 
         Section /o "FoxClocks" FoxClocks
@@ -998,7 +998,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${Calculator} $(DescCalculator)
   !insertmacro MUI_DESCRIPTION_TEXT ${ChatZilla} $(DescChatZilla)
   !insertmacro MUI_DESCRIPTION_TEXT ${CopyPlainText} $(DescCopyPlainText)
-  !insertmacro MUI_DESCRIPTION_TEXT ${ForecastbarEnhanced} $(DescForecastbarEnhanced)
+#  !insertmacro MUI_DESCRIPTION_TEXT ${ForecastbarEnhanced} $(DescForecastbarEnhanced)
   !insertmacro MUI_DESCRIPTION_TEXT ${FoxClocks} $(DescFoxClocks)
   !insertmacro MUI_DESCRIPTION_TEXT ${GrooweSearchToolbar} $(DescGrooweSearchToolbar)
   !insertmacro MUI_DESCRIPTION_TEXT ${ImageZoom} $(DescImageZoom)

@@ -71,3 +71,7 @@ pref("dwhelper.smartnamer.fname.keep-nonascii",true);
 pref("dwhelper.smartnamer.fname.maxlen",64);
 pref("dwhelper.smartnamer.manual-share",false);
 pref("dwhelper.smartnamer.auto-share",true);
+pref("dwhelper.twitter.enabled",true);
+pref("dwhelper.twitter.username","");
+pref("dwhelper.twitter.password","");
+pref("dwhelper.twitter.tag-message",true);

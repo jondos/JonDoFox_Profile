@@ -1,5 +1,5 @@
 /******************************************************************************
- *            Copyright (c) 2006 Michel Gutierrez. All Rights Reserved.
+ *            Copyright (c) 2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
 /**

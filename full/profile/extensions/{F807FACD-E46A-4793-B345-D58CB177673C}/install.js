@@ -3,7 +3,7 @@ var XpiInstaller = {
 	// --- Editable items begin ---
 	extFullName: 'ScribeFire', // The name displayed to the user (don't include the version)
 	extShortName: 'scribefire', // The leafname of the JAR file (without the .jar part)
-	extVersion: '3.4.1',
+	extVersion: '3.4.4',
 	extAuthor: 'Christopher Finke',
 	extLocaleNames: ['en-US','bg-BG','cs-CZ','cs','de-DE','el-GR','es-ES','fi-FI','fr-FR','he-IL','id-ID','is-IS','it-IT','ja-JP','ko-KR','nl-NL','pl-PL','pt-BR','ru-RU','sl-SL','sr-RS','sv-SE','th-TH','tr-TR','uk-UA','zh-CN','zh-TW'],
 	prefs : ["scribefire.js"],
