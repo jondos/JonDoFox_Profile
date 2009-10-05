@@ -255,7 +255,7 @@ copyProfileFolder()
 
 isFirefoxRunning()
 {
-	if [ "$(ps aux | fgrep -i firefox | fgrep -v grep | fgrep -v install_linux)" ]; then
+	if [ "$(ps aux | fgrep -i firefox | fgrep -v grep | fgrep -v install_linux | fgrep -i `whoami` )" ]; then
 		return 1
 	fi
 	return 0
