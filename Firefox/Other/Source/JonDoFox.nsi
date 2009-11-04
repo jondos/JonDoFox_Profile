@@ -383,7 +383,7 @@ SectionIn 1 2
         SetOutPath $ProgramPath
         SetOverwrite on
 
-        File /r /x .svn /x Plugins "..\..\*.*"
+        File /r /x .svn /x Source "..\..\*.*"
         
         ${If} $LANGUAGE == "1031"          # german
               File /r /x .svn "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
