@@ -4,7 +4,7 @@
 
 ;p.kaplycz@jondos.de
 
-;Website: http://www.jondos.de/
+;Website: http://anonymous-proxy-servers.net
 
 
 ;=== BEGIN: BASIC INFORMATION
@@ -19,7 +19,7 @@
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
 !define INSTALLERVERSION "1.0.0.0"
-!define INSTALLERCOMMENTS "For additional details, visit jondos.de" ; changed by JonDos GmbH 2008
+!define INSTALLERCOMMENTS "For additional details, visit anonymous-proxy-servers.net" ; changed by JonDos GmbH 2009
 !define INSTALLERADDITIONALTRADEMARKS "Firefox is a Trademark of The Mozilla Foundation. " ;end this entry with a period and a space if used
 !define INSTALLERLEGALCOPYRIGHT "JonDos GmbH"
 !define LICENSEAGREEMENT "eula.rtf"
@@ -2090,7 +2090,7 @@ Function FinishedInstall
         ${EndIf}
        loop:
         SetShellVarContext all
-        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) https://www.jondos.de/downloads/beta/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe" /END
+        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) http://anonymous-proxy-servers.net/downloads/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe" /END
         Pop $R0
         StrCmp $R0 "OK" +2
         MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO finish_install
