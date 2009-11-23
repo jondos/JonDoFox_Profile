@@ -829,7 +829,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section /o "Sage" Sage
+        /*Section /o "Sage" Sage
         SectionIn 1 3
         
                 StrCpy $ExtensionGUID "{a6ca9b3b-5e52-4f47-85d8-cca35bb57596}"
@@ -840,7 +840,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{a6ca9b3b-5e52-4f47-85d8-cca35bb57596}\*.*"
 
-        SectionEnd
+        SectionEnd*/
 
 
         Section /o "ScribeFire" ScribeFire
@@ -1005,7 +1005,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${JSView} $(DescJSView)
   !insertmacro MUI_DESCRIPTION_TEXT ${MRTechToolkit} $(DescMRTechToolkit)
   !insertmacro MUI_DESCRIPTION_TEXT ${PlainTexttoLink} $(DescPlainTexttoLink)
-  !insertmacro MUI_DESCRIPTION_TEXT ${Sage} $(DescSage)
+  #!insertmacro MUI_DESCRIPTION_TEXT ${Sage} $(DescSage)
   !insertmacro MUI_DESCRIPTION_TEXT ${ScribeFire} $(DescScribeFire)
   !insertmacro MUI_DESCRIPTION_TEXT ${TabRenamizer} $(DescTabRenamizer)
   !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)
