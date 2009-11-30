@@ -75,3 +75,6 @@ pref("dwhelper.twitter.enabled",true);
 pref("dwhelper.twitter.username","");
 pref("dwhelper.twitter.password","");
 pref("dwhelper.twitter.tag-message",true);
+pref("dwhelper.medialink-max-hits",50);
+pref("dwhelper.icon-click","sites");
+pref("dwhelper.passwords-migrated",false);

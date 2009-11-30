@@ -2,36 +2,41 @@ TabRenamizer extension for Mozilla Firefox
 Copyright (C) 2006-2009  Valadrem
 
 Translations:
-  Arabic: Copyright (C) Alfoulad
-  Czech: Copyright (C) Dave
-  Danish: Copyright (C) Joergen
-  German: Copyright (C) Andileinchen
-  Persian: Copyright (C) KangDiz
-  Finnish: Copyright (C) MiK546
-  French: Copyright (C) Myahoo
-  Hebrew: Copyright (C) Urihart
-  Italian: Copyright (C) Marktheitalian
-  Japanese: Copyright (C) Drry
-  Korean: Copyright (C) Wtspout
-  Norwegian: Copyright (C) Nymo
-  Dutch: Copyright (C) Markh
-  Polish: Copyright (C) Teo
-  Portuguese (Brazilian): Copyright (C) Alberto Eidh
-  Portuguese (Portugal): Copyright (C) Lloco
-  Russian: Copyright (C) MySh
-  Swedish: Copyright (C) Stoli
-  Turkish: Copyright (C) KenanBalamir
-  Chinese (Simplified): Copyright (C) WangKing
-  Chinese (Traditional): Copyright (C) Greener
+  ar: Copyright (C) Alfoulad
+  cs-CZ: Copyright (C) Dave
+  da-DK: Copyright (C) Joergen
+  de-DE: Copyright (C) andileinchen
+  fa-IR: Copyright (C) KangDiz
+  fi-FI: Copyright (C) MiK546
+  fr-FR: Copyright (C) myahoo
+  he-IL: Copyright (C) urihart
+  it-IT: Copyright (C) Marktheitalian
+  ja-JP: Copyright (C) drry
+  ko-KR: Copyright (C) wtspout
+  nb-NO: Copyright (C) Nymo
+  nl-NL: Copyright (C) markh
+  pl-PL: Copyright (C) teo
+  pt-BR: Copyright (C) Alberto Eidh
+  pt-PT: Copyright (C) lloco
+  ru-RU: Copyright (C) MySh
+  sv-SE: Copyright (C) Stoli
+  tr-TR: Copyright (C) KenanBalamir
+  zh-CN: Copyright (C) WangKing
+  zh-TW: Copyright (C) Greener
 
 Contributors:
   xente_tranze
   Goofy
 
+Donors:
+  Tim Holahan
+  Cristiano Orlando
+  David A Watson
+
 *******************************************************************************
 
-Menu icons licensed under Creative Commons Attribution 2.5 License
-based on Silk icon set 1.3 by Mark James (http://www.famfamfam.com/lab/icons/silk/)
+Menu icons licensed under Creative Commons Attribution Share-Alike license
+based on Tango Desktop Project (http://tango.freedesktop.org/Tango_Desktop_Project)
 
 Tabrenamizer contains code from:
   Mozilla Firefox

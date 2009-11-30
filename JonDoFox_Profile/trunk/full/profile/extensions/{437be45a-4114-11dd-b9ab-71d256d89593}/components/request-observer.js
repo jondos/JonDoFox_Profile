@@ -44,6 +44,8 @@ var requestObserver = {
     try {
       this.prefsHandler = CC['@jondos.de/preferences-handler;1'].
           getService().wrappedJSObject;
+      this.jdfManager = CC['@jondos.de/jondofox-manager;1'].
+          getService().wrappedJSObject;
     } catch (e) {
       log("init(): " + e);
     }
@@ -54,7 +56,7 @@ var requestObserver = {
     try {
       // Check if 'set_referrer' is true, is this a performance issue?
       if (this.prefsHandler.getBoolPref('extensions.jondofox.set_referrer')) {
-        //log("BEFORE: " + channel.getRequestHeader("Referer"));        
+	  //log("BEFORE: " + channel.getRequestHeader("Referer"));        
         // Set the request header
         var ref = channel.URI.scheme + "://" + channel.URI.hostPort + "/";
         channel.setRequestHeader("Referer", ref, false);
@@ -63,7 +65,7 @@ var requestObserver = {
         //log("AFTER: " + channel.getRequestHeader("Referer"));
       }
       // Set other headers here
-      channel.setRequestHeader("Accept", "*/*", false);
+      //channel.setRequestHeader("Accept", "*/*", false);
       return true;
     } catch (e) {
       log("modifyRequest(): " + e);
@@ -81,6 +83,37 @@ var requestObserver = {
     }
   },
 
+  examineResponse: function(channel) {
+    try {
+      // We are looking for URL's which are on the noProxyList first. The
+      // reason is if there occurred a redirection to a different URL it is
+      // not set on the noProxyList as well. Thus it can happen that the user
+      // wants to avoid a download via a proxy but uses it nevertheless
+      // because a redirection occurred.
+      var URI = channel.URI.spec;
+      // If it is on the list let's check whether we will be redirected.
+      if (this.jdfManager.noProxyListContains(URI)) {
+        var location = channel.getResponseHeader("Location");
+        if (location != null) {
+	  //If so add the new location to the noProxyList as well.
+          log("Got a redirection to: " + location);
+          this.jdfManager.noProxyListAdd(location);     
+        }
+      }
+    } catch (e) {
+      log("examineRespone(): " + e);
+    }
+  },
+
+  onExamineResponse: function(httpChannel) {
+    try {                        
+      httpChannel.QueryInterface(CI.nsIChannel);
+      this.examineResponse(httpChannel);
+    } catch (ex) {
+      log("Got exception: " + ex);
+    }
+  },
+
   // This is called once on 'app-startup'
   registerObservers: function() {
     log("Register observers");
@@ -89,6 +122,7 @@ var requestObserver = {
                          getService(CI.nsIObserverService);
       // Add observers
       observers.addObserver(this, "http-on-modify-request", false);
+      observers.addObserver(this, "http-on-examine-response", false);
       observers.addObserver(this, "quit-application-granted", false);
     } catch (ex) {
       log("Got exception: " + ex);
@@ -103,6 +137,7 @@ var requestObserver = {
                          getService(CI.nsIObserverService);
       // Remove observers
       observers.removeObserver(this, "http-on-modify-request");
+      observers.removeObserver(this, "http-on-examine-response");
       observers.removeObserver(this, "quit-application-granted");
     } catch (ex) {
       log("Got exception: " + ex);
@@ -129,6 +164,10 @@ var requestObserver = {
           this.onModifyRequest(subject);
           break;
 
+        case 'http-on-examine-response':
+	  subject.QueryInterface(CI.nsIHttpChannel);
+	  this.onExamineResponse(subject);
+	  break;
         default:
           log("!! Topic not handled --> " + topic);
           break;

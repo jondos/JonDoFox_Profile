@@ -4,7 +4,7 @@ var localeFlag          = LOCALE | PROFILE_CHROME;
 var skinFlag            = SKIN | PROFILE_CHROME;
 
 var displayName         = "Mozilla Calculator"; // The name displayed to the user (don't include the version)
-var version             = "1.1.12";
+var version             = "1.1.16";
 
 var name                = "calculator"; // The leafname of the JAR file (without the .jar part)
 var jarName             = name + ".jar";

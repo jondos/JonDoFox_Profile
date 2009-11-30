@@ -1,7 +1,7 @@
 <zones xmlns="http://www.stemhaus.com/firefox/foxclocks/zones" version="1.1">
 	<Source id="ftp://elsie.nci.nih.gov/pub/" name="tz database">
-		<Version>2009g</Version>
-		<Date>2009-04-27</Date>
+		<Version>2009k</Version>
+		<Date>2009-07-20</Date>
 	</Source>
 	<Year>2009</Year>
 	<ZoneList>
@@ -130,7 +130,7 @@
 			<StandardTime offset="+00:00" tzname="GMT"/>
 		</Zone>
 		<Zone id="Africa/Gaborone">
-			<Coordinates latitude="-0254500" longitude="+0255500"/>
+			<Coordinates latitude="-0243900" longitude="+0255500"/>
 			<Country code="BW"/>
 			<StandardTime offset="+02:00" tzname="CAT"/>
 		</Zone>
@@ -1574,6 +1574,9 @@
 		<Zone id="Asia/Dacca" deprecated="true">
 			<AliasFor>Asia/Dhaka</AliasFor>
 			<StandardTime offset="+06:00" tzname="BDT"/>
+			<DaylightTime offset="+07:00" tzname="BDST">
+				<Start>2009-06-19T23:00:00+06:00</Start><End>2010-01-01T00:00:00+07:00</End>
+			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Damascus">
 			<Coordinates latitude="+0333000" longitude="+0361800"/>
@@ -1587,6 +1590,9 @@
 			<Coordinates latitude="+0234300" longitude="+0902500"/>
 			<Country code="BD"/>
 			<StandardTime offset="+06:00" tzname="BDT"/>
+			<DaylightTime offset="+07:00" tzname="BDST">
+				<Start>2009-06-19T23:00:00+06:00</Start><End>2010-01-01T00:00:00+07:00</End>
+			</DaylightTime>
 		</Zone>
 		<Zone id="Asia/Dili">
 			<Coordinates latitude="-0083300" longitude="+1253500"/>
@@ -2902,7 +2908,7 @@
 			</DaylightTime>
 		</Zone>
 		<Zone id="Europe/Vatican">
-			<Coordinates latitude="+0415400" longitude="+0122700"/>
+			<Coordinates latitude="+0415408" longitude="+0122711"/>
 			<Country code="VA"/>
 			<AliasFor>Europe/Rome</AliasFor>
 			<StandardTime offset="+01:00" tzname="CET"/>
@@ -3058,9 +3064,6 @@
 			<Coordinates latitude="-0201000" longitude="+0573000"/>
 			<Country code="MU"/>
 			<StandardTime offset="+04:00" tzname="MUT"/>
-			<DaylightTime offset="+05:00" tzname="MUST">
-				<Start>2009-10-25T02:00:00+04:00</Start><End>2009-03-29T03:00:00+05:00</End>
-			</DaylightTime>
 		</Zone>
 		<Zone id="Indian/Mayotte">
 			<Coordinates latitude="-0124700" longitude="+0451400"/>
@@ -3313,7 +3316,7 @@
 			<StandardTime offset="+11:30" tzname="NFT"/>
 		</Zone>
 		<Zone id="Pacific/Noumea">
-			<Coordinates latitude="-0221600" longitude="+1653000"/>
+			<Coordinates latitude="-0221600" longitude="+1662700"/>
 			<Country code="NC"/>
 			<StandardTime offset="+11:00" tzname="NCT"/>
 		</Zone>
@@ -3370,7 +3373,7 @@
 			<StandardTime offset="+12:00" tzname="GILT"/>
 		</Zone>
 		<Zone id="Pacific/Tongatapu">
-			<Coordinates latitude="-0211000" longitude="+1751000"/>
+			<Coordinates latitude="-0211000" longitude="-1751000"/>
 			<Country code="TO"/>
 			<StandardTime offset="+13:00" tzname="TOT"/>
 		</Zone>

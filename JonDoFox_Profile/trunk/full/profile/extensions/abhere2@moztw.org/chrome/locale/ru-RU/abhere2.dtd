@@ -1,0 +1,37 @@
+<!ENTITY dialog.title "Настройки Add Bookmark Here ²">
+<!ENTITY tab.main.caption "Главные">
+<!ENTITY tab.interface.caption "Внешний вид">
+<!ENTITY tab.advanced.caption "Дополнительные">
+<!ENTITY position.group "Позиция пункта меню">
+<!ENTITY position.item.abHere "Выберите позицию для «Создать закладку страницы…»">
+<!ENTITY position.item.opTabs "Выберите позицию для «Открыть все во вкладках»">
+<!ENTITY position.option.top "Вверху">
+<!ENTITY position.option.bottom "Снизу">
+<!ENTITY position.option.hidden "Скрыто">
+<!ENTITY clicking.group "Нажатия кнопок мыши">
+<!ENTITY clicking.item.buttonL "Левая кнопка:">
+<!ENTITY clicking.item.buttonM "Средняя кнопка:">
+<!ENTITY clicking.item.buttonR "Правая кнопка:">
+<!ENTITY clicking.option.bmPage "Добавить эту страницу в закладки">
+<!ENTITY clicking.option.bmNoUI "Добавить эту страницу в закладки (без диалога)">
+<!ENTITY clicking.option.bmTabs "Добавить все вкладки в закладки…">
+<!ENTITY starUI.group "Диалог добавления в закладки">
+<!ENTITY starUI.expand.folderRow "Разворачивать дерево папок">
+<!ENTITY starUI.expand.tagsRow "Разворачивать список меток">
+<!ENTITY menubar.group "Меню закладок">
+<!ENTITY menubar.item.abHere "Показывать «Создать закладку страницы…»">
+<!ENTITY menubar.item.bmPage "Показывать «Добавить эту страницу в закладки»">
+<!ENTITY menubar.item.bmTabs "Показывать «Добавить все вкладки в закладки»">
+<!ENTITY context.group "Контекстное меню закладок">
+<!ENTITY context.item.abHere "Показывать «Создать закладку страницы…»">
+<!ENTITY starBtn.group "Звездочка добавления в закладки">
+<!ENTITY starBtn.clicking.item.buttonL "Клик левой кнопкой:">
+<!ENTITY starBtn.clicking.item.buttonM "Клик средней кнопкой:">
+<!ENTITY starBtn.clicking.item.buttonR "Клик правой кнопкой:">
+<!ENTITY starBtn.clicking.option.defaultBehavior "Поведение по умолчанию">
+<!ENTITY starBtn.clicking.option.toggleMode "(С переключением)">
+<!ENTITY starBtn.clicking.option.unsortedFolder "Добавлять закладки в папку «Неподшитые закладки»">
+<!ENTITY starBtn.clicking.option.singleClick "Показывать диалог по одному клику">
+<!ENTITY starBtn.clicking.option.optionsDialog "Открыть настройки Add Bookmark Here ²">
+<!ENTITY misc.group "Разные">
+<!ENTITY misc.insertTop "Добавлять закладки сверху списка">

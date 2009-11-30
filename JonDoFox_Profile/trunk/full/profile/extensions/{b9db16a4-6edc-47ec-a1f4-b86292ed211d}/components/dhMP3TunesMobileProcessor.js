@@ -18,10 +18,12 @@ var Util=null;
 function MTMProc() {
 	try {
 		//dump("[MTMProc] constructor\n");
-		this.helper=new MTProcHelper(true);
-		this.core=Components.classes["@downloadhelper.net/core;1"].
-			getService(Components.interfaces.dhICore);
-		this.core.registerProcessor(this);
+		if(!Util.priorTo19()) {
+			this.helper=new MTProcHelper(true);
+			this.core=Components.classes["@downloadhelper.net/core;1"].
+				getService(Components.interfaces.dhICore);
+			this.core.registerProcessor(this);
+		}
 	} catch(e) {
 		dump("[MTMProc] !!! constructor: "+e+"\n");
 	}

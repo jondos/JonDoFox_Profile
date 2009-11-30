@@ -60,11 +60,11 @@ SmartNamer.prototype = {
 
 SmartNamer.prototype.updateEntry=function(entry) {
 	
-	dump("[SmartNamer] updateEntry()\n");
+	//dump("[SmartNamer] updateEntry()\n");
 	if(!this.enabled)
 		return;
 	var method=Util.getPropsString(entry,"capture-method");
-	if(method!="network" && method!="youtube" && method!="youtube-hq")
+	if(method!="network" && method!="youtube" && method!="youtube-hq" && method!="medialink")
 		return;
 	var pageUrl=Util.getPropsString(entry,"page-url");
 	if(pageUrl==null)
@@ -143,7 +143,7 @@ SmartNamer.prototype.updateEntry=function(entry) {
 										found[mode]=text;
 										this.incrStat(source,"xpfound");
 										if(mode=="name") {
-											if(Util.getPropsString(entry,"sn-has-org-filename")!="yes") {
+											if(Util.getPropsString(entry,"file-name") && Util.getPropsString(entry,"sn-has-org-filename")!="yes") {
 												Util.setPropsString(entry,"sn-has-org-filename","yes");
 												Util.setPropsString(entry,"sn-org-filename",Util.getPropsString(entry,"file-name"));
 											}
@@ -164,18 +164,24 @@ SmartNamer.prototype.updateEntry=function(entry) {
 													fname=fname+text.charAt(n);
 											}
 											text=fname;
-											text=text.replace(/[\/:!\*\?&]/g,'_');
+											text=text.replace(/[\/:!\*\?&\|"']/g,'_');
 											var maxlength=this.pref.getIntPref("fname.maxlen");
 											var extension=Util.getPropsString(entry,"file-extension");
-											if(text.length+extension.length+1>maxlength)
-												text=text.substr(-(maxlength-extension.length-1),maxlength);
-											fname=text+"."+extension;
-											Util.setPropsString(entry,"file-name",fname);
-											var label=fname;
-											if(entry.has("label-prefix")) {
-												label=Util.getPropsString(entry,"label-prefix")+label;
+											if(extension) {
+												if(text.length+extension.length+1>maxlength)
+													text=text.substr(-(maxlength-extension.length-1),maxlength);
+												fname=text+"."+extension;
+											} else {
+												fname=text;
 											}
-											Util.setPropsString(entry,"label",label);
+											Util.setPropsString(entry,"file-name",fname);
+											if(Util.getPropsString(entry,"sn-preserve-label")!="yes") {
+												var label=fname;
+												if(entry.has("label-prefix")) {
+													label=Util.getPropsString(entry,"label-prefix")+label;
+												}
+												Util.setPropsString(entry,"label",label);
+											}
 										}
 										break;
 									}

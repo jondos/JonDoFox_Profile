@@ -49,6 +49,7 @@ function Core() {
 		this.processors=[];
 		this.ctxItems=[];
 		this.blacklist=[];
+		
 		this.updateBlackList();
 		this.shareBlackList();
 
@@ -70,7 +71,7 @@ Core.prototype.registerMenu=function(menupopup,menutype) {
 		var buttonId=menupopup.getAttribute("dh-controlled-button");
 		if(buttonId!=null && buttonId.length>0) {
 			button=menupopup.ownerDocument.getElementById(buttonId);
-			if(button) {
+			if(button && !button.hasAttribute("dh-installed-handler")) {
 				function Listener(core,window,button) {
 					this.core=core;
 					this.window=window;
@@ -84,6 +85,7 @@ Core.prototype.registerMenu=function(menupopup,menutype) {
 				}
 				var buttonTarget=button.QueryInterface(Components.interfaces.nsIDOMNSEventTarget);
 				buttonTarget.addEventListener("command",new Listener(this,menupopup.ownerDocument.defaultView,button),false,false);
+				button.setAttribute("dh-installed-handler","true");
 			}
 		}
 		var hideParentIfEmpty=false;
@@ -360,8 +362,24 @@ Core.prototype.cleanupExpirableEntriesForMediaUrl=function(url) {
 		this.entries.splice(this.entries.indexOf(tbd[i]),1);	
 }
 
+Core.prototype.getTopDocument=function(document) {
+	var topDocument=null;
+	if(document && document.defaultView) {
+		var obj=document.defaultView;
+		while(obj) {
+			topDocument=obj.document;
+			if(obj==obj.parent)
+				obj=null;
+			else
+				obj=obj.parent;
+		}
+	}
+	return topDocument;
+}
+
 Core.prototype.updateMenus=function(document,window) {
 	//dump("[Core] updateMenus("+(document?document.URL:null)+","+(window?window.content.document.URL:"window")+")\n");
+	var topDocument=this.getTopDocument(document);
 	try {
 		this.cleanupExpiredEntries();
 		for(var i in this.regMenus) {
@@ -381,10 +399,12 @@ Core.prototype.updateMenus=function(document,window) {
 						var entry=this.entries[j];
 						if(entry.has("document")) {
 							var entryDocument=entry.get("document",Components.interfaces.nsIDOMDocument);
-							if(document!=null && entryDocument!=document)
+							if(document!=null && topDocument!=null && topDocument!=this.getTopDocument(entryDocument) && entryDocument!=document) {
 								continue;
-							if(document==null && menu.window.content && menu.window.content.document!=entryDocument)
+							}
+							if(document==null && menu.window.content && menu.window.content.document!=entryDocument) {
 								continue;
+							}
 						}
 						var entryWindow=null;
 						if(entry.has("window"))
@@ -1201,7 +1221,8 @@ Core.prototype.openMP3TunesLocker=function(data) {
 	var mtMgr=Components.classes["@downloadhelper.net/mp3tunes-manager;1"]
 	                          	.getService(Components.interfaces.dhIMP3Tunes);
 	var username=this.pref.getCharPref("mp3tunes.username");
-	var password=this.pref.getCharPref("mp3tunes.password");
+	var password=Util.getPassword("mp3tunes");
+	if(password==null) password="";
 	mtMgr.authenticate(username,password,new AuthObserver());
 }
 
@@ -1280,8 +1301,16 @@ Core.prototype.manualConvert=function(data) {
 }
 
 Core.prototype.buttonClicked=function(window) {
-	window.open("chrome://dwhelper/content/sites.xul",
-            "dwhelper-sites", "chrome,centerscreen,resizable=yes").focus();
+	var action=this.pref.getCharPref("icon-click");
+	if(action=="sites") {
+	    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+	                                .getService(Components.interfaces.nsIWindowMediator);
+		var window = wm.getMostRecentWindow("navigator:browser");
+		window.open("chrome://dwhelper/content/sites.xul",
+	            "dwhelper-sites", "chrome,centerscreen,resizable=yes").focus();
+	} else if(action=="quick-download") {
+		this.quickDownloadCommand();
+	}
 }
 
 Core.prototype.registerContextItem=function(item) {

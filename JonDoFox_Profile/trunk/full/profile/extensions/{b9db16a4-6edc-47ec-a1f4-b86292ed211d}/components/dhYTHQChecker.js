@@ -131,7 +131,7 @@ YTHQChecker.prototype.checkMulti=function(url,listener,args) {
 YTHQChecker.prototype.getExtension=function(format) {
 	if(format==13 || format==17)
 		return "3gp";
-	else if(format==18 || format==22)
+	else if(format==18 || format==22 || format==37)
 		return "mp4";
 	else
 		return "flv";
