@@ -3,7 +3,7 @@
 const APP_DISPLAY_NAME    = "Dr.Web anti-virus link checker";
 const APP_NAME            = "drweb";
 const APP_PACKAGE         = "/drwebltd/drweb";
-const APP_VERSION         = "1.0.20";
+const APP_VERSION         = "1.0.21";
 
 const localeList =  new Array( "en-US", "fr-FR", "lt-LT", "pl-PL", "pt-PT", "ru-RU", "sk-SK", "de-DE", "it-IT", "ja-JP", "ua-UA" );
 

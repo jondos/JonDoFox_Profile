@@ -95,101 +95,82 @@ NetProbe.prototype.handleRequest=function(request) {
 NetProbe.prototype.handleResponse=function(request) {
 	try {
 		
-	//dump("[NetProbe] handleResponse("+request.name+")\n");
-
-	var murl=request.name;
-    var httpChannel=request.QueryInterface(Components.interfaces.nsIHttpChannel);
-    
-	var location=null;
-	try {
-		location=httpChannel.getResponseHeader("location");
-	} catch(e) {}
-	if(location) {
-		if(this.entries[murl]) {
-			delete this.entries[murl];
-		}
-		return;
-	}
-    
-	var contentType=null;
-	try {
-		contentType=httpChannel.getResponseHeader("content-type");
-	} catch(e) {}
-	var contentLength=null;
-	try {
-		contentLength=httpChannel.getResponseHeader("content-length");
-	} catch(e) {}
-	var contentDisp=null;
-	try {
-		contentDisp=httpChannel.getResponseHeader("content-disposition");
-	} catch(e) {}
+		//dump("[NetProbe] handleResponse("+request.name+")\n");
 	
-	if(contentLength!=null) {
-	
-		var tms="100";
+		var murl=request.name;
+	    var httpChannel=request.QueryInterface(Components.interfaces.nsIHttpChannel);
+	    
+		var location=null;
 		try {
-			tms=this.pref.getCharPref("trigger-min-size");
+			location=httpChannel.getResponseHeader("location");
 		} catch(e) {}
-		tms=parseFloat(tms);
-		if(!isNaN(tms)) {
-			if(contentLength<tms*1024)
-				return;
+		if(location) {
+			if(this.entries[murl]) {
+				delete this.entries[murl];
+			}
+			return;
 		}
-	}
-
-	var wnd=null;
-	if(httpChannel.loadGroup && httpChannel.loadGroup.notificationCallbacks) {
+	    
+		var contentType=null;
 		try {
-			var lgNotif=httpChannel.loadGroup.notificationCallbacks.QueryInterface(Components.interfaces.nsIInterfaceRequestor);
-			wnd=lgNotif.getInterface(Components.interfaces.nsIDOMWindow);
+			contentType=httpChannel.getResponseHeader("content-type");
 		} catch(e) {}
-	}
-	if(wnd==null && httpChannel.notificationCallbacks) {
+		var contentLength=null;
 		try {
-			var notif=httpChannel.notificationCallbacks.QueryInterface(Components.interfaces.nsIInterfaceRequestor);
-			wnd=notif.getInterface(Components.interfaces.nsIDOMWindow);
+			contentLength=httpChannel.getResponseHeader("content-length");
 		} catch(e) {}
-	}
-
-	var filename=this.analyzeMeta(murl,contentType,contentDisp,contentLength,wnd);
-	if(filename!=null) {
-
-		var forceCaching=true;
+		var contentDisp=null;
 		try {
-			forceCaching=this.pref.getBoolPref("force-cache");
+			contentDisp=httpChannel.getResponseHeader("content-disposition");
 		} catch(e) {}
 		
-		if(forceCaching) {
-			httpChannel.setResponseHeader("Cache-Control","max-age="+24*60*60,false);
-		}
-
-	    var referer=null;
-		try {
-			referer=request.getRequestHeader("referer");
-		} catch(e) {
-		}
-		try {
-			if(/\..{3}$/.test(filename)) {
-				var extension=/\.(.{3})$/.exec(filename)[1];
-				
-				if(extension=="flv" || extension=="mp4") {
-					var wnd=null;
-					try {
-						wnd=httpChannel.notificationCallbacks.getInterface(Components.interfaces.nsIDOMWindow);
-					} catch(e) {
-					}
-					var url=null;
-					if(wnd!=null && wnd.document!=null)
-						url=wnd.document.URL;
-					if(!/^http:\/\/[^\/]*downloadhelper.net\/watch\.php/.test(murl)) {
-						this.listMgr.addToList("http://downloadhelper.net/1.0#history-list",
-							murl,extension,url,filename,referer);
-					}
-				}
+		if(contentLength!=null) {
+		
+			var tms="100";
+			try {
+				tms=this.pref.getCharPref("trigger-min-size");
+			} catch(e) {}
+			tms=parseFloat(tms);
+			if(!isNaN(tms)) {
+				if(contentLength<tms*1024)
+					return;
 			}
-		} catch(e) {
 		}
-	}
+	
+		var wnd=null;
+		if(httpChannel.loadGroup && httpChannel.loadGroup.notificationCallbacks) {
+			try {
+				var lgNotif=httpChannel.loadGroup.notificationCallbacks.QueryInterface(Components.interfaces.nsIInterfaceRequestor);
+				wnd=lgNotif.getInterface(Components.interfaces.nsIDOMWindow);
+			} catch(e) {}
+		}
+		if(wnd==null && httpChannel.notificationCallbacks) {
+			try {
+				var notif=httpChannel.notificationCallbacks.QueryInterface(Components.interfaces.nsIInterfaceRequestor);
+				wnd=notif.getInterface(Components.interfaces.nsIDOMWindow);
+			} catch(e) {}
+		}
+	
+		var filename=this.analyzeMeta(murl,contentType,contentDisp,contentLength,wnd);
+		if(filename!=null) {
+	
+			var forceCaching=true;
+			try {
+				forceCaching=this.pref.getBoolPref("force-cache");
+			} catch(e) {}
+			
+			if(forceCaching) {
+				httpChannel.setResponseHeader("Cache-Control","max-age="+24*60*60,false);
+			}
+
+/*
+		    var referer=null;
+			try {
+				referer=request.getRequestHeader("referer");
+			} catch(e) {
+			}
+*/
+		}
 	} catch(e) {
 		dump("!!! [NetProbe] handleResponse("+request.name+"): "+e+"\n");
 	}
@@ -269,45 +250,63 @@ NetProbe.prototype.analyzeMeta = function(murl,contentType,contentDisp,contentLe
     
 		try {
 	
-		if(filename.length>64) {
-			var parts=/^(.*)(\..*?)$/.exec(filename);
-			filename=parts[1].substr(0,64-parts[2].length)+parts[2];
-		}
-
-		this.entries[murl]={
-			url: murl, filename: filename,
-			time: new Date().getTime()
-			};
-
-		var pageUrl=null;
-		if(wnd!=null && wnd.document) {
-			this.entries[murl].pageUrl=wnd.document.URL;
-			pageUrl=wnd.document.URL;
-    	}
+			if(filename.length>64) {
+				var parts=/^(.*)(\..*?)$/.exec(filename);
+				filename=parts[1].substr(0,64-parts[2].length)+parts[2];
+			}
+	
+			this.entries[murl]={
+				url: murl, filename: filename,
+				time: new Date().getTime()
+				};
+	
+			var pageUrl=null;
+			if(wnd!=null && wnd.document) {
+				this.entries[murl].pageUrl=wnd.document.URL;
+				pageUrl=wnd.document.URL;
+	    	}
+			
+			var desc=Components.classes["@mozilla.org/properties;1"].
+				createInstance(Components.interfaces.nsIProperties);
+			Util.setPropsString(desc,"media-url",murl);
+			Util.setPropsString(desc,"file-extension",extra.extension);
+			Util.setPropsString(desc,"file-name",filename.replace(/[^a-zA-Z0-9\.\- ]/g,"_"));
+			Util.setPropsString(desc,"label",filename);
+			Util.setPropsString(desc,"page-url",pageUrl);
+			Util.setPropsString(desc,"icon-url","chrome://dwhelper/skin/mediaresp.gif");
+			Util.setPropsString(desc,"capture-method","network");
+	
+			if(wnd && wnd.document)
+				desc.set("window-document",wnd);
+			this.core.addEntry(desc);
+	
+			try {
+				if(/\..{3}$/.test(filename)) {
+					var extension=/\.(.{3})$/.exec(filename)[1];
+					
+					if(extension=="flv" || extension=="mp4") {
+						var wnd=null;
+						try {
+							wnd=httpChannel.notificationCallbacks.getInterface(Components.interfaces.nsIDOMWindow);
+						} catch(e) {
+						}
+						var url=null;
+						if(wnd!=null && wnd.document!=null)
+							url=wnd.document.URL;
+						if(!/^http:\/\/[^\/]*downloadhelper.net\/watch\.php/.test(murl)) {
+							this.listMgr.addToList("http://downloadhelper.net/1.0#history-list",
+									Util.getPropsString(desc,"media-url"),
+									Util.getPropsString(desc,"file-extension"),
+									Util.getPropsString(desc,"page-url"),
+									Util.getPropsString(desc,"file-name"),
+									Util.getPropsString(desc,"page-url"));
+						}
+					}
+				}
+			} catch(e) {
+			}
+			
 		
-		var desc=Components.classes["@mozilla.org/properties;1"].
-			createInstance(Components.interfaces.nsIProperties);
-		Util.setPropsString(desc,"media-url",murl);
-		Util.setPropsString(desc,"file-extension",extra.extension);
-		Util.setPropsString(desc,"file-name",filename);
-		Util.setPropsString(desc,"label",filename);
-		Util.setPropsString(desc,"page-url",pageUrl);
-		Util.setPropsString(desc,"icon-url","chrome://dwhelper/skin/mediaresp.gif");
-		Util.setPropsString(desc,"capture-method","network");
-
-		if(wnd && wnd.document)
-			desc.set("window-document",wnd);
-		this.core.addEntry(desc);
-
-		
-		/*
-		this.entries[murl].format=DWHelper_getDefaultFormat(filename,murl,pageUrl);
-		
-		if(this.updateDone==true) {
-			DWHelper_loadMenu();
-		}
-		*/
-
 		} catch(e) {
 			dump("!!! [NetProbe] analyzeMeta: "+e+"\n");
 		}

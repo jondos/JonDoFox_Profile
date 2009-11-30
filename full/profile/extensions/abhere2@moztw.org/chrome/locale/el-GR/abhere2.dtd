@@ -18,7 +18,7 @@
 <!ENTITY starUI.group "Bookmark Dialog">
 <!ENTITY starUI.expand.folderRow "Ανάπτυξη του δένδρου φακέλων">
 <!ENTITY starUI.expand.tagsRow "Ανάπτυξη της λίστας ετικετών">
-<!ENTITY menubar.group "Μενού &apos;Σελιδοδείκτες&apos;">
+<!ENTITY menubar.group "Μενού 'Σελιδοδείκτες'">
 <!ENTITY menubar.item.abHere "Εμφάνιση του [Προσθήκη Σελιδοδείκτη εδώ]">
 <!ENTITY menubar.item.bmPage "Εμφάνιση του [Η σελίδα ως σελιδοδείκτης]">
 <!ENTITY menubar.item.bmTabs "Εμφάνιση του [Όλες οι καρτέλες ως σελιδοδείκτης]">
@@ -35,4 +35,3 @@
 <!ENTITY starBtn.clicking.option.optionsDialog "Άνοιγμα επιλογών του Add Bookmark Here ²">
 <!ENTITY misc.group "Διάφορα">
 <!ENTITY misc.insertTop "Προσθήκη νέων σελιδοδεικτών στην κορυφή του μενού">
-<!ENTITY misc.folderDrag "Allow to drag the Bookmarks Folder">

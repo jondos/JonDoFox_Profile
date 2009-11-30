@@ -19,7 +19,7 @@ pref("abhere2.starUI.row.siteLocation"   , true);
 pref("abhere2.starUI.expand.folderRow"   , true);
 pref("abhere2.starUI.expand.tagsRow"     , false);
 pref("abhere2.starUI.height.folderTree"  , 150);
-pref("abhere2.starUI.height.tagsSelector", 150);
+pref("abhere2.starUI.height.tagsSelector", 75);
 pref("abhere2.starUI.width"              , 350);
 pref("abhere2.starUI.clicking.left"      , 0);
 pref("abhere2.starUI.clicking.middle"    , 0);
@@ -32,7 +32,6 @@ pref("abhere2.bmm.subscribeToPage", false);
 pref("abhere2.bmm.showContextMenu", true);
 
 pref("abhere2.insertTop"    , true);
-pref("abhere2.folderDrag"   , true);
 pref("abhere2.tagsInline"   , true);
 pref("abhere2.anchorPopup"  , false);
 

@@ -7,7 +7,7 @@
 		<em:id>{d37dc5d0-431d-44e5-8c91-49419370caa1}</em:id>
 		<em:name>FoxClocks</em:name>
 		<em:type>2</em:type> <!-- ie extension -->
-		<em:version>2.5.33</em:version>
+		<em:version>2.5.35</em:version>
 		<em:description>Displays local times around the world in the statusbar/toolbar. Supports virtually all time zones.</em:description>
 		<em:creator>Andy McDonald</em:creator>
 
@@ -63,7 +63,7 @@
 			<Description>
 				<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
 				<em:minVersion>1.5</em:minVersion>
-				<em:maxVersion>3.0b2</em:maxVersion>
+				<em:maxVersion>3.0b3</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 

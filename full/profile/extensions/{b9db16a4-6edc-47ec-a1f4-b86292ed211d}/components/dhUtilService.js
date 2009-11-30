@@ -1046,6 +1046,105 @@ UtilService.prototype.base64Decode = function(text) {
 	return Base64.decode(text);
 }
 
+UtilService.prototype.migratePasswords=function() {
+	var prefService=Components.classes["@mozilla.org/preferences-service;1"]
+	                                   .getService(Components.interfaces.nsIPrefService);
+	var pref=prefService.getBranch("dwhelper.");
+	if(pref.getBoolPref("passwords-migrated")==true) {
+		return true;
+	}
+	try {
+		var mp3tunesPw=pref.getCharPref("mp3tunes.password");
+		if(mp3tunesPw.length>0) {
+			this.doSetPassword("mp3tunes",mp3tunesPw);
+			pref.setCharPref("mp3tunes.password","");
+		}
+		var twitterPw=pref.getCharPref("twitter.password");
+		if(twitterPw.length>0) {
+			this.doSetPassword("twitter",this.base64Decode(twitterPw));
+			pref.setCharPref("twitter.password","");
+		}
+		pref.setBoolPref("passwords-migrated",true);
+		return true;
+	} catch(e) {
+		dump("!!! [Core] migratePasswords: "+e+"\n");
+	}
+	return false;
+}
+
+UtilService.prototype.getPassword = function(service) {
+	if(!this.migratePasswords())
+		return null;
+	return this.doGetPassword(service);
+}
+	
+UtilService.prototype.doGetPassword = function(service) {
+	if(Components.classes["@mozilla.org/login-manager;1"]) {
+		var loginMgr = Components.classes["@mozilla.org/login-manager;1"]
+		                                  .getService(Components.interfaces.nsILoginManager);
+		var logins = loginMgr.findLogins({}, service+".password-manager.downloadhelper.net", null, 'downloadhelper');
+        for (var i = 0; i < logins.length; i++) {
+           if (logins[i].username == 'downloadhelper') {
+              return logins[i].password;
+           }
+        }
+        return null;
+	} else {
+		var prefService=Components.classes["@mozilla.org/preferences-service;1"]
+		                                   .getService(Components.interfaces.nsIPrefService);
+		var pref=prefService.getBranch("dwhelper.");
+		try {
+			return this.base64Decode(pref.getCharPref("password-manager."+service));
+		} catch(e) {
+			return null;
+		}
+	}
+}
+
+UtilService.prototype.setPassword = function(service,password) {
+	if(!this.migratePasswords())
+		return;
+	this.doSetPassword(service,password);
+}
+
+UtilService.prototype.doSetPassword = function(service,password) {
+	if(Components.classes["@mozilla.org/login-manager;1"]) {
+		var loginMgr = Components.classes["@mozilla.org/login-manager;1"]
+		                                  .getService(Components.interfaces.nsILoginManager);
+		var logins = loginMgr.findLogins({}, service+".password-manager.downloadhelper.net", null, 'downloadhelper');
+        for (var i = 0; i < logins.length; i++) {
+        	loginMgr.removeLogin(logins[i]);
+        }
+		var nsLoginInfo = new Components.Constructor("@mozilla.org/login-manager/loginInfo;1",
+                Components.interfaces.nsILoginInfo,
+                "init");
+		var loginInfo = new nsLoginInfo(service+'.password-manager.downloadhelper.net', null, 'downloadhelper', 'downloadhelper', password, "", "");
+		try {
+			loginMgr.addLogin(loginInfo);
+		} catch(e) {
+			dump("!!! [Util] doSetPassword('"+service+","+password+"): addLogin: "+e1+"\n");
+		}
+	} else {
+		var prefService=Components.classes["@mozilla.org/preferences-service;1"]
+		                                   .getService(Components.interfaces.nsIPrefService);
+		var pref=prefService.getBranch("dwhelper.");
+		pref.setCharPref("password-manager."+service,this.base64Encode(password));
+	}
+}
+
+UtilService.prototype.priorTo19 = function() {
+	var browserCompatible=false;
+	try {
+		var browserVersion=Components.classes["@mozilla.org/xre/app-info;1"]
+				    		                   .getService(Components.interfaces.nsIXULAppInfo).platformVersion;
+		var comparator=Components.classes["@mozilla.org/xpcom/version-comparator;1"]
+		                                  .getService(Components.interfaces.nsIVersionComparator);
+		if(comparator.compare(browserVersion,"1.9")>=0)
+			browserCompatible=true;
+	} catch(e) {}
+	return !browserCompatible;
+}
+
 UtilService.prototype.QueryInterface = function(iid) {
     if (!iid.equals(Components.interfaces.nsISupports) && 
     	!iid.equals(Components.interfaces.dhIUtilService)) {

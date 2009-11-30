@@ -14,7 +14,7 @@ locale	tabrenamizer	he-IL	jar:chrome/tabrenamizer.jar!/locale/he-IL/
 locale	tabrenamizer	it-IT	jar:chrome/tabrenamizer.jar!/locale/it-IT/
 locale	tabrenamizer	ja-JP	jar:chrome/tabrenamizer.jar!/locale/ja-JP/
 locale	tabrenamizer	ko-KR	jar:chrome/tabrenamizer.jar!/locale/ko-KR/
-locale	tabrenamizer	nb-NO	jar:chrome/tabrenamizer.jar!/locale/ko-KR/
+locale	tabrenamizer	nb-NO	jar:chrome/tabrenamizer.jar!/locale/nb-NO/
 locale	tabrenamizer	nl-NL	jar:chrome/tabrenamizer.jar!/locale/nl-NL/
 locale	tabrenamizer	pl-PL	jar:chrome/tabrenamizer.jar!/locale/pl-PL/
 locale	tabrenamizer	pt-BR	jar:chrome/tabrenamizer.jar!/locale/pt-BR/

@@ -23,6 +23,10 @@ locale  dwhelper ru-RU jar:chrome/dwhelper.jar!/locale/ru-RU/
 locale  dwhelper cs-CZ jar:chrome/dwhelper.jar!/locale/cs-CZ/
 locale  dwhelper da-DK jar:chrome/dwhelper.jar!/locale/da-DK/
 locale  dwhelper sl-SI jar:chrome/dwhelper.jar!/locale/sl-SI/
+locale  dwhelper ar jar:chrome/dwhelper.jar!/locale/ar/
+locale  dwhelper si-LK jar:chrome/dwhelper.jar!/locale/si-LK/
 style   chrome://global/content/customizeToolbar.xul    chrome://dwhelper/skin/classic/dwhelper.css
 overlay chrome://songbird/content/xul/layoutWithBrowserOverlay.xul chrome://dwhelper/content/dwhelper.xul
 style   chrome://songbird/content/xul/layoutWithBrowserOverlay.xul    chrome://dwhelper/skin/classic/dwhelper.css
+overlay chrome://navigator/content/navigator.xul chrome://dwhelper/content/dwhelper.xul
+style chrome://navigator/content/navigator.xul chrome://dwhelper/skin/classic/dwhelper.css

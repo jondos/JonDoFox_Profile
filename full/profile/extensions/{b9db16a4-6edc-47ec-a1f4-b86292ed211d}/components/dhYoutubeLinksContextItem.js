@@ -248,12 +248,12 @@ YTLCItem.prototype.loadedPage=function(url,text) {
 		var m=/meta name="title" content="(.*)"/.exec(text);
 		if(m!=null && m.length==2)
 			title=m[1];
-		m=/\"video_id\": \"(.*?)\".*\"t\": \"(.*?)\"/.exec(text);
+		m=/\"video_id\": \"(.*?)\".*\"t(?:oken)?\": \"(.*?)\"/.exec(text);
 		if(m!=null && m.length==3) {
 			videoId=m[1];
 			tParam=m[2];
 		} else {
-			m=/\"t\": \"(.*?)\".*\"video_id\": \"(.*?)\"/.exec(text);
+			m=/\"t(?:oken)?\": \"(.*?)\".*\"video_id\": \"(.*?)\"/.exec(text);
 			if(m!=null && m.length==3) {
 				videoId=m[2];
 				tParam=m[1];
@@ -281,6 +281,7 @@ YTLCItem.prototype.loadedPage=function(url,text) {
 			try {
 				unmodifiedFilename=this.pref.getBoolPref("yt-unmodified-filename");		
 			} catch(e) {}
+			fileName=fileName.replace(/[\/"\?\*:\|"']/g,"_");
 			if(unmodifiedFilename==false) {
 				var keepSpaces=false;
 				try {
@@ -290,8 +291,6 @@ YTLCItem.prototype.loadedPage=function(url,text) {
 					fileName=fileName.replace(/[^a-zA-Z0-9\.\- ]/g,"_");
 				else
 					fileName=fileName.replace(/[^a-zA-Z0-9\.\-]/g,"_");
-			} else {
-				fileName=fileName.replace(/[\/"\|\?\*:]/g,"_");
 			}
 			Util.setPropsString(desc,"file-name",fileName);
 			Util.setPropsString(desc,"icon-url","http://www.youtube.com/favicon.ico");

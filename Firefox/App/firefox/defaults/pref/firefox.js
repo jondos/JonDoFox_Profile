@@ -136,7 +136,7 @@ pref("keyword.URL", "chrome://browser-region/locale/region.properties");
 
 pref("general.useragent.locale", "en-US");
 pref("general.skins.selectedSkin", "classic/1.0");
-pref("general.useragent.extra.firefox", "Firefox/3.5.2");
+pref("general.useragent.extra.firefox", "Firefox/3.5.5");
 
 pref("general.smoothScroll", false);
 //@line 185 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
@@ -252,7 +252,6 @@ pref("browser.microsummary.updateGenerators", true);
 // enable search suggestions by default
 pref("browser.search.suggest.enabled", true);
 
-pref("browser.history.grouping", "day");
 pref("browser.history.showSessions", false);
 pref("browser.sessionhistory.max_entries", 50);
 pref("browser.history_expire_days", 180);
@@ -317,9 +316,9 @@ pref("browser.bookmarks.max_backups",             5);
 
 // Scripts & Windows prefs
 pref("dom.disable_open_during_load",              true);
-//@line 371 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 370 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("javascript.options.showInConsole",          false);
-//@line 373 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 372 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 
 // Make the status bar reliably present and unaffected by pages
 pref("dom.disable_window_open_feature.status",    true);
@@ -398,10 +397,10 @@ pref("browser.gesture.swipe.left", "Browser:BackOrBackDuplicate");
 pref("browser.gesture.swipe.right", "Browser:ForwardOrForwardDuplicate");
 pref("browser.gesture.swipe.up", "cmd_scrollTop");
 pref("browser.gesture.swipe.down", "cmd_scrollBottom");
-//@line 455 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 454 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("browser.gesture.pinch.latched", false);
 pref("browser.gesture.pinch.threshold", 25);
-//@line 458 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 457 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("browser.gesture.pinch.out", "cmd_fullZoomEnlarge");
 pref("browser.gesture.pinch.in", "cmd_fullZoomReduce");
 pref("browser.gesture.pinch.out.shift", "cmd_fullZoomReset");
@@ -413,7 +412,7 @@ pref("browser.gesture.twist.left", "");
 pref("browser.gesture.tap", "cmd_fullZoomReset");
 
 // 0=lines, 1=pages, 2=history , 3=text size
-//@line 483 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 482 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("mousewheel.withshiftkey.action",2);
 pref("mousewheel.withshiftkey.sysnumlines",false);
 pref("mousewheel.withshiftkey.numlines",1);
@@ -423,7 +422,7 @@ pref("mousewheel.withaltkey.numlines",1);
 pref("mousewheel.withmetakey.action",0);
 pref("mousewheel.withmetakey.sysnumlines",true);
 pref("mousewheel.withmetakey.numlines",1);
-//@line 493 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 492 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("mousewheel.withcontrolkey.action",3);
 pref("mousewheel.withcontrolkey.sysnumlines",false);
 pref("mousewheel.withcontrolkey.numlines",1);
@@ -483,11 +482,11 @@ pref("pfs.datasource.url", "https://pfs.mozilla.org/plugins/PluginFinderService.
 // by default we show an infobar message when pages require plugins the user has not installed
 pref("plugins.hide_infobar_for_missing_plugin", false);
 
-//@line 553 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 552 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("browser.preferences.instantApply", false);
-//@line 560 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 559 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("browser.preferences.animateFadeIn", false);
-//@line 562 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 561 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 
 pref("browser.download.show_plugins_in_list", true);
 pref("browser.download.hide_plugins_without_extensions", true);
@@ -496,9 +495,9 @@ pref("browser.download.hide_plugins_without_extensions", true);
 // 0 goes Back/Forward
 // 1 act like PgUp/PgDown
 // 2 and other values, nothing
-//@line 573 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 572 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("browser.backspace_action", 0);
-//@line 575 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 574 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 
 // this will automatically enable inline spellchecking (if it is available) for
 // editable elements in HTML
@@ -587,7 +586,7 @@ pref("gecko.handlerService.schemes.ircs.3.uriTemplate", "chrome://browser-region
 // By default, we don't want protocol/content handlers to be registered from a different host, see bug 402287
 pref("gecko.handlerService.allowRegisterFromDifferentHost", false);
 
-//@line 664 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 663 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 // Safe browsing does nothing unless this pref is set
 pref("browser.safebrowsing.enabled", true);
 
@@ -632,23 +631,23 @@ pref("urlclassifier.gethashtables", "goog-phish-shavar,goog-malware-shavar");
 // the database.
 pref("urlclassifier.confirm-age", 2700);
 
-//@line 714 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 713 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 
 // Maximum size of the sqlite3 cache during an update, in bytes
-//@line 719 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 718 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("urlclassifier.updatecachemax", -1);
-//@line 721 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 720 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 
 // URL for checking the reason for a malware warning.
 pref("browser.safebrowsing.malware.reportURL", "http://safebrowsing.clients.google.com/safebrowsing/diagnostic?client=%NAME%&hl=%LOCALE%&site=");
 
-//@line 726 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 725 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 
 pref("browser.EULA.version", 3);
 pref("browser.rights.version", 3);
 pref("browser.rights.3.shown", false);
 
-//@line 735 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 734 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 
 pref("browser.sessionstore.resume_from_crash", true);
 pref("browser.sessionstore.resume_session_once", false);

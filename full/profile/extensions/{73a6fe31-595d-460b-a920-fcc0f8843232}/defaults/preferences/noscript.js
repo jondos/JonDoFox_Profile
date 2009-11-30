@@ -26,12 +26,14 @@ pref("noscript.showRevokeTemp", true);
 pref("noscript.showBlockedObjects", true);
 pref("noscript.showTempAllowPage", true);
 pref("noscript.showAllowPage", true);
-pref("noscript.mandatory", "chrome: about: about:config about:neterror about:certerror about:plugins about:privatebrowsing about:sessionrestore resource:");
+pref("noscript.mandatory", "chrome: about: about:config about:neterror about:certerror about:plugins about:privatebrowsing about:sessionrestore resource: about:blocked");
 pref("noscript.default", "about:blank about:credits addons.mozilla.org flashgot.net google.com gstatic.com googlesyndication.com informaction.com yahoo.com yimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com");
 pref("noscript.forbidJava", true);
 pref("noscript.forbidFlash", true);
 pref("noscript.forbidSilverlight", true);
 pref("noscript.forbidPlugins", true);
+pref("noscript.forbidMedia", true);
+pref("noscript.forbidFonts", true);
 pref("noscript.forbidActiveContentParentTrustCheck", true);
 pref("noscript.forbidIFrames", false);
 pref("noscript.forbidIFramesContext", 2);
@@ -67,6 +69,7 @@ pref("noscript.nselNoMeta", true);
 pref("noscript.autoAllow", 0);
 pref("noscript.toolbarToggle", 3);
 pref("noscript.allowPageLevel", 0);
+
 pref("noscript.forbidImpliesUntrust", false);
 pref("noscript.keys.toggle", "ctrl shift VK_BACK_SLASH.|");
 pref("noscript.keys.ui", "ctrl shift S");
@@ -90,9 +93,11 @@ pref("noscript.xss.trustTemp", true);
 
 pref("noscript.filterXPost", true);
 pref("noscript.filterXGet", true);
-pref("noscript.filterXGetRx", "<+(?=[^<>=\\d\\. ])|[\\\\\"\\x00-\\x07\\x09\\x0B\\x0C\\x0E-\\x1F\\x7F]");
+pref("noscript.filterXGetRx", "<+(?=[^<>=\-\\d\\. /\\(])|[\\\\\"\\x00-\\x07\\x09\\x0B\\x0C\\x0E-\\x1F\\x7F]");
 pref("noscript.filterXGetUserRx", "");
-pref("noscript.filterXExceptions", "^http://([a-z]+)\\.google\\.(?:[a-z]{1,3}\\.)?[a-z]+/(?:search|custom|\\1)\\?\n^http://([a-z]*)\\.?search\\.yahoo\\.com/search(?:\\?|/\\1\\b)\n^http://[a-z]+\\.wikipedia\\.org/wiki/[^\"<>\?%]+$"); 
+pref("noscript.filterXExceptions", "^http://([a-z]+)\\.google\\.(?:[a-z]{1,3}\\.)?[a-z]+/(?:search|custom|\\1)\\?\n^http://([a-z]*)\\.?search\\.yahoo\\.com/search(?:\\?|/\\1\\b)\n^http://[a-z]+\\.wikipedia\\.org/wiki/[^\"<>\?%]+$\n^http://translate\.google\.com/translate_t[^\"'<>\?%]+$"); 
+pref("noscript.filterXExceptions.lycosmail", true);
+pref("noscript.filterXExceptions.fbconnect", true);
 pref("noscript.injectionCheck", 2);
 pref("noscript.injectionCheckPost", true);
 pref("noscript.injectionCheckHTML", true);
@@ -151,7 +156,9 @@ pref("noscript.alwaysBlockUntrustedContent", true);
 
 pref("noscript.consoleLog", false);
 
+pref("noscript.flashPatch", true);
 pref("noscript.silverlightPatch", true);
+
 
 pref("noscript.allowURLBarJS", true);
 
@@ -179,8 +186,8 @@ pref("noscript.clearClick", 3);
 pref("noscript.clearClick.plugins", true);
 pref("noscript.clearClick.prompt", true);
 pref("noscript.clearClick.debug", false);
-pref("noscript.clearClick.exceptions", "noscript.net/getit flashgot.net/getit *.ebay.com");
-pref("noscript.clearClick.subexceptions", "http://w.sharethis.com/share3x/lightbox.html?* http://disqus.com/embed/* http://www.feedly.com/mini");
+pref("noscript.clearClick.exceptions", "noscript.net/getit flashgot.net/getit *.ebay.com *.photobucket.com");
+pref("noscript.clearClick.subexceptions", "http://w.sharethis.com/share3x/lightbox.html?* http://disqus.com/embed/* http://www.feedly.com/mini abine:*");
 
 pref("noscript.emulateFrameBreak", true);
 
@@ -192,12 +199,13 @@ pref("noscript.ignorePorts", true);
 
 pref("noscript.cp.last", true);
 pref("noscript.abp.removeTabs", false);
-pref("noscript.checkHijackings", true);
 
 pref("noscript.surrogate.enabled", true);
-pref("noscript.surrogate.ga.replacement", "var _0=function(){};with(window)urchinTracker=_0,_gat={_getTracker:function(){return{__noSuchMethod__:_0,_link:function(h){if(h)location.href=h}}}}");
-pref("noscript.surrogate.ga.sources", "*.google-analytics.com");
 pref("noscript.surrogate.ga.exceptions", "");
+pref("noscript.surrogate.ga.replacement", "var _0=function(){};with(window)urchinTracker=_0,_gat={_getTracker:function(){return{__noSuchMethod__:_0,_link:function(h){if(h)location.href=h;},_linkByPost:function(){return true;},_getLinkerUrl:function(u){return u;}}}}");
+pref("noscript.surrogate.qs.sources", "edge.quantserve.com");
+pref("noscript.surrogate.qs.replacement", "window.quantserve=function(){}");
+pref("noscript.surrogate.ga.sources", "*.google-analytics.com");
 pref("noscript.surrogate.yieldman.replacement", "with(window)rmAddKey=rmAddCustomKey=rmShowAd=rmShowPop=rmShowInterstitial=rmGetQueryParameters=rmGetSize=rmGetWindowUrl=rmGetPubRedirect=rmGetClickUrl=rmReplace=rmTrim=rmUrlEncode=rmCanShowPop=rmCookieExists=rmWritePopFrequencyCookie=rmWritePopExpirationCookie=flashIntalledCookieExists=writeFlashInstalledCookie=flashDetection=rmGetCookie=function(){}");
 pref("noscript.surrogate.yieldman.sources", "*.yieldmanager.com");
 pref("noscript.surrogate.fap.replacement", "window.puShown getter=window.puShown setter=function(){return true}");
@@ -212,7 +220,6 @@ pref("noscript.forbidXSLT", true);
 pref("noscript.oldStylePartial", false);
 pref("noscript.proxiedDNS", 0);
 pref("noscript.placesPrefs", false);
-pref("noscript.bookmarklets.import", 1);
 
 pref("noscript.ABE.enabled", true);
 pref("noscript.ABE.siteEnabled", false);
@@ -230,3 +237,11 @@ pref("noscript.inclusionTypeChecking.exceptions", "");
 pref("noscript.inclusionTypeChecking.checkDynamic", false);
 
 pref("noscript.recentlyBlockedCount", 10);
+pref("noscript.showRecentlyBlocked", true);
+pref("noscript.recentlyBlockedLevel", 0);
+
+pref("noscript.STS.enabled", true);
+pref("noscript.STS.expertErrorUI", false);
+
+pref("noscript.frameOptions.enabled", true);
+pref("noscript.frameOptions.parentWhitelist", "https://mail.google.com/*");

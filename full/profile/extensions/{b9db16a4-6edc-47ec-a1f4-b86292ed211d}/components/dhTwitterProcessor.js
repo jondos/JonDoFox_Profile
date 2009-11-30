@@ -19,12 +19,14 @@ var IOS=null;
 function Twitter() {
 	try {
 		//dump("[Twitter] constructor\n");
-		var prefService=Components.classes["@mozilla.org/preferences-service;1"]
-		                                   .getService(Components.interfaces.nsIPrefService);
-		this.pref=prefService.getBranch("dwhelper.twitter.");
-		this.core=Components.classes["@downloadhelper.net/core;1"].
-			getService(Components.interfaces.dhICore);
-		this.core.registerProcessor(this);
+		if(!Util.priorTo19()) {
+			var prefService=Components.classes["@mozilla.org/preferences-service;1"]
+			                                   .getService(Components.interfaces.nsIPrefService);
+			this.pref=prefService.getBranch("dwhelper.twitter.");
+			this.core=Components.classes["@downloadhelper.net/core;1"].
+				getService(Components.interfaces.dhICore);
+			this.core.registerProcessor(this);
+		}
 	} catch(e) {
 		dump("[Twitter] !!! constructor: "+e+"\n");
 	}
@@ -32,7 +34,7 @@ function Twitter() {
 
 Twitter.prototype = {
 		get username() { return this.pref.getCharPref("username"); },
-		get password() { return Util.base64Decode(this.pref.getCharPref("password")); },
+		get password() { var pw=Util.getPassword("twitter"); if(pw==null) pw=""; return pw; },
 		get name() { return "twitter-update"; },
 		get provider() { return "DownloadHelper"; },
 		get title() { return Util.getText("twitter.update.title"); },

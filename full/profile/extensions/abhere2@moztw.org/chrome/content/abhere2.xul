@@ -19,10 +19,6 @@ var abHere2 = {
       return nsPreferences.getBoolPref("abhere2.insertTop", true);
    },
 
-   get isFolderDrag() {
-      return nsPreferences.getBoolPref("abhere2.folderDrag", true);
-   },
-
    get isTagsInline() {
       return nsPreferences.getBoolPref("abhere2.tagsInline", true);
    },
@@ -40,7 +36,7 @@ var abHere2 = {
    },
 
    get tagsSelectorHeight() {
-      return nsPreferences.getIntPref("abhere2.starUI.height.tagsSelector", 150);
+      return nsPreferences.getIntPref("abhere2.starUI.height.tagsSelector", 75);
    },
 
    set tagsSelectorHeight(value) {
@@ -97,16 +93,32 @@ var abHere2 = {
    get1stElementByAttribute: function(target, name, value) {
       for (var i=0; i < target.childNodes.length; i++) {
          var obj = target.childNodes[i];
-         if (obj.hasAttribute(name) && (obj.getAttribute(name) == value)) return obj;
+         if (obj.hasAttribute(name)) {
+            var sep = (name=="class" ? "|\\s+" : "");
+            var re = new RegExp("(^"+sep+")"+value+"($"+sep+")");
+            if (re.test(obj.getAttribute(name))) return obj;
+         }
       }
       return null;
+   },
+
+   getAnchorElementByItemId: function(target, itemId) {
+      if (target && target.node) {
+         for (var i=0; i < target.parentNode.childNodes.length; i++) {
+            var obj = target.parentNode.childNodes[i];
+            if (obj.node && (obj.node.itemId == itemId)) {
+               return obj;
+            }
+         }
+      }
+      return target;
    },
 
    closeMenus: function(target) {
       var node = target;
       while (node) {
          if (node.localName == "menupopup" || node.localName == "popup") {
-            node.hidePopup();
+            if (node.hidePopup) node.hidePopup();
          } else if (node.localName != "menuitem" && node.localName != "menu") {
             break;
          }
@@ -119,14 +131,27 @@ var abHere2 = {
       var target = event.originalTarget;
       var aItemId, aIndex, aShowEditUI;
       if (target.parentNode.id == "placesContext") {
-         // bookmarksContextMenu
-         aItemId = document.popupNode.node.parent.itemId;
-         aIndex = document.popupNode.node.bookmarkIndex;
-         aShowEditUI = document.popupNode.boxObject.element;
-         document.popupNode.boxObject.element.parentNode._built = false;
-         abHere2.closeMenus(aShowEditUI);
+         if (target.ownerDocument.lastChild.id == "bookmarksPanel") {
+            // bookmarksPanel's ContextMenu
+            var ip = target.ownerDocument.getElementById("bookmarks-view").insertionPoint;
+            aItemId = ip.itemId;
+            aIndex = (ip.index == -1 ? (abHere2.isInsertTop ? 0 : -1) : ip.index);
+            aShowEditUI = target;
+         } else if (document.popupNode.id == "bookmarksBarContent") {
+            // bookmarksBar's ContextMenu (on space)
+            aItemId = PlacesUtils.toolbarFolderId;
+            aIndex = -1;
+            aShowEditUI = document.popupNode.boxObject.element.lastChild;
+         } else {
+            // bookmarksBar's ContextMenu (on item)
+            aItemId = document.popupNode.node.parent.itemId;
+            aIndex = document.popupNode.node.bookmarkIndex;
+            aShowEditUI = document.popupNode.boxObject.element;
+            document.popupNode.boxObject.element.parentNode._built = false;
+            abHere2.closeMenus(aShowEditUI);
+         }
       } else {
-         // bookmarksMenuPopup & bookmarksBarContent
+         // bookmarksMenu & bookmarksBar's Menu
          aItemId = target.parentNode._resultNode.itemId;
          aIndex = ((aItemId != PlacesUtils.bookmarksMenuFolderId) && abHere2.isInsertTop ? 0 : -1);
          aShowEditUI = target;
@@ -181,6 +206,8 @@ var abHere2 = {
    },
 
    moveOpTabsAndHomePageItems: function(target) {
+      if (target.id == "bookmarksMenuPopup") return;
+
       var sprtor = target._endOptSeparator;
       var ophome = target._endOptOpenSiteURI;
       var optabs = target._endOptOpenAllInTabs;
@@ -276,33 +303,40 @@ var abHere2 = {
    onpopupBookmarksContextMenu: function(event) {
       var target = event.originalTarget;
       if (target.id != "placesContext") return;
-
-      var node = document.popupNode.node;
-      var isContainer = node && node.parent && PlacesUtils.nodeIsFolder(node.parent) && !PlacesUtils.nodeIsReadOnly(node.parent);
-      var isEnabled = nsPreferences.getBoolPref("abhere2.abhere.context", true);
-
-      var bmABH = document.getElementById("placesContext_new:addbookmarkhere");
-      if (isContainer && isEnabled) {
-         var bmNew = document.getElementById("placesContext_new:bookmark");
-         if (!bmABH && bmNew) {
-            bmABH = document.createElement("menuitem");
-            bmABH.setAttribute("id", "placesContext_new:addbookmarkhere");
-            bmABH.setAttribute("label", abHere2.strBundle.GetStringFromName("label"));
-            bmABH.setAttribute("accesskey", abHere2.strBundle.GetStringFromName("accesskey"));
-            bmABH.setAttribute("class", "abhere-menuitem");
-            bmABH.setAttribute("onclick", "abHere2.clickBookmarkHere(event);");
-            bmABH.setAttribute("oncommand", "abHere2.clickBookmarkHere(event);");
-            target.insertBefore(bmABH, bmNew);
-         }
+      var isContainer;
+      if (target.ownerDocument.lastChild.id == "bookmarksPanel") { //if popups on BookmarksPanel
+         isContainer = (target.ownerDocument.getElementById("bookmarks-view").insertionPoint != null);
+      } else if (document.popupNode.id == "bookmarksBarContent") { //if popups on BookmarksBar
+         isContainer = true;
       } else {
-         if (bmABH) target.removeChild(bmABH);
+         var node = document.popupNode.node;
+         isContainer = node && node.parent && PlacesUtils.nodeIsFolder(node.parent) && !PlacesUtils.nodeIsReadOnly(node.parent);
+      }
+      var isEnabled = nsPreferences.getBoolPref("abhere2.bmm.showContextMenu", true);
+      if (isContainer && isEnabled) {
+         var bmNew = target.ownerDocument.getElementById("placesContext_new:bookmark");
+         var bmABH = document.createElement("menuitem");
+         bmABH.setAttribute("id", "placesContext_new:addbookmarkhere");
+         bmABH.setAttribute("label", abHere2.strBundle.GetStringFromName("label"));
+         bmABH.setAttribute("accesskey", abHere2.strBundle.GetStringFromName("accesskey"));
+         bmABH.setAttribute("class", "abhere-menuitem");
+         bmABH.setAttribute("onclick", "window.top.abHere2.clickBookmarkHere(event);");
+         bmABH.setAttribute("oncommand", "window.top.abHere2.clickBookmarkHere(event);");
+         target.insertBefore(bmABH, bmNew);
       }
    },
 
+   oncloseBookmarksContextMenu: function(event) {
+      var target = event.originalTarget;
+      if (target.id != "placesContext") return;
+      var bmABH = target.ownerDocument.getElementById("placesContext_new:addbookmarkhere");
+      if (bmABH) target.removeChild(bmABH);
+   },
+
    saveBookmarkFolderId: function(folderId) {
-        if (folderId != PlacesUtils.unfiledBookmarksFolderId) {
-          abHere2.prefBookmarkFolderId = folderId;
-        }
+      if (folderId != PlacesUtils.unfiledBookmarksFolderId) {
+         abHere2.prefBookmarkFolderId = folderId;
+      }
    },
 
    getMostRecentLivemarkFolderId: function() {
@@ -394,17 +428,6 @@ var abHere2 = {
       return false;
    },
 
-   dragStart: function(event) {
-      if (!abHere2.isFolderDrag) return;
-      var bmBar = document.getElementById("bookmarksBarContent");
-      var dragNode = event.target;
-      if (dragNode.parentNode != bmBar || !dragNode.node) return;
-      if (dragNode.localName == "toolbarbutton" && dragNode.getAttribute("type") == "menu") dragNode.firstChild.hidePopup();
-      bmBar._draggedNode = dragNode.node;
-      bmBar.focus();
-      bmBar._controller.setDataTransfer(event);
-   },
-
    hookBookmarksToolbar: function() {
       var bmBar = document.getElementById("bookmarksBarContent");
       if (!bmBar) return;
@@ -422,9 +445,6 @@ var abHere2 = {
       abHere2.hookCode("document.getElementById('bookmarksBarContent')._viewer.itemInserted",
          "var before = popup.childNodes[aIndex]",
          "var before = popup.childNodes[popup._startMarker + 1 + aIndex]");
-
-      //*** allow to drag the bookmarks folder without press alt/shift key
-      bmBar.addEventListener("dragstart", abHere2.dragStart, false);
    },
 
    createFolderTreeResizer: function() {
@@ -440,23 +460,57 @@ var abHere2 = {
       box.style.marginBottom = "0px";
 
       var panel = document.getElementById("editBookmarkPanelGrid");
-      panel.onmousedown = function(e) {
+      panel.addEventListener("mousedown", function(e) {
          if (e.target == resizer) {
             box.isDrag = true;
             box.clientY = e.clientY;
          }
-      }
-      panel.onmousemove = function(e) {
+      }, false);
+      panel.addEventListener("mousemove", function(e) {
          if (box.isDrag) {
             box.height = abHere2.folderTreeHeight + (e.clientY - box.clientY);
          }
-      }
-      panel.onmouseup = function(e) {
+      }, false);
+      panel.addEventListener("mouseup", function(e) {
          if (box.isDrag) {
             box.isDrag = false;
             abHere2.folderTreeHeight = box.height;
          }
-      }
+      }, false);
+   },
+
+   createTagsSelectorResizer: function() {
+      var resizer = document.getElementById("editBMPanel_tagsSelectorResizer");
+      if (resizer) return;
+      resizer = document.createElement("speacer");
+      resizer.id = "editBMPanel_tagsSelectorResizer";
+      resizer.height = "3";
+      resizer.onmouseover = function(){ this.style.cursor = "s-resize"; };
+
+      var box = document.getElementById("editBMPanel_tagsSelector");
+      var vbox = box.parentNode.insertBefore(document.createElement("vbox"), box);
+      vbox.appendChild(box);
+      vbox.appendChild(resizer);
+      box.style.marginBottom = "0px";
+
+      var panel = document.getElementById("editBookmarkPanelGrid");
+      panel.addEventListener("mousedown", function(e) {
+         if (e.target == resizer) {
+            box.isDrag = true;
+            box.clientY = e.clientY;
+         }
+      }, false);
+      panel.addEventListener("mousemove", function(e) {
+         if (box.isDrag) {
+            box.height = abHere2.tagsSelectorHeight + (e.clientY - box.clientY);
+         }
+      }, false);
+      panel.addEventListener("mouseup", function(e) {
+         if (box.isDrag) {
+            box.isDrag = false;
+            abHere2.tagsSelectorHeight = box.height;
+         }
+      }, false);
    },
 
    init: function() {
@@ -475,7 +529,7 @@ var abHere2 = {
       //decide bookmarkEditor popup position
       abHere2.hookCode("PlacesCommandHook.bookmarkPage",
             "var starIcon = ",
-            "var starIcon = (typeof(aShowEditUI)=='object' && !abHere2.isAnchorPopup) ? aShowEditUI : ");
+            "var starIcon = (typeof(aShowEditUI)=='object' && !abHere2.isAnchorPopup) ? abHere2.getAnchorElementByItemId(aShowEditUI, itemId) : ");
 
       abHere2.hookCode("PlacesCommandHook.bookmarkPage",
             "StarUI.showEditBookmarkPopup(itemId, starIcon, ",
@@ -541,7 +595,7 @@ var abHere2 = {
       //*** customize tagsSelector's height
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
          /}$/,
-         'this._element("editBMPanel_tagsSelector").height = (abHere2.isTagsInline ? 0 : abHere2.tagsSelectorHeight); $&');
+         'this._element("editBMPanel_tagsSelector").height = abHere2.tagsSelectorHeight; $&');
 
       //*** customize editBookmarkPanel's width
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
@@ -549,19 +603,24 @@ var abHere2 = {
          'this._element("editBookmarkPanelGrid").width = abHere2.panelWidth; $&');
 
       //*** group the tags in line
-      abHere2.hookCode("gEditItemOverlay._showHideRows",
+      abHere2.hookCode("StarUI.panelShown",
          /}$/,
-         'document.getAnonymousNodes(this._element("tagsSelector"))[1].firstChild.style.display = (abHere2.isTagsInline ? "inline" : ""); $&');
+         'document.getAnonymousNodes(document.getElementById("editBMPanel_tagsSelector"))[1].firstChild.style.display = (abHere2.isTagsInline ? "inline-block" : ""); $&');
 
       //*** create folderTree resizer
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
          /}$/,
          'abHere2.createFolderTreeResizer(); $&');
 
+      //*** create TagsSelector resizer
+      abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
+         /}$/,
+         'abHere2.createTagsSelectorResizer(); $&');
+
       //*** expand the FolderTree if the bookmark has already existed
       abHere2.hookCode("StarUI._doShowEditBookmarkPanel",
          'gEditItemOverlay.initPanel',
-         'this._newBookmark = (["menuitem", "toolbarbutton"].indexOf(aAnchorElement.localName)>=0) && this._element("editBookmarkPanelRemoveButton").hidden; $&');
+         'this._newBookmark = (["menuitem","toolbarbutton","browser"].indexOf(aAnchorElement.localName)>=0) && this._element("editBookmarkPanelRemoveButton").hidden; $&');
       abHere2.hookCode("gEditItemOverlay._showHideRows",
          /}$/,
          'abHere2.expandRows(this); $&');
@@ -586,9 +645,13 @@ var abHere2 = {
          bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.createAddBookmarkHereItems(event.originalTarget);");
          bmm.setAttribute("onpopupshowing", bmm.getAttribute("onpopupshowing") + "abHere2.controlBookmarksMenuPopups(event.originalTarget);");
       }
+
       //*** add BookmarksContextMenu's popupshowing event handler
       var bmc = document.getElementById("placesContext");
-      if (bmc) bmc.addEventListener("popupshowing", abHere2.onpopupBookmarksContextMenu, false);
+      if (bmc) {
+         bmc.addEventListener("popupshowing", abHere2.onpopupBookmarksContextMenu, false);
+         bmc.addEventListener("popuphiding", abHere2.oncloseBookmarksContextMenu, false);
+      }
    }
 }
 window.addEventListener("load", abHere2.init, false);

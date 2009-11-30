@@ -41,13 +41,13 @@ YTProbe.prototype.handleDocument=function(document,window) {
 			var t=null;
 			for(var i=0;i<scripts.length;i++) {
 				var script=scripts[i];
-				var match=/\"video_id\": \"(.*?)\".*\"t\": \"(.*?)\"/m.exec(script);
+				var match=/\"video_id\": \"(.*?)\".*\"t(?:oken)?\": \"(.*?)\"/m.exec(script);
 				if(match!=null && match.length==3) {
 					videoId=match[1];
 					t=match[2];
 					break;
 				}
-				var match=/\"t\": \"(.*?)\".*\"video_id\": \"(.*?)\"/m.exec(script);
+				var match=/\"t(?:oken)?\": \"(.*?)\".*\"video_id\": \"(.*?)\"/m.exec(script);
 				if(match!=null && match.length==3) {
 					videoId=match[2];
 					t=match[1];
@@ -87,6 +87,11 @@ YTProbe.prototype.handleDocument=function(document,window) {
 				}
 			}
 			var title=Util.xpGetString(dom,"/html/head/meta[@name='title']/@content");
+			if(title==null || title.length==0) {
+				title=Util.xpGetString(dom,".//h3[@id='playnav-restricted-title']/text()");
+				if(title)
+					title=title.replace(/"/g,"");
+			}
 			var url="http://www.youtube.com/get_video?video_id="+videoId+"&t="+t;
 
 			var fileName=title;
@@ -94,6 +99,7 @@ YTProbe.prototype.handleDocument=function(document,window) {
 			try {
 				unmodifiedFilename=this.pref.getBoolPref("yt-unmodified-filename");		
 			} catch(e) {}
+			fileName=fileName.replace(/[\/"\?\*:\|"']/g,"_");
 			if(unmodifiedFilename==false) {
 				var keepSpaces=false;
 				try {
@@ -103,8 +109,6 @@ YTProbe.prototype.handleDocument=function(document,window) {
 					fileName=fileName.replace(/[^a-zA-Z0-9\.\- ]/g,"_");
 				else
 					fileName=fileName.replace(/[^a-zA-Z0-9\.\-]/g,"_");
-			} else {
-				fileName=fileName.replace(/[\/"\|\?\*:]/g,"_");
 			}
 			
 			var checkHQ=this.pref.getBoolPref("yt-check-hq");

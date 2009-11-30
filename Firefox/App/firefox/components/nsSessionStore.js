@@ -514,8 +514,13 @@ SessionStoreService.prototype = {
         break;
       case "TabOpen":
       case "TabClose":
-        var panelID = aEvent.originalTarget.linkedPanel;
-        var tabpanel = aEvent.originalTarget.ownerDocument.getElementById(panelID);
+        let target = aEvent.originalTarget;
+        let panelID = target.linkedPanel;
+        let ownerDoc = target.ownerDocument;
+        let bindingParent = ownerDoc.getBindingParent(target);
+        let tabpanel =
+          ownerDoc.getAnonymousElementByAttribute(bindingParent, "id",
+                                                  panelID);
         if (aEvent.type == "TabOpen") {
           this.onTabAdd(aEvent.currentTarget.ownerDocument.defaultView, tabpanel);
         }
@@ -582,10 +587,10 @@ SessionStoreService.prototype = {
                               getService(Ci.nsIObserverService);
         observerService.notifyObservers(null, NOTIFY_WINDOWS_RESTORED, "");
         
-//@line 586 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 591 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
         // the next delayed save request should execute immediately
         this._lastSaveTime -= this._interval;
-//@line 593 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 598 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
       }
     }
     // this window was opened by _openWindowWithState
@@ -1467,8 +1472,15 @@ SessionStoreService.prototype = {
     if (!node)
       return null;
     
+    const MAX_GENERATED_XPATHS = 100;
+    let generatedCount = 0;
+    
     let data = {};
     do {
+      // Only generate a limited number of XPath expressions for perf reasons (cf. bug 477564)
+      if (!node.id && ++generatedCount > MAX_GENERATED_XPATHS)
+        continue;
+      
       let id = node.id ? "#" + node.id : XPathHelper.generate(node);
       if (node instanceof Ci.nsIDOMHTMLInputElement) {
         if (node.type != "file")
@@ -1637,7 +1649,7 @@ SessionStoreService.prototype = {
     // shallow copy this._closedWindows to preserve current state
     let lastClosedWindowsCopy = this._closedWindows.slice();
 
-//@line 1645 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 1657 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     // if no non-popup browser window remains open, return the state of the last closed window(s)
     if (nonPopupCount == 0 && lastClosedWindowsCopy.length > 0) {
       // prepend the last non-popup browser window, so that if the user loads more tabs
@@ -1646,7 +1658,7 @@ SessionStoreService.prototype = {
         total.unshift(lastClosedWindowsCopy.shift())
       } while (total[0].isPopup)
     }
-//@line 1654 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 1666 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
 
     if (activeWindow) {
       this.activeWindowSSiCache = activeWindow.__SSi || "";
@@ -2760,15 +2772,15 @@ SessionStoreService.prototype = {
     if (this._closedWindows.length <= maxWindowsUndo)
       return;
     let spliceTo = maxWindowsUndo;
-//@line 2768 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 2780 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     let normalWindowIndex = 0;
     // try to find a non-popup window in this._closedWindows
     while (normalWindowIndex < this._closedWindows.length &&
-           this._closedWindows[normalWindowIndex].isPopup)
+           !!this._closedWindows[normalWindowIndex].isPopup)
       normalWindowIndex++;
     if (normalWindowIndex >= maxWindowsUndo)
       spliceTo = normalWindowIndex + 1;
-//@line 2776 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 2788 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     this._closedWindows.splice(spliceTo);
   },
 

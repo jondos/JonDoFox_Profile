@@ -49,6 +49,8 @@ MLProbe.prototype.handleDocument=function(document,window) {
 		var classes={};
 		var allHRefs={};
 		var mediaNodes=[];
+		var hitCount=0;
+		var hitCountMax=this.pref.getIntPref("medialink-max-hits");
 		var aNodes=Util.xpGetNodes(dom,".//a[@href]",{});
 		for(var i=0;i<aNodes.length;i++) {
 			var aNode=aNodes[i];
@@ -81,6 +83,9 @@ MLProbe.prototype.handleDocument=function(document,window) {
 				var classNodes=group.nodes;
 				classNodes.push(aNode);
 			}
+			hitCount++;
+			if(isNaN(hitCountMax)==false && hitCountMax>0 && hitCount>=hitCountMax)
+				break;
 		}
 		this.groups=[];
 		var groupIndex=0;
@@ -112,6 +117,8 @@ MLProbe.prototype.getDesc = function(document,label,nodes) {
 	Util.setPropsString(desc,"referrer",document.URL);
 	Util.setPropsString(desc,"label",label);				
 	Util.setPropsString(desc,"icon-url","chrome://dwhelper/skin/medialink.gif");
+	Util.setPropsString(desc,"capture-method","medialink");
+	Util.setPropsString(desc,"sn-preserve-label","yes");
 	desc.set("mouse-listener",this);
 	
 	var fdescs=Components.classes["@mozilla.org/array;1"].

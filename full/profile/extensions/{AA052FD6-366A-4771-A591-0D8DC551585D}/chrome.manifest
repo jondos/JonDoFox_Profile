@@ -1,7 +1,6 @@
-
+content	calculator	jar:chrome/calculator.jar!/content/
 overlay	chrome://browser/content/browser.xul	chrome://calculator/content/calculatorOverlay.xul
 overlay	chrome://navigator/content/navigatorOverlay.xul	chrome://calculator/content/calculatorOverlay.xul
-content	calculator	jar:chrome/calculator.jar!/content/
 
 skin	calculator	classic/1.0	jar:chrome/calculator.jar!/skin/classic/
 style	chrome://browser/content/browser.xul	chrome://calculator/skin/buttons.css
@@ -10,33 +9,18 @@ style	chrome://messenger/content/mailWindowOverlay.xul	chrome://calculator/skin/
 style	chrome://messenger/content/messengercompose/messengercompose.xul	chrome://calculator/skin/buttons.css
 
 locale	calculator	en-US	jar:chrome/calculator.jar!/locale/en-US/
-
 locale	calculator	it-IT	jar:chrome/calculator.jar!/locale/it-IT/
-
 locale	calculator	fr-FR	jar:chrome/calculator.jar!/locale/fr-FR/
-
 locale	calculator	es-ES	jar:chrome/calculator.jar!/locale/es-ES/
-
 locale	calculator	de-DE	jar:chrome/calculator.jar!/locale/de-DE/
-
 locale	calculator	ja-JP	jar:chrome/calculator.jar!/locale/ja-JP/
-
 locale	calculator	pl-PL	jar:chrome/calculator.jar!/locale/pl-PL/
-
 locale	calculator	nl-NL	jar:chrome/calculator.jar!/locale/nl-NL/
-
 locale	calculator	tr-TR	jar:chrome/calculator.jar!/locale/tr-TR/
-
 locale	calculator	ru-RU	jar:chrome/calculator.jar!/locale/ru-RU/
-
 locale	calculator	sl-SI	jar:chrome/calculator.jar!/locale/sl-SI/
-
 locale	calculator	sk-SK	jar:chrome/calculator.jar!/locale/sk-SK/
-
 locale	calculator	cs-CZ	jar:chrome/calculator.jar!/locale/cs-CZ/
-
 locale	calculator	pt-BR	jar:chrome/calculator.jar!/locale/pt-BR/
-
 locale	calculator	zh-CN	jar:chrome/calculator.jar!/locale/zh-CN/
-
 locale	calculator	az-AZ	jar:chrome/calculator.jar!/locale/az-AZ/

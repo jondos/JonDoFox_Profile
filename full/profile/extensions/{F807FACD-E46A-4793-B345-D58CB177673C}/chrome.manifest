@@ -8,6 +8,7 @@ locale  scribefire   cs-CZ            jar:chrome/scribefire.jar!/locale/cs-CZ/
 locale  scribefire   de-DE            jar:chrome/scribefire.jar!/locale/de-DE/
 locale  scribefire   el-GR            jar:chrome/scribefire.jar!/locale/el-GR/
 locale  scribefire   es-ES            jar:chrome/scribefire.jar!/locale/es-ES/
+locale  scribefire   fa-IR            jar:chrome/scribefire.jar!/locale/fa-IR/
 locale  scribefire   fi-FI            jar:chrome/scribefire.jar!/locale/fi-FI/
 locale  scribefire   fr-FR            jar:chrome/scribefire.jar!/locale/fr-FR/
 locale  scribefire   he-IL            jar:chrome/scribefire.jar!/locale/he-IL/

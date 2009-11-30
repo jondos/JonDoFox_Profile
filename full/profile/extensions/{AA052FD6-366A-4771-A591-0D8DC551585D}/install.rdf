@@ -4,10 +4,9 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-
     <em:id>{AA052FD6-366A-4771-A591-0D8DC551585D}</em:id>
     <em:name>Calculator</em:name>
-    <em:version>1.1.12</em:version>
+    <em:version>1.1.16</em:version>
     <em:description>A calculator with advanced features. Installed in the tools menu.</em:description>
     <em:creator>Marc Belmont</em:creator>
     <em:homepageURL>http://calculator.mozdev.org</em:homepageURL>
@@ -51,23 +50,23 @@
       <Description>
 	<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
 	<em:minVersion>1.0</em:minVersion>
-	<em:maxVersion>2.0a1</em:maxVersion>
-       </Description>
-     </em:targetApplication>
+	<em:maxVersion>2.1a1pre</em:maxVersion>
+      </Description>
+    </em:targetApplication>
 
-<!--     <em:targetApplication> -->
-<!--       <Description> -->
-<!-- 	<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id> -->
-<!-- 	<em:minVersion>0.5</em:minVersion> -->
-<!-- 	<em:maxVersion>1.0+</em:maxVersion> -->
-<!--       </Description> -->
-<!--     </em:targetApplication> -->
-<!--     <em:targetApplication> -->
-<!--       <Description> -->
-<!-- 	<em:id>{86c18b42-e466-45a9-ae7a-9b95ba6f5640}</em:id> -->
-<!-- 	<em:minVersion>1.0</em:minVersion> -->
-<!-- 	<em:maxVersion>1.8+</em:maxVersion> -->
-<!--       </Description> -->
-<!--     </em:targetApplication> -->
+    <!--     <em:targetApplication> -->
+    <!--       <Description> -->
+    <!-- 	<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id> -->
+    <!-- 	<em:minVersion>0.5</em:minVersion> -->
+    <!-- 	<em:maxVersion>1.0+</em:maxVersion> -->
+    <!--       </Description> -->
+    <!--     </em:targetApplication> -->
+    <!--     <em:targetApplication> -->
+    <!--       <Description> -->
+    <!-- 	<em:id>{86c18b42-e466-45a9-ae7a-9b95ba6f5640}</em:id> -->
+    <!-- 	<em:minVersion>1.0</em:minVersion> -->
+    <!-- 	<em:maxVersion>1.8+</em:maxVersion> -->
+    <!--       </Description> -->
+    <!--     </em:targetApplication> -->
   </Description>
 </RDF>

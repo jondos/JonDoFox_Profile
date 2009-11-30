@@ -16,6 +16,8 @@ You should be able to obtain a copy of the GNU General Public License from
 http://www.gnu.org/licenses/gpl.txt; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+The full text of the GNU General Public License version 2 can be found in the file licence.txt.
+
 
 FLAG IMAGES
 ===========

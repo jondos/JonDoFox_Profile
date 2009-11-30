@@ -94,7 +94,7 @@ DhMediaListMgr.prototype.addToList=function(list,url,type,pageurl,filename,refer
 	Util.setPropertyValueRS(this.dataSource,entry,DHNS+"datestr",""+date.toLocaleString());
 	Util.setPropertyValueRS(this.dataSource,entry,DHNS+"filename",""+filename);
 	if(referer!=null) {
-		Util.setPropertyValueRS(this.dataSource,entry,DHNS+"referer",""+filename);
+		Util.setPropertyValueRS(this.dataSource,entry,DHNS+"referer",""+referer);
 	}
 	
 	return entry.Value;

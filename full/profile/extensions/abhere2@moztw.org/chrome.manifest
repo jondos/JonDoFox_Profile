@@ -1,4 +1,5 @@
 overlay	chrome://browser/content/browser.xul	chrome://abhere2/content/abhere2.xul
+overlay	chrome://browser/content/bookmarks/bookmarksPanel.xul	chrome://abhere2/content/sidebar.xul
 content	abhere2	chrome/content/
 skin	abhere2	classic/1.0	chrome/skin/
 locale	abhere2	ca-AD	chrome/locale/ca-AD/
@@ -16,6 +17,7 @@ locale	abhere2	nl-NL	chrome/locale/nl-NL/
 locale	abhere2	pl-PL	chrome/locale/pl-PL/
 locale	abhere2	pt-BR	chrome/locale/pt-BR/
 locale	abhere2	pt-PT	chrome/locale/pt-PT/
+locale	abhere2	ru-RU	chrome/locale/ru-RU/
 locale	abhere2	sk-SK	chrome/locale/sk-SK/
 locale	abhere2	tr-TR	chrome/locale/tr-TR/
 locale	abhere2	zh-CN	chrome/locale/zh-CN/

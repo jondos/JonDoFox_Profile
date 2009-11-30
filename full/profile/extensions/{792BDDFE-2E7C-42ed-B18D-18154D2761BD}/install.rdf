@@ -3,40 +3,40 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>{792BDDFE-2E7C-42ed-B18D-18154D2761BD}</em:id>
 		<em:name>TabRenamizer</em:name>
-		<em:version>0.8.14</em:version>
+		<em:version>0.9.6</em:version>
 		<em:description>The best antidote for paranoia</em:description>
-		<em:creator>Valadrem</em:creator>
+		<em:creator>Valadrem (alguiendemadrid@gmail.com)</em:creator>
 		<em:homepageURL>https://addons.mozilla.org/firefox/addon/2987/</em:homepageURL>
 		<em:iconURL>chrome://tabrenamizer/skin/tabrenamizer.png</em:iconURL>
 		<em:optionsURL>chrome://tabrenamizer/content/settings.xul</em:optionsURL>
-		<em:contributor>Alfoulad (Arabic locale)</em:contributor>
-		<em:contributor>Dave (Czech locale)</em:contributor>
-		<em:contributor>Joergen (Danish locale)</em:contributor>
-		<em:contributor>Andileinchen (German locale)</em:contributor>
-		<em:contributor>KangDiz (Persian locale)</em:contributor>
-		<em:contributor>MiK546 (Finnish locale)</em:contributor>
-		<em:contributor>Myahoo (French locale)</em:contributor>
-		<em:contributor>Urihart (Hebrew locale)</em:contributor>
-		<em:contributor>Marktheitalian (Italian locale)</em:contributor>
-		<em:contributor>Drry (Japanese locale)</em:contributor>
-		<em:contributor>Wtspout (Korean locale)</em:contributor>
-		<em:contributor>Nymo (Norwegian locale)</em:contributor>
-		<em:contributor>Markh (Dutch locale)</em:contributor>
-		<em:contributor>Teo (Polish locale)</em:contributor>
-		<em:contributor>Alberto Eidh (Portuguese (Brazilian) locale)</em:contributor>
-		<em:contributor>MySh (Russian locale)</em:contributor>
-		<em:contributor>Lloco (Portuguese (Portugal) locale)</em:contributor>
-		<em:contributor>Stoli (Swedish locale)</em:contributor>
-		<em:contributor>KenanBalamir (Turkish locale)</em:contributor>
-		<em:contributor>WangKing (Chinese (Simplified) locale)</em:contributor>
-		<em:contributor>Greener (Chinese (Traditional) locale)</em:contributor>
+		<em:translator>ar: Alfoulad</em:translator>
+		<em:translator>cs-CZ: Dave</em:translator>
+		<em:translator>da-DK: Joergen</em:translator>
+		<em:translator>de-DE: andileinchen</em:translator>
+		<em:translator>fa-IR: KangDiz</em:translator>
+		<em:translator>fi-FI: MiK546</em:translator>
+		<em:translator>fr-FR: myahoo</em:translator>
+		<em:translator>he-IL: urihart</em:translator>
+		<em:translator>it-IT: Marktheitalian</em:translator>
+		<em:translator>ja-JP: drry</em:translator>
+		<em:translator>ko-KR: wtspout</em:translator>
+		<em:translator>nb-NO: Nymo</em:translator>
+		<em:translator>nl-NL: markh</em:translator>
+		<em:translator>pl-PL: teo</em:translator>
+		<em:translator>pt-BR: Alberto Eidh</em:translator>
+		<em:translator>pt-PT: lloco</em:translator>
+		<em:translator>ru-RU: MySh</em:translator>
+		<em:translator>sv-SE: Stoli</em:translator>
+		<em:translator>tr-TR: KenanBalamir</em:translator>
+		<em:translator>zh-CN: WangKing</em:translator>
+		<em:translator>zh-TW: Greener</em:translator>
 		<em:contributor>xente_tranze</em:contributor>
 		<em:contributor>Goofy</em:contributor>
 		<em:targetApplication>
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-				<em:minVersion>2.0</em:minVersion>
-				<em:maxVersion>3.5b4</em:maxVersion>
+				<em:minVersion>3.5</em:minVersion>
+				<em:maxVersion>3.5.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 	</Description>
