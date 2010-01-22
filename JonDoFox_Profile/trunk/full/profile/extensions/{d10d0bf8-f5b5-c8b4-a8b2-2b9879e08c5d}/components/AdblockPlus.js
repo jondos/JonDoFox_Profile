@@ -53,6 +53,7 @@ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
 /**
  * Application startup/shutdown observer, triggers init()/shutdown() methods in abp object.
+ * @constructor
  */
 function Initializer() {}
 Initializer.prototype =
@@ -74,7 +75,10 @@ Initializer.prototype =
 				observerService.addObserver(this, "quit-application", true);
 				break;
 			case "profile-after-change":
-				abp.init();
+				// delayed init for Fennec
+				let appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+				if (appInfo.ID != "{a23983c0-fd0e-11dc-95ff-0800200c9a66}")
+					abp.init();
 				break;
 			case "quit-application":
 				abp.shutdown();
@@ -83,10 +87,10 @@ Initializer.prototype =
 	}
 };
 
-/*
- * Content policy class definition
+/**
+ * Adblock Plus XPCOM component
+ * @class
  */
-
 const abp =
 {
 	classDescription: "Adblock Plus component",
@@ -277,7 +281,7 @@ const abp =
 	 */
 	getInstalledVersion: function() /**String*/
 	{
-		return "1.1.1";
+		return "1.1.3";
 	},
 
 	/**
@@ -285,7 +289,7 @@ const abp =
 	 */
 	getInstalledBuild: function() /**String*/
 	{
-		return "0457169f0b9f";
+		return "428b046a1a26";
 	},
 
 	//
@@ -348,6 +352,7 @@ const abp =
 	shutdown: function()
 	{
 		filterStorage.saveToDisk();
+		prefs.shutdown();
 	},
 
 	/**

@@ -2,8 +2,8 @@ overlay chrome://browser/content/browser.xul chrome://dwhelper/content/dwhelper.
 content dwhelper    jar:chrome/dwhelper.jar!/content/
 skin    dwhelper classic/1.0 jar:chrome/dwhelper.jar!/skin/classic/
 locale  dwhelper en-US jar:chrome/dwhelper.jar!/locale/en-US/
-locale  dwhelper fr-FR jar:chrome/dwhelper.jar!/locale/fr-FR/
-locale  dwhelper nl-NL jar:chrome/dwhelper.jar!/locale/nl-NL/
+locale  dwhelper fr jar:chrome/dwhelper.jar!/locale/fr/
+locale  dwhelper nl jar:chrome/dwhelper.jar!/locale/nl/
 locale  dwhelper de-DE jar:chrome/dwhelper.jar!/locale/de-DE/
 locale  dwhelper es-ES jar:chrome/dwhelper.jar!/locale/es-ES/
 locale  dwhelper it-IT jar:chrome/dwhelper.jar!/locale/it-IT/

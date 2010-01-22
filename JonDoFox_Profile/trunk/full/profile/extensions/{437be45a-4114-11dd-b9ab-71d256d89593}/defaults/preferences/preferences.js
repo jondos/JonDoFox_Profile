@@ -2,8 +2,9 @@
 pref("extensions.jondofox.last_version", "");
 pref("extensions.jondofox.new_profile", true);
 
-// Proxy state and default no proxy list
+// Proxy state 
 pref("extensions.jondofox.proxy.state", "jondo");
+pref("extensions.jondofox.alwaysUseJonDo", false);
 
 // Set the 'Referer' header to the current domain
 pref("extensions.jondofox.set_referrer", true);
@@ -32,6 +33,18 @@ pref("extensions.jondofox.custom.socks_port", 0);
 pref("extensions.jondofox.custom.socks_version", 5);
 pref("extensions.jondofox.custom.share_proxy_settings", false);
 pref("extensions.jondofox.custom.empty_proxy", true);
+
+// Custom proxy backups
+pref("extensions.jondofox.custom.backup.ssl_host", "");
+pref("extensions.jondofox.custom.backup.ssl_port", 0);
+pref("extensions.jondofox.custom.backup.ftp_host", "");
+pref("extensions.jondofox.custom.backup.ftp_port", 0);
+pref("extensions.jondofox.custom.backup.gopher_host", "");
+pref("extensions.jondofox.custom.backup.gopher_port", 0);
+pref("extensions.jondofox.custom.backup.socks_host", "");
+pref("extensions.jondofox.custom.backup.socks_port", 0);
+pref("extensions.jondofox.custom.backup.socks_version", 5);
+
 
 // Useragent
 // JonDo settings
@@ -63,13 +76,11 @@ pref("extensions.jondofox.default_charset", "");
 pref("extensions.jondofox.accept_default", "text/html,application/xml,*/*");
 
 // Feed prefs
-
 pref("extensions.jondofox.feeds_handler_default", "bookmarks");
 pref("extensions.jondofox.audioFeeds_handler_default", "bookmarks");
 pref("extensions.jondofox.videoFeeds_handler_default", "bookmarks");
 
 // External app warn prefs
-
 pref("extensions.jondofox.network-protocol-handler.warn_external_news", true);
 pref("extensions.jondofox.network-protocol-handler.warn_external_snews", true);
 pref("extensions.jondofox.network-protocol-handler.warn_external_file", true);
@@ -78,7 +89,6 @@ pref("extensions.jondofox.network-protocol-handler.warn_external_mailto", true);
 pref("extensions.jondofox.network-protocol-handler.warn_external_default", true);
 
 // Miscellaneous
-
 pref("extensions.jondofox.source_editor_external", false);
 pref("extensions.jondofox.dom_storage_enabled", false);
 pref("extensions.jondofox.geo_enabled", false);
@@ -88,3 +98,6 @@ pref("extensions.jondofox.socks_remote_dns", true);
 pref("extensions.jondofox.history_expire_days", 0);
 pref("extensions.jondofox.proxy_keep-alive", false);
 pref("extensions.jondofox.noscript_contentBlocker", true);
+
+//SafeCache
+pref("extensions.jondofox.stanford-safecache_enabled", true);

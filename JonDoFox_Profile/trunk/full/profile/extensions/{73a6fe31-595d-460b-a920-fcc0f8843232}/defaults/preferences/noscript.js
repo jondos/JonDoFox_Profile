@@ -98,6 +98,7 @@ pref("noscript.filterXGetUserRx", "");
 pref("noscript.filterXExceptions", "^http://([a-z]+)\\.google\\.(?:[a-z]{1,3}\\.)?[a-z]+/(?:search|custom|\\1)\\?\n^http://([a-z]*)\\.?search\\.yahoo\\.com/search(?:\\?|/\\1\\b)\n^http://[a-z]+\\.wikipedia\\.org/wiki/[^\"<>\?%]+$\n^http://translate\.google\.com/translate_t[^\"'<>\?%]+$"); 
 pref("noscript.filterXExceptions.lycosmail", true);
 pref("noscript.filterXExceptions.fbconnect", true);
+pref("noscript.filterXExceptions.livejournal", true);
 pref("noscript.injectionCheck", 2);
 pref("noscript.injectionCheckPost", true);
 pref("noscript.injectionCheckHTML", true);
@@ -202,14 +203,19 @@ pref("noscript.abp.removeTabs", false);
 
 pref("noscript.surrogate.enabled", true);
 pref("noscript.surrogate.ga.exceptions", "");
-pref("noscript.surrogate.ga.replacement", "var _0=function(){};with(window)urchinTracker=_0,_gat={_getTracker:function(){return{__noSuchMethod__:_0,_link:function(h){if(h)location.href=h;},_linkByPost:function(){return true;},_getLinkerUrl:function(u){return u;}}}}");
+pref("noscript.surrogate.ga.replacement", "var _0=function(){};with(window)urchinTracker=_0,_gat={_getTracker:function(){return{__noSuchMethod__:_0,_link:function(h){if(h)location.href=h;},_linkByPost:function(){return true;},_getLinkerUrl:function(u){return u;},_trackEvent:_0}}}");
 pref("noscript.surrogate.qs.sources", "edge.quantserve.com");
 pref("noscript.surrogate.qs.replacement", "window.quantserve=function(){}");
 pref("noscript.surrogate.ga.sources", "*.google-analytics.com");
 pref("noscript.surrogate.yieldman.replacement", "with(window)rmAddKey=rmAddCustomKey=rmShowAd=rmShowPop=rmShowInterstitial=rmGetQueryParameters=rmGetSize=rmGetWindowUrl=rmGetPubRedirect=rmGetClickUrl=rmReplace=rmTrim=rmUrlEncode=rmCanShowPop=rmCookieExists=rmWritePopFrequencyCookie=rmWritePopExpirationCookie=flashIntalledCookieExists=writeFlashInstalledCookie=flashDetection=rmGetCookie=function(){}");
 pref("noscript.surrogate.yieldman.sources", "*.yieldmanager.com");
-pref("noscript.surrogate.fap.replacement", "window.puShown getter=window.puShown setter=function(){return true}");
-pref("noscript.surrogate.fap.sources", "@*.imagefap.com *.moviefap.com imagefap.com moviefap.com");
+pref("noscript.surrogate.popunder.replacement", "var open=window.__proto__.open;window.__proto__.open=function(url,target,features){if(!(/^_(?:top|parent|self)$/i.test(target)||target in frames)){var suspSrc,frame,ff=[]; for(var f,ev,aa=arguments;(f=aa.callee.caller) && ff.indexOf(f)<0;ff.push(f)){aa=f.arguments;ev=aa[0];if(!suspSrc) suspSrc=/(?:\\bpopunde?r|\\bfocus|\\bblur|[pP]uShown)\\b/.test(f.toSource());if(ev instanceof MouseEvent && ev.type=='click' && ev.currentTarget===document){if(suspSrc){frame=document.body.appendChild(document.createElement('iframe'));frame.src='data:text/html,';frame.style.display='none';window.setTimeout(function(){frame.parentNode.removeChild(frame);},1000);var w=frame.contentWindow;w.blur=function(){};return w;}}}}return open.apply(this, arguments);};");
+pref("noscript.surrogate.popunder.sources", "@^http:");
+pref("noscript.surrogate.popunder.exceptions", "");
+pref("noscript.surrogate.imdb.sources", "@*.imdb.com/video/*");
+pref("noscript.surrogate.imdb.replacement", "addEventListener('DOMContentLoaded',function(ev){ad_utils.render_ad=function(w){w.location=w.location.href.replace(/.*\\bTRAILER=([^&]+).*/,'$1')}},true)");
+
+
 pref("noscript.placeholderMinSize", 32);
 
 pref("noscript.compat.evernote", true);
@@ -245,3 +251,4 @@ pref("noscript.STS.expertErrorUI", false);
 
 pref("noscript.frameOptions.enabled", true);
 pref("noscript.frameOptions.parentWhitelist", "https://mail.google.com/*");
+pref("noscript.logDNS", false);

@@ -24,6 +24,7 @@ function DLMgr() {
 			.getService(Components.interfaces.nsIPrefService);
 		this.pref=prefService.getBranch("dwhelper.");
 		this.counters=[];
+		this.currents=[];
 		this.queuedEntries={};
 	} catch(e) {
 		dump("[DLMgr] !!! constructor: "+e+"\n");
@@ -33,7 +34,7 @@ function DLMgr() {
 DLMgr.prototype = {
 	get queueDatasource() { return this.qDatasource; },
 	get downloadMode() { 
-		var mode="one-by-one";
+		var mode="onebyone";
 		try { mode=this.pref.getCharPref("download-mode"); } catch(e) {}
 		return mode;
 	}
@@ -46,6 +47,7 @@ DLMgr.prototype.download=function(listener,entry,ctx) {
 			this.doDownload(listener,entry,ctx);
 			break;
 		case "onebyone":
+		case "controlled":
 			this.queueDownload(listener,entry,ctx);
 			break;
 	}
@@ -105,6 +107,8 @@ DLMgr.prototype.queueDownload=function(listener,entry,ctx) {
 	//dump("[DLMgr] queueDownload()\n");
 	try {
 		var dEntry=Util.createAnonymousNodeS(this.qDatasource,"urn:root");
+		Util.setPropsString(entry,"download-node-value",dEntry.Value);
+		//dump("[DLMgr] queued "+dEntry.Value+"\n");
 		var label;
 		if(entry.has("cv-file")) {
 			label=entry.get("cv-file",Components.interfaces.nsILocalFile).leafName;
@@ -128,15 +132,31 @@ DLMgr.prototype.queueDownload=function(listener,entry,ctx) {
 
 DLMgr.prototype.checkTransfer=function() {
 	//dump("[DLMgr] checkTransfer()\n");
-	var entries=Util.getChildResourcesS(this.qDatasource,"urn:root",{});
-	if(this.current==null) {
-		if(entries.length>0) {
-			var dEntry=entries[0];
-			var data=this.queuedEntries[dEntry.Value];
-			Util.setPropertyValueRS(this.qDatasource,dEntry,DHNS+"status","downloading");
-			this.doDownload(data.listener,data.entry,data.ctx);
-			this.current=dEntry;
+	var maxDL=1;
+	if(this.downloadMode=="controlled") {
+		maxDL=this.pref.getIntPref("download.controlled.max");
+		if(maxDL<1) {
+			maxDL=1;
+			this.pref.setIntPref("download.controlled.max",maxDL);
 		}
+	}
+	var entries=Util.getChildResourcesS(this.qDatasource,"urn:root",{});
+	while(this.currents.length<maxDL && entries.length>0) {
+		var dEntry=null;
+		for(var i in entries) {
+			var status=Util.getPropertyValueRS(this.qDatasource,entries[i],DHNS+"status");
+			if(status=="queued") {
+				dEntry=entries[i];
+				break;
+			}
+		}
+		if(dEntry==null)
+			break;
+		var data=this.queuedEntries[dEntry.Value];
+		Util.setPropertyValueRS(this.qDatasource,dEntry,DHNS+"status","downloading");
+		//dump("[DLMgr] starting "+dEntry.Value+"\n");
+		this.doDownload(data.listener,data.entry,data.ctx);
+		this.currents.push(dEntry.Value);
 	}
 	var count=entries.length;
 	for(var i in this.counters) {
@@ -162,13 +182,22 @@ DLMgr.prototype.transferDone = function(status,request,listener,entry,ctx) {
 			this.incrementDownloadCount();
 		}
 		
-		delete this.queuedEntries[this.current.Value];
+		var nodeValue=Util.getPropsString(entry,"download-node-value");
+		
+		//dump("[DLMgr] done "+nodeValue+"\n");
+		delete this.queuedEntries[nodeValue];
 	
-		if(this.current!=null) {
-			Util.removeChildSR(this.qDatasource,"urn:root",this.current);
-			Util.removeReference(this.qDatasource,this.current);			
+		Util.removeChildSS(this.qDatasource,"urn:root",nodeValue);
+		Util.removeReferenceS(this.qDatasource,nodeValue);			
+
+		for(var i in this.currents) {
+			if(this.currents[i]==nodeValue) {
+				//dump("[DLMgr] purged "+nodeValue+"\n");
+				this.currents.splice(i,1);
+				break;
+			}
 		}
-		this.current=null;
+
 		this.checkTransfer();
 	
 	} catch(e) {
@@ -214,6 +243,14 @@ DLMgr.prototype.incrementDownloadCount = function() {
 DLMgr.prototype.donate=function(count) {
 	if(this.pref.getBoolPref("donate-not-again"))
 		return;
+	try {
+		var cvMgr=Components.classes["@downloadhelper.net/convert-manager-component"]
+		              					.getService(Components.interfaces.dhIConvertMgr);
+		var cvInfo=cvMgr.getInfo();
+		if(cvInfo.get("windows",Components.interfaces.nsISupportsPRBool).data==true &&
+				cvInfo.get("unregistered",Components.interfaces.nsISupportsPRBool).data==false)
+			return; // don't request donation to those who have a license
+	} catch(e) {}
     var options="chrome,centerscreen";
     try {
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]

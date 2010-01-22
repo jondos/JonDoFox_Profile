@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{b9db16a4-6edc-47ec-a1f4-b86292ed211d}</em:id>
-    <em:version>4.6.5</em:version>
+    <em:version>4.7</em:version>
     <em:type>2</em:type>
    
     <!-- Target Application this extension can install into, 
@@ -33,8 +33,8 @@
 	<em:targetApplication>
 		<Description>
 			<em:id>songbird@songbirdnest.com</em:id>
-			<em:minVersion>0.7.0</em:minVersion>
-			<em:maxVersion>1.2.*</em:maxVersion>
+			<em:minVersion>1.4.1</em:minVersion>
+			<em:maxVersion>1.6a</em:maxVersion>
 		</Description>
 	</em:targetApplication>
 
@@ -59,8 +59,8 @@
 		<Description about="urn:mozilla:extension:file:dwhelper.jar">
 		    <em:package>content/</em:package>
 		    <em:locale>locale/en-US/</em:locale>
-		    <em:locale>locale/fr-FR/</em:locale>
-		    <em:locale>locale/nl-NL/</em:locale>
+		    <em:locale>locale/fr/</em:locale>
+		    <em:locale>locale/nl/</em:locale>
 		    <em:locale>locale/de-DE/</em:locale>
 		    <em:locale>locale/es-ES/</em:locale>
 		    <em:locale>locale/it-IT/</em:locale>
