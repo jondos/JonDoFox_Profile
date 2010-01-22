@@ -164,7 +164,7 @@ SmartNamer.prototype.updateEntry=function(entry) {
 													fname=fname+text.charAt(n);
 											}
 											text=fname;
-											text=text.replace(/[\/:!\*\?&\|"']/g,'_');
+											text=text.replace(/[\/:!\*\?&\|"'\\]/g,'_');
 											var maxlength=this.pref.getIntPref("fname.maxlen");
 											var extension=Util.getPropsString(entry,"file-extension");
 											if(extension) {
@@ -202,7 +202,14 @@ SmartNamer.prototype.updateEntry=function(entry) {
 			}
 		}
 		for(var i in found) {
-			Util.setPropsString(entry,"sn-"+i,found[i]);
+			var text=found[i];
+			try {
+				var maxLength=this.pref.getIntPref("max."+i);
+				if(maxLength>0 && text.length>maxLength) {
+					text=text.substr(0,maxLength);
+				}
+			} catch(e) {}
+			Util.setPropsString(entry,"sn-"+i,text);
 		}
 	} catch(e) {
 		dump("!!! [SmartNamer] updateEntry(): "+e+"\n");
@@ -314,6 +321,8 @@ SmartNamer.prototype.handle=function(document,window,item) {
 }
 
 SmartNamer.prototype.getSelectionRange=function(window) {
+	if(window.document.popupNode==null) 
+		return null;
 	var seln=window.document.popupNode.ownerDocument.defaultView.getSelection();
 	if(seln.rangeCount>0) {
 		var range=seln.getRangeAt(0);

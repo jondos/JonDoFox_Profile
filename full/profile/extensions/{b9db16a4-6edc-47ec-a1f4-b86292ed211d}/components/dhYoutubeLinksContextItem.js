@@ -281,7 +281,7 @@ YTLCItem.prototype.loadedPage=function(url,text) {
 			try {
 				unmodifiedFilename=this.pref.getBoolPref("yt-unmodified-filename");		
 			} catch(e) {}
-			fileName=fileName.replace(/[\/"\?\*:\|"']/g,"_");
+			fileName=fileName.replace(/[\/"\?\*:\|"'\\]/g,"_");
 			if(unmodifiedFilename==false) {
 				var keepSpaces=false;
 				try {

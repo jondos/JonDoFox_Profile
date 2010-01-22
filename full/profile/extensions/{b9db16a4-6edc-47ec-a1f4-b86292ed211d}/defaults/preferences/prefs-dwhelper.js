@@ -2,7 +2,8 @@
  *            Copyright (c) 2006-2009 Michel Gutierrez. All Rights Reserved.
  ******************************************************************************/
 
-pref("dwhelper.download-mode", "onebyone");
+pref("dwhelper.download-mode", "controlled");
+pref("dwhelper.download.controlled.max", 2);
 pref("dwhelper.first-time", true);
 pref("dwhelper.alert-update-version", "");
 pref("dwhelper.menu-http-expiration",60000);
@@ -78,3 +79,8 @@ pref("dwhelper.twitter.tag-message",true);
 pref("dwhelper.medialink-max-hits",50);
 pref("dwhelper.icon-click","sites");
 pref("dwhelper.passwords-migrated",false);
+pref("dwhelper.quickdownload-notify",true);
+pref("dwhelper.seh-intro-proc.enable",true);
+pref("dwhelper.smartnamer.max.name",128);
+pref("dwhelper.smartnamer.max.descr",512);
+pref("dwhelper.do-welcome",true);

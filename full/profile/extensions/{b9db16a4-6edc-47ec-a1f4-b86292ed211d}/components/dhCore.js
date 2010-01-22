@@ -752,6 +752,12 @@ Core.prototype.monitorWindow=function(win) {
 }
 
 Core.prototype.registerProcessor=function(processor) {
+	for(var i in this.processors) {
+		if(this.processors[i].name==processor.name) {
+			this.processors[i]=processor;
+			return;
+		}
+	}
 	this.processors.push(processor);
 }
 
@@ -809,6 +815,17 @@ Core.prototype.handleCommand=function(entry,key) {
 Core.prototype.updateBlackList=function() {
 	var blacklistPref=this.pref.getCharPref("media-host-blacklist");
 	this.blacklist=blacklistPref.split("|");
+	var entries=[];
+	var needUpdate=false;
+	for(var i in this.entries) {
+		if(this.filterBlackList(this.entries[i]))
+			entries.push(this.entries[i]);
+		else
+			needUpdate=true;
+	}
+	this.entries=entries;
+	if(needUpdate)
+		this.updateMenus(null,null);
 }
 
 Core.prototype.shareBlackList=function() {
@@ -961,7 +978,7 @@ Core.prototype.updateSystemMenu=function(menupopup) {
 			type: "dialog",
 			modal: false,
 			url: "chrome://dwhelper/content/download-queue.xul",
-			cond: "isOneByOne"
+			cond: "useDownloadQueue"
 		},
 		{ 
 			label: Util.getText("menu.open-download-dir"),
@@ -1192,6 +1209,14 @@ Core.prototype.isOneByOne=function(data) {
 		dm=this.pref.getCharPref("download-mode");
 	} catch(e) {}
 	return (dm=="onebyone");
+}
+
+Core.prototype.useDownloadQueue=function(data) {
+	var dm="onebyone";
+	try {
+		dm=this.pref.getCharPref("download-mode");
+	} catch(e) {}
+	return (dm=="onebyone" || dm=="controlled");
 }
 
 Core.prototype.openDownloadDirectory=function(data) {

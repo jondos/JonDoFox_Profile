@@ -8,5 +8,5 @@
   <RDF:Seq RDF:about="http://downloadhelper.net/1.0#history-list">
   </RDF:Seq>
   <RDF:Description RDF:about="http://downloadhelper.net/1.0#history-list"
-                   NS1:name="Chronik" />
+                   NS1:name="History" />
 </RDF:RDF>
