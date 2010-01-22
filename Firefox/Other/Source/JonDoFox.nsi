@@ -369,14 +369,12 @@ FunctionEnd
 ##======================================================================================================================================================
 
 
-InstType $(InstTypeComplete)                 # 1
-InstType $(InstTypeLite)                     # 2
-InstType $(InstTypeProfileComplete)          # 3
-InstType $(InstTypeProfileLite)              # 4
-
+InstType $(InstTypeLite)                     # 1 
+InstType $(InstTypeProfileLite)              # 2 
+InstType /NOCUSTOM
 
 Section /o $(JonDoFox) JFPortable
-SectionIn 1 2
+SectionIn 1 
         ${If} $PROFILE == ""
               MessageBox MB_ICONEXCLAMATION|MB_OK $(FF30Win9x)
         ${EndIf}
@@ -400,7 +398,7 @@ SectionEnd
 
 
 Section - ProfileCore
-SectionIn 1 2 3 4
+SectionIn 1 2 
 
         SetOutPath $ProfilePath
         SetOverwrite on
@@ -461,7 +459,7 @@ SectionEnd
 SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         Section "Adblock Plus" AdblockPlus
-        SectionIn 1 2 3 4
+        SectionIn 1 2 
                 StrCpy $ExtensionGUID "{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}"
                 StrCpy $ExtensionName "Adblock Plus"
 
@@ -473,23 +471,8 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section "Adblock Plus: Element Hiding Helper" AdblockPlusEHH
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "elemhidehelper@adblockplus.org"
-                StrCpy $ExtensionName "Adblock Plus: Element Hiding Helper"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\elemhidehelper@adblockplus.org\*.*"
-        
-        SectionEnd
-
-
         Section "CS Lite" CSLite
-        SectionIn 1 2 3 4
-        
+        SectionIn 1 2         
                 StrCpy $ExtensionGUID "{00084897-021a-4361-8423-083407a033e0}"
                 StrCpy $ExtensionName "CSLite"
 
@@ -500,9 +483,9 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
+
         Section "DownloadHelper" DownloadHelper
-        SectionIn 1 2 3 4
-        
+        SectionIn 1 2        
                 StrCpy $ExtensionGUID "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}"
                 StrCpy $ExtensionName "DownloadHelper"
 
@@ -513,37 +496,9 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
-
-        Section "Dr.Web Anti-Virus" DrWebAntiVirus
-        SectionIn 1 2 3 4
         
-                StrCpy $ExtensionGUID "{6614d11d-d21d-b211-ae23-815234e1ebb5}"
-                StrCpy $ExtensionName "Dr.Web Anti-Virus"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{6614d11d-d21d-b211-ae23-815234e1ebb5}\*.*"
-
-        SectionEnd
-
-        
-        Section "DT Whois" DTWhois
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "beysim@beysim.net"
-                StrCpy $ExtensionName "DT Whois"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\beysim@beysim.net\*.*"
-
-        SectionEnd
-
-
         Section "JonDoFox" JonDoFox
-        SectionIn 1 2 3 4
+        SectionIn 1 2 
         
                 StrCpy $ExtensionGUID "{437be45a-4114-11dd-b9ab-71d256d89593}"
                 StrCpy $ExtensionName "JonDoFox"
@@ -555,37 +510,9 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
-        
-       /* Section "Media Pirate" MediaPirate
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}"
-                StrCpy $ExtensionName "Media Pirate"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{cc265d3d-3f6f-0170-a78b-bbbaef7a868c}\*.*"
-
-        SectionEnd*/
-
-
-        Section "Menu Editor" MenuEditor
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{EDA7B1D7-F793-4e03-B074-E6F303317FB0}"
-                StrCpy $ExtensionName "Menu Editor"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{EDA7B1D7-F793-4e03-B074-E6F303317FB0}\*.*"
-
-        SectionEnd
-
 
         Section "NoScript" NoScript
-        SectionIn 1 2 3 4
+        SectionIn 1 2
         
                 StrCpy $ExtensionGUID "{73a6fe31-595d-460b-a920-fcc0f8843232}"
                 StrCpy $ExtensionName "NoScript"
@@ -598,293 +525,8 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-#        Section "RefControl" RefControl
-#        SectionIn 1 2 3 4
-#
-#                StrCpy $ExtensionGUID "{455D905A-D37C-4643-A9E2-F6FEFAA0424A}"
-#                StrCpy $ExtensionName "RefControl"
-#
-#                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-#                SetOverwrite on
-#
-#                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{455D905A-D37C-4643-A9E2-F6FEFAA0424A}\*.*"
-#
-#        SectionEnd
-
-
-        Section "SafeCache" SafeCache
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{670a77c5-010e-4476-a8ce-d09171318839}"
-                StrCpy $ExtensionName "SafeCache"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{670a77c5-010e-4476-a8ce-d09171318839}\*.*"
-
-        SectionEnd
-
-
-#        Section "SwitchProxy Tool" SwitchProxyTool
-#        SectionIn 1 2 3 4
-#
-#                StrCpy $ExtensionGUID "{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}"
-#                StrCpy $ExtensionName "SwitchProxy Tool"
-#
-#                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-#                SetOverwrite on
-#
-#                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{27A2FD41-CB23-4518-AB5C-C25BAFFDE531}\*.*"
-#
-#        SectionEnd
-
-       /* Section "Temporary Inbox" TemporaryInbox
-        SectionIn 1 2 3 4
-        
-                StrCpy $ExtensionGUID "{ac1e10b8-206d-4746-a18e-0483852dc20b}"
-                StrCpy $ExtensionName "Temporary Inbox"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{ac1e10b8-206d-4746-a18e-0483852dc20b}\*.*"
-
-        SectionEnd*/
-
-
-##======================================================================================================================================================
-##                                                                           Optional Extensions
-##======================================================================================================================================================
-
-
-        Section /o "Add Bookmark Here" AddBookmarkHere
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "abhere2@moztw.org"
-                StrCpy $ExtensionName "Add Bookmark Here"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\abhere2@moztw.org\*.*"
-
-        SectionEnd
-
-
-        Section /o "CacheIT!" CacheIT
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{98449521-9320-4257-aa35-9e1a39c8cbe0}"
-                StrCpy $ExtensionName "CacheIT!"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{98449521-9320-4257-aa35-9e1a39c8cbe0}\*.*"
-
-        SectionEnd
-
-
-        Section /o "Calculator" Calculator
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{AA052FD6-366A-4771-A591-0D8DC551585D}"
-                StrCpy $ExtensionName "Calculator"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{AA052FD6-366A-4771-A591-0D8DC551585D}\*.*"
-
-        SectionEnd
-
-
-        Section /o "ChatZilla" ChatZilla
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{59c81df5-4b7a-477b-912d-4e0fdf64e5f2}"
-                StrCpy $ExtensionName "ChatZilla"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{59c81df5-4b7a-477b-912d-4e0fdf64e5f2}\*.*"
-
-        SectionEnd
-
-
-        
-        Section /o "Copy Plain Text" CopyPlainText
-        SectionIn 1 3
-
-                StrCpy $ExtensionGUID "{723AAF16-AF1F-4404-A5D7-0BFE39766605}"
-                StrCpy $ExtensionName "Copy Plain Text"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{723AAF16-AF1F-4404-A5D7-0BFE39766605}\*.*"
-
-        SectionEnd
-
-
-#        Section /o "Forecastbar Enhanced" ForecastbarEnhanced
-#        SectionIn 1 3
-        
-#                StrCpy $ExtensionGUID "{3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}"
-#                StrCpy $ExtensionName "Forecastbar Enhanced"
-
-#                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-#                SetOverwrite on
-
-#                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}\*.*"
-
-#        SectionEnd
-
-
-        Section /o "FoxClocks" FoxClocks
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{d37dc5d0-431d-44e5-8c91-49419370caa1}"
-                StrCpy $ExtensionName "FoxClocks"
-
-               
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{d37dc5d0-431d-44e5-8c91-49419370caa1}\*.*"
-
-        SectionEnd
-        
-
-        Section /o "Groowe Search Toolbar" GrooweSearchToolbar
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{268ad77e-cff8-42d7-b479-da60a7b93305}"
-                StrCpy $ExtensionName "Groowe Search Toolbar"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{268ad77e-cff8-42d7-b479-da60a7b93305}\*.*"
-
-        SectionEnd
-
-
-
-        Section /o "Image Zoom" ImageZoom
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{1A2D0EC4-75F5-4c91-89C4-3656F6E44B68}"
-                StrCpy $ExtensionName "Image Zoom"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{1A2D0EC4-75F5-4c91-89C4-3656F6E44B68}\*.*"
-
-        SectionEnd
-        
-        
-        Section /o "JSView" JSView
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}"
-                StrCpy $ExtensionName "JSView"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{cf15270e-cf08-4def-b4ea-6a5ac23f3bca}\*.*"
-
-        SectionEnd
-
-
-        Section /o "MR Tech Toolkit" MRTechToolkit
-        SectionIn 1 3
-
-                StrCpy $ExtensionGUID "{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}"
-                StrCpy $ExtensionName "MR Tech Toolkit"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}\*.*"
-
-        SectionEnd
-
-
-        Section /o "Plain Text to Link" PlainTexttoLink
-        SectionIn 1 3
-
-                StrCpy $ExtensionGUID "{C90B0826-5A17-4970-A5BF-A43D22452E21}"
-                StrCpy $ExtensionName "Plain Text to Link"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{C90B0826-5A17-4970-A5BF-A43D22452E21}\*.*"
-
-        SectionEnd
-
-
-        /*Section /o "Sage" Sage
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{a6ca9b3b-5e52-4f47-85d8-cca35bb57596}"
-                StrCpy $ExtensionName "Sage"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{a6ca9b3b-5e52-4f47-85d8-cca35bb57596}\*.*"
-
-        SectionEnd*/
-
-
-        Section /o "ScribeFire" ScribeFire
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{F807FACD-E46A-4793-B345-D58CB177673C}"
-                StrCpy $ExtensionName "ScribeFire"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{F807FACD-E46A-4793-B345-D58CB177673C}\*.*"
-
-        SectionEnd
-        
-        Section /o "TabRenamizer" TabRenamizer
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{792BDDFE-2E7C-42ed-B18D-18154D2761BD}"
-                StrCpy $ExtensionName "TabRenamizer"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{792BDDFE-2E7C-42ed-B18D-18154D2761BD}\*.*"
-
-        SectionEnd        
-
-
-        Section /o "TinyUrl Creator" TinyUrlCreator
-        SectionIn 1 3
-        
-                StrCpy $ExtensionGUID "{89736E8E-4B14-4042-8C75-AD00B6BD3900}"
-                StrCpy $ExtensionName "TinyUrl Creator"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{89736E8E-4B14-4042-8C75-AD00B6BD3900}\*.*"
-
-        SectionEnd
-
         Section /o "ProfileSwitcher" ProfileSwitcher
-        SectionIn 3 4
+        SectionIn 1 2 
                 
                 StrCpy $ExtensionGUID "{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}"
                 StrCpy $ExtensionName "ProfileSwitcher"
@@ -980,40 +622,12 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${JFPortable} $(DescJFPortable)
   !insertmacro MUI_DESCRIPTION_TEXT ${AdblockPlus} $(DescAdblockPlus)
-  !insertmacro MUI_DESCRIPTION_TEXT ${AdblockPlusEHH} $(DescAdblockPlusEHH)
   !insertmacro MUI_DESCRIPTION_TEXT ${CSLite} $(DescCSLite)
   !insertmacro MUI_DESCRIPTION_TEXT ${DownloadHelper} $(DescDownloadHelper)
-  !insertmacro MUI_DESCRIPTION_TEXT ${DrWebAntiVirus} $(DescDrWebAntiVirus)
-  !insertmacro MUI_DESCRIPTION_TEXT ${DTWhois} $(DescDTWhois)
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)  
- # !insertmacro MUI_DESCRIPTION_TEXT ${MediaPirate} $(DescMediaPirate)
-  !insertmacro MUI_DESCRIPTION_TEXT ${MenuEditor} $(DescMenuEditor)
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
-#  !insertmacro MUI_DESCRIPTION_TEXT ${RefControl} $(DescRefControl)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SafeCache} $(DescSafeCache)
-#  !insertmacro MUI_DESCRIPTION_TEXT ${SwitchProxyTool} $(DescSwitchProxyTool)  
-#  !insertmacro MUI_DESCRIPTION_TEXT ${TemporaryInbox} $(DescTemporaryInbox)
-  !insertmacro MUI_DESCRIPTION_TEXT ${AddBookmarkHere} $(DescAddBookmarkHere)
-  !insertmacro MUI_DESCRIPTION_TEXT ${CacheIT} $(DescCacheIT)
-  !insertmacro MUI_DESCRIPTION_TEXT ${Calculator} $(DescCalculator)
-  !insertmacro MUI_DESCRIPTION_TEXT ${ChatZilla} $(DescChatZilla)
-  !insertmacro MUI_DESCRIPTION_TEXT ${CopyPlainText} $(DescCopyPlainText)
-#  !insertmacro MUI_DESCRIPTION_TEXT ${ForecastbarEnhanced} $(DescForecastbarEnhanced)
-  !insertmacro MUI_DESCRIPTION_TEXT ${FoxClocks} $(DescFoxClocks)
-  !insertmacro MUI_DESCRIPTION_TEXT ${GrooweSearchToolbar} $(DescGrooweSearchToolbar)
-  !insertmacro MUI_DESCRIPTION_TEXT ${ImageZoom} $(DescImageZoom)
-  !insertmacro MUI_DESCRIPTION_TEXT ${JSView} $(DescJSView)
-  !insertmacro MUI_DESCRIPTION_TEXT ${MRTechToolkit} $(DescMRTechToolkit)
-  !insertmacro MUI_DESCRIPTION_TEXT ${PlainTexttoLink} $(DescPlainTexttoLink)
-  #!insertmacro MUI_DESCRIPTION_TEXT ${Sage} $(DescSage)
-  !insertmacro MUI_DESCRIPTION_TEXT ${ScribeFire} $(DescScribeFire)
-  !insertmacro MUI_DESCRIPTION_TEXT ${TabRenamizer} $(DescTabRenamizer)
-  !insertmacro MUI_DESCRIPTION_TEXT ${TinyUrlCreator} $(DescTinyUrlCreator)
   !insertmacro MUI_DESCRIPTION_TEXT ${ProfileSwitcher} $(DescProfileSwitcher)  
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
-
-
-
 
 
 ##======================================================================================================================================================
@@ -1057,49 +671,31 @@ FunctionEnd
 ##                                                                           .onSelChange
 ##======================================================================================================================================================
 
-Function .onSelChange
+#Function .onSelChange
 
-       Call CheckSelected
+#       Call CheckSelected
         
-FunctionEnd
+#FunctionEnd
 
 
 Function RequiredSelections
 
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
          SectionSetFlags ${AdblockPlus} $0
-         SectionSetFlags ${AdblockPlusEHH} $0
+   
          SectionSetFlags ${CSLite} $0
          SectionSetFlags ${DownloadHelper} $0
-         SectionSetFlags ${DrWebAntiVirus} $0
-         SectionSetFlags ${DTWhois} $0
+  
+
          SectionSetFlags ${JonDoFox} $0
-         #SectionSetFlags ${MediaPirate} $0
-         SectionSetFlags ${MenuEditor} $0
+
+
          SectionSetFlags ${NoScript} $0
-         SectionSetFlags ${SafeCache} $0
-         #SectionSetFlags ${TemporaryInbox} $0
+         SectionSetFlags ${ProfileSwitcher} $0
+
 
 FunctionEnd
 
-
-Function CheckSelected
-
-  SectionGetFlags ${ProfileSwitcher} $0
-   SectionGetFlags ${JFPortable} $1
-  IntOp $2 $0 & ${SF_RO}
-   IntOp $3 $1 & ${SF_SELECTED}
-  
-  ${If} $3 == 0
-  ${AndIf} $2 > 1
-        IntOp $0 $0 ^ ${SF_RO}
-        SectionSetFlags ${ProfileSwitcher} $0
-  ${ElseIf} $3 == 1
-        IntOp $0 0 | ${SF_RO}
-        SectionSetFlags ${ProfileSwitcher} $0
-  ${EndIf}
-
- FunctionEnd
 
 
 ##======================================================================================================================================================
