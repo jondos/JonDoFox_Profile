@@ -35,17 +35,17 @@ LangString YouNeedAdminRights ${LANG_GERMAN} "Der gewählte Ordner erfordert Admi
 
 LangString JonDoFox ${LANG_GERMAN} "Firefox-zum-Mitnehmen (PortableApps)"
 
-LangString JonDoFoxProfile ${LANG_GERMAN} "Profil"
+LangString JonDoFoxProfile ${LANG_GERMAN} "JonDoFox-Profil"
 
 
 
 LangString InstTypeComplete ${LANG_GERMAN} "Komplett für Unterwegs (mit Firefox-zum-Mitnehmen)"
 
-LangString InstTypeLite ${LANG_GERMAN} "Minimal für Unterwegs (mit Firefox-zum-Mitnehmen)"
+LangString InstTypeLite ${LANG_GERMAN} "für Unterwegs (mit Firefox-zum-Mitnehmen)"
 
 LangString InstTypeProfileComplete ${LANG_GERMAN} "Komplett (setzt installierten Firefox voraus)"
 
-LangString InstTypeProfileLite ${LANG_GERMAN} "Minimal (setzt installierten Firefox voraus)"
+LangString InstTypeProfileLite ${LANG_GERMAN} "Desktop (setzt installierten Firefox voraus)"
 
 
 # Item Description

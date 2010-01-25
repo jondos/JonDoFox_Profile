@@ -35,18 +35,18 @@ LangString YouNeedAdminRights ${LANG_ENGLISH} "The selected folder requires admi
 
 LangString JonDoFox ${LANG_ENGLISH} "Firefox Portable (PortableApps)"
 
-LangString JonDoFoxProfile ${LANG_ENGLISH} "profile"
+LangString JonDoFoxProfile ${LANG_ENGLISH} "JonDoFox profile"
 
 
 
 
 LangString InstTypeComplete ${LANG_ENGLISH} "Complete for travelling (with Firefox Portable)"
 
-LangString InstTypeLite ${LANG_ENGLISH} "Lite for travelling (with Firefox Portable)"
+LangString InstTypeLite ${LANG_ENGLISH} "for travelling (with Firefox Portable)"
 
 LangString InstTypeProfileComplete ${LANG_ENGLISH} "Complete (needs installed Firefox)"
 
-LangString InstTypeProfileLite ${LANG_ENGLISH} "Lite (needs installed Firefox)"
+LangString InstTypeProfileLite ${LANG_ENGLISH} "Desktop (needs installed Firefox)"
 
 
 # Item Description

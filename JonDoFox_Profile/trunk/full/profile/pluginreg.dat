@@ -7,7 +7,7 @@ Version|0.11|$
 nppdf32.dll|$
 C:\Program Files\Adobe\Reader 9.0\Reader\browser\nppdf32.dll|$
 9.3.0.148|$
-1261416846000|1|1|$
+1261416846000|1|5|$
 Adobe PDF Plug-In For Firefox and Netscape|$
 Adobe Acrobat|$
 7
@@ -21,7 +21,7 @@ Adobe Acrobat|$
 npdeploytk.dll|$
 C:\Program Files\Java\jre6\bin\new_plugin\npdeploytk.dll|$
 6.0.170.4|$
-1263118387023|1|1|$
+1263118387023|1|5|$
 NPRuntime Script Plug-in Library for Java(TM) Deploy|$
 Java Deployment Toolkit 6.0.170.4|$
 1
@@ -29,7 +29,7 @@ Java Deployment Toolkit 6.0.170.4|$
 npjp2.dll|$
 C:\Program Files\Java\jre6\bin\new_plugin\npjp2.dll|$
 6.0.170.4|$
-1263118386976|1|1|$
+1263118386976|1|5|$
 Next Generation Java Plug-in 1.6.0_17 for Mozilla browsers|$
 Java(TM) Platform SE 6 U17|$
 34
@@ -70,7 +70,7 @@ Java(TM) Platform SE 6 U17|$
 npvlc.dll|$
 C:\Program Files\VideoLAN\VLC\npvlc.dll|$
 1.0.3.0|$
-1256902134000|1|1|$
+1256902134000|1|5|$
 Version 1.0.3, copyright 1996-2009 The VideoLAN Team<br><a href="http://www.videolan.org/">http://www.videolan.org/</a>|$
 VLC Multimedia Plug-in|$
 35
@@ -112,7 +112,7 @@ VLC Multimedia Plug-in|$
 NPWPF.dll|$
 c:\Windows\Microsoft.NET\Framework\v3.5\Windows Presentation Foundation\NPWPF.dll|$
 3.5.30729.1|$
-1217371248000|1|1|$
+1217371248000|1|5|$
 Windows Presentation Foundation (WPF) plug-in for Mozilla browsers|$
 Windows Presentation Foundation|$
 2
@@ -121,7 +121,7 @@ Windows Presentation Foundation|$
 NPWLPG.dll|$
 C:\Program Files\Windows Live\Photo Gallery\NPWLPG.dll|$
 14.0.8081.709|$
-1247224320000|1|1|$
+1247224320000|1|5|$
 NPWLPG|$
 Windows Live® Photo Gallery|$
 2
@@ -130,16 +130,16 @@ Windows Live® Photo Gallery|$
 NPSWF32.dll|$
 C:\Windows\system32\Macromed\Flash\NPSWF32.dll|$
 9.0.124.0|$
-1206415278000|1|1|$
+1206415278000|1|5|$
 Shockwave Flash 9.0  r124|$
 Shockwave Flash|$
 2
 0|application/x-shockwave-flash|Adobe Flash movie|swf|$
 1|application/futuresplash|FutureSplash movie|spl|$
 npnul32.dll|$
-C:\Users\jondos\FirefoxPortable_en\App\firefox\plugins\npnul32.dll|$
+C:\Users\jondos\FirefoxPortable_2\App\firefox\plugins\npnul32.dll|$
 1.0.0.15|$
-1264170021197|1|1|$
+1264423974000|1|1|$
 Default Plug-in|$
 Mozilla Default Plug-in|$
 1
