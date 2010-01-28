@@ -37,14 +37,7 @@ LangString JonDoFox ${LANG_ENGLISH} "Firefox Portable (PortableApps)"
 
 LangString JonDoFoxProfile ${LANG_ENGLISH} "JonDoFox profile"
 
-
-
-
-LangString InstTypeComplete ${LANG_ENGLISH} "Complete for travelling (with Firefox Portable)"
-
 LangString InstTypeLite ${LANG_ENGLISH} "for travelling (with Firefox Portable)"
-
-LangString InstTypeProfileComplete ${LANG_ENGLISH} "Complete (needs installed Firefox)"
 
 LangString InstTypeProfileLite ${LANG_ENGLISH} "Desktop (needs installed Firefox)"
 
@@ -55,68 +48,13 @@ LangString DescJFPortable ${LANG_ENGLISH} "Firefox has security, speed and new f
 
 LangString DescAdblockPlus ${LANG_ENGLISH} "advertisement is history"
 
-LangString DescAdblockPlusEHH ${LANG_ENGLISH} "Helps to create element hiding rules for Adblock Plus"
-
 LangString DescCSLite ${LANG_ENGLISH} "controls cookie permissions"
 
 LangString DescDownloadHelper ${LANG_ENGLISH} "Allows you to download video an pictures from many websites"
 
-LangString DescDrWebAntiVirus ${LANG_ENGLISH} "Scan link target with Dr. Web anti-virus"
-
-LangString DescDTWhois ${LANG_ENGLISH} "Domaintools.com whois button for Firefox"
-
 LangString DescJonDoFox ${LANG_ENGLISH} "Show customized error pages and instructions in case of proxy errors"
 
-LangString DescJSView ${LANG_ENGLISH} "Shows the source-code of external stylesheets and javascripts"
-
-LangString DescMediaPirate ${LANG_ENGLISH} "A video downloader"
-
-LangString DescMenuEditor ${LANG_ENGLISH} "Customize application menus"
-
-LangString DescMRTechToolkit ${LANG_ENGLISH} "Advanced configuration for installation of extensions and themes"
-
 LangString DescNoScript ${LANG_ENGLISH} "Allows or disable scripts on websites"
-
-LangString DescRefControl ${LANG_ENGLISH} "control your http-referer"
-
-LangString DescSafeCache ${LANG_ENGLISH} "Defends against cache-based web privacy attacks"
-
-LangString DescSwitchProxyTool ${LANG_ENGLISH} "SwitchProxy allows you to manage and switch between multiple proxy configurations quickly and easily."
-
-LangString DescTabRenamizer ${LANG_ENGLISH} "Fight your paranoia ;)"
-
-LangString DescTemporaryInbox ${LANG_ENGLISH} "A temporary inbox is a disposable email address, which doesn't require registration and can be used to avoid spam."
-
-# Optional
-
-LangString DescAddBookmarkHere ${LANG_ENGLISH} "Adds a menuitem 'Add Bookmark Here...' to Bookmarks."
-
-LangString DescCacheIT ${LANG_ENGLISH} "Displays an archived version of a webpage"
-
-LangString DescCalculator ${LANG_ENGLISH} "A calculator with advanced features. Installed in the tools menu"
-
-LangString DescChatZilla ${LANG_ENGLISH} "A clean, easy to use and highly extensible Internet Relay Chat (IRC) client."
-
-LangString DescCuteMenusCrystalSVG ${LANG_ENGLISH} "symbols for all menus"
-
-LangString DescForecastbarEnhanced ${LANG_ENGLISH} "Get international weather forecasts and radar images"
-
-LangString DescFoxClocks ${LANG_ENGLISH} "Displays local times around the world in the statusbar/toolbar."
-
-LangString DescGrooweSearchToolbar ${LANG_ENGLISH} "Google toolbar, Yahoo toolbar, MSN toolbar, Ask and other search engines, all in one FREE toolbar"
-
-LangString DescImageZoom ${LANG_ENGLISH} "Adds zoom-function for graphics"
-
-LangString DescSage ${LANG_ENGLISH} "A lightweight RSS and Atom feed reader"
-
-LangString DescScribeFire ${LANG_ENGLISH} "Post to your blog without ever leaving Firefox"
-
-LangString DescTinyUrlCreator ${LANG_ENGLISH} "Convenient tool to create small url redirects from longer ones"
-
-LangString DescPlainTexttoLink ${LANG_ENGLISH} "Opens links written in plain text"
-
-LangString DescCopyPlainText ${LANG_ENGLISH} "Copies text without formatting"
-
 LangString DescProfileSwitcher ${LANG_ENGLICH} "Opens two profiles at the same time (available for a Desktop installation only)"
 
 LangString FF30Win9x ${LANG_ENGLISH} "This portable version of Firefox is not compatible with Win9x and WinME!"
