@@ -13,7 +13,7 @@
 !define SHORTNAME "FirefoxPortable"
 !define VERSION "2.3.0.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "3.5.5"
+!define FF_VERSION "3.6"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -93,7 +93,6 @@ SetDatablockOptimize On
 CRCCheck on
 AutoCloseWindow True
 RequestExecutionLevel user
-
 
 # Installer attributes
 XPStyle on
@@ -423,8 +422,6 @@ SectionIn 1 2
 SectionEnd
 
 
-
-
 Section /o - ProfileCoreUpdate              #Update
 
         SetOutPath $ProfilePath
@@ -448,9 +445,6 @@ Section /o - ProfileCoreUpdate              #Update
 SectionEnd
 
 
-
-
-        
 ##======================================================================================================================================================
 ##                                                                           Required Extensions
 ##======================================================================================================================================================
@@ -482,8 +476,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{00084897-021a-4361-8423-083407a033e0}\*.*"
 
         SectionEnd
-
-
+ 
         Section "DownloadHelper" DownloadHelper
         SectionIn 1 2        
                 StrCpy $ExtensionGUID "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}"
@@ -526,7 +519,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
 
         Section /o "ProfileSwitcher" ProfileSwitcher
-        SectionIn 1 2 
+        SectionIn 2 
                 
                 StrCpy $ExtensionGUID "{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}"
                 StrCpy $ExtensionName "ProfileSwitcher"
@@ -667,33 +660,15 @@ Function GetDrivesCallBack
 		Push $0
 FunctionEnd
 
-##======================================================================================================================================================
-##                                                                           .onSelChange
-##======================================================================================================================================================
-
-#Function .onSelChange
-
-#       Call CheckSelected
-        
-#FunctionEnd
-
-
 Function RequiredSelections
 
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
          SectionSetFlags ${AdblockPlus} $0
-   
-         SectionSetFlags ${CSLite} $0
+   	 SectionSetFlags ${CSLite} $0
          SectionSetFlags ${DownloadHelper} $0
-  
-
          SectionSetFlags ${JonDoFox} $0
-
-
          SectionSetFlags ${NoScript} $0
          SectionSetFlags ${ProfileSwitcher} $0
-
-
 FunctionEnd
 
 
@@ -1584,13 +1559,8 @@ Function comPre         # Reset wrong path error
                Goto +2
          ${EndIf}
 
- #GEORG: This is a trick to avoid the custom insttype being shown as default
-
-         SectionSetFlags ${ProfileSwitcher} ${SF_SELECTED}
-
          Call RequiredSelections
 
-         
          StrCpy $Error "false"
          StrCpy $varAskAgain "true"
 

@@ -31,19 +31,11 @@ LangString CreateFolderError ${LANG_GERMAN} "Beim Erstellen eines Ordners trat e
 
 LangString YouNeedAdminRights ${LANG_GERMAN} "Der gewählte Ordner erfordert Administrator-Rechte!$\n$\nMöglicherweise können Sie die Anwendung nach der Installation nicht starten, da dazu Schreibrechte benötigt werden. Möchten Sie die Installation mit Administrator-Rechten durchführen?$\n$\nKlicken Sie 'Nein' falls Sie einen anderen Ordner wählen wollen."
 
-
-
 LangString JonDoFox ${LANG_GERMAN} "Firefox-zum-Mitnehmen (PortableApps)"
 
 LangString JonDoFoxProfile ${LANG_GERMAN} "JonDoFox-Profil"
 
-
-
-LangString InstTypeComplete ${LANG_GERMAN} "Komplett für Unterwegs (mit Firefox-zum-Mitnehmen)"
-
 LangString InstTypeLite ${LANG_GERMAN} "für Unterwegs (mit Firefox-zum-Mitnehmen)"
-
-LangString InstTypeProfileComplete ${LANG_GERMAN} "Komplett (setzt installierten Firefox voraus)"
 
 LangString InstTypeProfileLite ${LANG_GERMAN} "Desktop (setzt installierten Firefox voraus)"
 
@@ -54,67 +46,13 @@ LangString DescJFPortable ${LANG_GERMAN} "Firefox bietet Sicherheit, Geschwindig
 
 LangString DescAdblockPlus ${LANG_GERMAN} "Werbung war Gestern"
 
-LangString DescAdblockPlusEHH ${LANG_GERMAN} "Hilft beim Erstellen von Regeln für Adblock Plus"
-
 LangString DescCSLite ${LANG_GERMAN} "Kontrolliert Cookie-Berechtigungen"
 
 LangString DescDownloadHelper ${LANG_GERMAN} "Erlaubt das Herunterladen von Videos und Bildern von vielen Webseiten"
 
-LangString DescDrWebAntiVirus ${LANG_GERMAN} "Scannen Sie verlinkte Objekte mit Dr. Web Anti-Virus"
-
-LangString DescDTWhois ${LANG_GERMAN} "Ein Whois-Button für Firefox von Domaintools.com"
-
 LangString DescJonDoFox ${LANG_GERMAN} "Zeigt angepasste Fehler-Webseiten und Anweisungen im Fall eines Proxy-Fehlers"
 
-LangString DescJSView ${LANG_GERMAN} "Zeigt den Quellcode externer Stylesheets und JavaScripts an"
-
-LangString DescMediaPirate ${LANG_GERMAN} "Ein Video-Downloader"
-
-LangString DescMenuEditor ${LANG_GERMAN} "Passen Sie die Firefox-Menüs an"
-
-LangString DescMRTechToolkit ${LANG_GERMAN} "Umfangreiche Einstellungsmöglichkeiten für die Installation von Erweiterungen und Themen"
-
 LangString DescNoScript ${LANG_GERMAN} "Verhindert das Ausführen von unerwünschten Skripten"
-
-LangString DescRefControl ${LANG_GERMAN} "Bietet Kontrolle über das Senden von HTTP-Referern"
-
-LangString DescSafeCache ${LANG_GERMAN} "Schützt vor Cache-basierenden Indentifikations-Attacken"
-
-LangString DescSwitchProxyTool ${LANG_GERMAN} "Erlaubt das Managen und schnelle Wechseln zwischen verschieden Proxies"
-
-LangString DescTabRenamizer ${LANG_GERMAN} "Das beste Mittel gegen Paranoia"
-
-LangString DescTemporaryInbox ${LANG_GERMAN} "Ein temporäres Email-Postfach welches keine Registrierung erfordert"
-
-# Optional
-
-LangString DescAddBookmarkHere ${LANG_GERMAN} "Fügt 'Lesezeichen hier hinzufügen...' zum Lesezeichen-Menü hinzu."
-
-LangString DescCacheIT ${LANG_GERMAN} "Zeigt eine gespeicherte Version einer Webseite"
-
-LangString DescCalculator ${LANG_GERMAN} "Ein Taschenrechner mit fortgeschrittenen Funktionen. Im Menü Extras"
-
-LangString DescChatZilla ${LANG_GERMAN} "Ein sauberer, einfach zu bedienender und höchst erweiterbarer Internet Relay Chat (IRC)"
-
-LangString DescCuteMenusCrystalSVG ${LANG_GERMAN} "Symbole für alle Menüs"
-
-LangString DescForecastbarEnhanced ${LANG_GERMAN} "Bietet internationale Wettervorhersagen und Radarbilder"
-
-LangString DescFoxClocks ${LANG_GERMAN} "Zeigt Lokalzeiten rund um die Welt in der Statusbar"
-
-LangString DescGrooweSearchToolbar ${LANG_GERMAN} "Vereint mehrere Toolbars in einer: Google toolbar, Yahoo toolbar, MSN toolbar, Ask und viele mehr"
-
-LangString DescImageZoom ${LANG_GERMAN} "Fügt Zoom-Funktionen für Grafiken hinzu"
-
-LangString DescSage ${LANG_GERMAN} "Ein leichtgewichtiger RSS und Atom-feed Leser"
-
-LangString DescScribeFire ${LANG_GERMAN} "Erlaubt das Schreiben Ihres Blogs ohne Firefox verlassen zu müssen"
-
-LangString DescTinyUrlCreator ${LANG_GERMAN} "Komfortables Werkzeug zum Erstellen von kleinen URL-Weiterleitungen aus längeren"
-
-LangString DescPlainTexttoLink ${LANG_GERMAN} "Öffnet in bloßem Text geschriebene Links"
-
-LangString DescCopyPlainText ${LANG_GERMAN} "Kopiert Text ohne Formatierung"
 
 LangString DescProfileSwitcher ${LANG_GERMAN} "Öffnet zwei Profile gleichzeitig (nur für die Desktop-Installation verfügbar)"
 
