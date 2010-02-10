@@ -34,7 +34,7 @@ Var /GLOBAL ProfilePath
 Var /GLOBAL ProfileExtensionPath
 
 Var /GLOBAL ProgramPath
-
+Var JonDoFoxDesktopInstalled
 Var /GLOBAL Update
 Var /GLOBAL IsJonDoFox
 Var /GLOBAL PrefsFileHandle
@@ -248,7 +248,6 @@ Function un.onInit
 FunctionEnd
 
 Function .onInit
-
    !insertmacro SetMode 0
    ${GetParameters} $R9
 ${GetOptions} "$R9" "-INSTALLATION=" $0
@@ -267,7 +266,6 @@ IfErrors jondo_checking_done 0
       StrCpy $JonDoInstallation "desktop"
       StrCpy $PORTABLEINSTALL "false"
    jondo_checking_done:
-
    ClearErrors
    ${GetOptions} "$R9" UAC $0 ;look for special /UAC:???? parameter (sort of undocumented)
    ${Unless} ${Errors}
@@ -298,7 +296,7 @@ has already declared that he does not want to install the portable JonDoFox. */
           ${If} $R0 != ""
                 StrCpy $PORTABLEINSTALL "true"
                 StrCpy $INSTDIR "$R0${SHORTNAME}"
-                StrCpy $JONDOPORTABLE_PATH "$R0\JonDoPortable"
+                StrCpy $JONDOPORTABLE_PATH "$R0JonDoPortable"
           ${Else}
                 Call SearchPortableApps
                 StrCpy $INSTDIR $varPortableAppsPath
@@ -655,6 +653,8 @@ Function GetDrivesCallBack
 	CheckForPortableAppsPath:
 		IfFileExists "$9PortableApps" "" End
 			StrCpy $varFOUNDPORTABLEAPPSPATH "$9PortableApps"
+                        StrCpy $PORTABLEINSTALL "true"
+                        StrCpy $JONDOPORTABLE_PATH "$9PortableApps\JonDoPortable"
 
 	End:
 		Push $0
@@ -998,12 +998,13 @@ Function CheckFirefoxInstalled            # 2
 
 # Get Firefox Folder from Registry, just to see if it is installed
         ClearErrors
-        ReadRegStr $0  HKLM "SOFTWARE\Mozilla\Mozilla Firefox" 'CurrentVersion'
-
+        ReadRegStr $0 HKLM "SOFTWARE\Mozilla\Mozilla Firefox" 'CurrentVersion'
+        
         StrCmp $0 "" NotInstalled 0
 
         ClearErrors
-        ReadRegStr $0  HKLM "SOFTWARE\Mozilla\Mozilla Firefox\$0\Main" 'Install Directory'
+        ReadRegStr $0 HKLM "SOFTWARE\Mozilla\Mozilla Firefox\$0\Main" 'Install Directory'
+        
 
 # Debug:
         #StrCpy $0 "" # Simulates Firefox not installed
@@ -1214,7 +1215,7 @@ Function instPre
                         StrCpy $SMProgramsFolder "$SMPROGRAMS"
                         StrCpy $ProfilePath "$AppdataFolder\Mozilla\Firefox\Profiles\JonDoFox"
                         StrCpy $ProfileExtensionPath "$AppdataFolder\Mozilla\Firefox\Profiles\JonDoFox\extensions"
-
+ 
                         IfFileExists $ProfilePath\*.* update create
 
                   ${ElseIf} $FFInstalled == "false"
@@ -1257,7 +1258,13 @@ Function instPre
 
         ${ElseIf} $PROGRAMINSTALL == "true"
 
-
+                  ReadRegStr $0 HKCU "SOFTWARE\JonDoFox" 'InstallerLanguage' 
+                  StrCmp $0 "" NotInstalled 0
+                    StrCpy $JonDoFoxDesktopInstalled "true"
+                    Goto +2
+                  NotInstalled: 
+                    StrCpy $JonDoFoxDesktopInstalled "false"
+                  
                   IfFileExists $INSTDIR\App\firefox\firefox.exe update2 install
 
                   update2:
@@ -1271,7 +1278,7 @@ Function instPre
                          Call Update
 
                          StrCmp $IsJonDoFox "true" 0 install
-                         # StrCpy $Update "true"  (Better do this before, as even if it is not jdf profile, bookmarks should be kept
+                         # StrCpy $Update "true"  (Better do this before, as even if it is not jdf profile, bookmarks should be kept)
                          
                          Goto done
 
@@ -1316,63 +1323,62 @@ Function Update
 
         MessageBox MB_ICONINFORMATION|MB_YESNO $(OverwriteProfile) IDYES updating IDNO Exit
         updating:
-        MSIBanner::Show /NOUNLOAD "Backup"
 
+        nxs::Show /NOUNLOAD "Backup" /top $(BackupBookmarks) /h 1 /can 0 /pos 0 /can 1 /marquee 40 /end
         IfFileExists $ProfilePath\BookmarkBackup\*.* +5
         CreateDirectory $ProfilePath\BookmarkBackup
         IfErrors Error
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        MSIBanner::Move /NOUNLOAD 10 "Backup"
-
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 10 /end 
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\*.* +3
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        MSIBanner::Move /NOUNLOAD 10 "Backup"
-
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 20 /end
+        
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\bookmarks.html 0 +2
         Goto Error
 
-        MSIBanner::Move /NOUNLOAD 10 "Backup"
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 30 /end
 
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\places.sqlite 0 +2
         Goto Error
 
-        MSIBanner::Move /NOUNLOAD 10 "Backup"
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 40 /end
 
         IfFileExists $ProfilePath\bookmarks.html 0 +3
         CopyFiles $ProfilePath\bookmarks.html $ProfilePath\BookmarkBackup
         IfErrors Error
 
-        MSIBanner::Move /NOUNLOAD 10 "Backup"
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 50 /end
 
         IfFileExists $ProfilePath\places.sqlite 0 +3
         CopyFiles $ProfilePath\places.sqlite $ProfilePath\BookmarkBackup
         IfErrors Error
 
-        MSIBanner::Move /NOUNLOAD 10 "Backup"
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 60 /end
 
         IfFileExists $ProfilePath\bookmarkbackups\*.* 0 +3
         CopyFiles $ProfilePath\bookmarkbackups\*.* $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        MSIBanner::Move /NOUNLOAD 10 "Backup"
-
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 70 /end
+        
         IfFileExists $TEMP\BookmarkBackup\*.* +3
         CreateDirectory $TEMP\BookmarkBackup
         IfErrors Error
 
-        MSIBanner::Move /NOUNLOAD 10 "Backup"
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 80 /end
 
         IfFileExists $ProfilePath\BookmarkBackup\*.* 0 +3
         CopyFiles $ProfilePath\BookmarkBackup\*.* $TEMP\BookmarkBackup
         IfErrors Error
 
-        MSIBanner::Move /NOUNLOAD 20 "Backup"
-        
-        MSIBanner::Destroy
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 100 /end
+
+        nxs::Destroy
         
         Call DeleteProfile
 
@@ -1380,7 +1386,7 @@ Function Update
 
           Error:
           
-                  MSIBanner::Destroy
+                  nxs::Destroy
 
                   MessageBox MB_ICONEXCLAMATION|MB_OK $(BackupError)
 
@@ -1391,7 +1397,11 @@ Function Update
                   # Back to folder-selection page
 
                             StrCpy $varAskAgain "false"
-                            StrCpy $R9 "-1"
+                            ${If} $PROGRAMINSTALL == "true"
+                              StrCpy $R9 "-1"
+                            ${Else}
+                              StrCpy $R9 "0"
+                            ${EndIf}
                             Call RelGotoPage
                             Abort
                   
@@ -1404,9 +1414,9 @@ FunctionEnd
 ##======================================================================================================================================================
 
 Function DeleteProfile
-
-         !insertmacro RemoveFilesAndSubDirs "$ProfilePath\"
-
+      
+      !insertmacro RemoveFilesAndSubDirs "$ProfilePath\"
+         
 FunctionEnd
 
 ##======================================================================================================================================================
@@ -1640,8 +1650,12 @@ Function FinishedInstall
         StrCmp $JonDoInstallation "" 0 finish_install
         ClearErrors
         ${If} $PROGRAMINSTALL == "true"
+          ${AndIf} $PORTABLEINSTALL == "false"
              IfFileExists $PROFILE\JonDoPortable\*.* finish_install 0
-             StrCmp $JONDOPORTABLE_PATH "" 0 finish_install
+             MessageBox MB_YESNO $(InstallingPortableJonDo) IDYES 0 IDNO finish_install
+             StrCpy $install "portable"
+        ${ElseIf} $PORTABLEINSTALL == "true"
+             IfFileExists $JONDOPORTABLE_PATH\*.* finish_install 0
              MessageBox MB_YESNO $(InstallingPortableJonDo) IDYES 0 IDNO finish_install
              StrCpy $install "portable"
         ${Else}
@@ -1691,6 +1705,7 @@ Function FinishedInstall
         ${EndIf}
 
         ${If} $PROGRAMINSTALL == "true"
+          ${AndIf} $JonDoFoxDesktopInstalled == "false"
               DeleteRegKey HKCU "Software\JonDoFox"
               ExecShell "open" $INSTDIR
         ${ElseIf} $InstMode > 1

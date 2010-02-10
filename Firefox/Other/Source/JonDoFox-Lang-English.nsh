@@ -79,6 +79,8 @@ LangString InstallingJonDo ${LANG_ENGLISH} "In order to surf anonymously you nee
 
 LangString InstallingPortableJonDo ${LANG_ENGLISH} "Do you want to download JonDo and install the portable version as well (necessary for surfing anonymously)?"
 
+LangString BackupBookmarks ${LANG_ENGLISH} "Backing up the bookmarks..."
+
 LangString ^InstallLink ${LANG_ENGLISH} "Start $(^NAME)"
 
 LangString ^ProfilMLink ${LANG_ENGLISH} "Firefox Profile Manager"

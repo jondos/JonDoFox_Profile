@@ -11,7 +11,7 @@ LangString FirefoxDetected ${LANG_GERMAN} "Firefox läuft noch, Prozess beenden?"
 
 LangString FirefoxDetectedErrorOccured ${LANG_GERMAN} "Fehler beim Überprüfen ob Firefox läuft, Abbruch."
 
-LangString FirefoxInstallationDetected ${LANG_GERMAN} "Firefox ist auf ihrem Rechner installiert. $\n$\nSoll das Profil in den installierten Firefox integriert werden? $\n$\nWählen Sie Nein wenn Sie das Profil in einen Firefox-zum-Mitnehmen installieren möchten."
+LangString FirefoxInstallationDetected ${LANG_GERMAN} "Firefox ist auf ihrem Rechner installiert. $\n$\nSoll das Profil in den installierten Firefox integriert werden? $\n$\nWählen Sie Nein, wenn Sie das Profil in einen Firefox-zum-Mitnehmen installieren möchten."
 
 LangString WhereIsFirefox ${LANG_GERMAN} "Bitte wählen Sie den Firefox-Ordner."
 
@@ -21,9 +21,9 @@ LangString SelectFirefoxPortable ${LANG_GERMAN} "Wählen Sie den Ordner für Firef
 
 LangString SelectedFolderInvalid ${LANG_GERMAN} "Der gewählte Ordner ist ungültig. Wählen Sie einen Ordner für den Sie Schreibrechte besitzen."
 
-LangString OverwriteProfile ${LANG_GERMAN} "Das existierende Profil wird überschrieben, fortfahren? (Bookmarks werden gesichert)"
+LangString OverwriteProfile ${LANG_GERMAN} "Das existierende Profil wird überschrieben, fortfahren? (Lesezeichen werden gesichert)"
 
-LangString OverwriteJonDoFox ${LANG_GERMAN} "Das existierende Profil wird überschrieben, die Bookmarks bleiben erhalten"
+LangString OverwriteJonDoFox ${LANG_GERMAN} "Das existierende Profil wird überschrieben, die Lesezeichen bleiben erhalten"
 
 LangString BackupError ${LANG_GERMAN} "Beim Erstellen des Backups trat ein Fehler auf, die Installation wird abgebrochen."
 
@@ -77,6 +77,8 @@ LangString JonDoFoxDeleteError ${LANG_GERMAN} "Ihr JonDoFox-Profil kann nicht vo
 LangString InstallingJonDo ${LANG_GERMAN} "Um anonym zu surfen, benötigen Sie noch JonDo! Wollen Sie es jetzt herunterladen und installieren?"
 
 LangString InstallingPortableJonDo ${LANG_GERMAN} "Wollen Sie noch JonDo herunterladen und die portable Version installieren (notwendig, um anonym zu surfen)?"
+
+LangString BackupBookmarks ${LANG_GERMAN} "Sichern der Lesezeichen..."
 
 LangString ^InstallLink ${LANG_GERMAN} "$(^NAME) starten"
 
