@@ -258,6 +258,9 @@ isFirefoxRunning()
 	if [ "$(ps aux | fgrep -i firefox | fgrep -v grep | fgrep -v install_linux | fgrep -i `whoami` )" ]; then
 		return 1
 	fi
+	if [ "$(ps aux | fgrep -i iceweasel | fgrep -v grep | fgrep -v install_linux | fgrep -i `whoami` )" ]; then
+		return 1
+	fi
 	return 0
 }
 
