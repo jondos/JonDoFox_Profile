@@ -21,11 +21,13 @@ LangString SelectFirefoxPortable ${LANG_GERMAN} "Wählen Sie den Ordner für Firef
 
 LangString SelectedFolderInvalid ${LANG_GERMAN} "Der gewählte Ordner ist ungültig. Wählen Sie einen Ordner für den Sie Schreibrechte besitzen."
 
-LangString OverwriteProfile ${LANG_GERMAN} "Das existierende Profil wird überschrieben, fortfahren? (Lesezeichen werden gesichert)"
+LangString OverwriteProfile ${LANG_GERMAN} "Das existierende Profil wird überschrieben, fortfahren? (Lesezeichen und Zertifikatdatenbank werden gesichert)"
 
-LangString OverwriteJonDoFox ${LANG_GERMAN} "Das existierende Profil wird überschrieben, die Lesezeichen bleiben erhalten"
+LangString OverwriteJonDoFox ${LANG_GERMAN} "Das existierende Profil wird überschrieben, die Lesezeichen und die Zertifikatdatenbank bleiben erhalten"
 
 LangString BackupError ${LANG_GERMAN} "Beim Erstellen des Backups trat ein Fehler auf, die Installation wird abgebrochen."
+
+LangString RestoreError ${LANG_GERMAN} "Beim Wiedereinspielen der gespeicherten Lesezeichen und der Zertifikatsdatenbank trat ein Fehler auf!"
 
 LangString CreateFolderError ${LANG_GERMAN} "Beim Erstellen eines Ordners trat ein Fehler auf, die Installation wird abgebrochen."
 
@@ -78,7 +80,7 @@ LangString InstallingJonDo ${LANG_GERMAN} "Um anonym zu surfen, benötigen Sie no
 
 LangString InstallingPortableJonDo ${LANG_GERMAN} "Wollen Sie noch JonDo herunterladen und die portable Version installieren (notwendig, um anonym zu surfen)?"
 
-LangString BackupBookmarks ${LANG_GERMAN} "Sichern der Lesezeichen..."
+LangString BackupBookmarksCerts ${LANG_GERMAN} "Sichern der Lesezeichen und Zertifikatdatenbank..."
 
 LangString ^InstallLink ${LANG_GERMAN} "$(^NAME) starten"
 
