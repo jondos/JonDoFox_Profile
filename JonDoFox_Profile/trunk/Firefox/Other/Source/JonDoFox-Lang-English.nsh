@@ -21,11 +21,13 @@ LangString SelectFirefoxPortable ${LANG_ENGLISH} "Select a Firefox-Portable Fold
 
 LangString SelectedFolderInvalid ${LANG_ENGLISH} "The selected directory is invalid. You need write-permissions on the selected folder."
 
-LangString OverwriteProfile ${LANG_ENGLISH} "The existing profile will be overwritten, continue? (Bookmarks will be backed up)"
+LangString OverwriteProfile ${LANG_ENGLISH} "The existing profile will be overwritten, continue? (Bookmarks and the certificate database will be backed up)"
 
-LangString OverwriteJonDoFox ${LANG_ENGLISH} "The existing profile will be overwritten, but Bookmarks will be saved."
+LangString OverwriteJonDoFox ${LANG_ENGLISH} "The existing profile will be overwritten, but bookmarks and the certificate database will be saved."
 
-LangString BackupError ${LANG_ENGLISH} "An error occured while creating the backup, install will be aborted."
+LangString BackupError ${LANG_ENGLISH} "An error occurred while creating the backup, install will be aborted."
+
+LangString RestoreError ${LANG_ENGLISH} "An error occurred while restoring the saved bookmarks and the certificate database!"
 
 LangString CreateFolderError ${LANG_ENGLISH} "Could not create folder for installation, installation will be aborted"
 
@@ -79,7 +81,7 @@ LangString InstallingJonDo ${LANG_ENGLISH} "In order to surf anonymously you nee
 
 LangString InstallingPortableJonDo ${LANG_ENGLISH} "Do you want to download JonDo and install the portable version as well (necessary for surfing anonymously)?"
 
-LangString BackupBookmarks ${LANG_ENGLISH} "Backing up the bookmarks..."
+LangString BackupBookmarksCerts ${LANG_ENGLISH} "Backing up the bookmarks and the certificate database..."
 
 LangString ^InstallLink ${LANG_ENGLISH} "Start $(^NAME)"
 

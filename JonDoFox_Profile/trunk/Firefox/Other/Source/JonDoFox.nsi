@@ -1317,66 +1317,72 @@ Function Update
         Call ParsePrefsJS
 
         # selected firefox is a JonDoFox
-        # StrCmp $IsJonDoFox "true" done BackupBookmarks
+        # StrCmp $IsJonDoFox "true" done BackupBookmarksCerts
 
-        # BackupBookmarks:
+        # BackupBookmarksCerts:
 
         MessageBox MB_ICONINFORMATION|MB_YESNO $(OverwriteProfile) IDYES updating IDNO Exit
         updating:
 
-        nxs::Show /NOUNLOAD "Backup" /top $(BackupBookmarks) /h 1 /can 0 /pos 0 /can 1 /marquee 40 /end
+        nxs::Show /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /h 1 /can 0 /pos 0 /can 1 /marquee 40 /end
         IfFileExists $ProfilePath\BookmarkBackup\*.* +5
         CreateDirectory $ProfilePath\BookmarkBackup
         IfErrors Error
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 10 /end 
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 10 /end 
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\*.* +3
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 20 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 20 /end
         
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\bookmarks.html 0 +2
         Goto Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 30 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 30 /end
 
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\places.sqlite 0 +2
         Goto Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 40 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 40 /end
 
         IfFileExists $ProfilePath\bookmarks.html 0 +3
         CopyFiles $ProfilePath\bookmarks.html $ProfilePath\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 50 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 50 /end
 
         IfFileExists $ProfilePath\places.sqlite 0 +3
         CopyFiles $ProfilePath\places.sqlite $ProfilePath\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 60 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 60 /end
 
         IfFileExists $ProfilePath\bookmarkbackups\*.* 0 +3
         CopyFiles $ProfilePath\bookmarkbackups\*.* $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 70 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 70 /end
         
         IfFileExists $TEMP\BookmarkBackup\*.* +3
         CreateDirectory $TEMP\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 80 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 80 /end
 
         IfFileExists $ProfilePath\BookmarkBackup\*.* 0 +3
         CopyFiles $ProfilePath\BookmarkBackup\*.* $TEMP\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarks) /pos 100 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 90 /end
+
+	IfFileExists $ProfilePath\CertPatrol.sqlite 0 +3
+        CopyFiles $ProfilePath\CertPatrol.sqlite $TEMP
+	IfErrors Error
+
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 100 /end
 
         nxs::Destroy
         
@@ -1428,8 +1434,11 @@ Function RestoreBackup
 ClearErrors
 
            CopyFiles "$TEMP\BookmarkBackup\*.*" $ProfilePath
-           IfErrors 0 done
+           CopyFiles "$TEMP\CertPatrol.sqlite" $ProfilePath
 
+           IfErrors 0 done
+	    MessageBox MB_ICONEXCLAMATION|MB_OK $(RestoreError)
+ 
            done:
         
 FunctionEnd
@@ -1600,12 +1609,14 @@ Function comPost
 
                 StrCpy $PROGRAMINSTALL "false"
 
-                ${If} $PORTABLEINSTALL == "false"
+                # We know that the user has chosen the desktop version
+                # thus...
+
+                StrCpy $PORTABLEINSTALL == "false"
                  
                       ${If} $varAskAgain == "true"
                             Call CheckFirefoxInstalled     # -> 2
                       ${EndIf}
-                ${EndIf}
 
         goon:
 
@@ -1724,7 +1735,7 @@ Function FinishRun
               Exec "$INSTDIR\FirefoxPortable.exe"
         ${Else} 
               ${If} $FFInstalled == "done"
-                 UAC::Exec '' '"$PROGRAMFILES\Mozilla Firefox\firefox.exe" -P JonDoFox  $\"file:///$ProfilePath\help.html$\"' '' ''
+                 UAC::Exec '' '"$PROGRAMFILES\Mozilla Firefox\firefox.exe" -P JonDoFox' '' ''
               ${EndIf}
         ${EndIf}
 FunctionEnd
