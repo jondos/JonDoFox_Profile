@@ -66,11 +66,11 @@ LangString FirefoxFound ${LANG_GERMAN} "Eine Firefox-Version wurde gefunden. Wol
 
 LangString FirefoxDownloading ${LANG_GERMAN} "Es wurde keine Firefox-Version gefunden. Wollen Sie eine herunterladen und installieren?"
 
-LangString FirefoxDownload ${LANG_GERMAN} "Firefox wird herunter geladen... Bitte haben Sie etwas Geduld."
+LangString FirefoxDownload ${LANG_GERMAN} "Firefox wird heruntergeladen... Bitte haben Sie etwas Geduld."
 
 LangString DownloadErrorRetry ${LANG_GERMAN} "Der Download ist fehlgeschlagen! Wollen Sie es noch einmal versuchen?"
 
-LangString JonDoDownload ${LANG_GERMAN} "Der JonDo-Installer wird herunter geladen... Bitte haben Sie etwas Geduld."
+LangString JonDoDownload ${LANG_GERMAN} "Der JonDo-Installer wird heruntergeladen... Bitte haben Sie etwas Geduld."
 
 LangString AdminLogin ${LANG_GERMAN} "Sie müssen sich mit einem Account anmelden, der zur Administratorgruppe gehört..."
 
