@@ -11,14 +11,14 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.3.0.0"
+!define VERSION "2.3.1.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "3.6"
+!define FF_VERSION "3.6.8"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
-!define INSTALLERVERSION "1.1.0.0"
+!define INSTALLERVERSION "1.1.1.0"
 !define INSTALLERCOMMENTS "For additional details, visit anonymous-proxy-servers.net" ; changed by JonDos GmbH 2009
 !define INSTALLERADDITIONALTRADEMARKS "Firefox is a Trademark of The Mozilla Foundation. " ;end this entry with a period and a space if used
 !define INSTALLERLEGALCOPYRIGHT "JonDos GmbH"
@@ -57,7 +57,7 @@ Var /GLOBAL InstDirOkay
 
 Var /GLOBAL ExtensionGUID
 Var /GLOBAL ExtensionName
-
+Var PORTABLEAPPSINSTALL
 Var InstMode
 
 Var hKey
@@ -197,7 +197,8 @@ ReserveFile "${NSISDIR}\Plugins\BGImage.dll"
 !insertmacro MUI_PAGE_DIRECTORY
 
 
-#!define MUI_PAGE_CUSTOMFUNCTION_PRE instPre
+#!define MUI_PAGE_CUSTOMFUNCTION_PRE instPre Otherwise the logic gets called
+#twice!!
 !define MUI_PAGE_CUSTOMFUNCTION_LEAVE EditProfilesIni
 !insertmacro MUI_PAGE_INSTFILES
 
@@ -250,8 +251,8 @@ FunctionEnd
 Function .onInit
    !insertmacro SetMode 0
    ${GetParameters} $R9
-${GetOptions} "$R9" "-INSTALLATION=" $0
-IfErrors jondo_checking_done 0
+   ${GetOptions} "$R9" "-INSTALLATION=" $0
+   IfErrors jondo_checking_done 0
    StrCmp $0 "portable" 0 jondo_desktop
       ${GetOptions} "$R9" "-INSTALLPATH=" $0
       ${WordReplace} "$0" "JonDoPortable" "" "+" $0
@@ -289,11 +290,12 @@ has already declared that he does not want to install the portable JonDoFox. */
        Goto start_elevated
     ${EndIf}
           ${GetOptions} "$CMDLINE" "/DESTINATION=" $R0
-
+          StrCpy $PORTABLEAPPSINSTALL "false"
           StrCpy $PORTABLEINSTALL "false"
           StrCpy $IsRoot "false"
 
           ${If} $R0 != ""
+                StrCpy $PORTABLEAPPSINSTALL "true"
                 StrCpy $PORTABLEINSTALL "true"
                 StrCpy $INSTDIR "$R0${SHORTNAME}"
                 StrCpy $JONDOPORTABLE_PATH "$R0JonDoPortable"
@@ -787,7 +789,6 @@ Function dirPost
 
         ${EndIf}
 
-        
         Call instPre
 
 FunctionEnd
@@ -1031,7 +1032,6 @@ Function CheckFirefoxInstalled            # 2
 
                   # Check if Firefox is running
                   Call CheckFirefoxRunning        # -> 3
-
                   Call instPre
 
                   #Abort # Dont show MUI_PAGE_DIRECTORY
@@ -1055,8 +1055,18 @@ FunctionEnd
       Pop $5
       IntCmp $5 1 is1 is0 is0
 
-        is1:
-        # Firefox is running
+      is1:
+        # Firefox is running but it can be FF Portable as well that's why
+        # we check whether there is a portable version started. Maybe the user
+        # wants to surf with the portable version and only likes to install
+        # the desktop one without starting it...
+        ${If} $PROGRAMINSTALL == "false"
+          Push "FirefoxPortable.exe"
+          processwork::existsprocess
+          Pop $5
+          IntCmp $5 1 is0 0 0 
+        ${EndIf}
+         
         MessageBox MB_ICONQUESTION|MB_YESNO $(FirefoxDetected) IDYES quitFF IDNO Exit
         quitFF:
 	       Push "firefox.exe"
@@ -1257,7 +1267,6 @@ Function instPre
 
 
         ${ElseIf} $PROGRAMINSTALL == "true"
-
                   ReadRegStr $0 HKCU "SOFTWARE\JonDoFox" 'InstallerLanguage' 
                   StrCmp $0 "" NotInstalled 0
                     StrCpy $JonDoFoxDesktopInstalled "true"
@@ -1276,7 +1285,6 @@ Function instPre
                          StrCpy $Update "true"
 
                          Call Update
-
                          StrCmp $IsJonDoFox "true" 0 install
                          # StrCpy $Update "true"  (Better do this before, as even if it is not jdf profile, bookmarks should be kept)
                          
@@ -1304,7 +1312,6 @@ done:
         ${If} $varMakeUserAdministrator == "true"
                     #Call MakeUserAdministrator
         ${EndIf}
-
 FunctionEnd
 
 ##======================================================================================================================================================
@@ -1401,7 +1408,6 @@ Function Update
           Exit:
 
                   # Back to folder-selection page
-
                             StrCpy $varAskAgain "false"
                             ${If} $PROGRAMINSTALL == "true"
                               StrCpy $R9 "-1"
@@ -1420,7 +1426,7 @@ FunctionEnd
 ##======================================================================================================================================================
 
 Function DeleteProfile
-      
+    
       !insertmacro RemoveFilesAndSubDirs "$ProfilePath\"
          
 FunctionEnd
@@ -1432,8 +1438,9 @@ FunctionEnd
 
 Function RestoreBackup
 ClearErrors
-
+           IfFileExists $TEMP\BookmarkBackup\*.* 0 +2 
            CopyFiles "$TEMP\BookmarkBackup\*.*" $ProfilePath
+           IfFileExists $TEMP\CertPatrol.sqlite 0 +2 
            CopyFiles "$TEMP\CertPatrol.sqlite" $ProfilePath
 
            IfErrors 0 done
@@ -1575,6 +1582,11 @@ Function comPre         # Reset wrong path error
                SectionSetFlags ${JFPortable} ${SF_SELECTED}
                IntOp $0 0 | ${SF_RO}
                SectionSetFlags ${ProfileSwitcher} $0 
+               ${If} $PORTABLEAPPSINSTALL == "true"
+                          StrCpy $PROGRAMINSTALL "true"
+                          Call CheckFirefoxRunning
+                          Abort
+               ${EndIf}
                Goto +2
          ${EndIf}
 
