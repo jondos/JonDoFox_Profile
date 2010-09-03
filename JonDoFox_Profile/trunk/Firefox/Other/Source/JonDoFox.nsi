@@ -183,7 +183,6 @@ ReserveFile "${NSISDIR}\Plugins\BGImage.dll"
 !define MUI_PAGE_CUSTOMFUNCTION_PRE SkipPageInElvModePreCB
 !insertmacro MUI_PAGE_WELCOME
 
-!define MUI_PAGE_CUSTOMFUNCTION_PRE SkipPageInElvModePreCB
 !insertmacro MUI_PAGE_LICENSE EULA.rtf
 
 !define MUI_PAGE_CUSTOMFUNCTION_PRE comPre
@@ -303,7 +302,7 @@ has already declared that he does not want to install the portable JonDoFox. */
                 Call SearchPortableApps
                 StrCpy $INSTDIR $varPortableAppsPath
           ${EndIf}
-         StrCmp $JonDoInstallation "" 0 start_elevated
+          StrCmp $JonDoInstallation "" 0 start_elevated
           InitPluginsDir
           StrCpy $Error "false"
 
@@ -1583,6 +1582,7 @@ Function comPre         # Reset wrong path error
                IntOp $0 0 | ${SF_RO}
                SectionSetFlags ${ProfileSwitcher} $0 
                ${If} $PORTABLEAPPSINSTALL == "true"
+               ${OrIf} $JonDoInstallation == "portable"
                           StrCpy $PROGRAMINSTALL "true"
                           Call CheckFirefoxRunning
                           Abort
@@ -1594,10 +1594,10 @@ Function comPre         # Reset wrong path error
 
          StrCpy $Error "false"
          StrCpy $varAskAgain "true"
-
-         #GEORG: If installing within JonDo it can happen that the window is in the background, so...
-         BringToFront
-
+         ${If} $JonDoInstallation == "desktop"
+               Call comPost
+               Abort
+         ${EndIf}
 FunctionEnd
 
 Function comPost
@@ -1693,7 +1693,7 @@ Function FinishedInstall
         ${EndIf}
        loop:
         SetShellVarContext all
-        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) http://anonymous-proxy-servers.net/downloads/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe" /END
+        InetLoad::load /TIMEOUT=30000 /NOPROXY /BANNER "JonDoFox - JonDo Download" $(JonDoDownload) https://anonymous-proxy-servers.net/downloads/JonDoSetup.paf.exe "$APPDATA\JonDoSetup.paf.exe" /END
         Pop $R0
         StrCmp $R0 "OK" +2
         MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DownloadErrorRetry) IDYES loop IDNO finish_install
