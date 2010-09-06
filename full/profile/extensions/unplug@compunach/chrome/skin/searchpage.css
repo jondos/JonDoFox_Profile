@@ -1,0 +1,118 @@
+.unplug-result {
+}
+
+.unplug-result image.ur-thumbnail {
+	width: 4.8em;
+	height: 2.8em;
+	border: 1px black solid;
+	margin: 0.2em;
+	background: #000000;
+}
+
+.unplug-result label.ur-name {
+	font-weight: bold;
+}
+
+.unplug-result label.ur-protocol,
+.unplug-result label.ur-host {
+	font-size: smaller;
+	color: #008000;
+}
+
+.unplug-result label.ur-protocol {
+}
+
+.unplug-result label.ur-description {
+}
+
+.unplug-result.file-ext-swf,
+.unplug-result.certainty-low {
+	opacity: 0.5;
+}
+
+.unplug-result .menuitem-iconic.config {
+	list-style-image: url("chrome://unplug/skin/tango-16/preferences-system.png");
+}
+
+.unplug-result .menuitem-iconic.saveas {
+	list-style-image: url("chrome://unplug/skin/tango-16/document-save-as.png");
+}
+
+.unplug-result .menuitem-iconic.dta {
+	list-style-image: url("chrome://dta/skin/common/dta.png");
+}
+
+.unplug-result .menuitem-iconic.flashgot {
+	list-style-image: url("chrome://flashgot/skin/fg1.png");
+}
+
+.unplug-result .menuitem-iconic.fallback {
+	list-style-image: url("chrome://unplug/skin/tango-16/dialog-error.png");
+}
+
+.unplug-result .menuitem-iconic.special {
+	list-style-image: url("chrome://unplug/skin/star-in-circle-16.png");
+}
+
+.unplug-result .menuitem-iconic.copyurl {
+	list-style-image: url("chrome://unplug/skin/tango-16/edit-copy.png");
+}
+
+.unplug-result .menuitem-iconic.opentab {
+	list-style-image: url("chrome://unplug/skin/tango-16/tab-new.png");
+}
+
+.unplug-result .menuitem-iconic.opennew {
+	list-style-image: url("chrome://unplug/skin/tango-16/window-new.png");
+}
+
+.unplug-result .menuitem-iconic.openover {
+	list-style-image: url("chrome://unplug/skin/tango-16/window.png");
+}
+
+.unplug-result toolbarbutton > toolbarbutton > label {
+	/* this aligns the label on the drop-down buttons correctly (ie: not just on the top) */
+	max-height : 1em;
+}
+
+#dynamic_results.failed {
+	color: #cc0000;
+	font-weight: bold;
+}
+
+#stop_button {
+	list-style-image: url("chrome://unplug/skin/tango-16/process-stop.png");
+}
+
+#stop_button[disabled] {
+	/* greyscale; brightness + 100% */
+	list-style-image: url("chrome://unplug/skin/tango-16/process-stop-disabled.png");
+}
+
+vbox.container {
+	border: 1px black solid;
+	margin: 0;
+	padding; 0;
+}
+
+vbox.container#mediaid_none {
+	/* TODO -  not used */
+}
+
+.unplug-result.mediaid-best {
+}
+.unplug-result.mediaid-collapse {
+}
+
+.unplug-result.mediaid-collapse label.ur-name {
+	opacity: 0.8;
+	display: none;
+}
+.unplug-result.mediaid-collapse image.ur-thumbnail {
+	visibility: hidden;
+}
+.unplug-result.mediaid-collapse label.ur-protocol,
+.unplug-result.mediaid-collapse label.ur-host {
+	/* display: none; */
+}
+

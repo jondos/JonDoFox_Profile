@@ -52,7 +52,7 @@ LangString DescAdblockPlus ${LANG_ENGLISH} "advertisement is history"
 
 LangString DescCSLite ${LANG_ENGLISH} "controls cookie permissions"
 
-LangString DescDownloadHelper ${LANG_ENGLISH} "Allows you to download video an pictures from many websites"
+LangString DescUnPlug ${LANG_ENGLISH} "Allows you to download video from many websites"
 
 LangString DescJonDoFox ${LANG_ENGLISH} "Show customized error pages and instructions in case of proxy errors"
 

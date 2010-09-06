@@ -50,7 +50,7 @@ LangString DescAdblockPlus ${LANG_GERMAN} "Werbung war Gestern"
 
 LangString DescCSLite ${LANG_GERMAN} "Kontrolliert Cookie-Berechtigungen"
 
-LangString DescDownloadHelper ${LANG_GERMAN} "Erlaubt das Herunterladen von Videos und Bildern von vielen Webseiten"
+LangString DescUnPlug ${LANG_GERMAN} "Erlaubt das Herunterladen von Videos von vielen Webseiten"
 
 LangString DescJonDoFox ${LANG_GERMAN} "Zeigt angepasste Fehler-Webseiten und Anweisungen im Fall eines Proxy-Fehlers"
 
