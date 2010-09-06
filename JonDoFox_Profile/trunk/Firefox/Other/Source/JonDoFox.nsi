@@ -11,7 +11,7 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.3.1.0"
+!define VERSION "2.4.0.0"
 !define FILENAME "JonDoFox"
 !define FF_VERSION "3.6.8"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
@@ -475,20 +475,8 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{00084897-021a-4361-8423-083407a033e0}\*.*"
 
         SectionEnd
- 
-        Section "DownloadHelper" DownloadHelper
-        SectionIn 1 2        
-                StrCpy $ExtensionGUID "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}"
-                StrCpy $ExtensionName "DownloadHelper"
-
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
-                SetOverwrite on
-
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{b9db16a4-6edc-47ec-a1f4-b86292ed211d}\*.*"
-
-        SectionEnd
-
         
+
         Section "JonDoFox" JonDoFox
         SectionIn 1 2 
         
@@ -513,6 +501,20 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOverwrite on
 
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}\*.*"
+
+        SectionEnd
+
+
+        Section "UnPlug" UnPlug
+        SectionIn 1 2
+        
+                StrCpy $ExtensionGUID "unplug@compunach"
+                StrCpy $ExtensionName "UnPlug"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\unplug@compunach\*.*"
 
         SectionEnd
 
@@ -615,7 +617,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${JFPortable} $(DescJFPortable)
   !insertmacro MUI_DESCRIPTION_TEXT ${AdblockPlus} $(DescAdblockPlus)
   !insertmacro MUI_DESCRIPTION_TEXT ${CSLite} $(DescCSLite)
-  !insertmacro MUI_DESCRIPTION_TEXT ${DownloadHelper} $(DescDownloadHelper)
+  !insertmacro MUI_DESCRIPTION_TEXT ${UnPlug} $(DescUnPlug)
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)  
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
   !insertmacro MUI_DESCRIPTION_TEXT ${ProfileSwitcher} $(DescProfileSwitcher)  
@@ -666,9 +668,9 @@ Function RequiredSelections
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
          SectionSetFlags ${AdblockPlus} $0
    	 SectionSetFlags ${CSLite} $0
-         SectionSetFlags ${DownloadHelper} $0
          SectionSetFlags ${JonDoFox} $0
          SectionSetFlags ${NoScript} $0
+         SectionSetFlags ${UnPlug} $0
          SectionSetFlags ${ProfileSwitcher} $0
 FunctionEnd
 
