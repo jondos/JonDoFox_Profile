@@ -35,21 +35,31 @@ const Node = Ci.nsIDOMNode;
 const Element = Ci.nsIDOMElement;
 const Window = Ci.nsIDOMWindow;
 
-const loader = Cc["@mozilla.org/moz/jssubscript-loader;1"].getService(Ci.mozIJSSubScriptLoader);
-const ioService = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
-const versionComparator = Cc["@mozilla.org/xpcom/version-comparator;1"].createInstance(Ci.nsIVersionComparator);
-var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
-var windowWatcher= Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(Ci.nsIWindowWatcher);
-try
+Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+
+// Gecko 1.9.0/1.9.1 compatibility - add XPCOMUtils.defineLazyServiceGetter
+if (!("defineLazyServiceGetter" in XPCOMUtils))
 {
-	var headerParser = Cc["@mozilla.org/messenger/headerparser;1"].getService(Ci.nsIMsgHeaderParser);
-}
-catch(e)
-{
-	headerParser = null;
+	XPCOMUtils.defineLazyServiceGetter = function XPCU_defineLazyServiceGetter(obj, prop, contract, iface)
+	{
+		obj.__defineGetter__(prop, function XPCU_serviceGetter()
+		{
+			delete obj[prop];
+			return obj[prop] = Cc[contract].getService(Ci[iface]);
+		});
+	};
 }
 
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+XPCOMUtils.defineLazyServiceGetter(this, "loader", "@mozilla.org/moz/jssubscript-loader;1", "mozIJSSubScriptLoader");
+XPCOMUtils.defineLazyServiceGetter(this, "ioService", "@mozilla.org/network/io-service;1", "nsIIOService");
+XPCOMUtils.defineLazyServiceGetter(this, "versionComparator", "@mozilla.org/xpcom/version-comparator;1", "nsIVersionComparator");
+XPCOMUtils.defineLazyServiceGetter(this, "windowMediator", "@mozilla.org/appshell/window-mediator;1", "nsIWindowMediator");
+XPCOMUtils.defineLazyServiceGetter(this, "windowWatcher", "@mozilla.org/embedcomp/window-watcher;1", "nsIWindowWatcher");
+
+if ("@mozilla.org/messenger/headerparser;1" in Cc)
+	XPCOMUtils.defineLazyServiceGetter(this, "headerParser", "@mozilla.org/messenger/headerparser;1", "nsIMsgHeaderParser");
+else
+	this.headerParser = null;
 
 /**
  * Application startup/shutdown observer, triggers init()/shutdown() methods in abp object.
@@ -67,20 +77,21 @@ Initializer.prototype =
 
 	observe: function(subject, topic, data)
 	{
+		let observerService = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
 		switch (topic)
 		{
 			case "app-startup":
-				let observerService = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
 				observerService.addObserver(this, "profile-after-change", true);
-				observerService.addObserver(this, "quit-application", true);
 				break;
 			case "profile-after-change":
 				// delayed init for Fennec
+				observerService.addObserver(this, "quit-application", true);
 				let appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 				if (appInfo.ID != "{a23983c0-fd0e-11dc-95ff-0800200c9a66}")
 					abp.init();
 				break;
 			case "quit-application":
+				observerService.removeObserver(this, "quit-application");
 				abp.shutdown();
 				break;
 		}
@@ -281,7 +292,7 @@ const abp =
 	 */
 	getInstalledVersion: function() /**String*/
 	{
-		return "1.1.3";
+		return "1.2.2";
 	},
 
 	/**
@@ -289,7 +300,7 @@ const abp =
 	 */
 	getInstalledBuild: function() /**String*/
 	{
-		return "428b046a1a26";
+		return "ee0ff620c6c5";
 	},
 
 	//
@@ -312,7 +323,7 @@ const abp =
 	 * Version comparator instance.
 	 * @type nsIVersionComparator
 	 */
-	versionComparator: versionComparator,
+	get versionComparator() versionComparator,
 
 	/**
 	 * Initializes the component, called on application startup.
@@ -412,10 +423,12 @@ const abp =
 			{
 				dlg.focus();
 			}
-			catch (e)
+			catch (e) {}
+
+			if (windowMediator.getMostRecentWindow(null) != dlg)
 			{
 				// There must be some modal dialog open
-				dlg = windowMediator.getMostRecentWindow("abp:subscription") || windowMediator.getMostRecentWindow("abp:about");
+				dlg = windowMediator.getMostRecentWindow("abp:subscriptionSelection") || windowMediator.getMostRecentWindow("abp:about");
 				if (dlg)
 					dlg.focus();
 			}
@@ -429,16 +442,28 @@ const abp =
 
 	/**
 	 * Opens a URL in the browser window. If browser window isn't passed as parameter,
-	 * this function attempts to find a browser window.
+	 * this function attempts to find a browser window. If an event is passed in
+	 * it should be passed in to the browser if possible (will e.g. open a tab in
+	 * background depending on modifiers keys).
 	 */
-	loadInBrowser: function(/**String*/ url, /**Window*/ currentWindow)
+	loadInBrowser: function(/**String*/ url, /**Window*/ currentWindow, /**Event*/ event)
 	{
-		currentWindow = currentWindow ||
-										windowMediator.getMostRecentWindow("navigator:browser") ||
-										windowMediator.getMostRecentWindow("Songbird:Main") ||
-										windowMediator.getMostRecentWindow("emusic:window");
 		let abpHooks = currentWindow ? currentWindow.document.getElementById("abp-hooks") : null;
-		if (!abpHooks || !abpHooks.addTab || abpHooks.addTab(url) === false)
+		if (!abpHooks || !abpHooks.addTab)
+		{
+			let enumerator = windowMediator.getZOrderDOMWindowEnumerator(null, true);
+			while (enumerator.hasMoreElements())
+			{
+				let window = enumerator.getNext().QueryInterface(Ci.nsIDOMWindow);
+				abpHooks = window.document.getElementById("abp-hooks");
+				if (abpHooks && abpHooks.addTab)
+					break;
+			}
+		}
+
+		if (abpHooks && abpHooks.addTab)
+			abpHooks.addTab(url, event);
+		else
 		{
 			let protocolService = Cc["@mozilla.org/uriloader/external-protocol-service;1"].getService(Ci.nsIExternalProtocolService);
 			protocolService.loadURI(makeURL(url), null);
@@ -474,22 +499,26 @@ abp.wrappedJSObject = abp;
  */
 function ABPComponent() {}
 ABPComponent.prototype = abp;
-var NSGetModule = XPCOMUtils.generateNSGetModule([Initializer, ABPComponent]);
+if (XPCOMUtils.generateNSGetFactory)
+	var NSGetFactory = XPCOMUtils.generateNSGetFactory([Initializer, ABPComponent]);
+else
+	var NSGetModule = XPCOMUtils.generateNSGetModule([Initializer, ABPComponent]);
 
 /*
  * Loading additional files
  */
-loader.loadSubScript('chrome://adblockplus/content/utils.js');
-loader.loadSubScript('chrome://adblockplus/content/filterClasses.js');
-loader.loadSubScript('chrome://adblockplus/content/subscriptionClasses.js');
-loader.loadSubScript('chrome://adblockplus/content/filterStorage.js');
-loader.loadSubScript('chrome://adblockplus/content/matcher.js');
-loader.loadSubScript('chrome://adblockplus/content/elemhide.js');
-loader.loadSubScript('chrome://adblockplus/content/filterListener.js');
-loader.loadSubScript('chrome://adblockplus/content/policy.js');
-loader.loadSubScript('chrome://adblockplus/content/requests.js');
-loader.loadSubScript('chrome://adblockplus/content/prefs.js');
-loader.loadSubScript('chrome://adblockplus/content/synchronizer.js');
+loader.loadSubScript('chrome://adblockplus/content/utils.js', this);
+loader.loadSubScript('chrome://adblockplus/content/filterClasses.js', this);
+loader.loadSubScript('chrome://adblockplus/content/subscriptionClasses.js', this);
+loader.loadSubScript('chrome://adblockplus/content/filterStorage.js', this);
+loader.loadSubScript('chrome://adblockplus/content/matcher.js', this);
+loader.loadSubScript('chrome://adblockplus/content/elemhide.js', this);
+loader.loadSubScript('chrome://adblockplus/content/filterListener.js', this);
+loader.loadSubScript('chrome://adblockplus/content/objtabs.js', this);
+loader.loadSubScript('chrome://adblockplus/content/policy.js', this);
+loader.loadSubScript('chrome://adblockplus/content/requests.js', this);
+loader.loadSubScript('chrome://adblockplus/content/prefs.js', this);
+loader.loadSubScript('chrome://adblockplus/content/synchronizer.js', this);
 
 /*
  * Core Routines

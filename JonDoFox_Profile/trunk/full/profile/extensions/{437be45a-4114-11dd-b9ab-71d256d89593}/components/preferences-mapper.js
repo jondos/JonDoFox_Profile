@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2008, JonDos GmbH
- * Author: Johannes Renner
+ * Author: Johannes Renner, Georg Koppen
  *
  * Map pairs of preferences that are given as arrays
  *****************************************************************************/
@@ -12,26 +12,23 @@
 var mDebug = true;
 
 // Log a message
-function log(message) {
+var log = function(message) {
   if (mDebug) dump("PrefsMapper :: " + message + "\n");
-}
+};
 
+Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
 
-const CLASS_ID = Components.ID('{67d79e27-f32d-4e7f-97d7-68de76795611}');
-const CLASS_NAME = 'Preferences-Mapper'; 
-const CONTRACT_ID = '@jondos.de/preferences-mapper;1';
-
-const nsISupports = Components.interfaces.nsISupports;
+const CI = Components.interfaces;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Class definition
 ///////////////////////////////////////////////////////////////////////////////
 
 // Class constructor
-function PrefsMapper() {
+var PrefsMapper = function() {
   // Init the prefs handler
   this.prefsHandler = Components.classes['@jondos.de/preferences-handler;1'].
                                     getService().wrappedJSObject; 
@@ -56,7 +53,7 @@ PrefsMapper.prototype = {
     try {
       this.stringPrefsMap = stringPrefsMap;
     } catch (e) {
-      log("setStringPrefs(): "+ e);
+      log("setStringPrefs(): " + e);
     }
   },
 
@@ -71,7 +68,7 @@ PrefsMapper.prototype = {
     try {
       this.boolPrefsMap = boolPrefsMap;
     } catch (e) {
-      log("setBoolPrefs(): "+ e);
+      log("setBoolPrefs(): " + e);
     }
   },
 
@@ -86,7 +83,7 @@ PrefsMapper.prototype = {
     try {
       this.intPrefsMap = intPrefsMap;
     } catch (e) {
-      log("setIntPrefs(): "+ e);
+      log("setIntPrefs(): " + e);
     }
   },
 
@@ -97,6 +94,7 @@ PrefsMapper.prototype = {
 
   // Perform the mapping
   map: function() {
+    var p;
     log("Mapping security preferences");
     try {
       // Iterate through the maps
@@ -119,6 +117,7 @@ PrefsMapper.prototype = {
 
   // Reset all prefs
   unmap: function() {
+    var p;
     log("Unmapping preferences");
     try {
       // Reset all prefs
@@ -129,76 +128,25 @@ PrefsMapper.prototype = {
         this.prefsHandler.deletePreference(p);
       }
       for (p in this.intPrefsMap) {
-	this.prefsHandler.deletePreference(P);
+	this.prefsHandler.deletePreference(p);
       }
     } catch (e) {
       log("unmap(): " + e);
     }
   },
 
-  // Implement nsISupports
-  QueryInterface: function(aIID) {
-    if (!aIID.equals(nsISupports))
-      throw Components.results.NS_ERROR_NO_INTERFACE;
-    return this;
-  }
+  classDescription: "Preferences-Mapper",
+  classID:          Components.ID("{67d79e27-f32d-4e7f-97d7-68de76795611}"),
+  contractID:       '@jondos.de/preferences-mapper;1',
+
+  QueryInterface: XPCOMUtils.generateQI([CI.nsISupports])
 };
 
-///////////////////////////////////////////////////////////////////////////////
-// Class factory
-///////////////////////////////////////////////////////////////////////////////
+// XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).
+// XPCOMUtils.generateNSGetModule is for Mozilla 1.9.1/1.9.2 (FF 3.5/3.6).
 
-var PrefsMapperInstance = null;
+if (XPCOMUtils.generateNSGetFactory)
+    var NSGetFactory = XPCOMUtils.generateNSGetFactory([PrefsMapper]);
+else
+    var NSGetModule = XPCOMUtils.generateNSGetModule([PrefsMapper]);
 
-var PrefsMapperFactory = {
-  createInstance: function (aOuter, aIID) {    
-    if (aOuter != null)
-      throw Components.results.NS_ERROR_NO_AGGREGATION;
-    if (!aIID.equals(nsISupports))
-      throw Components.results.NS_ERROR_NO_INTERFACE;
-    // NOT a singleton class here
-    log("Creating instance");
-    return new PrefsMapper();
-  }
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// Module definition (XPCOM registration)
-///////////////////////////////////////////////////////////////////////////////
-
-var PrefsMapperModule = {
-  registerSelf: function(aCompMgr, aFileSpec, aLocation, aType) {
-    log("Registering '" + CLASS_NAME + "' ..");
-    aCompMgr = aCompMgr.QueryInterface(Components.interfaces.
-                           nsIComponentRegistrar);
-    aCompMgr.registerFactoryLocation(CLASS_ID, CLASS_NAME, CONTRACT_ID, 
-                aFileSpec, aLocation, aType);
-  },
-
-  unregisterSelf: function(aCompMgr, aLocation, aType) {
-    log("Unregistering '" + CLASS_NAME + "' ..");
-    aCompMgr = aCompMgr.QueryInterface(Components.interfaces.
-                           nsIComponentRegistrar);
-    aCompMgr.unregisterFactoryLocation(CLASS_ID, aLocation);        
-  },
-  
-  getClassObject: function(aCompMgr, aCID, aIID) {
-    if (!aIID.equals(Components.interfaces.nsIFactory))
-      throw Components.results.NS_ERROR_NOT_IMPLEMENTED;
-    if (aCID.equals(CLASS_ID))
-      return PrefsMapperFactory;
-    throw Components.results.NS_ERROR_NO_INTERFACE;
-  },
-
-  canUnload: function(aCompMgr) { 
-    return true; 
-  }
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// This function is called when the application registers the component
-///////////////////////////////////////////////////////////////////////////////
-
-function NSGetModule(compMgr, fileSpec) {
-  return PrefsMapperModule;
-}
