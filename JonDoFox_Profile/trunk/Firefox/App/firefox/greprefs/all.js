@@ -716,7 +716,10 @@ pref("network.IDN.whitelist.jp", true);
 pref("network.IDN.whitelist.kr", true);
 pref("network.IDN.whitelist.li", true);
 pref("network.IDN.whitelist.lt", true);
+pref("network.IDN.whitelist.lu", true);
 pref("network.IDN.whitelist.no", true);
+pref("network.IDN.whitelist.nu", true);
+pref("network.IDN.whitelist.nz", true);
 pref("network.IDN.whitelist.pl", true);
 pref("network.IDN.whitelist.pr", true);
 pref("network.IDN.whitelist.se", true);
@@ -726,12 +729,23 @@ pref("network.IDN.whitelist.tm", true);
 pref("network.IDN.whitelist.tw", true);
 pref("network.IDN.whitelist.vn", true);
 
-// non-ccTLDs
+// IDN ccTLDs
+// ae, UAE, .<Emarat>
+pref("network.IDN.whitelist.xn--mgbaam7a8h", true); 
+// sa, Saudi Arabia, .<al-Saudiah>
+pref("network.IDN.whitelist.xn--mgberp4a5d4ar", true); 
+// ru, Russian Federation, .<RF>
+pref("network.IDN.whitelist.xn--p1ai", true);
+// jo, Jordan, .<Al-Ordon>
+pref("network.IDN.whitelist.xn--mgbayh7gpa", true);
+
+// gTLDs
 pref("network.IDN.whitelist.biz", true);
 pref("network.IDN.whitelist.cat", true);
 pref("network.IDN.whitelist.info", true);
 pref("network.IDN.whitelist.museum", true);
 pref("network.IDN.whitelist.org", true);
+pref("network.IDN.whitelist.tel", true);
 
 // NOTE: Before these can be removed, one of bug 414812's tests must be updated
 //       or it will likely fail!  Please CC jwalden+bmo on the bug associated
@@ -811,12 +825,12 @@ pref("network.negotiate-auth.gsslib", "");
 // Specify if the gss lib comes standard with the OS
 pref("network.negotiate-auth.using-native-gsslib", true);
 
-//@line 830 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 844 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
 // Default to using the SSPI intead of GSSAPI on windows 
 pref("network.auth.use-sspi", true);
 
-//@line 835 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 849 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
 // Controls which NTLM authentication implementation we default to. True forces
 // the use of our generic (internal) NTLM authentication implementation vs. any
@@ -844,9 +858,7 @@ pref("network.ntlm.send-lm-response", false);
 
 pref("permissions.default.image",           1); // 1-Accept, 2-Deny, 3-dontAcceptForeign
 
-//@line 866 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
-pref("network.proxy.type",                  0);
-//@line 871 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+pref("network.proxy.type",                  5);
 
 pref("network.proxy.ftp",                   "");
 pref("network.proxy.ftp_port",              0);
@@ -876,6 +888,9 @@ pref("network.proxy.autoconfig_url", "");
 // until we reach interval_max or the PAC file is successfully loaded).
 pref("network.proxy.autoconfig_retry_interval_min", 5);    // 5 seconds
 pref("network.proxy.autoconfig_retry_interval_max", 300);  // 5 minutes
+
+pref("network.buffer.cache.count", 24);
+pref("network.buffer.cache.size",  4096);
 
 pref("converter.html2txt.structs",          true); // Output structured phrases (strong, em, code, sub, sup, b, i, u)
 pref("converter.html2txt.header_strategy",  1); // 0 = no indention; 1 = indention, increased with header level; 2 = numbering and slight indention
@@ -1197,6 +1212,10 @@ pref("editor.positioning.offset",            0);
 pref("dom.max_chrome_script_run_time", 20);
 pref("dom.max_script_run_time", 10);
 
+// How long a plugin is allowed to process a synchronous IPC message
+// before we consider it "hung".
+pref("dom.ipc.plugins.timeoutSecs", 45);
+
 pref("svg.enabled", true);
 pref("svg.smil.enabled", false);
 
@@ -1232,7 +1251,7 @@ pref("font.minimum-size.x-western", 0);
 pref("font.minimum-size.x-unicode", 0);
 pref("font.minimum-size.x-user-def", 0);
 
-//@line 1257 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1270 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
 pref("font.name.serif.ar", "Times New Roman");
 pref("font.name.sans-serif.ar", "Arial");
@@ -1341,7 +1360,7 @@ pref("font.name.monospace.x-tamil", "Latha");
 pref("font.name-list.serif.x-tamil", "Latha, Code2000");
 pref("font.name-list.monospace.x-tamil", "Latha, Code2000");
 
-//@line 1366 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1379 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
 pref("font.name.serif.x-armn", "Sylfaen");
 pref("font.name.sans-serif.x-armn", "Arial AMU");
@@ -1614,10 +1633,10 @@ pref("intl.enable_tsf_support", false);
 // change now, therefore, we always notify it by this fequency.
 pref("intl.tsf.on_layout_change_interval", 100);
 
-//@line 1642 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1655 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 // See bug 448927, on topmost panel, some IMEs are not usable on Windows.
 pref("ui.panel.default_level_parent", false);
-//@line 1645 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1658 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
 pref("mousewheel.system_scroll_override_on_root_content.enabled", true);
 
@@ -1625,23 +1644,23 @@ pref("mousewheel.system_scroll_override_on_root_content.enabled", true);
 // Enables or disabled the TrackPoint hack, -1 is autodetect, 0 is off,
 // and 1 is on.  Set this to 1 if TrackPoint scrolling is not working.
 pref("ui.trackpoint_hack.enabled", -1);
-//@line 1654 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1667 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2078 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2091 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2281 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2294 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2377 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2390 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2652 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2665 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2720 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2733 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2746 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2759 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2766 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2779 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2774 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2787 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
 // Login Manager prefs
 pref("signon.rememberSignons",              true);
@@ -1678,15 +1697,18 @@ pref("image.cache.timeweight", 500);
 // The default Accept header sent for images loaded over HTTP(S)
 pref("image.http.accept", "image/png,image/*;q=0.8,*/*;q=0.5");
 
-//@line 2812 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2825 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 // The default TCP send window on Windows is too small, and autotuning only occurs on receive
 pref("network.tcp.sendbuffer", 131072);
-//@line 2816 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2829 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2821 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2834 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
 
 // Enable/Disable the geolocation API for content
 pref("geo.enabled", true);
+
+// Enable/Disable the orientation API for content
+pref("accelerometer.enabled", true);
 
 // Enable/Disable HTML5 parser
 pref("html5.enable", false);

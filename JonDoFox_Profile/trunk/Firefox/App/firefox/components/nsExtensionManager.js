@@ -172,7 +172,7 @@ const FEATURES_EXTENSION_UPDATES      = "chrome,centerscreen,extra-chrome,dialog
  */
 var gIDTest = /^(\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}|[a-z0-9-\._]*\@[a-z0-9-\._]+)$/i;
 
-var gBranchVersion = /^([^\.]+\.[^a-z\.]+[a-z]?).*/gi;
+var gBranchVersion = /^([^\.]+\.[0-9]+[a-z]*).*/gi;
 
 // shared code for suppressing bad cert dialogs
 XPCOMUtils.defineLazyGetter(this, "gCertUtils", function() {
@@ -2574,6 +2574,9 @@ ExtensionManager.prototype = {
       ERROR("Error flushing caches: " + e);
     }
 
+    // Reset the first run flag.
+    gFirstRun = false;
+
     return needsRestart;
   },
 
@@ -3247,6 +3250,7 @@ ExtensionManager.prototype = {
 
     var ds = this.datasource;
     var inactiveItemIDs = [];
+    var appEnabledItemIDs = [];
     var ctr = getContainer(ds, ds._itemRoot);
     var elements = ctr.GetElements();
     while (elements.hasMoreElements()) {
@@ -3257,6 +3261,8 @@ ExtensionManager.prototype = {
       if (appDisabled == "true" || appDisabled == OP_NEEDS_DISABLE ||
           userDisabled == "true" || userDisabled == OP_NEEDS_DISABLE)
         inactiveItemIDs.push(id);
+      if (appDisabled != "true" && appDisabled != OP_NEEDS_DISABLE)
+        appEnabledItemIDs.push(id);
     }
 
     if (isDirty)
@@ -3327,9 +3333,12 @@ ExtensionManager.prototype = {
         if (ds.getItemProperty(id, "appDisabled"))
           properties.appDisabled = null;
       }
-      else if (!ds.getItemProperty(id, "appDisabled")) {
-        properties.appDisabled = EM_L("true");
-        disabledAddons.push(id);
+      else {
+        if (!ds.getItemProperty(id, "appDisabled"))
+          properties.appDisabled = EM_L("true");
+        // If this item used to be app enabled then the upgrade has made it incompatible
+        if (appEnabledItemIDs.indexOf(id) >= 0)
+          disabledAddons.push(id);
       }
 
       ds.setItemProperties(id, properties);
@@ -3369,7 +3378,7 @@ ExtensionManager.prototype = {
 
     // Determine if we should check for compatibility updates when upgrading if
     // we have add-ons that aren't managed by the application.
-    if (!allAppManaged && !gFirstRun && disabledAddons.length > 0) {
+    if (!allAppManaged && !gFirstRun) {
       // Should we show a UI or just pass the list via a pref?
       if (getPref("getBoolPref", PREF_EM_SHOW_MISMATCH_UI, true)) {
         this._showMismatchWindow(inactiveItemIDs);
@@ -5108,13 +5117,13 @@ ExtensionManager.prototype = {
       // count to 0 to prevent this dialog from being displayed again.
       this._downloadCount = 0;
       var result;
-//@line 5156 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 5165 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
       result = this._confirmCancelDownloads(this._downloadCount,
                                             "quitCancelDownloadsAlertTitle",
                                             "quitCancelDownloadsAlertMsgMultiple",
                                             "quitCancelDownloadsAlertMsg",
                                             "dontQuitButtonWin");
-//@line 5168 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 5177 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
       if (subject instanceof Ci.nsISupportsPRBool)
         subject.data = result;
     }
@@ -5657,7 +5666,7 @@ ExtensionItemUpdater.prototype = {
   _listener           : null,
 
   /* ExtensionItemUpdater
-//@line 5736 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 5745 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
   */
   checkForUpdates: function ExtensionItemUpdater_checkForUpdates(aItems,
                                                                  aItemCount,
@@ -6056,7 +6065,7 @@ RDFItemUpdater.prototype = {
 
   onDatasourceLoaded: function RDFItemUpdater_onDatasourceLoaded(aDatasource, aLocalItem) {
     /*
-//@line 6175 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 6184 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
     */
     if (!aDatasource.GetAllResources().hasMoreElements()) {
       LOG("RDFItemUpdater:onDatasourceLoaded: Datasource empty.\r\n" +

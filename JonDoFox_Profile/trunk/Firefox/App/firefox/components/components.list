@@ -1,3 +1,4 @@
+nsINIProcessor.js
 nsProxyAutoConfig.js
 nsHandlerService.js
 nsWebHandlerApp.js
@@ -43,6 +44,7 @@ xpcomsmp.dll
 nsSample.js
 httpd.js
 reftest-cmdline.js
+testcrasher.dll
 browserdirprovider.dll
 nsMicrosummaryService.js
 nsSessionStore.js

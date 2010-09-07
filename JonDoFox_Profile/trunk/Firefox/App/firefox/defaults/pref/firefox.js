@@ -143,7 +143,7 @@ pref("keyword.URL", "chrome://browser-region/locale/region.properties");
 
 pref("general.useragent.locale", "en-US");
 pref("general.skins.selectedSkin", "classic/1.0");
-pref("general.useragent.extra.firefox", "Firefox/3.6");
+pref("general.useragent.extra.firefox", "Firefox/3.6.8");
 
 pref("general.smoothScroll", false);
 //@line 192 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
@@ -782,7 +782,18 @@ pref("geo.wifi.uri", "https://www.google.com/loc/json");
 pref("toolbar.customization.usesheet", false);
 //@line 911 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 
-//@line 914 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+// Whitelist the test plugin, Flash, Silverlight, and QuickTime
+ 
+pref("dom.ipc.plugins.enabled.nptest.dll", true);
+//@line 916 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+pref("dom.ipc.plugins.enabled.npswf32.dll", true);
+pref("dom.ipc.plugins.enabled.npctrl.dll", true);
+pref("dom.ipc.plugins.enabled.npqtplugin.dll", true);
+//@line 923 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+
+pref("dom.ipc.plugins.enabled", false);
+
+//@line 928 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
 pref("browser.taskbar.previews.enable", false);
 pref("browser.taskbar.previews.max", 20);
 pref("browser.taskbar.previews.cachetime", 20);
