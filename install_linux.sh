@@ -54,7 +54,9 @@ INSTALLED_PREFS=""	#path to the prerference file of the local Firefox installati
 
 BOOKMARKS_FF3="" #Firefox3 bookmarks file
 BOOKMARKS_FF2="" #Firefox2 bookmarks file
+CERT_DATABASE="" #CertPatrol database
 SAVED_BOOKMARKS="" #Saved bookmarks
+SAVED_CERTDATABASE="" #Saved CertPatrol database
 
 JONDOFOX_PROFILE_ENTRY="" #JonDoFox entry in profiles.ini
 
@@ -112,6 +114,7 @@ variablesOsSpecific()
 	INSTALLED_PREFS="${DEST_PROFILE}/${PREFS_FILE_NAME}"
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
 	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
+	CERT_DATABASE="${DEST_PROFILE}/CertPatrol.sqlite"
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
 		
@@ -119,9 +122,9 @@ variablesOsSpecific()
 	JONDOFOX_PROFILE_ENTRY="Name=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"
 
 	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
-	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
-	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
-	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
+	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks and the certificate database), or delete it?"
+	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks and the certificate database), or delete it?"
+	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks and the certificate database), or delete it?"
 
 	if [ "${VERBOSE}" ]; then
 		echo "Installing JonDoFox $(getInstalledVersion) with these settings:"
@@ -133,15 +136,20 @@ variablesOsSpecific()
 ## store bookmarks of old JonDoFox profile
 saveInstalledBookmarks()
 {
-	echo "saving bookmarks."
+	echo "saving bookmarks and certificate database."
 	SAVED_BOOKMARKS=""
+	SAVED_CERTDATABASE=""
 	if [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/places.sqlite"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF3}" "${SAVED_BOOKMARKS}"
-	elif [ -e "${BOOKMARKS_FF3}" ]; then
+	elif [ -e "${BOOKMARKS_FF2}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/bookmarks.html"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF2}" "${SAVED_BOOKMARKS}"
 	fi
+	if [ -e "${CERT_DATABASE}" ]; then
+	        SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
+                cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
+        fi
 	return 0
 }
 
@@ -150,6 +158,9 @@ restoreBookmarks()
 {
 	if [ "${SAVED_BOOKMARKS}" ] && [ -e "${SAVED_BOOKMARKS}" ]; then
 		mv -f "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
+	fi
+	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}"]; then
+		mv -f "{$SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
 }
 
