@@ -1000,16 +1000,11 @@ UpdateService.prototype = {
     }
 
     var status = readStatusFile(getUpdatesDir());
-    /**
-     * STATE_NONE status means the update.status file is not present, because
-     * either:
-     * 1) no update was performed, and so there's no UI to show
-     * 2) an update was attempted but failed during checking, transfer or
-     *    verification, and was cleaned up at that point, and UI notifying of
-     *    that error was shown at that stage.
-     */
+    // STATE_NONE status means that the update.status file is present but a
+    // background download error occured.
     if (status == STATE_NONE) {
       LOG("UpdateService:_postUpdateProcessing - no status, no update");
+      cleanupActiveUpdate();
       return;
     }
 
@@ -1201,7 +1196,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1323 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1318 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
 
     // Encode version since it could be a non-ascii string (bug 359093)
@@ -1230,7 +1225,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1367 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1362 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
     if (update.type == "major") {
       LOG("Checker:_selectAndInstallUpdate - prompting because it is a major " +
@@ -1309,7 +1304,7 @@ UpdateService.prototype = {
 
     if (currentAddons.length > 0) {
       /**
-//@line 1463 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1458 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
        */
       this._incompatAddonsCount = currentAddons.length;
       LOG("UpdateService:_checkAddonCompatibility - checking for " +
