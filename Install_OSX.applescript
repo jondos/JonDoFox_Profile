@@ -43,6 +43,8 @@ global old_version_str --the version string of the already installed JonDoFox pr
 global jondofox_bookmarks_ff3 --name of the bookmarksfile (FireFox3)
 global jondofox_bookmarks_ff2 --name of the bookmarksfile (FireFox2)
 global saved_bookmarks --where the old bookmarks are saved
+global cert_database --name of the Certificate Patrol database file
+global saved_certdatabase --where the Certificate Patrol database is saved
 
 -- dialog variables
 global jfx_dialog_title
@@ -68,7 +70,9 @@ on run
 	tell application "Finder" to set the profile_parent_folder to (the container of the (path to me) as string) & install_bundle_name & ":Contents:Resources:"
 	set jondofox_bookmarks_ff3 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":places.sqlite"
 	set jondofox_bookmarks_ff2 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":bookmarks.html"
+        set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
 	set saved_bookmarks to ""
+        set saved_certdatabase to ""
 	
 	set lang_props to null
 	set lang_props_filename to "jfx.plist"
@@ -320,9 +324,15 @@ on get_next_profile(prof_file)
 	return profile_header
 end get_next_profile
 
---saves the existing jondofox bookmarks
+--saves the existing jondofox bookmarks and the cert database
 on copy_bookmarks()
 	tell application "Finder"
+                if (the file cert_database exists) then
+			set jondofox_certpatrol_file to cert_database as alias
+                        set saved_certdatabase to firefox_profiles_path & "CertPatrol.sqlite"
+                        set temp_folder to firefox_profiles_path as alias
+                        duplicate the jondofox_certpatrol_file to the temp_folder with replacing
+                end if
 		if (the file jondofox_bookmarks_ff3 exists) then
 			set jondofox_bookmarks_file to jondofox_bookmarks_ff3 as alias
 			set saved_bookmarks to firefox_profiles_path & "places.sqlite"
