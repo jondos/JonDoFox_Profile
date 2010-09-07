@@ -160,7 +160,7 @@ restoreBookmarks()
 		mv -f "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
 	fi
 	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}" ]; then
-		mv -f "{$SAVED_CERTDATABASE}" "${DEST_PROFILE}"
+		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
 }
 
