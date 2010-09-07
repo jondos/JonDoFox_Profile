@@ -1,44 +1,11 @@
 /******************************************************************************
- * Copyright 2008, 2009 JonDos GmbH
- * Author: Johannes Renner
+ * Copyright 2008-2010 JonDos GmbH
+ * Author: Johannes Renner, Georg Koppen
  *
  * This component is instanciated once on app-startup and does the following:
  *
  * - Replace RefControl functionality by simply forging every referrer
  * - Arbitrary HTTP request headers can be set from here as well
- * - Including SafeCache's functionality
- * The functions safeCache(), setCacheKey(), readCacheKey(), bypassCache(),
- * getCookieBehavior(), newCacheKey() and getHash() are shipped with the 
- * following license:
- *
- *Redistribution and use in source and binary forms, with or without 
- *modification, are permitted provided that the following conditions are met:
- *
- *  * Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer.
- *  * Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *  * Neither the name of Stanford University nor the names of its contributors
- *    may be used to endorse or promote products derived from this software with
- *    out specific prior written permission.
- *
- *THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- *AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- *IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
- *ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
- *LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- *CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
- *SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
- *INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- *CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- *ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
- *POSSIBILITY OF SUCH DAMAGE.
- *
- *These functions were written by Collin Jackson, other contributors were
- *Andrew Bortz, John Mitchell, Dan Boneh.
- *
- *These functions were slightly adapted by Georg Koppen.
  *****************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -48,17 +15,14 @@
 m_debug = true;
 
 // Log method
-function log(message) {
+var log = function(message) {
   if (m_debug) dump("RequestObserver :: " + message + "\n");
-}
+};
 
+Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
-
-const CLASS_ID = Components.ID('{cd05fe5d-8815-4397-bcfd-ca3ae4029193}');
-const CLASS_NAME = 'Request-Observer'; 
-const CONTRACT_ID = '@jondos.de/request-observer;1';
 
 const CC = Components.classes;
 const CI = Components.interfaces;
@@ -68,27 +32,30 @@ const CU = Components.utils;
 // Observer for "http-on-modify-request"
 ///////////////////////////////////////////////////////////////////////////////
 
-var requestObserver = {
+var RequestObserver = function() {
+  this.wrappedJSObject = this
+};
 
-  // Preferences handler object
+RequestObserver.prototype = {
+
   prefsHandler: null,
   jdfManager: null,
-  jdfUtils: null,
-  ACCEPT_COOKIES: 0,
-  NO_FOREIGN_COOKIES: 1,
-  REJECT_COOKIES: 2,
- 
-  // Init the preferences handler
+  safeCache: null,
+  tldService: null,
+  cookiePerm: null,
+  
   init: function() {
     try {
       this.prefsHandler = CC['@jondos.de/preferences-handler;1'].
           getService().wrappedJSObject;
       this.jdfManager = CC['@jondos.de/jondofox-manager;1'].
           getService().wrappedJSObject;
-      this.jdfUtils = CC['@jondos.de/jondofox-utils;1'].
+      this.safeCache = CC['@jondos.de/safecache;1'].
           getService().wrappedJSObject;
       this.tldService = CC['@mozilla.org/network/effective-tld-service;1'].
           getService(Components.interfaces.nsIEffectiveTLDService);
+      this.cookiePerm = CC['@mozilla.org/cookie/permission;1'].
+          getService(Components.interfaces.nsICookiePermission);
     } catch (e) {
       log("init(): " + e);
     }
@@ -96,58 +63,104 @@ var requestObserver = {
 
   // This is called on every request
   modifyRequest: function(channel) {
+    var originatingDomain;
+    var baseDomain;
+    var suffix;
+    var oldRef;
+    var refDomain;
+    var acceptHeader;
     try {
       // Perform safecache
       if (this.prefsHandler.getBoolPref('stanford-safecache.enabled')) {
 	channel.QueryInterface(CI.nsIHttpChannelInternal);
         channel.QueryInterface(CI.nsICachingChannel);
-        this.safeCache(channel); 
+        this.safeCache.safeCache(channel); 
       }
 
       // Forge the referrer if necessary
       if (this.prefsHandler.getBoolPref('extensions.jondofox.set_referrer')) {
         // Determine the base domain of the request
-        var baseDomain;
         try {
           baseDomain = this.tldService.getBaseDomain(channel.URI, 0);
-        } catch (e if e.name == "NS_ERROR_HOST_IS_IP_ADDRESS") {
+        } catch (e if e.name === "NS_ERROR_HOST_IS_IP_ADDRESS") {
           // It's an IP address
           baseDomain = channel.URI.hostPort;
         }       
         log("Request (base domain): " + baseDomain);
 
         // ... the string to compare to
-        var suffix;
         try {
           // ... the value of the referer header
-          var oldRef = channel.getRequestHeader("Referer"); 
+          oldRef = channel.getRequestHeader("Referer"); 
           // Cut off the path from the referer
           log("Referrer (unmodified): " + oldRef);
-          var refDomain = oldRef.split("/", 3)[2];
+          refDomain = oldRef.split("/", 3)[2];
           //log("Referrer (domain): " + refDomain);  
           // Take a substring with the length of the base domain for comparison
           suffix = refDomain.substr(
               refDomain.length - baseDomain.length, refDomain.length);
           log("Comparing " + baseDomain + " to " + suffix);
-        } catch (e if e.name == "NS_ERROR_NOT_AVAILABLE") {
+        } catch (e if e.name === "NS_ERROR_NOT_AVAILABLE") {
           // The header is not set
           log("Referrer is not set!");
+          oldRef = false;
         }
 
-        // Set the request header if the base domain is changing
-        if (baseDomain != suffix) {
-          var newRef = channel.URI.scheme + "://" + channel.URI.hostPort + "/";
-          channel.setRequestHeader("Referer", newRef, false);
-          // Set the referrer attribute to channel object (necessary?)
-          //channel.referrer.spec = newRef;
-          log("Referrer (modified): " + channel.getRequestHeader("Referer"));
+	// We leave the Referer if we found 3rd party content. Otherwise, 
+        // if no Referer is set we imitate Firefox' behavior and do not set
+        // one as well. If we have a Referer indicating the user came from a
+	// different domain and do not get an originating URI we set the 
+	// Referer for security's sake to null. The same holds for the case
+	// were the user came from a different domain and we got a originating
+	// URI but found no 3rd party content.
+        if (baseDomain !== suffix && oldRef) {
+          log ("URI is: " + baseDomain);
+          try {
+            originatingDomain = this.cookiePerm.getOriginatingURI(channel);
+          } catch (e) {
+            log ("Getting the originating URI failed!");
+            originatingDomain = false;
+          }
+          if (originatingDomain) {
+            try {
+              originatingDomain = this.tldService.
+                                     getBaseDomain(originatingDomain, 0);
+            } catch (e if e.name === "NS_ERROR_HOST_IS_IP_ADDRESS") {
+            // It's an IP address
+            originatingDomain = originatingDomain.hostPort;
+            }  
+          }
+          log ("Originating URI is: " + originatingDomain);
+          if (baseDomain === originatingDomain || !originatingDomain) {
+            channel.setRequestHeader("Referer", null, false);
+	    try {
+	      log("Referrer (modified): " + 
+			      channel.getRequestHeader("Referer"));
+	    } catch (e if e.name === "NS_ERROR_NOT_AVAILABLE") {
+              // The header is not set
+              log("Referer is not set!");
+	    }
+          } else {
+            if (originatingDomain !== "false") {
+              log("3rd party content, Referrer not modified");
+            } else {
+              log("We got a referer but no originating URI!\n" + 
+	          "Modify the referer, although it may be 3rd party content!");
+	      channel.setRequestHeader("Referer", null, false);
+            }
+          }
         } else {
-          log("Referrer not modified");
+          log("Referer not modified");
         }
       }
 
       // Set other headers here
-      //channel.setRequestHeader("Accept", "*/*", false);
+      // It is not enough to have the values only in the about:config! But in
+      // order to use them for all requests we must use setRequestHeader() and
+      // give them as an argument...
+      acceptHeader = this.prefsHandler.
+                          getStringPref("network.http.accept.default");
+      channel.setRequestHeader("Accept", acceptHeader, false);
       
       return true;
     } catch (e) {
@@ -167,17 +180,18 @@ var requestObserver = {
   },
 
   examineResponse: function(channel) {
+    var URI;
     try {
       // We are looking for URL's which are on the noProxyList first. The
       // reason is if there occurred a redirection to a different URL it is
       // not set on the noProxyList as well. Thus it can happen that the user
       // wants to avoid a download via a proxy but uses it nevertheless
       // because a redirection occurred.
-      var URI = channel.URI.spec;
+      URI = channel.URI.spec;
       // If it is on the list let's check whether we will be redirected.
       if (this.jdfManager.noProxyListContains(URI)) {
         var location = channel.getResponseHeader("Location");
-        if (location != null) {
+        if (location !== null) {
 	  //If so add the new location to the noProxyList as well.
           log("Got a redirection to: " + location);
           this.jdfManager.noProxyListAdd(location);     
@@ -195,88 +209,6 @@ var requestObserver = {
     } catch (ex) {
       log("Got exception: " + ex);
     }
-  },
-
-  safeCache: function(channel) {
-    var parent = channel.referrer;
-    if (channel.documentURI && channel.documentURI === channel.URI) {
-      parent = null;  // first party interaction
-    }
-    // Same-origin policy
-    if (parent && parent.host !== channel.URI.host) {
-      log("||||||||||SSC: Segmenting " + channel.URI.host + 
-               " content loaded by " + parent.host);
-      this.setCacheKey(channel, parent.host);
-    } else if(this.readCacheKey(channel.cacheKey)) {
-      this.setCacheKey(channel, channel.URI.host);
-    } else {
-      log("||||||||||SSC: POST data detected; leaving cache key unchanged.");
-    }
-
-    // Third-party blocking policy
-    switch(this.getCookieBehavior()) {
-      case this.ACCEPT_COOKIES: 
-        break;
-      case this.NO_FOREIGN_COOKIES: 
-        if(parent && parent.host !== channel.URI.host) {
-          log("||||||||||SSC: Third party cache blocked for " +
-               channel.URI.spec + " content loaded by " + parent.spec);
-          this.bypassCache(channel);
-        }
-        break;
-      case this.REJECT_COOKIES: 
-        this.bypassCache(channel);
-        break;
-      default:
-        log("||||||||||SSC: " + this.getCookieBehavior() + 
-                 " is not a valid cookie behavior.");
-        break;
-    }
-  },
-
-  getCookieBehavior: function() {
-    //return Components.classes["@mozilla.org/preferences-service;1"]
-    //           .getService(Components.interfaces.nsIPrefService)
-    //           .getIntPref(kSSC_COOKIE_BEHAVIOR_PREF);
-    return 1;
-  },
-
-  setCacheKey: function(channel, str) {
-    var oldData = this.readCacheKey(channel.cacheKey);
-    var newKey = this.newCacheKey(this.getHash(str) + oldData);
-    channel.cacheKey = newKey;
-    // log("||||||||||SSC: Set cache key to hash(" + str + ") = " + 
-    //          newKey.data + "\n   for " + channel.URI.spec + "\n");
-  },
-
-  // Read the integer data contained in a cache key
-  readCacheKey: function(key) {
-    key.QueryInterface(Components.interfaces.nsISupportsPRUint32);
-    return key.data;
-  },
-
-  // Construct a new cache key with some integer data
-  newCacheKey: function(data) {
-    var cacheKey = 
-      Components.classes["@mozilla.org/supports-PRUint32;1"]
-                .createInstance(Components.interfaces.nsISupportsPRUint32);
-    cacheKey.data = data;
-    return cacheKey;
-  },
-
-  bypassCache: function(channel) {
-    channel.loadFlags |= channel.LOAD_BYPASS_CACHE;  
-      // INHIBIT_PERSISTENT_CACHING instead?
-    channel.cacheKey = this.newCacheKey(0);
-    log("||||||||||SSC: Bypassed cache for " + channel.URI.spec);
-  },
-
-  getHash: function(str) {
-    var hash = this.jdfUtils.str_md5(str); 
-    var intHash = 0;    
-    for(var i = 0; i < hash.length && i < 8; i++)
-      intHash += hash.charCodeAt(i) << (i << 3);
-    return intHash;
   },
 
   // This is called once on 'app-startup'
@@ -313,12 +245,12 @@ var requestObserver = {
   observe: function(subject, topic, data) {
     try {
       switch (topic) {
-        case 'app-startup':
+        case 'profile-after-change':
           log("Got topic --> " + topic);
           this.registerObservers();
 	  this.init();
           break;
-        
+
         case 'quit-application-granted':
           log("Got topic --> " + topic);
           this.unregisterObservers();
@@ -342,75 +274,27 @@ var requestObserver = {
     }
   },
 
-  // Implement nsISupports
-  QueryInterface: function(iid) {
-    if (!iid.equals(CI.nsISupports) &&
-        !iid.equals(CI.nsIObserver) &&
-        !iid.equals(CI.nsISupportsWeakReference))
-      throw Components.results.NS_ERROR_NO_INTERFACE;
-    return this;
-  }
-}
+  classDescription: "Request-Observer",
+  classID:          Components.ID("{cd05fe5d-8815-4397-bcfd-ca3ae4029193}"),
+  contractID:       "@jondos.de/request-observer;1",
 
-///////////////////////////////////////////////////////////////////////////////
-// The actual component
-///////////////////////////////////////////////////////////////////////////////
+  // No service flag here. Otherwise the registration for FF3.6.x would not work
+  // See: http://groups.google.com/group/mozilla.dev.extensions/browse_thread/
+  // thread/d9f7d1754ae43045/97e55977ecea7084?show_docid=97e55977ecea7084 
+  _xpcom_categories: [{
+    category: "profile-after-change",
+  }],
 
-var RequestObserverModule = {
-  
-  // BEGIN nsIModule
-  registerSelf: function(compMgr, fileSpec, location, type) {
-    log("Registering '" + CLASS_NAME + "' ..");
-    compMgr.QueryInterface(CI.nsIComponentRegistrar);
-    compMgr.registerFactoryLocation(CLASS_ID, CLASS_NAME, CONTRACT_ID, 
-               fileSpec, location, type);
-
-    var catMan = CC["@mozilla.org/categorymanager;1"].
-                    getService(CI.nsICategoryManager);
-    catMan.addCategoryEntry("app-startup", "RefForgery", CONTRACT_ID, true, 
-              true);
-  },
-
-  unregisterSelf: function(compMgr, fileSpec, location) {
-    log("Unregistering '" + CLASS_NAME + "' ..");
-    // Remove the auto-startup
-    compMgr.QueryInterface(CI.nsIComponentRegistrar);
-    compMgr.unregisterFactoryLocation(CLASS_ID, fileSpec);
-
-    var catMan = CC["@mozilla.org/categorymanager;1"].
-                    getService(CI.nsICategoryManager);
-    catMan.deleteCategoryEntry("app-startup", CONTRACT_ID, true);
-  },
-
-  getClassObject: function(compMgr, cid, iid) {
-    if (!cid.equals(CLASS_ID))
-      throw Components.results.NS_ERROR_FACTORY_NOT_REGISTERED;
-    if (!iid.equals(CI.nsIFactory))
-      throw Components.results.NS_ERROR_NO_INTERFACE;
-    return this.classFactory;
-  },
-
-  canUnload: function(compMgr) { 
-    return true; 
-  },
-  // END nsIModule
-
-  // Implement nsIFactory
-  classFactory: {
-    createInstance: function(outer, iid) {
-      log("Creating instance");
-      if (outer != null)
-        throw Components.results.NS_ERROR_NO_AGGREGATION;
-
-      return requestObserver.QueryInterface(iid);
-    }
-  }
+  QueryInterface: XPCOMUtils.generateQI([CI.nsISupports, CI.nsIObserver,
+				  CI.nsISupportsWeakReference])
 };
 
-///////////////////////////////////////////////////////////////////////////////
-// This function is called when the application registers the component
-///////////////////////////////////////////////////////////////////////////////
+// XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).
+// XPCOMUtils.generateNSGetModule is for Mozilla 1.9.1/1.9.2 (FF 3.5/3.6).
 
-function NSGetModule(comMgr, fileSpec) { 
-  return RequestObserverModule;
-}
+if (XPCOMUtils.generateNSGetFactory)
+    var NSGetFactory = XPCOMUtils.generateNSGetFactory([RequestObserver]);
+else
+    var NSGetModule = XPCOMUtils.generateNSGetModule([RequestObserver]);
+
+

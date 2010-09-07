@@ -45,6 +45,11 @@ pref("extensions.jondofox.custom.backup.socks_host", "");
 pref("extensions.jondofox.custom.backup.socks_port", 0);
 pref("extensions.jondofox.custom.backup.socks_version", 5);
 
+// Tor proxy settings
+pref("extensions.jondofox.tor.http_host", "");
+pref("extensions.jondofox.tor.http_port", 0);
+pref("extensions.jondofox.tor.ssl_host", "");
+pref("extensions.jondofox.tor.ssl_port", 0);
 
 // Useragent
 // JonDo settings
@@ -60,11 +65,11 @@ pref("extensions.jondofox.jondo.useragent_vendorSub", "");
 
 // Tor settings
 pref("extensions.jondofox.tor.appname_override","Netscape");
-pref("extensions.jondofox.tor.appversion_override","5.0 (Windows; LANG)");
+pref("extensions.jondofox.tor.appversion_override","5.0 (Windows; en-US)");
 pref("extensions.jondofox.tor.platform_override","Win32");
-pref("extensions.jondofox.tor.oscpu_override", "Windows NT 5.1");
-pref("extensions.jondofox.tor.useragent_override", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7");
-pref("extensions.jondofox.tor.productsub_override","2009021910");
+pref("extensions.jondofox.tor.oscpu_override", "Windows NT 6.1");
+pref("extensions.jondofox.tor.useragent_override", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3");
+pref("extensions.jondofox.tor.productsub_override","20100401");
 pref("extensions.jondofox.tor.buildID_override","0");
 pref("extensions.jondofox.tor.useragent_vendor", "");
 pref("extensions.jondofox.tor.useragent_vendorSub","");
@@ -74,6 +79,10 @@ pref("extensions.jondofox.accept_languages", "en-us");
 pref("extensions.jondofox.accept_charsets", "*");
 pref("extensions.jondofox.default_charset", "");
 pref("extensions.jondofox.accept_default", "text/html,application/xml,*/*");
+
+// If the user sets a Torbutton UA then use the following values as well
+pref("extensions.jondofox.tor.accept_languages", "en-us, en");
+pref("extensions.jondofox.tor.accept_charsets", "iso-8859-1,*,utf-8");
 
 // Feed prefs
 pref("extensions.jondofox.feeds_handler_default", "bookmarks");
@@ -88,6 +97,10 @@ pref("extensions.jondofox.network-protocol-handler.warn_external_nntp", true);
 pref("extensions.jondofox.network-protocol-handler.warn_external_mailto", true);
 pref("extensions.jondofox.network-protocol-handler.warn_external_default", true);
 
+// Certificate prefs
+pref("extensions.jondofox.security.default_personal_cert", "Ask Every Time");
+pref("extensions.jondofox.security.remember_cert_checkbox_default_setting", false);
+
 // Miscellaneous
 pref("extensions.jondofox.source_editor_external", false);
 pref("extensions.jondofox.dom_storage_enabled", false);
@@ -95,10 +108,21 @@ pref("extensions.jondofox.geo_enabled", false);
 pref("extensions.jondofox.network_prefetch-next", false);
 pref("extensions.jondofox.cookieBehavior", 2);
 pref("extensions.jondofox.socks_remote_dns", true);
+// Only vaild for FF3
 pref("extensions.jondofox.history_expire_days", 0);
+// places.history.enabled replaces browser.history_expire_days in FF4
+pref("extensions.jondofox.history.enabled", false);
 pref("extensions.jondofox.proxy_keep-alive", false);
 pref("extensions.jondofox.noscript_contentBlocker", true);
+pref("extensions.jondofox.noscript_showDomain", false);
 //pref("extensions.jondofox.showAnontestNoProxy", true);
+pref("extensions.jondofox.search_suggest_enabled", false);
+pref("extensions.jondofox.delete_searchbar", true);
 
 //SafeCache
 pref("extensions.jondofox.stanford-safecache_enabled", true);
+
+//Certificate Patrol
+pref("extensions.jondofox.certpatrol_enabled", true);
+pref("extensions.jondofox.certpatrol_showNewCert", false);
+pref("extensions.jondofox.certpatrol_showChangedCert", false);

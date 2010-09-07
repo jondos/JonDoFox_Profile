@@ -5,7 +5,7 @@
  
    <em:id>{73a6fe31-595d-460b-a920-fcc0f8843232}</em:id>
    <em:name>NoScript</em:name>
-   <em:version>1.9.9.39</em:version>
+   <em:version>2.0.2.5</em:version>
    <em:description>Extra protection for your Firefox: NoScript allows JavaScript, Java (and other plugins) only for trusted domains of your choice (e.g. your home-banking web site). This whitelist based pre-emptive blocking approach  prevents exploitation of security vulnerabilities (known and even unknown!) with no loss of functionality... Experts will agree: Firefox is really safer with NoScript :-)</em:description>
    <em:creator>Giorgio Maone</em:creator>
    
@@ -23,7 +23,7 @@
    <em:contributor>drAcOniS and Petr Jirsa (Czech translation)</em:contributor>
    <em:contributor>Drive DRKA (Belarusian translation)</em:contributor>
    <em:contributor>Engin Yazılan, Erkan Kaplan &amp; Fathi  (Turkish translation)</em:contributor>
-   <em:contributor>George C. Tsoi (Simplified Chinese)</em:contributor>
+   <em:contributor>X.F Mao &amp; George C. Tsoi (Simplified Chinese)</em:contributor>
    <em:contributor>Georgi Marchev (Bulgarian translation)</em:contributor>
    <em:contributor>Håvard Mork (Norwegian bokmål translation)</em:contributor>
    <em:contributor>Hwasung Kim (Places bookmarklet patch)</em:contributor>
@@ -54,7 +54,7 @@
    <em:contributor>Stiepan A. Kovac (Croatian translation)</em:contributor>
    <em:contributor>Tomaz Macus (Slovenian translation)</em:contributor>
    <em:contributor>Thomas Weber &amp; Volker Hable (German translation)</em:contributor>
-   <em:contributor>tonynguyen (Vietnamese translation)</em:contributor>
+   <em:contributor>tonynguyen and loveleeyoungae (Vietnamese translation)</em:contributor>
    <em:contributor>x10firefox and Ultravioletu (Romanian translation)</em:contributor>
    <em:contributor>Xavier Robin (French translation)</em:contributor>
  
@@ -66,8 +66,8 @@
    <em:targetApplication>
      <Description>
      <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-     <em:minVersion>1.5</em:minVersion>
-     <em:maxVersion>3.7a1pre</em:maxVersion>
+     <em:minVersion>3.0</em:minVersion>
+     <em:maxVersion>4.0b6pre</em:maxVersion>
      </Description>
    </em:targetApplication>
 
@@ -84,8 +84,8 @@
    <em:targetApplication>
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
-        <em:minVersion>1.1</em:minVersion>
-        <em:maxVersion>2.1a1pre</em:maxVersion>
+        <em:minVersion>2.0</em:minVersion>
+        <em:maxVersion>2.1b1</em:maxVersion>
       </Description>
    </em:targetApplication>
    
@@ -128,8 +128,8 @@
     <em:targetApplication> <!-- Fennec -->
       <Description>
         <em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
-        <em:minVersion>0.1</em:minVersion>
-        <em:maxVersion>1.0.*</em:maxVersion>
+        <em:minVersion>1.0</em:minVersion>
+        <em:maxVersion>2.0a1pre</em:maxVersion>
       </Description>
     </em:targetApplication>
     
@@ -157,7 +157,7 @@
         <em:locale>locale/et-EE/noscript/</em:locale>
         <em:locale>locale/fa-IR/noscript/</em:locale>
         <em:locale>locale/fi-FI/noscript/</em:locale>
-        <em:locale>locale/fr-FR/noscript/</em:locale>
+        <em:locale>locale/fr/noscript/</em:locale>
         <em:locale>locale/gl-ES/noscript/</em:locale>
         <em:locale>locale/he-IL/noscript/</em:locale>
         <em:locale>locale/hr-HR/noscript/</em:locale>
@@ -174,7 +174,7 @@
         <em:locale>locale/pl-PL/noscript/</em:locale>
         <em:locale>locale/pt-BR/noscript/</em:locale>
         <em:locale>locale/pt-PT/noscript/</em:locale>
-        <em:locale>locale/ro-RO/noscript/</em:locale>
+        <em:locale>locale/ro/noscript/</em:locale>
         <em:locale>locale/ru-RU/noscript/</em:locale>
         <em:locale>locale/sk-SK/noscript/</em:locale> 
         <em:locale>locale/sl-SI/noscript/</em:locale>
@@ -182,7 +182,6 @@
         <em:locale>locale/th-TH/noscript/</em:locale>
         <em:locale>locale/tr-TR/noscript/</em:locale>
         <em:locale>locale/uk-UA/noscript/</em:locale>
-        <em:locale>locale/vi-VN/noscript/</em:locale>
         <em:locale>locale/zh-CN/noscript/</em:locale>
         <em:locale>locale/zh-TW/noscript/</em:locale>
         <em:locale>locale/cy-GB/noscript/</em:locale>
@@ -192,6 +191,7 @@
         <em:locale>locale/br-IN/noscript/</em:locale>
         <em:locale>locale/te-IN/noscript/</em:locale>
         <em:locale>locale/ur-PK/noscript/</em:locale>
+        <em:locale>locale/vi/noscript/</em:locale>
         <!-- LOCALECHROME STOP -->
      </Description>
    </em:file>
