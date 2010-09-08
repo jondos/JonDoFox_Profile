@@ -211,6 +211,9 @@ on copy_folder()
 			if (the file saved_bookmarks exists) then
 				move the file saved_bookmarks to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
+                        if (the file saved_certdatabase exists) then
+                                move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
+			end if
 		end tell
 	on error
 		--if something goes wrong: restore old settings from backup file
