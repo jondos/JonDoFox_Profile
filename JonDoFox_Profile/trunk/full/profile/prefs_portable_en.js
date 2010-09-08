@@ -95,6 +95,7 @@ user_pref("extensions.jondofox.profile_version", "2.4.0");
 user_pref("extensions.jondofox.set_referrer", true);
 user_pref("extensions.lastAppVersion", "3.6");
 user_pref("extensions.secureLogin@blueimp.net.javascriptProtection", true);
+user_pref("extensions.unplug2.setup_number", 1);
 user_pref("extensions.update.notifyUser", false);
 user_pref("general.appname.override", "Netscape");
 user_pref("general.appversion.override", "5.0 (Windows; en-us)");
