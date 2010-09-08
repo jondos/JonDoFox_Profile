@@ -27,14 +27,14 @@ separately. The following lines describe how to install and use JonDoFox.</p>
     <ul>
       <li><a href="#critical_addons">Security relevant Firefox
         extensions</a></li>
+      <li><a href="#jdf_features">Features of the JonDoFox addon</a></li>
       <li><a href="#controlCookies">Control
         cookies with CS-Lite</a></li>
       <li><a href="#filterAds">Filter advertisements with
         AdblockPlus</a></li>
       <li><a href="#noscript">Control active contents with NoScript</a></li>
-      <li><a href="#switchProxies">Stay flexible and switch proxy</a></li>
       <li><a href="#videoDownload">Protection against dangerous Flash videos:
-        Video download with DownloadHelper and aTube Catcher</a></li>
+        Video download with UnPlug and aTube Catcher</a></li>
     </ul>
   </li>
 </ul>
@@ -44,7 +44,7 @@ separately. The following lines describe how to install and use JonDoFox.</p>
 <h3><a name="ffprofile" id="ffprofile">Option 1: Integration in
 Firefox</a></h3>
 
-<p>This installation option integrates the JonDoFox profile and a locally
+<p>This installation option integrates the JonDoFox profile in a locally
 installed Firefox, so that JonDoFox operates seamlessly with your system. Any
 previous Firefox configuration you may have created remains untouched by the
 installation. After installing, you may choose between both your profile and
@@ -56,14 +56,14 @@ you haven't done so yet. After that, you may install JonDoFox as follows:</p>
 <ul>
   <li><a name="ffpwindows"><b>Windows</b></a> 
     <p>Download the <a
-    href="http://anonymous-proxy-servers.net/downloads/JonDoFox.paf.exe">JonDoFox
+    href="https://anonymous-proxy-servers.net/downloads/JonDoFox.paf.exe">JonDoFox
     installation program</a>. Start the downloaded program by a (double) click
     and follow the instructions.</p>
   </li>
   <li><a name="ffpmacosx"><b>Mac OS X</b></a> 
     <ol>
       <li>Download the file <a
-        href="http://anonymous-proxy-servers.net/en/downloads/JonDoFox_OS_X.dmg">JonDoFox_OS_X.dmg</a>.</li>
+        href="https://anonymous-proxy-servers.net/en/downloads/JonDoFox_OS_X.dmg">JonDoFox_OS_X.dmg</a>.</li>
       <li>Open the file by double clicking. Then launch
         <em>JonDoFox_Install</em> with another double click.</li>
     </ol>
@@ -75,10 +75,13 @@ you haven't done so yet. After that, you may install JonDoFox as follows:</p>
     installer for deinstallation if you have also used it for installing
     JonDoFox.</p>
   </li>
-  <li><a name="ffplinux"><b>Linux</b></a> 
+  <li><strong>Debian/Ubuntu:</strong></a> 
+  <p>Users of Debian and Ubuntu distributions may use the <a href="https://anonymous-proxy-servers.net/en/help/firststeps2.html">software repository</a> 
+  of JonDos GmbH to install JonDoFox together with JonDo.</p>
+  <li><a name="ffplinux"><b>Other Linux distributions</b></a> 
     <ol>
       <li>Download the file <a
-        href="http://anonymous-proxy-servers.net/en/downloads/profile.zip">profile.zip</a>.</li>
+        href="https://anonymous-proxy-servers.net/en/downloads/profile.zip">profile.zip</a>.</li>
       <li>Unpack the file, e.g. from the command line, using the command:
         <code>user@computer#:/&gt; unzip profile.zip -d target</code>.</li>
       <li>Go to the directory where you placed the files:
@@ -92,7 +95,7 @@ you haven't done so yet. After that, you may install JonDoFox as follows:</p>
 
 <p><b>Notice</b><br>
 When a new version of JonDoFox is released, you may always install the new
-version "on top of" the old one, i.e. into the same directory using the above mentioned steps. Your bookmarks
+version "on top of" the old one, i.e. into the same directory using the above mentioned steps. Your bookmarks and your certificate database
 will be kept. </p>
 
 <h3><a name="jdfPortable" id="jdfPortable">Option 2:
@@ -104,42 +107,147 @@ JonDoFox program files yourself.</p>
 
 <h4>Windows (2000, XP, Vista)</h4>
 
-<p>The <a href="http://anonymous-proxy-servers.net/downloads/JonDoFox.paf.exe">JonDoFox
+<p>The <a href="https://anonymous-proxy-servers.net/downloads/JonDoFox.paf.exe">JonDoFox
 installation program</a> is also prepared for a portable installation. If you
 choose the "for travelling" option, you may install JonDoFox on both a removable
 drive and your hard drive. Any existing Firefox or JonDoFox installation
 remains untouched as long as you do not install JonDoFox to the same directory
 and thus update an existing installation. While updating from earlier JonDoFox
-versions your bookmarks are kept. JonDoFox Portable automatically integrates
+versions your bookmarks and your certificate database are kept. JonDoFox Portable automatically integrates
 with the <a href="http://portableapps.com/">PortableApps</a> menu for which a
 lot of <a href="http://portableapps.com/apps">other applications are
 available</a> as well.</p>
 
 
-
 <h2>Manual for the JonDoFox profile</h2>
-<!--<p>You get a "portable" version of JonDoFox for Mac OS X 
-<a
-href="https://www.jondos.de/en/downloads/JonDoFox_OS_X_portable.dmg">here</a>
-(or, as an alternative, the <a
-href="https://www.jondos.de/en/downloads/JonDoFox_OS_X_lite_portable.dmg">lite
-version</a>). You may start this version from both a removable drive and from
-your hard drive. For installation, please open the downloaded file with a
-double click. Then copy the included file on a data medium of your choice. You
-may start it from there with a simple double click. </p> -->
-
 <h3><a name="critical_addons" id="critical_addons">Security relevant
 Firefox extensions</a></h3>
 
-<p>The JonDoFox lite package contains all extensions which are relevant for
-your security, already with settings optimized. You will find some other useful
-extensions in the complete package which we have individually tested concerning
-their security and compatibility with JonDoFox. The Firefox status bar always
-gives you control of the most important functions integrated in JonDoFox (CS-Lite, AdblockPlus, NoScript and JonDoFox): </p>
+<p>The JonDoFox package contains all extensions which are relevant for
+your security, already with settings optimized. The symbols 
+<img alt="Statuszeile JonDoFox (CSLite, AdblockPlus, NoScript und JonDoFox)"
+src="img_jondofox/jondofox_statusbar.png"> 
+in the Firefox status bar always give you control of the most important 
+functions integrated in the JonDoFox profile (CS-Lite, AdblockPlus, NoScript and JonDoFox). 
+In the following, these features will be explained in more detail: </p>
 
-<div style="text-align:left">
-<img alt="Statuszeile JonDoFox (CSLite, NoScript, AdblockPlus, JonDoFox)"
-src="img_jondofox/jondofox_statusbar.png"></div>
+<h3><a name="jdf_features" id="jdf_features">Features of the JonDoFox addon</a></h3>
+
+<p>In the following, the main features of our JonDoFox extension will be 
+explained. They allow the user to surf the web in a more secure and convenient 
+way.</p>
+
+<h4><a name="switchProxies" id="switchProxies">Stay flexible and switch proxy</a></h4>
+
+<p>If you would like to surf the Web with a different (local) proxy than JonDo
+or without any proxy, just use the button <img alt="JonDo-Proxy"
+src="img_jondofox/jondofox_jondo.png"> integrated in JonDoFox (down right) in
+order to switch between different proxy configurations: </p>
+
+<div align="center">
+<img alt="JonDoFox-Popup" src="img_jondofox/jondofox_popup.png" vspace="8" hspace="0">
+</div>
+
+<ul>
+  <li><b>No Proxy</b>: If no proxy is set, JonDoFox directly connects to the
+    Internet. <strong>Attention: Your IP address will be sent in plain and is
+    not hidden!</strong></li>
+  <li><b>Custom</b>: Using this setting, you may use your own proxy
+    configuration. Choose <span class="nowrap"><img
+    src="img_jondofox/servermanuell.gif"
+    alt="NoScript: not trustworthy"> <b>Preferences</b></span> in order to 
+    create an individual proxy configuration.
+    However, this is only recommended for experts.</li>
+  <li><b>Tor</b>: If you have installed and started the program <a
+    href="http://www.torproject.org">Tor</a> you may use it as an alternative
+    to JonDo with this setting.</li>
+  <li><b>JonDo</b>: When this setting is active, JonDoFox sends the browser's
+    communication data to JonDo. JonDo needs to be separately <a
+    href="https://anonymous-proxy-servers.net/en/jondo/download">installed and started</a>.</li>
+</ul>
+
+<p>Whenever you like to bypass the proxy without completely deactivating it
+(e.g. when downloading large files to save time and money), just open the
+context menu with a right mouse click on the file and choose <em>Bypass
+JonDo/Tor/Proxy and Save Link As...</em></p>
+
+<h4><a name="referer" id="referer">Referer-Management</a></h4>
+
+<p>The Referer is one of those HTTP features that allow to distinguish different
+users while surfing the web and therefore, to reduce their anonymity. But that
+can be avoided activating our Referer management:</p>
+
+<div align="center">
+<img alt="Referer-Management" src="img_jondofox/referer_management_en.png" vspace="8" hspace="0">
+</div>
+
+<p>With it, the Referer is not simply deleted as some webservices are not
+available without it. Rather, the Referer will or will not be set depending on
+the context of a particular request. E.g. it will be set as long as a user is 
+surfing within the same domain and will not be set if a bookmark is used to 
+request a particular web page. This context dependent behavior ensures that
+no web pages will break while at the same time the Referer cannot be used to
+gather information to identify users.</p>
+
+<h4><a name="User Agent" id="User Agent">User Agent-Management</a></h4>
+
+<p>Information regarding users surfing the web may not only be gathered 
+analyzing the Referer but examing the individual User Agent header as well. 
+Therefore, we built an uniform User Agent which all users of JonDo are sending 
+along while requesting pages on the WWW. If a user wants to connect to the Tor 
+network instead of using JonDo the User Agent is rebuilt again, this time 
+matching the one issued by the Tor project and its browser add-on, 
+<a href="http://www.torproject.org/torbutton/">Torbutton</a>. And, additionally,
+ if someone wants to configure a proxy manually then she has the opportunity to
+ choose between different User Agents, i.e. Unchanged (leaving the default 
+setting), JonDo and Tor:</p>
+
+<div align="center">
+<img alt="User Agent-Management" src="img_jondofox/user_agent_management_en.png" vspace="8" hspace="0">
+</div>
+
+<h4><a name="SafeCache" id="SafeCache">Mitigating cache attacks</a></h4>
+
+<p>Besides the possibility to obtain user related information examining the 
+Referer, the User Agent and other HTTP headers, the browser cache can be 
+exploited as well to achieve this goal. An attacker may, for instance, try to 
+get some information out of the fact that web pages saved in the cache are 
+loaded faster than the same, non-cached ones. Or she might try to set so-called 
+cache cookies to identify a particular user across different domains. In order 
+to better protect our users against this kind of attack we included the 
+slightly modified code of the SafeCache extension into JonDoFox. In the 
+preferences panel (within the privacy tab) you will find a corresponding 
+hint:</p>
+
+<div align="center">
+<img alt="SafeCache" src="img_jondofox/safecache_en.png" vspace="8" hspace="0">
+</div>
+
+<h4><a name="Certificate Patrol" id="Certificate Patrol">Detecting faked SSL-Certificates</a></h4>
+
+<p>In order to provide a better protection against faked SSL-certificates we 
+enhanced the functionality of the Certificate Patrol extension and included it 
+into JonDoFox (as can be seen in the JonDoFox settings panel):</p>
+
+<div align="center">
+<img alt="Settings Header" src="img_jondofox/settings_header_en.png" vspace="8" hspace"0">
+</div>
+
+<p align=center>...</p>
+
+<div align="center">
+<img alt="Certificate Patrol" src="img_jondofox/certpatrol_en.png" vspace="8" hspace"0">
+</div>
+
+<p>On the one hand, this allows users to check the fingerprint of a certificate 
+very easily. On the other hand a helpful dialog is shown to the user indicating 
+whether there could be something wrong with an updated certificate, thus 
+supporting the user to avoid information leaks due to faked certificates and 
+<a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">man-in-the-middle attacks</a>.</p>
+
+<h4><a name="Searchbar Privacy" id="Searchbar Privacy">Protecting search queries at your workplace</a></h4>
+<p>In order to mitigate the risk that an outsider might get to know the queries entered into the browser's searchbar, JonDoFox erases them just after they were submitted. Furthermore, the search history gets deleted every thirty minutes. By this means it can on the one hand not happen anymore that the last search query is visible to everyone having access to the user's browser session. On the other hand JonDoFox minimizes the possibility that entries in the search history may compromise the user without loosing the search history feature completely.</p>
+
 
 <h3><a name="controlCookies" id="controlCookies">Prevent long-lasting spying:
 Control Cookies with CS-Lite</a></h3>
@@ -150,7 +258,7 @@ accept cookies and for which to block them. If you click on the CS-Lite icon
 alt="CS-Lite Icon"></span> with your left mouse button, you are given the
 following options for the currently visited web site: </p>
 
-<div style="text-align:left">
+<div style="text-align:center">
 <img src="img_jondofox/cslite_menu.gif" alt="CS-Lite Men&#xfc;"> </div>
 <ul>
   <li style="list-style-image:url(img_jondofox/cslite_temp.gif)"><b>Temporarily allow</b><br>
@@ -204,10 +312,10 @@ applets, this content will be automatically blocked by NoScript. A placeholder
 <table>
   <tbody>
     <tr>
-      <td><span style="text-align:left;margin-right:50px;"><img
+      <td><span style="text-align:center;margin-right:50px;"><img
         src="img_jondofox/noscript_placeholder.gif" alt="NoScript-Platzhalter">
         </span> </td>
-      <td><span style="text-align:left;margin-left:50px;"><img
+      <td><span style="text-align:center;margin-left:50px;"><img
         src="img_jondofox/noscript_blocked.gif"
         alt="NoScript: Geblockte Objekte Men&#xfc;"> </span> </td>
     </tr>
@@ -221,7 +329,7 @@ on the NoScript menu icon <img src="img_jondofox/noscript.gif"
 alt="NoScript-Icon">. </p>
 
 <p><strong>Warning:</strong> Without <a
-href="http://anonymous-proxy-servers.net/en/jondofox/faq/flash_applets">special protective
+href="https://secure-proxy-howto.anonymous-proxy-servers.net/index.php/JonDoFox_FAQ#I_sometimes_have_to_activate_Flash_applets._How_may_I_get_a_better_security_thereby.3F">special protective
 measures</a>, allowed plugin content may completely or partially revoke your
 anonymity and might even damage your system.</p>
 
@@ -237,10 +345,10 @@ alt="NoScript tempor&#xe4;r erlauben"></span> icon: </p>
 <table>
   <tbody>
     <tr>
-      <td><span style="text-align:left;margin-right:50px;"><img
+      <td><span style="text-align:center;margin-right:50px;"><img
         src="img_jondofox/noscript_allow.gif"
         alt="NoScript: Erlaubnis erteilen"> </span> </td>
-      <td><span style="text-align:left;margin-left:50px;"><img
+      <td><span style="text-align:center;margin-left:50px;"><img
         src="img_jondofox/noscript_disallow.gif"
         alt="NoScript: Erlaubnis entziehen"> </span> </td>
     </tr>
@@ -269,57 +377,24 @@ alt="NoScript: nicht vertrauensw&#xfc;rdig"> <b>Untrusted</b>.</span> Then, you
 get an overview of all the addresses on the current website which you may mark
 untrusted: </p>
 
-<div style="text-align:left">
+<div align="center">
 <img src="img_jondofox/noscript_untrustw.gif"
 alt="NoScript: nicht vertrauensw&#xfc;rdig Men&#xfc;"> </div>
 
 <p>You may undo this action just the same way. </p>
 
-<h3><a name="switchProxies" id="switchProxies">Stay flexible and switch proxy
-if needed</a></h3>
-
-<p>If you would like to surf the Web with a different (local) proxy than JonDo
-or without any proxy, just use the button <img alt="JonDo-Proxy"
-src="img_jondofox/jondofox_jondo.png"> integrated in JonDoFox (down right) in
-order to switch between different proxy configurations: </p>
-
-<p><img alt="JonDoFox-Popup" src="img_jondofox/jondofox_popup.png"></p>
-<ul>
-  <li><b>No Proxy</b>: If no proxy is set, JonDoFox directly connects to the
-    Internet. <strong>Attention: Your IP address will be sent in plain and is
-    not hidden!</strong></li>
-  <li><b>Custom</b>: Using this setting, you may use your own proxy
-    configuration. Choose <span class="nowrap"><img
-    src="img_jondofox/servermanuell.gif"
-    alt="NoScript: nicht vertrauensw&#xfc;rdig"> <b>Edit Custom
-    Proxy</b></span> in order to create an individual proxy configuration.
-    However, this is only recommended for experts.</li>
-  <li><b>Tor</b>: If you have installed and started the program <a
-    href="http://www.torproject.org">Tor</a> you may use it as an alternative
-    to JonDo with this setting.</li>
-  <li><b>JonDo</b>: When this setting is active, JonDoFox sends the browser's
-    communication data to JonDo. JonDo needs to be separately <a
-    href="http://anonymous-proxy-servers.net/en/jondo/download">installed and started</a>.</li>
-</ul>
-
-<p>Whenever you like to bypass the proxy without completely deactivating it
-(e.g. when downloading large files to save time and money), just open the
-context menu with a right mouse click on the file and choose <em>Bypass
-JonDo/Tor/Proxy and Save Link As...</em></p>
-
 <h3><a name="videoDownload" id="videoDownload">Protection against dangerous
-flash videos: Downloading videos with DownloadHelper and aTube Catcher</a></h3>
+flash videos: Downloading videos with UnPlug and aTube Catcher</a></h3>
 
 <p>To prevent having to activate dangerous Flash in your browser, you should
 always download web videos to your hard drive and play them from there. This
 also saves you the additional traffic which would be needed to view a streaming
 video again. Besides some links to video download sites, JonDoFox contains the
-download tool <em>DownloadHelper</em> for this purpose. If you are visiting e.g. a
-YouTube page, just click on the black triangle left to the address bar (marked
-in red) and select the video you would like to download:</p>
+download tool <em>UnPlug</em> for this purpose. If you are visiting e.g. a
+YouTub page, just click on the menu entry (marked in red) in your <em>Tools</em> menu and select the video you would like to download:</p>
 
-<p><img alt="1-Click-Video-Download with Download Helper"
-src="img_jondofox/youtube.png" width="235"></p>
+<div align="center"><img alt="1-Click-Video-Download with UnPlug"
+src="img_jondofox/UnPlug_en.png" width="235"></div>
 
 <p>For Windows and Linux (under WINE), there also exists an excellent freeware
 program called <a href="http://atube-catcher.dsnetwb.com">aTube Catcher</a>.
@@ -328,8 +403,8 @@ Catcher in <strong><em>Tools-&gt;Connection settings</em></strong> and setting
 it to <strong><em>Host:127.0.0.1</em></strong> and <strong><em>Port:
 4001</em></strong></p>
 
-<p><img alt="aTube Catcher Connection settings: HTTP proxy 127.0.0.1:4001"
-src="img_jondofox/aTubeCatcherConnection.png"></p>
+<div align="center"><img alt="aTube Catcher Connection settings: HTTP proxy 127.0.0.1:4001"
+src="img_jondofox/aTubeCatcherConnection.png"></center>
 
 <p>For playing movies of all video formats on all operating systems, the free
 <a href="http://www.videolan.org/">VideoLAN Media Player</a> is a very good
