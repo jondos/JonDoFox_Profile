@@ -143,7 +143,7 @@ pref("keyword.URL", "chrome://browser-region/locale/region.properties");
 
 pref("general.useragent.locale", "en-US");
 pref("general.skins.selectedSkin", "classic/1.0");
-pref("general.useragent.extra.firefox", "Firefox/3.6.8");
+pref("general.useragent.extra.firefox", "Firefox/3.6.9");
 
 pref("general.smoothScroll", false);
 //@line 192 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
