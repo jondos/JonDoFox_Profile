@@ -172,7 +172,7 @@ user_pref("noscript.showUntrustedPlaceholder", false);
 user_pref("noscript.temp", "");
 user_pref("noscript.toolbarToggle", 1);
 user_pref("noscript.untrusted", "falkag.net google-analytics.com googlesyndication.com doubleclick.net doubleclick.com");
-user_pref("noscript.version", "1.9.9.39");
+user_pref("noscript.version", "2.0.2.5");
 user_pref("performancing.inlinksIntroduction", true);
 user_pref("performancing.onetime.accountWizard", true);
 user_pref("performancing.onetime.welcomePage", true);
