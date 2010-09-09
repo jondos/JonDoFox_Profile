@@ -1546,7 +1546,6 @@ FINISH ADD components/nsFormAutoComplete.js
 FINISH ADD components/nsHandlerService.js
 FINISH ADD components/nsHelperAppDlg.js
 FINISH ADD components/nsINIProcessor.js
-remove failed: -1,2 (components/nsINIProcessor.js.moz-backup)
 FINISH ADD components/nsLivemarkService.js
 FINISH ADD components/nsLoginInfo.js
 FINISH ADD components/nsLoginManager.js
@@ -1593,7 +1592,6 @@ FINISH ADD defaults/profile/localstore.rdf
 FINISH ADD defaults/profile/mimeTypes.rdf
 FINISH ADD defaults/profile/prefs.js
 FINISH ADD dependentlibs.list
-remove failed: -1,2 (dependentlibs.list.moz-backup)
 FINISH ADD dictionaries/en-US.aff
 FINISH ADD dictionaries/en-US.dic
 FINISH ADD extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}/icon.png
@@ -1608,7 +1606,6 @@ FINISH ADD greprefs/xpinstall.js
 FINISH ADD js3250.dll
 FINISH ADD modules/CertUtils.jsm
 FINISH ADD modules/CrashSubmit.jsm
-remove failed: -1,2 (modules/CrashSubmit.jsm.moz-backup)
 FINISH ADD modules/DownloadLastDir.jsm
 FINISH ADD modules/DownloadUtils.jsm
 FINISH ADD modules/FileUtils.jsm
@@ -1630,7 +1627,6 @@ FINISH ADD modules/distribution.js
 FINISH ADD modules/openLocationLastURL.jsm
 FINISH ADD modules/utils.js
 FINISH ADD mozcpp19.dll
-remove failed: -1,2 (mozcpp19.dll.moz-backup)
 FINISH ADD mozcrt19.dll
 FINISH ADD nspr4.dll
 FINISH ADD nss3.dll
@@ -1642,10 +1638,8 @@ FINISH ADD platform.ini
 FINISH ADD plc4.dll
 FINISH ADD plds4.dll
 FINISH ADD plugin-container.exe
-remove failed: -1,2 (plugin-container.exe.moz-backup)
 FINISH ADD plugins/npnul32.dll
 FINISH ADD removed-files
-remove failed: -1,2 (removed-files.moz-backup)
 FINISH ADD res/EditorOverride.css
 FINISH ADD res/arrow.gif
 FINISH ADD res/arrowd.gif

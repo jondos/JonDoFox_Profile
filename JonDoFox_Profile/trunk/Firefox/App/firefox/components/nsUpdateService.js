@@ -9,22 +9,23 @@ const Cc = Components.classes;
 const Ci = Components.interfaces;
 const Cr = Components.results;
 
-const PREF_APP_UPDATE_ENABLED             = "app.update.enabled";
 const PREF_APP_UPDATE_AUTO                = "app.update.auto";
-const PREF_APP_UPDATE_MODE                = "app.update.mode";
-const PREF_APP_UPDATE_SILENT              = "app.update.silent";
-const PREF_APP_UPDATE_INTERVAL            = "app.update.interval";
-const PREF_APP_UPDATE_IDLETIME            = "app.update.idletime";
-const PREF_APP_UPDATE_LOG                 = "app.update.log";
-const PREF_APP_UPDATE_PROMPTWAITTIME      = "app.update.promptWaitTime";
-const PREF_APP_UPDATE_URL                 = "app.update.url";
-const PREF_APP_UPDATE_URL_OVERRIDE        = "app.update.url.override";
-const PREF_APP_UPDATE_URL_DETAILS         = "app.update.url.details";
-const PREF_APP_UPDATE_CHANNEL             = "app.update.channel";
 const PREF_APP_UPDATE_BACKGROUND_INTERVAL = "app.update.download.backgroundInterval";
-const PREF_APP_UPDATE_SHOW_INSTALLED_UI   = "app.update.showInstalledUI";
+const PREF_APP_UPDATE_CHANNEL             = "app.update.channel";
+const PREF_APP_UPDATE_ENABLED             = "app.update.enabled";
+const PREF_APP_UPDATE_IDLETIME            = "app.update.idletime";
 const PREF_APP_UPDATE_INCOMPATIBLE_MODE   = "app.update.incompatible.mode";
-const PREF_UPDATE_NEVER_BRANCH            = "app.update.never.";
+const PREF_APP_UPDATE_INTERVAL            = "app.update.interval";
+const PREF_APP_UPDATE_LOG                 = "app.update.log";
+const PREF_APP_UPDATE_MODE                = "app.update.mode";
+const PREF_APP_UPDATE_NEVER_BRANCH        = "app.update.never.";
+const PREF_APP_UPDATE_PROMPTWAITTIME      = "app.update.promptWaitTime";
+const PREF_APP_UPDATE_SHOW_INSTALLED_UI   = "app.update.showInstalledUI";
+const PREF_APP_UPDATE_SILENT              = "app.update.silent";
+const PREF_APP_UPDATE_URL                 = "app.update.url";
+const PREF_APP_UPDATE_URL_DETAILS         = "app.update.url.details";
+const PREF_APP_UPDATE_URL_OVERRIDE        = "app.update.url.override";
+
 const PREF_PARTNER_BRANCH                 = "app.partner.";
 const PREF_APP_DISTRIBUTION               = "distribution.id";
 const PREF_APP_DISTRIBUTION_VERSION       = "distribution.version";
@@ -39,9 +40,9 @@ const CATEGORY_UPDATE_TIMER               = "update-timer";
 
 const KEY_APPDIR          = "XCurProcD";
 const KEY_GRED            = "GreD";
-//@line 84 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 85 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
 const KEY_UPDROOT         = "UpdRootD";
-//@line 87 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 88 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
 
 const DIR_UPDATES         = "updates";
 const FILE_UPDATE_STATUS  = "update.status";
@@ -83,6 +84,10 @@ XPCOMUtils.defineLazyServiceGetter(this, "gConsole",
                                    "@mozilla.org/consoleservice;1",
                                    "nsIConsoleService");
 
+XPCOMUtils.defineLazyServiceGetter(this, "gVC",
+                                   "@mozilla.org/xpcom/version-comparator;1",
+                                   "nsIVersionComparator");
+
 XPCOMUtils.defineLazyGetter(this, "gApp", function aus_gApp() {
   return Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo).
          QueryInterface(Ci.nsIXULRuntime);
@@ -113,7 +118,7 @@ XPCOMUtils.defineLazyGetter(this, "gABI", function aus_gABI() {
   catch (e) {
     LOG("gABI - XPCOM ABI unknown: updates are not possible.");
   }
-//@line 167 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 172 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
   return abi;
 });
 
@@ -149,7 +154,7 @@ XPCOMUtils.defineLazyGetter(this, "gCanApplyUpdates", function aus_gCanApplyUpda
       updateTestFile.remove(false);
     updateTestFile.create(NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
     updateTestFile.remove(false);
-//@line 204 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 209 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
     var sysInfo = Cc["@mozilla.org/system-info;1"].
                   getService(Ci.nsIPropertyBag2);
 
@@ -158,7 +163,7 @@ XPCOMUtils.defineLazyGetter(this, "gCanApplyUpdates", function aus_gCanApplyUpda
     LOG("gCanApplyUpdates - windowsVersion = " + windowsVersion);
 
   /**
-//@line 221 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 226 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
    */
     var userCanElevate = false;
 
@@ -183,7 +188,7 @@ XPCOMUtils.defineLazyGetter(this, "gCanApplyUpdates", function aus_gCanApplyUpda
     }
 
     /**
-//@line 264 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 269 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
     if (!userCanElevate) {
       // if we're unable to create the test file this will throw an exception.
@@ -194,7 +199,7 @@ XPCOMUtils.defineLazyGetter(this, "gCanApplyUpdates", function aus_gCanApplyUpda
       appDirTestFile.create(NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
       appDirTestFile.remove(false);
     }
-//@line 276 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 281 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
   }
   catch (e) {
      LOG("gCanApplyUpdates - unable to apply updates. Exception: " + e);
@@ -247,7 +252,7 @@ function LOG(string) {
 }
 
 /**
-//@line 338 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 343 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
  */
 function getPref(func, preference, defaultValue) {
   try {
@@ -277,16 +282,16 @@ function binaryToHex(input) {
 }
 
 /**
-//@line 373 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 378 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
  */
 function getUpdateDirCreate(pathArray) {
-//@line 377 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 382 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
   try {
     let dir = FileUtils.getDir(KEY_UPDROOT, pathArray, true);
     return dir;
   } catch (e) {
   }
-//@line 384 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 389 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
   return FileUtils.getDir(KEY_APPDIR, pathArray, true);
 }
 
@@ -374,7 +379,7 @@ function writeStatusFile(dir, state) {
 }
 
 /**
-//@line 485 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 490 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
  */
 function writeVersionFile(dir, version) {
   var versionFile = dir.clone();
@@ -713,7 +718,6 @@ UpdatePatch.prototype = {
 function Update(update) {
   this._properties = {};
   this._patches = [];
-  this.installDate = 0;
   this.isCompleteUpdate = false;
   this.channel = "default"
 
@@ -757,6 +761,11 @@ function Update(update) {
     else
       this[attr.name] = attr.value;
   }
+
+  // Set the initial value with the current time when it doesn't already have a
+  // value or the value is already set to 0 (bug 316328).
+  if (!this.installDate && this.installDate != 0)
+    this.installDate = (new Date()).getTime();
 
   // The Update Name is either the string provided by the <update> element, or
   // the string: "<App Name> <Update App Version>"
@@ -910,8 +919,7 @@ Update.prototype = {
    * See nsIPropertyBag.idl
    */
   getProperty: function Update_getProperty(name) {
-    if (name in this._properties &&
-        this._properties[name].present)
+    if (name in this._properties && this._properties[name].present)
       return this._properties[name].data;
     throw Cr.NS_ERROR_FAILURE;
   },
@@ -1001,7 +1009,7 @@ UpdateService.prototype = {
 
     var status = readStatusFile(getUpdatesDir());
     // STATE_NONE status means that the update.status file is present but a
-    // background download error occured.
+    // background download error occurred.
     if (status == STATE_NONE) {
       LOG("UpdateService:_postUpdateProcessing - no status, no update");
       cleanupActiveUpdate();
@@ -1070,7 +1078,7 @@ UpdateService.prototype = {
       update.statusText = gUpdateBundle.GetStringFromName("patchApplyFailure");
       var oldType = update.selectedPatch ? update.selectedPatch.type
                                          : "complete";
-      if (update.selectedPatch && oldType == "partial") {
+      if (update.selectedPatch && oldType == "partial" && update.patchCount == 2) {
         // Partial patch application failed, try downloading the complete
         // update in the background instead.
         LOG("UpdateService:_postUpdateProcessing - install of partial patch " +
@@ -1139,17 +1147,15 @@ UpdateService.prototype = {
     var majorUpdate = null, minorUpdate = null;
     var newestMinor = updates[0], newestMajor = updates[0];
 
-    var vc = Cc["@mozilla.org/xpcom/version-comparator;1"].
-             getService(Ci.nsIVersionComparator);
     for (var i = 0; i < updates.length; ++i) {
       // Ignore updates for older versions of the application
-      if (vc.compare(updates[i].extensionVersion, gApp.version) < 0)
+      if (gVC.compare(updates[i].extensionVersion, gApp.version) < 0)
         continue;
       if (updates[i].type == "major" &&
-          vc.compare(newestMajor.version, updates[i].version) <= 0)
+          gVC.compare(newestMajor.extensionVersion, updates[i].extensionVersion) <= 0)
         majorUpdate = newestMajor = updates[i];
       if (updates[i].type == "minor" &&
-          vc.compare(newestMinor.version, updates[i].version) <= 0)
+          gVC.compare(newestMinor.extensionVersion, updates[i].extensionVersion) <= 0)
         minorUpdate = newestMinor = updates[i];
     }
 
@@ -1196,12 +1202,10 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1318 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1324 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
 
-    // Encode version since it could be a non-ascii string (bug 359093)
-    var neverPrefName = PREF_UPDATE_NEVER_BRANCH +
-                        encodeURIComponent(update.version);
+    var neverPrefName = PREF_APP_UPDATE_NEVER_BRANCH + update.extensionVersion;
 
     if (!gCanApplyUpdates) {
       if (getPref("getBoolPref", neverPrefName, false)) {
@@ -1225,7 +1229,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1362 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1366 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
     if (update.type == "major") {
       LOG("Checker:_selectAndInstallUpdate - prompting because it is a major " +
@@ -1251,12 +1255,9 @@ UpdateService.prototype = {
       return;
     }
 
-    var ai = Cc["@mozilla.org/xre/app-info;1"].
-             getService(Ci.nsIXULAppInfo);
-    var vc = Cc["@mozilla.org/xpcom/version-comparator;1"].
-             getService(Ci.nsIVersionComparator);
+    // Only check add-on compatibility when the version changes.
     if (update.extensionVersion &&
-        vc.compare(update.extensionVersion, ai.version) != 0) {
+        gVC.compare(update.extensionVersion, gApp.version) != 0) {
       this._update = update;
       this._checkAddonCompatibility();
     }
@@ -1304,7 +1305,7 @@ UpdateService.prototype = {
 
     if (currentAddons.length > 0) {
       /**
-//@line 1458 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1459 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
        */
       this._incompatAddonsCount = currentAddons.length;
       LOG("UpdateService:_checkAddonCompatibility - checking for " +
@@ -1434,16 +1435,20 @@ UpdateService.prototype = {
     if (!update)
       throw Cr.NS_ERROR_NULL_POINTER;
 
-    let ai = Cc["@mozilla.org/xre/app-info;1"].
-             getService(Ci.nsIXULAppInfo);
-    let vc = Cc["@mozilla.org/xpcom/version-comparator;1"].
-             getService(Ci.nsIVersionComparator);
     // Don't download the update if the update's version is less than the
-    // current application's version.
+    // current application's version or the update's version is the same as the
+    // application's version and the build ID is the same as the application's
+    // build ID.
     if (update.extensionVersion &&
-        vc.compare(update.extensionVersion, ai.version) < 0) {
-      LOG("UpdateService:downloadUpdate - removing update for previous " +
-          "application version " + update.extensionVersion);
+        (gVC.compare(update.extensionVersion, gApp.version) < 0 ||
+         update.buildID && update.buildID == gApp.appBuildID &&
+         update.extensionVersion == gApp.version)) {
+      LOG("UpdateService:downloadUpdate - canceling download of update since " +
+          "it is for an earlier or same application version and build ID.\n" +
+          "current application version: " + gApp.version + "\n" +
+          "update application version : " + update.extensionVersion + "\n" +
+          "current build ID: " + gApp.appBuildID + "\n" +
+          "update build ID : " + update.buildID);
       cleanupActiveUpdate();
       return STATE_NONE;
     }
@@ -1526,6 +1531,28 @@ UpdateManager.prototype = {
    * The current actively downloading/installing update, as a nsIUpdate object.
    */
   _activeUpdate: null,
+
+  /**
+   * Handle Observer Service notifications
+   * @param   subject
+   *          The subject of the notification
+   * @param   topic
+   *          The notification name
+   * @param   data
+   *          Additional data
+   */
+  observe: function UM_observe(subject, topic, data) {
+    // Hack to be able to run and cleanup tests by reloading the update data.
+    if (topic == "um-reload-update-data") {
+      this._updates = this._loadXMLFileIntoArray(getUpdateFile(
+                        [FILE_UPDATES_DB]));
+      this._activeUpdate = null;
+      var updates = this._loadXMLFileIntoArray(getUpdateFile(
+                      [FILE_UPDATE_ACTIVE]));
+      if (updates.length > 0)
+        this._activeUpdate = updates[0];
+    }
+  },
 
   /**
    * Loads an updates.xml formatted file into an array of nsIUpdate items.
@@ -1648,7 +1675,7 @@ UpdateManager.prototype = {
     if (this._updates) {
       for (var i = 0; i < this._updates.length; ++i) {
         if (this._updates[i] &&
-            this._updates[i].version == update.version &&
+            this._updates[i].extensionVersion == update.extensionVersion &&
             this._updates[i].buildID == update.buildID) {
           // Replace the existing entry with the new value, updating
           // all metadata.
@@ -1727,7 +1754,7 @@ UpdateManager.prototype = {
   classDescription: "Update Manager",
   contractID: "@mozilla.org/updates/update-manager;1",
   classID: Components.ID("{093C2356-4843-4C65-8709-D7DBCBBE7DFB}"),
-  QueryInterface: XPCOMUtils.generateQI([Ci.nsIUpdateManager])
+  QueryInterface: XPCOMUtils.generateQI([Ci.nsIUpdateManager, Ci.nsIObserver])
 };
 
 /**
@@ -2010,10 +2037,8 @@ Downloader.prototype = {
    * Cancels the active download.
    */
   cancel: function Downloader_cancel() {
-    if (this._request && this._request instanceof Ci.nsIRequest) {
-      const NS_BINDING_ABORTED = 0x804b0002;
-      this._request.cancel(NS_BINDING_ABORTED);
-    }
+    if (this._request && this._request instanceof Ci.nsIRequest)
+      this._request.cancel(Cr.NS_BINDING_ABORTED);
   },
 
   /**
@@ -2281,8 +2306,7 @@ Downloader.prototype = {
    */
   onProgress: function Downloader_onProgress(request, context, progress,
                                              maxProgress) {
-    LOG("Downloader.onProgress:onProgress - progress: " + progress + "/" +
-        maxProgress);
+    LOG("Downloader:onProgress - progress: " + progress + "/" + maxProgress);
 
     var listenerCount = this._listeners.length;
     for (var i = 0; i < listenerCount; ++i) {
@@ -2332,8 +2356,6 @@ Downloader.prototype = {
     var state = this._patch.state;
     var shouldShowPrompt = false;
     var deleteActiveUpdate = false;
-    const NS_BINDING_ABORTED = 0x804b0002;
-    const NS_ERROR_ABORT = 0x80004004;
     if (Components.isSuccessCode(status)) {
       if (this._verifyDownload()) {
         state = STATE_PENDING;
@@ -2369,8 +2391,8 @@ Downloader.prototype = {
         cleanUpUpdatesDir();
       }
     }
-    else if (status != NS_BINDING_ABORTED &&
-             status != NS_ERROR_ABORT) {
+    else if (status != Cr.NS_BINDING_ABORTED &&
+             status != Cr.NS_ERROR_ABORT) {
       LOG("Downloader:onStopRequest - non-verification failure");
       // Some sort of other failure, log this in the |statusText| property
       state = STATE_DOWNLOAD_FAILED;
@@ -2660,7 +2682,8 @@ UpdatePrompt.prototype = {
             this.updatePrompt._showUI(parent, uri, features, name, page, update);
             // fall thru
           case "quit-application":
-            this.timer.cancel();
+            if (this.timer)
+              this.timer.cancel();
             this.service.removeObserver(this, "quit-application");
             break;
         }
