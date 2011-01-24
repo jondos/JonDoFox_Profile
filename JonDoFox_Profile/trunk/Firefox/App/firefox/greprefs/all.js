@@ -59,9 +59,9 @@ pref("general.warnOnAboutConfig", true);
 pref("browser.bookmarks.max_backups",       5);
 
 pref("browser.cache.disk.enable",           true);
-//@line 63 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 63 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 pref("browser.cache.disk.capacity",         51200);
-//@line 67 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 67 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 pref("browser.cache.memory.enable",         true);
 //pref("browser.cache.memory.capacity",     -1);
 // -1 = determine dynamically, 0 = none, n = memory capacity in kilobytes
@@ -70,7 +70,7 @@ pref("browser.cache.disk_cache_ssl",        false);
 pref("browser.cache.check_doc_frequency",   3);
 
 pref("browser.cache.offline.enable",           true);
-//@line 76 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 76 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 // offline cache capacity in kilobytes
 pref("browser.cache.offline.capacity",         512000);
 
@@ -81,7 +81,7 @@ pref("offline-apps.quota.max",        204800);
 // the user should be warned if offline app disk usage exceeds this amount
 // (in kilobytes)
 pref("offline-apps.quota.warn",        51200);
-//@line 92 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 92 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 // Fastback caching - if this pref is negative, then we calculate the number
 // of content viewers to cache based on the amount of available memory.
@@ -145,11 +145,11 @@ pref("media.enforce_same_site_origin", false);
 // Media cache size in kilobytes
 pref("media.cache_size", 51200);
 
-//@line 156 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 156 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 pref("media.ogg.enabled", true);
-//@line 159 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 159 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 pref("media.wave.enabled", true);
-//@line 161 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 161 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 // Whether to autostart a media element with an |autoplay| attribute
 pref("media.autoplay.enabled", true);
@@ -161,13 +161,17 @@ pref("gfx.color_management.display_profile", "");
 pref("gfx.color_management.rendering_intent", 0);
 
 pref("gfx.downloadable_fonts.enabled", true);
+pref("gfx.downloadable_fonts.sanitize", true);
+//@line 176 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
+pref("gfx.downloadable_fonts.sanitize.preserve_otl_tables", true);
+//@line 178 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 pref("accessibility.browsewithcaret", false);
 pref("accessibility.warn_on_browsewithcaret", true);
 
 pref("accessibility.browsewithcaret_shortcut.enabled", true);
 
-//@line 179 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 185 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 // Tab focus model bit field:
 // 1 focuses text controls, 2 focuses other form elements, 4 adds links.
 // Most users will want 1, 3, or 7.
@@ -180,7 +184,7 @@ pref("accessibility.tabfocus_applies_to_xul", false);
 // unless this preference was set manually
 pref("ui.scrollToClick", 0);
 
-//@line 195 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 201 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 pref("accessibility.usetexttospeech", "");
 pref("accessibility.usebrailledisplay", "");
@@ -524,7 +528,7 @@ pref("dom.storage.enabled", true);
 pref("dom.storage.default_quota",      5120);
 
 // Parsing perf prefs. For now just mimic what the old code did.
-//@line 541 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 547 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 // Disable popups from plugins by default
 //   0 = openAllowed
@@ -573,7 +577,7 @@ pref("network.protocol-handler.external.data", false);
 pref("network.protocol-handler.external.ms-help", false);
 pref("network.protocol-handler.external.shell", false);
 pref("network.protocol-handler.external.vnd.ms.radio", false);
-//@line 592 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 598 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 pref("network.protocol-handler.external.disk", false);
 pref("network.protocol-handler.external.disks", false);
 pref("network.protocol-handler.external.afp", false);
@@ -732,12 +736,26 @@ pref("network.IDN.whitelist.vn", true);
 // IDN ccTLDs
 // ae, UAE, .<Emarat>
 pref("network.IDN.whitelist.xn--mgbaam7a8h", true); 
-// sa, Saudi Arabia, .<al-Saudiah>
-pref("network.IDN.whitelist.xn--mgberp4a5d4ar", true); 
-// ru, Russian Federation, .<RF>
-pref("network.IDN.whitelist.xn--p1ai", true);
+// cn, China, .<China> with variants
+pref("network.IDN.whitelist.xn--fiqz9s", true); // Traditional
+pref("network.IDN.whitelist.xn--fiqs8s", true); // Simplified
+// hk, Hong Kong, .<Hong Kong>
+pref("network.IDN.whitelist.xn--j6w193g", true);
+// ir, Iran, <.Iran> with variants
+pref("network.IDN.whitelist.xn--mgba3a4f16a", true);
+pref("network.IDN.whitelist.xn--mgba3a4fra", true);
 // jo, Jordan, .<Al-Ordon>
 pref("network.IDN.whitelist.xn--mgbayh7gpa", true);
+// ru, Russian Federation, .<RF>
+pref("network.IDN.whitelist.xn--p1ai", true);
+// sa, Saudi Arabia, .<al-Saudiah> with variants
+pref("network.IDN.whitelist.xn--mgberp4a5d4ar", true); 
+pref("network.IDN.whitelist.xn--mgberp4a5d4a87g", true);
+pref("network.IDN.whitelist.xn--mgbqly7c0a67fbc", true);
+pref("network.IDN.whitelist.xn--mgbqly7cvafr", true);
+// tw, Taiwan, <.Taiwan> with variants
+pref("network.IDN.whitelist.xn--kpry57d", true);  // Traditional
+pref("network.IDN.whitelist.xn--kprw13d", true);  // Simplified
 
 // gTLDs
 pref("network.IDN.whitelist.biz", true);
@@ -825,12 +843,12 @@ pref("network.negotiate-auth.gsslib", "");
 // Specify if the gss lib comes standard with the OS
 pref("network.negotiate-auth.using-native-gsslib", true);
 
-//@line 844 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 864 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 // Default to using the SSPI intead of GSSAPI on windows 
 pref("network.auth.use-sspi", true);
 
-//@line 849 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 869 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 // Controls which NTLM authentication implementation we default to. True forces
 // the use of our generic (internal) NTLM authentication implementation vs. any
@@ -1251,7 +1269,7 @@ pref("font.minimum-size.x-western", 0);
 pref("font.minimum-size.x-unicode", 0);
 pref("font.minimum-size.x-user-def", 0);
 
-//@line 1270 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1290 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 pref("font.name.serif.ar", "Times New Roman");
 pref("font.name.sans-serif.ar", "Arial");
@@ -1360,7 +1378,7 @@ pref("font.name.monospace.x-tamil", "Latha");
 pref("font.name-list.serif.x-tamil", "Latha, Code2000");
 pref("font.name-list.monospace.x-tamil", "Latha, Code2000");
 
-//@line 1379 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1399 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 pref("font.name.serif.x-armn", "Sylfaen");
 pref("font.name.sans-serif.x-armn", "Arial AMU");
@@ -1633,10 +1651,10 @@ pref("intl.enable_tsf_support", false);
 // change now, therefore, we always notify it by this fequency.
 pref("intl.tsf.on_layout_change_interval", 100);
 
-//@line 1655 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1675 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 // See bug 448927, on topmost panel, some IMEs are not usable on Windows.
 pref("ui.panel.default_level_parent", false);
-//@line 1658 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1678 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 pref("mousewheel.system_scroll_override_on_root_content.enabled", true);
 
@@ -1644,23 +1662,23 @@ pref("mousewheel.system_scroll_override_on_root_content.enabled", true);
 // Enables or disabled the TrackPoint hack, -1 is autodetect, 0 is off,
 // and 1 is on.  Set this to 1 if TrackPoint scrolling is not working.
 pref("ui.trackpoint_hack.enabled", -1);
-//@line 1667 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 1687 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2091 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2111 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2294 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2314 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2390 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2410 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2665 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2685 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2733 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2753 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2759 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2779 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2779 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2799 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2787 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2807 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 // Login Manager prefs
 pref("signon.rememberSignons",              true);
@@ -1697,12 +1715,12 @@ pref("image.cache.timeweight", 500);
 // The default Accept header sent for images loaded over HTTP(S)
 pref("image.http.accept", "image/png,image/*;q=0.8,*/*;q=0.5");
 
-//@line 2825 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2845 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 // The default TCP send window on Windows is too small, and autotuning only occurs on receive
 pref("network.tcp.sendbuffer", 131072);
-//@line 2829 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2849 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
-//@line 2834 "e:\builds\moz2_slave\win32_build\build\modules\libpref\src\init\all.js"
+//@line 2854 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\modules\libpref\src\init\all.js"
 
 // Enable/Disable the geolocation API for content
 pref("geo.enabled", true);

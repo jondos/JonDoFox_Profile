@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 44 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 44 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
 */
 
 //
@@ -1187,10 +1187,11 @@ DirectoryInstallLocation.prototype = {
               linkedDirectory.isDirectory()) {
             locations.push(linkedDirectory);
             this._locationToIDMap[linkedDirectory.persistentDescriptor] = entry.leafName;
+            continue;
           }
         }
-        else
-          locations.push(entry);
+
+        locations.push(entry);
       }
       entries.close();
     }
@@ -1399,7 +1400,7 @@ DirectoryInstallLocation.prototype = {
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIInstallLocation])
 };
 
-//@line 1443 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 1444 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
 
 const nsIWindowsRegKey = Ci.nsIWindowsRegKey;
 
@@ -1457,7 +1458,7 @@ WinRegInstallLocation.prototype = {
     var appVendor = gApp.vendor;
     var appName = gApp.name;
 
-//@line 1505 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 1506 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
 
     // XULRunner-based apps may intentionally not specify a vendor:
     if (appVendor != "")
@@ -1544,7 +1545,7 @@ WinRegInstallLocation.prototype = {
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIInstallLocation])
 };
 
-//@line 1592 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 1593 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
 
 /**
  * Safely attempt to install or uninstall a given item ID in an install
@@ -2198,7 +2199,7 @@ function ExtensionManager() {
     InstallLocations.put(systemLocation);
   }
 
-//@line 2246 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 2247 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
   // Register HKEY_LOCAL_MACHINE Install Location
   InstallLocations.put(
       new WinRegInstallLocation("winreg-app-global",
@@ -2212,7 +2213,7 @@ function ExtensionManager() {
                                 nsIWindowsRegKey.ROOT_KEY_CURRENT_USER,
                                 false,
                                 Ci.nsIInstallLocation.PRIORITY_APP_SYSTEM_USER + 10));
-//@line 2260 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 2261 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
 
   // Register Additional Install Locations
   var categoryManager = Cc["@mozilla.org/categorymanager;1"].
@@ -5117,13 +5118,13 @@ ExtensionManager.prototype = {
       // count to 0 to prevent this dialog from being displayed again.
       this._downloadCount = 0;
       var result;
-//@line 5165 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 5166 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
       result = this._confirmCancelDownloads(this._downloadCount,
                                             "quitCancelDownloadsAlertTitle",
                                             "quitCancelDownloadsAlertMsgMultiple",
                                             "quitCancelDownloadsAlertMsg",
                                             "dontQuitButtonWin");
-//@line 5177 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 5178 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
       if (subject instanceof Ci.nsISupportsPRBool)
         subject.data = result;
     }
@@ -5386,14 +5387,14 @@ ExtensionManager.prototype = {
    * ... it should NOT be called on every startup!
    */
   _ensureDS: function EM__ensureDS() {
-    if (!this._ds) {
-      this._ds = new ExtensionsDataSource(this);
-      if (this._ds) {
-        this._ds.loadExtensions();
-        this._ptr = getContainer(this._ds, this._ds._itemRoot).DataSource;
-        gRDF.RegisterDataSource(this._ptr, true);
-      }
-    }
+    if (this._ds)
+      return;
+
+    var ds = new ExtensionsDataSource(this);
+    ds.loadExtensions();
+    this._ds = ds;
+    this._ptr = getContainer(this._ds, this._ds._itemRoot).DataSource;
+    gRDF.RegisterDataSource(this._ptr, true);
   },
 
   /**
@@ -5666,7 +5667,7 @@ ExtensionItemUpdater.prototype = {
   _listener           : null,
 
   /* ExtensionItemUpdater
-//@line 5745 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 5746 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
   */
   checkForUpdates: function ExtensionItemUpdater_checkForUpdates(aItems,
                                                                  aItemCount,
@@ -6065,7 +6066,7 @@ RDFItemUpdater.prototype = {
 
   onDatasourceLoaded: function RDFItemUpdater_onDatasourceLoaded(aDatasource, aLocalItem) {
     /*
-//@line 6184 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
+//@line 6185 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsExtensionManager.js.in"
     */
     if (!aDatasource.GetAllResources().hasMoreElements()) {
       LOG("RDFItemUpdater:onDatasourceLoaded: Datasource empty.\r\n" +

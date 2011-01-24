@@ -1,4 +1,4 @@
-//@line 43 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 43 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
 
 const Ci = Components.interfaces;
 const Cc = Components.classes;
@@ -69,7 +69,7 @@ function BrowserGlue() {
   this._init();
 }
 
-//@line 118 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 118 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
 
 BrowserGlue.prototype = {
   
@@ -120,7 +120,7 @@ BrowserGlue.prototype = {
         // and history synchronization could fail.
         this._onProfileShutdown();
         break;
-//@line 169 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 169 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
       case "browser-lastwindow-close-requested":
         // The application is not actually quitting, but the last full browser
         // window is about to be closed.
@@ -130,7 +130,7 @@ BrowserGlue.prototype = {
         if (this._saveSession)
           this._setPrefToSaveSession();
         break;
-//@line 179 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 179 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
       case "session-save":
         this._setPrefToSaveSession();
         subject.QueryInterface(Ci.nsISupportsPRBool);
@@ -179,10 +179,10 @@ BrowserGlue.prototype = {
     osvr.addObserver(this, "browser:purge-session-history", false);
     osvr.addObserver(this, "quit-application-requested", false);
     osvr.addObserver(this, "quit-application-granted", false);
-//@line 228 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 228 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
     osvr.addObserver(this, "browser-lastwindow-close-requested", false);
     osvr.addObserver(this, "browser-lastwindow-close-granted", false);
-//@line 231 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 231 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
     osvr.addObserver(this, "session-save", false);
     osvr.addObserver(this, "places-init-complete", false);
     osvr.addObserver(this, "places-database-locked", false);
@@ -200,10 +200,10 @@ BrowserGlue.prototype = {
     osvr.removeObserver(this, "sessionstore-windows-restored");
     osvr.removeObserver(this, "browser:purge-session-history");
     osvr.removeObserver(this, "quit-application-requested");
-//@line 249 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 249 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
     osvr.removeObserver(this, "browser-lastwindow-close-requested");
     osvr.removeObserver(this, "browser-lastwindow-close-granted");
-//@line 252 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 252 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
     osvr.removeObserver(this, "quit-application-granted");
     osvr.removeObserver(this, "session-save");
   },
@@ -242,7 +242,7 @@ BrowserGlue.prototype = {
   // profile shutdown handler (contains profile cleanup routines)
   _onProfileShutdown: function() 
   {
-//@line 302 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 302 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
     this._shutdownPlaces();
     this._idleService.removeIdleObserver(this, BOOKMARKS_ARCHIVE_IDLE_TIME);
     this.Sanitizer.onShutdown();
@@ -427,7 +427,7 @@ BrowserGlue.prototype = {
       return !this._prefs.getBoolPref("browser.EULA.override");
     } catch (e) { }
 
-//@line 490 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 490 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
 
     // Look to see if the user has seen the current version or not.
     var currentVersion = this._prefs.getIntPref("browser.rights.version");
@@ -985,7 +985,7 @@ BrowserGlue.prototype = {
     }
   },
 
-//@line 1050 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 1050 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
 
   // this returns the most recent non-popup browser window
   getMostRecentBrowserWindow : function ()
@@ -993,7 +993,7 @@ BrowserGlue.prototype = {
     var wm = Cc["@mozilla.org/appshell/window-mediator;1"].
              getService(Components.interfaces.nsIWindowMediator);
 
-//@line 1072 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 1072 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
     var windowList = wm.getZOrderDOMWindowEnumerator("navigator:browser", true);
     if (!windowList.hasMoreElements())
       return null;
@@ -1005,7 +1005,7 @@ BrowserGlue.prototype = {
 
       win = windowList.getNext();
     }
-//@line 1084 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserGlue.js"
+//@line 1084 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserGlue.js"
 
     return win;
   },

@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 41 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsBlocklistService.js"
+//@line 41 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsBlocklistService.js"
 */
 
 const Cc = Components.classes;
@@ -64,7 +64,7 @@ XPCOMUtils.defineLazyGetter(this, "gABI", function bls_gABI() {
   catch (e) {
     LOG("BlockList Global gABI: XPCOM ABI unknown.");
   }
-//@line 113 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsBlocklistService.js"
+//@line 113 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsBlocklistService.js"
   return abi;
 });
 
@@ -495,7 +495,7 @@ Blocklist.prototype = {
   },
 
   /**
-//@line 592 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\extensions\src\nsBlocklistService.js"
+//@line 592 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\extensions\src\nsBlocklistService.js"
    */
 
   _loadBlocklistFromFile: function(file) {

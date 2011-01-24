@@ -1,4 +1,4 @@
-//@line 40 "e:\builds\moz2_slave\win32_build\build\toolkit\components\search\nsSearchService.js"
+//@line 40 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\search\nsSearchService.js"
 
 const Ci = Components.interfaces;
 const Cc = Components.classes;
@@ -108,9 +108,9 @@ const BROWSER_SEARCH_PREF = "browser.search.";
 const USER_DEFINED = "{searchTerms}";
 
 // Custom search parameters
-//@line 150 "e:\builds\moz2_slave\win32_build\build\toolkit\components\search\nsSearchService.js"
+//@line 150 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\search\nsSearchService.js"
 const MOZ_OFFICIAL = "official";
-//@line 154 "e:\builds\moz2_slave\win32_build\build\toolkit\components\search\nsSearchService.js"
+//@line 154 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\search\nsSearchService.js"
 const MOZ_DISTRIBUTION_ID = "org.mozilla";
 
 const MOZ_PARAM_LOCALE         = /\{moz:locale\}/g;
@@ -203,7 +203,7 @@ function DO_LOG(aText) {
   consoleService.logStringMessage(aText);
 }
 
-//@line 258 "e:\builds\moz2_slave\win32_build\build\toolkit\components\search\nsSearchService.js"
+//@line 258 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\search\nsSearchService.js"
 
 /**
  * Otherwise, don't log at all by default. This can be overridden at startup
@@ -211,7 +211,7 @@ function DO_LOG(aText) {
  */
 var LOG = function(){};
 
-//@line 266 "e:\builds\moz2_slave\win32_build\build\toolkit\components\search\nsSearchService.js"
+//@line 266 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\search\nsSearchService.js"
 
 /**
  * Presents an assertion dialog in non-release builds and throws.
@@ -3699,7 +3699,7 @@ function NSGetModule(componentManager, fileSpec) {
   return gModule;
 }
 
-//@line 44 "e:\builds\moz2_slave\win32_build\build\toolkit\content\debug.js"
+//@line 44 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\content\debug.js"
 
 var EXPORTED_SYMBOLS = ["NS_ASSERT"];
 

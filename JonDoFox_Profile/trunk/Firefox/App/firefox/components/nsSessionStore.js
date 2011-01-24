@@ -110,7 +110,7 @@ const CAPABILITIES = [
   "DNSPrefetch", "Auth"
 ];
 
-//@line 116 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 116 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -187,10 +187,10 @@ SessionStoreService.prototype = {
   // List of windows that are being closed during setBrowserState.
   _closingWindows: [],
 
-//@line 193 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 193 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
   // whether the last window was closed and should be restored
   _restoreLastWindow: false,
-//@line 196 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 196 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
 
 /* ........ Global Event Handlers .............. */
 
@@ -362,7 +362,7 @@ SessionStoreService.prototype = {
       // freeze the data at what we've got (ignoring closing windows)
       this._loadState = STATE_QUITTING;
       break;
-//@line 368 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 368 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     case "browser-lastwindow-close-granted":
       // last browser window is quitting.
       // remember to restore the last window when another browser window is openend
@@ -370,7 +370,7 @@ SessionStoreService.prototype = {
       // set by another observer getting this notice after us
       this._restoreLastWindow = true;
       break;
-//@line 376 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 376 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     case "quit-application":
       if (aData == "restart") {
         this._prefBranch.setBoolPref("sessionstore.resume_session_once", true);
@@ -626,7 +626,7 @@ SessionStoreService.prototype = {
       let followUp = this._statesToRestore[aWindow.__SS_restoreID].windows.length == 1;
       this.restoreWindow(aWindow, this._statesToRestore[aWindow.__SS_restoreID], true, followUp);
     }
-//@line 632 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 632 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     else if (this._restoreLastWindow && aWindow.toolbar.visible &&
              this._closedWindows.length && this._doResumeSession() &&
              !this._inPrivateBrowsing) {
@@ -656,7 +656,7 @@ SessionStoreService.prototype = {
       // undoCloseWindow was executed.
       this._restoreLastWindow = false;
     }
-//@line 662 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 662 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
 
     var tabbrowser = aWindow.gBrowser;
     
@@ -1759,7 +1759,7 @@ SessionStoreService.prototype = {
     // shallow copy this._closedWindows to preserve current state
     let lastClosedWindowsCopy = this._closedWindows.slice();
 
-//@line 1765 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 1765 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     // if no non-popup browser window remains open, return the state of the last closed window(s)
     if (nonPopupCount == 0 && lastClosedWindowsCopy.length > 0) {
       // prepend the last non-popup browser window, so that if the user loads more tabs
@@ -1768,7 +1768,7 @@ SessionStoreService.prototype = {
         total.unshift(lastClosedWindowsCopy.shift())
       } while (total[0].isPopup)
     }
-//@line 1774 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 1774 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
 
     if (activeWindow) {
       this.activeWindowSSiCache = activeWindow.__SSi || "";
@@ -2642,7 +2642,7 @@ SessionStoreService.prototype = {
     if (!win.closed)
       return win;
 
-//@line 2658 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 2658 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     var windowsEnum = wm.getZOrderDOMWindowEnumerator("navigator:browser", true);
     while (windowsEnum.hasMoreElements()) {
       win = windowsEnum.getNext();
@@ -2650,7 +2650,7 @@ SessionStoreService.prototype = {
         return win;
     }
     return null;
-//@line 2666 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 2666 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
   },
 
   /**
@@ -2914,7 +2914,7 @@ SessionStoreService.prototype = {
     if (this._closedWindows.length <= maxWindowsUndo)
       return;
     let spliceTo = maxWindowsUndo;
-//@line 2930 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 2930 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     let normalWindowIndex = 0;
     // try to find a non-popup window in this._closedWindows
     while (normalWindowIndex < this._closedWindows.length &&
@@ -2922,7 +2922,7 @@ SessionStoreService.prototype = {
       normalWindowIndex++;
     if (normalWindowIndex >= maxWindowsUndo)
       spliceTo = normalWindowIndex + 1;
-//@line 2938 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
+//@line 2938 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStore.js"
     this._closedWindows.splice(spliceTo);
   },
 

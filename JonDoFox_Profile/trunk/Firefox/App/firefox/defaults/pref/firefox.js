@@ -1,12 +1,12 @@
-//@line 37 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 // XXX Toolkit-specific preferences should be moved into toolkit.js
 
-//@line 41 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 41 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
-//@line 44 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 44 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
-//@line 50 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 50 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 pref("general.startup.browser", true);
 
@@ -143,12 +143,12 @@ pref("keyword.URL", "chrome://browser-region/locale/region.properties");
 
 pref("general.useragent.locale", "en-US");
 pref("general.skins.selectedSkin", "classic/1.0");
-pref("general.useragent.extra.firefox", "Firefox/3.6.9");
+pref("general.useragent.extra.firefox", "Firefox/3.6.13");
 
 pref("general.smoothScroll", false);
-//@line 192 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 192 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("general.autoScroll", true);
-//@line 194 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 194 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 // Whether or not the application should check at startup each time if it 
 // is the default browser.
@@ -167,11 +167,11 @@ pref("browser.warnOnRestart", true);
 pref("browser.fullscreen.autohide", true);
 pref("browser.fullscreen.animateUp", 1);
 
-//@line 215 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 215 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.urlbar.clickSelectsAll", true);
-//@line 220 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 220 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.urlbar.doubleClickSelectsAll", false);
-//@line 222 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 222 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.urlbar.autoFill", false);
 // 0: Match anywhere (e.g., middle of words)
 // 1: Match on word boundaries and then try matching anywhere
@@ -213,9 +213,9 @@ pref("browser.download.saveLinkAsFilenameTimeout", 1000);
 
 pref("browser.download.useDownloadDir", true);
 
-//@line 267 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 267 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.download.folderList", 1);
-//@line 269 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 269 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.download.manager.showAlertOnComplete", true);
 pref("browser.download.manager.showAlertInterval", 2000);
 pref("browser.download.manager.retention", 2);
@@ -262,10 +262,10 @@ pref("browser.search.suggest.enabled", true);
 
 pref("browser.history.showSessions", false);
 pref("browser.sessionhistory.max_entries", 50);
-//@line 316 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 316 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.history_expire_days", 180);
 pref("browser.history_expire_days_min", 90);
-//@line 322 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 322 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.history_expire_sites", 40000);
 
 // handle links targeting new windows
@@ -278,9 +278,9 @@ pref("browser.link.open_newwindow", 3);
 pref("browser.link.open_newwindow.restriction", 2);
 
 // Tabbed browser
-//@line 335 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 335 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.tabs.autoHide", false);
-//@line 339 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 339 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.tabs.closeWindowWithLastTab", true);
 pref("browser.tabs.insertRelatedAfterCurrent", true);
 pref("browser.tabs.warnOnClose", true);
@@ -330,11 +330,11 @@ pref("browser.bookmarks.max_backups",             5);
 
 // Scripts & Windows prefs
 pref("dom.disable_open_during_load",              true);
-//@line 392 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 392 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("javascript.options.showInConsole",          false);
-//@line 394 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 394 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
-//@line 399 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 399 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 // Make the status bar reliably present and unaffected by pages
 pref("dom.disable_window_open_feature.status",    true);
@@ -413,10 +413,10 @@ pref("browser.gesture.swipe.left", "Browser:BackOrBackDuplicate");
 pref("browser.gesture.swipe.right", "Browser:ForwardOrForwardDuplicate");
 pref("browser.gesture.swipe.up", "cmd_scrollTop");
 pref("browser.gesture.swipe.down", "cmd_scrollBottom");
-//@line 481 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 481 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.gesture.pinch.latched", false);
 pref("browser.gesture.pinch.threshold", 25);
-//@line 484 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 484 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.gesture.pinch.out", "cmd_fullZoomEnlarge");
 pref("browser.gesture.pinch.in", "cmd_fullZoomReduce");
 pref("browser.gesture.pinch.out.shift", "cmd_fullZoomReset");
@@ -428,7 +428,7 @@ pref("browser.gesture.twist.left", "");
 pref("browser.gesture.tap", "cmd_fullZoomReset");
 
 // 0=lines, 1=pages, 2=history , 3=text size
-//@line 509 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 509 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("mousewheel.withshiftkey.action",2);
 pref("mousewheel.withshiftkey.sysnumlines",false);
 pref("mousewheel.withshiftkey.numlines",1);
@@ -438,7 +438,7 @@ pref("mousewheel.withaltkey.numlines",1);
 pref("mousewheel.withmetakey.action",0);
 pref("mousewheel.withmetakey.sysnumlines",true);
 pref("mousewheel.withmetakey.numlines",1);
-//@line 519 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 519 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("mousewheel.withcontrolkey.action",3);
 pref("mousewheel.withcontrolkey.sysnumlines",false);
 pref("mousewheel.withcontrolkey.numlines",1);
@@ -502,11 +502,11 @@ pref("plugins.hide_infobar_for_outdated_plugin", false);
 pref("plugins.update.url", "https://www.mozilla.com/%LOCALE%/plugincheck/");
 pref("plugins.update.notifyUser", false);
 
-//@line 583 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 583 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.preferences.instantApply", false);
-//@line 590 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 590 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.preferences.animateFadeIn", false);
-//@line 592 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 592 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 pref("browser.download.show_plugins_in_list", true);
 pref("browser.download.hide_plugins_without_extensions", true);
@@ -515,9 +515,9 @@ pref("browser.download.hide_plugins_without_extensions", true);
 // 0 goes Back/Forward
 // 1 act like PgUp/PgDown
 // 2 and other values, nothing
-//@line 603 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 603 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.backspace_action", 0);
-//@line 605 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 605 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 // this will automatically enable inline spellchecking (if it is available) for
 // editable elements in HTML
@@ -606,7 +606,7 @@ pref("gecko.handlerService.schemes.ircs.3.uriTemplate", "chrome://browser-region
 // By default, we don't want protocol/content handlers to be registered from a different host, see bug 402287
 pref("gecko.handlerService.allowRegisterFromDifferentHost", false);
 
-//@line 694 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 694 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 // Safe browsing does nothing unless this pref is set
 pref("browser.safebrowsing.enabled", true);
 
@@ -651,27 +651,27 @@ pref("urlclassifier.gethashtables", "goog-phish-shavar,goog-malware-shavar");
 // the database.
 pref("urlclassifier.confirm-age", 2700);
 
-//@line 744 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 744 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 // Maximum size of the sqlite3 cache during an update, in bytes
-//@line 749 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 749 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("urlclassifier.updatecachemax", -1);
-//@line 751 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 751 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 // URL for checking the reason for a malware warning.
 pref("browser.safebrowsing.malware.reportURL", "http://safebrowsing.clients.google.com/safebrowsing/diagnostic?client=%NAME%&hl=%LOCALE%&site=");
 
-//@line 756 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 756 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 pref("browser.EULA.version", 3);
 pref("browser.rights.version", 3);
 pref("browser.rights.3.shown", false);
 
-//@line 765 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 765 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
-//@line 769 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 769 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.sessionstore.resume_from_crash", true);
-//@line 771 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 771 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.sessionstore.resume_session_once", false);
 
 // minimal interval between two save operations in milliseconds
@@ -775,25 +775,25 @@ pref("browser.bookmarks.editDialog.firstEditField", "namePicker");
 // base url for the wifi geolocation network provider
 pref("geo.wifi.uri", "https://www.google.com/loc/json");
 
-//@line 904 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 904 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 // Whether to use a panel that looks like an OS X sheet for customization
-//@line 909 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 909 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("toolbar.customization.usesheet", false);
-//@line 911 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 911 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 // Whitelist the test plugin, Flash, Silverlight, and QuickTime
  
 pref("dom.ipc.plugins.enabled.nptest.dll", true);
-//@line 916 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 916 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("dom.ipc.plugins.enabled.npswf32.dll", true);
 pref("dom.ipc.plugins.enabled.npctrl.dll", true);
 pref("dom.ipc.plugins.enabled.npqtplugin.dll", true);
-//@line 923 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 923 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 
 pref("dom.ipc.plugins.enabled", false);
 
-//@line 928 "e:\builds\moz2_slave\win32_build\build\browser\app\profile\firefox.js"
+//@line 928 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\app\profile\firefox.js"
 pref("browser.taskbar.previews.enable", false);
 pref("browser.taskbar.previews.max", 20);
 pref("browser.taskbar.previews.cachetime", 20);

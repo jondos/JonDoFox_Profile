@@ -1,4 +1,4 @@
-//@line 44 "e:\builds\moz2_slave\win32_build\build\toolkit\content\debug.js"
+//@line 44 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\content\debug.js"
 
 var EXPORTED_SYMBOLS = ["NS_ASSERT"];
 

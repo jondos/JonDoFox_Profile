@@ -1,4 +1,4 @@
-//@line 42 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\FeedWriter.js"
+//@line 42 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\FeedWriter.js"
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -641,7 +641,7 @@ FeedWriter.prototype = {
    * @returns The display name of the application represented by the file.
    */
   _getFileDisplayName: function FW__getFileDisplayName(file) {
-//@line 685 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\FeedWriter.js"
+//@line 685 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\FeedWriter.js"
     if (file instanceof Ci.nsILocalFileWin) {
       try {
         return file.getVersionInfoField("FileDescription");
@@ -649,7 +649,7 @@ FeedWriter.prototype = {
       catch (e) {
       }
     }
-//@line 702 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\FeedWriter.js"
+//@line 702 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\FeedWriter.js"
     var ios = 
         Cc["@mozilla.org/network/io-service;1"].
         getService(Ci.nsIIOService);
@@ -707,9 +707,9 @@ FeedWriter.prototype = {
           // XXXben - we need to compare this with the running instance executable
           //          just don't know how to do that via script...
           // XXXmano TBD: can probably add this to nsIShellService
-//@line 760 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\FeedWriter.js"
+//@line 760 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\FeedWriter.js"
           if (fp.file.leafName != "firefox.exe") {
-//@line 768 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\FeedWriter.js"
+//@line 768 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\FeedWriter.js"
             this._initMenuItemWithFile(this._contentSandbox.selectedAppMenuItem,
                                        this._selectedApp);
 

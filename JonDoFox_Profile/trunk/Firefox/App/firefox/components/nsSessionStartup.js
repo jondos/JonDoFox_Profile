@@ -1,9 +1,9 @@
 /* 
-//@line 38 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStartup.js"
+//@line 38 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStartup.js"
 */
 
 /**
-//@line 65 "e:\builds\moz2_slave\win32_build\build\browser\components\sessionstore\src\nsSessionStartup.js"
+//@line 65 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\sessionstore\src\nsSessionStartup.js"
 */
 
 /* :::::::: Constants and Helpers ::::::::::::::: */
