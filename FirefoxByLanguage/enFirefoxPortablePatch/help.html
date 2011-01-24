@@ -259,7 +259,9 @@ alt="CS-Lite Icon"></span> with your left mouse button, you are given the
 following options for the currently visited web site: </p>
 
 <div style="text-align:center">
-<img src="img_jondofox/cslite_menu.gif" alt="CS-Lite Men&#xfc;"> </div>
+<img src="img_jondofox/cslite_menu.png" alt="CS-Lite Men&#xfc;" vspace="8" hspace="0"> 
+</div>
+
 <ul>
   <li style="list-style-image:url(img_jondofox/cslite_temp.gif)"><b>Temporarily allow</b><br>
     The Cookie is only accepted for the current browser session and will be
@@ -289,85 +291,35 @@ explicitly <span class="nowrap"><img src="img_jondofox/cslite.gif"
 alt="CS-Lite: Cookies global akzeptieren"> <b>blocked</b></span>, and others
 may track your steps on the Web.</p>
 
-<h3><a name="filterAds" id="filterAds">Filter advertisements with
-AdblockPlus</a></h3>
+<h3><a name="noscript" id="noscript">Controlling JavaScript with NoScript</a></h3>
 
-<p>AdblockPlus <img alt="AdblockPlus" src="img_jondofox/abp-enabled-16.png"> is
-an advertisement filter that runs in the background. Usually, you do not have
-to alter its settings. However, you may add your own filter lists any time.</p>
-
-<h3><a name="noscript" id="noscript">Control active contents with
-NoScript</a></h3>
-
-<p>NoScript <img src="img_jondofox/noscript.gif" alt="NoScript-Icon"> lets you
-conveniently control which potential dangerous scripts and plugins from a
-website your browser may execute or not.</p>
-
-<h4>Controlling installed plugins</h4>
-
-<p>When you visit a website containing plugin content like Flash movies or Java
-applets, this content will be automatically blocked by NoScript. A placeholder
-(left image) is shown instead of the active content: </p>
-
-<table>
-  <tbody>
-    <tr>
-      <td><span style="text-align:center;margin-right:50px;"><img
-        src="img_jondofox/noscript_placeholder.gif" alt="NoScript-Platzhalter">
-        </span> </td>
-      <td><span style="text-align:center;margin-left:50px;"><img
-        src="img_jondofox/noscript_blocked.gif"
-        alt="NoScript: Geblockte Objekte Men&#xfc;"> </span> </td>
-    </tr>
-  </tbody>
-</table>
-
-<p>You may allow the content by clicking on the placeholder or by choosing the
-respective option in <span><img src="img_jondofox/noscript_blockedcontent.gif"
-alt="NoScript: Geblockte Objekte"> <b>Blocked Objects</b></span> after clicking
-on the NoScript menu icon <img src="img_jondofox/noscript.gif"
-alt="NoScript-Icon">. </p>
-
-<p><strong>Warning:</strong> Without <a
-href="https://secure-proxy-howto.anonymous-proxy-servers.net/index.php/JonDoFox_FAQ#I_sometimes_have_to_activate_Flash_applets._How_may_I_get_a_better_security_thereby.3F">special protective
-measures</a>, allowed plugin content may completely or partially revoke your
-anonymity and might even damage your system.</p>
-
-<h4>Controlling JavaScript</h4>
-
-<p>If you click on the NoScript icon<span class="nowrap"><img
+<p>If you click on the NoScript icon <span class="nowrap"><img
 src="img_jondofox/noscript.gif" alt="NoScript-Icon"></span> you get a list of
 all addresses/service providers with JavaScript code on the currently visited
 web site. The respective entries are marked with the<span class="nowrap"><img
 src="img_jondofox/noscript_temp.gif"
-alt="NoScript tempor&#xe4;r erlauben"></span> icon: </p>
+alt="NoScript tempor&#xe4;r erlauben"></span> icon. Time by time you need to
+enable some subdomains of the current website to get it working well. You have to try it.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td><span style="text-align:center;margin-right:50px;"><img
-        src="img_jondofox/noscript_allow.gif"
-        alt="NoScript: Erlaubnis erteilen"> </span> </td>
-      <td><span style="text-align:center;margin-left:50px;"><img
-        src="img_jondofox/noscript_disallow.gif"
-        alt="NoScript: Erlaubnis entziehen"> </span> </td>
-    </tr>
-  </tbody>
-</table>
+<p><strong>Warning:</strong> You should give as few permissions as possible. Third party scripts are
+often only used to spy on you and are rarely needed for proper functionality of
+the website.</p>
+<div align="center">
+<img src="img_jondofox/noscript_allow.png" alt="NoScript: allow scripts" vspace="8" hspace="0"> 
+</div>
 
 <p>By clicking on <span><img src="img_jondofox/noscript_temp.gif"
 alt="NoScript tempor&#xe4;r erlauben"> <b>Temporarily allow</b></span> you
-activate scripts for this entry. By another click, as shown in the right image,
-you may easily remove this permission again. If you would like to remove the
+activate scripts for this entry. By another click
+you may easily remove this permission again (see image below). If you would like to remove the
 permissions for all addresses, you just have to click on <span><img
 src="img_jondofox/noscript_disallowall.gif"
 alt="NoScript: Tempor&#xe4;re Berechtigungen aufheben"> <b>Revoke temporary
 permissions</b></span>.</p>
 
-<p><strong>Warning:</strong> You should give as few permissions as possible,
-and if possible only for the currently visited website. Third party scripts are
-often only used to spy on you and are rarely needed for proper functionality of
-the website.</p>
+<div align="center">
+<img src="img_jondofox/noscript_disallow.png" alt="NoScript: disallow scripts" vspace="8" hspace="0">
+</div>
 
 <p>If you generally distrust any address you may classify it
 <em>untrusted</em>, and it will no more show up within the addresses you might
@@ -378,37 +330,68 @@ get an overview of all the addresses on the current website which you may mark
 untrusted: </p>
 
 <div align="center">
-<img src="img_jondofox/noscript_untrustw.gif"
-alt="NoScript: nicht vertrauensw&#xfc;rdig Men&#xfc;"> </div>
+<img src="img_jondofox/noscript_untrustw.png"
+alt="NoScript: not trusted" vspace="8" hspace="0"> </div>
 
 <p>You may undo this action just the same way. </p>
 
+<h3><a name="noscript_ssl" id="noscript_ssl">Enforcing SSL with NoScript</a></h3>
+<p>There may be websites which a user wants to visit purely over SSL (inlcuding all
+the requests issued by content embedded into these sites). 
+NoScript <img src="img_jondofox/noscript.gif" alt="NoScript-Icon"> lets you
+conveniently enforce SSL on your connections. In the <i>Options -&gt; 
+Advanced -&gt; HTTPS -&gt; Behavior</i> panel NoScript offers the opportunity to build a whitelist as seen in the following screenshot. You may specify single domains and/or an arbitrary amount of subdomains using a wildcard symbol.</p>
+
+<div align="center">
+  <img src="img_jondofox/noscript-ssl-en.png" alt="NoScript_STS" vspace="8" hspace="0">
+</div>
+
+<p>You may create your whitelist onself using the <a href="https://anonymous-proxy-servers.net/wiki/index.php/Security_notes#Enforce_HTTPS_websites_list">list of websites with HTTPS support</a> in our Wiki. Or
+you may use other extensions with a
+predefined list may be used instead, e.g. <a href="http://www.eff.org/https-everywhere">HTTPS-Everywhere</a>.
+
+<h3><a name="noscript_plugin" id="noscript_plugin">Controlling installed plugins with NoScript</a></h3>
+
+<p>When you visit a website containing plugin content like Flash movies or Java
+applets, this content will be automatically blocked by NoScript. A placeholder
+ is shown instead of the active content: </p>
+
+<div align="left">
+<img src="img_jondofox/noscript_placeholder.gif" alt="NoScript-Platzhalter" vspace="8" hspace="0">
+</div>
+
+<p>You may allow the content by clicking on the placeholder or by choosing the
+respective option in <span><img src="img_jondofox/noscript_blockedcontent.gif"
+alt="NoScript: Geblockte Objekte"> <b>Blocked Objects</b></span> after clicking
+on the NoScript menu icon <img src="img_jondofox/noscript.gif"
+alt="NoScript-Icon">. </p>
+
+<p><strong>Warning:</strong> Without <a
+href="https://anonymous-proxy-servers.net/en/help/flash-applets.html">special protective
+measures</a>, allowed plugin content may completely or partially revoke your
+anonymity and might even damage your system.</p>
+
 <h3><a name="videoDownload" id="videoDownload">Protection against dangerous
-flash videos: Downloading videos with UnPlug and aTube Catcher</a></h3>
+flash videos: Downloading videos with UnPlug</a></h3>
 
 <p>To prevent having to activate dangerous Flash in your browser, you should
 always download web videos to your hard drive and play them from there. This
 also saves you the additional traffic which would be needed to view a streaming
 video again. Besides some links to video download sites, JonDoFox contains the
 download tool <em>UnPlug</em> for this purpose. If you are visiting e.g. a
-YouTub page, just click on the menu entry (marked in red) in your <em>Tools</em> menu and select the video you would like to download:</p>
+YouTube page, just click on the menu entry (marked in red) in your <em>Tools</em> menu and select the video you would like to download:</p>
 
 <div align="center"><img alt="1-Click-Video-Download with UnPlug"
-src="img_jondofox/UnPlug_en.png" width="235"></div>
+src="img_jondofox/UnPlug_en.png" vspace="10"></div>
 
-<p>For Windows and Linux (under WINE), there also exists an excellent freeware
+<p>For Windows, there also exists an excellent freeware
 program called <a href="http://atube-catcher.dsnetwb.com">aTube Catcher</a>.
-You may configure this program for JonDo by activating the HTTP proxy in aTube
-Catcher in <strong><em>Tools-&gt;Connection settings</em></strong> and setting
-it to <strong><em>Host:127.0.0.1</em></strong> and <strong><em>Port:
-4001</em></strong></p>
+It is a special program for video download. <a href="https://anonymous-proxy-servers.net/wiki/index.php/Compatible_applications#Download_videos_with_aTube_Catcher">Configuration
+for anonymous use</a> you can find in our wiki.</p>
+  
+<h3><a name="filterAds" id="filterAds">Filter advertisements with
+Adblock Plus</a></h3>
 
-<div align="center"><img alt="aTube Catcher Connection settings: HTTP proxy 127.0.0.1:4001"
-src="img_jondofox/aTubeCatcherConnection.png"></center>
-
-<p>For playing movies of all video formats on all operating systems, the free
-<a href="http://www.videolan.org/">VideoLAN Media Player</a> is a very good
-choice.</p>
-
-</body>
-</html>
+<p>Adblock Plus <img alt="Adblock Plus" src="img_jondofox/abp-enabled-16.png"> is
+an advertisement filter that runs in the background. Usually, you do not have
+to alter its settings. However, you may add your own filter lists any time.</p>

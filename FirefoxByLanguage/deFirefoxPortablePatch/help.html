@@ -135,12 +135,9 @@ sind</a>.</p>
 Sicherheitskritische Firefox-Erweiterungen</a></h3>
 
 <p>Im JonDoFox sind bereits alle f&uuml;r sicheres und spurenarmes Surfen
-relevanten Erweiterungen mit optimalen Voreinstellungen vorhanden. &#xdc;ber die Symbole in der Firefox-Statusleiste haben Sie stets die
+relevanten Erweiterungen mit optimalen Voreinstellungen vorhanden. &#xdc;ber die Symbole <img alt="Statuszeile JonDoFox (CSLite, NoScript, AdblockPlus, JonDoFox)"
+src="img_jondofox/jondofox_statusbar.png"> in der Firefox-Statusleiste haben Sie stets die
 Kontrolle &#xfc;ber die wichtigsten der in JonDoFox integrierten Funktionen (CS-Lite, AdblockPlus, NoScript und JonDoFox), die im Folgenden genauer erl&auml;utert werden:</p>
-
-<div style="text-align:center">
-<img alt="Statuszeile JonDoFox (CSLite, NoScript, AdblockPlus, JonDoFox)"
-src="img_jondofox/jondofox_statusbar.png"></div>
 
 <h3><a name="jdf_features" id="jdf_features">
 JonDoFox Features</a></h3>
@@ -268,7 +265,7 @@ k&#xf6;nnen Sie folgende Freigaben f&#xfc;r die jeweils besuchte Webseite
 vornehmen: </p>
 
 <div style="text-align:center">
-<img src="img_jondofox/cslite_menu.gif" alt="CS-Lite Men&#xfc;"> </div>
+<img src="img_jondofox/cslite_menu.png" alt="CS-Lite Men&#xfc;" vspace="8" hspace="0"> </div>
 <ul>
   <li
     style="list-style-image:url(img_jondofox/cslite_temp.gif)"><b>Tempor&#xe4;r
@@ -279,10 +276,13 @@ vornehmen: </p>
     ist die empfohlene Einstellung, falls Sie Cookies aktivieren
     m&#xf6;chten.</strong></li>
   <li
-    style="list-style-image:url(img_jondofox/cslite_session.gif)"><b>    W&#xe4;hrend Sitzung akzeptieren</b><br>
+    style="list-style-image:url(img_jondofox/cslite_session.gif)"><b>
+    W&#xe4;hrend Sitzung akzeptieren</b><br>
     Das Cookie wird nur f&#xfc;r die momentane Browsersitzung akzeptiert und
-    danach gel&#xf6;scht. Die Webseite darf nach dem Neustart des Browsers
-    wieder ein neues Cookie setzen.</li>
+    danach gel&#xf6;scht. Die Webseite darf in Zukunft nach dem Neustart des Browsers
+    wieder neue Cookie setzen. Diese Option k&ouml;nnen sie f&uuml;r
+    h&auml;ufig besuchte, vertrauensw&uuml;rdige Websites nutzen, die nur
+    mit Cookies benutzbar sind.</li>
   <li
     style="list-style-image:url(img_jondofox/cslite_allow.gif)"><b>Akzeptieren</b><br>
     Das Cookie wird solange im Browser gespeichert, wie es von der Webseite
@@ -302,92 +302,43 @@ src="img_jondofox/cslite.gif" alt="CS-Lite: Cookies global akzeptieren">
 <b>blockierter</b></span> Webseiten zugelassen und man kann Ihre Schritte im
 Web verfolgen.</p>
 
-<h3><a name="filterAds" id="filterAds">Werbung filtern mit
-AdblockPlus</a></h3>
-
-<p>AdblockPlus <img alt="AdblockPlus" src="img_jondofox/abp-enabled-16.png">
-arbeitet als Werbefilter im Hintergrund. Normalerweise m&#xfc;ssen Sie dessen
-Einstellungen nicht ver&#xe4;ndern, k&#xf6;nnen aber jederzeit eigene
-Filterlisten erg&#xe4;nzen.</p>
-
-<h3><a name="noscript" id="noscript">Aktive Inhalte kontrollieren mit
-NoScript</a></h3>
-
-<p>NoScript <img src="img_jondofox/noscript.gif" alt="NoScript-Icon"> gibt
-Ihnen eine komfortable Kontrolle dar&#xfc;ber, welche der potenziell
-gef&#xe4;hrlichen Skripte oder Plugin-Inhalte einer Webseite Ihr Browser
-ausf&#xfc;hren darf und welche nicht.</p>
-
-<h4>Kontrolle der installierten Plugins</h4>
-
-<p>Wenn Sie eine Webseite besuchen, die Plugin-Inhalte wie Flash-Movies oder
-Java-Applets enth&auml;lt, werden diese von NoScript grunds&auml;tzlich
-blockiert. Anstelle des aktiven Inhalts erscheint ein NoScript-Platzhalter
- (linkes Bild): </p>
-
-<table>
-  <tbody>
-    <tr>
-      <td><span style="text-align:center;margin-right:50px;"><img
-        src="img_jondofox/noscript_placeholder.gif" alt="NoScript-Platzhalter">
-        </span> </td>
-      <td><span style="text-align:center;margin-left:50px;"><img
-        src="img_jondofox/noscript_blocked.gif"
-        alt="NoScript: Geblockte Objekte Men&#xfc;"> </span> </td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Sie k&#xf6;nnen den jeweiligen Inhalt durch einen Klick auf den Platzhalter
-oder &#xfc;ber die Auswahl <span><img
-src="img_jondofox/noscript_blockedcontent.gif"
-alt="NoScript: Geblockte Objekte"> <b>Geblockte Objekte</b></span> im
-NoScript-Men&#xfc; <img src="img_jondofox/noscript.gif" alt="NoScript-Icon">
-freigeben. </p>
-
-<p><strong>Warnung:</strong> Ohne <a
-href="https://secure-proxy-howto.anonymous-proxy-servers.net/index.php/JonDoFox_FAQ/de#Ich_muss_ab_und_zu_Flash-Applets_aktivieren._Wie_kann_ich_meine_Sicherheit_dabei_erh.C3.B6hen.3F">spezielle
-Schutzma&#xdf;nahmen</a> kann &#xfc;ber freigegebene Plugin-Inhalte Ihre
-Anonymit&#xe4;t ganz oder teilweise aufgehoben und sogar Ihr System
-besch&#xe4;digt werden.</p>
-
-<h4>Kontrolle von JavaScript</h4>
+<h3><a name="noscript" id="noscript">Kontrolle von JavaScript mit NoScript</a></h3>
 
 <p>Wenn Sie auf das <span class="nowrap">NoScript-Icon <img
 src="img_jondofox/noscript.gif" alt="NoScript-Icon"></span> klicken, erhalten
 Sie eine Auflistung der Adressen/Dienstanbieter mit JavaScript-Codes auf der
 gerade besuchten Webseite. Die entsprechenden Eintr&#xe4;ge sind durch das
 <span class="nowrap">Icon <img src="img_jondofox/noscript_temp.gif"
-alt="NoScript tempor&#xe4;r erlauben"></span> gekennzeichnet: </p>
+alt="NoScript tempor&#xe4;r erlauben"></span> gekennzeichnet. Neben der betrachteten Websites
+werden h&auml;ufig auch Scripte von Subdomains ben&ouml;tig, um die volle Funktion zu ereichen.
+Welche Subdomains freigegeben werden m&uuml;ssen, kann nur durch probieren ermittelt werden.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td><span style="text-align:center;margin-right:50px;"><img
-        src="img_jondofox/noscript_allow.gif"
-        alt="NoScript: Erlaubnis erteilen"> </span> </td>
-      <td><span style="text-align:center;margin-left:50px;"><img
-        src="img_jondofox/noscript_disallow.gif"
-        alt="NoScript: Erlaubnis entziehen"> </span> </td>
-    </tr>
-  </tbody>
-</table>
+<p><strong>Hinweis:</strong> Skripte von Drittanbietern bzw. anderen Adressen werden
+&#xfc;blicherweise nur dazu verwendet, um Sie auszuspionieren, und sind
+f&#xfc;r die Funktionalit&#xe4;t der Webseite selten notwendig.</p>
+
+<div align="center">
+<img src="img_jondofox/noscript_allow.png" alt="NoScript: Erlaubnis erteilen" vspace="8" hspace="0">
+</div>
 
 <p>Durch einen Klick auf <span><img src="img_jondofox/noscript_temp.gif"
 alt="NoScript tempor&#xe4;r erlauben"> <b>tempor&#xe4;r erlauben</b></span>
-aktivieren Sie die Skripte f&#xfc;r diesen Eintrag. Mit einem weiteren Klick,
-wie in der rechten Grafik veranschaulicht, k&#xf6;nnen Sie eine bereits
-erteilte Berechtigung wieder entziehen. Wenn Sie allen Adressen die
-tempor&#xe4;ren Berechtigungen entziehen wollen, k&#xf6;nnen Sie dies indem Sie
+aktivieren Sie die Skripte f&#xfc;r diesen Eintrag. Mit einem weiteren Klick
+k&#xf6;nnen Sie eine bereits
+erteilte Berechtigung wieder entziehen (siehe n&auml;chste Grafik). Wenn Sie allen Adressen die
+tempor&#xe4;ren Berechtigungen entziehen wollen, k&#xf6;nnen Sie dies, indem Sie
 auf den Eintrag <span><img src="img_jondofox/noscript_disallowall.gif"
 alt="NoScript: Tempor&#xe4;re Berechtigungen aufheben"><b>Tempor&#xe4;re
 Berechtigungen aufheben</b></span> klicken.</p>
 
-<p><strong>Warnung:</strong> Sie sollten eine solche Erlaubnis nur sehr sparsam
-und, wenn m&#xf6;glich, nur f&#xfc;r die Adresse der aktuell besuchten Webseite
-erteilen. Skripte von Drittanbietern bzw. anderen Adressen werden
-&#xfc;blicherweise nur dazu verwendet, um Sie auszuspionieren, und sind
-f&#xfc;r die Funktionalit&#xe4;t der Webseite nur selten notwendig. </p>
+<div align="center">
+<img src="img_jondofox/noscript_disallow.png" alt="NoScript: Erlaubnis entziehen" vspace="8" hspace="0">
+</div>
+
+<p>F&uuml;r Websites die sie h&auml;ufig besuchen, k&ouml;nnen sie die Einstellungen mit
+einem Klick auf den Men&uuml;punkt <b>Berechtigungen dieser Seite speichern</b>
+dauerhauft festlegen. Dann muss man nicht bei jedem Besuch die Freiaben wieder 
+neu einrichten.</p>
 
 <p>Sollten Sie einer Adresse grunds&#xe4;tzlich nicht vertrauen, k&#xf6;nnen
 Sie diese als <i>nicht vertrauensw&#xfc;rdig</i> einstufen, und sie wird
@@ -399,15 +350,49 @@ vertrauensw&#xfc;rdig</b>.</span> Sie erhalten dann die &#xdc;bersicht der
 Adressen auf der gerade besuchten Webseite, denen Sie das Vertrauen entziehen
 k&#xf6;nnen: </p>
 
-<div style="text-align:center">
-<img src="img_jondofox/noscript_untrustw.gif"
+<div align="center">
+<img src="img_jondofox/noscript_untrustw.png"
 alt="NoScript: nicht vertrauensw&#xfc;rdig Men&#xfc;"> </div>
 
 <p>Die Aktion kann auf die gleiche Weise wieder r&#xfc;ckg&#xe4;ngig gemacht
 werden. </p>
 
+<h3><a name="noscript_ssl" id="noscript_ssl">Enforcing SSL mit NoScript</a></h3>
+<p>Es gibt vielleicht Webseiten, die man allein &uuml;ber eine mit SSL gesicherte Verbindung ansurfen m&ouml;chte (das beinhaltet auch die eingebetteten Bilder, Stylesheets etc.). NoScript <img src="img_jondofox/noscript.gif" alt="NoScript-Icon"> gibt
+Ihnen die M&ouml;glichkeit SSL f&uuml;r Verbindungen zu erzwingen. Unter <i>Einstellungen -&gt; Erweitert -&gt; HTTPS -&gt; Verhalten</i> bietet NoScript mittels einer Whitelist genau diese Option an, wie man im folgenden Bildschirmfoto sehen kann. Es ist dabei m&ouml;glich, sowohl einzelne Domains in die Whitelist einzutragen, als auch mit Hilfe des Wildcard-Zeichens ("*") SSL f&uuml;r ganze Subdomains zu erzwingen.</p> 
+
+<div align="left">
+  <img src="img_jondofox/noscript_STS_de.png" alt="NoScript_STS" vspace="8" hspace="0">
+</div>
+
+<p>Eine eigene Whitlist k&ouml;nnen sie sich mit Hilfe der <a href="https://anonymous-proxy-servers.net/wiki/index.php/Sicherheitshinweise#HTTPS-Verschl.C3.BCsselung_erzwingen">erweiterbaren Sammlung von HTTPS Domains</a> im Wiki zusammenstellen.
+Andere Erweiterungen enthalten eine vordefinierte Liste, z.B. <a href="http://www.eff.org/https-everywhere">HTTPS-Everywhere</a>.
+
+<h3><a name="noscript_plugin" id="noscript_plugin">Kontrolle der installierten Plugins</a></h3>
+
+<p>Wenn Sie eine Webseite besuchen, die Plugin-Inhalte, wie Flash-Movies oder
+Java-Applets, enth&auml;lt, werden diese von NoScript grunds&auml;tzlich
+blockiert. Anstelle des aktiven Inhalts erscheint ein NoScript-Platzhalter: </p>
+
+<div align="left">
+<img src="img_jondofox/noscript_placeholder.gif" alt="NoScript-Platzhalter" vspace="8" hspace="0">
+</div>    
+
+<p>Sie k&#xf6;nnen den jeweiligen Inhalt durch einen Klick auf den Platzhalter
+oder &#xfc;ber die Auswahl <span><img
+src="img_jondofox/noscript_blockedcontent.gif"
+alt="NoScript: Geblockte Objekte"> <b>Geblockte Objekte</b></span> im
+NoScript-Men&#xfc; <img src="img_jondofox/noscript.gif" alt="NoScript-Icon">
+freigeben. </p>
+
+<p><strong>Warnung:</strong> Ohne <a
+href="https://anonymous-proxy-servers.net/de/help/flash-applets.html">spezielle
+Schutzma&#xdf;nahmen</a> kann &#xfc;ber freigegebene Plugin-Inhalte Ihre
+Anonymit&#xe4;t aufgehoben und sogar Ihr System besch&#xe4;digt werden.</p>
+
+
 <h3><a name="videoDownload" id="videoDownload">Schutz gegen gef&#xe4;hrliche
-Flash-Videos: Video-Download mit UnPlug und aTube Catcher</a></h3>
+Flash-Videos: Video-Download mit UnPlug</a></h3>
 
 <p>Um nicht das sehr gef&#xe4;hrliche Flash im Browser aktivieren zu
 m&#xfc;ssen, sollten Sie Web-Videos immer auf Ihre Festplatte herunterladen und
@@ -418,22 +403,21 @@ Download-Tool <em>UnPlug</em>. Wenn Sie z.B. auf einer YouTube-Seite sind,
 klicken Sie einfach auf den entsprechenden Men&uuml;eintrag (rot markiert)  in Ihrem <em>Extras</em>-Men&uuml; und w&#xe4;hlen Sie das Video aus, das Sie herunterladen m&#xf6;chten:</p>
 
 <div align="center"><img alt="1-Klick-Video-Download mit UnPlug"
-src="img_jondofox/UnPlug_de.png" width="235"></div>
+src="img_jondofox/UnPlug_de.png" vspace="10"></div>
 
-<p>F&#xfc;r Windows und Linux (unter WINE) gibt es au&#xdf;erdem ein
+<p>F&#xfc;r Windows gibt es au&#xdf;erdem ein
 hervorragendes Freeware-Programm namens <a
-href="http://atube-catcher.dsnetwb.com">aTube Catcher</a>. Sie k&#xf6;nnen
-dieses Programm f&#xfc;r JonDo konfigurieren, indem Sie in aTube Catcher unter
-<strong><em>Tools-&gt;Connection settings</em></strong> den HTTP-Proxy
-aktivieren und ihn auf <strong><em>Host:127.0.0.1</em></strong> und
-<strong><em>Port: 4001</em></strong> setzen:</p>
+href="http://atube-catcher.dsnetwb.com">aTube Catcher</a> speziell f&uuml;r den Video Download. Konfiguration des
+Programms f&uuml;r anonyme Downloads ist <a href="https://anonymous-proxy-servers.net/wiki/index.php/Kompatible_Anwendungen#Video_Downloads_mit_aTube_Catcher">im Wiki beschrieben</a>.</p>
 
-<div align="center"><img alt="aTube Catcher Connection settings: HTTP proxy 127.0.0.1:4001"
-src="img_jondofox/aTubeCatcherConnection.png"></div>
+<h3><a name="filterAds" id="filterAds">Werbung filtern mit
+Adblock Plus</a></h3>
 
-<p>Als Abspielprogramm f&#xfc;r alle Betriebssysteme und alle Formate eignet
-sich der kostenlose <a href="http://www.videolan.org">VideoLAN Media Player</a>
-besonders gut.</p>
+<p>Adblock Plus <img alt="Adblock Plus" src="img_jondofox/abp-enabled-16.png">
+arbeitet als Werbefilter im Hintergrund. Normalerweise m&#xfc;ssen Sie dessen
+Einstellungen nicht ver&#xe4;ndern, k&#xf6;nnen aber jederzeit eigene
+Filterlisten erg&#xe4;nzen.</p>
+<hr>
 
 </body>
 </html>
