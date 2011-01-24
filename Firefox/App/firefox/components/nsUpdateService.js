@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 44 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 44 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
 */
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 Components.utils.import("resource://gre/modules/FileUtils.jsm");
@@ -40,9 +40,9 @@ const CATEGORY_UPDATE_TIMER               = "update-timer";
 
 const KEY_APPDIR          = "XCurProcD";
 const KEY_GRED            = "GreD";
-//@line 85 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 85 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
 const KEY_UPDROOT         = "UpdRootD";
-//@line 88 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 88 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
 
 const DIR_UPDATES         = "updates";
 const FILE_UPDATE_STATUS  = "update.status";
@@ -118,7 +118,7 @@ XPCOMUtils.defineLazyGetter(this, "gABI", function aus_gABI() {
   catch (e) {
     LOG("gABI - XPCOM ABI unknown: updates are not possible.");
   }
-//@line 172 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 177 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
   return abi;
 });
 
@@ -154,7 +154,7 @@ XPCOMUtils.defineLazyGetter(this, "gCanApplyUpdates", function aus_gCanApplyUpda
       updateTestFile.remove(false);
     updateTestFile.create(NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
     updateTestFile.remove(false);
-//@line 209 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 214 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
     var sysInfo = Cc["@mozilla.org/system-info;1"].
                   getService(Ci.nsIPropertyBag2);
 
@@ -163,7 +163,7 @@ XPCOMUtils.defineLazyGetter(this, "gCanApplyUpdates", function aus_gCanApplyUpda
     LOG("gCanApplyUpdates - windowsVersion = " + windowsVersion);
 
   /**
-//@line 226 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 231 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
    */
     var userCanElevate = false;
 
@@ -188,7 +188,7 @@ XPCOMUtils.defineLazyGetter(this, "gCanApplyUpdates", function aus_gCanApplyUpda
     }
 
     /**
-//@line 269 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 274 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
     if (!userCanElevate) {
       // if we're unable to create the test file this will throw an exception.
@@ -199,7 +199,7 @@ XPCOMUtils.defineLazyGetter(this, "gCanApplyUpdates", function aus_gCanApplyUpda
       appDirTestFile.create(NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
       appDirTestFile.remove(false);
     }
-//@line 281 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 286 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
   }
   catch (e) {
      LOG("gCanApplyUpdates - unable to apply updates. Exception: " + e);
@@ -252,7 +252,7 @@ function LOG(string) {
 }
 
 /**
-//@line 343 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 348 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
  */
 function getPref(func, preference, defaultValue) {
   try {
@@ -282,16 +282,16 @@ function binaryToHex(input) {
 }
 
 /**
-//@line 378 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 383 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
  */
 function getUpdateDirCreate(pathArray) {
-//@line 382 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 387 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
   try {
     let dir = FileUtils.getDir(KEY_UPDROOT, pathArray, true);
     return dir;
   } catch (e) {
   }
-//@line 389 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 394 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
   return FileUtils.getDir(KEY_APPDIR, pathArray, true);
 }
 
@@ -379,7 +379,7 @@ function writeStatusFile(dir, state) {
 }
 
 /**
-//@line 490 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 495 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
  */
 function writeVersionFile(dir, version) {
   var versionFile = dir.clone();
@@ -1202,7 +1202,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1324 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1329 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
 
     var neverPrefName = PREF_APP_UPDATE_NEVER_BRANCH + update.extensionVersion;
@@ -1229,7 +1229,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1366 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1371 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
      */
     if (update.type == "major") {
       LOG("Checker:_selectAndInstallUpdate - prompting because it is a major " +
@@ -1305,7 +1305,7 @@ UpdateService.prototype = {
 
     if (currentAddons.length > 0) {
       /**
-//@line 1459 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
+//@line 1464 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateService.js.in"
        */
       this._incompatAddonsCount = currentAddons.length;
       LOG("UpdateService:_checkAddonCompatibility - checking for " +
@@ -2384,7 +2384,7 @@ Downloader.prototype = {
         var message = getStatusTextFromCode(vfCode, vfCode);
         this._update.statusText = message;
 
-        if (this._update.isCompleteUpdate)
+        if (this._update.isCompleteUpdate || this._update.patchCount != 2)
           deleteActiveUpdate = true;
 
         // Destroy the updates directory, since we're done with it.
@@ -2430,13 +2430,11 @@ Downloader.prototype = {
     this._request = null;
 
     if (state == STATE_DOWNLOAD_FAILED) {
-      if (!this._update.isCompleteUpdate) {
-        var allFailed = true;
-
-        // If we were downloading a patch and the patch verification phase
-        // failed, log this and then commence downloading the complete update.
+      var allFailed = true;
+      // Check if there is a complete update patch that can be downloaded.
+      if (!this._update.isCompleteUpdate && this._update.patchCount == 2) {
         LOG("Downloader:onStopRequest - verification of patch failed, " +
-            "downloading complete update");
+            "downloading complete update patch");
         this._update.isCompleteUpdate = true;
         var status = this.downloadUpdate(this._update);
 
@@ -2445,38 +2443,37 @@ Downloader.prototype = {
         } else {
           allFailed = false;
         }
-        // This will reset the |.state| property on this._update if a new
-        // download initiates.
       }
 
-      // if we still fail after trying a complete download, give up completely
       if (allFailed) {
-        // In all other failure cases, i.e. we're S.O.L. - no more failing over
-        // ...
+        LOG("Downloader:onStopRequest - all update patch downloads failed");
+        // If the update UI is not open (e.g. the user closed the window while
+        // downloading) and if at any point this was a foreground download
+        // notify the user about the error. If the update was a background
+        // update there is no notification since the user won't be expecting it.
+        var wm = Cc["@mozilla.org/appshell/window-mediator;1"].
+                 getService(Ci.nsIWindowMediator);
+        if (!wm.getMostRecentWindow(UPDATE_WINDOW_NAME)) {
+          try {
+            this._update.QueryInterface(Ci.nsIWritablePropertyBag);
+            var fgdl = this._update.getProperty("foregroundDownload");
+          }
+          catch (e) {
+LOG("Downloader:onStopRequest - not a foreground download");
+          }
 
-        // If this was ever a foreground download, and now there is no UI active
-        // (e.g. because the user closed the download window) and there was an
-        // error, we must notify now. Otherwise we can keep the failure to
-        // ourselves since the user won't be expecting it.
-        try {
-          this._update.QueryInterface(Ci.nsIWritablePropertyBag);
-          var fgdl = this._update.getProperty("foregroundDownload");
+          if (fgdl == "true") {
+            LOG("Downloader:onStopRequest - foreground download... notifying " +
+                "user");
+            var prompter = Cc["@mozilla.org/updates/update-prompt;1"].
+                           createInstance(Ci.nsIUpdatePrompt);
+            prompter.showUpdateError(this._update);
+          }
         }
-        catch (e) {
-        }
-
-        if (fgdl == "true") {
-          var prompter = Cc["@mozilla.org/updates/update-prompt;1"].
-                         createInstance(Ci.nsIUpdatePrompt);
-          this._update.QueryInterface(Ci.nsIWritablePropertyBag);
-          this._update.setProperty("downloadFailed", "true");
-          prompter.showUpdateError(this._update);
-        }
+        // Prevent leaking the update object (bug 454964).
+        this._update = null;
       }
-
-      // Prevent leaking the update object (bug 454964)
-      this._update = null;
-      // the complete download succeeded or total failure was handled, so exit
+      // A complete download has been initiated or the failure was handled.
       return;
     }
 

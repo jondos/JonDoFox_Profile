@@ -1,4 +1,4 @@
-//@line 37 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
 
 const nsISupports            = Components.interfaces.nsISupports;
 
@@ -455,7 +455,7 @@ var nsBrowserContentHandler = {
       cmdLine.preventDefault = true;
     }
 
-//@line 494 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 494 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
     // Handle "? searchterm" for Windows Vista start menu integration
     for (var i = cmdLine.length - 1; i >= 0; --i) {
       var param = cmdLine.getArgument(i);
@@ -467,7 +467,7 @@ var nsBrowserContentHandler = {
         doSearch(searchParam, cmdLine);
       }
     }
-//@line 506 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 506 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
   },
 
   helpInfo : "  -browser            Open a browser window.\n",
@@ -676,15 +676,15 @@ var nsDefaultCommandLineHandler = {
   // running and have already been handled. This is compared against uri's
   // opened using DDE on Win32 so we only open one of the requests.
   _handledURIs: [ ],
-//@line 715 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 715 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
   _haveProfile: false,
-//@line 717 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 717 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
 
   /* nsICommandLineHandler */
   handle : function dch_handle(cmdLine) {
     var urilist = [];
 
-//@line 723 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 723 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
     // If we don't have a profile selected yet (e.g. the Profile Manager is
     // displayed) we will crash if we open an url and then select a profile. To
     // prevent this handle all url command line flags and set the command line's
@@ -704,7 +704,7 @@ var nsDefaultCommandLineHandler = {
         cmdLine.preventDefault = true;
       }
     }
-//@line 743 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 743 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
 
     try {
       var ar;
@@ -782,8 +782,7 @@ var nsDefaultCommandLineHandler = {
     }
   },
 
-  // XXX localize me... how?
-  helpInfo : "Usage: firefox [-flags] [<url>]\n",
+  helpInfo : "",
 
   /* nsIFactory */
   createInstance: function dch_CI(outer, iid) {
@@ -859,9 +858,9 @@ var Module = {
 
     registerType("text/html");
     registerType("application/vnd.mozilla.xul+xml");
-//@line 898 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 897 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
     registerType("image/svg+xml");
-//@line 900 "e:\builds\moz2_slave\win32_build\build\browser\components\nsBrowserContentHandler.js"
+//@line 899 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\nsBrowserContentHandler.js"
     registerType("text/rdf");
     registerType("text/xml");
     registerType("application/xhtml+xml");

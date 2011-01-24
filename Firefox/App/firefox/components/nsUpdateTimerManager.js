@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 39 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
+//@line 39 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
 */
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -30,7 +30,7 @@ function getObserverService() {
 }
 
 /**
-//@line 78 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
+//@line 78 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
  */
 function getPref(func, preference, defaultValue) {
   try {
@@ -42,7 +42,7 @@ function getPref(func, preference, defaultValue) {
 }
 
 /**
-//@line 92 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
+//@line 92 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
  */
 function LOG(string) {
   if (gLogEnabled) {
@@ -52,7 +52,7 @@ function LOG(string) {
 }
 
 /**
-//@line 104 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
+//@line 104 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
  */
 function TimerManager() {
   getObserverService().addObserver(this, "xpcom-shutdown", false);
@@ -64,7 +64,7 @@ TimerManager.prototype = {
   _timer: null,
 
   /**
-//@line 117 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
+//@line 117 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
    */
    _timerInterval: null,
 
@@ -74,7 +74,7 @@ TimerManager.prototype = {
   _timers: { },
 
   /**
-//@line 132 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
+//@line 132 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
    */
   get _fudge() {
     return Math.round(Math.random() * this._timerInterval / 1000);
@@ -111,7 +111,7 @@ TimerManager.prototype = {
                                  Ci.nsITimer.TYPE_REPEATING_SLACK);
   },
   /**
-//@line 171 "e:\builds\moz2_slave\win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
+//@line 171 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\mozapps\update\src\nsUpdateTimerManager.js"
    */
   notify: function TM_notify(timer) {
     var prefLastUpdate;

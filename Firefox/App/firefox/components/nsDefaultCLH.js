@@ -1,4 +1,4 @@
-//@line 38 "e:\builds\moz2_slave\win32_build\build\toolkit\components\nsDefaultCLH.js"
+//@line 38 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\nsDefaultCLH.js"
 
 const nsISupports              = Components.interfaces.nsISupports;
 

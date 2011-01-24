@@ -1,4 +1,4 @@
-//@line 39 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\FeedConverter.js"
+//@line 39 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\FeedConverter.js"
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -647,7 +647,7 @@ function NSGetModule(cm, file) {
   return Module;
 }
 
-//@line 44 "e:\builds\moz2_slave\win32_build\build\toolkit\content\debug.js"
+//@line 44 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\content\debug.js"
 
 var EXPORTED_SYMBOLS = ["NS_ASSERT"];
 
@@ -729,7 +729,7 @@ function NS_ASSERT(condition, message) {
            getService(Components.interfaces.nsIPromptService);
   ps.alert(source, "Assertion Failed", assertionText + stackText);
 }
-//@line 37 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\GenericFactory.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\GenericFactory.js"
 
 /**
  * An object implementing nsIFactory that can construct other objects upon

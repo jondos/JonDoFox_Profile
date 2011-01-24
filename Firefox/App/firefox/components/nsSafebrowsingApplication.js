@@ -10,7 +10,7 @@ Function.prototype.inherits = function(parentCtor) {
   this.prototype = new tempCtor();
 }  
 
-//@line 36 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\content\application.js"
+//@line 36 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\content\application.js"
 
 // We instantiate this variable when we create the application.
 var gDataProvider = null;
@@ -32,7 +32,7 @@ var gDataProvider = null;
 function PROT_Application() {
   this.debugZone= "application";
 
-//@line 83 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\content\application.js"
+//@line 83 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\content\application.js"
   
   // expose some classes
   this.PROT_PhishingWarden = PROT_PhishingWarden;
@@ -91,7 +91,7 @@ PROT_Application.prototype.QueryInterface = function(iid) {
 
   throw Components.results.NS_ERROR_NO_INTERFACE;
 }
-//@line 37 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\content\globalstore.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\content\globalstore.js"
 
 
 // A class that encapsulates data provider specific values.  The
@@ -113,9 +113,9 @@ PROT_Application.prototype.QueryInterface = function(iid) {
 const kDataProviderIdPref = 'browser.safebrowsing.dataProvider';
 const kProviderBasePref = 'browser.safebrowsing.provider.';
 
-//@line 59 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\content\globalstore.js"
+//@line 59 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\content\globalstore.js"
 const MOZ_OFFICIAL_BUILD = true;
-//@line 63 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\content\globalstore.js"
+//@line 63 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\content\globalstore.js"
 
 const MOZ_PARAM_LOCALE = /\{moz:locale\}/g;
 const MOZ_PARAM_CLIENT = /\{moz:client\}/g;
@@ -284,7 +284,7 @@ PROT_DataProvider.prototype.getReportMalwareURL = function() {
 PROT_DataProvider.prototype.getReportMalwareErrorURL = function() {
   return this.reportMalwareErrorURL_;
 }
-//@line 37 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\content\list-warden.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\content\list-warden.js"
 
 // A warden that knows how to register lists with a listmanager and keep them
 // updated if necessary.  The ListWarden also provides a simple interface to
@@ -384,7 +384,7 @@ PROT_ListWarden.prototype.registerWhiteTable = function(tableName) {
   }
   return result;
 }
-//@line 36 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\content\phishing-warden.js"
+//@line 36 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\content\phishing-warden.js"
 
 
 // The warden checks request to see if they are for phishy pages. It
@@ -513,7 +513,7 @@ PROT_PhishingWarden.prototype.onPhishWardenEnabledPrefChanged = function(
     this.prefs_.getPref(prefName, this.phishWardenEnabled_);
   this.maybeToggleUpdateChecking();
 }
-//@line 37 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\content\malware-warden.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\content\malware-warden.js"
 
 // This warden manages updates to the malware list
 
@@ -634,7 +634,7 @@ PROT_MalwareWarden.prototype.onMalwareWardenEnabledPrefChanged = function(
     this.prefs_.getPref(prefName, this.malwareWardenEnabled_);
   this.maybeToggleUpdateChecking();
 }
-//@line 18 "e:\builds\moz2_slave\win32_build\build\browser\components\safebrowsing\src\nsSafebrowsingApplication.js"
+//@line 18 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\safebrowsing\src\nsSafebrowsingApplication.js"
 
 var modScope = this;
 function Init() {

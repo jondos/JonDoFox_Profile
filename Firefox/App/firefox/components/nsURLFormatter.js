@@ -1,4 +1,4 @@
-//@line 37 "e:\builds\moz2_slave\win32_build\build\toolkit\components\urlformatter\src\nsURLFormatter.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\urlformatter\src\nsURLFormatter.js"
 /**
  * @class nsURLFormatterService
  *

@@ -1,4 +1,4 @@
-//@line 41 "e:\builds\moz2_slave\win32_build\build\browser\components\microsummaries\src\nsMicrosummaryService.js"
+//@line 41 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\microsummaries\src\nsMicrosummaryService.js"
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;

@@ -1,4 +1,4 @@
-//@line 39 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\WebContentConverter.js"
+//@line 39 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\WebContentConverter.js"
 
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -903,7 +903,7 @@ function NSGetModule(cm, file) {
   return XPCOMUtils.generateModule([WebContentConverterRegistrar]);
 }
 
-//@line 44 "e:\builds\moz2_slave\win32_build\build\toolkit\content\debug.js"
+//@line 44 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\content\debug.js"
 
 var EXPORTED_SYMBOLS = ["NS_ASSERT"];
 
@@ -985,5 +985,5 @@ function NS_ASSERT(condition, message) {
            getService(Components.interfaces.nsIPromptService);
   ps.alert(source, "Assertion Failed", assertionText + stackText);
 }
-//@line 944 "e:\builds\moz2_slave\win32_build\build\browser\components\feeds\src\WebContentConverter.js"
+//@line 944 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\browser\components\feeds\src\WebContentConverter.js"
 

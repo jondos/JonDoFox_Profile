@@ -1,9 +1,9 @@
-//@line 37 "e:\builds\moz2_slave\win32_build\build\toolkit\components\url-classifier\src\nsUrlClassifierListManager.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\url-classifier\src\nsUrlClassifierListManager.js"
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 
-//@line 37 "e:\builds\moz2_slave\win32_build\build\toolkit\components\url-classifier\content\listmanager.js"
+//@line 37 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\url-classifier\content\listmanager.js"
 
 
 // A class that manages lists, namely white and black lists for
@@ -537,7 +537,7 @@ PROT_ListManager.prototype.QueryInterface = function(iid) {
 
   throw Components.results.NS_ERROR_NO_INTERFACE;
 }
-//@line 42 "e:\builds\moz2_slave\win32_build\build\toolkit\components\url-classifier\src\nsUrlClassifierListManager.js"
+//@line 42 "e:\builds\moz2_slave\release-mozilla-1.9.2-win32_build\build\toolkit\components\url-classifier\src\nsUrlClassifierListManager.js"
 
 var modScope = this;
 function Init() {
