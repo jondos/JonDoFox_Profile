@@ -364,6 +364,7 @@ getProfileFolder()
 		
 		esac
 	fi
+	chmod -R ugo-x,u+rwX,go+rX,go-w profile_lite 
 	return 0
 	
 }
@@ -610,3 +611,4 @@ fi
 
 createSelectedPackages
 exit 0
+
