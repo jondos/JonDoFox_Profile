@@ -20,6 +20,8 @@ locale    adblockplus el jar:chrome/adblockplus.jar!/locale/el/
 locale    adblockplus en-GB jar:chrome/adblockplus.jar!/locale/en-GB/
 locale    adblockplus es-AR jar:chrome/adblockplus.jar!/locale/es-AR/
 locale    adblockplus es-ES jar:chrome/adblockplus.jar!/locale/es-ES/
+locale    adblockplus es-MX jar:chrome/adblockplus.jar!/locale/es-MX/
+locale    adblockplus fa jar:chrome/adblockplus.jar!/locale/fa/
 locale    adblockplus fi jar:chrome/adblockplus.jar!/locale/fi/
 locale    adblockplus fr jar:chrome/adblockplus.jar!/locale/fr/
 locale    adblockplus fy-NL jar:chrome/adblockplus.jar!/locale/fy-NL/
@@ -28,17 +30,14 @@ locale    adblockplus he jar:chrome/adblockplus.jar!/locale/he/
 locale    adblockplus hr jar:chrome/adblockplus.jar!/locale/hr/
 locale    adblockplus hu jar:chrome/adblockplus.jar!/locale/hu/
 locale    adblockplus hy-AM jar:chrome/adblockplus.jar!/locale/hy-AM/
-locale    adblockplus id jar:chrome/adblockplus.jar!/locale/id/
 locale    adblockplus is jar:chrome/adblockplus.jar!/locale/is/
 locale    adblockplus it jar:chrome/adblockplus.jar!/locale/it/
 locale    adblockplus ja jar:chrome/adblockplus.jar!/locale/ja/
 locale    adblockplus kk-KZ jar:chrome/adblockplus.jar!/locale/kk-KZ/
 locale    adblockplus ko jar:chrome/adblockplus.jar!/locale/ko/
 locale    adblockplus mn jar:chrome/adblockplus.jar!/locale/mn/
-locale    adblockplus ms-MY jar:chrome/adblockplus.jar!/locale/ms-MY/
 locale    adblockplus nl jar:chrome/adblockplus.jar!/locale/nl/
 locale    adblockplus pl jar:chrome/adblockplus.jar!/locale/pl/
-locale    adblockplus pt-BR jar:chrome/adblockplus.jar!/locale/pt-BR/
 locale    adblockplus pt-PT jar:chrome/adblockplus.jar!/locale/pt-PT/
 locale    adblockplus ro jar:chrome/adblockplus.jar!/locale/ro/
 locale    adblockplus ru jar:chrome/adblockplus.jar!/locale/ru/
@@ -52,15 +51,13 @@ locale    adblockplus uk jar:chrome/adblockplus.jar!/locale/uk/
 locale    adblockplus vi jar:chrome/adblockplus.jar!/locale/vi/
 locale    adblockplus zh-CN jar:chrome/adblockplus.jar!/locale/zh-CN/
 locale    adblockplus zh-TW jar:chrome/adblockplus.jar!/locale/zh-TW/
- 
+content   adblockplus-modules modules/
+content   adblockplus-defaults defaults/
+
 # Component registration
-component {d32a3c00-4ed3-11de-8a39-0800200c9a66} components/AdblockPlus.js
+component {d32a3c00-4ed3-11de-8a39-0800200c9a66} components/Initializer.js
 contract @adblockplus.org/abp/startup;1 {d32a3c00-4ed3-11de-8a39-0800200c9a66}
 category profile-after-change @adblockplus.org/abp/startup;1 @adblockplus.org/abp/startup;1
-component {259c2980-505f-11de-8a39-0800200c9a66} components/AdblockPlus.js
-contract @mozilla.org/adblockplus;1 {259c2980-505f-11de-8a39-0800200c9a66}
-category content-policy @mozilla.org/adblockplus;1 @mozilla.org/adblockplus;1
-category net-channel-event-sinks @mozilla.org/adblockplus;1 @mozilla.org/adblockplus;1
 
 # Hack to prevent .Net Framework Assistant from messing up the browser
 override chrome://dotnetassistant/content/bootstrap.xul data:text/xml,<nada/>

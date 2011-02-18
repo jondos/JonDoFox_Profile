@@ -7,10 +7,10 @@ content	profilelauncher	jar:chrome/profilelauncher.jar!/content/profilelauncher/
 
 locale	profilelauncher	en-US	jar:chrome/profilelauncher.jar!/locale/en-US/profilelauncher/
 locale	profilelauncher	it-IT	jar:chrome/profilelauncher.jar!/locale/it-IT/profilelauncher/
-locale	profilelauncher	fr-FR   jar:chrome/profilelauncher.jar!/locale/fr-FR/profilelauncher/
-locale	profilelauncher	de-DE   jar:chrome/profilelauncher.jar!/locale/de-DE/profilelauncher/
+locale	profilelauncher	fr	jar:chrome/profilelauncher.jar!/locale/fr/profilelauncher/
+locale	profilelauncher	de   jar:chrome/profilelauncher.jar!/locale/de/profilelauncher/
 locale	profilelauncher	da-DK   jar:chrome/profilelauncher.jar!/locale/da-DK/profilelauncher/
-locale	profilelauncher	nl-NL   jar:chrome/profilelauncher.jar!/locale/nl-NL/profilelauncher/
+locale	profilelauncher	nl  jar:chrome/profilelauncher.jar!/locale/nl/profilelauncher/
 locale	profilelauncher	hu-HU   jar:chrome/profilelauncher.jar!/locale/hu-HU/profilelauncher/
 locale	profilelauncher	ko-KR   jar:chrome/profilelauncher.jar!/locale/ko-KR/profilelauncher/
 locale	profilelauncher	pt-BR   jar:chrome/profilelauncher.jar!/locale/pt-BR/profilelauncher/
@@ -19,5 +19,8 @@ locale	profilelauncher	es-ES   jar:chrome/profilelauncher.jar!/locale/es-ES/prof
 locale	profilelauncher	pl-PL   jar:chrome/profilelauncher.jar!/locale/pl-PL/profilelauncher/
 locale	profilelauncher	ru-RU   jar:chrome/profilelauncher.jar!/locale/ru-RU/profilelauncher/
 locale	profilelauncher	tr-TR   jar:chrome/profilelauncher.jar!/locale/tr-TR/profilelauncher/
+locale	profilelauncher	uk-UA   jar:chrome/profilelauncher.jar!/locale/uk-UA/profilelauncher/
+locale	profilelauncher	sv-SE   jar:chrome/profilelauncher.jar!/locale/sv-SE/profilelauncher/
+locale	profilelauncher	zh-CN   jar:chrome/profilelauncher.jar!/locale/zh-CN/profilelauncher/
 
 
