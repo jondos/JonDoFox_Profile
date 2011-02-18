@@ -464,15 +464,15 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section "CS Lite" CSLite
+        Section "Cookie Monster" CSLite
         SectionIn 1 2         
-                StrCpy $ExtensionGUID "{00084897-021a-4361-8423-083407a033e0}"
-                StrCpy $ExtensionName "CSLite"
+                StrCpy $ExtensionGUID "{45d8ff86-d909-11db-9705-005056c00008}"
+                StrCpy $ExtensionName "Cookie Monster"
 
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{00084897-021a-4361-8423-083407a033e0}\*.*"
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{45d8ff86-d909-11db-9705-005056c00008}\*.*"
 
         SectionEnd
         
