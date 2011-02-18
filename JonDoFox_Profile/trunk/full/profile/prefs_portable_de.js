@@ -45,7 +45,7 @@ user_pref("browser.places.updateRecentTagsUri", false);
 user_pref("browser.preferences.advanced.selectedTabIndex", 0);
 user_pref("browser.preferences.privacy.selectedTabIndex", 5);
 user_pref("browser.rights.3.shown", true);
-user_pref("browser.search.selectedEngine", "Ixquick (de)");
+user_pref("browser.search.selectedEngine", "Startingpage HTTPS - Deutsch");
 user_pref("browser.search.update", false);
 user_pref("browser.search.useDBForOrder", true);
 user_pref("browser.sessionstore.enabled", false);
