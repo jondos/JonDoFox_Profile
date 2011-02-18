@@ -7,19 +7,19 @@
  *                             \___/
  * 
  *  Compunach UnPlug
- *  Copyright (C) 2009 David Batley <unplug@dbatley.com>
+ *  Copyright (C) 2010 David Batley <unplug@dbatley.com>
  *
  *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 2 of the License, or
- *  (at your option) any later version.
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
  * 
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  * 
- *  You should have received a copy of the GNU General Public License
+ *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
@@ -39,7 +39,8 @@ UnPlug2Download = function (reference, url, post_data, callback_ok, callback_fai
 	this._extern_callback_fail = callback_fail;
 	this._done = false;
 	this._percent = 0;
-	this._xmlhttp = new XMLHttpRequest();
+	this._xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
+		.createInstance(Components.interfaces.nsIXMLHttpRequest);
 	this._timeout_delay = timeout;
 	this.text = null;
 	this.xmldoc = null;
@@ -62,6 +63,11 @@ UnPlug2Download = function (reference, url, post_data, callback_ok, callback_fai
 	return this;
 }
 UnPlug2Download.prototype = {
+	load_flags : (
+		// load from cache (if possible)
+		Components.interfaces.nsIRequest.LOAD_FROM_CACHE
+		// supress popup warnings, http auth prompts, etc
+		| Components.interfaces.nsIRequest.LOAD_BACKGROUND),
 	/**
 	 * Returns true if the download has started
 	 */
@@ -70,25 +76,38 @@ UnPlug2Download.prototype = {
 	},
 	
 	/**
-	 * Starts the download
+	 * Starts the download (possibly after a small delay)
 	 */
-	start : function () {
+	start : function (delay) {
 		if (this._started) {
 			return;
 		}
 		this._started = true;
+		if (delay) {
+			window.setTimeout((function (that) {
+				return (function () {
+					that._do_start();
+				})
+			})(this), delay);
+		} else {
+			this._do_start();
+		}
+	},
+	_do_start : function () {
 		if (this._done) {
 			return; // this is set on cancel.
 		}
 		var realthis = this;
-		this._timeout = window.setTimeout(function () { realthis._timeout_callback(); }, this._timeout_delay);
+		this._timeout = window.setTimeout((function () { realthis._timeout_callback(); }), this._timeout_delay);
 		
 		if (this._post_data) {
 			this._xmlhttp.open('POST', this.url, true);  
+			this._xmlhttp.channel.loadFlags |= this.load_flags;
 			this._xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			this._xmlhttp.send(this._post_data);
 		} else {
 			this._xmlhttp.open('GET', this.url, true);  
+			this._xmlhttp.channel.loadFlags |= this.load_flags;
 			this._xmlhttp.send(null); 
 		}
 	},
@@ -278,7 +297,15 @@ UnPlug2Variables.prototype = {
 			 * Decodes url %nn escape codes in variable
 			 */
 			case "urldecode":
-				return unescape(this._subst_apply_functions(parts)).replace("+", " ", "g");
+				// we could use decodeURI here, but that fails to
+				// unescape all the characters we want (colon, slash, ...)
+				// but we still want to interpret as unicode
+				var v = this._subst_apply_functions(parts)
+				return UnPlug2.decode("UTF-8", unescape(v)).replace("+", " ", "g");
+			case "urldecode_unicode":
+				var encoding = parts.pop();
+				var v = this._subst_apply_functions(parts)
+				return UnPlug2.decode(encoding, unescape(v)).replace("+", " ", "g");
 			/**
 			 * Encodes url %nn escape codes in variable
 			 */
@@ -362,7 +389,7 @@ UnPlug2Variables.prototype = {
 			 * ${either:var1:var2:....}
 			 */
 			case "either":
-				while (parts) {
+				while (parts.length > 0) {
 					var p = parts.pop()
 					var z = "";
 					try {
@@ -562,8 +589,9 @@ UnPlug2Variables.prototype = {
 
 	youku_url : (function (mediatype, key1, key2, randomseed, streamid, piece_num) {
 		var r = (function () { return "0123456789"[Math.floor(Math.random() * 10)] });
+		var hex = "0123456789ABCDEF"
 		
-		piece_num = ((parseInt(piece_num) < 10) ? "0" : "") + piece_num;
+		piece_num = hex[Math.floor(piece_num / 16)] + hex[piece_num % 16];
 		
 		// get the codebook like in cg_hun()
 		var codebook = ""
@@ -690,7 +718,21 @@ UnPlug2Search = {
 	},
 	
 	poll : function () {
+		var statusinfo = UnPlug2Search.statusinfo();
+		UnPlug2Search.callback(statusinfo);
+		
+		// noting to do, so lets stop
+		if (statusinfo.finished) {
+			UnPlug2.log("Finished search");
+			UnPlug2Search._stopped = true;
+		}
+		
 		if (UnPlug2Search._stopped) {
+			// a message with type=progress finished=true will have
+			// been sent, so we can stop the poller.
+			UnPlug2.log("Stopping: search finished.");
+			window.clearInterval(UnPlug2Search._poll_timer);
+			UnPlug2Search._poll_timer = null;
 			return;
 		}
 		
@@ -730,7 +772,8 @@ UnPlug2Search = {
 		for (var i = 0; i < startable_downloads.length && i < concurrent_downloads; ++i) {
 			var dl_id = startable_downloads[i];
 			try {
-				UnPlug2Search._downloads[dl_id].download.start();
+				// use a small (100ms) delay here so we don't block main thread for a long time
+				UnPlug2Search._downloads[dl_id].download.start(100);
 				UnPlug2.log("Starting download id = " + dl_id);
 			} catch (e) {
 				UnPlug2.log("Starting Download failed for " + dl_id + " / " + UnPlug2Search._downloads[dl_id].download + " because " + e);
@@ -842,25 +885,36 @@ UnPlug2Search = {
 	 * Callback may be called both immediately, and after additional files are downloaded.
 	 */
 	search : function (win, callback) {
-		if (!this.has_finished()) {
+		if (!this.statusinfo().finished) {
 			throw "Already in search";
 		}
 		
-		// assign callback func
+		// start search poller
+		this._reset();
 		this.callback = callback;
+		// don't let UnPlug2Search.poll suggest we've finished before we really start
+		// (ie: fix race condition). This gets decremented later.
+		UnPlug2Search._defered_rules_count += 1;
+		if (!UnPlug2Search._poll_timer) {
+			UnPlug2Search._poll_timer = window.setInterval(UnPlug2Search.poll, 100);
+		}
 		
 		this._apply_rules_to_window(
 			win,
 			this.get_rules_xml(),
 			this.blank_variables);
 		
-		if (UnPlug2.get_pref("popularity_contest"))
-			new UnPlug2Download(
+		UnPlug2Search._defered_rules_count -= 1; // see above
+		
+		if (UnPlug2.get_pref("popularity_contest")) {
+			var dl = new UnPlug2Download(
 				null, // ref
 				"http://unplug.dbatley.com/popularity_contest/submit.cgi",
 				"useragent=" +  escape(window.navigator.userAgent) + "&url="  + escape(win.location.href) + "&version=" + UnPlug2.version + "&revision=" + UnPlug2.revision + "&codename=" + UnPlug2.codename,
 				null, null, // callbacks
 				10000);
+			dl.start()
+		}
 	},
 	
 	/**
@@ -1007,9 +1061,6 @@ UnPlug2Search = {
 			if (!node.tagName) {
 				continue;
 			}
-			if (node.tagName == "hook") {
-				continue;
-			}
 			var nodetagname = node.tagName.toLowerCase();
 			if (nodetagname.substring(0, 3) != "if_" && nodetagname.substring(0, 6) != "ifnot_" && nodetagname.substring(0, 9) != "optional_" && nodetagname.substring(0, 5) != "each_") {
 				try {
@@ -1028,13 +1079,37 @@ UnPlug2Search = {
 								if (!referenced_node)
 									throw "Cannot find node to goto " + node.getAttribute("goto");
 							}
-							UnPlug2Search._apply_rules_to_document(
-								url,
-								text,
-								doc,
-								referenced_node,
-								updated_variables)
+							if (node.hasAttribute("defer")) {
+								/*
+								the code below does a good job of keeping the arguments the same
+								ie: referenced_node does not change to the last one in the file inside the timeout
+								but it is a rather insane
+								*/
+								UnPlug2Search._defered_rules_count += 1;
+								window.setTimeout((function (args) {
+									return (function () {
+									UnPlug2Search._defered_rules_count -= 1;
+									UnPlug2Search._apply_rules_to_document.apply(UnPlug2Search, args);
+									})
+									})([
+										url,
+										text,
+										doc,
+										referenced_node,
+										updated_variables ])
+									, 500)
+							} else {
+								UnPlug2Search._apply_rules_to_document(
+									url,
+									text,
+									doc,
+									referenced_node,
+									updated_variables);
+							}
 							break;
+						case "hook":
+							// do nothing
+							break
 						case "download":
 						case "playlist": // synonym, eg for .3mu/.asx files which we can parse
 							var relative_url = updated_variables.subst(node.getAttribute("url"));
@@ -1071,7 +1146,7 @@ UnPlug2Search = {
 							# file naming options
 							title="A kitten"           # default -- guess from url or "no title"
 							type="flv"                 # default -- guess from url or "flv"
-							certainty="low"            # default "mid" (used to decide which name is "right" when merging duplicates)
+							certainty="low"            # default "high" (used to decide which name is "right" when merging duplicates)
 							
 							# grouping same media with different quality settings
 							mediaid="foo"              # default url (used to group media which are the same but are different quality settings
@@ -1100,8 +1175,9 @@ UnPlug2Search = {
 									};
 							}
 							if (node.hasAttribute("referer")) {
-								download_method.referer = updated_variables.subst_optional(node.getAttribute("referer")) || undefined;
+								download_method.referer = updated_variables.subst_optional(node.getAttribute("referer"));
 							}
+							download_method.referer = download_method.referer || String(UnPlug2SearchPage._win.location);
 							
 							// make response
 							var result = UnPlug2Search._make_response_object_result(
@@ -1129,7 +1205,8 @@ UnPlug2Search = {
 	 * The format is JSON-compatible
 	 * (no no native objects, etc)
 	 * 
-	 * Download method must be a javascrit object. It's used by download components (eg "copy url", "save with firefox", "save with dta", etc) to decide how and if they work. Examples below:
+	 * Download method must be a JSON object (it's sent to the callback function). It must have a type of "result".
+	 * It's used by download components (eg "copy url", "save with firefox", "save with dta", etc) to decide how and if they work. Examples below:
 	 * { "link" : url }
 	 * 	for basic urls
 	 * { "link" : url, "referer" : referer }.
@@ -1228,32 +1305,18 @@ UnPlug2Search = {
 	 */
 	_reset : function () {
 		// "this" is a lie!!
-		UnPlug2Search.callback = function ( res ) { UnPlug2.log("Cannot use callback for result " + res); };
+		UnPlug2Search.callback = function ( res ) { UnPlug2.log("Cannot use callback for result " + res.toSource()); };
 		UnPlug2Search._downloads = [];
 		UnPlug2Search._do_download_poll = false;
-		if (!UnPlug2Search._poll_timer) {
-			UnPlug2Search._poll_timer = window.setInterval(UnPlug2Search.poll, 100);
-		}
-	},
-	
-	/**
-	 * Returns false if still doing stuff
-	 * TODO - depricate this in favor of statusinfo()
-	 */
-	has_finished : function () {
-		for (var i = 0; i < UnPlug2Search._downloads.length; i++) {
-			if (UnPlug2Search._downloads[i] && UnPlug2Search._downloads[i].download)
-				return false;
-		}
-		// TODO - more checks about doing stuff while not downloading stuff
-		return true;
+		UnPlug2Search._defered_rules_count = 0;
 	},
 	
 	/**
 	 * Returns information about the current status
+	 * The object returned should be JSONable and have a type of "progress"
 	 */
 	statusinfo : function () {
-		var info = { downloads : 0, finished : false, percent : 0 };
+		// count remaining objects / data
 		var attempted_downloads = 0;
 		var active_downloads = 0;
 		var completed_pct = 0;
@@ -1272,21 +1335,13 @@ UnPlug2Search = {
 				}
 			}
 		}
-		info.downloads = active_downloads;
-		// info.percent = 100 * (attempted_downloads - active_downloads) / (attempted_downloads || 1);
-		info.percent = completed_pct / (attempted_downloads || 1);
-		switch (info.downloads) {
-			case 0:
-				info.finished = true;
-				info.text = UnPlug2.str("search_done");
-				break;
-			case 1:
-				info.text = UnPlug2.str("search_1_active_download");
-				break;
-			default:
-				info.text = UnPlug2.str("search_n_active_downloads").replace("#", info.downloads);
-				break;
-		}
+		var finished_ok = (active_downloads == 0 && UnPlug2Search._defered_rules_count == 0) ? true : false;
+		var info = {
+			type : "progress",
+			downloads : active_downloads,
+			finished : (finished_ok || UnPlug2Search._stopped) ? true : false,
+			percent : completed_pct / (attempted_downloads || 1)
+		};
 		return info;
 	},
 	

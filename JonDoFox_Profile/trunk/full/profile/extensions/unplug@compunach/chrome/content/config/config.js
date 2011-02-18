@@ -7,19 +7,19 @@
  *                             \___/
  * 
  *  Compunach UnPlug
- *  Copyright (C) 2009 David Batley <unplug@dbatley.com>
+ *  Copyright (C) 2010 David Batley <unplug@dbatley.com>
  *
  *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 2 of the License, or
- *  (at your option) any later version.
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
  * 
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  * 
- *  You should have received a copy of the GNU General Public License
+ *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
@@ -30,19 +30,14 @@ function do_load() {
 			setup_unplug();
 		}
 	}
-	populate_configs();
+	set_text();
 	detect_toolbarbutton();
-	goto_tab_requested()
+	goto_tab_requested();
 }
 
-function populate_configs() {
-	var elemlist = document.getElementsByTagName("configwrapper");
-	for (var i = 0; i < elemlist.length; i++) {
-		var el = elemlist[i];
-		var value = UnPlug2.get_pref(el.getAttribute("name"), el.getAttribute("default"));
-		el.setValue(value);
-	}
-	document.getElementById("version").setAttribute("value", "Version: " + UnPlug2.version.toFixed(3) + " (" + UnPlug2.codename + ") " + UnPlug2.revision);
+function set_text() {
+	document.getElementById("dmethod-saveas").setAttribute("label", UnPlug2.str("dmethod.saveas"))
+	document.getElementById("dmethod-openover").setAttribute("label", UnPlug2.str("dmethod.open-over"))
 }
 
 function browser_window() {
@@ -105,34 +100,27 @@ function toggle_toolbarbutton() {
 	}
 }
 
-
-function save_configs() {
-	var elemlist = document.getElementsByTagName("configwrapper");
-	for (var i = 0; i < elemlist.length; i++) {
-		var el = elemlist[i];
-		var value = UnPlug2.set_pref(el.getAttribute("name"), el.getValue());
-	}
-}
-
 function goto_tab_requested() {
 	if (window.arguments && window.arguments.length >= 1)
 		goto_tab(window.arguments[0]);
 }
 
 function goto_tab(tabname) {
-	var tb = document.getElementById("tabbox");
+	var pwin = document.getElementById("cn_unplug2_config");
+	var p = null;
 	switch (tabname) {
 		case "welcome":
 		case "setup":
-			tb.selectedIndex = 3;
+			p = document.getElementById("tababout");
 			break;
 		case "main":
-			tb.selectedIndex = 0;
+			p = document.getElementById("tabgeneral");
 			break;
 		case "downloader":
-			tb.selectedIndex = 1;
+			p = document.getElementById("tabdownload");
 			break;
 	}
+	pwin.showPane(p);
 }
 
 /*
