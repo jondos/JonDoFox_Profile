@@ -33,7 +33,7 @@ const CU = Components.utils;
 ///////////////////////////////////////////////////////////////////////////////
 
 var RequestObserver = function() {
-  this.wrappedJSObject = this
+  this.wrappedJSObject = this;
 };
 
 RequestObserver.prototype = {
@@ -52,6 +52,7 @@ RequestObserver.prototype = {
           getService().wrappedJSObject;
       this.safeCache = CC['@jondos.de/safecache;1'].
           getService().wrappedJSObject;
+      this.safeCache.init();
       this.tldService = CC['@mozilla.org/network/effective-tld-service;1'].
           getService(Components.interfaces.nsIEffectiveTLDService);
       this.cookiePerm = CC['@mozilla.org/cookie/permission;1'].
@@ -69,9 +70,22 @@ RequestObserver.prototype = {
     var oldRef;
     var refDomain;
     var acceptHeader;
+    var notificationCallbacks;
+    var domWin;
     try {
+      // Getting the content window for resetting window.name and history.length
+      notificationCallbacks = 
+          channel.notificationCallbacks ? channel.notificationCallbacks : 
+             channel.loadGroup.notificationCallbacks;
+      if (!notificationCallbacks) {
+        log("We found no Notificationcallbacks!");
+      } else {
+        domWin = notificationCallbacks.
+	      getInterface(CI.nsIDOMWindow).content;
+      }
       // Perform safecache
-      if (this.prefsHandler.getBoolPref('stanford-safecache.enabled')) {
+      if (this.prefsHandler.
+	    getBoolPref('extensions.jondofox.stanford-safecache_enabled')) {
 	channel.QueryInterface(CI.nsIHttpChannelInternal);
         channel.QueryInterface(CI.nsICachingChannel);
         this.safeCache.safeCache(channel); 
@@ -103,18 +117,19 @@ RequestObserver.prototype = {
         } catch (e if e.name === "NS_ERROR_NOT_AVAILABLE") {
           // The header is not set
           log("Referrer is not set!");
-          oldRef = false;
         }
 
-	// We leave the Referer if we found 3rd party content. Otherwise, 
-        // if no Referer is set we imitate Firefox' behavior and do not set
-        // one as well. If we have a Referer indicating the user came from a
-	// different domain and do not get an originating URI we set the 
-	// Referer for security's sake to null. The same holds for the case
-	// were the user came from a different domain and we got a originating
-	// URI but found no 3rd party content.
-        if (baseDomain !== suffix && oldRef) {
-          log ("URI is: " + baseDomain);
+	// We leave the Referer in the case that we have one and it's domain is
+	// the same we came from. We leave it as well if we found 3rd party 
+	// content. Additionally, if no Referer is set we imitate Firefox' 
+	// behavior and do not set one as well. If we have a Referer indicating
+	// the user came from a different domain and do not get an originating 
+	// URI we set the Referer for security's sake to null. The same holds 
+	// for the case where the user came from a different domain and we got 
+	// a originating URI but found no 3rd party content.
+	// And, finally, the most important case: the Referer is set and the 
+	// user visits a new domain, we replace the old Referer with null.
+        if (suffix && baseDomain !== suffix) {
           try {
             originatingDomain = this.cookiePerm.getOriginatingURI(channel);
           } catch (e) {
@@ -132,7 +147,7 @@ RequestObserver.prototype = {
 	      } else {
                 originatingDomain = false;
 	        log("There occurred an error while trying to get the " + 
-		    "originatin Domain! " + e + " setting it to 'false'");	
+		    "originating Domain! " + e + " setting it to 'false'");	
 	      }
             }  
           }
@@ -143,8 +158,14 @@ RequestObserver.prototype = {
 	      log("Referrer (modified): " + 
 			      channel.getRequestHeader("Referer"));
 	    } catch (e if e.name === "NS_ERROR_NOT_AVAILABLE") {
-              // The header is not set
+              // The header is not set. That's good as deleting the old one
+	      // was successful!
               log("Referer is not set!");
+	      if (domWin && domWin.content.name !== "") {
+		log("window.name was set to: " + domWin.content.name + "!");
+                domWin.content.name = "";
+		log("Set it back to default ('')...");
+	      }
 	    }
           } else {
             if (originatingDomain !== "false") {
@@ -157,6 +178,18 @@ RequestObserver.prototype = {
           }
         } else {
           log("Referer not modified");
+	  // We have to check this here as well because the window identifier
+	  // could be existent even if no referrer was ever sent (i.e. in
+	  // the case where the user deploys bookmarks or HTTPS -> HTTP)...
+	  // But if the domain and subdomain owner is just relying on a
+	  // window.name identifier and not a referrer, well in this case 
+	  // she has bad luck :-) All those people having their JavaScript
+	  // disabled are not able to use her services and the JonDoFox users
+	  // either...
+          if (domWin && domWin.content.name !== "" && !suffix) {
+            domWin.content.name = "";
+            log("window.name was set! Set it back to default ('')...");
+	  }
         }
       }
 
@@ -165,14 +198,21 @@ RequestObserver.prototype = {
       // order to use them for all requests we must use setRequestHeader() and
       // give them as an argument...
       acceptHeader = this.prefsHandler.
-                          getStringPref("network.http.accept.default");
+                         getStringPref("network.http.accept.default");
       channel.setRequestHeader("Accept", acceptHeader, false);
-      
-      return true;
+      // The Mozilla Do Not Track header. Maybe it helps in some scenarios...
+      // See: http://donottrack.us
+      channel.setRequestHeader("DNT", 1, false);
+      // And we set X-Behavioral-Ad-Opt-Out as well... but only if major
+      // actors like NoScript or AdBlock are supporting it.
+      // channel.setRequestHeader("X-Behavioral-Ad-Opt-Out", 1, false);
     } catch (e) {
-      log("modifyRequest(): " + e);
+      if (e.name === "NS_NOINTERFACE") {
+        log("The requested interface is not available!");
+      } else {
+        log("modifyRequest(): " + e);
+      }
     }
-    return false;
   },
 
   // Call the forgery on every request
@@ -196,6 +236,8 @@ RequestObserver.prototype = {
       // because a redirection occurred. We also check whether the user allowed
       // a proxy circumvention of a HTTP download but we got one using HTTPS.
       // In this case we should allow circumvention as well but not vice versa.
+      // TODO: To get all redirects it is probably better to implement
+      // nsIChannelEventSink
       if (channel.URI.scheme === "https") {
         URIplain = "http".concat(channel.URI.spec.slice(5));
       }
@@ -224,7 +266,7 @@ RequestObserver.prototype = {
     }
   },
 
-  // This is called once on 'app-startup'
+  // This is called once on 'profile-after-change'
   registerObservers: function() {
     log("Register observers");
     try {
@@ -298,8 +340,7 @@ RequestObserver.prototype = {
     category: "profile-after-change",
   }],
 
-  QueryInterface: XPCOMUtils.generateQI([CI.nsISupports, CI.nsIObserver,
-				  CI.nsISupportsWeakReference])
+  QueryInterface: XPCOMUtils.generateQI([CI.nsISupports, CI.nsIObserver])
 };
 
 // XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).

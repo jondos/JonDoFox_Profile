@@ -1,7 +1,6 @@
 // General prefs
 pref("extensions.jondofox.last_version", "");
 pref("extensions.jondofox.new_profile", true);
-
 // Proxy state 
 pref("extensions.jondofox.proxy.state", "jondo");
 pref("extensions.jondofox.alwaysUseJonDo", false);
@@ -20,6 +19,7 @@ pref("extensions.jondofox.no_proxies_on", "localhost, 127.0.0.1");
 // Custom proxy
 pref("extensions.jondofox.custom.label", "");
 pref("extensions.jondofox.custom.user_agent", "normal");
+pref("extensions.jondofox.custom.proxyKeepAlive", true);
 pref("extensions.jondofox.custom.http_host", "");
 pref("extensions.jondofox.custom.http_port", 0);
 pref("extensions.jondofox.custom.ssl_host", "");
@@ -54,12 +54,12 @@ pref("extensions.jondofox.tor.ssl_port", 0);
 // Useragent
 // JonDo settings
 pref("extensions.jondofox.jondo.appname_override", "Netscape");
-pref("extensions.jondofox.jondo.appversion_override", "5.0 (Windows; en-us)");
+pref("extensions.jondofox.jondo.appversion_override", "5.0 (Windows; en-US)");
 pref("extensions.jondofox.jondo.buildID_override", "0");
-pref("extensions.jondofox.jondo.oscpu_override", "Windows NT 5.1");
+pref("extensions.jondofox.jondo.oscpu_override", "Windows NT 6.1");
 pref("extensions.jondofox.jondo.platform_override", "Win32");
-pref("extensions.jondofox.jondo.productsub_override", "2009021910");
-pref("extensions.jondofox.jondo.useragent_override", "Mozilla/5.0 (en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2");
+pref("extensions.jondofox.jondo.productsub_override", "20101203");
+pref("extensions.jondofox.jondo.useragent_override", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13");
 pref("extensions.jondofox.jondo.useragent_vendor", "");
 pref("extensions.jondofox.jondo.useragent_vendorSub", "");
 
@@ -102,22 +102,39 @@ pref("extensions.jondofox.security.default_personal_cert", "Ask Every Time");
 pref("extensions.jondofox.security.remember_cert_checkbox_default_setting", false);
 
 // Miscellaneous
+// Just in case someone has enabled it...
+pref("extensions.jondofox.browser_send_pings", false);
+// Do not let them know the full plugin path...
+pref("extensions.jondofox.plugin.expose_full_path", false);
+// Do not track users via their site specific zoom [sic!]
+pref("extensions.jondofox.browser.zoom.siteSpecific", false);
+// UA locale spoofing
+pref("extensions.jondofox.useragent_locale", "en-US");
 pref("extensions.jondofox.source_editor_external", false);
 pref("extensions.jondofox.dom_storage_enabled", false);
 pref("extensions.jondofox.geo_enabled", false);
 pref("extensions.jondofox.network_prefetch-next", false);
 pref("extensions.jondofox.cookieBehavior", 2);
 pref("extensions.jondofox.socks_remote_dns", true);
-// Only vaild for FF3
+// Only valid for FF4
+pref("extensions.jondofox.websocket.enabled", false);
+// Only valid for FF3
 pref("extensions.jondofox.history_expire_days", 0);
 // places.history.enabled replaces browser.history_expire_days in FF4
 pref("extensions.jondofox.history.enabled", false);
-pref("extensions.jondofox.proxy_keep-alive", false);
+pref("extensions.jondofox.http.accept_encoding", "gzip,deflate");
 pref("extensions.jondofox.noscript_contentBlocker", true);
 pref("extensions.jondofox.noscript_showDomain", false);
 //pref("extensions.jondofox.showAnontestNoProxy", true);
 pref("extensions.jondofox.search_suggest_enabled", false);
 pref("extensions.jondofox.delete_searchbar", true);
+//In order to delete Flash cookies as well, see bug 290456 
+pref("extensions.jondofox.sanitize.sanitizeOnShutdown", true);
+// Only valid for FF4
+// No pinging of Mozilla once a day for Metadata updates or whatever
+// See: http://blog.mozilla.com/addons/2011/02/10/add-on-metadata-start-up-time 
+pref("extensions.jondofox.update.autoUpdateDefault", false);
+pref("extensions.jondofox.donottrackheader.enabled", true);
 
 //SafeCache
 pref("extensions.jondofox.stanford-safecache_enabled", true);
@@ -126,3 +143,9 @@ pref("extensions.jondofox.stanford-safecache_enabled", true);
 pref("extensions.jondofox.certpatrol_enabled", true);
 pref("extensions.jondofox.certpatrol_showNewCert", false);
 pref("extensions.jondofox.certpatrol_showChangedCert", false);
+
+//AdBlocking
+pref("extensions.jondofox.adblock_enabled", true);
+
+//Bloody Vkings
+pref("extensions.jondofox.temp.email.selected", "10minutemail.com");

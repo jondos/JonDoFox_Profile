@@ -33,6 +33,12 @@ const CU = Components.utils;
 // Singleton instance definition
 var JDFManager = function(){
   this.wrappedJSObject = this;
+  // That CU call has to be here, otherwise it would not work. See:
+  // https://developer.mozilla.org/en/JavaScript/Code_modules/Using section
+  // "Custom modules and XPCOM components" 
+  //Components.utils.import("resource://jondofox/adblockModule.js", this);
+  //Components.utils.import("resource://jondofox/adblockFilter.js", this);
+  //Components.utils.import("resource://jondofox/adblockMatcher.js", this);  
 };
 
 JDFManager.prototype = {
@@ -67,6 +73,13 @@ JDFManager.prototype = {
   // Do we have a FF4 or still a FF3?
   ff4: true,
 
+  // If FF4, which version (the add-on bar exists since 4.0b7pre)
+  ff4Version: "",
+
+  // Part of a hack to show reliable the about:jondofox page in FF4 after a new
+  // version was detected.
+  newVersionDetected: false,
+
   // In FF4 the asynchronous AddOn-Manager leads to the problem that the found-
   // extensions-dialog appears in the background of the browser window. Thus, 
   // we avoid starting the dialog as early as in FF < 4 but save the found 
@@ -76,7 +89,9 @@ JDFManager.prototype = {
   // clicked on "OK".
   extensionsFound: [],
 
-  noscriptInstalled: true,
+  filterList: [],
+
+  isNoScriptInstalled: true,
 
   noscriptEnabled: true,
 
@@ -91,7 +106,8 @@ JDFManager.prototype = {
 
   // Necessary security extensions with their IDs
   necessaryExtensions: {
-    'NoScript':'{73a6fe31-595d-460b-a920-fcc0f8843232}'    
+    'NoScript':'{73a6fe31-595d-460b-a920-fcc0f8843232}',    
+    'Cookie Monster':'{45d8ff86-d909-11db-9705-005056c00008}'
   },
   
   // The user agent maps...
@@ -102,7 +118,7 @@ JDFManager.prototype = {
     'general.buildID.override':'extensions.jondofox.jondo.buildID_override',
     'general.oscpu.override':'extensions.jondofox.jondo.oscpu_override',
     'general.platform.override':'extensions.jondofox.jondo.platform_override',
-    'general.productsub.override':'extensions.jondofox.jondo.productsub_override',
+    'general.productSub.override':'extensions.jondofox.jondo.productsub_override',
     'general.useragent.override':'extensions.jondofox.jondo.useragent_override',
     'general.useragent.vendor':'extensions.jondofox.jondo.useragent_vendor',
     'general.useragent.vendorSub':'extensions.jondofox.jondo.useragent_vendorSub'  
@@ -115,7 +131,7 @@ JDFManager.prototype = {
     'general.buildID.override':'extensions.jondofox.tor.buildID_override',
     'general.oscpu.override':'extensions.jondofox.tor.oscpu_override',
     'general.platform.override':'extensions.jondofox.tor.platform_override',
-    'general.productsub.override':'extensions.jondofox.tor.productsub_override',
+    'general.productSub.override':'extensions.jondofox.tor.productsub_override',
     'general.useragent.override':'extensions.jondofox.tor.useragent_override',
     'general.useragent.vendor':'extensions.jondofox.tor.useragent_vendor',
     'general.useragent.vendorSub':'extensions.jondofox.tor.useragent_vendorSub'
@@ -132,16 +148,16 @@ JDFManager.prototype = {
   },
 
   // This map of boolean preferences is given to the prefsMapper
-  // XXX What about 'network.http.keep_alive'?
   boolPrefsMap: {
+    'browser.zoom.siteSpecific':'extensions.jondofox.browser.zoom.siteSpecific',
+    'plugin.expose_full_path':'extensions.jondofox.plugin.expose_full_path',
+    'browser.send_pings':'extensions.jondofox.browser_send_pings',
     'dom.storage.enabled':'extensions.jondofox.dom_storage_enabled',
     'geo.enabled':'extensions.jondofox.geo_enabled',
     'network.prefetch-next':'extensions.jondofox.network_prefetch-next',
     'network.proxy.socks_remote_dns':'extensions.jondofox.socks_remote_dns',
-    'network.http.proxy.keep-alive':'extensions.jondofox.proxy_keep-alive',
     'view_source.editor.external': 'extensions.jondofox.source_editor_external',
     'noscript.contentBlocker':'extensions.jondofox.noscript_contentBlocker',
-    'stanford-safecache.enabled':'extensions.jondofox.stanford-safecache_enabled',
     'security.remember_cert_checkbox_default_setting':
     'extensions.jondofox.security.remember_cert_checkbox_default_setting',
     'browser.search.suggest.enabled':
@@ -231,8 +247,46 @@ JDFManager.prototype = {
       }
       // Register the proxy filter
       this.registerProxyFilter();
+      // Loading the adblocking filterlist and initializing that component.
+      //this.adBlock.init();
+      //this.loadFilterList(); 
     } catch (e) {
       log('init(): ' + e);
+    }
+  },
+
+  loadFilterList: function() {
+    var filterHelper;
+    var line = {};
+    var hasmore;
+    var componentFile = __LOCATION__;
+    var extDir = componentFile.parent.parent;
+    extDir.append("easylistgermany+easylist.txt");
+    if (!extDir.exists() || !extDir.isFile()) {
+      log("Could not find and import the filterlist"); 
+    } else {
+      var istream = CC["@mozilla.org/network/file-input-stream;1"].
+                  createInstance(CI.nsIFileInputStream);
+      // -1 has the same effect as 0444.
+      istream.init(extDir, 0x01, -1, 0);
+      var conStream = CC["@mozilla.org/intl/converter-input-stream;1"].
+                  createInstance(CI.nsIConverterInputStream);
+      conStream.init(istream, "UTF-8", 16384, CI.nsIConverterInputStream.
+  	DEFAULT_REPLACEMENT_CHARACTER);
+      conStream.QueryInterface(CI.nsIUnicharLineInputStream);
+      do {
+        hasmore = conStream.readLine(line); 
+        if (line.value && line.value.indexOf("!") < 0 && 
+	    line.value.indexOf("[") < 0) {
+          filterHelper = this.adBlock.Filter.fromText(this.adBlock.utils.
+	    normalizeFilter(line.value.replace(/\s+$/, "")));
+	  this.filterList.push(filterHelper); 
+	  log("Length is: " + this.filterList.length + " Text is: " + 
+	      filterHelper.text);
+        }
+      } while(hasmore);
+      conStream.close();
+      log("Loaded the filter list!");
     }
   },
 
@@ -329,12 +383,19 @@ JDFManager.prototype = {
       for (extension in this.necessaryExtensions) {
         log ('Checking for ' + extension);
         if (!this.isInstalled(this.necessaryExtensions[extension])) {
-	  if (this.prefsHandler.
+	  // We just set the flag here as we want to load the NoScript-URL
+	  // in the browser window in order to help the user installing it.
+	  // But the browser window is not ready yet, thus resorting to a 
+	  // flag read later.
+	  if (extension === "NoScript") {
+             this.isNoScriptInstalled = false;
+	     log("NSInstalled is: " + this.isNoScriptInstalled);
+	  } else if (this.prefsHandler.
                  getBoolPref('extensions.jondofox.update_warning')) {
-           this.jdfUtils.showAlertCheck(this.jdfUtils.
-             getString('jondofox.dialog.attention'), this.jdfUtils.
-             formatString('jondofox.dialog.message.necessaryExtension', 
-	     [extension]), 'update');
+            this.jdfUtils.showAlertCheck(this.jdfUtils.
+              getString('jondofox.dialog.attention'), this.jdfUtils.
+              formatString('jondofox.dialog.message.necessaryExtension', 
+	      [extension]), 'update');
 	  }
           log(extension + ' is missing');
         } else {
@@ -408,7 +469,7 @@ JDFManager.prototype = {
           }
         } else {
           log("NoScript is missing...");
-          JDFManager.prototype.noscriptInstalled = false;
+          JDFManager.prototype.isNoScriptInstalled = false;
         }
       });
     } catch (e) {
@@ -429,9 +490,24 @@ JDFManager.prototype = {
 	// (brower.history_expire_days) is replaced by it.
 	this.boolPrefsMap['places.history.enabled'] = 
 		'extensions.jondofox.history.enabled';
+	// The same holds for the websockets pref until we decided whether this
+	// feature is harmless.
+	this.boolPrefsMap['network.websocket.enabled'] = 
+	        'extensions.jondofox.websocket.enabled';
+        // Firefox 4 has a whitespace between the "," and "deflate". We need to 
+	// avoid that in order not to reduce our anonymity set.	
+	this.stringPrefsMap['network.http.accept-encoding'] = 
+	        'extensions.jondofox.http.accept_encoding';
+	this.boolPrefsMap['privacy.donottrackheader.enabled'] = 
+	  'extensions.jondofox.donottrackheader.enabled';
 	// For clearity of code we implement a different method to check the
 	// installed extension in Firefox4
         this.checkExtensionsFF4();
+	// We do not want to ping Mozilla once per day for different updates
+	// of Add-On Metadata and other stuff (duration of last startup...).
+	this.prefsHandler.setBoolPref('extensions.update.autoUpdateDefault',
+        this.prefsHandler.
+	     getBoolPref('extensions.jondofox.update.autoUpdateDefault')); 
       } else {
         // In order to avoid unnecessary error messages we just add it to the
 	// prefs map if we have a FF3 as it does not exist anymore in FF4.
@@ -440,12 +516,6 @@ JDFManager.prototype = {
         // FF3-check for incompatible extensions and whether the necessary ones
         // are installed and enabled.
         this.checkExtensions();
-        // Maybe the proposed UA has changed due to an update. Thus, 
-        // we are on the safe side if we set it on startup.
-        if (this.VERSION !== 
-          this.prefsHandler.getStringPref('extensions.jondofox.last_version')) {
-          this.setUserAgent(this.getState());
-        }
       }
       // Check whether we have some MIME-types which use external helper apps
       // automatically and if so correct this
@@ -479,21 +549,28 @@ JDFManager.prototype = {
       // from using external applications automatically.
       this.observeMimeTypes();
       log("Setting initial proxy state ..");
-      //If somebody wants to have always JonDo as a proxy she gets it and the 
-      //corresponding User Agent setting. Otherwise the last used proxy will be
+      // If somebody wants to have always JonDo as a proxy she gets it and the 
+      // corresponding User Agent setting. Otherwise the last used proxy will be
       // set.
       if (this.prefsHandler.getBoolPref('extensions.jondofox.alwaysUseJonDo')) {
 	this.setProxy('jondo');
-        this.setUserAgent('jondo');
       } else {
         this.setProxy(this.getState());
-        // Setting Tor values...
-        if (this.prefsHandler.getStringPref(
-            'general.useragent.override') === this.prefsHandler.getStringPref(
-            'extensions.jondofox.tor.useragent_override')) {
-          this.setUserAgent('tor');
-        }
       }
+      // A convenient method to set user prefs that change from proxy to proxy.
+      // We should nevertheless make the settings of userprefs in broader way
+      // dependant on the chosen proxy. This would include the call to 
+      // prefsMapper.map() in this function and should be more flexible and
+      // transparent.
+      this.setUserAgent(this.getState());
+
+      // Check "Clear browsing data on shutdown" in order to delete Flash 
+      // Cookies (<FF4). We have to test what happens with plugins disabled as
+      // those are, according to bug 290456, responsible for deleting the
+      // cookies.
+      this.prefsHandler.setBoolPref('privacy.sanitize.sanitizeOnShutdown',
+        this.prefsHandler.
+	     getBoolPref('extensions.jondofox.sanitize.sanitizeOnShutdown'));
     } catch (e) {
       log("onUIStartup(): " + e);
     }
@@ -532,7 +609,6 @@ JDFManager.prototype = {
       observers.addObserver(this, "final-ui-startup", false);
       observers.addObserver(this, "em-action-requested", false);
       observers.addObserver(this, "quit-application-granted", false);
-      observers.addObserver(this, "xul-window-destroyed", false);
       observers.addObserver(this, "domwindowopened", false);
     } catch (e) {
       log("registerObservers(): " + e);
@@ -550,7 +626,6 @@ JDFManager.prototype = {
       observers.removeObserver(this, "final-ui-startup");
       observers.removeObserver(this, "em-action-requested");
       observers.removeObserver(this, "quit-application-granted");    
-      observers.removeObserver(this, "xul-window-destroyed");
       observers.removeObserver(this, "domwindowopened");
     } catch (e) {
       log("unregisterObservers(): " + e);
@@ -569,8 +644,13 @@ JDFManager.prototype = {
 	    var lastVersion = JDFManager.prototype.prefsHandler.
 		    getStringPref('extensions.jondofox.last_version');
             if (JDFManager.prototype.VERSION !== lastVersion) {
-              JDFManager.prototype.setUserAgent(JDFManager.
-		      prototype.getState());
+	      // Start of a hack as the reliable detection of a difference
+	      // bewtween old and new version does not work in JDF-overlay
+	      // observer code.
+	      JDFManager.prototype.newVersionDetected = true;
+	      JDFManager.prototype.prefsHandler.
+	        setStringPref('extensions.jondofox.last_version', JDFManager.
+		  prototype.VERSION);
             }
           });
   },
@@ -694,6 +774,7 @@ JDFManager.prototype = {
     var versComp = CC['@mozilla.org/xpcom/version-comparator;1'].
 	    getService(CI.nsIVersionComparator);
     if (versComp.compare(appInfo.version, "4.0a1") >= 0) {
+      this.ff4Version = appInfo.version;
       this.ff4 = true;
     } else {
       this.ff4 = false;
@@ -709,6 +790,8 @@ JDFManager.prototype = {
     log("Checking whether we have to update the profile ..");
     try {
       if (this.prefsHandler.getStringPref(
+               'extensions.jondofox.profile_version') !== "2.5.0" &&
+	  this.prefsHandler.getStringPref(
                'extensions.jondofox.profile_version') !== "2.4.0" &&
           this.prefsHandler.getStringPref(
                'extensions.jondofox.profile_version') !== "2.3.0" &&
@@ -724,10 +807,15 @@ JDFManager.prototype = {
     }
   },
 
+  // TODO: Transfor this function in a more general prefs setting function
+  // depending on the proxy state.
   // Setting the user agent for the different proxy states
   setUserAgent: function(state) {
     var p;
     var userAgent;
+    var proxyKeepAlive = this.prefsHandler.
+      getBoolPref("network.http.proxy.keep-alive");
+    var acceptLang = this.prefsHandler.getStringPref("intl.accept_languages");
     log("Setting user agent for: " + state);
     switch(state) {
       case (this.STATE_JONDO): 
@@ -740,20 +828,26 @@ JDFManager.prototype = {
         //course, this does not mean that we really had a Tor UA before, maybe
         //the user changed the pref manually (and got a warning). But we can
         //safely ignore this case. 
-        if (this.prefsHandler.getStringPref("intl.accept_languages") !== 
-            "en-us") {
+        if (acceptLang !== "en-us") {
           this.settingLocationNeutrality("");
         }
+	// Check whether we had network.http.proxy.keep-alive on before. If so
+	// we switch it off.
+	if (proxyKeepAlive) {
+          this.prefsHandler.setBoolPref("network.http.proxy.keep-alive", false);
+	}
 	break;
       case (this.STATE_TOR):
         for (p in this.torUAMap) {
           this.prefsHandler.setStringPref(p,
                this.prefsHandler.getStringPref(this.torUAMap[p]));
         }
-        if (this.prefsHandler.getStringPref("intl.accept_languages") !== 
-            "en-us, en") {
+        if (acceptLang !== "en-us, en") {
           this.settingLocationNeutrality("tor.");
         }
+	if (!proxyKeepAlive) {
+          this.prefsHandler.setBoolPref("network.http.proxy.keep-alive", true);
+	}
         break;
       case (this.STATE_CUSTOM):
 	userAgent = this.prefsHandler.getStringPref(
@@ -763,8 +857,7 @@ JDFManager.prototype = {
             this.prefsHandler.setStringPref(p,
              this.prefsHandler.getStringPref(this.jondoUAMap[p]));
           }
-          if (this.prefsHandler.getStringPref("intl.accept_languages") !== 
-            "en-us") {
+          if (acceptLang !== "en-us") {
           this.settingLocationNeutrality("");
           }
         } else if (userAgent === 'tor') {
@@ -772,16 +865,23 @@ JDFManager.prototype = {
             this.prefsHandler.setStringPref(p,
                this.prefsHandler.getStringPref(this.torUAMap[p]));
 	  }
-          if (this.prefsHandler.getStringPref("intl.accept_languages") !== 
-            "en-us, en") {
+          if (acceptLang !== "en-us, en") {
           this.settingLocationNeutrality("tor.");
           }
         } else {
-	  this.clearUAPrefs();
+	  // We use the opportunity to set other user prefs back to their
+	  // default values as well.
+	  this.clearPrefs();
         }
-	break;
+	this.prefsHandler.setBoolPref("network.http.proxy.keep-alive",
+	    this.prefsHandler.
+	    getBoolPref("extensions.jondofox.custom.proxyKeepAlive"));
+        break;
       case (this.STATE_NONE):
-	this.clearUAPrefs();
+	this.clearPrefs();
+	if (!proxyKeepAlive) {
+	  this.prefsHandler.setBoolPref("network.http.proxy.keep-alive", true);
+	}
 	break;
       default:
 	log("We should not be here!");
@@ -790,9 +890,9 @@ JDFManager.prototype = {
   },
 
   // We get the original values (needed for proxy = none and if the user 
-  // chooses the unfaked UA for her custom proxy) if we clear the relevant
+  // chooses the unfaked custom proxy) if we clear the relevant
   // preferences.
-  clearUAPrefs: function() {
+  clearPrefs: function() {
     var branch;
     try {
       // We only have to reset the values if this has not yet been done.
@@ -800,24 +900,19 @@ JDFManager.prototype = {
       // user uses a not well configured custom one, the values are already set.
       if (this.prefsHandler.getStringPref('general.useragent.override') !==
           null) {
-        branch = CC['@mozilla.org/preferences-service;1']
-                   .getService(CI.nsIPrefBranch);
-        branch.clearUserPref('general.useragent.override');
-        branch.clearUserPref('general.appname.override');
-        branch.clearUserPref('general.appversion.override');
-        branch.clearUserPref('general.useragent.vendor');
-        branch.clearUserPref('general.useragent.vendorSub');
-        branch.clearUserPref('general.platform.override');
-        branch.clearUserPref('general.oscpu.override');
-        branch.clearUserPref('general.buildID.override');
-        branch.clearUserPref('general.productsub.override');
-        if (this.prefsHandler.getStringPref("intl.accept_languages") !== 
-            "en-us") {
-          this.settingLocationNeutrality("");
-        }
+        this.prefsHandler.deletePreference('general.useragent.override');
+        this.prefsHandler.deletePreference('general.appname.override');
+        this.prefsHandler.deletePreference('general.appversion.override');
+        this.prefsHandler.deletePreference('general.useragent.vendor');
+        this.prefsHandler.deletePreference('general.useragent.vendorSub');
+        this.prefsHandler.deletePreference('general.platform.override');
+        this.prefsHandler.deletePreference('general.oscpu.override');
+        this.prefsHandler.deletePreference('general.buildID.override');
+        this.prefsHandler.deletePreference('general.productsub.override');
       }
+      this.prefsHandler.deletePreference("intl.accept_languages"); 
     } catch (e) {
-      log("clearUAPrefs(): " + e);
+      log("clearPrefs(): " + e);
     }
   },
 
@@ -840,6 +935,7 @@ JDFManager.prototype = {
   // warning in order to not confuse the user.
 
   firstMimeTypeCheck: function() {
+    var i;
     try {
       var feedType =  [this.jdfUtils.getString('jondofox.feed'),
                        this.jdfUtils.getString('jondofox.audiofeed'),
@@ -1402,22 +1498,9 @@ JDFManager.prototype = {
         // to do it this way...
 
         case 'domwindowopened':
-	subject.addEventListener("load", JDFManager.prototype.getUnknownContentTypeDialog, false);
+	  subject.addEventListener("load", JDFManager.prototype.
+	    getUnknownContentTypeDialog, false);
 	  break;
-
-        case 'xul-window-destroyed':
-          // Get the index of the closed window
-          //var i = this.getWindowCount();
-          //log("Window " + i + " --> " + topic);
-          
-          // Not necessary since closing the last window will also cause
-          // 'quit-application-granted' .. let the code stay here though:
-          //   http://forums.mozillazine.org/viewtopic.php?t=308369
-          /* if (i == 0 && this.clean) { 
-            this.cleanup(); 
-            this.unregisterObservers()
-          } */
-          break;
 
         case 'nsPref:changed':
           // If someone wants to change the Tor prefs manually we have to 
@@ -1450,20 +1533,6 @@ JDFManager.prototype = {
                 this.jdfUtils.showAlertCheck(this.jdfUtils.
                   getString('jondofox.dialog.attention'), this.jdfUtils.
                   getString('jondofox.dialog.message.cookies'), 'preferences');
-              }
-            } 
-	  }
-	  // Do not allow to disable Safecache function
-	  else if (data === 'stanford-safecache.enabled') {
-	    if (!this.prefsHandler.getBoolPref(data)) {
-	      this.prefsHandler.setBoolPref(data, true);
-              // Warn the user if she has not disabled preference warnings
-              if (this.prefsHandler.
-                    getBoolPref('extensions.jondofox.preferences_warning')) {
-                this.jdfUtils.showAlertCheck(this.jdfUtils.
-                  getString('jondofox.dialog.attention'), this.jdfUtils.
-                  getString('jondofox.dialog.message.safecache'), 
-                  'preferences');
               }
             } 
 	  }
@@ -1561,11 +1630,20 @@ JDFManager.prototype = {
           
           else if ((data === 'intl.accept_languages' || 
             data === 'intl.accept_charsets') && this.prefsHandler.
-            getStringPref('general.useragent.override') === this.prefsHandler.
-            getStringPref('extensions.jondofox.tor.useragent_override')) {
+	    isPreferenceSet('general.useragent.override') && 
+	     this.prefsHandler.getStringPref('general.useragent.override') === 
+	     this.prefsHandler.
+	     getStringPref('extensions.jondofox.tor.useragent_override')) {
             // Do nothing here because the pref changed but it was for 
             // imitating Tor properly after the Tor UA has been activated.
           }
+
+          else if (data === 'intl.accept_languages' && (this.getState() ===
+		'none' || (this.getState() === 'custom' && !this.prefsHandler.
+		  isPreferenceSet('general.useragent.override')))) {
+            // Do nothing as the user resets her proxy and we just erase the
+	    // pref values JonDoFox set in order to get the default ones back.
+	  }
 
           // Check if the changed preference is on the stringprefsmap...
           else if (data in this.stringPrefsMap) {
@@ -1638,7 +1716,7 @@ JDFManager.prototype = {
       log("observe: " + ex);
     }
   },
-  
+
   classDescription: "JonDoFox-Manager",
   classID:          Components.ID("{b5eafe36-ff8c-47f0-9449-d0dada798e00}"),
   contractID:       "@jondos.de/jondofox-manager;1",
@@ -1646,13 +1724,11 @@ JDFManager.prototype = {
   // No service flag here. Otherwise the registration for FF3.6.x would not work
   // See: http://groups.google.com/group/mozilla.dev.extensions/browse_thread/
   // thread/d9f7d1754ae43045/97e55977ecea7084?show_docid=97e55977ecea7084 
-  _xpcom_categories: [{
-    category: "profile-after-change",
-  }],
+  _xpcom_categories: [{category: "profile-after-change"}],
+                      //{category: "content-policy"}],
 
-  QueryInterface: XPCOMUtils.generateQI([CI.nsISupports, CI.nsIObserver,
-				  CI.nsISupportsWeakReference, 
-				  CI.nsIDialogParamBlock])
+  QueryInterface: XPCOMUtils.generateQI([CI.nsISupports, CI.nsIObserver])
+				         //CI.nsIContentPolicy])
 };
 
 // XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).
@@ -1662,5 +1738,3 @@ if (XPCOMUtils.generateNSGetFactory)
     var NSGetFactory = XPCOMUtils.generateNSGetFactory([JDFManager]);
 else
     var NSGetModule = XPCOMUtils.generateNSGetModule([JDFManager]);
-
- 
