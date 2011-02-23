@@ -39,8 +39,8 @@ SHA1-Digest: I4YQjoYWMfiQFepeKmpFC74oQFw=
 
 Name: LICENSE
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: cs0hv6FxhraKRE4MwOixnA==
-SHA1-Digest: RbV7vr9ZRezYWv1m/TeQrnmMF4Y=
+MD5-Digest: 6dF0vya1h8309oTsOIisOA==
+SHA1-Digest: rvbLG/6s/pCudjRgD7I1/0v2Yog=
 
 Name: components/safecache.js
 Digest-Algorithms: MD5 SHA1
@@ -94,8 +94,8 @@ SHA1-Digest: Xe6cCyvUZuYMySlLN4QpqVnKLoY=
 
 Name: chrome/jondofox.jar
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: zlYiTk1ZF5ZYdwiTcL01dQ==
-SHA1-Digest: lQy9FcvswAaZkGtGwk/5JP4I9Os=
+MD5-Digest: bPfhO0NwugqSF1HwlChvfw==
+SHA1-Digest: bpo/t9xZIKL4GnUPwT5tY2iCS3o=
 
 Name: defaults/preferences/preferences.js
 Digest-Algorithms: MD5 SHA1
