@@ -99,5 +99,5 @@ SHA1-Digest: 67qcBqHRgCBtYQabEX2ZJ6IPjKQ=
 
 Name: defaults/preferences/preferences.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: sxSyWwDqN65Ee0iQ7i4ETw==
-SHA1-Digest: pOZd8UjuQxHgUcfVTAcHxIGXfjc=
+MD5-Digest: NnO+yzmaSQEoeN6n2sz6iA==
+SHA1-Digest: VthZs4IKlqnTYq6wCCHZZ4IKSbQ=
