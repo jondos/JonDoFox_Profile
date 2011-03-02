@@ -57,6 +57,7 @@ BOOKMARKS_FF2="" #Firefox2 bookmarks file
 CERT_DATABASE="" #CertPatrol database
 SAVED_BOOKMARKS="" #Saved bookmarks
 SAVED_CERTDATABASE="" #Saved CertPatrol database
+SAVED_NOSCRIPTHTTPS="" # Force HTTPS Options of NoScript
 
 JONDOFOX_PROFILE_ENTRY="" #JonDoFox entry in profiles.ini
 
@@ -122,9 +123,9 @@ variablesOsSpecific()
 	JONDOFOX_PROFILE_ENTRY="Name=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"
 
 	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
-	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks and the certificate database), or delete it?"
-	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks and the certificate database), or delete it?"
-	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks and the certificate database), or delete it?"
+	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
+	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
+	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
 
 	if [ "${VERBOSE}" ]; then
 		echo "Installing JonDoFox $(getInstalledVersion) with these settings:"
@@ -136,13 +137,14 @@ variablesOsSpecific()
 ## store bookmarks of old JonDoFox profile
 saveInstalledBookmarks()
 {
-	echo "saving bookmarks and certificate database."
+	echo "saving bookmarks."
 	SAVED_BOOKMARKS=""
 	SAVED_CERTDATABASE=""
+	SAVED_NOSCRIPTHTTPS=""
 	if [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/places.sqlite"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF3}" "${SAVED_BOOKMARKS}"
-	elif [ -e "${BOOKMARKS_FF2}" ]; then
+	elif [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/bookmarks.html"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF2}" "${SAVED_BOOKMARKS}"
 	fi
@@ -150,6 +152,10 @@ saveInstalledBookmarks()
 	        SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
                 cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
         fi
+        if [ -e "${INSTALLED_PREFS}" ]; then
+		SAVED_NOSCRIPTHTTPS="${FIREFOX_SETTINGS_PATH}/Noscript_httpsforced.conf"
+		cat ${INSTALLED_PREFS} | grep 'noscript.httpsForced' > ${SAVED_NOSCRIPTHTTPS}
+	fi
 	return 0
 }
 
@@ -161,6 +167,10 @@ restoreBookmarks()
 	fi
 	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}" ]; then
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
+	fi
+	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
+		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
+		rm ${SAVED_NOSCRIPTHTTPS}
 	fi
 }
 
@@ -333,48 +343,13 @@ compareVersions()
 
 promptOverwrite()
 {
-	local conf=""
-	local dialog_return
-	local dialogTempFile="${FIREFOX_SETTINGS_PATH}/.dialogTemp"
-	local dialogReturnTag=""
+	zenity --question --title "New JonDoFox version" --text "You have installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to upgrade it, (keeping your bookmarks)?"
 
-	case $1 in
-		0) OVERWRITE_DIALOG_TEXT=${DIALOG_TEXT_SAME_VERSION};;
-		1) OVERWRITE_DIALOG_TEXT=${DIALOG_TEXT_OW_NEWER_VERSION};;
-		2) OVERWRITE_DIALOG_TEXT=${DIALOG_TEXT_OW_OLDER_VERSION};;
-	esac
-
-	dialog --version >& /dev/null
-	if [ $? -eq 0 ]; then
-		#the result of this radiolist dialog is written to the tempfile ".dialogTemp"
-		dialog --clear --radiolist "${OVERWRITE_DIALOG_TEXT}" 9 80 2 \
-			"${DIALOG_OVERWRITE_OPT}" "" "on" \
-			"${DIALOG_DELETE_OPT}" "" "off" 2> "${dialogTempFile}"
-		dialog_return=$?		
-		if [ $dialog_return -eq 0 ]; then
-			#read the result from ".dialogTemp"
-			dialogReturnTag=$(cat "${dialogTempFile}")
-			if [ "${dialogReturnTag}" = "${DIALOG_OVERWRITE_OPT}" ]; then
-				dialog_return=0
-			elif [ "${dialogReturnTag}" = "${DIALOG_DELETE_OPT}" ]; then
-				dialog_return=2
-			else			
-				dialog_return=1
-			fi
-		fi
-		rm -f "${dialogTempFile}"
-		clear
-		echo ${dialog_return}
-		return ${dialog_return}
+        dialog_return=$?		
+	if [ $dialog_return -eq 1 ]; then
+		return 1
 	else
-		echo ${ECHO_ESCAPE} "${OVERWRITE_DIALOG_TEXT}\n [y]es / [n]o / [d]elete ?\c"
-		read conf
-		case $conf in
-			y*) return 0;;
-			n*) return 1;;
-			d*) return 2;;
-			*) return 1;;
-		esac
+		return 0
 	fi
 }
 
@@ -412,7 +387,7 @@ variablesOsSpecific
 
 isFirefoxRunning
 if [ $? -ne 0 ]; then
-	echo ${ECHO_ESCAPE} "ERROR: Your Firefox is running.\nPlease quit Firefox before running this script."
+	zenity --error --text="Your Firefox is running. Please quit Firefox/Iceweasel first."
 	exit 1
 fi
 
@@ -432,7 +407,7 @@ isJonDoFoxInstalled
 if [ $? -eq 0 ]; then
 	editProfilesIni
 	if [ $? -ne 0 ]; then
-		echo "...Could not edit profiles.ini: Restoring old settings and abort installation!"
+		zenity --error --text="Could not edit profiles.ini: Restoring old settings and abort installation!"
 		restoreOldSettings
 		exit 1
 	fi
@@ -458,8 +433,8 @@ fi
 echo "installing profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
-	echo "JonDoFox could not be installed"
+	zenity --error --text="JonDoFox could not be installed"
 	exit 1
 fi
-echo "JonDoFox successfully installed!"
+# echo "JonDoFox successfully installed!"
 exit 0
