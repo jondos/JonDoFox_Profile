@@ -86,7 +86,7 @@ user_pref("extensions.adblockplus.showsubscriptions", false);
 user_pref("extensions.enabledItems", "{00084897-021a-4361-8423-083407a033e0}:1.4,{437be45a-4114-11dd-b9ab-71d256d89593}:0.2.4.1,{73a6fe31-595d-460b-a920-fcc0f8843232}:1.9.9.39,{b9db16a4-6edc-47ec-a1f4-b86292ed211d}:4.7,{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}:1.1.3,{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}:1.0.4,{972ce4c6-7e08-4474-a285-3208198ce6fd}:3.6");
 user_pref("extensions.jondofox.last_version", "");
 user_pref("extensions.jondofox.new_profile", false);
-user_pref("extensions.jondofox.profile_version", "2.4.0");
+user_pref("extensions.jondofox.profile_version", "2.5.0");
 user_pref("extensions.jondofox.set_referrer", true);
 user_pref("extensions.lastAppVersion", "3.6");
 user_pref("extensions.secureLogin@blueimp.net.javascriptProtection", true);
