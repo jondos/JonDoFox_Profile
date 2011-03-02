@@ -1,4 +1,4 @@
-#/bin/sh
+#/bin/bash
 
 ####################################################################################################
 #                                                                                                  #
@@ -49,29 +49,12 @@ OS_X_INSTALLER_LANGFILE_NAME="jfx"
 OS_X_INSTALLER_LANGFILE_SUFFIX=".plist"
 OS_X_INSTALLER_LANGFILE="${OS_X_INSTALLER_LANGFILE_NAME}${OS_X_INSTALLER_LANGFILE_SUFFIX}"
 
-LITE_EXCLUSIONS="abhere2@moztw.org"
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {1A2D0EC4-75F5-4c91-89C4-3656F6E44B68}"
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {268ad77e-cff8-42d7-b479-da60a7b93305}"
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {3CE993BF-A3D9-4fd2-B3B6-768CBBC337F8}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {59c81df5-4b7a-477b-912d-4e0fdf64e5f2}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {723AAF16-AF1F-4404-A5D7-0BFE39766605}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {792BDDFE-2E7C-42ed-B18D-18154D2761BD}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {89736E8E-4B14-4042-8C75-AD00B6BD3900}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {9669CC8F-B388-42FE-86F4-CB5E7F5A8BDC}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {98449521-9320-4257-aa35-9e1a39c8cbe0}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {AA052FD6-366A-4771-A591-0D8DC551585D}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {C90B0826-5A17-4970-A5BF-A43D22452E21}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {F807FACD-E46A-4793-B345-D58CB177673C}" 
-#LITE_EXCLUSIONS="$LITE_EXCLUSIONS {a6ca9b3b-5e52-4f47-85d8-cca35bb57596}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {cf15270e-cf08-4def-b4ea-6a5ac23f3bca}" 
-LITE_EXCLUSIONS="$LITE_EXCLUSIONS {d37dc5d0-431d-44e5-8c91-49419370caa1}"
-
-LINUX_PKG="profile.zip"
 BASH_INSTALLER_SCRIPT="install_linux.sh"
 VB_INSTALLER_SCRIPT="install_win.vbs"
 INSTALLER_HELP_NAME="INSTALL"
 INSTALLER_HELP_SUFFIX=".txt"
 INSTALLER_HELP_FILE="${INSTALLER_HELP_NAME}${INSTALLER_HELP_SUFFIX}"
+GPGSIG="n"
 
 SRC_LOCAL=""
 
@@ -83,7 +66,7 @@ JONDOFOX_PROFILE_TYPES=""
 JONDOFOX_PROFILE_LANGS=""
 BUILD_PLATFORMS=""
 
-ALL_TYPES="full lite"
+ALL_TYPES="full"
 ALL_LANGS="de en"
 ALL_PLATFORMS="mac linux win"
 
@@ -288,13 +271,24 @@ createLinuxPackage()
 			cp -f "${installer_help_file}" "${INSTALLER_HELP_FILE}"
 			setLanguageBookmarks "${lang}"
 			
-			echo "Creating zip file '${JONDOFOX_PROFILE}_${type}_${lang}.zip'"
-			if [ "${VERBOSE}" ]; then
-				zip -r "${JONDOFOX_PROFILE}_${type}_${lang}.zip" "${JONDOFOX_PROFILE}" "${INSTALLER_HELP_FILE}" \
-							"${VB_INSTALLER_SCRIPT}" "${BASH_INSTALLER_SCRIPT}"
-			else
-				zip -qr "${JONDOFOX_PROFILE}_${type}_${lang}.zip" "${JONDOFOX_PROFILE}" "${INSTALLER_HELP_FILE}" \
-							"${VB_INSTALLER_SCRIPT}" "${BASH_INSTALLER_SCRIPT}"
+			echo "Creating linux archiv 'jondofox_linux_${lang}.tar.xz'"
+			chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
+			if [ -e jondofox_linux_${lang}.tar ]; then
+				rm -f jondofox_linux_${lang}.tar
+			fi
+			tar -cf jondofox_linux_${lang}.tar "${JONDOFOX_PROFILE}" 
+			tar -rf jondofox_linux_${lang}.tar "${INSTALLER_HELP_FILE}" 
+			# tar -rf jondofox_linux_${lang}.tar "${VB_INSTALLER_SCRIPT}" 
+			tar -rf jondofox_linux_${lang}.tar "${BASH_INSTALLER_SCRIPT}"
+			if [ -e jondofox_linux_${lang}.tar.xz ]; then
+				rm -f jondofox_linux_${lang}.tar.xz
+			fi
+			xz jondofox_linux_${lang}.tar
+			if [ -e jondofox_linux_${lang}.tar.xz.asc ]; then
+				rm -f jondofox_linux_${lang}.tar.xz.asc
+			fi
+			if [ $GPGSIG == "y" ]; then
+				 gpg -b --armor --default-key=support@jondos.de jondofox_linux_${lang}.tar.xz
 			fi
 		done
 	done
@@ -364,7 +358,7 @@ getProfileFolder()
 		
 		esac
 	fi
-	chmod -R ugo-x,u+rwX,go+rX,go-w profile_lite 
+	# chmod -R ugo-x,u+rwX,go+rX,go-w profile_lite 
 	return 0
 	
 }
@@ -416,8 +410,6 @@ checkType()
 {
 	case "$1" in
 		full) 	return 0;;
-		
-		lite)	return 0;;
 		
 		*) 		echo "Error: no such profile type: $1"
 				return 1;;
@@ -496,18 +488,16 @@ removeOldMacProfile()
 ##TODO:
 uploadMacBundles()
 {
-	scp JonDoFox_OS_X_full_de.dmg root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/JonDoFox_OS_X.dmg
-	scp JonDoFox_OS_X_lite_de.dmg root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/JonDoFox_OS_X_lite.dmg
-	scp JonDoFox_OS_X_full_en.dmg root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/JonDoFox_OS_X.dmg
-	scp JonDoFox_OS_X_lite_en.dmg root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/JonDoFox_OS_X_lite.dmg
+	scp -C2 -P 55022 JonDoFox_OS_X_full_de.dmg root@78.129.207.114:/var/www/website/htdocs/de/downloads/JonDoFox_OS_X.dmg
+	scp -C2 -P 55022 JonDoFox_OS_X_full_en.dmg root@78.129.207.114:/var/www/website/htdocs/en/downloads/JonDoFox_OS_X.dmg
 }
 
 uploadZipBundles()
 {
-	scp profile_full_de.zip root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/profile.zip
-	scp profile_lite_de.zip root@87.230.58.112:/var/www/an-on/httpdocs/de/downloads/profile_lite.zip
-	scp profile_full_en.zip root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/profile.zip
-	scp profile_lite_en.zip root@87.230.58.112:/var/www/an-on/httpdocs/en/downloads/profile_lite.zip
+	scp -C2 -P 55022 jondofox_linux_de.tar.xz root@78.129.207.114:/var/www/website/htdocs/de/downloads/jondofox_linux_de.tar.xz
+	scp -C2 -P 55022 jondofox_linux_en.tar.xz root@78.129.207.114:/var/www/website/htdocs/en/downloads/jondofox_linux_en.tar.xz
+	scp -C2 -P 55022 jondofox_linux_de.tar.xz.asc root@78.129.207.114:/var/www/website/htdocs/de/downloads/jondofox_linux_de.tar.xz.asc 
+	scp -C2 -P 55022 jondofox_linux_en.tar.xz.asc root@78.129.207.114:/var/www/website/htdocs/en/downloads/jondofox_linux_en.tar.xz.asc
 }
 
 verboseMessage()
@@ -517,12 +507,13 @@ verboseMessage()
 	fi
 }
 
-OPTSTR="vhs:l:t:p:c:uzd"	
+OPTSTR="vbhs:l:t:p:c:uzd"	
 getopts "${OPTSTR}" CMD_OPT
 while [ $? -eq 0 ]; 
 do
 	case ${CMD_OPT} in
 		v) VERBOSE="-v";;
+		b) GPGSIG="y";;
 		p) BUILD_PLATFORMS="${OPTARG}";;
 		t) JONDOFOX_PROFILE_TYPES="${OPTARG}";;
 		l) JONDOFOX_PROFILE_LANGS="${OPTARG}";;
@@ -542,6 +533,7 @@ do
 			echo '   the platform of the JonDoFox installer to be created.' 
 			echo '   Multiple platforms can be specified in quotes separated by whitespace'
 			echo '   If nothing is specified, all platforms are selected.'
+			echo '-b create the OpenPGP signatures for Linux packages.'
 			echo '-l [de | en]'
 			echo '   the language of the JonDoFox installer package to be created.' 
 			echo '   Multiple languages can be specified in quotes separated by whitespace'
