@@ -271,7 +271,7 @@ createLinuxPackage()
 			cp -f "${installer_help_file}" "${INSTALLER_HELP_FILE}"
 			setLanguageBookmarks "${lang}"
 			
-			echo "Creating linux archiv 'jondofox_linux_${lang}.tar.xz'"
+			echo "Creating linux archiv 'jondofox_linux_${lang}.tar.bz2'"
 			chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
 			if [ -e jondofox_linux_${lang}.tar ]; then
 				rm -f jondofox_linux_${lang}.tar
@@ -280,15 +280,15 @@ createLinuxPackage()
 			tar -rf jondofox_linux_${lang}.tar "${INSTALLER_HELP_FILE}" 
 			# tar -rf jondofox_linux_${lang}.tar "${VB_INSTALLER_SCRIPT}" 
 			tar -rf jondofox_linux_${lang}.tar "${BASH_INSTALLER_SCRIPT}"
-			if [ -e jondofox_linux_${lang}.tar.xz ]; then
-				rm -f jondofox_linux_${lang}.tar.xz
+			if [ -e jondofox_linux_${lang}.tar.bz2 ]; then
+				rm -f jondofox_linux_${lang}.tar.bz2
 			fi
-			xz jondofox_linux_${lang}.tar
-			if [ -e jondofox_linux_${lang}.tar.xz.asc ]; then
-				rm -f jondofox_linux_${lang}.tar.xz.asc
+			bzip2 jondofox_linux_${lang}.tar
+			if [ -e jondofox_linux_${lang}.tar.bz2.asc ]; then
+				rm -f jondofox_linux_${lang}.tar.bz2.asc
 			fi
 			if [ $GPGSIG == "y" ]; then
-				 gpg -b --armor --default-key=support@jondos.de jondofox_linux_${lang}.tar.xz
+				 gpg -b --armor --default-key=support@jondos.de jondofox_linux_${lang}.tar.bz2
 			fi
 		done
 	done
@@ -494,10 +494,10 @@ uploadMacBundles()
 
 uploadZipBundles()
 {
-	scp -C2 -P 55022 jondofox_linux_de.tar.xz root@78.129.207.114:/var/www/website/htdocs/de/downloads/jondofox_linux_de.tar.xz
-	scp -C2 -P 55022 jondofox_linux_en.tar.xz root@78.129.207.114:/var/www/website/htdocs/en/downloads/jondofox_linux_en.tar.xz
-	scp -C2 -P 55022 jondofox_linux_de.tar.xz.asc root@78.129.207.114:/var/www/website/htdocs/de/downloads/jondofox_linux_de.tar.xz.asc 
-	scp -C2 -P 55022 jondofox_linux_en.tar.xz.asc root@78.129.207.114:/var/www/website/htdocs/en/downloads/jondofox_linux_en.tar.xz.asc
+	scp -C2 -P 55022 jondofox_linux_de.tar.bz2 root@78.129.207.114:/var/www/website/htdocs/de/downloads/jondofox_linux_de.tar.bz2
+	scp -C2 -P 55022 jondofox_linux_en.tar.bz2 root@78.129.207.114:/var/www/website/htdocs/en/downloads/jondofox_linux_en.tar.bz2
+	scp -C2 -P 55022 jondofox_linux_de.tar.bz2.asc root@78.129.207.114:/var/www/website/htdocs/de/downloads/jondofox_linux_de.tar.bz2.asc 
+	scp -C2 -P 55022 jondofox_linux_en.tar.bz2.asc root@78.129.207.114:/var/www/website/htdocs/en/downloads/jondofox_linux_en.tar.bz2.asc
 }
 
 verboseMessage()
