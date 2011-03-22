@@ -70,6 +70,16 @@ var UnPlug2DownloadMethods = {
 	button_names : (function () {
 		return this._button_names;
 	}),
+	get_extern_tool_names : (function () {
+		var out = [];
+		for (var i = 0; i < this._button_names.length; ++i) {
+			var name = this._button_names[i];
+			if (this._button_lookup[name].signal_get_argv) {
+				out.push(name);
+			}
+		}
+		return out;
+	}),
 	getinfo : (function (name) {
 		return this._button_lookup[name];
 	}),
@@ -79,7 +89,7 @@ var UnPlug2DownloadMethods = {
 			try {
 				that.exec(name, result);
 			} catch (e) {
-				UnPlug2.log("Error in UnPlug2DownloadMethods for " + name + " " + result.toSource() + " with error " + e);
+				UnPlug2.log("Error in UnPlug2DownloadMethods for " + name + " " + result.toSource() + " with error " + e.toSource());
 			}
 			evt.stopPropagation();
 		});
@@ -402,16 +412,29 @@ UnPlug2DownloadMethods.add_button("flashgot", {
 
 UnPlug2DownloadMethods.add_button("rtmpdump", {
 	avail : (function (res) {
-		return res.download.url && (
-			res.download.url.indexOf("rtmp://") == 0
-			|| res.download.url.indexOf("rtmpe://") == 0);
+		var url = res.download.rtmp || res.download.url;
+		return url && (
+			url.indexOf("rtmp://") == 0
+			|| url.indexOf("rtmpe://") == 0);
 	}),
 	signal_get_argv : (function (res, savefile) {
-		return [
-			"--rtmp", res.download.url,
+		var cmds = [
+			"--verbose",
+			"--rtmp", res.download.rtmp || res.download.url,
 			"--pageUrl", res.download.referer,
-			"--swfUrl", res.download.referer, // this is invalid, but good enough most of the time.
+			"--swfUrl", res.download.swfurl || res.download.referer, // this is invalid, but good enough most of the time.
 			"--flv", savefile.file.path ];
+		if (res.download.rtmp) {
+			if (res.download.playpath) {
+				cmds.push("--playpath");
+				cmds.push(res.download.playpath);
+			}
+			if (res.download.app) {
+				cmds.push("--app");
+				cmds.push(res.download.app);
+			}
+		}
+		return cmds;
 	}),
 	exec_file_list : [
 		"/usr/bin/rtmpdump" ],
@@ -474,6 +497,34 @@ UnPlug2DownloadMethods.add_button("copyurl", {
 	obscurity : 200,
 	css : "copyurl",
 	group : "copy"
+});
+
+UnPlug2DownloadMethods.add_button("vlc", {
+	avail : (function (res) {
+		var url = res.download.url;
+		if (!url) {
+			return false;
+		}
+		var proto = url.substring(0, url.indexOf(":"))
+		return (["mms", "http", "https", "rtsp"].indexOf(proto) != -1);
+	}),
+	signal_get_argv : (function (res, savefile) {
+		return [
+			"--no-one-instance",
+			"-Isignals", // no gui
+			res.download.url,
+			":demux=dump",
+            		":demuxdump-file=" + savefile.file.path,
+			":sout-all",
+			"vlc://quit" ];
+	}),
+	exec_file_list : [
+		"/usr/bin/vlc" ],
+	weblinks : [
+		{ url : "http://videolan.org/vlc", label : "videolan.org" }],
+	obscurity : 90,
+	css : "extern vlc",
+	group : "special"
 });
 
 UnPlug2DownloadMethods.finish();

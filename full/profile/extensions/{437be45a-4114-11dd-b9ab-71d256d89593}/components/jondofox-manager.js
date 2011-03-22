@@ -92,8 +92,12 @@ JDFManager.prototype = {
   filterList: [],
 
   isNoScriptInstalled: true,
+  
+  isCMInstalled: true,
 
-  noscriptEnabled: true,
+  isCMEnabled: true,
+
+  isNoScriptEnabled: true,
 
   // Incompatible extensions with their IDs
   extensions: { 
@@ -161,7 +165,15 @@ JDFManager.prototype = {
     'security.remember_cert_checkbox_default_setting':
     'extensions.jondofox.security.remember_cert_checkbox_default_setting',
     'browser.search.suggest.enabled':
-    'extensions.jondofox.search_suggest_enabled'
+    'extensions.jondofox.search_suggest_enabled',
+    'privacy.sanitize.sanitizeOnShutdown':
+    'extensions.jondofox.sanitize_onShutdown',
+    'privacy.clearOnShutdown.history':
+    'extensions.jondofox.clearOnShutdown_history',
+    'privacy.clearOnShutdown.passwords':
+    'extensions.jondofox.clearOnShutdown_passwords',
+    'privacy.clearOnShutdown.offlineApps':
+    'extensions.jondofox.clearOnShutdown_offlineApps'
   },
 
   //This map of integer preferences is given to the prefsMapper
@@ -389,26 +401,19 @@ JDFManager.prototype = {
 	  // flag read later.
 	  if (extension === "NoScript") {
              this.isNoScriptInstalled = false;
-	     log("NSInstalled is: " + this.isNoScriptInstalled);
-	  } else if (this.prefsHandler.
-                 getBoolPref('extensions.jondofox.update_warning')) {
-            this.jdfUtils.showAlertCheck(this.jdfUtils.
-              getString('jondofox.dialog.attention'), this.jdfUtils.
-              formatString('jondofox.dialog.message.necessaryExtension', 
-	      [extension]), 'update');
+	  } else if (extension === "Cookie Monster") {
+	     this.isCMInstalled = false;
 	  }
           log(extension + ' is missing');
         } else {
           log(extension + ' is installed');
           //... and if so whether they are enabled.
           if (this.isUserDisabled(this.necessaryExtensions[extension])) {
-            if (this.prefsHandler.
-	             getBoolPref('extensions.jondofox.update_warning')) {
-	      this.jdfUtils.showAlertCheck(this.jdfUtils.
-                getString('jondofox.dialog.attention'), this.jdfUtils.
-                formatString('jondofox.dialog.message.enableExtension',
-                [extension]), 'update');
-            }
+            if (extension === "NoScript") {
+              this.isNoScriptEnabled = false;
+	    } else if (extension === "Cookie Monster") {
+              this.isCMEnabled = false;
+	    }
 	    log(extension + ' is disabled by user');
           } else {
 	    log(extension + ' is enabled by user');
@@ -465,13 +470,29 @@ JDFManager.prototype = {
             log("NoScript is enabled as well.");
           } else {
             log("NoScript is not enabled!");
-            JDFManager.prototype.noscriptEnabled = false;
+            JDFManager.prototype.isNoScriptEnabled = false;
           }
         } else {
           log("NoScript is missing...");
           JDFManager.prototype.isNoScriptInstalled = false;
         }
       });
+      AddonManager.getAddonByID('{45d8ff86-d909-11db-9705-005056c00008}', 
+      function(addon) { 
+        if (addon) {
+          log("Found Cookie Monster, that's good." + 
+		    " Checking whether it is enabled...");
+          if (addon.isActive) {
+            log("Cookie Monster is enabled as well.");
+          } else {
+            log("Cookie Monster is not enabled! That's bad.");
+            JDFManager.prototype.isCMEnabled = false;
+          }
+        } else {
+          log("Cookie Monster is missing...");
+          JDFManager.prototype.isCMInstalled = false;
+        }
+      }); 
     } catch (e) {
       log("checkExtensionsFF4(): " + e);
     }
@@ -562,14 +583,6 @@ JDFManager.prototype = {
       // prefsMapper.map() in this function and should be more flexible and
       // transparent.
       this.setUserAgent(this.getState());
-
-      // Check "Clear browsing data on shutdown" in order to delete Flash 
-      // Cookies (<FF4). We have to test what happens with plugins disabled as
-      // those are, according to bug 290456, responsible for deleting the
-      // cookies.
-      this.prefsHandler.setBoolPref('privacy.sanitize.sanitizeOnShutdown',
-        this.prefsHandler.
-	     getBoolPref('extensions.jondofox.sanitize.sanitizeOnShutdown'));
     } catch (e) {
       log("onUIStartup(): " + e);
     }
@@ -789,7 +802,9 @@ JDFManager.prototype = {
     log("Checking whether we have to update the profile ..");
     try {
       if (this.prefsHandler.getStringPref(
-               'extensions.jondofox.profile_version') !== "2.5.0" &&
+               'extensions.jondofox.profile_version') !== "2.5.0" && 
+	   this.prefsHandler.getStringPref(
+               'extensions.jondofox.profile_version') !== "2.5.1" &&
           this.prefsHandler.getBoolPref('extensions.jondofox.update_warning')) {
           this.jdfUtils.showAlertCheck(this.jdfUtils.
             getString('jondofox.dialog.attention'), this.jdfUtils.
@@ -1399,9 +1414,12 @@ JDFManager.prototype = {
             this.proxyManager.setProxyFTP(
                 this.prefsHandler.getStringPref(prefix + "ftp_host"),
                 this.prefsHandler.getIntPref(prefix + "ftp_port"));
-            this.proxyManager.setProxyGopher(
+	    // No native Gopher protocol anymore in FF4.
+	    if (!this.ff4) {
+              this.proxyManager.setProxyGopher(
                 this.prefsHandler.getStringPref(prefix + "gopher_host"),
                 this.prefsHandler.getIntPref(prefix + "gopher_port"));
+	    }
             this.proxyManager.setProxySOCKS(
                 this.prefsHandler.getStringPref(prefix + "socks_host"),
                 this.prefsHandler.getIntPref(prefix + "socks_port"),

@@ -29,10 +29,15 @@ var get_config_name = (function () {
 });
 
 var is_valid_file = (function (fname) {
-	var f = Components.classes["@mozilla.org/file/local;1"]
-		.createInstance(Components.interfaces.nsILocalFile);
-	f.initWithPath(fname);
-	return (f.exists() && f.isExecutable());
+	try {
+		var f = Components.classes["@mozilla.org/file/local;1"]
+			.createInstance(Components.interfaces.nsILocalFile);
+		f.initWithPath(fname);
+		return (f.exists() && f.isExecutable());
+	} catch (e) {
+		// initWithPath on windows for "/usr/bin/..." raises error
+		return false;
+	}
 });
 
 var onload = (function () {
@@ -92,10 +97,11 @@ var onaccept = (function () {
 
 
 var dobrowse = (function () {
+	var config_name = get_config_name();
+	var title = UnPlug2.str("location_of").replace("%s", UnPlug2.str("dmethod." + config_name));
 	var filepicker = Components.classes["@mozilla.org/filepicker;1"]
 		.createInstance(Components.interfaces.nsIFilePicker);
-	filepicker.init(window, "Location of progam",
-		Components.interfaces.nsIFilePicker.modeOpen);
+	filepicker.init(window, title, Components.interfaces.nsIFilePicker.modeOpen);
 	
 	var ret = filepicker.show()
 	if (ret == Components.interfaces.nsIFilePicker.returnOK) {

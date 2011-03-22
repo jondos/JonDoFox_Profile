@@ -42,6 +42,8 @@
 <!ENTITY interface.contextmenu.a "x">
 <!ENTITY interface.toolbarbtn "UnPlug in der Symbolleiste anzeigen">
 <!ENTITY interface.toolbarbtn.a "S">
+<!ENTITY interface.addonsbar "Add to Add-Ons bar (status bar)">
+<!ENTITY interface.addonsbar.a "A">
 <!ENTITY privacy.title "Privatsph&#228;re">
 <!ENTITY privacy.popcontest "&#220;bermittle Informationen, auf welchen Webseiten Sie UnPlug benutzen">
 <!ENTITY privacy.popcontest.a "I">
@@ -58,6 +60,12 @@
 <!ENTITY downloader.addons "Unterst&#252;tzte Add-ons">
 <!ENTITY downloader.dta "DownThemAll">
 <!ENTITY downloader.flashgot "FlashGot">
+
+<!ENTITY extern.list.header "External tools">
+<!ENTITY extern.edit "Edit">
+<!ENTITY extern.edit.a "E">
+<!ENTITY extern.browse "Browse">
+<!ENTITY extern.browse.a "B">
 
 <!-- discovery tab -->
 <!ENTITY showall.title "Zeige zus&#228;tzliche Ergebnisse">
