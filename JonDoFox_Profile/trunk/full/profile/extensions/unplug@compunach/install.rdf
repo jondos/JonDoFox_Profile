@@ -6,7 +6,7 @@
 	<RDF:Description
 		RDF:about="urn:mozilla:install-manifest"
 		em:id="unplug@compunach"
-		em:version="2.039"
+		em:version="2.044"
 		em:type="2"
 		em:name="UnPlug"
 		em:description="Find and download media from websites"
@@ -14,12 +14,25 @@
 		em:homepageURL="http://unplug.dbatley.com/"
 		em:iconURL="chrome://unplug/skin/unplug-32.png"
 		em:optionsURL="chrome://unplug/content/config/config.xul" >
+		<em:translator>Ushi (de-DE)</em:translator>
+		<em:translator>DenB (fr-FR)</em:translator>
+		<em:translator>Juhász Zsolt (hu-HU)</em:translator>
+		<em:translator>Konradmb (pl-PL)</em:translator>
+		<em:translator>Mikael Hiort af Ornäs (sv-SE)</em:translator>
 		<em:targetApplication>
 			<Description>
 				<!-- Firefox -->
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 				<em:minVersion>3.0</em:minVersion>
-				<em:maxVersion>4.0b7</em:maxVersion>
+				<em:maxVersion>4.0.*</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+		<em:targetApplication>
+			<Description>
+				<!-- SeaMonkey -->
+				<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+				<em:minVersion>2.0</em:minVersion>
+				<em:maxVersion>2.1b1</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 	</RDF:Description>

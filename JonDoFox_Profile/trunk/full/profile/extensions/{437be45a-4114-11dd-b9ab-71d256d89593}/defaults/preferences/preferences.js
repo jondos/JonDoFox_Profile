@@ -116,6 +116,11 @@ pref("extensions.jondofox.geo_enabled", false);
 pref("extensions.jondofox.network_prefetch-next", false);
 pref("extensions.jondofox.cookieBehavior", 2);
 pref("extensions.jondofox.socks_remote_dns", true);
+pref("extensions.jondofox.sanitize_onShutdown", true);
+// In order to be able to use NoScript's STS feature...
+pref("extensions.jondofox.clearOnShutdown_history", false);
+pref("extensions.jondofox.clearOnShutdown_passwords", true);
+pref("extensions.jondofox.clearOnShutdown_offlineApps", true);
 // Only valid for FF4
 pref("extensions.jondofox.websocket.enabled", false);
 // Only valid for FF3
@@ -126,8 +131,6 @@ pref("extensions.jondofox.noscript_showDomain", false);
 //pref("extensions.jondofox.showAnontestNoProxy", true);
 pref("extensions.jondofox.search_suggest_enabled", false);
 pref("extensions.jondofox.delete_searchbar", true);
-//In order to delete Flash cookies as well, see bug 290456 
-pref("extensions.jondofox.sanitize.sanitizeOnShutdown", true);
 // Only valid for FF4
 // No pinging of Mozilla once a day for Metadata updates or whatever
 // See: http://blog.mozilla.com/addons/2011/02/10/add-on-metadata-start-up-time 

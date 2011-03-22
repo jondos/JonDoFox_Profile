@@ -42,7 +42,13 @@ UnPlug2Extern = {
 	
 	set_program_box_status : (function (doc, file_size, process_status) {
 		var labels = doc.getElementsByTagName("label");
-		file_size = (file_size / (1024 * 1024)).toPrecision(2) + " MiB";
+		if (file_size < 2.5 * 1024 * 1024) {
+			file_size = (file_size / 1024).toFixed(1) + " KiB";
+		} else if (file_size < 2.5 * 1024 * 1024 * 1024) {
+			file_size = (file_size / (1024 * 1024)).toFixed(1) + " MiB";
+		} else {
+			file_size = (file_size / (1024 * 1024 * 1024)).toFixed(1) + " GiB";
+		}
 		labels[1].setAttribute("value", file_size);
 		labels[2].setAttribute("value", UnPlug2.str("proc.status." + process_status));
 		doc.className = "process process-status-" + process_status;
@@ -71,15 +77,50 @@ UnPlug2Extern = {
 	}),
 	
 	setup_kill_button : (function (rtn) {
+		
+		// TODO - we really want a smaller and nicer cancel button
+		var that = this;
+		
 		rtn.node.getElementsByTagName("button")[0].addEventListener("command", (function () {
-			rtn.was_killed = true;
-			rtn.process.kill();
+			// no point in killing if it's already dead
+			if (!rtn.process.isRunning) {
+				return;
+			}
+			
+			// ask it we want to delete
+			// Alt+F4 defaults to POS_1
+			var prompt_service = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+				.getService(Components.interfaces.nsIPromptService);
+			var checkbox = { "value" : true };
+			var button = prompt_service.confirmEx(window, UnPlug2.str("extern.cancel.title"),
+				UnPlug2.str("extern.cancel.onefile").replace("%s", rtn.file.leafName),
+				prompt_service.BUTTON_POS_0 * prompt_service.BUTTON_TITLE_IS_STRING +
+				prompt_service.BUTTON_POS_1 * prompt_service.BUTTON_TITLE_IS_STRING,
+				UnPlug2.str("extern.cancel.stop"), UnPlug2.str("extern.cancel.dontstop"), null,
+				UnPlug2.str("extern.cancel.deletefile"),
+				checkbox);
+			if (button === 0) {
+				that.do_kill(rtn, checkbox.value);
+			}
 		}), false);
+	}),
+	
+	do_kill : (function (rtn, rm_file) {
+		if (!rtn.process.isRunning) {
+			return; // don't delete if it's just finished.
+		}
+		rtn.was_killed = true;
+		rtn.process.kill();
+		if (rm_file) {
+			try {
+				rtn.file.remove(false);
+			} catch (e) {} // file does not exist
+		}
 	}),
 	
 	remove_kill_button : (function (doc) {
 		var n = doc.getElementsByTagName("button")[0];
-		n.parentNode.removeChild(n);
+		n.style.visibility = "hidden"; // don't delete as has race with kill button setup
 	}),
 	
 	poll : (function () {
@@ -96,6 +137,9 @@ UnPlug2Extern = {
 			} else {
 				if (item.was_killed || item.process.exitValue) {
 					extern.set_program_box_status(item.node, file_size, "error");
+				} else if (file_size == 0) {
+					// EXIT_SUCCESS + no file is error from vlc
+					extern.set_program_box_status(item.node, file_size, "error");
 				} else {
 					extern.set_program_box_status(item.node, file_size, "done");
 				}
@@ -108,10 +152,28 @@ UnPlug2Extern = {
 	}),
 	
 	want_close : (function () {
-		if (this.watching.length > 0) {
-			return confirm("Current downloads will no longer be listed if you close this window.");
+		if (this.watching.length == 0) {
+			return true; // no reason not to exit
 		}
-		return true;
+		
+		var prompt_service = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+			.getService(Components.interfaces.nsIPromptService);
+		var checkbox = { "value" : true };
+		var button = prompt_service.confirmEx(window, UnPlug2.str("extern.cancel.title"),
+			UnPlug2.str("extern.cancel.manyfile").replace("%s", this.watching.length),
+			prompt_service.BUTTON_POS_0 * prompt_service.BUTTON_TITLE_IS_STRING +
+			prompt_service.BUTTON_POS_1 * prompt_service.BUTTON_TITLE_IS_STRING,
+			UnPlug2.str("extern.cancel.stop"), UnPlug2.str("extern.cancel.dontstop"), null,
+			UnPlug2.str("extern.cancel.deletefile"),
+			checkbox);
+		if (button === 0) {
+			for (var i = 0; i < this.watching.length; ++i) {
+				this.do_kill(this.watching[i], checkbox.value);
+			}
+			return true; // ok to exit
+		} else {
+			return false; // clicked cancel
+		}
 	})
 }
 

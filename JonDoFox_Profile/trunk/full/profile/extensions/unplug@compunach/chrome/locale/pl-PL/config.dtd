@@ -42,6 +42,8 @@
 <!ENTITY interface.contextmenu.a "k">
 <!ENTITY interface.toolbarbtn "Dodaj przycisk do paska narzêdzi">
 <!ENTITY interface.toolbarbtn.a "p">
+<!ENTITY interface.addonsbar "Add to Add-Ons bar (status bar)">
+<!ENTITY interface.addonsbar.a "A">
 <!ENTITY privacy.title "Prywatnoæ">
 <!ENTITY privacy.popcontest "Wysy³aj informacje na jakich stronach u¿ywasz UnPlug">
 <!ENTITY privacy.popcontest.a "W">
@@ -58,6 +60,12 @@
 <!ENTITY downloader.addons "Wspierane rozszerzenia">
 <!ENTITY downloader.dta "DownThemAll">
 <!ENTITY downloader.flashgot "FlashGot">
+
+<!ENTITY extern.list.header "External tools">
+<!ENTITY extern.edit "Edit">
+<!ENTITY extern.edit.a "E">
+<!ENTITY extern.browse "Browse">
+<!ENTITY extern.browse.a "B">
 
 <!-- discovery tab -->
 <!ENTITY showall.title "Poka¿ dodatkowe rezultaty">
