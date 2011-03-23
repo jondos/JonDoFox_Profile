@@ -1,9 +1,0 @@
-content     cookiemonster    jar:chrome/cookiemonster.jar!/content/
-overlay chrome://browser/content/browser.xul chrome://cookiemonster/content/overlay.xul
-
-locale cookiemonster de-DE jar:chrome/cookiemonster.jar!/locale/de-DE/
-locale cookiemonster en-US jar:chrome/cookiemonster.jar!/locale/en-US/
-locale cookiemonster fr-FR jar:chrome/cookiemonster.jar!/locale/fr-FR/
-locale cookiemonster zh-TW jar:chrome/cookiemonster.jar!/locale/zh-TW/
-
-skin cookiemonster classic/1.0 jar:chrome/cookiemonster.jar!/skin/
