@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.4.0.0"
+!define VERSION "2.5.1.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "3.6.8"
+!define FF_VERSION "4.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -1325,72 +1325,79 @@ Function Update
         Call ParsePrefsJS
 
         # selected firefox is a JonDoFox
-        # StrCmp $IsJonDoFox "true" done BackupBookmarksCerts
+        # StrCmp $IsJonDoFox "true" done BackupBookmarksCertsSTS
 
-        # BackupBookmarksCerts:
+        # BackupBookmarksCertsSTS:
 
         MessageBox MB_ICONINFORMATION|MB_YESNO $(OverwriteProfile) IDYES updating IDNO Exit
         updating:
 
-        nxs::Show /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /h 1 /can 0 /pos 0 /can 1 /marquee 40 /end
+        nxs::Show /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /h 1 /can 0 /pos 0 /can 1 /marquee 40 /end
         IfFileExists $ProfilePath\BookmarkBackup\*.* +5
         CreateDirectory $ProfilePath\BookmarkBackup
         IfErrors Error
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 10 /end 
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 10 /end 
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\*.* +3
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 20 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 20 /end
         
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\bookmarks.html 0 +2
         Goto Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 30 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 30 /end
 
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\places.sqlite 0 +2
         Goto Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 40 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 40 /end
 
         IfFileExists $ProfilePath\bookmarks.html 0 +3
         CopyFiles $ProfilePath\bookmarks.html $ProfilePath\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 50 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 50 /end
 
         IfFileExists $ProfilePath\places.sqlite 0 +3
         CopyFiles $ProfilePath\places.sqlite $ProfilePath\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 60 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 60 /end
 
         IfFileExists $ProfilePath\bookmarkbackups\*.* 0 +3
         CopyFiles $ProfilePath\bookmarkbackups\*.* $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 70 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 70 /end
         
         IfFileExists $TEMP\BookmarkBackup\*.* +3
         CreateDirectory $TEMP\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 80 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 80 /end
 
         IfFileExists $ProfilePath\BookmarkBackup\*.* 0 +3
         CopyFiles $ProfilePath\BookmarkBackup\*.* $TEMP\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 90 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 90 /end
 
 	IfFileExists $ProfilePath\CertPatrol.sqlite 0 +3
         CopyFiles $ProfilePath\CertPatrol.sqlite $TEMP
 	IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 100 /end
+	ifFileExists $ProfilePath\prefs.js 0 +3
+	FileOpen $0 $ProfilePath\prefs.js r
+	FileRead $0 $1
+	DetailPrint $1
+	IfErrors Error
+	FileClose $0
+
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 100 /end
 
         nxs::Destroy
         

@@ -80,7 +80,7 @@ LangString InstallingJonDo ${LANG_GERMAN} "Um anonym zu surfen, benötigen Sie no
 
 LangString InstallingPortableJonDo ${LANG_GERMAN} "Wollen Sie noch JonDo herunterladen und die portable Version installieren (notwendig, um anonym zu surfen)?"
 
-LangString BackupBookmarksCerts ${LANG_GERMAN} "Sichern der Lesezeichen und Zertifikatdatenbank..."
+LangString BackupBookmarksCertsSTS ${LANG_GERMAN} "Sichern der Lesezeichen, Zertifikatdatenbank und der Domains, für die HTTPS erzwungen werden soll..."
 
 LangString ^InstallLink ${LANG_GERMAN} "$(^NAME) starten"
 

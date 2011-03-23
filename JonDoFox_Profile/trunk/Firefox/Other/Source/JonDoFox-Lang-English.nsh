@@ -81,7 +81,7 @@ LangString InstallingJonDo ${LANG_ENGLISH} "In order to surf anonymously you nee
 
 LangString InstallingPortableJonDo ${LANG_ENGLISH} "Do you want to download JonDo and install the portable version as well (necessary for surfing anonymously)?"
 
-LangString BackupBookmarksCerts ${LANG_ENGLISH} "Backing up the bookmarks and the certificate database..."
+LangString BackupBookmarksCertsSTS ${LANG_ENGLISH} "Backing up the bookmarks, the certificate database and the HTTPS enforced domains..."
 
 LangString ^InstallLink ${LANG_ENGLISH} "Start $(^NAME)"
 
