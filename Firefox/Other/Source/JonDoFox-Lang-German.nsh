@@ -48,7 +48,7 @@ LangString DescJFPortable ${LANG_GERMAN} "Firefox bietet Sicherheit, Geschwindig
 
 LangString DescAdblockPlus ${LANG_GERMAN} "Werbung war Gestern"
 
-LangString DescCSLite ${LANG_GERMAN} "Kontrolliert Cookie-Berechtigungen"
+LangString DescCMonster ${LANG_GERMAN} "Kontrolliert Cookie-Berechtigungen"
 
 LangString DescUnPlug ${LANG_GERMAN} "Erlaubt das Herunterladen von Videos von vielen Webseiten"
 
@@ -80,7 +80,7 @@ LangString InstallingJonDo ${LANG_GERMAN} "Um anonym zu surfen, benötigen Sie no
 
 LangString InstallingPortableJonDo ${LANG_GERMAN} "Wollen Sie noch JonDo herunterladen und die portable Version installieren (notwendig, um anonym zu surfen)?"
 
-LangString BackupBookmarksCertsSTS ${LANG_GERMAN} "Sichern der Lesezeichen, Zertifikatdatenbank und der Domains, für die HTTPS erzwungen werden soll..."
+LangString BackupBookmarksCerts ${LANG_GERMAN} "Sichern der Lesezeichen und Zertifikatsdatenbank..." 
 
 LangString ^InstallLink ${LANG_GERMAN} "$(^NAME) starten"
 

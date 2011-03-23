@@ -464,7 +464,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section "Cookie Monster" CSLite
+        Section "Cookie Monster" CMonster
         SectionIn 1 2         
                 StrCpy $ExtensionGUID "{45d8ff86-d909-11db-9705-005056c00008}"
                 StrCpy $ExtensionName "Cookie Monster"
@@ -616,7 +616,7 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${JFPortable} $(DescJFPortable)
   !insertmacro MUI_DESCRIPTION_TEXT ${AdblockPlus} $(DescAdblockPlus)
-  !insertmacro MUI_DESCRIPTION_TEXT ${CSLite} $(DescCSLite)
+  !insertmacro MUI_DESCRIPTION_TEXT ${CMonster} $(DescCMonster)
   !insertmacro MUI_DESCRIPTION_TEXT ${UnPlug} $(DescUnPlug)
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)  
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
@@ -667,7 +667,7 @@ Function RequiredSelections
 
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
          SectionSetFlags ${AdblockPlus} $0
-   	 SectionSetFlags ${CSLite} $0
+   	 SectionSetFlags ${CMonster} $0
          SectionSetFlags ${JonDoFox} $0
          SectionSetFlags ${NoScript} $0
          SectionSetFlags ${UnPlug} $0
@@ -1325,66 +1325,66 @@ Function Update
         Call ParsePrefsJS
 
         # selected firefox is a JonDoFox
-        # StrCmp $IsJonDoFox "true" done BackupBookmarksCertsSTS
+        # StrCmp $IsJonDoFox "true" done BackupBookmarksCerts
 
-        # BackupBookmarksCertsSTS:
+        # BackupBookmarksCerts:
 
         MessageBox MB_ICONINFORMATION|MB_YESNO $(OverwriteProfile) IDYES updating IDNO Exit
         updating:
 
-        nxs::Show /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /h 1 /can 0 /pos 0 /can 1 /marquee 40 /end
+        nxs::Show /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /h 1 /can 0 /pos 0 /can 1 /marquee 40 /end
         IfFileExists $ProfilePath\BookmarkBackup\*.* +5
         CreateDirectory $ProfilePath\BookmarkBackup
         IfErrors Error
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 10 /end 
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 10 /end 
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\*.* +3
         CreateDirectory $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 20 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 20 /end
         
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\bookmarks.html 0 +2
         Goto Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 30 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 30 /end
 
         IfFileExists $ProfilePath\BookmarkBackup\bookmarkbackups\places.sqlite 0 +2
         Goto Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 40 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 40 /end
 
         IfFileExists $ProfilePath\bookmarks.html 0 +3
         CopyFiles $ProfilePath\bookmarks.html $ProfilePath\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 50 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 50 /end
 
         IfFileExists $ProfilePath\places.sqlite 0 +3
         CopyFiles $ProfilePath\places.sqlite $ProfilePath\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 60 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 60 /end
 
         IfFileExists $ProfilePath\bookmarkbackups\*.* 0 +3
         CopyFiles $ProfilePath\bookmarkbackups\*.* $ProfilePath\BookmarkBackup\bookmarkbackups
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 70 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 70 /end
         
         IfFileExists $TEMP\BookmarkBackup\*.* +3
         CreateDirectory $TEMP\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 80 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 80 /end
 
         IfFileExists $ProfilePath\BookmarkBackup\*.* 0 +3
         CopyFiles $ProfilePath\BookmarkBackup\*.* $TEMP\BookmarkBackup
         IfErrors Error
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 90 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 90 /end
 
 	IfFileExists $ProfilePath\CertPatrol.sqlite 0 +3
         CopyFiles $ProfilePath\CertPatrol.sqlite $TEMP
@@ -1397,7 +1397,7 @@ Function Update
 	IfErrors Error
 	FileClose $0
 
-        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCertsSTS) /pos 100 /end
+        nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 100 /end
 
         nxs::Destroy
         

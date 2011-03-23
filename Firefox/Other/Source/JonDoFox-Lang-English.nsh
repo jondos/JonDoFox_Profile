@@ -48,9 +48,9 @@ LangString InstTypeProfileLite ${LANG_ENGLISH} "Desktop (needs installed Firefox
 
 LangString DescJFPortable ${LANG_ENGLISH} "Firefox has security, speed and new features that will change the way you use the Web."
 
-LangString DescAdblockPlus ${LANG_ENGLISH} "advertisement is history"
+LangString DescAdblockPlus ${LANG_ENGLISH} "Advertisement is history"
 
-LangString DescCSLite ${LANG_ENGLISH} "controls cookie permissions"
+LangString DescCMonster ${LANG_ENGLISH} "Controls cookie permissions"
 
 LangString DescUnPlug ${LANG_ENGLISH} "Allows you to download video from many websites"
 
@@ -81,7 +81,7 @@ LangString InstallingJonDo ${LANG_ENGLISH} "In order to surf anonymously you nee
 
 LangString InstallingPortableJonDo ${LANG_ENGLISH} "Do you want to download JonDo and install the portable version as well (necessary for surfing anonymously)?"
 
-LangString BackupBookmarksCertsSTS ${LANG_ENGLISH} "Backing up the bookmarks, the certificate database and the HTTPS enforced domains..."
+LangString BackupBookmarksCerts ${LANG_ENGLISH} "Backing up the bookmarks and the certificate database..." 
 
 LangString ^InstallLink ${LANG_ENGLISH} "Start $(^NAME)"
 
