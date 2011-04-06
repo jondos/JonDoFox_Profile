@@ -380,6 +380,11 @@ SectionIn 1
         SetOverwrite on
 
         File /r /x .svn /x Source "..\..\*.*"
+
+        # Copying the FirefoxPortable.ini in order to allow a desktop and
+        # a portable Firefox running in parallel
+        
+	File "FirefoxPortable.ini"
         
         ${If} $LANGUAGE == "1031"          # german
               File /r /x .svn "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
@@ -1046,28 +1051,17 @@ FunctionEnd
 !macro CheckFirefoxRunning_macro un
    Function ${un}CheckFirefoxRunning                    # 3
       Push $5
-      ${If} $PROGRAMINSTALL == "false"
-          Push "firefox.exe"
-          processwork::existsprocess
-      ${Else}
-          Push "FirefoxPortable.exe"
-          processwork::existsprocess
-      ${EndIf}
+      # We just test for firefox.exe as the option of having a desktop
+      # and a portable version running in parallel disables the opportunity
+      # to check for FirefoxPortable.exe. That's quite inconvenient if one
+      # has to quit Firefox in order to install the portable version but
+      # probably safer.
+      Push "firefox.exe"
+      processwork::existsprocess
       Pop $5
       IntCmp $5 1 is1 is0 is0
 
       is1:
-        # Firefox is running but it can be FF Portable as well that's why
-        # we check whether there is a portable version started. Maybe the user
-        # wants to surf with the portable version and only likes to install
-        # the desktop one without starting it...
-        ${If} $PROGRAMINSTALL == "false"
-          Push "FirefoxPortable.exe"
-          processwork::existsprocess
-          Pop $5
-          IntCmp $5 1 is0 0 0 
-        ${EndIf}
-         
         MessageBox MB_ICONQUESTION|MB_YESNO $(FirefoxDetected) IDYES quitFF IDNO Exit
         quitFF:
 	       Push "firefox.exe"
@@ -1711,27 +1705,6 @@ Function FinishedInstall
         Delete $APPDATA\JonDoSetup.paf.exe
         SetShellVarContext current
        finish_install:
-        ReadINIStr $0 "$PLUGINSDIR\iospecial.ini" "Field 4" "State"
-        StrCmp $0 "0" install_done
-        StrCpy $5 "" 
-        Push $5
-        Push "firefox.exe"
-        processwork::existsprocess
-        Pop $5
-        IntCmp $5 1 is1 install_done install_done
-
-        is1:
-        # Firefox is running
-        MessageBox MB_ICONQUESTION|MB_YESNO $(FirefoxDetected) IDYES quitFF IDNO ExitFinishInstall
-        quitFF:
-	       Push "firefox.exe"
-	       processwork::KillProcess
-	       Sleep 1000
-          
-        Goto install_done
-        ExitFinishInstall:
-          Abort
-        install_done:
         ${If} $Update == "true"
               Call RestoreBackup
         ${EndIf}
