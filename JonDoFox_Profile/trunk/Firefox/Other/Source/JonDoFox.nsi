@@ -546,6 +546,7 @@ Section Uninstall
        Quit
      deleting:
        StrCpy $PROGRAMINSTALL "false" 
+       StrCpy $ProfilePath "$APPDATA\Mozilla\Firefox\Profiles\JonDoFox"
        Call un.CheckFirefoxRunning
        StrCpy $AppdataFolder "$APPDATA"
        Call un.GetLastProfilCounter
@@ -1030,14 +1031,11 @@ Function CheckFirefoxInstalled            # 2
                   StrCpy $FFInstalled "false"
                   StrCpy $PROGRAMINSTALL "true"
                   SectionSetFlags ${JFPortable} ${SF_SELECTED}
-                  Call CheckFirefoxRunning
                   Goto next
                   
                   yes:
                   StrCpy $FFInstalled "true"
 
-                  # Check if Firefox is running
-                  Call CheckFirefoxRunning        # -> 3
                   Call instPre
 
                   #Abort # Dont show MUI_PAGE_DIRECTORY
@@ -1062,6 +1060,7 @@ FunctionEnd
       IntCmp $5 1 is1 is0 is0
 
       is1:
+        IfFileExists "$ProfilePath\parent.lock" 0 done
         MessageBox MB_ICONQUESTION|MB_YESNO $(FirefoxDetected) IDYES quitFF IDNO Exit
         quitFF:
 	       Push "firefox.exe"
@@ -1315,6 +1314,8 @@ FunctionEnd
 
 
 Function Update
+
+        Call CheckFirefoxRunning
 
         Call ParsePrefsJS
 
@@ -1587,7 +1588,6 @@ Function comPre         # Reset wrong path error
                ${If} $PORTABLEAPPSINSTALL == "true"
                ${OrIf} $JonDoInstallation == "portable"
                           StrCpy $PROGRAMINSTALL "true"
-                          Call CheckFirefoxRunning
                           Abort
                ${EndIf}
                Goto +2
@@ -1616,7 +1616,6 @@ Function comPost
 
                 ${If} $R0 == ${SF_SELECTED}
                         StrCpy $PROGRAMINSTALL "true"
-			Call CheckFirefoxRunning
                         Goto goon
                 ${EndIf}
                 
@@ -1729,7 +1728,7 @@ Function FinishRun
               Exec "$INSTDIR\FirefoxPortable.exe"
         ${Else} 
               ${If} $FFInstalled == "done"
-                 UAC::Exec '' '"$PROGRAMFILES\Mozilla Firefox\firefox.exe" -P JonDoFox' '' ''
+                 UAC::Exec '' '"$PROGRAMFILES\Mozilla Firefox\firefox.exe" -no-remote -P JonDoFox' '' ''
               ${EndIf}
         ${EndIf}
 FunctionEnd
