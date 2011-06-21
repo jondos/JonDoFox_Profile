@@ -82,6 +82,8 @@ user_pref("extensions.lastAppVersion", "5.0");
 user_pref("extensions.secureLogin@blueimp.net.javascriptProtection", true);
 user_pref("extensions.unplug2.setup_number", 1);
 user_pref("extensions.update.notifyUser", false);
+user_pref("font.name.serif.x-western", "Arial");
+user_pref("font.name.sans-serif.x-western", "Arial");
 user_pref("general.appname.override", "Netscape");
 user_pref("general.appversion.override", "5.0 (Windows; en-US)");
 user_pref("general.buildID.override", "0");
