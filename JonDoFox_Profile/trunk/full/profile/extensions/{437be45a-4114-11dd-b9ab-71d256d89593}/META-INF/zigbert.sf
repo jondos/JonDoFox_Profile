@@ -102,8 +102,8 @@ SHA1-Digest: oYQt6UnULbN26b7g/BV/bhGVdr0=
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: ChAJJT6k260uzofG92ItGQ==
-SHA1-Digest: RjKlk1WZJb8MF+/Qu4kR293Mj+E=
+MD5-Digest: jyYjXi29NYbpiePaKT7D5A==
+SHA1-Digest: yJ4caMKP3goVYA9CHnYNPxrt8G8=
 
 Name: chrome.manifest
 Digest-Algorithms: MD5 SHA1
@@ -112,8 +112,8 @@ SHA1-Digest: W90SWRGKG11wCk2GsEe1WL9rROA=
 
 Name: chrome/jondofox.jar
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: E5raklRpmgI9isNHzxmzrQ==
-SHA1-Digest: xKz0ZUSeZ5R9fkma58m//D+vAfA=
+MD5-Digest: xMDLwqjesRadcwHskQ/uWA==
+SHA1-Digest: whgMSuuFMQPZiSeTUTOc6ggPMns=
 
 Name: defaults/preferences/preferences.js
 Digest-Algorithms: MD5 SHA1
