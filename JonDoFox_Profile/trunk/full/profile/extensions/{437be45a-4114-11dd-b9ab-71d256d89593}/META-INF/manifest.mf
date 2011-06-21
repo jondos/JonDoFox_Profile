@@ -109,8 +109,8 @@ SHA1-Digest: hotmLTnra/lTOJCIbpuRMF93jb4=
 
 Name: chrome/jondofox.jar
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: ELSRWk6JHLeuOXL4YkHJpQ==
-SHA1-Digest: b00rWJk275phQptAjFP2Bc047JQ=
+MD5-Digest: 6X1T9+IOp6AivxdizQC6Pg==
+SHA1-Digest: xQZPCWVEc2GZorZQNfzLathj7Hw=
 
 Name: defaults/preferences/preferences.js
 Digest-Algorithms: MD5 SHA1
