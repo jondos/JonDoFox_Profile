@@ -7,7 +7,7 @@
  *                             \___/
  * 
  *  Compunach UnPlug
- *  Copyright (C) 2010 David Batley <unplug@dbatley.com>
+ *  Copyright (C) 2010, 2011 David Batley <unplug@dbatley.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -100,6 +100,11 @@ UnPlug2Overlay = {
 	get_current_window : function () {
 		var br = getBrowser();
 		var br_tab = br.getBrowserAtIndex(br.mTabContainer.selectedIndex);
+		if (!br_tab) {
+			// can happen for pop-up windows, eg: pop-out radio player
+			UnPlug2.log("overlay.get_current_window() assuming tab 0 because selectedIndex is " + br.mTabContainer.selectedIndex);
+			br_tab = br.getBrowserAtIndex(0);
+		}
 		return br_tab.contentWindow;
 	},
 	

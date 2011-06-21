@@ -35,4 +35,13 @@
 <!ENTITY config.tooltip       "Redigera UnPlugs inställningar.">
 <!ENTITY dl.label             "Ladda ner">
 <!ENTITY dl.accesskey         "L">
+<!ENTITY dlselected.label     "Download selected">
+<!ENTITY dlselected.accesskey "D">
+<!ENTITY dlselected.heading   "Download selected results">
+<!ENTITY close.label          "Close">
+<!ENTITY close.accesskey      "C">
+<!ENTITY view.single          "Single view">
+<!ENTITY view.single.a        "v">
+<!ENTITY view.multiple        "Multiple view">
+<!ENTITY view.multiple.a      "v">
 

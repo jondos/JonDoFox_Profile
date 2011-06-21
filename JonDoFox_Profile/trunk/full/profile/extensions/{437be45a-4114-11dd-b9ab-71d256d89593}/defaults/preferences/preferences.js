@@ -5,7 +5,19 @@ pref("extensions.jondofox.new_profile", true);
 pref("extensions.jondofox.proxy.state", "jondo");
 pref("extensions.jondofox.alwaysUseJonDo", false);
 
-// Set the 'Referer' header to the current domain
+pref("extensions.jondofox.firstStart", true);
+
+// Autostart of JonDo
+pref("extensions.jondofox.autostartJonDo", false);
+
+// We still need that as Cookie Monster has no toolbar icon as in 1.0.5
+pref("extensions.jondofox.showAddon-bar", true);
+
+// Helping the EFF and its observatory
+pref("extensions.jondofox.observatory.cache_submitted", true);
+pref("extensions.jondofox.observatory.proxy", 0);
+
+// Set the 'Referer' header according our smart spoof functionality
 pref("extensions.jondofox.set_referrer", true);
 
 // Show different warnings in the beginning
@@ -56,10 +68,10 @@ pref("extensions.jondofox.tor.ssl_port", 0);
 pref("extensions.jondofox.jondo.appname_override", "Netscape");
 pref("extensions.jondofox.jondo.appversion_override", "5.0 (Windows; en-US)");
 pref("extensions.jondofox.jondo.buildID_override", "0");
-pref("extensions.jondofox.jondo.oscpu_override", "Windows NT 5.1");
+pref("extensions.jondofox.jondo.oscpu_override", "Windows NT 6.1");
 pref("extensions.jondofox.jondo.platform_override", "Win32");
-pref("extensions.jondofox.jondo.productsub_override", "2009021910");
-pref("extensions.jondofox.jondo.useragent_override", "Mozilla/5.0 (en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2");
+pref("extensions.jondofox.jondo.productsub_override", "20110420");
+pref("extensions.jondofox.jondo.useragent_override", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.17) Gecko/20110420 Firefox/3.6.17");
 pref("extensions.jondofox.jondo.useragent_vendor", "");
 pref("extensions.jondofox.jondo.useragent_vendorSub", "");
 
@@ -73,6 +85,32 @@ pref("extensions.jondofox.tor.productsub_override","20100401");
 pref("extensions.jondofox.tor.buildID_override","0");
 pref("extensions.jondofox.tor.useragent_vendor", "");
 pref("extensions.jondofox.tor.useragent_vendorSub","");
+
+// SafeBrowsing provider
+pref("extensions.jondofox.safebrowsing.provider.0.gethashURL", 
+    "http://safebrowsing.clients.google.com/safebrowsing/gethash?client=navclient-auto-ffox&appver=3.6.17&pver=2.2");
+pref("extensions.jondofox.safebrowsing.provider.0.keyURL", 
+    "https://sb-ssl.google.com/safebrowsing/newkey?client=navclient-auto-ffox&appver=3.6.17&pver=2.2");
+pref("extensions.jondofox.safebrowsing.provider.0.lookupURL",
+    "http://safebrowsing.clients.google.com/safebrowsing/lookup?sourceid=firefox-antiphish&features=TrustRank&client=navclient-auto-ffox&appver=3.6.17&");
+pref("extensions.jondofox.safebrowsing.provider.0.reportErrorURL", 
+    "http://en-US.phish-error.mozilla.com/?hl=en-US");
+pref("extensions.jondofox.safebrowsing.provider.0.reportGenericURL", 
+    "http://en-US.phish-generic.mozilla.com/?hl=en-US");
+pref("extensions.jondofox.safebrowsing.provider.0.reportMalwareErrorURL", 
+    "http://en-US.malware-error.mozilla.com/?hl=en-US");
+pref("extensions.jondofox.safebrowsing.provider.0.reportMalwareURL", 
+    "http://en-US.malware-report.mozilla.com/?hl=en-US");
+pref("extensions.jondofox.safebrowsing.provider.0.reportPhishURL", 
+    "http://en-US.phish-report.mozilla.com/?hl=en-US");
+pref("extensions.jondofox.safebrowsing.provider.0.reportURL", 
+    "http://safebrowsing.clients.google.com/safebrowsing/report?"); 
+pref("extensions.jondofox.safebrowsing.provider.0.updateURL", 
+    "http://safebrowsing.clients.google.com/safebrowsing/downloads?client=navclient-auto-ffox&appver=3.6.17&pver=2.2");
+
+pref("extensions.jondofox.safebrowsing.warning.infoURL", "http://www.mozilla.com/en-US/firefox/phishing-protection/");
+
+pref("extensions.jondofox.safebrowsing.malware.reportURL", "http://safebrowsing.clients.google.com/safebrowsing/diagnostic?client=%NAME%&hl=en-US&site=");
 
 // Location neutrality
 pref("extensions.jondofox.accept_languages", "en-us");
@@ -119,10 +157,10 @@ pref("extensions.jondofox.socks_remote_dns", true);
 pref("extensions.jondofox.sanitize_onShutdown", true);
 // In order to be able to use NoScript's STS feature...
 pref("extensions.jondofox.clearOnShutdown_history", false);
-pref("extensions.jondofox.clearOnShutdown_passwords", true);
 pref("extensions.jondofox.clearOnShutdown_offlineApps", true);
 // Only valid for FF4
 pref("extensions.jondofox.websocket.enabled", false);
+pref("extensions.jondofox.indexedDB.enabled", false);
 // Only valid for FF3
 pref("extensions.jondofox.history_expire_days", 0);
 pref("extensions.jondofox.http.accept_encoding", "gzip,deflate");
@@ -136,6 +174,12 @@ pref("extensions.jondofox.update.autoUpdateDefault", false);
 pref("extensions.jondofox.getAddons.cache.enabled", false);
 pref("extensions.jondofox.donottrackheader.enabled", true);
 
+// See: http://www.contextis.com/resources/blog/webgl/ 
+pref("extensions.jondofox.webgl.disabled", true);
+
+// No document fonts to avoid this fingerprint means
+pref("extensions.jondofox.use_document_fonts", 0);
+
 //SafeCache
 pref("extensions.jondofox.stanford-safecache_enabled", true);
 
@@ -148,4 +192,5 @@ pref("extensions.jondofox.certpatrol_showChangedCert", false);
 pref("extensions.jondofox.adblock_enabled", true);
 
 //Bloody Vkings
+pref("extensions.jondofox.temp.email.activated", true);
 pref("extensions.jondofox.temp.email.selected", "10minutemail.com");

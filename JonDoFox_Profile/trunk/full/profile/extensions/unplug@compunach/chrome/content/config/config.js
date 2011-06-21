@@ -7,7 +7,7 @@
  *                             \___/
  * 
  *  Compunach UnPlug
- *  Copyright (C) 2010 David Batley <unplug@dbatley.com>
+ *  Copyright (C) 2010, 2011 David Batley <unplug@dbatley.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -35,11 +35,17 @@ function do_load() {
 	detect_toolbarbutton();
 	goto_tab_requested();
 	setup_restart_notices();
+	populate_version();
 }
 
 function set_text() {
 	document.getElementById("dmethod-saveas").setAttribute("label", UnPlug2.str("dmethod.saveas"))
 	document.getElementById("dmethod-openover").setAttribute("label", UnPlug2.str("dmethod.open-over"))
+}
+
+function populate_version() {
+	var version_str = "UnPlug " + UnPlug2.version.toFixed(3) + " " + UnPlug2.codename + " (" + UnPlug2.revision + ")";
+	document.getElementById("version").setAttribute("value", version_str);
 }
 
 function set_extern_tools() {
