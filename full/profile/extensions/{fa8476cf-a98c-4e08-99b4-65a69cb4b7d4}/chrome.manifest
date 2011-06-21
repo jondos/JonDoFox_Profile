@@ -1,5 +1,7 @@
-overlay	chrome://browser/content/browser.xul	chrome://profilelauncher/content/profilelauncher.xul 
-overlay	chrome://messenger/content/messenger.xul	chrome://profilelauncher/content/profilelauncher.xul
+overlay	chrome://browser/content/browser.xul	chrome://profilelauncher/content/profilelauncher.xul appversion<3.9
+overlay	chrome://browser/content/browser.xul	chrome://profilelauncher/content/profilelauncher-FF4.xul appversion>3.9
+overlay	chrome://messenger/content/messenger.xul	chrome://profilelauncher/content/profilelauncher.xul appversion<3.9
+overlay	chrome://messenger/content/messenger.xul	chrome://profilelauncher/content/profilelauncher-FF4.xul appversion>3.9
 overlay	chrome://messenger/content/addressbook/addressbook.xul	chrome://profilelauncher/content/ABoverlay.xul
 
 content	profilelauncher	jar:chrome/profilelauncher.jar!/content/profilelauncher/

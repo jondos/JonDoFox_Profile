@@ -15,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is
  * Wladimir Palant.
- * Portions created by the Initial Developer are Copyright (C) 2006-2010
+ * Portions created by the Initial Developer are Copyright (C) 2006-2011
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -106,6 +106,13 @@ var Synchronizer =
 	 * @param {Boolean}  forceDownload  if true, the subscription will even be redownloaded if it didn't change on the server
 	 */
 	execute: function(subscription, manual, forceDownload)
+	{
+		// Delay execution, SeaMonkey 2.1 won't fire request's event handlers
+		// otherwise if the window that called us is closed.
+		Utils.runAsync(this.executeInternal, this, subscription, manual, forceDownload);
+	},
+
+	executeInternal: function(subscription, manual, forceDownload)
 	{
 		let url = subscription.url;
 		if (url in executing)
@@ -365,14 +372,14 @@ var Synchronizer =
 			if (newFilters)
 				FilterStorage.updateSubscriptionFilters(subscription, newFilters);
 			else
-				FilterStorage.triggerSubscriptionObservers("updateinfo", [subscription]);
+				FilterStorage.triggerObservers("subscriptions updateinfo", [subscription]);
 			delete subscription.oldSubscription;
 
 			FilterStorage.saveToDisk();
 		};
 
 		executing[url] = true;
-		FilterStorage.triggerSubscriptionObservers("updateinfo", [subscription]);
+		FilterStorage.triggerObservers("subscriptions updateinfo", [subscription]);
 
 		try
 		{
@@ -555,7 +562,7 @@ function setError(subscription, error, channelStatus, responseStatus, downloadUR
 				else if (/^410\b/.test(request.responseText))   // Gone
 				{
 					subscription.autoDownload = false;
-					FilterStorage.triggerSubscriptionObservers("updateinfo", [subscription]);
+					FilterStorage.triggerObservers("subscriptions updateinfo", [subscription]);
 				}
 				FilterStorage.saveToDisk();
 			}
@@ -563,6 +570,6 @@ function setError(subscription, error, channelStatus, responseStatus, downloadUR
 		}
 	}
 
-	FilterStorage.triggerSubscriptionObservers("updateinfo", [subscription]);
+	FilterStorage.triggerObservers("subscriptions updateinfo", [subscription]);
 	FilterStorage.saveToDisk();
 }

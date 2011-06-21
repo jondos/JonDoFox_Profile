@@ -31,11 +31,27 @@ const CU = Components.utils;
 ///////////////////////////////////////////////////////////////////////////////
 
 // Singleton instance definition
-var JDFManager = function(){
+var JDFManager = function() {
   this.wrappedJSObject = this;
   // That CU call has to be here, otherwise it would not work. See:
   // https://developer.mozilla.org/en/JavaScript/Code_modules/Using section
   // "Custom modules and XPCOM components" 
+  CU.import("resource://jondofox/log4moz.js", this); 
+  var formatter = new this.Log4Moz.BasicFormatter();
+  var root = this.Log4Moz.repository.rootLogger;
+  dump("Created a rootLogger!\n");
+  // We want to have output to standard out. 
+  var dapp = new this.Log4Moz.DumpAppender(formatter);
+  dapp.level = this.Log4Moz.Level["Debug"];
+  root.addAppender(dapp); 
+  // We may want to have JS error console output as well...
+  var capp = new this.Log4Moz.ConsoleAppender(formatter);
+  capp.level = this.Log4Moz.Level["Warn"];
+  root.addAppender(capp); 
+
+  // Now we are adding a specific logger (JDFManager)...
+  this.logger = this.Log4Moz.repository.getLogger("JonDoFox Manager");
+  this.logger.level = this.Log4Moz.Level["Debug"];
   //Components.utils.import("resource://jondofox/adblockModule.js", this);
   //Components.utils.import("resource://jondofox/adblockFilter.js", this);
   //Components.utils.import("resource://jondofox/adblockMatcher.js", this);  
@@ -76,7 +92,7 @@ JDFManager.prototype = {
   // If FF4, which version (the add-on bar exists since 4.0b7pre)
   ff4Version: "",
 
-  // Part of a hack to show reliable the about:jondofox page in FF4 after a new
+  // Part of a hack to show reliably the about:jondofox page in FF4 after a new
   // version was detected.
   newVersionDetected: false,
 
@@ -98,6 +114,16 @@ JDFManager.prototype = {
   isCMEnabled: true,
 
   isNoScriptEnabled: true,
+
+  os: "unsupported",
+
+  jondoProcess: null,
+
+  isJondoInstalled: false,
+
+  jondoExecutable: null,
+
+  jondoArgs: [],
 
   // Incompatible extensions with their IDs
   extensions: { 
@@ -140,6 +166,35 @@ JDFManager.prototype = {
     'general.useragent.vendor':'extensions.jondofox.tor.useragent_vendor',
     'general.useragent.vendorSub':'extensions.jondofox.tor.useragent_vendorSub'
   },
+
+  // Adding a uniform URLs concerning safebrowsing functionality to not 
+  // leak information.
+  safebrowseMap: {
+    'browser.safebrowsing.provider.0.gethashURL': 
+      'extensions.jondofox.safebrowsing.provider.0.gethashURL',
+    'browser.safebrowsing.provider.0.keyURL': 
+      'extensions.jondofox.safebrowsing.provider.0.keyURL',
+    'browser.safebrowsing.provider.0.lookupURL':
+      'extensions.jondofox.safebrowsing.provider.0.lookupURL', 
+    'browser.safebrowsing.provider.0.reportErrorURL': 
+      'extensions.jondofox.safebrowsing.provider.0.reportErrorURL',
+    'browser.safebrowsing.provider.0.reportGenericURL': 
+      'extensions.jondofox.safebrowsing.provider.0.reportGenericURL',
+    'browser.safebrowsing.provider.0.reportMalwareErrorURL': 
+      'extensions.jondofox.safebrowsing.provider.0.reportMalwareErrorURL',
+    'browser.safebrowsing.provider.0.reportMalwareURL': 
+      'extensions.jondofox.safebrowsing.provider.0.reportMalwareURL',
+    'browser.safebrowsing.provider.0.reportPhishURL': 
+      'extensions.jondofox.safebrowsing.provider.0.reportPhishURL',
+    'browser.safebrowsing.provider.0.reportURL': 
+      'extensions.jondofox.safebrowsing.provider.0.reportURL',
+    'browser.safebrowsing.provider.0.updateURL': 
+      'extensions.jondofox.safebrowsing.provider.0.updateURL', 
+    'browser.safebrowsing.warning.infoURL': 
+      'extensions.jondofox.safebrowsing.warning.infoURL',
+    'browser.safebrowsing.malware.reportURL': 
+      'extensions.jondofox.safebrowsing.malware.reportURL'
+  },
   
   // This map of string preferences is given to the prefsMapper
   stringPrefsMap: { 
@@ -169,8 +224,6 @@ JDFManager.prototype = {
     'extensions.jondofox.sanitize_onShutdown',
     'privacy.clearOnShutdown.history':
     'extensions.jondofox.clearOnShutdown_history',
-    'privacy.clearOnShutdown.passwords':
-    'extensions.jondofox.clearOnShutdown_passwords',
     'privacy.clearOnShutdown.offlineApps':
     'extensions.jondofox.clearOnShutdown_offlineApps'
   },
@@ -270,6 +323,7 @@ JDFManager.prototype = {
     var filterHelper;
     var line = {};
     var hasmore;
+    /* TODO: Does not work in FF4 anymore, see below */
     var componentFile = __LOCATION__;
     var extDir = componentFile.parent.parent;
     extDir.append("easylistgermany+easylist.txt");
@@ -510,6 +564,11 @@ JDFManager.prototype = {
 	// feature is harmless.
 	this.boolPrefsMap['network.websocket.enabled'] = 
 	        'extensions.jondofox.websocket.enabled';
+        this.boolPrefsMap['dom.indexedDB.enabled'] = 
+                'extensions.jondofox.indexedDB.enabled';
+        // Disabling WebGL for security reasons
+        this.boolPrefsMap['webgl.disabled'] = 
+                'extensions.jondofox.webgl.disabled';
         // Firefox 4 has a whitespace between the "," and "deflate". We need to 
 	// avoid that in order not to reduce our anonymity set.	
 	this.stringPrefsMap['network.http.accept-encoding'] = 
@@ -576,14 +635,183 @@ JDFManager.prototype = {
       } else {
         this.setProxy(this.getState());
       }
+      // We need to estimate the JonDo path anyway in order to show the user
+      // later on the proper help if she accidentally shut JonDo down.
+      // Therefore, we are doing it right now...
+      this.jondoExecutable = this.getJonDoPath();
+      if (this.jondoExecutable) {
+        this.jondoProcess = CC["@mozilla.org/process/util;1"].
+                           createInstance(CI.nsIProcess); 
+        // Now we are starting JonDo if it was not already started and the user
+        // wants it to get started.
+        if (this.prefsHandler.
+            getBoolPref('extensions.jondofox.autostartJonDo') && 
+            this.getState() === 'jondo') {
+          log("Starting JonDo...");
+          this.startJondo();
+        }
+      }
       // A convenient method to set user prefs that change from proxy to proxy.
       // We should nevertheless make the settings of userprefs in broader way
       // dependant on the chosen proxy. This would include the call to 
       // prefsMapper.map() in this function and should be more flexible and
       // transparent.
       this.setUserAgent(this.getState());
+      // For our new (2.5.2) profile we may disable the document fonts if the
+      // user wants it (they are disabled by default).
+      if (this.prefsHandler.getStringPref(
+               'extensions.jondofox.profile_version') == "2.5.2") {
+        this.prefsHandler.setIntPref('browser.display.use_document_fonts', this.
+          prefsHandler.getIntPref('extensions.jondofox.use_document_fonts'));
+      }
     } catch (e) {
       log("onUIStartup(): " + e);
+    }
+  },
+
+  getJonDoPath: function() {
+  try {
+    var subKey;
+    var jondoPath;
+    var component;
+    var jondoExecFile = CC["@mozilla.org/file/local;1"].
+                            createInstance(CI.nsILocalFile);
+    //Getting the OS first...
+    var xulRuntime = CC["@mozilla.org/xre/app-info;1"].getService(CI.
+                     nsIXULRuntime); 
+    if (xulRuntime.OS === "WINNT") {
+      this.os = "windows";
+      // We are trying to find the JRE using the registry. First, JonDo
+      // and second JAP, sigh.
+      var wrk = CC["@mozilla.org/windows-registry-key;1"].
+                createInstance(CI.nsIWindowsRegKey);
+      wrk.open(wrk.ROOT_KEY_LOCAL_MACHINE, "SOFTWARE", 
+        wrk.ACCESS_READ);
+      if (wrk.hasChild("JonDo")) {
+	subKey = wrk.openChild("JonDo", wrk.ACCESS_READ);
+        jondoPath = subKey.readStringValue("LinkPath");
+	subKey.close();
+	if (!jondoPath) {
+          log("Missing JonDo path.");
+        }
+      } else if (wrk.hasChild("JAP")) {
+        log("Missing JonDo Registry key. Checking whether there is a JAP key.");
+        subKey = wrk.openChild("JAP", wrk.ACCESS_READ);
+        jondoPath = subKey.readStringValue("LinkPath");
+	subKey.close();
+	if (!jondoPath) {
+          log("Missing JAP path.");
+        }  
+      } else {
+        log("Found neither a JonDo nor a JAP key... Checking for a portable " +
+          "version...");
+        // We need to check that here as __LOCATION__ is undefined in FF4.
+        // No! Only if one does not use the unpack flag!?
+	if (typeof(__LOCATION__) !== "undefined") {
+	  component = __LOCATION__;
+	} else {
+          // Thanks to FoxyProxy for this idea...
+	  var componentFilename = Components.Exception().filename; 
+	  // Just in case we have the file path starting with "jar:" we replace 
+	  // it.
+	  componentFilename = componentFilename.replace(/^jar:/, "");
+          var fileProtHand = CC["@mozilla.org/network/protocol;1?name=file"].
+            getService(CI.nsIFileProtocolHandler); 
+          component = fileProtHand.getFileFromURLSpec(componentFilename);
+	}
+        var rootDir = component.parent.parent.parent.parent.parent.parent.parent;
+	rootDir.append("JonDoPortable");
+	try {
+	  if (rootDir.isDirectory() && rootDir.exists()) {
+            rootDir.append("JonDoPortable.exe"); 
+	    if (rootDir.isFile() && rootDir.exists()) {
+              jondoPath = rootDir.path;
+	    } else {
+              log("Found no JonDoPortable.exe");
+	    }
+	  } 
+	} catch (e) {
+          log("No JonDoPortable found either. Thus, no JonDo starting here...");
+        }
+      }
+      wrk.close();
+      if (jondoPath) {
+	// Why does 'return jondoExecFile.initWithPath(jondoPath);' not work?
+        jondoExecFile.initWithPath(jondoPath); 
+	return jondoExecFile;
+      } else {
+	return null;
+      }
+    } else if (xulRuntime.OS === "Linux") {
+      this.os = "linux";
+      jondoExecFile.initWithPath("/usr/bin");
+      jondoExecFile.append("jondo");
+      if (jondoExecFile.exists() && jondoExecFile.isFile()) {
+	return jondoExecFile;
+      } else {
+        jondoExecFile.initWithPath("/usr/bin");
+        jondoExecFile.append("java"); 
+        if (jondoExecFile.exists() && jondoExecFile.isFile()) {
+          // Found a java executable returning it and we check the path of
+          // the JAP.jar in the callee (that seems the easiest way...
+          return jondoExecFile;
+        } else {
+          log("No 'java' or 'jondo' file found.");
+	  return null;
+	}  
+      }
+    } else if (xulRuntime.OS === "Darwin") {
+      this.os = "darwin";
+      jondoExecFile.initWithPath("/Applications/JAP.app/Contents/MacOS");
+      jondoExecFile.append("JAP");
+      if (jondoExecFile.exists() && jondoExecFile.isFile()) {
+	return jondoExecFile;
+      } else {
+        return null;
+      } 
+    } else {
+      log("Found an unhandled operating system: " + xulRuntime.OS);
+    } 
+  } catch(e) {
+    log("Error while locking for JonDo Executable: " + e);
+  }
+  },
+
+  startJondo : function() {
+    try {
+      this.jondoProcess.init(this.jondoExecutable); 
+      if (this.jondoExecutable.path !== "/usr/bin/java") {
+        this.jondoArgs = ["--try"];
+      } else {
+        // Checking for a JAP.jar in the home directory. If we find it we 
+        // start JonDo if not then just the browser starts up. 
+        var dirService = CC["@mozilla.org/file/directory_service;1"].
+          getService(CI.nsIProperties); 
+        var homeDirFile = dirService.get("Home", CI.nsIFile);
+          homeDirFile.append("JAP.jar");
+        if (homeDirFile.exists() && homeDirFile.isFile()) {
+          var JAPPath = homeDirFile.path;
+          this.jondoArgs = ["-jar", JAPPath, "--try"];
+        } else {
+          // No JAP.jar found, thus returning...
+          return;
+        } 
+      }
+    } catch (e if e.name === "NS_ERROR_ALREADY_INITIALIZED") {
+      log("Process as already initialized. Just restarting...");
+    }
+    this.isJondoInstalled = true; 
+    // We do not need to start the process twice.
+    if (!this.jondoProcess.isRunning) {
+      if (!this.ff4) {
+        this.jondoProcess.run(false, this.jondoArgs, this.jondoArgs.length);
+      } else {
+        // There were problems with unicode filenames and path's that got
+        // fixed in FF4. See: 
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=411511. If somebody
+        // with FF < 4 got hit by this bug she has to upgrade. 
+        this.jondoProcess.runw(false, this.jondoArgs, this.jondoArgs.length); 
+      } 
     }
   },
 
@@ -804,6 +1032,8 @@ JDFManager.prototype = {
                'extensions.jondofox.profile_version') !== "2.5.0" && 
 	   this.prefsHandler.getStringPref(
                'extensions.jondofox.profile_version') !== "2.5.1" &&
+           this.prefsHandler.getStringPref(
+               'extensions.jondofox.profile_version') !== "2.5.2" && 
           this.prefsHandler.getBoolPref('extensions.jondofox.update_warning')) {
           this.jdfUtils.showAlertCheck(this.jdfUtils.
             getString('jondofox.dialog.attention'), this.jdfUtils.
@@ -831,6 +1061,11 @@ JDFManager.prototype = {
         for (p in this.jondoUAMap) {
           this.prefsHandler.setStringPref(p,
                this.prefsHandler.getStringPref(this.jondoUAMap[p]));
+        }
+        // Setting our own safebrowsing provider and activate it.
+        for (p in this.safebrowseMap) {
+          this.prefsHandler.setStringPref(p,
+               this.prefsHandler.getStringPref(this.safebrowseMap[p])); 
         }
         //Check whether we had a Tor UA before. If so, the value of the pref
         //is not equal to "en-us" and we change it back to JonDoFox values. (Of
@@ -866,6 +1101,11 @@ JDFManager.prototype = {
             this.prefsHandler.setStringPref(p,
              this.prefsHandler.getStringPref(this.jondoUAMap[p]));
           }
+          // Setting our own safebrowsing provider and activate it.
+          for (p in this.safebrowseMap) {
+            this.prefsHandler.setStringPref(p,
+              this.prefsHandler.getStringPref(this.safebrowseMap[p])); 
+          }
           if (acceptLang !== "en-us") {
           this.settingLocationNeutrality("");
           }
@@ -881,6 +1121,9 @@ JDFManager.prototype = {
 	  // We use the opportunity to set other user prefs back to their
 	  // default values as well.
 	  this.clearPrefs();
+          for (p in this.safebrowseMap) {
+            this.prefsHandler.deletePreference(p);
+          }
         }
 	this.prefsHandler.setBoolPref("network.http.proxy.keep-alive",
 	    this.prefsHandler.
@@ -888,6 +1131,9 @@ JDFManager.prototype = {
         break;
       case (this.STATE_NONE):
 	this.clearPrefs();
+        for (p in this.safebrowseMap) {
+            this.prefsHandler.deletePreference(p);
+          }
 	if (!proxyKeepAlive) {
 	  this.prefsHandler.setBoolPref("network.http.proxy.keep-alive", true);
 	}
@@ -958,7 +1204,7 @@ JDFManager.prototype = {
 	      this.prefsHandler.getStringPref(
               'browser.' + feedArray[i] + '.handler.default') === "client") {
             this.prefsHandler.setStringPref(
-              'browser.'+ feedArray[i] + '.handler', "ask");
+              'browser.'+ feedArray[i] + '.handler', "bookmarks");
 	  }
         }
         this.prefsHandler.setBoolPref('extensions.jondofox.new_profile', false);
@@ -970,7 +1216,7 @@ JDFManager.prototype = {
 	      this.prefsHandler.getStringPref(
               'browser.' + feedArray[i] + '.handler.default') === "client") {
             this.prefsHandler.setStringPref(
-                'browser.'+ feedArray[i] + '.handler', "ask");
+                'browser.'+ feedArray[i] + '.handler', "bookmarks");
             if (this.prefsHandler.getBoolPref(
                               'extensions.jondofox.preferences_warning')) {
               this.jdfUtils.showAlert(this.jdfUtils.
@@ -1339,6 +1585,7 @@ JDFManager.prototype = {
   // Return the value of the 'STATE_PREF'
   getState: function() {
     try {
+      log("Getting proxy state and it is: " + this.prefsHandler.getStringPref(this.STATE_PREF) + "\n");
       return this.prefsHandler.getStringPref(this.STATE_PREF);
     } catch (e) {
       log("getState(): " + e);

@@ -15,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is
  * Wladimir Palant.
- * Portions created by the Initial Developer are Copyright (C) 2006-2010
+ * Portions created by the Initial Developer are Copyright (C) 2006-2011
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -172,7 +172,7 @@ var objTabs =
 				let url = Utils.makeURI("data:text/css," + encodeURIComponent(data.replace(/%%CLASSVISIBLETOP%%/g, this.objTabClassVisibleTop)
 																																					.replace(/%%CLASSVISIBLEBOTTOM%%/g, this.objTabClassVisibleBottom)
 																																					.replace(/%%CLASSHIDDEN%%/g, this.objTabClassHidden)));
-				Utils.styleService.loadAndRegisterSheet(url, Ci.nsIStyleSheetService.AGENT_SHEET);
+				Utils.styleService.loadAndRegisterSheet(url, Ci.nsIStyleSheetService.USER_SHEET);
 
 				this.initializing = false;
 				this.initialized = true;
@@ -226,19 +226,7 @@ var objTabs =
 			let data = RequestNotifier.getDataForNode(element, true, Policy.type.OBJECT);
 			if (data)
 			{
-				let doc = element.ownerDocument.defaultView
-												 .QueryInterface(Ci.nsIInterfaceRequestor)
-												 .getInterface(Ci.nsIWebNavigation)
-												 .QueryInterface(Ci.nsIDocShellTreeItem)
-												 .rootTreeItem
-												 .QueryInterface(Ci.nsIInterfaceRequestor)
-												 .getInterface(Ci.nsIDOMWindow)
-												 .document;
-				let hooks = doc.getElementById("abp-hooks");
-				if (hooks && hooks.wrappedJSObject)
-					hooks = hooks.wrappedJSObject;
-
-				// Only open popup in focused window, will steal focus otherwise
+				let hooks = this.getHooksForElement(element);
 				if (hooks)
 				{
 					if (this.initialized)
@@ -251,11 +239,31 @@ var objTabs =
 	},
 
 	/**
+	 * Looks up the chrome window containing an element and returns abp-hooks
+	 * element for this window if any.
+	 */
+	getHooksForElement: function(/**Element*/ element) /**Element*/
+	{
+		let doc = element.ownerDocument.defaultView
+										 .QueryInterface(Ci.nsIInterfaceRequestor)
+										 .getInterface(Ci.nsIWebNavigation)
+										 .QueryInterface(Ci.nsIDocShellTreeItem)
+										 .rootTreeItem
+										 .QueryInterface(Ci.nsIInterfaceRequestor)
+										 .getInterface(Ci.nsIDOMWindow)
+										 .document;
+		let hooks = doc.getElementById("abp-hooks");
+		if (hooks && hooks.wrappedJSObject)
+			hooks = hooks.wrappedJSObject;
+		return hooks;
+	},
+
+	/**
 	 * Called to hide object tab for an element (actual hiding happens delayed).
 	 */
 	hideTabFor: function(/**Element*/ element)
 	{
-		if (element != this.currentElement)
+		if (element != this.currentElement || this.hideTimer)
 			return;
 
 		this.hideTargetTime = Date.now() + this.HIDE_DELAY;

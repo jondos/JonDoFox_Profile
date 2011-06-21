@@ -34,6 +34,8 @@ const CU = Components.utils;
 
 var RequestObserver = function() {
   this.wrappedJSObject = this;
+  CU.import("resource://jondofox/ssl-observatory.jsm", this); 
+  this.sslObservatory.init();
 };
 
 RequestObserver.prototype = {
@@ -43,6 +45,9 @@ RequestObserver.prototype = {
   safeCache: null,
   tldService: null,
   cookiePerm: null,
+  logger: null,
+
+  firstRequest: true,
   
   init: function() {
     try {
@@ -57,6 +62,10 @@ RequestObserver.prototype = {
           getService(Components.interfaces.nsIEffectiveTLDService);
       this.cookiePerm = CC['@mozilla.org/cookie/permission;1'].
           getService(Components.interfaces.nsICookiePermission);
+      this.logger = this.jdfManager.Log4Moz.repository.
+        getLogger("JonDoFox Observer");
+      this.logger.level = this.jdfManager.Log4Moz.Level["Warn"];
+      this.logger.warn("Initialized Logger for Observer!\n");
     } catch (e) {
       log("init(): " + e);
     }
@@ -80,8 +89,12 @@ RequestObserver.prototype = {
       if (!notificationCallbacks) {
         log("We found no Notificationcallbacks!");
       } else {
-        domWin = notificationCallbacks.
-	      getInterface(CI.nsIDOMWindow).content;
+        try {
+          domWin = notificationCallbacks.
+	    getInterface(CI.nsIDOMWindow).content;
+        } catch (ex) {
+          log("nsIDOMWindow seems not to be avaiable here!");
+        }
       }
       // Perform safecache
       if (this.prefsHandler.
@@ -100,8 +113,6 @@ RequestObserver.prototype = {
           // It's an IP address
           baseDomain = channel.URI.hostPort;
         }       
-        log("Request (base domain): " + baseDomain);
-
         // ... the string to compare to
         try {
           // ... the value of the referer header
@@ -207,7 +218,7 @@ RequestObserver.prototype = {
       // channel.setRequestHeader("X-Behavioral-Ad-Opt-Out", 1, false);
     } catch (e) {
       if (e.name === "NS_NOINTERFACE") {
-        log("The requested interface is not available!");
+        log("The requested interface is not available!" + e);
       } else {
         log("modifyRequest(): " + e);
       }
@@ -251,13 +262,54 @@ RequestObserver.prototype = {
           this.jdfManager.noProxyListAdd(location);     
         }
       }
+      // Now the code helping the EFF SSL-Observatory...
+      var obsProxy = this.prefsHandler.
+        getIntPref("extensions.jondofox.observatory.proxy"); 
+      var proxyState = this.jdfManager.getState();
+      // We can safely assume that a user wants to send the certs via a custom
+      // proxy even if there are no "valid" proxy values entered as she has
+      // already been asked whether she really wants to use such a "proxy".
+      if ((obsProxy === 0 && proxyState === 'jondo') ||
+          (obsProxy === 1 && proxyState === 'tor') ||
+          (obsProxy === 2 && proxyState === 'custom') ||
+          (obsProxy === 3 && (proxyState === 'jondo' || proxyState === 'tor' ||
+           proxyState === 'custom')) ||
+          (obsProxy === 4)) {
+        var certs = this.sslObservatory.getSSLCert(channel);
+        if (certs) {
+          var chainEnum = certs.getChain();
+          var chainArray = [];
+          for (var i = 0; i < chainEnum.length; i++) {
+            var cert = chainEnum.queryElementAt(i, CI.nsIX509Cert);
+            chainArray.push(cert);
+          }
+          this.logger.warn("Cert length is: " + chainArray.length);
+          if (channel.URI.port == -1) {
+            this.sslObservatory.
+              submitChain(chainArray, new String(channel.URI.host));
+          } else {
+            this.sslObservatory.
+              submitChain(chainArray, channel.URI.host+":"+channel.URI.port);
+          }
+        }  
+      }
     } catch (e) {
-      log("examineRespone(): " + e);
+      this.logger.warn("examineRespone(): " + e);
     }
   },
 
   onExamineResponse: function(httpChannel) {
     try {                        
+      if (this.firstRequest) {
+        this.firstRequest = false;
+        let testURL = this.jdfManager.jdfUtils.
+          getString("jondofox.jondo." + this.jdfManager.os); 
+        log("Die URL " + testURL + " wird wieder entfernt");
+        if (this.jdfManager.noProxyListContains(testURL)) {
+          this.jdfManager.noProxyListRemove(testURL);
+          this.jdfManager.noProxyListRemove("http://ocsp.godaddy.com/"); 
+        }
+      }
       httpChannel.QueryInterface(CI.nsIChannel);
       this.examineResponse(httpChannel);
     } catch (ex) {
@@ -274,6 +326,7 @@ RequestObserver.prototype = {
       // Add observers
       observers.addObserver(this, "http-on-modify-request", false);
       observers.addObserver(this, "http-on-examine-response", false);
+      observers.addObserver(this, "cookie-changed", false);
       observers.addObserver(this, "quit-application-granted", false);
     } catch (ex) {
       log("Got exception: " + ex);
@@ -319,6 +372,15 @@ RequestObserver.prototype = {
 	  subject.QueryInterface(CI.nsIHttpChannel);
 	  this.onExamineResponse(subject);
 	  break;
+
+        case 'cookie-changed':
+          if (data === "cleared") {
+            this.sslObservatory.already_submitted = {};
+            this.logger.
+              warn("Cookies were cleared. Purging list of already submitted sites");
+          }
+          break;
+      return  
         default:
           log("!! Topic not handled --> " + topic);
           break;
