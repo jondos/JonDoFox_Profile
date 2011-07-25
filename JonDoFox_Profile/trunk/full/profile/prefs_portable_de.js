@@ -74,6 +74,7 @@ user_pref("extensions.adblockplus.currentVersion", "1.3.8");
 user_pref("extensions.adblockplus.showinstatusbar", true);
 user_pref("extensions.adblockplus.showintoolbar", true);
 user_pref("extensions.adblockplus.showsubscriptions", false);
+user_pref("extensions.adblockplus.savestats", false);
 user_pref("extensions.jondofox.last_version", "");
 user_pref("extensions.jondofox.new_profile", false);
 user_pref("extensions.jondofox.profile_version", "2.5.2");
