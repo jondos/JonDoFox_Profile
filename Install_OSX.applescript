@@ -70,9 +70,9 @@ on run
 	tell application "Finder" to set the profile_parent_folder to (the container of the (path to me) as string) & install_bundle_name & ":Contents:Resources:"
 	set jondofox_bookmarks_ff3 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":places.sqlite"
 	set jondofox_bookmarks_ff2 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":bookmarks.html"
-        set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
+	set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
 	set saved_bookmarks to ""
-        set saved_certdatabase to ""
+	set saved_certdatabase to ""
 	
 	set lang_props to null
 	set lang_props_filename to "jfx.plist"
@@ -89,14 +89,14 @@ on run
 	-- We assume that if there are no saved settings of Firefox, it isn't installed.
 	try
 		set profiles_ini to the (firefox_profiles_path & "profiles.ini") as alias
-		tell application "Finder" to set profiles_ini_URL to get the URL of the file profiles_ini
+		-- tell application "Finder" to set profiles_ini_URL to get the URL of the file profiles_ini
 	on error
 		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â
 			with icon stop with title jfx_dialog_title default button buttonOK
 		return 1
 	end try
 	
-	set profiles_ini_path to getAbsolutePath(profiles_ini_URL)
+	set profiles_ini_path to getAbsolutePath(profiles_ini)
 	
 	if isJonDoFoxProfileInstalled() then
 		display dialog getLangProperty("NoteChoiceUninstall") buttons {buttonInstall, buttonUninstall, buttonCancel} Â
@@ -169,12 +169,12 @@ on edit_profiles_ini()
 		-- in either case copy bookmarks
 		copy_bookmarks()
 		-- reset the entry "StartWithLastProfile"
-		tell application "Finder" to set prftemp_parent_URL to the URL of the parent of profiles_ini
-		set prftemp_path to getAbsolutePath(prftemp_parent_URL) & "/pfrtemp"
+		--tell application "Finder" to set prftemp_parent_URL to the URL of the parent of profiles_ini
+		set prftemp_path to getAbsolutePath(firefox_profiles_path) & "/pfrtemp"
 		
-		do shell script "cp " & profiles_ini_path & " " & prftemp_path
-		do shell script "cat " & prftemp_path & " | sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ > " & profiles_ini_path
-		do shell script "rm -f " & prftemp_path
+		do shell script "cp \"" & profiles_ini_path & "\" \"" & prftemp_path & "\""
+		do shell script "cat \"" & prftemp_path & "\" | sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ > \"" & profiles_ini_path & "\""
+		do shell script "rm -f \"" & prftemp_path & "\""
 		
 		return 0
 	end if -- JonDoFox profile already installed
@@ -185,20 +185,21 @@ on edit_profiles_ini()
 	tell application "Finder" to set backupExists to (file (firefox_profiles_path & profile_ini_backup_name) exists)
 	
 	if (backupExists) then
-		tell application "Finder" to set profiles_ini_bak_URL to the URL of the file (firefox_profiles_path & profile_ini_backup_name)
+		--tell application "Finder" to set profiles_ini_bak_URL to the URL of the file (firefox_profiles_path & profile_ini_backup_name)
+		set profiles_ini_bak_file to (firefox_profiles_path & profile_ini_backup_name)
 	else
 		display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} Â
 			with icon stop with title jfx_dialog_title default button buttonOK
 		return 1
 	end if
 	
-	set profiles_ini_bak_path to getAbsolutePath(profiles_ini_bak_URL)
+	set profiles_ini_bak_path to getAbsolutePath(profiles_ini_bak_file)
 	
-	do shell script "cat " & profiles_ini_bak_path & "| sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/  -e s/Default=1// > " & profiles_ini_path
-	do shell script "echo >>  " & profiles_ini_path
+	do shell script "cat \"" & profiles_ini_bak_path & "\" | sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/  -e s/Default=1// > \"" & profiles_ini_path & "\""
+	do shell script "echo >>  \"" & profiles_ini_path & "\""
 	
 	repeat with curr_line in complete_entry
-		do shell script "echo " & curr_line & " >> " & profiles_ini_path
+		do shell script "echo " & curr_line & " >> \"" & profiles_ini_path & "\""
 	end repeat
 	return 0
 end edit_profiles_ini
@@ -211,8 +212,8 @@ on copy_folder()
 			if (the file saved_bookmarks exists) then
 				move the file saved_bookmarks to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
-                        if (the file saved_certdatabase exists) then
-                                move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
+			if (the file saved_certdatabase exists) then
+				move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
 		end tell
 	on error
@@ -227,7 +228,7 @@ end copy_folder
 
 on isJonDoFoxProfileInstalled()
 	try
-		set jdf_str to do shell script "fgrep Name=JonDoFox " & profiles_ini_path
+		set jdf_str to do shell script "fgrep Name=JonDoFox \"" & profiles_ini_path & "\""
 	on error
 		set jdf_str to ""
 	end try
@@ -240,19 +241,20 @@ on uninstall()
 	tell application "Finder"
 		set backupFound to (file (firefox_profiles_path & profile_ini_backup_name) exists)
 		set profileFound to (folder (firefox_profiles_path & "Profiles:profile") exists)
-		try
+		
+		(*try
 			set ffprofiles_path_URL to the URL of the folder firefox_profiles_path
 		on error
 			set ffprofiles_path_URL to ""
-		end try
+		end try*)
 	end tell
 	
-	if (ffprofiles_path_URL is equal to "") then
+	(*if (ffprofiles_path_URL is equal to "") then
 		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â
 			with icon stop with title jfx_dialog_title default button buttonOK
 		return 1
-	end if
-	set ffprofiles_path to getAbsolutePath(ffprofiles_path_URL)
+	end if*)
+	set ffprofiles_path to getAbsolutePath(firefox_profiles_path)
 	set entryFound to isJonDoFoxProfileInstalled()
 	
 	if (backupFound) then
@@ -261,8 +263,8 @@ on uninstall()
 	
 	if ((not backupFound) and entryFound) then
 		try
-			do shell script "fgrep -n JonDoFox " & profiles_ini_path & " -A 3 -C 1 | xargs -I % expr % : \"\\(.*\\)[-:].*\" |  xargs -I %  echo -n -e %d\" \" | xargs -J % sed %   " & profiles_ini_path & " > " & ffprofiles_path & ".temp1"
-			do shell script "mv -f " & ffprofiles_path & ".temp1 " & profiles_ini_path
+			do shell script "fgrep -n JonDoFox \"" & profiles_ini_path & "\" -A 3 -C 1 | xargs -I % expr % : \"\\(.*\\)[-:].*\" |  xargs -I %  echo -n -e %d\" \" | xargs -J % sed %   \"" & profiles_ini_path & "\" > \"" & ffprofiles_path & "\" .temp1"
+			do shell script "mv -f \"" & ffprofiles_path & "\" .temp1 \"" & profiles_ini_path & "\""
 		on error
 			display dialog getLangProperty("ErrorUndoProfileEntry") buttons {buttonOK} Â
 				with icon stop with title jfx_dialog_title default button buttonOK
@@ -271,12 +273,12 @@ on uninstall()
 	end if
 	
 	if (profileFound) then
-		tell application "Finder" to set profileFolderURL to the URL of the folder (firefox_profiles_path & "Profiles:profile")
+		--tell application "Finder" to set profileFolderURL to the URL of the folder (firefox_profiles_path & "Profiles:profile")
 		
-		set installed_profile_folder to getAbsolutePath(profileFolderURL)
+		set installed_profile_folder to getAbsolutePath(firefox_profiles_path & "Profiles:profile")
 		
 		try
-			do shell script "rm -rf " & installed_profile_folder
+			do shell script "rm -rf \"" & installed_profile_folder & "\""
 		on error
 			display dialog getLangProperty("ErrorRemoveProfileFolder") buttons {buttonOK} Â
 				with icon stop with title jfx_dialog_title default button buttonOK
@@ -308,15 +310,13 @@ end checkFirefoxRunning
 -- find out the number of installed profiles 
 on get_next_profile(prof_file)
 	tell application "Finder"
-		if (the file prof_file exists) then
-			set prof_file_URL to get the URL of the file prof_file
-		else
+		if (not (the file prof_file exists)) then
 			return "---"
 		end if
 	end tell
-	set prof_file_path to getAbsolutePath(prof_file_URL)
+	set prof_file_path to getAbsolutePath(prof_file)
 	try
-		set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\] " & prof_file_path & " | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
+		set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\]  \"" & prof_file_path & "\" | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
 	on error
 		return "---"
 	end try
@@ -330,12 +330,12 @@ end get_next_profile
 --saves the existing jondofox bookmarks and the cert database
 on copy_bookmarks()
 	tell application "Finder"
-                if (the file cert_database exists) then
+		if (the file cert_database exists) then
 			set jondofox_certpatrol_file to cert_database as alias
-                        set saved_certdatabase to firefox_profiles_path & "CertPatrol.sqlite"
-                        set temp_folder to firefox_profiles_path as alias
-                        duplicate the jondofox_certpatrol_file to the temp_folder with replacing
-                end if
+			set saved_certdatabase to firefox_profiles_path & "CertPatrol.sqlite"
+			set temp_folder to firefox_profiles_path as alias
+			duplicate the jondofox_certpatrol_file to the temp_folder with replacing
+		end if
 		if (the file jondofox_bookmarks_ff3 exists) then
 			set jondofox_bookmarks_file to jondofox_bookmarks_ff3 as alias
 			set saved_bookmarks to firefox_profiles_path & "places.sqlite"
@@ -353,10 +353,10 @@ end copy_bookmarks
 -- create a backup of profile.ini
 on backup_profile_ini()
 	try
-		tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
-		set tempFirefox_profiles_path to getAbsolutePath(tempFirefox_profiles_URL)
-		do shell script "cp -f " & tempFirefox_profiles_path & "/profiles.ini " & Â
-			tempFirefox_profiles_path & "/" & profile_ini_backup_name
+		--tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
+		set tempFirefox_profiles_path to getAbsolutePath(firefox_profiles_path)
+		do shell script "cp -f \"" & tempFirefox_profiles_path & "/profiles.ini\" \"" & Â
+			tempFirefox_profiles_path & "/" & profile_ini_backup_name & "\""
 	on error
 		display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} Â
 			with icon stop with title jfx_dialog_title default button buttonOK
@@ -366,11 +366,11 @@ end backup_profile_ini
 -- restore old settings in case the copy process of the JonDoFox profile folder fails 
 on restore_old_settings()
 	
-	tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
-	set tempFirefox_profiles_path to getAbsolutePath(tempFirefox_profiles_URL)
+	--tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
+	set tempFirefox_profiles_path to getAbsolutePath(firefox_profiles_path)
 	try
-		do shell script "mv -f " & tempFirefox_profiles_path & "/" & profile_ini_backup_name & Â
-			" " & tempFirefox_profiles_path & "/profiles.ini "
+		do shell script "mv -f \"" & tempFirefox_profiles_path & "/" & profile_ini_backup_name & "\"" & Â
+			" \"" & tempFirefox_profiles_path & "/profiles.ini\""
 	on error
 		return 0
 	end try
@@ -388,10 +388,9 @@ on get_old_version()
 end get_old_version
 
 on getAbsolutePath(fileURL)
-	--this just cuts off the prefix "file://localhost"
-	set path_string to text 17 thru -1 of fileURL
-	
-	return replacePlaceHolder(path_string, "%20", "\\ ")
+	set path_string to "/Volumes/" & (fileURL as text)
+	set unix_path_string to replacePlaceHolder(path_string, ":", "/")
+	return replacePlaceHolder(unix_path_string, "%20", "\\ ")
 end getAbsolutePath
 
 -- parses the version string from the specified prefs.js file
@@ -399,15 +398,13 @@ on get_version(prefs_js_file)
 	
 	tell application "Finder"
 		
-		if (the file prefs_js_file exists) then
-			set parent_pathURL to get the URL of the file prefs_js_file
-		else
+		if (not (the file prefs_js_file exists)) then
 			return "???"
 		end if
 	end tell
-	set parent_path to getAbsolutePath(parent_pathURL)
+	set parent_path to getAbsolutePath(prefs_js_file)
 	try
-		set versionStr to do shell script "fgrep jondofox.profile_version " & parent_path & " | xargs -I % expr % : \".*, \\([0-9].*[0-9]\\).*\""
+		set versionStr to do shell script "fgrep jondofox.profile_version \"" & parent_path & "\" | xargs -I % expr % : \".*, \\([0-9].*[0-9]\\).*\""
 		return versionStr
 	on error
 		(*try
