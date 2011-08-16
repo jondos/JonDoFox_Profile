@@ -111,13 +111,16 @@ SafeCache.prototype = {
       this.setCacheKey(channel, parent.hostname);
       log("Deleting Authorization header for 3rd party content if available..");
       // TODO: We currently do not get headers here in all cases. WTF!? Why?
+      // AND: Settinung them to null does not do anything in some cases: The
+      // Auth information are still be sent!
       try {
+        if (channel.getRequestHeader("Authorization") !== null) {
           channel.setRequestHeader("Authorization", null, false);
           channel.setRequestHeader("Pragma", null, false);
           channel.setRequestHeader("Cache-Control", null, false);
-      } catch (e) {log("Exception!!!" + e)}
+        }
+      } catch (e) {}
     } else {
-      //channel.setRequestHeader("Authorization", null, false); 
       if (!this.readCacheKey(channel.cacheKey)) {
         this.setCacheKey(channel, channel.URI.host);
       } else {
@@ -144,10 +147,6 @@ SafeCache.prototype = {
                  " is not a valid cookie behavior.");
         break;
     }
-  },
-
-  visitHeader: function(name, value) {
-    this.theaders[name] = value; 
   },
 
   getCookieBehavior: function() {

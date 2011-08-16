@@ -216,13 +216,16 @@ hat die M&ouml;glichkeit, zwischen verschiedenen User Agents zu w&auml;hlen:</p>
 </div>
 
 <h4><a name="SafeCache" id="SafeCache">Schutz vor Cacheangriffen</a></h4>
-<p>Neben dem Versuch, aus dem Referer, dem User Agent und anderen HTTP Headern
+<p>Neben dem Versuch, aus dem Referer, dem User Agent und anderen HTTP-Headern
 Informationen &uuml;ber den Nutzer zu gewinnen, gibt es noch die 
 M&ouml;glichkeit, den Cache des Browsers f&uuml;r Angriffe zu verwenden. Dabei 
 wird versucht, die k&uuml;rzere Ladezeit von Webseiten aus dem Cache auszunutzen
  oder sogenannte Cache-Cookies zu installieren. Zum besseren Schutz vor diesen 
 Angriffen wurde der Code der SafeCache-Extension mit leichten Modifikationen
- in unsere Erweiterung integriert. Im JonDoFox-Einstellungsmen&uuml; findet sich ein entsprechender Hinweis darauf:</p>
+ in unsere Erweiterung integriert.<br/> Dar&uuml;ber hinaus sch&uuml;tzt JonDoFox vor Versuchen, den
+Nutzer mit Hilfe von HTTP-Authentifikationsdaten zu verfolgen. Dazu werden
+sowohl die spezifischen Nutzerdaten, die an Drittseiten gesendet als auch von
+ihnen empfangen werden, herausgefiltert. Im JonDoFox-Einstellungsmen&uuml; findet sich ein entsprechender Hinweis darauf:</p>
 
 <div align="center">
 <img alt="Einstellungen Header" src="img_jondofox/settings_header_de.png" vspace="8" hspace="0">
