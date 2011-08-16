@@ -255,7 +255,11 @@ UnPlug2SearchPage = {
 	report_status_cb : (function (working, result_item) {
 		return (function (evt) {
 			if (working === null) {
-				alert("The following information can be used for debugging:\n\nTraceback:\n" + result_item.trace() + "\n\nKeychain:\n" + result_item.keychain.toSource() + "\n\nHistory:\n" + result_item.history.toSource());
+				alert("The following information can be used for debugging:" +
+					"\n\nHow to download:\n" + result_item.result.download.toSource() +
+					"\n\nFound by (\"traceback\"):\n" + result_item.trace() +
+					"\n\nIdentifier and groupings (\"keychain\"):\n" + result_item.keychain.toSource() +
+					"\n\nDescription from each instance found (\"history\"):\n" + result_item.history.toSource());
 			} else {
 				alert("NOT IMPLEMENTED: Send this to server:\n\n" + working + "\n" + result_item.trace());
 			}
@@ -684,6 +688,7 @@ UnPlug2SearchPage.MediaResult.prototype = {
 		this.basic_css = [
 			"file-ext-" + (details.file_ext || "unknown"),
 			"certainty-" + (details.certainty < 0 ? "low" : "high"),
+			(details.subtitles ? "subtitles" : "not-subtitles"),
 			"unplug-result" ].join(" ")
 		this.element.className = this.basic_css;
 	}),
@@ -694,7 +699,7 @@ UnPlug2SearchPage.MediaResult.prototype = {
 
 	trace : (function () {
 		return this.history.map((function (h) {
-			return h.trace;
+			return ">>> " + h.trace;
 		})).join("\n");
 	}),
 
@@ -744,12 +749,14 @@ UnPlug2SearchPage.MediaResult.prototype = {
 	update : (function (result) {
 		// should assert that result.download is the same
 		this.history.push(result.details);
+		var need_sort = false;
 		if (this.certainty === undefined || result.details.certainty > this.certainty) {
 			// can copy some fields (eg: default title) if they are unset, even if less certain
 			// NOTE: this is destructive to history!
 			result.name = result.name || this.result.name;
 			result.description = result.description || this.result.description;
 			result.thumbnail = result.thumbnail || this.result.thumbnail;
+			result.details.mediaid = result.details.mediaid || this.result.details.mediaid;
 
 			// update values we keep track of
 			this.result = result;
@@ -757,14 +764,25 @@ UnPlug2SearchPage.MediaResult.prototype = {
 			// update dom nodes
 			this._element_update();
 
-			// keychain changed?
-			if (this.check_keychain_changed()) {
-				var root = this.root();
-				this.parent.remove_child(this);
-				root.place_mediaresult(this);
-				return;
-			}
+			need_sort = true;
+		} else if (!this.result.name || !this.result.description || !this.result.thumbnail) {
+			// can copy some fields (eg: default title) if they are unset, even if less certain
+			// NOTE: this is destructive to history!
+			this.result.name = this.result.name || result.name;
+			this.result.description = this.result.description || result.description;
+			this.result.thumbnail = this.result.thumbnail || result.thumbnail;
+			this.result.details.mediaid = this.result.details.mediaid || result.details.mediaid;
+		}
 
+		// keychain changed (eg: if mediaid changed)
+		if (this.check_keychain_changed()) {
+			var root = this.root();
+			this.parent.remove_child(this);
+			root.place_mediaresult(this);
+			return;
+		}
+
+		if (need_sort) {
 			// sort
 			if (this.quality != this.result.details.quality || this.certainty != this.result.details.certainty) {
 				this.quality = this.result.details.quality;
@@ -773,12 +791,6 @@ UnPlug2SearchPage.MediaResult.prototype = {
 					this.parent.update_sorting_keys(this);
 				}
 			}
-		} else if (!this.result.name || !this.result.description || !this.result.thumbnail) {
-			// can copy some fields (eg: default title) if they are unset, even if less certain
-			// NOTE: this is destructive to history!
-			this.result.name = this.result.name || result.name;
-			this.result.description = this.result.description || result.description;
-			this.result.thumbnail = this.result.thumbnail || result.thumbnail;
 		}
 	})
 }

@@ -101,7 +101,7 @@ RequestObserver.prototype = {
 	    getBoolPref('extensions.jondofox.stanford-safecache_enabled')) {
 	channel.QueryInterface(CI.nsIHttpChannelInternal);
         channel.QueryInterface(CI.nsICachingChannel);
-        this.safeCache.safeCache(channel); 
+        this.safeCache.safeCache(channel, notificationCallbacks); 
       }
 
       // Forge the referrer if necessary
@@ -120,6 +120,9 @@ RequestObserver.prototype = {
           // Cut off the path from the referer
           log("Referrer (unmodified): " + oldRef);
           refDomain = oldRef.split("/", 3)[2];
+          // We have to make sure that no port value interferes with the
+          // comparison.
+          refDomain = refDomain.replace(/(?::\d+)/, "");
           //log("Referrer (domain): " + refDomain);  
           // Take a substring with the length of the base domain for comparison
           suffix = refDomain.substr(
@@ -216,6 +219,9 @@ RequestObserver.prototype = {
       // And we set X-Behavioral-Ad-Opt-Out as well... but only if major
       // actors like NoScript or AdBlock are supporting it.
       // channel.setRequestHeader("X-Behavioral-Ad-Opt-Out", 1, false);
+      // We do not send the Accept-Charset header anymore due to FF6 doing this
+      // by default.
+      channel.setRequestHeader("Accept-Charset", null, false);
     } catch (e) {
       if (e.name === "NS_NOINTERFACE") {
         log("The requested interface is not available!" + e);
@@ -238,6 +244,9 @@ RequestObserver.prototype = {
   examineResponse: function(channel) {
     var URI;
     var URIplain;
+    var notificationCallbacks;
+    var wind;
+    var parent;
     try {
       // We are looking for URL's which are on the noProxyList first. The
       // reason is if there occurred a redirection to a different URL it is
@@ -293,6 +302,29 @@ RequestObserver.prototype = {
           }
         }  
       }
+      // The HTTP Auth tracking protection on the response side.
+      // TODO: General method for the following code as safecache needs it as
+      // well! 
+      notificationCallbacks = 
+          channel.notificationCallbacks ? channel.notificationCallbacks : 
+             channel.loadGroup.notificationCallbacks;
+      if (notificationCallbacks) {
+        wind = notificationCallbacks.QueryInterface(CI.nsIInterfaceRequestor).
+          getInterface(CI.nsIDOMWindow);
+        parent = wind.window.top.location; 
+      } else {
+        log("We found no Notificationcallbacks examining the response!"); 
+      }
+      if (channel.documentURI && channel.documentURI === channel.URI) {
+        parent = null;  // first party interaction
+      }
+      if (parent && parent.hostname !== channel.URI.host) {  
+        try {
+          if (channel.getResponseHeader("WWW-Authenticate")) {
+            channel.setResponseHeader("WWW-Authenticate", null, false);
+          }
+        } catch (e) {} 
+      } 
     } catch (e) {
       this.logger.warn("examineRespone(): " + e);
     }
