@@ -86,20 +86,43 @@ SafeCache.prototype = {
     this.converter.charset = "UTF-8"; 
   },
 
-  safeCache: function(channel) {
-    var parent = channel.referrer;
+  safeCache: function(channel, notificationCallbacks) {
+   var parent = null;
+     if (notificationCallbacks) {
+       try {
+         var wind = notificationCallbacks.QueryInterface(
+           CI.nsIInterfaceRequestor).getInterface(CI.nsIDOMWindow);
+         parent = wind.window.top.location;
+        } catch(e) {
+          log("||||||||||SSC: Error while obtaining the Window!" + e);
+        }
+        log("||||||||||SSC: Parent "+parent+" for "+ channel.URI.spec);
+    } else {
+      log("No Channel notification callbacks for: " + channel.URI.spec); 
+      log("Assuming first party...");
+    }
     if (channel.documentURI && channel.documentURI === channel.URI) {
       parent = null;  // first party interaction
     }
     // Same-origin policy
-    if (parent && parent.host !== channel.URI.host) {
+    if (parent && parent.hostname !== channel.URI.host) {
       log("||||||||||SSC: Segmenting " + channel.URI.host + 
                " content loaded by " + parent.host);
-      this.setCacheKey(channel, parent.host);
-    } else if(this.readCacheKey(channel.cacheKey)) {
-      this.setCacheKey(channel, channel.URI.host);
+      this.setCacheKey(channel, parent.hostname);
+      log("Deleting Authorization header for 3rd party content if available..");
+      // TODO: We currently do not get headers here in all cases. WTF!? Why?
+      try {
+          channel.setRequestHeader("Authorization", null, false);
+          channel.setRequestHeader("Pragma", null, false);
+          channel.setRequestHeader("Cache-Control", null, false);
+      } catch (e) {log("Exception!!!" + e)}
     } else {
-      log("||||||||||SSC: POST data detected; leaving cache key unchanged.");
+      //channel.setRequestHeader("Authorization", null, false); 
+      if (!this.readCacheKey(channel.cacheKey)) {
+        this.setCacheKey(channel, channel.URI.host);
+      } else {
+        log("||||||||||SSC: Leaving cache key unchanged.");
+      }
     }
 
     // Third-party blocking policy
@@ -107,7 +130,7 @@ SafeCache.prototype = {
       case this.ACCEPT_COOKIES: 
         break;
       case this.NO_FOREIGN_COOKIES: 
-        if(parent && parent.host !== channel.URI.host) {
+        if(parent && parent.hostname !== channel.URI.host) {
           log("||||||||||SSC: Third party cache blocked for " +
                channel.URI.spec + " content loaded by " + parent.spec);
           this.bypassCache(channel);
@@ -123,6 +146,10 @@ SafeCache.prototype = {
     }
   },
 
+  visitHeader: function(name, value) {
+    this.theaders[name] = value; 
+  },
+
   getCookieBehavior: function() {
     //return Components.classes["@mozilla.org/preferences-service;1"]
     //           .getService(Components.interfaces.nsIPrefService)
@@ -134,8 +161,8 @@ SafeCache.prototype = {
     var oldData = this.readCacheKey(channel.cacheKey);
     var newKey = this.newCacheKey(this.getHash(str) + oldData);
     channel.cacheKey = newKey;
-    //log("||||||||||SSC: Set cache key to hash(" + str + ") = " + 
-     //         newKey.data + "\n   for " + channel.URI.spec + "\n");
+    log("||||||||||SSC: Set cache key to hash(" + str + ") = " + 
+      newKey.data + "\n   for " + channel.URI.spec + "\n");
   },
 
   // Read the integer data contained in a cache key

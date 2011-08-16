@@ -56,7 +56,7 @@ var Utils =
 	 */
 	get addonVersion()
 	{
-		let version = "1.3.8";
+		let version = "1.3.9";
 		return (version[0] == "{" ? "99.9" : version);
 	},
 
@@ -65,7 +65,7 @@ var Utils =
 	 */
 	get addonBuild()
 	{
-		let build = "3024";
+		let build = "3086";
 		return (build[0] == "{" ? "" : build);
 	},
 
@@ -208,7 +208,7 @@ var Utils =
 	{
 		if (!(url instanceof Ci.nsIURI))
 			url = Utils.makeURI(url);
-	
+
 		if (url instanceof Ci.nsINestedURI)
 			return url.innermostURI;
 		else
@@ -255,7 +255,7 @@ var Utils =
 		try
 		{
 			if (channel.notificationCallbacks)
-				return callback.getInterface(Ci.nsILoadContext).associatedWindow;
+				return channel.notificationCallbacks.getInterface(Ci.nsILoadContext).associatedWindow;
 		} catch(e) {}
 	
 		try

@@ -277,6 +277,11 @@ var Policy =
 		if (/^(moz-safe-)?about:/.test(url))
 			return null;
 
+		// Ignore fragment identifier
+		let index = url.indexOf("#");
+		if (index >= 0)
+			url = url.substring(0, index);
+
 		let result = defaultMatcher.matchesAny(url, "DOCUMENT", getHostname(url), false);
 		return (result instanceof WhitelistFilter ? result : null);
 	},
@@ -389,10 +394,12 @@ var PolicyPrivate =
 
 				// Bug 23845 - Some routers are broken and cannot handle DNT header
 				// following Connection header. Make sure Connection header is last.
-				// We can assume that Connection header is always present (bug 92006).
-				let connection = subject.getRequestHeader("Connection");
-				subject.setRequestHeader("Connection", null, false);
-				subject.setRequestHeader("Connection", connection, false);
+				try
+				{
+					let connection = subject.getRequestHeader("Connection");
+					subject.setRequestHeader("Connection", null, false);
+					subject.setRequestHeader("Connection", connection, false);
+				} catch(e) {}
 			}
 		}
 

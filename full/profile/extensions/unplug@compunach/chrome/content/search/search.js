@@ -327,13 +327,25 @@ UnPlug2Variables.prototype = {
 				return this._subst_apply_functions(parts).replace(
 					/&(.*?);/g,
 					function (str, m, offset, s) {
-						switch (m) {
-							case "amp": return "&";
-							case "quot": return "\"";
+						try {
+							switch (m) {
+								case "amp": return "&";
+								case "quot": return "\"";
+								case "rlm": return ""; // right-to-left mark
+								case "lrm": return ""; // left-to-right mark
+							}
+							if (m[0] == "#") {
+								if (m[1] == "x") {
+									return String.fromCharCode(parseInt(m.substr(2), 16));
+								} else {
+									return String.fromCharCode(m.substr(1));
+								}
+							}
+							throw "Unknown htmldecode: entity " + m;
+						} catch (e) {
+							UnPlug2.log("Undefined htmldecode entity:" + m);
+							return m
 						}
-						if (m[0] == "#")
-							return String.fromCharCode(m.substr(1));
-						throw "Unknown htmldecode: entity " + m;
 					});
 			/**
 			 * Decodes \xNN javascript escape sequences
@@ -357,6 +369,11 @@ UnPlug2Variables.prototype = {
 						}
 						throw "Unknown escape in jsdecode " + esc;
 					});
+			/**
+			 * ${b64decode:data} decodes base64 encoded data
+			 */
+			case "b64decode":
+				return window.atob(this._subst_apply_functions(parts))
 			/**
 			 * ${randomfloat}
 			 */
@@ -479,6 +496,20 @@ UnPlug2Variables.prototype = {
 				while (value.length < len)
 					value = prefixvalue + value;
 				return value;
+			/**
+			 * ${humanbytes:bytes}
+			 */
+			case "humanbytes":
+				var bytes = parseFloat(this._subst_apply_functions(parts));
+				if (bytes > 2 * 1e9) {
+					return (bytes / 1e9).toFixed(1) + " GB";
+				} else if (bytes > 2 * 1e6) {
+					return (bytes / 1e6).toFixed(1) + " MB";
+				} else if (bytes > 2 * 1e3) {
+					return (bytes / 1e3).toFixed(1) + " KB";
+				} else {
+					return bytes.toFixed(0) + " bytes";
+				}
 			/**
 			 * ${hextostr:varname}
 			 */
@@ -1262,6 +1293,7 @@ UnPlug2Search = {
 				"playlistid"  : variables.subst_optional(node.getAttribute("playlistid")) || null,
 				"certainty"   : certainty === undefined ? default_certainty : certainty,
 				"quality"     : quality === undefined ? default_quality : quality,
+				"subtitles"   : false, // is this result a subtitles file?
 				
 				// IMPORTANT this is used for advice only (not used for downloading) !!
 				"protocol"    : nsiuri.scheme,
@@ -1274,7 +1306,11 @@ UnPlug2Search = {
 				"thumbnail"   : thumbnailurl || null,
 				"trace"       : trace },
 			"download" : download_method };
-		
+		if (node.getAttribute("subtitles") === "yes") {
+			result_object["details"]["subtitles"] = true;
+			result_object["details"]["quality"] = -30; // very low - this is really juse a hack to make subtitles appear at the bottom of the results list
+			result_object["details"]["description"] = UnPlug2.str("subtitles") + " " + (result_object["details"]["description"] || "");
+		}
 		return result_object;
 	},
 

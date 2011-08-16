@@ -7,8 +7,8 @@ SHA1-Digest: yJMkRR5DksaQz0eIPdT5arUg4yI=
 
 Name: chrome/adblockplus.jar
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: /FPzHlsSpf74A/bSufs7Sg==
-SHA1-Digest: 4egdJXzu2nvYzZMTZ4NcTMDfuho=
+MD5-Digest: hZ2KrBgQ7BUzZYimOZHnyg==
+SHA1-Digest: XdpeNVnJsy2GJs1Ii7QOU/dpxQc=
 
 Name: components/Initializer.js
 Digest-Algorithms: MD5 SHA1
@@ -22,43 +22,43 @@ SHA1-Digest: 3v8WC1VjhTrIsZXC0gGLh7e1l8E=
 
 Name: defaults/preferences/adblockplus.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 1+SF0ZNBiDnb42DSx62UpQ==
-SHA1-Digest: KNsZh8721/wfUOR8/L12kf/vfiA=
+MD5-Digest: mQ93Q22nRIq5iBvsbUk8zw==
+SHA1-Digest: yGNl6bo/1mf/0BcBNtb4d+7XvpE=
 
 Name: icon.png
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: cnbB14gMt8Ia/CMQ5ib1XA==
-SHA1-Digest: q5s04k0rQwM85cs3NFYsvyyWXtc=
+MD5-Digest: gDyjcgDrPtc5KIdB5+6ocg==
+SHA1-Digest: hclnMh9v51FmeJI25Tkc/ZH3IwI=
 
 Name: icon64.png
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: xavKs6Pa/Az2Mgi6yJdnoA==
-SHA1-Digest: vCXHZVP3NH+wDuvanr8bw4nRbdU=
+MD5-Digest: p31nZUiXu5Cn+EtnDF2Fiw==
+SHA1-Digest: 0Njp3F/pdQ8Ne3KwBsgvLA4vaso=
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: zUxMWlR7q+5lHfnZApPG+A==
-SHA1-Digest: IkOPNrBnhI65sJQybvrbLO19C7w=
+MD5-Digest: Vz3+SyYx/By6lRnuQOslnw==
+SHA1-Digest: hmd9zsBicOsgyAzaLTO5hyw9KNs=
 
 Name: modules/AppIntegration.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 1dq8aNw81fOP+frr6aZPBQ==
-SHA1-Digest: +5rnPpmR+8Lvn9p/NVJKgWlomf4=
+MD5-Digest: RDc11X7/hVEEHDxAQIsHcQ==
+SHA1-Digest: rkyEHMmrNEw8k6jVOTE7CvUYp5M=
 
 Name: modules/AppIntegrationFennec.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: Bk5NJWbnMj+TNcBC/oaCHg==
-SHA1-Digest: W/A7Q6wN1OnP58CsSa3vdqBpKU0=
+MD5-Digest: 76XG7CqYwCWSFjwOnZoQhQ==
+SHA1-Digest: RgpgdWwUWWZFJrWH1I81FgcML+k=
 
 Name: modules/Bootstrap.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 9PE80YA0x2j9FBextbMv/w==
-SHA1-Digest: Z2XyGpCEsaQEqN1Yx6OZeyJwdIY=
+MD5-Digest: GHYlXrLBDxIq2iLQcQPE9w==
+SHA1-Digest: lW7Ona/LczwC/Z/MGoq6wyr3JTY=
 
 Name: modules/ContentPolicy.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: sNFae7ncQpuVYZbMhC3Hsw==
-SHA1-Digest: WeToAmUVEWQMm/PytoMTo0KquPs=
+MD5-Digest: SRVKOLce1aDFRxDtBgzAuA==
+SHA1-Digest: R1ghPR4sKofS6plI231Xx6R11i4=
 
 Name: modules/ContentPolicyRemote.jsm
 Digest-Algorithms: MD5 SHA1
@@ -82,8 +82,8 @@ SHA1-Digest: k8SUoDOBpUu5+Wqdyv0KE7Elh3U=
 
 Name: modules/FilterListener.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: iFXhrGYS/FSS6KQqc8vkkA==
-SHA1-Digest: BYM+usjEXl1o9yU35ouifciwTaM=
+MD5-Digest: 2+9rF+Q5GFRn7m83/b1Mmg==
+SHA1-Digest: y0hjZNvotV6y0CTt7+uBsgSH8q0=
 
 Name: modules/FilterStorage.jsm
 Digest-Algorithms: MD5 SHA1
@@ -120,12 +120,17 @@ Digest-Algorithms: MD5 SHA1
 MD5-Digest: mAPCNJtsRzIY+tXlQrEdfg==
 SHA1-Digest: HnuC/+jvaN9RAvggmfiTLSkCDcw=
 
+Name: modules/Sync.jsm
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: WaMz7CE4vuXlKz0Um6KiDA==
+SHA1-Digest: MN38NkeNXza3hQxva8ag8dVCqxM=
+
 Name: modules/Synchronizer.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: LX5dZA9OcAJqGTmdY8UN2Q==
-SHA1-Digest: qGseam+djgEu0haUsCjmOxcGbQ0=
+MD5-Digest: SM33g1K4RA8ewpYfHUqiNw==
+SHA1-Digest: 1Qdhb4hnIMiRmhD0z4GsnS5fpGI=
 
 Name: modules/Utils.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: HNqfFe8QApDbAWI+EBIH8w==
-SHA1-Digest: MaRA5rtPGlLBODqLGj4USnNNz98=
+MD5-Digest: ZRAAEc/IyW0OZWZOotkLGA==
+SHA1-Digest: iYxQg3UcHHk1Hn2CfBbWQ4DYHoc=
