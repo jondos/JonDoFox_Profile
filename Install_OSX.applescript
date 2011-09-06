@@ -309,18 +309,20 @@ end checkFirefoxRunning
 
 -- find out the number of installed profiles 
 on get_next_profile(prof_file)
-	tell application "Finder"
+	(*tell application "Finder"
 		if (not (the file prof_file exists)) then
 			return "---"
 		end if
-	end tell
+	end tell*)
 	set prof_file_path to getAbsolutePath(prof_file)
 	try
 		set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\]  \"" & prof_file_path & "\" | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
 	on error
+		display dialog "grep failed"
 		return "---"
 	end try
 	if next_entry_nr is equal to "" then
+		display dialog "entry is empty"
 		return "---"
 	end if
 	set profile_header to "[Profile" & (next_entry_nr) & "]"
