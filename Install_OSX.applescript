@@ -66,12 +66,12 @@ on run
 	set jondoprofile_foldername to "profile"
 	set profile_ini_backup_name to "profiles.ini.bak"
 	set profile_version_prefix to "local_install.titleTemplate"
-	tell application "System Events" to set firefox_profiles_path to the (path of home folder as string) & "Library:Application Support:Firefox:"
+	tell application "System Events" to set firefox_profiles_path to the (path of home folder as string) & "Library:Application Support:Firefox"
 	tell application "Finder" to set the profile_parent_folder to (the container of the (path to me) as string) & install_bundle_name & ":Contents:Resources:"
 	set os_x_compat to check_os_x_compatibility()
-	set jondofox_bookmarks_ff3 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":places.sqlite"
-	set jondofox_bookmarks_ff2 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":bookmarks.html"
-	set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
+	set jondofox_bookmarks_ff3 to firefox_profiles_path & ":Profiles:" & jondoprofile_foldername & ":places.sqlite"
+	set jondofox_bookmarks_ff2 to firefox_profiles_path & ":Profiles:" & jondoprofile_foldername & ":bookmarks.html"
+	set cert_database to firefox_profiles_path & ":Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
 	set saved_bookmarks to ""
 	set saved_certdatabase to ""
 	
@@ -89,7 +89,7 @@ on run
 	
 	-- We assume that if there are no saved settings of Firefox, it isn't installed.
 	try
-		set profiles_ini to the (firefox_profiles_path & "profiles.ini") as alias
+		set profiles_ini to the (firefox_profiles_path & ":profiles.ini") as alias
 		-- tell application "Finder" to set profiles_ini_URL to get the URL of the file profiles_ini
 	on error
 		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â
@@ -196,11 +196,11 @@ on edit_profiles_ini()
 	backup_profile_ini()
 	
 	-- modify profiles.ini
-	tell application "Finder" to set backupExists to (file (firefox_profiles_path & profile_ini_backup_name) exists)
+	tell application "Finder" to set backupExists to (file (firefox_profiles_path & ":" & profile_ini_backup_name) exists)
 	
 	if (backupExists) then
 		--tell application "Finder" to set profiles_ini_bak_URL to the URL of the file (firefox_profiles_path & profile_ini_backup_name)
-		set profiles_ini_bak_file to (firefox_profiles_path & profile_ini_backup_name)
+		set profiles_ini_bak_file to (firefox_profiles_path & ":" & profile_ini_backup_name)
 	else
 		display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} Â
 			with icon stop with title jfx_dialog_title default button buttonOK
@@ -222,12 +222,12 @@ end edit_profiles_ini
 on copy_folder()
 	try
 		tell application "Finder"
-			duplicate ((profile_parent_folder & jondoprofile_foldername) as alias) to (firefox_profiles_path & "Profiles:" as alias) with replacing
+			duplicate ((profile_parent_folder & jondoprofile_foldername) as alias) to (firefox_profiles_path & ":Profiles:" as alias) with replacing
 			if (the file saved_bookmarks exists) then
-				move the file saved_bookmarks to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
+				move the file saved_bookmarks to (firefox_profiles_path & ":Profiles:profile" as alias) with replacing
 			end if
 			if (the file saved_certdatabase exists) then
-				move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
+				move the file saved_certdatabase to (firefox_profiles_path & ":Profiles:profile" as alias) with replacing
 			end if
 		end tell
 	on error
@@ -253,8 +253,8 @@ on uninstall()
 	checkFirefoxRunning(getLangProperty("StrUninstall"))
 	
 	tell application "Finder"
-		set backupFound to (file (firefox_profiles_path & profile_ini_backup_name) exists)
-		set profileFound to (folder (firefox_profiles_path & "Profiles:profile") exists)
+		set backupFound to (file (firefox_profiles_path & ":" & profile_ini_backup_name) exists)
+		set profileFound to (folder (firefox_profiles_path & ":Profiles:profile") exists)
 		
 		(*try
 			set ffprofiles_path_URL to the URL of the folder firefox_profiles_path
@@ -289,7 +289,7 @@ on uninstall()
 	if (profileFound) then
 		--tell application "Finder" to set profileFolderURL to the URL of the folder (firefox_profiles_path & "Profiles:profile")
 		
-		set installed_profile_folder to getAbsolutePath(firefox_profiles_path & "Profiles:profile")
+		set installed_profile_folder to getAbsolutePath(firefox_profiles_path & ":Profiles:profile")
 		
 		try
 			do shell script "rm -rf \"" & installed_profile_folder & "\""
@@ -348,16 +348,16 @@ on copy_bookmarks()
 	tell application "Finder"
 		if (the file cert_database exists) then
 			set jondofox_certpatrol_file to cert_database as alias
-			set saved_certdatabase to firefox_profiles_path & "CertPatrol.sqlite"
+			set saved_certdatabase to firefox_profiles_path & ":CertPatrol.sqlite"
 			set temp_folder to firefox_profiles_path as alias
 			duplicate the jondofox_certpatrol_file to the temp_folder with replacing
 		end if
 		if (the file jondofox_bookmarks_ff3 exists) then
 			set jondofox_bookmarks_file to jondofox_bookmarks_ff3 as alias
-			set saved_bookmarks to firefox_profiles_path & "places.sqlite"
+			set saved_bookmarks to firefox_profiles_path & ":places.sqlite"
 		else if (the file jondofox_bookmarks_ff2 exists) then
 			set jondofox_bookmarks_file to jondofox_bookmarks_ff2 as alias
-			set saved_bookmarks to firefox_profiles_path & "bookmarks.html"
+			set saved_bookmarks to firefox_profiles_path & ":bookmarks.html"
 		else
 			return
 		end if
@@ -400,7 +400,7 @@ end get_new_version
 
 -- sets the version string of the already installed JonDoFox profile (if there is one)
 on get_old_version()
-	set old_version_str to get_version(firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":prefs.js")
+	set old_version_str to get_version(firefox_profiles_path & ":Profiles:" & jondoprofile_foldername & ":prefs.js")
 end get_old_version
 
 on getAbsolutePath(fileURL)
