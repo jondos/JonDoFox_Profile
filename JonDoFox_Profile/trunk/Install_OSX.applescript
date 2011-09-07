@@ -57,7 +57,7 @@ global buttonUninstall
 global lang_props_filename
 global lang_props
 global langPropsList
-
+global os_x_compat
 
 on run
 	set err to 0
@@ -68,6 +68,7 @@ on run
 	set profile_version_prefix to "local_install.titleTemplate"
 	tell application "System Events" to set firefox_profiles_path to the (path of home folder as string) & "Library:Application Support:Firefox:"
 	tell application "Finder" to set the profile_parent_folder to (the container of the (path to me) as string) & install_bundle_name & ":Contents:Resources:"
+	set os_x_compat to check_os_x_compatibility()
 	set jondofox_bookmarks_ff3 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":places.sqlite"
 	set jondofox_bookmarks_ff2 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":bookmarks.html"
 	set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
@@ -133,6 +134,21 @@ on run
 	end if
 	return err
 end run
+
+on check_os_x_compatibility()
+	tell application "Finder"
+		set testURL to get the URL of the file (profile_parent_folder & "jfx.plist")
+	end tell
+	
+	set suffix to text -9 thru (-1) of testURL
+	if (suffix is equal to "jfx.plist") then
+		display dialog "OS X < 10.7 detected"
+		return 1
+	else
+		display dialog "OS X 10.7 detected"
+		return 7
+	end if
+end check_os_x_compatibility
 
 -- appends JonDoFox profile to profiles.ini
 on edit_profiles_ini()
@@ -390,9 +406,16 @@ on get_old_version()
 end get_old_version
 
 on getAbsolutePath(fileURL)
-	set path_string to "/Volumes/" & (fileURL as text)
-	set unix_path_string to replacePlaceHolder(path_string, ":", "/")
-	return replacePlaceHolder(unix_path_string, "%20", "\\ ")
+	if (os_x_compat < 7) then
+		tell application "Finder" to set the realFileUrl to get the URL of the file fileURL
+		--this just cuts off the prefix "file://localhost"
+		set path_string to text 17 thru -1 of reaFileURL
+		return replacePlaceHolder(path_string, "%20", " ")
+	else
+		set path_string to "/Volumes/" & (fileURL as text)
+		set unix_path_string to replacePlaceHolder(path_string, ":", "/")
+		return unix_path_string
+	end if
 end getAbsolutePath
 
 -- parses the version string from the specified prefs.js file
