@@ -142,10 +142,8 @@ on check_os_x_compatibility()
 	
 	set suffix to text -9 thru (-1) of testURL
 	if (suffix is equal to "jfx.plist") then
-		display dialog "OS X < 10.7 detected"
 		return 1
 	else
-		display dialog "OS X 10.7 detected"
 		return 7
 	end if
 end check_os_x_compatibility
@@ -407,9 +405,9 @@ end get_old_version
 
 on getAbsolutePath(fileURL)
 	if (os_x_compat < 7) then
-		tell application "Finder" to set the realFileUrl to get the URL of the file fileURL
+		tell application "Finder" to set realFileURL to get the URL of the file fileURL
 		--this just cuts off the prefix "file://localhost"
-		set path_string to text 17 thru -1 of reaFileURL
+		set path_string to text 17 thru -1 of realFileURL
 		return replacePlaceHolder(path_string, "%20", " ")
 	else
 		set path_string to "/Volumes/" & (fileURL as text)
