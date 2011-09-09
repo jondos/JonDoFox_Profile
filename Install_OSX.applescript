@@ -374,7 +374,12 @@ on checkFirefoxRunning(operation)
 	if (firefox_is_running) then
 		display dialog replacePlaceHolder(getLangProperty("WarningCloseFirefox"), "%operation", operation) Â
 			buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
-		tell application "Firefox" to quit
+		try
+			tell application "Firefox" to quit
+		on error
+			display dialog getLangProperty("ErrorCloseFirefox") buttons {buttonOK} Â
+				with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
+		end try
 	end if
 end checkFirefoxRunning
 

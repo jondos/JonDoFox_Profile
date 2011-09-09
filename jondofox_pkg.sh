@@ -31,9 +31,10 @@
 
 ## basch script for creating JonDoFox packages for each platform
 ## NOTE: Mac OS X package creation only works with Mac OS X builtin tools.
-## It's STRONGLY RECOMMENDED NOT to RUN this script IN YOUR SVN WORKING COPY FOLDER because 
-## of the (really necessary) cleanups after packages are created! If you do so DON'T COMMIT ANY 
-## DELETIONS IN THE SUBVERSION REPOSITORY !!!!!!!!!
+## It's RECOMMENDED NOT to RUN this script IN YOUR SVN WORKING COPY FOLDER because 
+## of the cleanups after the packaging process, which can result in deletions when you 
+## commit working copy changes. Best way is to make a copy of the working copy and 
+## then create the packages there. 
 
 VERBOSE=""
 

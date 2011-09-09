@@ -32,6 +32,8 @@
 	<string>An error occured while restoring old settings.</string>
 	<key>ErrorUndoProfileEntry</key>
 	<string>An error occured while removing the JonDoFox profile entry.</string>
+	<key>ErrorCloseFirefox</key>
+	<string>Firefox could not be closed. (Perhaps the dialog for choosing profiles is active. Please close it and run the installer, again).</string>
 	<key>NoteChoiceUninstall</key>
 	<string>An installed JonDoFox version was detected. Do you want to continue with installation or uninstall JonDoFox?</string>
 	<key>NoteInstallStart</key>
