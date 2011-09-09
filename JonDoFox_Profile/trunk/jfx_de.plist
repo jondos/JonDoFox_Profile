@@ -32,6 +32,8 @@
 	<string>Das Wiederherstellen der alten Einstellungen ist fehlgeschlagen.</string>
 	<key>ErrorUndoProfileEntry</key>
 	<string>Beim Entfernen des JonDoFox-Profileintrags ist ein Fehler aufgetreten.</string>
+	<key>ErrorCloseFirefox</key>
+	<string>Firefox konnte nicht beendet werden. (Möglicherweise wird der Profil-Auswahl-Dialog noch angezeigt. Bitte schließen Sie den Dialog und starten Sie den Installer erneut).</string>
 	<key>NoteChoiceUninstall</key>
 	<string>Eine installierte JonDoFox-Version wurde gefunden. Möchten Sie mit der Installation fortfahren oder JonDoFox entfernen?</string>
 	<key>NoteInstallStart</key>
