@@ -7,7 +7,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 	
 		<em:id>{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}</em:id>
 		<em:name>ProfileSwitcher</em:name>
-		<em:version>1.2.2</em:version>
+		<em:version>1.2.3</em:version>
 		<em:description>Adds the profile name to the window titile and adds options to launch other profiles</em:description>
 		<em:creator>Paolo Kaosmos</em:creator>
 		<em:homepageURL>https://nic-nac-project.org/~kaosmos/index-en.html</em:homepageURL>
@@ -23,7 +23,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
          	   <Description>
               	  <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
               	  <em:minVersion>2.0</em:minVersion>
-               	 <em:maxVersion>6.*</em:maxVersion>
+               	 <em:maxVersion>9.*</em:maxVersion>
         	    </Description>
        	 </em:targetApplication>
 		 
@@ -31,7 +31,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 			<Description>
 				 <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         				<em:minVersion>2.0</em:minVersion>
-        				<em:maxVersion>6.*</em:maxVersion>
+        				<em:maxVersion>9.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 	

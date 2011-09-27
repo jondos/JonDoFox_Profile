@@ -121,6 +121,7 @@ pref("extensions.jondofox.accept_default", "text/html,application/xml,*/*");
 // If the user sets a Torbutton UA then use the following values as well
 pref("extensions.jondofox.tor.accept_languages", "en-us, en");
 pref("extensions.jondofox.tor.accept_charsets", "iso-8859-1,*,utf-8");
+pref("extensions.jondofox.tor.accept_default", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
 // Feed prefs
 pref("extensions.jondofox.feeds_handler_default", "bookmarks");
@@ -163,7 +164,7 @@ pref("extensions.jondofox.websocket.enabled", false);
 pref("extensions.jondofox.indexedDB.enabled", false);
 // Only valid for FF3
 pref("extensions.jondofox.history_expire_days", 0);
-pref("extensions.jondofox.http.accept_encoding", "gzip,deflate");
+pref("extensions.jondofox.http.accept_encoding", "gzip, deflate");
 //pref("extensions.jondofox.showAnontestNoProxy", true);
 pref("extensions.jondofox.search_suggest_enabled", false);
 pref("extensions.jondofox.delete_searchbar", true);
@@ -180,6 +181,9 @@ pref("extensions.jondofox.webgl.disabled", true);
 // No document fonts to avoid this fingerprint means
 pref("extensions.jondofox.use_document_fonts", 0);
 
+// we allow just two items in the session history due to fingerprinting issues
+pref("extensions.jondofox.sessionhistory.max_entries", 2);
+
 //SafeCache
 pref("extensions.jondofox.stanford-safecache_enabled", true);
 
@@ -187,6 +191,7 @@ pref("extensions.jondofox.stanford-safecache_enabled", true);
 pref("extensions.jondofox.certpatrol_enabled", true);
 pref("extensions.jondofox.certpatrol_showNewCert", false);
 pref("extensions.jondofox.certpatrol_showChangedCert", false);
+pref("extensions.jondofox.certpatrol_notificationTimeout", 10);
 
 //AdBlocking
 pref("extensions.jondofox.adblock_enabled", true);

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright 2008-2010, JonDos GmbH
+ * Copyright 2008-2011, JonDos GmbH
  * Author: Johannes Renner, Georg Koppen
  *
  * JonDoFox extension management and compatibility tasks + utilities
@@ -230,7 +230,8 @@ JDFManager.prototype = {
 
   //This map of integer preferences is given to the prefsMapper
   intPrefsMap: {
-    'network.cookie.cookieBehavior':'extensions.jondofox.cookieBehavior'
+    'network.cookie.cookieBehavior':'extensions.jondofox.cookieBehavior',
+    'browser.display.use_document_fonts':'extensions.jondofox.use_document_fonts'
   },
 
   // This map contains those preferences which avoid external apps being opened
@@ -572,9 +573,12 @@ JDFManager.prototype = {
         // Firefox 4 has a whitespace between the "," and "deflate". We need to 
 	// avoid that in order not to reduce our anonymity set.	
 	this.stringPrefsMap['network.http.accept-encoding'] = 
-	        'extensions.jondofox.http.accept_encoding';
+          'extensions.jondofox.http.accept_encoding';
 	this.boolPrefsMap['privacy.donottrackheader.enabled'] = 
 	  'extensions.jondofox.donottrackheader.enabled';
+        // Restricting the sessionhistory max_entries
+        this.intPrefsMap['browser.sessionhistory.max_entries'] =
+           'extensions.jondofox.sessionhistory.max_entries';
 	// For clearity of code we implement a different method to check the
 	// installed extension in Firefox4
         this.checkExtensionsFF4();
@@ -657,13 +661,6 @@ JDFManager.prototype = {
       // prefsMapper.map() in this function and should be more flexible and
       // transparent.
       this.setUserAgent(this.getState());
-      // For our new (2.5.3) profile we may disable the document fonts if the
-      // user wants it (they are disabled by default).
-      if (this.prefsHandler.getStringPref(
-               'extensions.jondofox.profile_version') == "2.5.3") {
-        this.prefsHandler.setIntPref('browser.display.use_document_fonts', this.
-          prefsHandler.getIntPref('extensions.jondofox.use_document_fonts'));
-      }
     } catch (e) {
       log("onUIStartup(): " + e);
     }
@@ -1030,12 +1027,14 @@ JDFManager.prototype = {
     try {
       if (this.prefsHandler.getStringPref(
                'extensions.jondofox.profile_version') !== "2.5.0" && 
-	   this.prefsHandler.getStringPref(
+	  this.prefsHandler.getStringPref(
                'extensions.jondofox.profile_version') !== "2.5.1" &&
-           this.prefsHandler.getStringPref(
+          this.prefsHandler.getStringPref(
                'extensions.jondofox.profile_version') !== "2.5.2" && 
           this.prefsHandler.getStringPref(
-               'extensions.jondofox.profile_version') !== "2.5.3" &&  
+               'extensions.jondofox.profile_version') !== "2.5.3" &&
+          this.prefsHandler.getStringPref(
+               'extensions.jondofox.profile_version') !== "2.5.4" &&  
           this.prefsHandler.getBoolPref('extensions.jondofox.update_warning')) {
           this.jdfUtils.showAlertCheck(this.jdfUtils.
             getString('jondofox.dialog.attention'), this.jdfUtils.
@@ -1082,6 +1081,9 @@ JDFManager.prototype = {
 	if (proxyKeepAlive) {
           this.prefsHandler.setBoolPref("network.http.proxy.keep-alive", false);
 	}
+        this.prefsHandler.setStringPref("network.http.accept.default",
+          this.prefsHandler.
+          getStringPref("extensions.jondofox.accept_default"));
 	break;
       case (this.STATE_TOR):
         for (p in this.torUAMap) {
@@ -1094,6 +1096,9 @@ JDFManager.prototype = {
 	if (!proxyKeepAlive) {
           this.prefsHandler.setBoolPref("network.http.proxy.keep-alive", true);
 	}
+        this.prefsHandler.setStringPref("network.http.accept.default", 
+          this.prefsHandler.
+          getStringPref("extensions.jondofox.tor.accept_default"));
         break;
       case (this.STATE_CUSTOM):
 	userAgent = this.prefsHandler.getStringPref(
@@ -1278,7 +1283,7 @@ JDFManager.prototype = {
           checkboxNews.addEventListener("click", function() {JDFManager.
 		    checkboxNewsChecked(checkboxNews, type);}, false);
         }
-      } else if (this.arguments[0]) {
+      } else if (this.arguments && this.arguments[0]) {
         log("We got probably a commonDialog...");
         dialogParam = this.arguments[0].QueryInterface(CI.nsIDialogParamBlock);
         log("Let's check whether we've got a NoScript pdf-dialog...");
@@ -1890,11 +1895,12 @@ JDFManager.prototype = {
 	  }
           
           else if ((data === 'intl.accept_languages' || 
-            data === 'intl.accept_charsets') && this.prefsHandler.
-	    isPreferenceSet('general.useragent.override') && 
-	     this.prefsHandler.getStringPref('general.useragent.override') === 
-	     this.prefsHandler.
-	     getStringPref('extensions.jondofox.tor.useragent_override')) {
+            data === 'intl.accept_charsets' || data ===
+            'network.http.accept.default')
+            && this.prefsHandler.isPreferenceSet('general.useragent.override')
+            && this.prefsHandler.getStringPref('general.useragent.override') ===
+	    this.prefsHandler.
+	      getStringPref('extensions.jondofox.tor.useragent_override')) {
             // Do nothing here because the pref changed but it was for 
             // imitating Tor properly after the Tor UA has been activated.
           }

@@ -71,41 +71,86 @@ RequestObserver.prototype = {
     }
   },
 
+  getDOMWindow: function(channel) {
+    let notificationCallbacks;
+    let wind = null;
+    // Getting the content window for resetting window.name and history.length
+    notificationCallbacks = 
+        channel.notificationCallbacks ? channel.notificationCallbacks : 
+           channel.loadGroup.notificationCallbacks;
+    if (!notificationCallbacks) {
+      log("We found no Notificationcallbacks! Returning null...");
+    } else {
+      try {
+        wind = notificationCallbacks.QueryInterface(CI.
+          nsIInterfaceRequestor).getInterface(CI.nsIDOMWindow); 
+      } catch (e) {
+        log("Error while trying to get the Window: " + e); 
+      }
+    }
+    return wind;
+  },
+
+  getParentHost: function(channel) {
+    let notificationCallbacks;
+    let wind;
+    let parentHost = null;
+    wind = this.getDOMWindow(channel);
+    if (wind) {
+      try {
+        // TODO: Why should be want to have wind.window.top.location here?
+        parentHost = wind.top.location.hostname;
+        return parentHost;
+      } catch (ex) {
+        log("nsIDOMWindow seems not to be available here!");
+      }
+    } 
+    // We are still here, thus something went wrong. Trying further things.
+    // We can't rely on the Referer here as this can legitimately be
+    // 1st party while the content is still 3rd party (from a bird's eye
+    // view. Therefore...
+    try {
+      parentHost = this.cookiePerm.getOriginatingURI(channel).host; 
+    } catch (e) {
+      log("getOriginatingURI failed as well: " + e +
+        "\nWe try our last resort the Referer...");
+      // Getting the host via getOriginatingURI failed as well (e.g. due to
+      // browser-sourced favicon or safebrowsing requests). Resorting to
+      // the Referer.
+      if (channel.referrer) {
+        parentHost = channel.referrer.host;
+      } else {
+        log("No Referer either. Could be 3rd party interaction though.");
+      }
+    } 
+    return parentHost;
+  },
+
   // This is called on every request
   modifyRequest: function(channel) {
     var originatingDomain;
+    var origHostname;
     var baseDomain;
     var suffix;
     var oldRef;
     var refDomain;
     var acceptHeader;
-    var notificationCallbacks;
+    var parentHost;
     var domWin;
     try {
-      // Getting the content window for resetting window.name and history.length
-      notificationCallbacks = 
-          channel.notificationCallbacks ? channel.notificationCallbacks : 
-             channel.loadGroup.notificationCallbacks;
-      if (!notificationCallbacks) {
-        log("We found no Notificationcallbacks!");
-      } else {
-        try {
-          domWin = notificationCallbacks.
-	    getInterface(CI.nsIDOMWindow).content;
-        } catch (ex) {
-          log("nsIDOMWindow seems not to be avaiable here!");
-        }
-      }
       // Perform safecache
       if (this.prefsHandler.
 	    getBoolPref('extensions.jondofox.stanford-safecache_enabled')) {
 	channel.QueryInterface(CI.nsIHttpChannelInternal);
         channel.QueryInterface(CI.nsICachingChannel);
-        this.safeCache.safeCache(channel, notificationCallbacks); 
+        parentHost = this.getParentHost(channel); 
+        this.safeCache.safeCache(channel, parentHost); 
       }
 
       // Forge the referrer if necessary
       if (this.prefsHandler.getBoolPref('extensions.jondofox.set_referrer')) {
+        // Getting the associated window if available.
+        domWin = this.getDOMWindow(channel);
         // Determine the base domain of the request
         try {
           baseDomain = this.tldService.getBaseDomain(channel.URI, 0);
@@ -175,9 +220,10 @@ RequestObserver.prototype = {
               // The header is not set. That's good as deleting the old one
 	      // was successful!
               log("Referer is not set!");
-	      if (domWin && domWin.content.name !== "") {
-		log("window.name was set! Set it back to default ('')...");
-                domWin.content.name = "";
+	      if (domWin && domWin.name !== '') {
+                log("Found (first) window.name id: " + domWin.name);
+		log("window.name was set! Set it back to default (null)...");
+                domWin.name = '';
 	      }
 	    }
           } else {
@@ -194,15 +240,25 @@ RequestObserver.prototype = {
 	  // We have to check this here as well because the window identifier
 	  // could be existent even if no referrer was ever sent (i.e. in
 	  // the case where the user deploys bookmarks or HTTPS -> HTTP)...
-	  // But if the domain and subdomain owner is just relying on a
-	  // window.name identifier and not a referrer, well in this case 
-	  // she has bad luck :-) All those people having their JavaScript
-	  // disabled are not able to use her services and the JonDoFox users
-	  // neither...
-          if (domWin && domWin.content.name !== "" && !suffix) {
-            domWin.content.name = "";
-            log("window.name was set! Set it back to default ('')...");
-	  }
+          // But we want to delete it only if the domain in the URL bar
+          // changes. Let's therefore check whether we have 3rd party content
+          // first.
+          origHostname = this.cookiePerm.getOriginatingURI(channel).hostname; 
+          if (origHostname && origHostname !== channel.URI.host) { 
+            // Do nothing here as we have a 3rd party scenario (e.g. mixed
+            // content sites)...
+          } else {
+            if (domWin && domWin.name !== '' && !suffix) {
+              log("Found domWin.content.name id. It is: " + domWin.name);
+              domWin.name = '';
+              log("window.name was set! (else-clause). Set it back to default ('')...");
+              log("domWin.content.name is now again: " + domWin.content.name);
+              log("domwin.content.window.name is: " + domWin.content.window.
+                name);
+              log("Another one still is: " + domWin.name);
+              log("Win.top is: " + domWin.top.name);
+	    }
+          }
         }
       }
 
@@ -246,7 +302,7 @@ RequestObserver.prototype = {
     var URIplain;
     var notificationCallbacks;
     var wind;
-    var parent;
+    var parentHost;
     try {
       // We are looking for URL's which are on the noProxyList first. The
       // reason is if there occurred a redirection to a different URL it is
@@ -303,30 +359,19 @@ RequestObserver.prototype = {
         }  
       }
       // The HTTP Auth tracking protection on the response side.
-      // TODO: General method for the following code as safecache needs it as
-      // well! 
       if (this.prefsHandler.
         getBoolPref('extensions.jondofox.stanford-safecache_enabled')) { 
-        notificationCallbacks = 
-          channel.notificationCallbacks ? channel.notificationCallbacks : 
-             channel.loadGroup.notificationCallbacks;
-        if (notificationCallbacks) {
-          wind = notificationCallbacks.QueryInterface(CI.nsIInterfaceRequestor).
-            getInterface(CI.nsIDOMWindow);
-          parent = wind.window.top.location; 
-        } else {
-          log("We found no Notificationcallbacks examining the response!"); 
-        }
+        parentHost = this.getParentHost(channel); 
         if (channel.documentURI && channel.documentURI === channel.URI) {
-          parent = null;  // first party interaction
-        }
-        if (parent && parent.hostname !== channel.URI.host) {  
+          parentHost = null;  // first party interaction
+        } 
+        if (parentHost && parentHost !== channel.URI.host) {  
           try {
             if (channel.getResponseHeader("WWW-Authenticate")) {
               channel.setResponseHeader("WWW-Authenticate", null, false);
             }
           } catch (e) {} 
-        } 
+        } else {}
       }
     } catch (e) {
       this.logger.warn("examineRespone(): " + e);
@@ -415,7 +460,6 @@ RequestObserver.prototype = {
               warn("Cookies were cleared. Purging list of already submitted sites");
           }
           break;
-      return  
         default:
           log("!! Topic not handled --> " + topic);
           break;

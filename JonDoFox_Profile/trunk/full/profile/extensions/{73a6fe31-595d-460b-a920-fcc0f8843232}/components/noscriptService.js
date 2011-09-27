@@ -5,7 +5,7 @@ const Cc = Components.classes;
 const Cu = Components.utils;
 const Cr = Components.results;
 
-const VERSION = "2.1.2.5";
+const VERSION = "2.1.2.8";
 const SERVICE_CTRID = "@maone.net/noscript-service;1";
 const SERVICE_ID = "{31aec909-8e86-4397-9380-63a59e0c5ff5}";
 const EXTENSION_ID = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
@@ -157,6 +157,7 @@ const CP_REJECT = -4;
 const CP_NOP = function() CP_OK;
 const CP_FRAMECHECK = 2;
 const CP_SHOULDPROCESS = 4;
+const CP_OBJECTARC = 8;
 const CP_EXTERNAL = 0;
 
 const nsIWebProgress = Ci.nsIWebProgress;
@@ -1101,17 +1102,7 @@ const IOUtil = {
     }
     return parms.join("&");
   },
-  
-  runWhenPending: function(channel, callback) {
-    if (channel.isPending()) {
-      callback();
-      return false;
-    } else {
-      new LoadGroupWrapper(channel, callback);
-      return true;
-    }
-  },
-  
+
   get TLDService() {
     delete this.TLDService;
     return this.TLDService = Cc["@mozilla.org/network/effective-tld-service;1"].getService(Ci.nsIEffectiveTLDService);
@@ -1757,7 +1748,7 @@ var ns = {
         sheet = "noscript, noscript * { background-image: none !important; list-style-image: none !important }";
         break;
       case "showPlaceholder": 
-        sheet = '.__noscriptPlaceholder__ { direction: ltr !important } ' +
+        sheet = '.__noscriptPlaceholder__ { direction: ltr !important; display: inline-block !important; } ' +
                 '.__noscriptPlaceholder__ > .__noscriptPlaceholder__1 { display: inline-block !important; ' +
                 'outline-color: #fc0 !important; outline-style: solid !important; outline-width: 1px !important; outline-offset: -1px !important;' +
                 'cursor: pointer !important; background: #ffffe0 url("' + 
@@ -2054,9 +2045,8 @@ var ns = {
     this.httpStarted = true;
      
     INCLUDE("RequestWatchdog");
-    INCLUDE("Policy");
     
-    this.initContentPolicy();
+    this.initContentPolicy(true);
     
     Cc['@mozilla.org/docloaderservice;1'].getService(nsIWebProgress).addProgressListener(this,
                              nsIWebProgress.NOTIFY_LOCATION | nsIWebProgress.NOTIFY_STATE_REQUEST | nsIWebProgress.NOTIFY_STATUS |
@@ -3163,11 +3153,18 @@ var ns = {
   siteUtils: SiteUtils,
   mimeService: null,
  
-  shouldLoad: CP_NOP,
+  shouldLoad: function(aContentType) {
+    if (aContentType === 5) {
+      this.requestWatchdog;
+      return this.shouldLoad.apply(this, arguments);
+    }
+    return CP_OK;
+  },
   shouldProcess: CP_NOP,
   
-  initContentPolicy: function() {
-    if (!this.httpStarted) return;
+  initContentPolicy: function(force) {
+    if (force) INCLUDE("Policy");
+    else if (!this.httpStarted) return;
     
     const last = this.getPref("cp.last");
     const catMan = this.categoryManager;
@@ -3177,19 +3174,24 @@ var ns = {
         catMan.deleteCategoryEntry(cat, this.CTRID, false);
       } catch (e) {}
     
-    var delegate = this.disabled ||
+    var delegate;
+    
+    if (this.httpStarted) {
+      delegate = this.disabled ||
         (this.globalJS &&
           !(this.alwaysBlockUntrustedContent || this.contentBlocker || this.httpsForced))   
       ? NOPContentPolicy
       : MainContentPolicy;
-      
-    for (var p in delegate) this[p] = delegate[p];
+    
+      for (var p in delegate) this[p] = delegate[p];
+    } else delegate = null;
     
     if (delegate != NOPContentPolicy && (last || this.mimeService)) {
       // removing and adding the category late in the game allows to be the latest policy to run,
       // and nice to AdBlock Plus
+      this.dump("Adding category");
       catMan.addCategoryEntry(cat, this.CTRID, this.CTRID, false, true);
-    }
+    } else this.dump("No category?!" + (delegate == NOPContentPolicy) + ", " + last + ", " + this.mimeService);
     
     if (!this.mimeService) {
       this.initSafeJSRx();
@@ -3721,30 +3723,34 @@ var ns = {
     if (!w) return false;
     
     const links = document.links;
-    const toBeChecked = [];
+    let toBeChecked = null;
     for (let j = 0, l; (l = links[j]); j++) {
       if (l && l.href && l.href.indexOf("http") === 0) {
-        if (l.offsetWidth || l.offsetHeight) return true;
+        if (l.offsetWidth) return true;
+        if (!toBeChecked) toBeChecked = [];
         toBeChecked.push(l);
       }
     }
+    if (!toBeChecked) return false;
+    
+    let hiddenAncestors = [];
     for (let j = toBeChecked.length; j-- > 0;) {
-      let l = toBeChecked[j];
-      let style = w.getComputedStyle(l, '');
-      if (!style) return true; // this means we're inside an invisible frame, no reason to loose time here
-      
-      if (parseInt(style.width) || parseInt(style.height)) return true; 
-      
-      let position;
-      try {
-        position = l.style.position;
-        l.style.position = "absolute";
-        if(l.offsetHeight) return true;
-      } finally {
-        l.style.position = position;
+      let n = toBeChecked[j];
+      if (n.firstChild) {
+        let ancestors = [];
+        for (;;) {
+          if (hiddenAncestors.indexOf(n) !== -1) break;
+          ancestors.push(n);
+          let s = w.getComputedStyle(n, '');
+          if (s.display === "none" || s.visibility === "hidden") {
+            hiddenAncestors.push.apply(hiddenAncestors, ancestors);
+            break;
+          }
+          if (!(n = n.parentNode())) return true;
+        }
       }
-      if (/\b__noscriptPlaceholder__\b/.test(l.className)) return true;
     }
+
     if (document.embeds[0] || document.getElementsByTagName("object")[0]) return true;
     let form = document.forms[0];
     if (form && form.offsetHeight) return true;
@@ -4535,9 +4541,9 @@ var ns = {
           
           restrictedSize = (collapse || style.display === "none" || style.visibility === "hidden");
           
-          if (!restrictedSize && style.height == "100%") {
-            anchor.style.display = "block";
-            anchor.style.height = "100%";
+          if (!restrictedSize) {
+            anchor.style.width = style.width;
+            anchor.style.height = style.height;
           }
           
         } else restrictedSize = collapse;
@@ -4566,7 +4572,6 @@ var ns = {
             var rect = object.getBoundingClientRect();
             let aStyle = anchor.style, iStyle = innerDiv.parentNode.style;
             aStyle.overflow = "visible";
-            aStyle.display = "block";
             aStyle.float = "left";
             
             let isTop = !win.frameElement;
@@ -4650,7 +4655,7 @@ var ns = {
   
   onPlaceholderClick: function(ev, anchor) {
     if (ev.button || !this.stackIsMine()) return;
-    anchor = anchor || ev.currentTarget
+    anchor = anchor || ev.currentTarget;
     const object = this.getExpando(anchor, "removedNode");
     
     if (object) try {
@@ -4668,27 +4673,32 @@ var ns = {
   
   onOverlayedPlaceholderClick: function(ev) {
     var el = ev.originalTarget;
-    var d = el.ownerDocument;
-    var style = d.defaultView.getComputedStyle(el, "");
-    if (style.position == "absolute") {
-      var pluginExtras = this.findPluginExtras(d);
-      if (!pluginExtras) return;
-      var p = { x: ev.clientX, y: ev.clientY };
-      for (var j = pluginExtras.length; j-- > 0;) {
-        pe = pluginExtras[j];
-        if (pe.placeholder) try {
-          if (DOM.elementContainsPoint(pe.placeholder, p)) {
-            var object = this.getExpando(pe.placeholder, "removedNode");
-            if (object && !(object instanceof Ci.nsIDOMHTMLAnchorElement))
-              this.setExpando(object, "overlay", el);
-            this.onPlaceholderClick(ev, pe.placeholder);
-            return;
-          }
+    var doc = el.ownerDocument;
+    var win = doc.defaultView;
+    var style = win.getComputedStyle(el, "");
+    if (style.position === "absolute") {
+      let ph = this._findPlaceholder(doc, { x: ev.clientX + win.scrollX, y: ev.clientY + win.scrollY });
+      if (ph) {
+        let object = this.getExpando(ph, "removedNode");
+        if (object && !(object instanceof Ci.nsIDOMHTMLAnchorElement))
+          this.setExpando(object, "overlay", el);
+        this.onPlaceholderClick(ev, ph);
+      }
+    }
+  },
+  _findPlaceholder: function(doc, p) {
+    let pluginExtras = this.findPluginExtras(doc);
+    if (pluginExtras) {
+      for (let j = pluginExtras.length; j-- > 0;) {
+        let ph = pluginExtras[j].placeholder;
+        if (ph) try {
+          if (DOM.elementContainsPoint(ph, p)) return ph;
         } catch(e) {
-          if (ns.consoleDump) ns.dump(e);
+          if (this.consoleDump) this.dump(e);
         }
       }
     }
+    return null;
   },
   
   checkAndEnablePlaceholder: function(anchor, object) {
@@ -5745,12 +5755,16 @@ var ns = {
   
   beforeScripting: function(subj, url) { // early stub
     if (!this.httpStarted) {
-      if (/^(?:about|resource|chrome|moz-nullprincipal):/.test(subj.location || subj.documentURI))
+      let url = subj.location || subj.documentURI;
+      
+      if (/^(?:about|resource|chrome|file|moz-nullprincipal):/.test(url)) {
+        if (/^file|moz-/.test(url))
+          this.initContentPolicy(true);
         return;
-      else {
-        if (this.consoleDump) ns.dump(subj.location || subj.documentURI);
-        this.requestWatchdog; // kickstart networking stuff
       }
+      if (this.consoleDump) ns.dump(url);
+      this.requestWatchdog; // kickstart networking stuff
+      
     }
     this.executeEarlyScripts = this.onWindowSwitch;
     // replace legacy code paths
@@ -5922,7 +5936,7 @@ var ns = {
   },
   
   
-  // start nsIWebProgresListener
+  // start nsIWebProgressListener
   
 
   onLinkIconAvailable: DUMMY_FUNC,
