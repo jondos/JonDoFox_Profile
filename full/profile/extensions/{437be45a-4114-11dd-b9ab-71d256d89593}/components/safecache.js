@@ -86,33 +86,22 @@ SafeCache.prototype = {
     this.converter.charset = "UTF-8"; 
   },
 
-  safeCache: function(channel, notificationCallbacks) {
-   var parent = null;
-     if (notificationCallbacks) {
-       try {
-         var wind = notificationCallbacks.QueryInterface(
-           CI.nsIInterfaceRequestor).getInterface(CI.nsIDOMWindow);
-         parent = wind.window.top.location;
-        } catch(e) {
-          log("||||||||||SSC: Error while obtaining the Window!" + e);
-        }
-        log("||||||||||SSC: Parent "+parent+" for "+ channel.URI.spec);
-    } else {
-      log("No Channel notification callbacks for: " + channel.URI.spec); 
-      log("Assuming first party...");
-    }
+  safeCache: function(channel, parentHost) {
     if (channel.documentURI && channel.documentURI === channel.URI) {
-      parent = null;  // first party interaction
+      parentHost = null;  // first party interaction
     }
     // Same-origin policy
-    if (parent && parent.hostname !== channel.URI.host) {
+    if (parentHost && parentHost !== channel.URI.host) {
       log("||||||||||SSC: Segmenting " + channel.URI.host + 
-               " content loaded by " + parent.host);
-      this.setCacheKey(channel, parent.hostname);
+               " content loaded by " + parentHost);
+      this.setCacheKey(channel, parentHost);
       log("Deleting Authorization header for 3rd party content if available..");
       // TODO: We currently do not get headers here in all cases. WTF!? Why?
-      // AND: Settinung them to null does not do anything in some cases: The
+      // AND: Setting them to null does not do anything in some cases: The
       // Auth information are still be sent!
+      // Answer: The problem is that the Authorization header is set after
+      // the http-on-modify-request notification is fired :-/. Thus, nothing we
+      // can do here without fixing it in the source (nsHttpChannel.cpp).
       try {
         if (channel.getRequestHeader("Authorization") !== null) {
           channel.setRequestHeader("Authorization", null, false);
@@ -121,7 +110,9 @@ SafeCache.prototype = {
         }
       } catch (e) {}
     } else {
-      if (!this.readCacheKey(channel.cacheKey)) {
+      if (!this.readCacheKey(channel.cacheKey) && channel.requestMethod !==
+        "POST") {
+        log("Could not find a cache key for: " + channel.URI.host)
         this.setCacheKey(channel, channel.URI.host);
       } else {
         log("||||||||||SSC: Leaving cache key unchanged.");
@@ -133,9 +124,9 @@ SafeCache.prototype = {
       case this.ACCEPT_COOKIES: 
         break;
       case this.NO_FOREIGN_COOKIES: 
-        if(parent && parent.hostname !== channel.URI.host) {
+        if(parentHost && parentHost !== channel.URI.host) {
           log("||||||||||SSC: Third party cache blocked for " +
-               channel.URI.spec + " content loaded by " + parent.spec);
+               channel.URI.spec + " content loaded by " + parentHost);
           this.bypassCache(channel);
         }
         break;

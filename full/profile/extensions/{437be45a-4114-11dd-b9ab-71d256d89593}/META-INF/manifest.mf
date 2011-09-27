@@ -34,8 +34,8 @@ SHA1-Digest: Y+nrYdUPAuIMcmui4SF5EnSB8Rs=
 
 Name: modules/ssl-observatory.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 2LkEzINI2hqDuxliqNt7dA==
-SHA1-Digest: lKcu5hZx+1Rr2M8PBo5OeBu6y1I=
+MD5-Digest: Fi7mFtjzTY6UaR8PycwHcw==
+SHA1-Digest: MYt7XjpeCTTg2kChg+x07RVqG4E=
 
 Name: modules/bloodyVikingsUtils.jsm
 Digest-Algorithms: MD5 SHA1
@@ -59,8 +59,8 @@ SHA1-Digest: rvbLG/6s/pCudjRgD7I1/0v2Yog=
 
 Name: components/safecache.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: CUi1pVB2TsJpJseVsZPQNQ==
-SHA1-Digest: GDXUIs9O6Aanl7sm1y4WSIBefmw=
+MD5-Digest: iNmedIbuoqG6nHzxDnKGWw==
+SHA1-Digest: woeY9ud0Lt9xru9yu+wLwF6MQAQ=
 
 Name: components/jondofox-about.js
 Digest-Algorithms: MD5 SHA1
@@ -84,8 +84,8 @@ SHA1-Digest: NrmM3kVmAlYD03F2cRhCuE0yY30=
 
 Name: components/request-observer.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: JnTBLX9nDef6AddNscl4ow==
-SHA1-Digest: V/bPUhhNjVsJglB1uUGv+BxHAW4=
+MD5-Digest: tHMgCTaXXXqN9DtbIO1nzg==
+SHA1-Digest: LsrZkdW607V+WiWOpFK2EfRcLRc=
 
 Name: components/proxy-manager.js
 Digest-Algorithms: MD5 SHA1
@@ -94,13 +94,13 @@ SHA1-Digest: dbw//LeqLCZDWykiICgP4ui6WHQ=
 
 Name: components/jondofox-manager.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: gBdNV+Xot4Cj1fQRXs/NZg==
-SHA1-Digest: eDTmKtNST42kAllfMvD6VUh743g=
+MD5-Digest: dAFmG2WgeLlJ0KG0I3byBg==
+SHA1-Digest: VS5EUFaR7zEMFmTZEctUK4IN+DA=
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: VP8b5KMk1fRCTIfFt/xUCQ==
-SHA1-Digest: BtnSpHU5CMTLRcP+oK5aFPNmP+w=
+MD5-Digest: iEKDlBdR4vLPQ2uzefINCQ==
+SHA1-Digest: ZgQKU5LIPTeGchpCs2LNpCqSTGI=
 
 Name: chrome.manifest
 Digest-Algorithms: MD5 SHA1
@@ -109,10 +109,10 @@ SHA1-Digest: hotmLTnra/lTOJCIbpuRMF93jb4=
 
 Name: chrome/jondofox.jar
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: SQHkyzZkk1/CVKLY5bR8NA==
-SHA1-Digest: fzYbLbyXYfTDf+bSrr3Aj75oOmo=
+MD5-Digest: PfT1hjYJgiEDUTst9A/AzA==
+SHA1-Digest: 1zlEIicJmIl7aGfFJ+ieXHmJHrE=
 
 Name: defaults/preferences/preferences.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 3Ilbifquz2iOolZaFdefGA==
-SHA1-Digest: +9f/CtQQaP2dRf7qXA7ZoYwXubY=
+MD5-Digest: 6HBsU8548Azj3JEnYEk+2w==
+SHA1-Digest: UdvtzKhUX2iJLoRmvU163olgeDg=
