@@ -289,7 +289,8 @@ createLinuxPackage()
 				rm -f jondofox_linux_${lang}.tar.bz2.asc
 			fi
 			if [ $GPGSIG == "y" ]; then
-				 gpg -b --armor --default-key=support@jondos.de jondofox_linux_${lang}.tar.bz2
+				gpg -b --armor --default-key=support@jondos.de jondofox_linux_${lang}.tar.bz2
+				md5sum -b jondofox_linux_${lang}.tar.bz2 | cut -d " " -f 1 > md5_jondofox_linux_${lang}.html
 			fi
 		done
 	done
@@ -330,36 +331,23 @@ getProfileFolder()
 	local type=$1
 	local exclude=""
 	
-	checkType "${type}"
-	if [ $? -ne 0 ]; then
-		return 1
-	fi
+#	checkType "${type}"
+#	if [ $? -ne 0 ]; then
+#		return 1
+#	fi
 	
 	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${JONDOFOX_PROFILE}_${type}" ]; then
 		echo "Checking out JonDoFox profile type '${type}'."
-		#if [ "${VERBOSE}" ]; then
-			svn export "${SVN_MODULE}/full/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}"
-		#else
-		#	svn export "${SVN_MODULE}/${type}/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}" >& /dev/null
-		#fi
+		
+		svn export "${SVN_MODULE}/full/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}"
 		
 		if [ $? -ne 0 ]; then
 			echo "Error: could not check out profile type '${type}'"
 			return 1
 		fi
 		
-		case "${type}" in
-		
-		lite) for exclude in ${LITE_EXCLUSIONS}; do
-			  	rm -Rfv "${JONDOFOX_PROFILE}_${type}/extensions/${exclude}"
-			  done
-			  ;;
-		
-		*);;
-		
-		esac
 	fi
-	# chmod -R ugo-x,u+rwX,go+rX,go-w profile_lite 
+
 	return 0
 	
 }
@@ -369,10 +357,6 @@ cleanupProfileFolders()
 	if ! [ "${SRC_LOCAL}" ]; then
 		for type in ${JONDOFOX_PROFILE_TYPES}; do
 			
-			checkType "${type}"
-			if [ $? -ne 0 ]; then
-				continue
-			fi
 			rm -rf ${VERBOSE} "${JONDOFOX_PROFILE}_${type}"
 		done
 	fi
@@ -405,16 +389,6 @@ createSelectedPackages()
 			createPackage "$i"
 		fi
 	done
-}
-
-checkType()
-{
-	case "$1" in
-		full) 	return 0;;
-		
-		*) 		echo "Error: no such profile type: $1"
-				return 1;;
-	esac
 }
 
 checkLang()
@@ -486,21 +460,6 @@ removeOldMacProfile()
 	mv -f "${HOME}/Library/Application Support/Firefox/profiles.ini.bak" "${HOME}/Library/Application Support/Firefox/profiles.ini" 
 }
 
-##TODO:
-uploadMacBundles()
-{
-	scp -C2 -P 55022 JonDoFox_OS_X_full_de.dmg root@78.129.207.114:/var/www/website/htdocs/de/downloads/JonDoFox_OS_X.dmg
-	scp -C2 -P 55022 JonDoFox_OS_X_full_en.dmg root@78.129.207.114:/var/www/website/htdocs/en/downloads/JonDoFox_OS_X.dmg
-}
-
-uploadZipBundles()
-{
-	scp -C2 -P 55022 jondofox_linux_de.tar.bz2 root@78.129.207.114:/var/www/website/htdocs/de/downloads/jondofox_linux_de.tar.bz2
-	scp -C2 -P 55022 jondofox_linux_en.tar.bz2 root@78.129.207.114:/var/www/website/htdocs/en/downloads/jondofox_linux_en.tar.bz2
-	scp -C2 -P 55022 jondofox_linux_de.tar.bz2.asc root@78.129.207.114:/var/www/website/htdocs/de/downloads/jondofox_linux_de.tar.bz2.asc 
-	scp -C2 -P 55022 jondofox_linux_en.tar.bz2.asc root@78.129.207.114:/var/www/website/htdocs/en/downloads/jondofox_linux_en.tar.bz2.asc
-}
-
 verboseMessage()
 {
 	if [ "${VERBOSE}" ]; then
@@ -508,7 +467,7 @@ verboseMessage()
 	fi
 }
 
-OPTSTR="vbhs:l:t:p:c:uzd"	
+OPTSTR="vbhs:l:p:c:d"	
 getopts "${OPTSTR}" CMD_OPT
 while [ $? -eq 0 ]; 
 do
@@ -516,7 +475,6 @@ do
 		v) VERBOSE="-v";;
 		b) GPGSIG="y";;
 		p) BUILD_PLATFORMS="${OPTARG}";;
-		t) JONDOFOX_PROFILE_TYPES="${OPTARG}";;
 		l) JONDOFOX_PROFILE_LANGS="${OPTARG}";;
 		s) case "${OPTARG}" in 
 		   		"svn") 		SRC_LOCAL="";;
@@ -539,10 +497,6 @@ do
 			echo '   the language of the JonDoFox installer package to be created.' 
 			echo '   Multiple languages can be specified in quotes separated by whitespace'
 			echo '   If nothing is specified, all languages are selected.'
-			echo '-t [full | lite]'
-			echo '   the type of the JonDoFox installer package to be created.' 
-			echo '   Multiple types can be specified in quotes separated by whitespace'
-			echo '   If nothing is specified, all types are selected.'
 			echo '-s [svn | local]'
 			echo '   source for the package components. if svn is specified the source components' 
 			echo '   will always be fetched from the specified subversion repository. if local is'
@@ -556,10 +510,7 @@ do
 			echo ''
 			exit 0
 			;;
-		u) uploadMacBundles
-		   exit 0;;
-		z) uploadZipBundles
-		   exit 0;;
+
 		d) removeOldMacProfile
 		   exit 0;;
 		*) ;;
@@ -580,16 +531,8 @@ else
 fi
 
 #set profile types tobuild
-if [ "${JONDOFOX_PROFILE_TYPES}" ]; then
-	for i in ${JONDOFOX_PROFILE_TYPES}; do
-		checkType "$i"
-		if [ $? -ne 0 ]; then
-			exit 1
-		fi
-	done
-else
-	JONDOFOX_PROFILE_TYPES="${ALL_TYPES}"
-fi
+JONDOFOX_PROFILE_TYPES="${ALL_TYPES}"
+
 
 if [ "${JONDOFOX_PROFILE_LANGS}" ]; then
 	for i in ${JONDOFOX_PROFILE_LANGS}; do
