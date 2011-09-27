@@ -13,7 +13,7 @@
 !define SHORTNAME "FirefoxPortable"
 !define VERSION "2.5.3.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "6.0"
+!define FF_VERSION "7.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
