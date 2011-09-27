@@ -76,6 +76,8 @@ DIALOG_OVERWRITE_OPT="Overwrite"
 
 OLDER_VERSION="<=2.0.1"
 
+ZENITY=`which zenity`
+
 ## assign OS specific values for the global variables
 variablesOsSpecific()
 {	
@@ -203,7 +205,11 @@ restoreOldSettings()
 editProfilesIni()
 {
 	if  ! [ -e "${PROFILES_INI_FILE}" ]; then
-		echo "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
+		if [ $ZENITY ]; then
+			zenity --error --text="ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
+		else
+			echo "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
+		fi
 		return 1
 	fi
 	backupProfilesIni
@@ -343,13 +349,24 @@ compareVersions()
 
 promptOverwrite()
 {
-	zenity --question --title "New JonDoFox version" --text "You have installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to upgrade it, (keeping your bookmarks)?"
+	if [ $ZENITY ]; then
+		zenity --question --title "New JonDoFox version" --text "You have installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to upgrade it, (keeping your bookmarks)?"
 
-        dialog_return=$?		
-	if [ $dialog_return -eq 1 ]; then
-		return 1
+		dialog_return=$?		
+		if [ $dialog_return -eq 1 ]; then
+			return 1
+		else
+			return 0
+		fi
 	else
-		return 0
+		dialog_return="y"
+		echo "You have installed an older version of JonDoFox ($(getInstalledVersion))."
+		read -p  "Do you want to upgrade it (keeping your bookmarks)? [y/n]: " RESP
+		if [ "$RESP" = "y" ]; then
+			return 0
+		else
+			return 1
+		fi
 	fi
 }
 
@@ -387,7 +404,12 @@ variablesOsSpecific
 
 isFirefoxRunning
 if [ $? -ne 0 ]; then
-	zenity --error --text="Your Firefox is running. Please quit Firefox/Iceweasel first."
+	if [ $ZENITY ]; then
+		zenity --error --text="Your Firefox is running. Please quit Firefox/Iceweasel first."
+	else
+		echo "Your Firefox is running. Please quit Firefox first."
+	fi
+	
 	exit 1
 fi
 
@@ -395,7 +417,12 @@ fi
 if [ "${REMOVE}" = "TRUE" ]; then
 	isJonDoFoxInstalled
 	if [ $? -eq 0 ]; then
-		echo "Cannot remove JonDoFox, because it is not installed."
+		if [ $ZENITY ]; then
+			zenity --error --text="Cannot remove JonDoFox, because it is not installed."
+		else
+			echo "Cannot remove JonDoFox, because it is not installed."
+		fi
+		echo ""
 		exit 1
 	else
 		uninstallJonDoFox
@@ -407,7 +434,12 @@ isJonDoFoxInstalled
 if [ $? -eq 0 ]; then
 	editProfilesIni
 	if [ $? -ne 0 ]; then
-		zenity --error --text="Could not edit profiles.ini: Restoring old settings and abort installation!"
+		if [ $ZENITY ]; then
+			zenity --error --text="Could not edit profiles.ini: Restoring old settings and abort installation!"
+		else
+			echo "Could not edit profiles.ini: Restoring old settings and abort installation!"
+		fi
+
 		restoreOldSettings
 		exit 1
 	fi
@@ -433,7 +465,12 @@ fi
 echo "installing profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
-	zenity --error --text="JonDoFox could not be installed"
+	if [ $ZENITY ]; then
+		zenity --error --text="JonDoFox could not be installed!"
+	else
+		echo "JonDoFox could not be installed!"
+	fi
+	
 	exit 1
 fi
 # echo "JonDoFox successfully installed!"
