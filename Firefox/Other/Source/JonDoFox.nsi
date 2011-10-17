@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.5.3.0"
+!define VERSION "2.5.4.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "7.0"
+!define FF_VERSION "7.0.1"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -540,12 +540,15 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 SectionGroupEnd
 
 Section Uninstall
+       StrCpy $FFInstalled "false"
+       # Hack to get the the proper message box popped up (indicating that
+       # the profile gets only properly deleted if FF is not running
+       StrCpy $Update "true"
        StrCpy $k 0
        StrCpy $l 0
        MessageBox MB_ICONEXCLAMATION|MB_YESNO $(DeletingProfile) IDYES deleting
        Quit
      deleting:
-       StrCpy $PROGRAMINSTALL "false" 
        StrCpy $ProfilePath "$APPDATA\Mozilla\Firefox\Profiles\JonDoFox"
        Call un.CheckFirefoxRunning
        StrCpy $AppdataFolder "$APPDATA"
@@ -1058,10 +1061,18 @@ FunctionEnd
       processwork::existsprocess
       Pop $5
       IntCmp $5 1 is1 is0 is0
-
       is1:
-        IfFileExists "$ProfilePath\parent.lock" 0 done
-        MessageBox MB_ICONQUESTION|MB_YESNO $(FirefoxDetected) IDYES quitFF IDNO Exit
+        # Is FF installed at all? (Maybe there is just a porable one available)
+        StrCmp $FFInstalled "true" 0 profilecheck
+        StrCmp $PROGRAMINSTALL "true" 0 mb         
+
+        # Checking here only whether we try to overwrite the open JonDoFox
+        # profile.
+        profilecheck:
+        IfFileExists "$ProfilePath\parent.lock" mb done
+        mb: 
+          StrCpy $Update "true"
+          MessageBox MB_ICONQUESTION|MB_YESNO $(FirefoxDetected) IDYES quitFF IDNO Exit
         quitFF:
 	       Push "firefox.exe"
 	       processwork::KillProcess
@@ -1072,8 +1083,10 @@ FunctionEnd
           Goto done
                  
         Exit:
-             StrCmp ${un} "un." 0 +2
+             ${If} $FFInstalled == "false"
+               ${AndIf} $Update == "true"
                  MessageBox MB_ICONEXCLAMATION|MB_OK $(JonDoFoxDeleteError)
+             ${EndIf}
              StrCpy $R9 "-1"
              Call ${un}RelGotoPage
              Abort
@@ -1192,6 +1205,7 @@ FunctionEnd
 Function instPre
 
         StrCpy $Update "false"
+        
 
         # Check if Profile exists -> then update only
 
@@ -1220,6 +1234,7 @@ Function instPre
                         StrCpy $ProfilePath "$AppdataFolder\Mozilla\Firefox\Profiles\JonDoFox"
                         StrCpy $ProfileExtensionPath "$AppdataFolder\Mozilla\Firefox\Profiles\JonDoFox\extensions"
  
+                        Call CheckFirefoxRunning 
                         IfFileExists $ProfilePath\*.* update create
 
                   ${ElseIf} $FFInstalled == "false"
@@ -1277,6 +1292,8 @@ Function instPre
                          StrCpy $ProgramPath $INSTDIR
                          
                          StrCpy $Update "true"
+                         
+                         Call CheckFirefoxRunning 
 
                          Call Update
                          StrCmp $IsJonDoFox "true" 0 install
@@ -1314,8 +1331,6 @@ FunctionEnd
 
 
 Function Update
-
-        Call CheckFirefoxRunning
 
         Call ParsePrefsJS
 
