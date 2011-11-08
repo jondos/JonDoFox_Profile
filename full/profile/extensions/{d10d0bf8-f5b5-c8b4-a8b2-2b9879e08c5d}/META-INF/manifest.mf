@@ -2,13 +2,13 @@ Manifest-Version: 1.0
 
 Name: chrome.manifest
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: tcRdtNUUmGbJxtVNOvRAlg==
-SHA1-Digest: yJMkRR5DksaQz0eIPdT5arUg4yI=
+MD5-Digest: O3qmW0EIitSjDCNQOfPeTQ==
+SHA1-Digest: G+hcO7+wZkom6p2I8CYIHnZgGaA=
 
 Name: chrome/adblockplus.jar
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: hZ2KrBgQ7BUzZYimOZHnyg==
-SHA1-Digest: XdpeNVnJsy2GJs1Ii7QOU/dpxQc=
+MD5-Digest: GFTBdv/NRwHXeeJAReNjBA==
+SHA1-Digest: pJ0QWOPgjQtBEC0zHoW4C2hn/nY=
 
 Name: components/Initializer.js
 Digest-Algorithms: MD5 SHA1
@@ -37,8 +37,8 @@ SHA1-Digest: 0Njp3F/pdQ8Ne3KwBsgvLA4vaso=
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: Vz3+SyYx/By6lRnuQOslnw==
-SHA1-Digest: hmd9zsBicOsgyAzaLTO5hyw9KNs=
+MD5-Digest: 9U21SV4+oE+seGLCSQUEVQ==
+SHA1-Digest: /IyM9J719HdzZGhTXowo8kSoLIU=
 
 Name: modules/AppIntegration.jsm
 Digest-Algorithms: MD5 SHA1
@@ -52,8 +52,8 @@ SHA1-Digest: RgpgdWwUWWZFJrWH1I81FgcML+k=
 
 Name: modules/Bootstrap.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: GHYlXrLBDxIq2iLQcQPE9w==
-SHA1-Digest: lW7Ona/LczwC/Z/MGoq6wyr3JTY=
+MD5-Digest: OgioNUFGJi4RdbtkDHN2MA==
+SHA1-Digest: o9ZaI7zpgABLP1ElhouE/M0ifds=
 
 Name: modules/ContentPolicy.jsm
 Digest-Algorithms: MD5 SHA1
@@ -67,8 +67,8 @@ SHA1-Digest: Wh8GX1SuqwjkbNMOTdP7URKdd3k=
 
 Name: modules/ElemHide.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: MTsBrlZtWKcpFQVwYb1MEw==
-SHA1-Digest: t/88knV3tu3t4WNhYBtkruYelTA=
+MD5-Digest: QYNsBNt67KOVEEI3SYgxOw==
+SHA1-Digest: gUxEfSaIk1/J2JTmhtHku5hxfv8=
 
 Name: modules/ElemHideRemote.jsm
 Digest-Algorithms: MD5 SHA1
@@ -82,8 +82,8 @@ SHA1-Digest: k8SUoDOBpUu5+Wqdyv0KE7Elh3U=
 
 Name: modules/FilterListener.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 2+9rF+Q5GFRn7m83/b1Mmg==
-SHA1-Digest: y0hjZNvotV6y0CTt7+uBsgSH8q0=
+MD5-Digest: NmSXLFE8zb9yME/bSRxDaA==
+SHA1-Digest: xjN0VcYOIsGpZ+YbkqsolqsiSkE=
 
 Name: modules/FilterStorage.jsm
 Digest-Algorithms: MD5 SHA1
@@ -120,6 +120,11 @@ Digest-Algorithms: MD5 SHA1
 MD5-Digest: mAPCNJtsRzIY+tXlQrEdfg==
 SHA1-Digest: HnuC/+jvaN9RAvggmfiTLSkCDcw=
 
+Name: modules/Survey.jsm
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: G59EbZLvLEQ7bePEdXxgVQ==
+SHA1-Digest: bQ9reRn1LBs6sZD53jIncmIxFUo=
+
 Name: modules/Sync.jsm
 Digest-Algorithms: MD5 SHA1
 MD5-Digest: WaMz7CE4vuXlKz0Um6KiDA==
@@ -132,5 +137,5 @@ SHA1-Digest: 1Qdhb4hnIMiRmhD0z4GsnS5fpGI=
 
 Name: modules/Utils.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: ZRAAEc/IyW0OZWZOotkLGA==
-SHA1-Digest: iYxQg3UcHHk1Hn2CfBbWQ4DYHoc=
+MD5-Digest: gW1qZQQyX+kSm67pNVqn7A==
+SHA1-Digest: 33TfcP/KplJNyGLpOzehhVL6Wjc=

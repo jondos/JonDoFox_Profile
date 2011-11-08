@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}</em:id>
-    <em:version>1.3.9</em:version>
+    <em:version>1.3.10</em:version>
     <em:name>Adblock Plus</em:name>
     <em:description>Ads were yesterday!</em:description>
     <em:creator>Wladimir Palant</em:creator>
@@ -23,6 +23,7 @@
     <em:translator>Aivo Kuhlberg</em:translator>
     <em:translator>AlleyKat</em:translator>
     <em:translator>Dagobert_78</em:translator>
+    <em:translator>Genti Ereqi</em:translator>
     <em:translator>Hrvoje Majer</em:translator>
     <em:translator>Jakub Tománek</em:translator>
     <em:translator>Joni Heinonen</em:translator>
@@ -56,6 +57,7 @@
     <em:translator>Urko</em:translator>
     <em:translator>Wim Benes</em:translator>
     <em:translator>Wladimir Palant</em:translator>
+    <em:translator>anonymous74100</em:translator>
     <em:translator>bahramm</em:translator>
     <em:translator>blackdire</em:translator>
     <em:translator>catcat</em:translator>
@@ -334,9 +336,18 @@
       <Description>
         <em:locale>ko</em:locale>
         <em:name>Adblock Plus</em:name>
-        <em:description>콘텐츠 이용을 방해하고 성가신 광고, 이제 안녕!</em:description>
+        <em:description>콘텐츠 이용을 방해하고 불건전한 광고, 이제 안녕!</em:description>
         <em:creator>Wladimir Palant</em:creator>
         <em:homepageURL>http://adblockplus.org/ko/</em:homepageURL>
+      </Description>
+    </em:localized>
+    <em:localized>
+      <Description>
+        <em:locale>lv</em:locale>
+        <em:name>Adblock Plus</em:name>
+        <em:description>Reklāmas bija vakardiena!</em:description>
+        <em:creator>Wladimir Palant</em:creator>
+        <em:homepageURL>http://adblockplus.org/</em:homepageURL>
       </Description>
     </em:localized>
     <em:localized>
@@ -431,6 +442,15 @@
     </em:localized>
     <em:localized>
       <Description>
+        <em:locale>sq</em:locale>
+        <em:name>Adblock Plus</em:name>
+        <em:description>Reklamat jane e kaluara!</em:description>
+        <em:creator>Wladimir Palant</em:creator>
+        <em:homepageURL>http://adblockplus.org/</em:homepageURL>
+      </Description>
+    </em:localized>
+    <em:localized>
+      <Description>
         <em:locale>sr</em:locale>
         <em:name>Adblock Plus</em:name>
         <em:description>Рекламе су прошлост!</em:description>
@@ -514,7 +534,7 @@
         <!-- fennec -->
         <em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
         <em:minVersion>1.1</em:minVersion>
-        <em:maxVersion>7.0a1</em:maxVersion>
+        <em:maxVersion>9.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
     <em:targetApplication>
@@ -522,7 +542,7 @@
         <!-- firefox -->
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>3.5</em:minVersion>
-        <em:maxVersion>7.*</em:maxVersion>
+        <em:maxVersion>9.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
     <em:targetApplication>
@@ -538,7 +558,7 @@
         <!-- seamonkey -->
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>2.4a1</em:maxVersion>
+        <em:maxVersion>2.6a1</em:maxVersion>
       </Description>
     </em:targetApplication>
     <em:targetApplication>
@@ -554,7 +574,7 @@
         <!-- thunderbird -->
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>3.0</em:minVersion>
-        <em:maxVersion>7.0a1</em:maxVersion>
+        <em:maxVersion>9.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>

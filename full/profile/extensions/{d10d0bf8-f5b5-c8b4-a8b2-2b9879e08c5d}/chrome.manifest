@@ -39,6 +39,7 @@ locale    adblockplus it jar:chrome/adblockplus.jar!/locale/it/
 locale    adblockplus ja jar:chrome/adblockplus.jar!/locale/ja/
 locale    adblockplus kk-KZ jar:chrome/adblockplus.jar!/locale/kk-KZ/
 locale    adblockplus ko jar:chrome/adblockplus.jar!/locale/ko/
+locale    adblockplus lv jar:chrome/adblockplus.jar!/locale/lv/
 locale    adblockplus mn jar:chrome/adblockplus.jar!/locale/mn/
 locale    adblockplus ms-MY jar:chrome/adblockplus.jar!/locale/ms-MY/
 locale    adblockplus nl jar:chrome/adblockplus.jar!/locale/nl/
@@ -49,6 +50,7 @@ locale    adblockplus ro jar:chrome/adblockplus.jar!/locale/ro/
 locale    adblockplus ru jar:chrome/adblockplus.jar!/locale/ru/
 locale    adblockplus sk jar:chrome/adblockplus.jar!/locale/sk/
 locale    adblockplus sl jar:chrome/adblockplus.jar!/locale/sl/
+locale    adblockplus sq jar:chrome/adblockplus.jar!/locale/sq/
 locale    adblockplus sr jar:chrome/adblockplus.jar!/locale/sr/
 locale    adblockplus sv-SE jar:chrome/adblockplus.jar!/locale/sv-SE/
 locale    adblockplus th jar:chrome/adblockplus.jar!/locale/th/

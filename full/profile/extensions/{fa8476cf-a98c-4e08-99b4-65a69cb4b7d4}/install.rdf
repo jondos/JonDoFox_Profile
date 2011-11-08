@@ -7,12 +7,11 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 	
 		<em:id>{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}</em:id>
 		<em:name>ProfileSwitcher</em:name>
-		<em:version>1.2.3</em:version>
+		<em:version>1.3</em:version>
 		<em:description>Adds the profile name to the window titile and adds options to launch other profiles</em:description>
 		<em:creator>Paolo Kaosmos</em:creator>
 		<em:homepageURL>https://nic-nac-project.org/~kaosmos/index-en.html</em:homepageURL>
 		<em:optionsURL>chrome://profilelauncher/content/profilelauncherOptions.xul</em:optionsURL>
-		<em:updateURL>https://nic-nac-project.org/~kaosmos/update2.rdf</em:updateURL>
 		<em:file>
 			<Description about="urn:mozilla:extension:file:profilelauncher.jar">
 				<em:package>content/profilelauncher/</em:package>
