@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.5.4.0"
+!define VERSION "2.6.0.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "7.0.1"
+!define FF_VERSION "8.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -480,6 +480,18 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{45d8ff86-d909-11db-9705-005056c00008}\*.*"
 
         SectionEnd
+
+        Section "HTTPS-Everywhere" HTTPSEverywhere
+        SectionIn 1 2 
+                StrCpy $ExtensionGUID "https-everywhere@eff.org"
+                StrCpy $ExtensionName "HTTPS Everywhere"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\https-everywhere@eff.org\*.*"
+
+        SectionEnd
         
 
         Section "JonDoFox" JonDoFox
@@ -626,6 +638,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${JFPortable} $(DescJFPortable)
   !insertmacro MUI_DESCRIPTION_TEXT ${AdblockPlus} $(DescAdblockPlus)
   !insertmacro MUI_DESCRIPTION_TEXT ${CMonster} $(DescCMonster)
+  !insertmacro MUI_DESCRIPTION_TEXT ${HTTPSEverywhere} $(DescHTTPSEverywhere)
   !insertmacro MUI_DESCRIPTION_TEXT ${UnPlug} $(DescUnPlug)
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)  
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
@@ -677,6 +690,7 @@ Function RequiredSelections
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
          SectionSetFlags ${AdblockPlus} $0
    	 SectionSetFlags ${CMonster} $0
+         SectionSetFlags ${HTTPSEverywhere} $0
          SectionSetFlags ${JonDoFox} $0
          SectionSetFlags ${NoScript} $0
          SectionSetFlags ${UnPlug} $0
