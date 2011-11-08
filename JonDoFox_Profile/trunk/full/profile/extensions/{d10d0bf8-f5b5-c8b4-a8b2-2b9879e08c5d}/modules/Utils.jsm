@@ -56,7 +56,7 @@ var Utils =
 	 */
 	get addonVersion()
 	{
-		let version = "1.3.9";
+		let version = "1.3.10";
 		return (version[0] == "{" ? "99.9" : version);
 	},
 
@@ -65,7 +65,7 @@ var Utils =
 	 */
 	get addonBuild()
 	{
-		let build = "3086";
+		let build = "3154";
 		return (build[0] == "{" ? "" : build);
 	},
 

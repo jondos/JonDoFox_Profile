@@ -5,7 +5,7 @@ const Cc = Components.classes;
 const Cu = Components.utils;
 const Cr = Components.results;
 
-const VERSION = "2.1.2.8";
+const VERSION = "2.1.8";
 const SERVICE_CTRID = "@maone.net/noscript-service;1";
 const SERVICE_ID = "{31aec909-8e86-4397-9380-63a59e0c5ff5}";
 const EXTENSION_ID = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
@@ -1118,11 +1118,6 @@ var Thread = {
   activeLoops: 0,
   _timers: [],
   
-  get canSpin() {
-    delete this.canSpin;
-    return this.canSpin = this.current instanceof Ci.nsIEventTarget;
-  },
-  
   runWithQueue: function(callback, self) {
     var thread = this.current;
     thread instanceof Ci.nsIThreadInternal;
@@ -1141,8 +1136,6 @@ var Thread = {
   },
   
   spin: function(ctrl) { 
-    if (!this.canSpin) throw new Error("Thread: can't spin!");
-
     ctrl.startTime = ctrl.startTime || Date.now();
     ctrl.timeout = false;
     this.activeLoops++;
@@ -1209,23 +1202,19 @@ var Thread = {
     }, time || 1, 0);
   },
   
+  dispatch: function(runnable) {
+    this.current.dispatch(runnable, Ci.nsIEventTarget.DISPATCH_NORMAL);
+  },
+  
   asap: function(callback, self, args) {
-    if (this.canSpin) {
-      this.current.dispatch({
-        run: function() {
-          callback.apply(self, args || DUMMY_ARRAY);
-        }
-      }, Ci.nsIEventTarget.DISPATCH_NORMAL);
-    } else {
-      this.delay(callback, 0, self, args);
-    }
+    this.current.dispatch({
+      run: function() {
+        callback.apply(self, args || DUMMY_ARRAY);
+      }
+    }, Ci.nsIEventTarget.DISPATCH_NORMAL);
   },
   
   basap: function(callback, self, args) { // before as soon as possible
-    if (!this.canSpin) {
-      this.asap(callback, self, args);
-      return;
-    }
     var thread = this.current;
     thread instanceof Ci.nsIThreadInternal;
     this.activeQueues++;
@@ -3189,7 +3178,7 @@ var ns = {
     if (delegate != NOPContentPolicy && (last || this.mimeService)) {
       // removing and adding the category late in the game allows to be the latest policy to run,
       // and nice to AdBlock Plus
-      this.dump("Adding category");
+      // this.dump("Adding category");
       catMan.addCategoryEntry(cat, this.CTRID, this.CTRID, false, true);
     } else this.dump("No category?!" + (delegate == NOPContentPolicy) + ", " + last + ", " + this.mimeService);
     
@@ -3652,16 +3641,34 @@ var ns = {
     }
     this.objectWhitelistLen++;
   },
-  isAllowedObjectById: function(id, objectURL, parentURL, mime, site, originSite) {
-    var url = this.getObjectURLWithId(id, objectURL, parentURL);
+  isAllowedObjectByDOM: function(obj, objectURL, parentURL, mime, site, originSite) {
+    var url = this.getObjectURLWithDOM(obj, objectURL, parentURL);
     return url && this.isAllowedObject(url, mime, site, originSite || this.getSite(parentURL));
   },
-  allowObjectById: function(id, objectURL, parentURL, mime, originSite) {
-    var url = this.getObjectURLWithId(id, objectURL, parentURL);
+  allowObjectByDOM: function(obj, objectURL, parentURL, mime, originSite) {
+    var url = this.getObjectURLWithDOM(obj, objectURL, parentURL);
     if (url) this.allowObject(url, mime, originSite || this.getSite(parentURL));
   },
-  getObjectURLWithId: function(id, objectURL, parentURL) {
-    return id && objectURL.replace(/[\?#].*/, '') + "#!#" + id + "@" + encodeURIComponent(parentURL);
+  getObjectURLWithDOM: function(obj, objectURL, parentURL) {
+    var id = obj.id;
+    if (!id) {
+      try {
+        let parents = [], ss = [];
+        for (; obj;) {
+          let t = obj.tagName;
+          if (t) ss.push(t);
+          let node = obj.previousSibling;
+          if (!node) {
+            parents.push(ss.join("-"));
+            ss.length = 0;
+            node = obj.parentNode;
+          }
+          obj = node;
+        }
+        id = parents.join(".");
+      } catch (e) {}
+    }
+    return objectURL.replace(/[\?#].*/, '') + "#!#" + id + "@" + encodeURIComponent(parentURL);
   },
   resetAllowedObjects: function() {
     this.objectWhitelist = {};
@@ -3893,6 +3900,7 @@ var ns = {
       while (scount-- > 0) {
         let script = scripts.item(scount);
         isHTMLScript = script instanceof HTMLElement;
+        let scriptSrc;
         if (isHTMLScript) {
           scriptSrc = script.src;
         } else if(script) {
@@ -4229,29 +4237,25 @@ var ns = {
             browserWindow.addEventListener(et, focusListener, true);
         }
         
-        if (Thread.canSpin) { // async evaluation, after bug 351633 landing
-          Thread.runWithQueue(function() {
-            try {
-              this.executingJSURL(doc, 1);
-              if (!(snapshots.siteJS && snapshots.docJS)) {
-                this._patchTimeouts(window, true);
-              }
-              
-              window.location.href = url;
-              
-              Thread.yieldAll();
-              if (!(snapshots.siteJS && snapshots.docJS)) {
-                this._patchTimeouts(window, false);
-              }
-              
-            } catch(e) {
-              this.logError(e, true, "Bookmarklet or location scriptlet");
+        Thread.runWithQueue(function() {
+          try {
+            this.executingJSURL(doc, 1);
+            if (!(snapshots.siteJS && snapshots.docJS)) {
+              this._patchTimeouts(window, true);
             }
-          }, this);
-        } else {
-          if (!openCallback) return false;
-          openCallback(url);
-        }
+            
+            window.location.href = url;
+            
+            Thread.yieldAll();
+            if (!(snapshots.siteJS && snapshots.docJS)) {
+              this._patchTimeouts(window, false);
+            }
+            
+          } catch(e) {
+            this.logError(e, true, "Bookmarklet or location scriptlet");
+          }
+        }, this);
+        
         return true;
       } finally {
         
@@ -4289,8 +4293,8 @@ var ns = {
   
   _patchTimeouts: function(w, start) {
      this._runJS(w, start
-      ? "if (!('__runTimeouts' in window)) (" +
-        function() {
+      ? "if (!('__runTimeouts' in window)) " +
+        (function() {
           var tt = [];
           window.setTimeout = window.setInterval = function(f, d, a) {
             if (typeof(f) != 'function') f = new Function(f || '');
@@ -4307,8 +4311,7 @@ var ns = {
             delete window.__runTimeouts;
             delete window.setTimeout;
           };
-        }.toSource()
-        + ")()"
+        }.toSource()) + "()"
       : "if (('__runTimeouts' in window) && typeof(window.__runTimeouts) == 'function') window.__runTimeouts()"
     );
   },
@@ -4361,8 +4364,12 @@ var ns = {
   createCheckedXHR: function(method, url, async) {
     if (typeof(async) == "undefined") async = true;
     var xhr = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance(Ci.nsIXMLHttpRequest);
-    xhr.open(method, url, async);
+    xhr.open(method, url, !!async);
     this.setCheckedChannel(xhr.channel, true);
+    
+    if (typeof(async) === "function")
+      xhr.addEventListener("readystatechange", async, false);
+    
     return xhr;
   },
   
@@ -4410,19 +4417,22 @@ var ns = {
     const pe = this.getExpando(doc, "pe");
     if (!pe) return null;
     this.setExpando(doc, "pe", null);
-    var ret = [], o, node, embed;
+    
+    var ret = [];
     for (var j = pe.length; j-- > 0;) {
-      o = pe[j];
+      let o = pe[j];
       try {
-        if (this.getExpando(o, "silverlight")) {
+        if (this.getExpando(o.embed, "silverlight")) {
           o.embed = this._attachSilverlightExtras(o.embed, o.pluginExtras);
           if (!o.embed) continue; // skip unconditionally to prevent in-page Silverlight placeholders
         }
         
-        embed = o.embed;
+        let embed = o.embed;
+        if (this.getExpando(embed, "processed")) continue;
+        this.setExpando(embed, "processed", true);
         
         if (embed instanceof OBJECT || embed instanceof EMBED) {
-          node = embed;
+          let node = embed;
           while ((node = node.parentNode) && !node.__noscriptBlocked)
             //  if (node instanceof OBJECT) o.embed = embed = node
             ;
@@ -4540,12 +4550,10 @@ var ns = {
           innerDiv.setAttribute("style", cssDef + forcedCSS);
           
           restrictedSize = (collapse || style.display === "none" || style.visibility === "hidden");
-          
-          if (!restrictedSize) {
-            anchor.style.width = style.width;
-            anchor.style.height = style.height;
-          }
-          
+
+          anchor.style.width = style.width;
+          anchor.style.height = style.height;
+
         } else restrictedSize = collapse;
         
         if (restrictedSize) {
@@ -4599,7 +4607,7 @@ var ns = {
   
   get _objectPatch() {
     delete this._objectPatch;
-    return this._objectPatch = "(" + function() {
+    return this._objectPatch = function() {
       const els = document.getElementsByClassName("__noscriptObjectPatchMe__");
       const DUMMY_FUNC = function() {};
       var el;
@@ -4610,7 +4618,7 @@ var ns = {
         );
         el.__noSuchMethod__ = DUMMY_FUNC;
       }
-    }.toSource() + ")()";
+    }.toSource() + "()";
   },
   
   patchObjects: function(document) {
@@ -4780,56 +4788,54 @@ var ns = {
     extras.allowed = true;
     extras.placeholder = null;
     this.delayExec(function() {
-      try {
-       
-        var jsEnabled = ns.isJSEnabled(ns.getSite(doc.documentURI));
-        var obj = ctx.object.cloneNode(true);
-        
-        function reload() {
-          ns.allowObjectById(obj.id, url, doc.documentURI, mime);
+      var jsEnabled = ns.isJSEnabled(ns.getSite(doc.documentURI));
+      var obj = ctx.object.cloneNode(true);
+      
+      function reload(slow) {
+        ns.allowObjectByDOM(ctx.anchor, url, doc.documentURI, mime);
+        if (slow) {
+          DOM.getDocShellForWindow(doc.defaultView).reload(0);
+        } else {
           ns.quickReload(doc.defaultView);
         }
+      }
+      
+      var isMedia = ("nsIDOMHTMLVideoElement" in Ci) && (obj instanceof Ci.nsIDOMHTMLVideoElement || obj instanceof Ci.nsIDOMHTMLAudioElement);
+      
+      if (isMedia) {
+        if (jsEnabled && !obj.controls) {
+          // we must reload, since the author-provided UI likely had no chance to wire events
+          reload(true); // normal reload because of http://forums.informaction.com/viewtopic.php?f=10&t=7195
+          return;
+        }
+        obj.autoplay = true;
+      }
+      
+      if (ctx.anchor.parentNode) {
+        this.setExpando(obj, "allowed", true);
         
-        var isMedia = ("nsIDOMHTMLVideoElement" in Ci) && (obj instanceof Ci.nsIDOMHTMLVideoElement || obj instanceof Ci.nsIDOMHTMLAudioElement);
-        
-        if (isMedia) {
-          if (jsEnabled && !obj.controls) {
-            // we must reload, since the author-provided UI likely had no chance to wire events
-            reload();
-            return;
-          }
-          obj.autoplay = true;
+        if (jsEnabled) {
+          ScriptSurrogate.executeSandbox(doc,
+            "env.a.__noSuchMethod__ = env.o.__noSuchMethod__ = function(m, a) { return env.n[m].apply(env.n, a) }",
+            { a: ctx.anchor, o: ctx.object, n: obj }
+          );
         }
         
-        if (ctx.anchor.parentNode) {
-          this.setExpando(obj, "allowed", true);
-          
-          if (jsEnabled) {
-            ScriptSurrogate.executeSandbox(doc,
-              "env.a.__noSuchMethod__ = env.o.__noSuchMethod__ = function(m, a) { env.n[m].apply(env.n, a) }",
-              { a: ctx.anchor, o: ctx.object, n: obj }
-            );
-          }
-          
-          ctx.anchor.parentNode.replaceChild(obj, ctx.anchor);
-          var style = doc.defaultView.getComputedStyle(obj, '');
-          
-          if (jsEnabled && ((obj.offsetWidth || parseInt(style.width)) < 2 || (obj.offsetHeight || parseInt(style.height)) < 2)
-              && !/frame/i.test(extras.tag)) {
-            let ds = DOM.getDocShellForWindow(doc.defaultView);
-            let ch = ds.currentDocumentChannel;
-            if (!(ch instanceof Ci.nsIHttpChannel && ch.requestMethod === "POST"))
-              Thread.delay(function() {
-                if (obj.offsetWidth < 2 || obj.offsetHeight < 2) reload();
-              }, 500); // warning, asap() or timeout=0 won't always work!
-          }
-          ns.syncUI(doc);
-        } else {
-          reload();
-        }
+        ctx.anchor.parentNode.replaceChild(obj, ctx.anchor);
+        var style = doc.defaultView.getComputedStyle(obj, '');
         
-      } finally {
-        ctx = null;
+        if (jsEnabled && ((obj.offsetWidth || parseInt(style.width)) < 2 || (obj.offsetHeight || parseInt(style.height)) < 2)
+            && !/frame/i.test(extras.tag)) {
+          let ds = DOM.getDocShellForWindow(doc.defaultView);
+          let ch = ds.currentDocumentChannel;
+          if (!(ch instanceof Ci.nsIHttpChannel && ch.requestMethod === "POST"))
+            Thread.delay(function() {
+              if (obj.offsetWidth < 2 || obj.offsetHeight < 2) reload();
+            }, 500); // warning, asap() or timeout=0 won't always work!
+        }
+        ns.syncUI(doc);
+      } else {
+        reload();
       }
     }, 10);
     return;
@@ -4874,7 +4880,7 @@ var ns = {
       return (/^application\/x-silverlight\b/.test(this.type))
         ? function(n) { return true; } : undefined;
     });
-  }.toSource(),
+  }.toSource() + "()",
   
   _flashPatch: function() {
     var type = "application/x-shockwave-flash";
@@ -4908,34 +4914,7 @@ var ns = {
       }
     };
 
-  }.toSource(),
-  
-  applyPluginPatches: function(doc) {
-    try {
-      if (this.getExpando(doc, "pluginPatches")) return;
-      this.setExpando(doc, "pluginPatches", true);
-      
-      if (!this.isJSEnabled(this.getSite(doc.URL)))
-        return;
-          
-      var patches;
-      
-      if (this.forbidFlash && this.flashPatch) {
-        (patches = patches || []).push(this._flashPatch);
-        if (this.consoleDump & LOG_CONTENT_BLOCK) this.dump("Patching HTMLObject for SWFObject compatibility.");
-      }
-      if (this.forbidSilverlight && this.silverlightPatch) {
-        (patches = patches || []).push(this._silverlightPatch);
-        if (this.consoleDump & LOG_CONTENT_BLOCK) this.dump("Patching HTMLObject for Silverlight compatibility.");
-      }
-      
-      if (!patches) return;
-
-      ScriptSurrogate.executeDOM(doc, "(" + patches.join(")();(") + ")();");
-    } catch(e) {
-       if (this.consoleDump) this.dump(e + ", " + e.stack);
-    }
-  },
+  }.toSource() + "()",
   
   _attachSilverlightExtras: function(embed, extras) {
     extras.silverlight = true;
@@ -5128,63 +5107,59 @@ var ns = {
     ABE.updateRedirectChain(oldChan, newChan);
     
     const ph = PolicyState.detach(oldChan);
-    try {
-      if (ph) {
-        // 0: aContentType, 1: aContentLocation, 2: aRequestOrigin, 3: aContext, 4: aMimeTypeGuess, 5: aInternalCall
-        
-        ph.contentLocation = uri;
-        
-        var ctx = ph.context;
-        var type = ph.contentType;
-           
-        if (type != 11 && !this.isJSEnabled(oldChan.URI.spec)) 
-          ph.requestOrigin = oldChan.URI;
-        
+
+    if (ph) {
+      // 0: aContentType, 1: aContentLocation, 2: aRequestOrigin, 3: aContext, 4: aMimeTypeGuess, 5: aInternalCall
+      
+      ph.contentLocation = uri;
+      
+      var ctx = ph.context;
+      var type = ph.contentType;
+         
+      if (type != 11 && !this.isJSEnabled(oldChan.URI.spec)) 
+        ph.requestOrigin = oldChan.URI;
+      
+      try {
+        ph.mimeType = newChan.contentType || oldChan.contentType || ph.mimeType;
+      } catch(e) {}
+      
+      var browser, win;
+   
+      
+      if(type == 2 || type == 9) { // script redirection? cache site for menu
         try {
-          ph.mimeType = newChan.contentType || oldChan.contentType || ph.mimeType;
-        } catch(e) {}
-        
-        var browser, win;
-     
-        
-        if(type == 2 || type == 9) { // script redirection? cache site for menu
-          try {
-            var site = this.getSite(uri.spec);
-            win = IOUtil.findWindow(newChan) || ctx && ((ctx instanceof Ci.nsIDOMWindow) ? ctx : ctx.ownerDocument.defaultView); 
-            browser = win && DOM.findBrowserForNode(win);
-            if (browser) {
-              this.getRedirCache(browser, win.top.document.documentURI)
-                  .push({ site: site, type: type });
-            } else {
-              if (this.consoleDump) this.dump("Cannot find window for " + uri.spec);
-            }
-          } catch(e) {
-            if (this.consoleDump) this.dump(e);
+          var site = this.getSite(uri.spec);
+          win = IOUtil.findWindow(newChan) || ctx && ((ctx instanceof Ci.nsIDOMWindow) ? ctx : ctx.ownerDocument.defaultView); 
+          browser = win && DOM.findBrowserForNode(win);
+          if (browser) {
+            this.getRedirCache(browser, win.top.document.documentURI)
+                .push({ site: site, type: type });
+          } else {
+            if (this.consoleDump) this.dump("Cannot find window for " + uri.spec);
           }
-          
-          if (type == 7) {
-            ph.extra = CP_FRAMECHECK;
-            if (win && win.frameElement && ph.context != win.frameElement) {
-              // this shouldn't happen
-              if (this.consoleDump) this.dump("Redirected frame change for destination " + uri.spec);
-              ph.context = win.frameElement;
-            }
-          }
-          
+        } catch(e) {
+          if (this.consoleDump) this.dump(e);
         }
         
-        if (this.shouldLoad.apply(this, ph.toArray()) != CP_OK) {
-          if (this.consoleDump) {
-            this.dump("Blocked " + oldChan.URI.spec + " -> " + uri.spec + " redirection of type " + type);
+        if (type == 7) {
+          ph.extra = CP_FRAMECHECK;
+          if (win && win.frameElement && ph.context != win.frameElement) {
+            // this shouldn't happen
+            if (this.consoleDump) this.dump("Redirected frame change for destination " + uri.spec);
+            ph.context = win.frameElement;
           }
-          throw "NoScript aborted redirection to " + uri.spec;
         }
         
-        PolicyState.save(uri, ph);
       }
-    } finally {
-      PolicyState.reset();
+      
+      if (this.shouldLoad.apply(this, ph.toArray()) != CP_OK) {
+        if (this.consoleDump) {
+          this.dump("Blocked " + oldChan.URI.spec + " -> " + uri.spec + " redirection of type " + type);
+        }
+        throw "NoScript aborted redirection to " + uri.spec;
+      }
     }
+  
     
     // Document transitions
   
@@ -5216,7 +5191,7 @@ var ns = {
     let entry;
     if (pos > -1) {
       entry = l[pos];
-      origins = entry.origins;
+      let origins = entry.origins;
       if (origins.indexOf(origin) == -1) origins.push(origin);
       if (pos == l.length - 1) return;
       l.splice(pos, 1);
@@ -5695,7 +5670,7 @@ var ns = {
     
     if (!((docShell instanceof nsIWebProgress) && docShell.isLoadingDocument)) {
       // likely a document.open() page
-      url = "wyciwyg:";// don't execute on document.open() pages with a misleading URL
+      url = "wyciwyg:"; // don't execute on document.open() pages with a misleading URL
       jsBlocked = false;
     }
     
@@ -5735,22 +5710,21 @@ var ns = {
           (scripts || (scripts = [])).push(this._liveConnectInterceptionDef);
         }
         if (this.audioApiInterception && this.forbidMedia &&
-            !this.isAllowedObject(site, "audio/ogg", site, site)) {
+            !this.isAllowedObject(site, "audio/ogg", site, site))
           (scripts || (scripts = [])).push(this._audioApiInterceptionDef);
-        }
       }
       
-      try {
-        if(this.jsHackRegExp && this.jsHack && this.jsHackRegExp.test(url)) {
-          if (!scripts) scripts = [this.jsHack];
-          else scripts.push(this.jsHack);
-        }
-      } catch(e) {}
-    
+      if (this.forbidFlash && this.flashPatch) 
+        (scripts || (scripts = [])).push(this._flashPatch);
+      
+      if (this.forbidSilverlight && this.silverlightPatch)
+        (scripts || (scripts = [])).push(this._silverlightPatch);
+
+      if(this.jsHackRegExp && this.jsHack && this.jsHackRegExp.test(url))
+          (scripts || (scripts = [])).push(this.jsHack);
     }
     
     ScriptSurrogate.apply(doc, url, url, jsBlocked, scripts);
-    
   },
   
   beforeScripting: function(subj, url) { // early stub
@@ -5857,7 +5831,7 @@ var ns = {
   },
   get _webGLInterceptionDef() {
     delete this._webGLInterceptionDef;
-    return this._webGLInterceptionDef = "(" + (function() {
+    return this._webGLInterceptionDef = function() {
       var proto = HTMLCanvasElement.prototype;
       var getContext = proto.getContext;
       proto.getContext = function(type) {
@@ -5871,14 +5845,13 @@ var ns = {
         }
         return getContext.call(this, "2d");
       }
-    }).toString()
-    + ")()";
+    }.toSource() + "()";
   },
   
   liveConnectInterception: true,
   get _liveConnectInterceptionDef() {
     delete this._liveConnectInterceptionDef;
-    return this._liveConnectInterceptionDef = "(" + (function() {
+    return this._liveConnectInterceptionDef = function() {
       const w = window;
       var dp = w.disablePlugins;
       delete w.disablePlugins;
@@ -5901,13 +5874,14 @@ var ns = {
       } finally {
         dp(false);
       }
-    }).toString()
-    + ")()";
+    }.toSource() + "()";
   },
 
   audioApiInterception: true,
-  _audioApiInterceptionDef: 'Object.defineProperty(HTMLAudioElement.prototype, "mozWriteAudio", {value: function() {new Audio("data:,")}});',
-
+  _audioApiInterceptionDef:
+    ("defineProperty" in Object)
+      ? 'Object.defineProperty(HTMLAudioElement.prototype, "mozWriteAudio", {value: function() {new Audio("data:,")}});'
+      : "",
   _disablePlugins: function(b) {
     ns.plugins.disabled = b;
   },
@@ -6132,11 +6106,9 @@ var ns = {
     
     if (/^https?:\/\//i.test(destURL)) callback(doc, uri);
     else {
-      var req = ns.createCheckedXHR("HEAD", uri.spec);
       var done = false;
-      req.onreadystatechange = function() {
-        
-        if (req.readystate < 2) return;
+      var req = ns.createCheckedXHR("HEAD", uri.spec, function() {
+        if (req.readyState < 2) return;
         try {
           if (!done && req.status) {
             done = true;
@@ -6144,7 +6116,7 @@ var ns = {
             req.abort();
           }
         } catch(e) {}
-      }
+      });
       req.send(null);
     }
   },
@@ -6502,8 +6474,7 @@ var ns = {
         goOn();
         return;
       }
-      var xhr = ns.createCheckedXHR("GET", url, true);
-      xhr.onreadystatechange = function() {
+      var xhr = ns.createCheckedXHR("GET", url, function() {
         if (xhr.readyState === 4) {
           if (xhr.status == 0 || xhr.status == 200) {
             var lists = xhr.responseText.split("[UNTRUSTED]");
@@ -6516,7 +6487,7 @@ var ns = {
           }
           goOn();
         }
-      }
+      });
       xhr.send(null);
     }
     
