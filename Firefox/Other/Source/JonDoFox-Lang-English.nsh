@@ -52,6 +52,8 @@ LangString DescAdblockPlus ${LANG_ENGLISH} "Advertisement is history"
 
 LangString DescCMonster ${LANG_ENGLISH} "Controls cookie permissions"
 
+LangString DescHTTPSEverywhere ${LANG_ENGLISH} "Enforces secure connections to websites"
+
 LangString DescUnPlug ${LANG_ENGLISH} "Allows you to download video from many websites"
 
 LangString DescJonDoFox ${LANG_ENGLISH} "Show customized error pages and instructions in case of proxy errors"

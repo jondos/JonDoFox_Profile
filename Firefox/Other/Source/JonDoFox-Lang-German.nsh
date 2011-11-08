@@ -50,6 +50,8 @@ LangString DescAdblockPlus ${LANG_GERMAN} "Werbung war Gestern"
 
 LangString DescCMonster ${LANG_GERMAN} "Kontrolliert Cookie-Berechtigungen"
 
+LangString DescHTTPSEverywhere ${LANG_GERMAN} "Erzwingt sichere Verbindungen zu Webseiten"
+
 LangString DescUnPlug ${LANG_GERMAN} "Erlaubt das Herunterladen von Videos von vielen Webseiten"
 
 LangString DescJonDoFox ${LANG_GERMAN} "Zeigt angepasste Fehler-Webseiten und Anweisungen im Fall eines Proxy-Fehlers"
