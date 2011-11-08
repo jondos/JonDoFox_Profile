@@ -411,6 +411,7 @@ SectionIn 1 2
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_de"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
+                    File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
               ${Else} 
                     File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
               ${EndIf}
@@ -418,6 +419,7 @@ SectionIn 1 2
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
+                    File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
               ${Else}
                     File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
               ${EndIf}
