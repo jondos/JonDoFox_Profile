@@ -58,6 +58,8 @@ CERT_DATABASE="" #CertPatrol database
 SAVED_BOOKMARKS="" #Saved bookmarks
 SAVED_CERTDATABASE="" #Saved CertPatrol database
 SAVED_NOSCRIPTHTTPS="" # Force HTTPS Options of NoScript
+HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere
+SAVED_HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere (Backup)
 
 JONDOFOX_PROFILE_ENTRY="" #JonDoFox entry in profiles.ini
 
@@ -118,6 +120,7 @@ variablesOsSpecific()
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
 	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
 	CERT_DATABASE="${DEST_PROFILE}/CertPatrol.sqlite"
+        HTTPSEverywhereUserRules="${DEST_PROFILE}/HTTPSEverywhereUserRules"
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
 		
@@ -146,7 +149,7 @@ saveInstalledBookmarks()
 	if [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/places.sqlite"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF3}" "${SAVED_BOOKMARKS}"
-	elif [ -e "${BOOKMARKS_FF3}" ]; then
+	elif [ -e "${BOOKMARKS_FF2}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/bookmarks.html"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF2}" "${SAVED_BOOKMARKS}"
 	fi
@@ -158,6 +161,10 @@ saveInstalledBookmarks()
 		SAVED_NOSCRIPTHTTPS="${FIREFOX_SETTINGS_PATH}/Noscript_httpsforced.conf"
 		cat ${INSTALLED_PREFS} | grep 'noscript.httpsForced' > ${SAVED_NOSCRIPTHTTPS}
 	fi
+        if [ -d "${HTTPSEverywhereUserRules}" ]; then
+                SAVED_HTTPSEverywhereUserRules="${FIREFOX_SETTINGS_PATH}/HTTPSEverywhereUserRules_backup"
+                cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}" "${SAVED_HTTPSEverywhereUserRules}"
+        fi
 	return 0
 }
 
@@ -165,14 +172,25 @@ saveInstalledBookmarks()
 restoreBookmarks()
 {
 	if [ "${SAVED_BOOKMARKS}" ] && [ -e "${SAVED_BOOKMARKS}" ]; then
+		echo "restoring bookmarks."
 		mv -f "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
 	fi
 	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}" ]; then
+		echo "restoring certificate database."
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
+                echo "restoring NoScript enforce HTTPS settings."
 		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
 		rm ${SAVED_NOSCRIPTHTTPS}
+	fi
+	if [ "${SAVED_HTTPSEverywhereUserRules}" ] && [ -d "${SAVED_HTTPSEverywhereUserRules}" ]; then
+		if [ -d "${HTTPSEverywhereUserRules}" ]; then
+			rm -r "${HTTPSEverywhereUserRules}"
+		fi
+		echo "restoring HTTPSEverywhereUserRules."
+		cp ${COPY_RECURSIVE_OPT} -f "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
+		rm -r "${SAVED_HTTPSEverywhereUserRules}"
 	fi
 }
 
@@ -350,7 +368,7 @@ compareVersions()
 promptOverwrite()
 {
 	if [ $ZENITY ]; then
-		zenity --question --title "New JonDoFox version" --text "You have installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to upgrade it, (keeping your bookmarks)?"
+		zenity --question --title "New JonDoFox version" --text "You have installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to upgrade it, (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?"
 
 		dialog_return=$?		
 		if [ $dialog_return -eq 1 ]; then
@@ -361,7 +379,7 @@ promptOverwrite()
 	else
 		dialog_return="y"
 		echo "You have installed an older version of JonDoFox ($(getInstalledVersion))."
-		read -p  "Do you want to upgrade it (keeping your bookmarks)? [y/n]: " RESP
+		read -p  "Do you want to upgrade it (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)? [y/n]: " RESP
 		if [ "$RESP" = "y" ]; then
 			return 0
 		else
