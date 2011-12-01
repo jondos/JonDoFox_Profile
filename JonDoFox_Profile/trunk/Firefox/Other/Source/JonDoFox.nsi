@@ -84,6 +84,8 @@ Var /GLOBAL varFOUNDPORTABLEAPPSPATH
 
 Var /GLOBAL varAskAgain
 
+Var /GLOBAL httpsForcedDomains
+
 ;=== Runtime Switches
 SetCompress Auto
 SetCompressor /SOLID lzma
@@ -127,6 +129,7 @@ VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 !include FileFunc.nsh
 !include RemoveFilesAndSubDirs.nsh
 !include WordFunc.nsh
+!include TextFunc.nsh
 
 !insertmacro GetOptions
 !insertmacro GetFileAttributes
@@ -1416,14 +1419,38 @@ Function Update
         CopyFiles $ProfilePath\CertPatrol.sqlite $TEMP
 	IfErrors Error
 
-	ifFileExists $ProfilePath\prefs.js 0 +3
+        # Now, we parse the prefs.js to extract the forced https domains.
+        # That is quite ugly but I did not find a better way.
+	IfFileExists $ProfilePath\prefs.js 0 +3
 	FileOpen $0 $ProfilePath\prefs.js r
+      loop:
 	FileRead $0 $1
-	DetailPrint $1
+        StrCpy $2 $1 32 
+        StrCmp $2 'user_pref("noscript.httpsForced"' found notfound
+      notfound:
+        StrCpy $3 $1 12
+        # We need some kind of stop here otherwise the installer would get
+        # stalled if there is no pref starting with
+        # 'user_pref("noscript.httpsForced"'.
+        StrCmp $3 'user_pref("p' done_httpsForcedBackup
+      Goto loop
+      found:
+        StrCpy $httpsForcedDomains $1
+
+      done_httpsForcedBackup:
 	IfErrors Error
 	FileClose $0
 
         nxs::Update /NOUNLOAD "Backup" /top $(BackupBookmarksCerts) /pos 100 /end
+
+        IfFileExists $ProfilePath\NoScriptSTS.db 0 +3
+        CopyFiles $ProfilePath\NoScriptSTS.db $TEMP
+	IfErrors Error 
+
+        IfFileExists $ProfilePath\HTTPSEverywhereUserRules\*.* 0 +4
+        CreateDirectory $TEMP\HTTPSEverywhereUserRules
+        CopyFiles $ProfilePath\HTTPSEverywhereUserRules\*.* $TEMP\HTTPSEverywhereUserRules
+        IfErrors Error
 
         nxs::Destroy
         
@@ -1476,6 +1503,19 @@ ClearErrors
            CopyFiles "$TEMP\BookmarkBackup\*.*" $ProfilePath
            IfFileExists $TEMP\CertPatrol.sqlite 0 +2 
            CopyFiles "$TEMP\CertPatrol.sqlite" $ProfilePath
+           IfFileExists $TEMP\NoScriptSTS.db 0 +2 
+           CopyFiles "$TEMP\NoScriptSTS.db" $ProfilePath 
+           IfFileExists $TEMP\HTTPSEverywhereUserRules\*.* 0 +2
+           CopyFiles "$TEMP\HTTPSEverywhereUserRules\*.*" $ProfilePath\HTTPSEverywhereUserRules
+           IfFileExists "$ProfilePath\prefs.js" 0 httpsForcedDone
+           StrCmp $httpsForcedDomains "" httpsForcedDone
+           FileOpen $0 "$ProfilePath\prefs.js" a
+           FileSeek $0 0 END
+           FileWrite $0 "$\r$\n"
+           FileWrite $0 $httpsForcedDomains
+           FileWrite $0 "$\r$\n"
+           FileClose $0
+           httpsForcedDone:
 
            IfErrors 0 done
 	    MessageBox MB_ICONEXCLAMATION|MB_OK $(RestoreError)

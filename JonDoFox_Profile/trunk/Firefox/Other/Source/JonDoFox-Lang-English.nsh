@@ -21,7 +21,7 @@ LangString SelectFirefoxPortable ${LANG_ENGLISH} "Select a Firefox-Portable Fold
 
 LangString SelectedFolderInvalid ${LANG_ENGLISH} "The selected directory is invalid. You need write-permissions on the selected folder."
 
-LangString OverwriteProfile ${LANG_ENGLISH} "The existing profile will be overwritten, continue? (Bookmarks and the certificate database will be backed up)"
+LangString OverwriteProfile ${LANG_ENGLISH} "The existing profile will be overwritten, continue? (Bookmarks, the certificate database, HTTPS Everywhere rules and Strict Transport Security domains will be backed up)"
 
 LangString OverwriteJonDoFox ${LANG_ENGLISH} "The existing profile will be overwritten, but bookmarks and the certificate database will be saved."
 
@@ -83,7 +83,7 @@ LangString InstallingJonDo ${LANG_ENGLISH} "In order to surf anonymously you nee
 
 LangString InstallingPortableJonDo ${LANG_ENGLISH} "Do you want to download JonDo and install the portable version as well (necessary for surfing anonymously)?"
 
-LangString BackupBookmarksCerts ${LANG_ENGLISH} "Backing up the bookmarks and the certificate database..." 
+LangString BackupBookmarksCerts ${LANG_ENGLISH} "Backing up the bookmarks, the certificate database, the HTTPS Everyhwere rules and the Strict Transport Security domains..." 
 
 LangString ^InstallLink ${LANG_ENGLISH} "Start $(^NAME)"
 
