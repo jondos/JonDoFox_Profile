@@ -78,7 +78,7 @@ on run
 	set jondofox_bookmarks_ff2 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":bookmarks.html"
 	set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
         set STS_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":NoScriptSTS.db"
-        --set HTTPS_userRulesDirectory to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":HTTPSEveryhwereUserRules"
+        set HTTPS_userRulesDirectory to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":HTTPSEveryhwereUserRules"
 	set saved_bookmarks to ""
 	set saved_certdatabase to ""
 	
