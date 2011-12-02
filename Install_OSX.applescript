@@ -26,7 +26,8 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    
   * JonDoFox profile installation script for Mac OS X
-  * 2007 by Simon Pecher, JonDos GmbH 
+  * 2007 by Simon Pecher, 
+  * 2011 slightly enhanced by Georg Koppen JonDos GmbH
   *)
 
 global firefox_profiles_path --firefox profile folder's path (as string)
@@ -45,6 +46,10 @@ global jondofox_bookmarks_ff2 --name of the bookmarksfile (FireFox2)
 global saved_bookmarks --where the old bookmarks are saved
 global cert_database --name of the Certificate Patrol database file
 global saved_certdatabase --where the Certificate Patrol database is saved
+global STS_database --name of the NoScript STS database file
+global saved_STSdatabase -- where the NoScript STS database is saved
+global HTTPS_userRulesDirectory -- name of the directory for HTTPS Everywhere rules
+global saved_HTTPS_userRulesDirectory -- where the HTTPS Everyhwere user rules are saved
 
 -- dialog variables
 global jfx_dialog_title
@@ -72,6 +77,8 @@ on run
 	set jondofox_bookmarks_ff3 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":places.sqlite"
 	set jondofox_bookmarks_ff2 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":bookmarks.html"
 	set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
+        set STS_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":NoScriptSTS.db"
+        set HTTPS_userRulesDirectory to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":HTTPSEveryhwereUserRules"
 	set saved_bookmarks to ""
 	set saved_certdatabase to ""
 	
@@ -416,7 +423,7 @@ on get_next_profile(prof_file)
 	return profile_header
 end get_next_profile
 
---saves the existing jondofox bookmarks and the cert database
+--saves the existing jondofox bookmarks and the cert database, and the STS database, and the HTTPS EverywhereUserRules 
 on copy_bookmarks()
 	tell application "Finder"
 		if (the file cert_database exists) then
@@ -425,6 +432,18 @@ on copy_bookmarks()
 			set temp_folder to firefox_profiles_path as alias
 			duplicate the jondofox_certpatrol_file to the temp_folder with replacing
 		end if
+                if (the file STS_database exists) then  
+                        set jondofox_STS_file to STS_database as alias
+                        set saved_STSdatabase to firefox_profiles_path & "NoScript.db"
+                        set temp_folder to firefox_profiles_path as alias
+                        duplicate the jondofox_STS_file to temp_folder with replacing
+                end if
+                if (the file HTTPS_userRulesDirectory exists) then
+                        set HTTPS_E_Rules_directory to HTTPS_userRulesDirectory as alias
+                        set saved_HTTPS_userRulesDirectory to firefox_profiles_path & "HTTPSEverywhereUserRules"
+			set temp_folder to firefox_profiles_path as alias
+			duplicate the HTTPS_E_Rules_directory to the temp_folder with replacing
+                end if
 		if (the file jondofox_bookmarks_ff3 exists) then
 			set jondofox_bookmarks_file to jondofox_bookmarks_ff3 as alias
 			set saved_bookmarks to firefox_profiles_path & "places.sqlite"
