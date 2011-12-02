@@ -436,7 +436,7 @@ on copy_bookmarks()
                         set jondofox_STS_file to STS_database as alias
                         set saved_STSdatabase to firefox_profiles_path & "NoScriptSTS.db"
                         set temp_folder to firefox_profiles_path as alias
-                        duplicate the jondofox_STS_file to temp_folder with replacing
+                        duplicate the jondofox_STS_file to the temp_folder with replacing
                 end if
                 if (the file HTTPS_userRulesDirectory exists) then
                         set HTTPS_E_Rules_directory to HTTPS_userRulesDirectory as alias
