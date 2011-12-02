@@ -264,10 +264,10 @@ on copy_folder()
 			if (the file saved_certdatabase exists) then
 				move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
-                        (*if (the file saved_STSdatabase exists) then
+                        if (the file saved_STSdatabase exists) then
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if 
-                        if (the file saved_HTTPS_userRulesDirectory exists) then
+                        (*if (the file saved_HTTPS_userRulesDirectory exists) then
 				move the file saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if*)
 		end tell
