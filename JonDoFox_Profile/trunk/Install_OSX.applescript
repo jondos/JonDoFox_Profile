@@ -449,6 +449,7 @@ on copy_bookmarks()
                         set saved_HTTPS_userRulesDirectory to firefox_profiles_path & "HTTPSEverywhereUserRules"
 			set temp_folder to firefox_profiles_path as alias
 			duplicate the HTTPS_E_Rules_directory to the temp_folder with replacing
+                        display dialog "Backup folder created"
                 end if
 		if (the file jondofox_bookmarks_ff3 exists) then
 			set jondofox_bookmarks_file to jondofox_bookmarks_ff3 as alias
