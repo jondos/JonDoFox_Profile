@@ -267,9 +267,9 @@ on copy_folder()
                         if (the file saved_STSdatabase exists) then
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if 
-                        if (the folder saved_HTTPS_userRulesDirectory exists) then
+                        (*if (the folder saved_HTTPS_userRulesDirectory exists) then
 				move the folder saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
-			end if
+			end if*)
 		end tell
 	on error
 		--if something goes wrong: restore old settings from backup file
