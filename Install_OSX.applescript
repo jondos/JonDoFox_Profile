@@ -268,8 +268,7 @@ on copy_folder()
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if 
                         if (the folder saved_HTTPS_userRulesDirectory exists) then
-                        display dialog "It is existing!"
-			--	move the folder saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
+				move the folder saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
 		end tell
 	on error
@@ -446,10 +445,10 @@ on copy_bookmarks()
                         duplicate the jondofox_STS_file to the temp_folder with replacing
                 end if
                 if (folder HTTPS_userRulesDirectory exists) then
-                        set HTTPS_E_Rules_directory to HTTPS_userRulesDirectory as alias
+                        (*set HTTPS_E_Rules_directory to HTTPS_userRulesDirectory as alias
                         set saved_HTTPS_userRulesDirectory to firefox_profiles_path & "HTTPSEverywhereUserRules"
 			set temp_folder to firefox_profiles_path as alias
-			duplicate the HTTPS_E_Rules_directory to the temp_folder with replacing
+			duplicate the HTTPS_E_Rules_directory to the temp_folder with replacing*)
                         display dialog "Backup folder created"
                 end if
 		if (the file jondofox_bookmarks_ff3 exists) then
