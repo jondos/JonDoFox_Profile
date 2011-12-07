@@ -444,7 +444,7 @@ on copy_bookmarks()
                         set temp_folder to firefox_profiles_path as alias
                         duplicate the jondofox_STS_file to the temp_folder with replacing
                 end if
-                if (the folder HTTPS_userRulesDirectory exists) then
+                if (folder HTTPS_userRulesDirectory exists) then
                         set HTTPS_E_Rules_directory to HTTPS_userRulesDirectory as alias
                         set saved_HTTPS_userRulesDirectory to firefox_profiles_path & "HTTPSEverywhereUserRules"
 			set temp_folder to firefox_profiles_path as alias
