@@ -90,7 +90,7 @@ on run
         set prefs_file_path to quoted form of (POSIX path of prefs_file)
         set saved_noscript_sts to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":Noscript_httpsforced.conf" 
         set saved_noscript_sts_path to quoted form of (POSIX path of saved_noscript_sts)
-        set backup_noscript_sts to firefox_profiles_path & "Profiles:Noscript_httpsforced.conf"
+        set backup_noscript_sts to firefox_profiles_path & "Noscript_httpsforced.conf"
 	set saved_bookmarks to ""
 	set saved_certdatabase to ""
         set saved_STSdatabase to ""
