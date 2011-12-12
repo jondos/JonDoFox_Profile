@@ -81,6 +81,8 @@ on run
         set HTTPS_userRulesDirectory to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":HTTPSEverywhereUserRules"
 	set saved_bookmarks to ""
 	set saved_certdatabase to ""
+        set saved_STSdatabase to ""
+        set saved_HTTPS_userRulesDirectory to "" 
 	
 	set lang_props to null
 	set lang_props_filename to "jfx.plist"
@@ -268,11 +270,9 @@ on copy_folder()
 			if (the file saved_certdatabase exists) then
 				move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
-                        display dialog "STS"
-                        display dialog saved_STSdatabase
-                        (*if (the file saved_STSdatabase exists) then
+                        if (the file saved_STSdatabase exists) then
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
-			end if *)
+			end if
                         display dialog "HTTPS"
                         if (the folder saved_HTTPS_userRulesDirectory exists) then
 				move the folder saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
