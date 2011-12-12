@@ -269,7 +269,7 @@ on copy_folder()
 				move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
                         display dialog "STS"
-                        display dialog savedSTSdatabase
+                        display dialog saved_STSdatabase
                         (*if (the file saved_STSdatabase exists) then
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if *)
