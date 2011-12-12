@@ -132,6 +132,7 @@ on run
 	end if
 	
 	-- ... if successful: copy the folder containing the JonDoFox profile
+        display dialog err
 	if (err is equal to 0) then
 		set err to copy_folder()
 	end if
@@ -257,16 +258,21 @@ end edit_profiles_ini
 on copy_folder()
 	try
 		tell application "Finder"
+                display dialog "We are here"
 			duplicate ((profile_parent_folder & jondoprofile_foldername) as alias) to (firefox_profiles_path & "Profiles:" as alias) with replacing
+                        display dialog "And here"
 			if (the file saved_bookmarks exists) then
 				move the file saved_bookmarks to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
+                        display dialog "Just before the certbase"
 			if (the file saved_certdatabase exists) then
 				move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
+                        display dialog "STS"
                         if (the file saved_STSdatabase exists) then
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if 
+                        display dialog "HTTPS"
                         if (the folder saved_HTTPS_userRulesDirectory exists) then
 				move the folder saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
