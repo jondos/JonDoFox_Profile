@@ -78,7 +78,7 @@ on run
 	set profile_ini_backup_name to "profiles.ini.bak"
 	set profile_version_prefix to "local_install.titleTemplate"
 	tell application "System Events" to set firefox_profiles_path to the (path of home folder as string) & "Library:Application Support:Firefox:"
-        set firefox_profile_path_posix to quoted form of (POSIX path of firefox_profile_path)
+        set firefox_profile_path_posix to quoted form of (POSIX path of firefox_profiles_path)
 	tell application "Finder" to set the profile_parent_folder to (the container of the (path to me) as string) & install_bundle_name & ":Contents:Resources:"
 	set os_x_compat to check_os_x_compatibility()
 	set jondofox_bookmarks_ff3 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":places.sqlite"
