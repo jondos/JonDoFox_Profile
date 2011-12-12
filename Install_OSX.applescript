@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *)
 
 global firefox_profiles_path --firefox profile folder's path (as string)
+global firefox_profiles_path_posix
 global install_bundle_name --name of the install bundle folder
 global jondoprofile_foldername -- name of the JondoFox profile folder (within firefox_profile_path)
 global profile_ini_backup_name -- name for the file profiles.ini backup file
@@ -50,6 +51,11 @@ global STS_database --name of the NoScript STS database file
 global saved_STSdatabase -- where the NoScript STS database is saved
 global HTTPS_userRulesDirectory -- name of the directory for HTTPS Everywhere rules
 global saved_HTTPS_userRulesDirectory -- where the HTTPS Everyhwere user rules are saved
+global prefs_file
+global prefs_file_path -- prefs.js, quoted and in POSIX form
+global saved_noscript_sts
+global saved_noscript_sts_path -- saved userdefined STS rules in NoScript quoted and in POSIX form
+global backup_noscript_sts -- backup of Noscript's STS rules
 
 -- dialog variables
 global jfx_dialog_title
@@ -72,6 +78,7 @@ on run
 	set profile_ini_backup_name to "profiles.ini.bak"
 	set profile_version_prefix to "local_install.titleTemplate"
 	tell application "System Events" to set firefox_profiles_path to the (path of home folder as string) & "Library:Application Support:Firefox:"
+        set firefox_profile_path_posix to quoted form of (POSIX path of prefs_file)
 	tell application "Finder" to set the profile_parent_folder to (the container of the (path to me) as string) & install_bundle_name & ":Contents:Resources:"
 	set os_x_compat to check_os_x_compatibility()
 	set jondofox_bookmarks_ff3 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":places.sqlite"
@@ -79,6 +86,11 @@ on run
 	set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
         set STS_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":NoScriptSTS.db"
         set HTTPS_userRulesDirectory to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":HTTPSEverywhereUserRules"
+        set prefs_file to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":prefs.js"  
+        set prefs_file_path to quoted form of (POSIX path of prefs_file)
+        set saved_noscript_sts to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":Noscript_httpsforced.conf" 
+        set saved_noscript_sts_path to quoted form of (POSIX path of saved_noscript_sts)
+        set backup_noscript_sts to firefox_profiles_path & "Profiles:Noscript_httpsforced.conf
 	set saved_bookmarks to ""
 	set saved_certdatabase to ""
         set saved_STSdatabase to ""
@@ -134,7 +146,6 @@ on run
 	end if
 	
 	-- ... if successful: copy the folder containing the JonDoFox profile
-        display dialog err
 	if (err is equal to 0) then
 		set err to copy_folder()
 	end if
@@ -260,23 +271,22 @@ end edit_profiles_ini
 on copy_folder()
 	try
 		tell application "Finder"
-                display dialog "We are here"
 			duplicate ((profile_parent_folder & jondoprofile_foldername) as alias) to (firefox_profiles_path & "Profiles:" as alias) with replacing
-                        display dialog "And here"
 			if (the file saved_bookmarks exists) then
 				move the file saved_bookmarks to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
-                        display dialog "Just before the certbase"
 			if (the file saved_certdatabase exists) then
 				move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
                         if (the file saved_STSdatabase exists) then
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
-                        display dialog "HTTPS"
                         if (the folder saved_HTTPS_userRulesDirectory exists) then
 				move the folder saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
+                        if (the file backup_noscript_sts exists) then
+                                move the file backup_noscript_sts to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
+                                do shell script "cat " & saved_noscript_sts_path & " >> " & prefs_file_path
 		end tell
 	on error
 		--if something goes wrong: restore old settings from backup file
@@ -456,6 +466,10 @@ on copy_bookmarks()
                         set saved_HTTPS_userRulesDirectory to firefox_profiles_path & "HTTPSEverywhereUserRules"
 			set temp_folder to firefox_profiles_path as alias
 			duplicate the HTTPS_E_Rules_directory to the temp_folder with replacing
+                end if
+                if (the file prefs_file exists) then
+                  do shell script "cat " prefs_file_path & " | grep 'noscript.httpsForced' > " & saved_noscript_sts_path & "; mv " & saved_noscript_sts_path & " " & firefox_profiles_path_posix
+
                 end if
 		if (the file jondofox_bookmarks_ff3 exists) then
 			set jondofox_bookmarks_file to jondofox_bookmarks_ff3 as alias
