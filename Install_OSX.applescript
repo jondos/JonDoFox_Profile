@@ -469,7 +469,7 @@ on copy_bookmarks()
 			duplicate the HTTPS_E_Rules_directory to the temp_folder with replacing
                 end if
                 if (the file prefs_file exists) then
-                  do shell script "cat " prefs_file_path & " | grep 'noscript.httpsForced' > " & saved_noscript_sts_path & "; mv " & saved_noscript_sts_path & " " & firefox_profiles_path_posix
+                  do shell script "cat " & prefs_file_path & " | grep 'noscript.httpsForced' > " & saved_noscript_sts_path & "; mv " & saved_noscript_sts_path & " " & firefox_profiles_path_posix
 
                 end if
 		if (the file jondofox_bookmarks_ff3 exists) then
