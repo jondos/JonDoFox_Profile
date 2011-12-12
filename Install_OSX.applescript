@@ -286,7 +286,7 @@ on copy_folder()
 			end if
                         if (the file backup_noscript_sts exists) then
                                 move the file backup_noscript_sts to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
-                                do shell script "cat " & saved_noscript_sts_path & " >> " & prefs_file_path
+                                do shell script "cat " & saved_noscript_sts_path & " >> " & prefs_file_path & "; rm -f " & saved_noscript_sts_path
                         end if
 		end tell
 	on error
