@@ -86,6 +86,8 @@ Var /GLOBAL varAskAgain
 
 Var /GLOBAL httpsForcedDomains
 
+Var /GLOBAL httpsForcedDomainsExceptions
+
 ;=== Runtime Switches
 SetCompress Auto
 SetCompressor /SOLID lzma
@@ -1420,23 +1422,31 @@ Function Update
 	IfErrors Error
 
         # Now, we parse the prefs.js to extract the forced https domains.
-        # That is quite ugly but I did not find a better way.
-	IfFileExists $ProfilePath\prefs.js 0 +3
+        # and the accompanying exceptions. That is quite ugly but I did not find
+        # a better way.
+	IfFileExists $ProfilePath\prefs.js 0 done_httpsForcedBackup 
 	FileOpen $0 $ProfilePath\prefs.js r
       loop:
 	FileRead $0 $1
         StrCpy $2 $1 32 
         StrCmp $2 'user_pref("noscript.httpsForced"' found notfound
       notfound:
-        StrCpy $3 $1 12
-        # We need some kind of stop here otherwise the installer would get
-        # stalled if there is no pref starting with
-        # 'user_pref("noscript.httpsForced"'.
-        StrCmp $3 'user_pref("p' done_httpsForcedBackup
+        StrCpy $3 $1 42
+        StrCmp $3 'user_pref("noscript.httpsForcedExceptions"' found_Exceptions noExceptionsFound
       Goto loop
       found:
         StrCpy $httpsForcedDomains $1
-
+        # Checking for httpsForcedExceptions as well
+        Goto loop
+      found_Exceptions:
+        StrCpy $httpsForcedDomainsExceptions $1
+        Goto done_httpsForcedbackup
+      noExceptionsFound:
+        StrCpy $3 $1 12
+        # We need some kind of stop here otherwise the installer would get
+        # stalled if there is no pref starting with
+        # 'user_pref("noscript.httpsForced"'. 
+        StrCmp $3 'user_pref("p' done_httpsForcedBackup loop
       done_httpsForcedBackup:
 	IfErrors Error
 	FileClose $0
@@ -1507,14 +1517,23 @@ ClearErrors
            CopyFiles "$TEMP\NoScriptSTS.db" $ProfilePath 
            IfFileExists $TEMP\HTTPSEverywhereUserRules\*.* 0 +2
            CopyFiles "$TEMP\HTTPSEverywhereUserRules\*.*" $ProfilePath\HTTPSEverywhereUserRules
+           # Adding the user chosen forced domains or exceptions
            IfFileExists "$ProfilePath\prefs.js" 0 httpsForcedDone
-           StrCmp $httpsForcedDomains "" httpsForcedDone
+           StrCmp $httpsForcedDomains "" checkExceptions
            FileOpen $0 "$ProfilePath\prefs.js" a
            FileSeek $0 0 END
            FileWrite $0 "$\r$\n"
            FileWrite $0 $httpsForcedDomains
            FileWrite $0 "$\r$\n"
            FileClose $0
+           checkExceptions:
+           StrCmp $httpsForcedDomainsExceptions "" httpsForcedDone 
+           FileOpen $0 "$ProfilePath\prefs.js" a
+           FileSeek $0 0 END
+           FileWrite $0 "$\r$\n"
+           FileWrite $0 $httpsForcedDomainsExceptions
+           FileWrite $0 "$\r$\n"
+           FileClose $0 
            httpsForcedDone:
 
            IfErrors 0 done
