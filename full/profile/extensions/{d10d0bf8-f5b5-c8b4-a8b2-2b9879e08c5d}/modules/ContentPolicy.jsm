@@ -49,13 +49,13 @@ Cu.import(baseURL.spec + "RequestNotifier.jsm");
  * List of explicitly supported content types
  * @type Array of String
  */
-const contentTypes = ["OTHER", "SCRIPT", "IMAGE", "STYLESHEET", "OBJECT", "SUBDOCUMENT", "DOCUMENT", "XBL", "PING", "XMLHTTPREQUEST", "OBJECT_SUBREQUEST", "DTD", "FONT", "MEDIA"];
+const contentTypes = ["OTHER", "SCRIPT", "IMAGE", "STYLESHEET", "OBJECT", "SUBDOCUMENT", "DOCUMENT", "XMLHTTPREQUEST", "OBJECT_SUBREQUEST", "FONT", "MEDIA"];
 
 /**
  * List of content types that aren't associated with a visual document area
  * @type Array of String
  */
-const nonVisualTypes = ["SCRIPT", "STYLESHEET", "XBL", "PING", "XMLHTTPREQUEST", "OBJECT_SUBREQUEST", "DTD", "FONT"];
+const nonVisualTypes = ["SCRIPT", "STYLESHEET", "XMLHTTPREQUEST", "OBJECT_SUBREQUEST", "FONT"];
 
 /**
  * Public policy checking functions and auxiliary objects
@@ -117,6 +117,10 @@ var Policy =
 		Policy.typeDescr[0xFFFD] = "ELEMHIDE";
 		Policy.localizedDescr[0xFFFD] = Utils.getString("type_label_elemhide");
 	
+		Policy.type.POPUP = 0xFFFE;
+		Policy.typeDescr[0xFFFE] = "POPUP";
+		Policy.localizedDescr[0xFFFE] = Utils.getString("type_label_popup");
+
 		for each (let type in nonVisualTypes)
 			Policy.nonVisual[Policy.type[type]] = true;
 	
@@ -160,6 +164,7 @@ var Policy =
 			catMan.addCategoryEntry(category, PolicyPrivate.classDescription, PolicyPrivate.contractID, false, true);
 
 		Utils.observerService.addObserver(PolicyPrivate, "http-on-modify-request", true);
+		Utils.observerService.addObserver(PolicyPrivate, "content-document-global-created", true);
 
 
 	},
@@ -184,14 +189,53 @@ var Policy =
 		if (!topWnd || !topWnd.location || !topWnd.location.href)
 			return true;
 
+		let originWindow = Utils.getOriginWindow(wnd);
+		let wndLocation = originWindow.location.href;
+		let docDomain = getHostname(wndLocation);
 		let match = null;
 		if (!match && Prefs.enabled)
 		{
-			match = Policy.isWindowWhitelisted(topWnd);
-			if (match)
+			let testWnd = wnd;
+			let parentWndLocation = getWindowLocation(testWnd);
+			while (true)
 			{
-				FilterStorage.increaseHitCount(match);
-				return true;
+				let testWndLocation = parentWndLocation;
+				parentWndLocation = (testWnd == testWnd.parent ? testWndLocation : getWindowLocation(testWnd.parent));
+				match = Policy.isWhitelisted(testWndLocation, parentWndLocation);
+
+				if (!(match instanceof WhitelistFilter))
+				{
+					let keydata = (testWnd.document && testWnd.document.documentElement ? testWnd.document.documentElement.getAttribute("data-adblockkey") : null);
+					if (keydata && keydata.indexOf("_") >= 0)
+					{
+						let [key, signature] = keydata.split("_", 2);
+						let keyMatch = defaultMatcher.matchesByKey(testWndLocation, key.replace(/=/g, ""), docDomain);
+						if (keyMatch && Utils.crypto)
+						{
+							// Website specifies a key that we know but is the signature valid?
+							let uri = Utils.makeURI(testWndLocation);
+							let params = [
+								uri.path.replace(/#.*/, ""),  // REQUEST_URI
+								uri.asciiHost,                // HTTP_HOST
+								Utils.httpProtocol.userAgent  // HTTP_USER_AGENT
+							];
+							if (Utils.verifySignature(key, signature, params.join("\0")))
+								match = keyMatch;
+						}
+					}
+				}
+
+				if (match instanceof WhitelistFilter)
+				{
+					FilterStorage.increaseHitCount(match);
+					RequestNotifier.addNodeData(testWnd.document, topWnd, Policy.type.DOCUMENT, getHostname(parentWndLocation), false, testWndLocation, match);
+					return true;
+				}
+
+				if (testWnd.parent == testWnd)
+					break;
+				else
+					testWnd = testWnd.parent;
 			}
 		}
 
@@ -204,18 +248,27 @@ var Policy =
 			contentType = Policy.type.OBJECT;
 
 		let locationText = location.spec;
-		let originWindow = Utils.getOriginWindow(wnd);
-		let wndLocation = originWindow.location.href;
-		let docDomain = getHostname(wndLocation);
 		if (!match && contentType == Policy.type.ELEMHIDE)
 		{
-			match = defaultMatcher.matchesAny(wndLocation, "ELEMHIDE", docDomain, false);
-			if (match && match instanceof WhitelistFilter)
+			let testWnd = wnd;
+			let parentWndLocation = getWindowLocation(testWnd);
+			while (true)
 			{
-				FilterStorage.increaseHitCount(match);
+				let testWndLocation = parentWndLocation;
+				parentWndLocation = (testWnd == testWnd.parent ? testWndLocation : getWindowLocation(testWnd.parent));
+				let parentDocDomain = getHostname(parentWndLocation);
+				match = defaultMatcher.matchesAny(testWndLocation, "ELEMHIDE", parentDocDomain, false);
+				if (match instanceof WhitelistFilter)
+				{
+					FilterStorage.increaseHitCount(match);
+					RequestNotifier.addNodeData(testWnd.document, topWnd, contentType, parentDocDomain, false, testWndLocation, match);
+					return true;
+				}
 
-				RequestNotifier.addNodeData(wnd.document, topWnd, contentType, docDomain, false, wndLocation, match);
-				return true;
+				if (testWnd.parent == testWnd)
+					break;
+				else
+					testWnd = testWnd.parent;
 			}
 
 			match = location;
@@ -266,23 +319,25 @@ var Policy =
 
 	/**
 	 * Checks whether a page is whitelisted.
-	 * @param url {String}
+	 * @param {String} url
+	 * @param {String} [parentUrl] location of the parent page
 	 * @return {Filter} filter that matched the URL or null if not whitelisted
 	 */
-	isWhitelisted: function(url)
+	isWhitelisted: function(url, parentUrl)
 	{
-		// Do not allow whitelisting about:. We get a check for about: during
-		// startup, it should be dealt with fast - without checking filters which
-		// might load patterns.ini.
-		if (/^(moz-safe-)?about:/.test(url))
+		// Do not apply exception rules to schemes on our whitelistschemes list.
+		if (!url || (/^([\w\-]+):/.test(url) && RegExp.$1 in Policy.whitelistSchemes))
 			return null;
+
+		if (!parentUrl)
+			parentUrl = url;
 
 		// Ignore fragment identifier
 		let index = url.indexOf("#");
 		if (index >= 0)
 			url = url.substring(0, index);
 
-		let result = defaultMatcher.matchesAny(url, "DOCUMENT", getHostname(url), false);
+		let result = defaultMatcher.matchesAny(url, "DOCUMENT", getHostname(parentUrl), false);
 		return (result instanceof WhitelistFilter ? result : null);
 	},
 
@@ -293,11 +348,7 @@ var Policy =
 	 */
 	isWindowWhitelisted: function(wnd)
 	{
-		let location = getWindowLocation(wnd);
-		if (!location)
-			return null;
-
-		return Policy.isWhitelisted(location);
+		return Policy.isWhitelisted(getWindowLocation(wnd));
 	},
 
 
@@ -366,7 +417,7 @@ var PolicyPrivate =
 			// We didn't block this request so we will probably see it again in
 			// http-on-modify-request. Keep it so that we can associate it with the
 			// channel there - will be needed in case of redirect.
-			PolicyPrivate.previousRequest = [node, contentType, location];
+			PolicyPrivate.previousRequest = [location, contentType];
 		}
 		return (result ? Ci.nsIContentPolicy.ACCEPT : Ci.nsIContentPolicy.REJECT_REQUEST);
 	},
@@ -379,41 +430,76 @@ var PolicyPrivate =
 	//
 	// nsIObserver interface implementation
 	//
-	observe: function(subject, topic, data)
+	observe: function(subject, topic, data, additional)
 	{
-		if (topic != "http-on-modify-request"  || !(subject instanceof Ci.nsIHttpChannel))
-			return;
-
-		if (Prefs.enabled)
+		switch (topic)
 		{
-			let match = defaultMatcher.matchesAny(subject.URI.spec, "DONOTTRACK", null, false);
-			if (match && match instanceof BlockingFilter)
+			case "content-document-global-created":
 			{
-				FilterStorage.increaseHitCount(match);
-				subject.setRequestHeader("DNT", "1", false);
+				if (!(subject instanceof Ci.nsIDOMWindow) || !subject.opener)
+					return;
 
-				// Bug 23845 - Some routers are broken and cannot handle DNT header
-				// following Connection header. Make sure Connection header is last.
-				try
+				let uri = additional || Utils.makeURI(subject.location.href);
+				if (!Policy.processNode(subject.opener, subject.opener.document, Policy.type.POPUP, uri, false))
 				{
-					let connection = subject.getRequestHeader("Connection");
-					subject.setRequestHeader("Connection", null, false);
-					subject.setRequestHeader("Connection", connection, false);
-				} catch(e) {}
+					subject.stop();
+					Utils.runAsync(subject.close, subject);
+				}
+				else if (uri.spec == "about:blank")
+				{
+					// An about:blank pop-up most likely means that a load will be
+					// initiated synchronously. Set a flag for our "http-on-modify-request"
+					// handler.
+					PolicyPrivate.expectingPopupLoad = true;
+					Utils.runAsync(function()
+					{
+						PolicyPrivate.expectingPopupLoad = false;
+					});
+				}
+				break;
 			}
-		}
+			case "http-on-modify-request":
+			{
+				if (!(subject instanceof Ci.nsIHttpChannel))
+					return;
 
-		if (PolicyPrivate.previousRequest && subject.URI == PolicyPrivate.previousRequest[2] &&
-				subject instanceof Ci.nsIWritablePropertyBag)
-		{
-			// We just handled a content policy call for this request - associate
-			// the data with the channel so that we can find it in case of a redirect.
-			subject.setProperty("abpRequestData", PolicyPrivate.previousRequest);
-			PolicyPrivate.previousRequest = null;
+				if (Prefs.enabled)
+				{
+					let match = defaultMatcher.matchesAny(subject.URI.spec, "DONOTTRACK", null, false);
+					if (match && match instanceof BlockingFilter)
+					{
+						FilterStorage.increaseHitCount(match);
+						subject.setRequestHeader("DNT", "1", false);
 
-			// Add our listener to remove the data again once the request is done
-			if (subject instanceof Ci.nsITraceableChannel)
-				new TraceableChannelCleanup(subject);
+						// Bug 23845 - Some routers are broken and cannot handle DNT header
+						// following Connection header. Make sure Connection header is last.
+						try
+						{
+							let connection = subject.getRequestHeader("Connection");
+							subject.setRequestHeader("Connection", null, false);
+							subject.setRequestHeader("Connection", connection, false);
+						} catch(e) {}
+					}
+				}
+
+				if (PolicyPrivate.previousRequest && subject.URI == PolicyPrivate.previousRequest[0] &&
+						subject instanceof Ci.nsIWritablePropertyBag)
+				{
+					// We just handled a content policy call for this request - associate
+					// the data with the channel so that we can find it in case of a redirect.
+					subject.setProperty("abpRequestType", PolicyPrivate.previousRequest[1]);
+					PolicyPrivate.previousRequest = null;
+				}
+
+				if (PolicyPrivate.expectingPopupLoad)
+				{
+					let wnd = Utils.getRequestWindow(subject);
+					if (wnd && wnd.opener && wnd.location.href == "about:blank")
+						PolicyPrivate.observe(wnd, "content-document-global-created", null, subject.URI);
+				}
+
+				break;
+			}
 		}
 	},
 
@@ -427,12 +513,12 @@ var PolicyPrivate =
 		try
 		{
 			// Try to retrieve previously stored request data from the channel
-			let requestData;
+			let contentType;
 			if (oldChannel instanceof Ci.nsIWritablePropertyBag)
 			{
 				try
 				{
-					requestData = oldChannel.getProperty("abpRequestData");
+					contentType = oldChannel.getProperty("abpRequestType");
 				}
 				catch(e)
 				{
@@ -449,8 +535,12 @@ var PolicyPrivate =
 			if (!newLocation)
 				return;
 
+			let wnd = Utils.getRequestWindow(newChannel);
+			if (!wnd)
+				return;
+
 			// HACK: NS_BINDING_ABORTED would be proper error code to throw but this will show up in error console (bug 287107)
-			if (!Policy.processNode(Utils.getWindow(requestData[0]), requestData[0], requestData[1], newLocation, false))
+			if (!Policy.processNode(wnd, wnd.document, contentType, newLocation, false))
 				throw Cr.NS_BASE_STREAM_WOULD_BLOCK;
 			else
 				return;

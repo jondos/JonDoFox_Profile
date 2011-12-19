@@ -36,6 +36,7 @@ const Cu = Components.utils;
 let baseURL = Cc["@adblockplus.org/abp/private;1"].getService(Ci.nsIURI);
 
 Cu.import(baseURL.spec + "Utils.jsm");
+Cu.import(baseURL.spec + "FilterNotifier.jsm");
 
 /**
  * Abstract base class for filters
@@ -139,11 +140,11 @@ Filter.fromObject = function(obj)
 	if (ret instanceof ActiveFilter)
 	{
 		if ("disabled" in obj)
-			ret.disabled = (obj.disabled == "true");
+			ret._disabled = (obj.disabled == "true");
 		if ("hitCount" in obj)
-			ret.hitCount = parseInt(obj.hitCount) || 0;
+			ret._hitCount = parseInt(obj.hitCount) || 0;
 		if ("lastHit" in obj)
-			ret.lastHit = parseInt(obj.lastHit) || 0;
+			ret._lastHit = parseInt(obj.lastHit) || 0;
 	}
 	return ret;
 }
@@ -239,32 +240,67 @@ function ActiveFilter(text, domains)
 	if (domains)
 	{
 		this.domainSource = domains;
-		this.__defineGetter__("includeDomains", this._getIncludeDomains);
-		this.__defineGetter__("excludeDomains", this._getExcludeDomains);
+		this.__defineGetter__("domains", this._getDomains);
 	}
 }
 ActiveFilter.prototype =
 {
 	__proto__: Filter.prototype,
 
+	_disabled: false,
+	_hitCount: 0,
+	_lastHit: 0,
+
 	/**
 	 * Defines whether the filter is disabled
 	 * @type Boolean
 	 */
-	disabled: false,
+	get disabled() this._disabled,
+	set disabled(value)
+	{
+		if (value != this._disabled)
+		{
+			let oldValue = this._disabled;
+			this._disabled = value;
+			FilterNotifier.triggerListeners("filter.disabled", this, value, oldValue);
+		}
+		return this._disabled;
+	},
+
 	/**
 	 * Number of hits on the filter since the last reset
 	 * @type Number
 	 */
-	hitCount: 0,
+	get hitCount() this._hitCount,
+	set hitCount(value)
+	{
+		if (value != this._hitCount)
+		{
+			let oldValue = this._hitCount;
+			this._hitCount = value;
+			FilterNotifier.triggerListeners("filter.hitCount", this, value, oldValue);
+		}
+		return this._hitCount;
+	},
+
 	/**
 	 * Last time the filter had a hit (in milliseconds since the beginning of the epoch)
 	 * @type Number
 	 */
-	lastHit: 0,
+	get lastHit() this._lastHit,
+	set lastHit(value)
+	{
+		if (value != this._lastHit)
+		{
+			let oldValue = this._lastHit;
+			this._lastHit = value;
+			FilterNotifier.triggerListeners("filter.lastHit", this, value, oldValue);
+		}
+		return this._lastHit;
+	},
 
 	/**
-	 * String that the includeDomains and excludeDomains properties should be generated from
+	 * String that the domains property should be generated from
 	 * @type String
 	 */
 	domainSource: null,
@@ -276,69 +312,63 @@ ActiveFilter.prototype =
 	domainSeparator: null,
 
 	/**
-	 * Map containing domains that this filter should match on or null if the filter should match on all domains
+	 * Map containing domains that this filter should match on/not match on or null if the filter should match on all domains
 	 * @type Object
 	 */
-	includeDomains: null,
-	/**
-	 * Map containing domains that this filter should not match on or null if the filter should match on all domains
-	 * @type Object
-	 */
-	excludeDomains: null,
+	domains: null,
 
 	/**
-	 * Called first time includeDomains property is requested, triggers _generateDomains method.
+	 * Called first time domains property is requested, triggers _generateDomains method.
 	 */
-	_getIncludeDomains: function()
+	_getDomains: function()
 	{
 		this._generateDomains();
-		return this.includeDomains;
-	},
-	/**
-	 * Called first time excludeDomains property is requested, triggers _generateDomains method.
-	 */
-	_getExcludeDomains: function()
-	{
-		this._generateDomains();
-		return this.excludeDomains;
+		return this.domains;
 	},
 
 	/**
-	 * Generates includeDomains and excludeDomains properties when one of them is requested for the first time.
+	 * Generates domains property when it is requested for the first time.
 	 */
 	_generateDomains: function()
 	{
 		let domains = this.domainSource.split(this.domainSeparator);
 
 		delete this.domainSource;
-		delete this.includeDomains;
-		delete this.excludeDomains;
+		delete this.domains;
 
 		if (domains.length == 1 && domains[0][0] != "~")
 		{
 			// Fast track for the common one-domain scenario
-			this.includeDomains = {__proto__: null};
-			this.includeDomains[domains[0]] = true;
+			this.domains = {__proto__: null, "": false};
+			this.domains[domains[0]] = true;
 		}
 		else
 		{
-			for each (let domain in domains)
+			let hasIncludes = false;
+			for (let i = 0; i < domains.length; i++)
 			{
+				let domain = domains[i];
 				if (domain == "")
 					continue;
 	
-				let hash = "includeDomains";
+				let include;
 				if (domain[0] == "~")
 				{
-					hash = "excludeDomains";
+					include = false;
 					domain = domain.substr(1);
 				}
+				else
+				{
+					include = true;
+					hasIncludes = true;
+				}
 	
-				if (!this[hash])
-					this[hash] = {__proto__: null};
+				if (!this.domains)
+					this.domains = {__proto__: null};
 	
-				this[hash][domain] = true;
+				this.domains[domain] = include;
 			}
+			this.domains[""] = !hasIncludes;
 		}
 	},
 
@@ -347,28 +377,27 @@ ActiveFilter.prototype =
 	 */
 	isActiveOnDomain: function(/**String*/ docDomain) /**Boolean*/
 	{
+		// If no domains are set the rule matches everywhere
+		if (!this.domains)
+			return true;
+
 		// If the document has no host name, match only if the filter isn't restricted to specific domains
 		if (!docDomain)
-			return (!this.includeDomains);
-
-		if (!this.includeDomains && !this.excludeDomains)
-			return true;
+			return this.domains[""];
 
 		docDomain = docDomain.replace(/\.+$/, "").toUpperCase();
 
 		while (true)
 		{
-			if (this.includeDomains && docDomain in this.includeDomains)
-				return true;
-			if (this.excludeDomains && docDomain in this.excludeDomains)
-				return false;
+			if (docDomain in this.domains)
+				return this.domains[docDomain];
 
 			let nextDot = docDomain.indexOf(".");
 			if (nextDot < 0)
 				break;
 			docDomain = docDomain.substr(nextDot + 1);
 		}
-		return (this.includeDomains == null);
+		return this.domains[""];
 	},
 
 	/**
@@ -376,13 +405,13 @@ ActiveFilter.prototype =
 	 */
 	isActiveOnlyOnDomain: function(/**String*/ docDomain) /**Boolean*/
 	{
-		if (!docDomain || !this.includeDomains)
+		if (!docDomain || !this.domains || this.domains[""])
 			return false;
 
 		docDomain = docDomain.replace(/\.+$/, "").toUpperCase();
 
-		for (let domain in this.includeDomains)
-			if (domain != docDomain && (domain.length <= docDomain.length || domain.indexOf("." + docDomain) != domain.length - docDomain.length - 1))
+		for (let domain in this.domains)
+			if (this.domains[domain] && domain != docDomain && (domain.length <= docDomain.length || domain.indexOf("." + docDomain) != domain.length - docDomain.length - 1))
 				return false;
 
 		return true;
@@ -393,15 +422,15 @@ ActiveFilter.prototype =
 	 */
 	serialize: function(buffer)
 	{
-		if (this.disabled || this.hitCount || this.lastHit)
+		if (this._disabled || this._hitCount || this._lastHit)
 		{
 			Filter.prototype.serialize.call(this, buffer);
-			if (this.disabled)
+			if (this._disabled)
 				buffer.push("disabled=true");
-			if (this.hitCount)
-				buffer.push("hitCount=" + this.hitCount);
-			if (this.lastHit)
-				buffer.push("lastHit=" + this.lastHit);
+			if (this._hitCount)
+				buffer.push("hitCount=" + this._hitCount);
+			if (this._lastHit)
+				buffer.push("lastHit=" + this._lastHit);
 		}
 	}
 };
@@ -428,7 +457,7 @@ function RegExpFilter(text, regexpSource, contentType, matchCase, domains, third
 	if (thirdParty != null)
 		this.thirdParty = thirdParty;
 
-	if (regexpSource[0] == "/" && regexpSource[regexpSource.length - 1] == "/")
+	if (regexpSource.length >= 2 && regexpSource[0] == "/" && regexpSource[regexpSource.length - 1] == "/")
 	{
 		// The filter is a regular expression - convert it immediately to catch syntax errors
 		this.regexp = new RegExp(regexpSource.substr(1, regexpSource.length - 2), this.matchCase ? "" : "i");
@@ -537,17 +566,18 @@ RegExpFilter.prototype =
  */
 RegExpFilter.fromText = function(text)
 {
-	let constructor = BlockingFilter;
+	let blocking = true;
 	let origText = text;
 	if (text.indexOf("@@") == 0)
 	{
-		constructor = WhitelistFilter;
+		blocking = false;
 		text = text.substr(2);
 	}
 
 	let contentType = null;
 	let matchCase = null;
 	let domains = null;
+	let siteKeys = null;
 	let thirdParty = null;
 	let collapse = null;
 	let options;
@@ -557,8 +587,13 @@ RegExpFilter.fromText = function(text)
 		text = RegExp.leftContext;
 		for each (let option in options)
 		{
-			let value;
-			[option, value] = option.split("=", 2);
+			let value = null;
+			let separatorIndex = option.indexOf("=");
+			if (separatorIndex >= 0)
+			{
+				value = option.substr(separatorIndex + 1);
+				option = option.substr(0, separatorIndex);
+			}
 			option = option.replace(/-/, "_");
 			if (option in RegExpFilter.typeMap)
 			{
@@ -584,10 +619,12 @@ RegExpFilter.fromText = function(text)
 				collapse = true;
 			else if (option == "~COLLAPSE")
 				collapse = false;
+			else if (option == "SITEKEY" && typeof value != "undefined")
+				siteKeys = value.split(/\|/);
 		}
 	}
 
-	if (constructor == WhitelistFilter && (contentType == null || (contentType & RegExpFilter.typeMap.DOCUMENT)) &&
+	if (!blocking && (contentType == null || (contentType & RegExpFilter.typeMap.DOCUMENT)) &&
 			(!options || options.indexOf("DOCUMENT") < 0) && !/^\|?[\w\-]+:/.test(text))
 	{
 		// Exception filters shouldn't apply to pages by default unless they start with a protocol name
@@ -595,10 +632,15 @@ RegExpFilter.fromText = function(text)
 			contentType = RegExpFilter.prototype.contentType;
 		contentType &= ~RegExpFilter.typeMap.DOCUMENT;
 	}
+	if (!blocking && siteKeys)
+		contentType = RegExpFilter.typeMap.DOCUMENT;
 
 	try
 	{
-		return new constructor(origText, text, contentType, matchCase, domains, thirdParty, collapse);
+		if (blocking)
+			return new BlockingFilter(origText, text, contentType, matchCase, domains, thirdParty, collapse);
+		else
+			return new WhitelistFilter(origText, text, contentType, matchCase, domains, thirdParty, siteKeys);
 	}
 	catch (e)
 	{
@@ -617,22 +659,23 @@ RegExpFilter.typeMap = {
 	OBJECT: 16,
 	SUBDOCUMENT: 32,
 	DOCUMENT: 64,
-	XBL: 512,
-	PING: 1024,
+	XBL: 1,
+	PING: 1,
 	XMLHTTPREQUEST: 2048,
 	OBJECT_SUBREQUEST: 4096,
-	DTD: 8192,
+	DTD: 1,
 	MEDIA: 16384,
 	FONT: 32768,
 
 	BACKGROUND: 4,    // Backwards compat, same as IMAGE
 
+	POPUP: 0x10000000,
 	DONOTTRACK: 0x20000000,
 	ELEMHIDE: 0x40000000
 };
 
-// ELEMHIDE and DONOTTRACK option shouldn't be there by default
-RegExpFilter.prototype.contentType &= ~(RegExpFilter.typeMap.ELEMHIDE | RegExpFilter.typeMap.DONOTTRACK);
+// ELEMHIDE, DONOTTRACK, POPUP option shouldn't be there by default
+RegExpFilter.prototype.contentType &= ~(RegExpFilter.typeMap.ELEMHIDE | RegExpFilter.typeMap.DONOTTRACK | RegExpFilter.typeMap.POPUP);
 
 /**
  * Class for blocking filters
@@ -671,16 +714,26 @@ BlockingFilter.prototype =
  * @param {Boolean} matchCase see RegExpFilter()
  * @param {String} domains see RegExpFilter()
  * @param {Boolean} thirdParty see RegExpFilter()
+ * @param {String[]} siteKeys public keys of websites that this filter should apply to
  * @constructor
  * @augments RegExpFilter
  */
-function WhitelistFilter(text, regexpSource, contentType, matchCase, domains, thirdParty)
+function WhitelistFilter(text, regexpSource, contentType, matchCase, domains, thirdParty, siteKeys)
 {
 	RegExpFilter.call(this, text, regexpSource, contentType, matchCase, domains, thirdParty);
+
+	if (siteKeys != null)
+		this.siteKeys = siteKeys;
 }
 WhitelistFilter.prototype =
 {
-	__proto__: RegExpFilter.prototype
+	__proto__: RegExpFilter.prototype,
+
+	/**
+	 * List of public keys of websites that this filter should apply to
+	 * @type String[]
+	 */
+	siteKeys: null
 }
 
 /**

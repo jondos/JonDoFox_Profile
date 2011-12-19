@@ -41,10 +41,13 @@ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import(baseURL.spec + "Utils.jsm");
 Cu.import(baseURL.spec + "Prefs.jsm");
 Cu.import(baseURL.spec + "ContentPolicy.jsm");
+Cu.import(baseURL.spec + "FilterListener.jsm");
 Cu.import(baseURL.spec + "FilterStorage.jsm");
+Cu.import(baseURL.spec + "FilterNotifier.jsm");
 Cu.import(baseURL.spec + "FilterClasses.jsm");
 Cu.import(baseURL.spec + "SubscriptionClasses.jsm");
 Cu.import(baseURL.spec + "RequestNotifier.jsm");
+Cu.import(baseURL.spec + "Synchronizer.jsm");
 Cu.import(baseURL.spec + "Sync.jsm");
 
 if (Utils.isFennec)
@@ -57,14 +60,25 @@ if (Utils.isFennec)
 let wrappers = [];
 
 /**
- * Stores the current value of showintoolbar preference (to detect changes).
- */
-let currentlyShowingInToolbar = Prefs.showintoolbar;
-
-/**
  * Stores the selected hotkeys, initialized when the first browser window opens.
  */
 let hotkeys = null;
+
+/**
+ * Object observing add-on manager notifications about add-on options being initialized.
+ * @type nsIObserver
+ */
+let optionsObserver =
+{
+	QueryInterface: XPCOMUtils.generateQI([Ci.nsIObserver, Ci.nsISupportsWeakReference]),
+	observe: function(subject, topic, data)
+	{
+		if (data != Utils.addonID)
+			return;
+
+		initOptionsDoc(subject.QueryInterface(Ci.nsIDOMDocument));
+	}
+};
 
 /**
  * Initializes app integration module
@@ -77,10 +91,15 @@ function init()
 	// Listen for pref and filters changes
 	Prefs.addListener(function(name)
 	{
-		if (name == "enabled" || name == "showintoolbar" || name == "showinstatusbar" || name == "defaulttoolbaraction" || name == "defaultstatusbaraction")
+		if (name == "enabled" || name == "showinstatusbar" || name == "defaulttoolbaraction" || name == "defaultstatusbaraction")
 			reloadPrefs();
 	});
-	FilterStorage.addObserver(reloadPrefs);
+	FilterNotifier.addListener(function(action)
+	{
+		if (/^(filter|subscription)\.(added|removed|disabled|updated)$/.test(action))
+			reloadPrefs();
+	});
+	Utils.observerService.addObserver(optionsObserver, "addon-options-displayed", true);
 }
 
 /**
@@ -120,7 +139,7 @@ var AppIntegration =
 							observerService.removeObserver(observer, "sessionstore-windows-restored");
 							timer.cancel();
 							timer = null;
-							showSubscriptions();
+							addSubscription();
 						}
 					};
 	
@@ -132,7 +151,7 @@ var AppIntegration =
 					timer.init(observer, 1000, Ci.nsITimer.TYPE_ONE_SHOT);
 				}
 				else
-					Utils.runAsync(showSubscriptions);
+					addSubscription();
 			}
 		}
 
@@ -164,13 +183,35 @@ var AppIntegration =
 
 	/**
 	 * Toggles the pref for the Adblock Plus sync engine.
+	 * @return {Boolean} new state of the sync engine
 	 */
 	toggleSync: function()
 	{
 		let syncEngine = Sync.getEngine();
 		syncEngine.enabled = !syncEngine.enabled;
+		return syncEngine.enabled;
 	},
 	
+	/**
+	 * Adds or removes the Adblock Plus toolbar icon.
+	 * @return {Boolean} new state of the toolbar button
+	 */
+	toggleToolbarIcon: function()
+	{
+		if (!wrappers.length)
+			return false;
+
+		let newVal = !wrappers[0].isToolbarIconVisible();
+		for (let i = 0; i < wrappers.length; i++)
+		{
+			if (newVal)
+				wrappers[i].installToolbarIcon();
+			else
+				wrappers[i].hideToolbarIcon();
+		}
+		return wrappers[0].isToolbarIconVisible();
+	},
+
 	/**
 	 * If the given filter is already in user's list, removes it from the list. Otherwise adds it.
 	 */
@@ -179,16 +220,53 @@ var AppIntegration =
 		if (filter.subscriptions.length)
 		{
 			if (filter.disabled || filter.subscriptions.some(function(subscription) !(subscription instanceof SpecialSubscription)))
-			{
 				filter.disabled = !filter.disabled;
-				FilterStorage.triggerObservers(filter.disabled ? "filters disable" : "filters enable", [filter]);
-			}
 			else
 				FilterStorage.removeFilter(filter);
 		}
 		else
 			FilterStorage.addFilter(filter);
-		FilterStorage.saveToDisk();
+	},
+
+	/**
+	 * Opens ABP menu.
+	 */
+	openMenu: function(window)
+	{
+		let wrapper = AppIntegration.getWrapperForWindow(window.top);
+		if (!wrapper)
+		{
+			// Maybe we got a content window
+			window = window.QueryInterface(Ci.nsIInterfaceRequestor)
+										 .getInterface(Ci.nsIWebNavigation)
+										 .QueryInterface(Ci.nsIDocShellTreeItem)
+										 .rootTreeItem
+										 .QueryInterface(Ci.nsIInterfaceRequestor)
+										 .getInterface(Ci.nsIDOMWindow);
+			if (window.wrappedJSObject)
+				window = window.wrappedJSObject;
+			wrapper = AppIntegration.getWrapperForWindow(window);
+		}
+		if (!wrapper)
+		{
+			// Try to find any known window
+			let enumerator = Utils.windowMediator.getZOrderDOMWindowEnumerator(null, true);
+			if (!enumerator.hasMoreElements())
+			{
+				// On Linux the list returned will be empty, see bug 156333. Fall back to random order.
+				enumerator = Utils.windowMediator.getEnumerator(null);
+			}
+			while (enumerator.hasMoreElements())
+			{
+				window = enumerator.getNext().QueryInterface(Ci.nsIDOMWindow);
+				wrapper = AppIntegration.getWrapperForWindow(window);
+				if (wrapper)
+					break;
+			}
+		}
+
+		if (wrapper)
+			Utils.runAsync(wrapper.openMenu, wrapper);
 	}
 };
 
@@ -276,7 +354,7 @@ WindowWrapper.prototype =
 	 * Methods that can be defined at attributes of the hooks element.
 	 * @type Array of String
 	 */
-	customMethods: ["getBrowser", "addTab", "getContextMenu", "getToolbox", "getDefaultToolbar", "toolbarInsertBefore", "unhideToolbar"],
+	customMethods: ["getBrowser", "addTab", "getContextMenu", "getToolbox", "getDefaultToolbar", "toolbarInsertBefore", "hasAddonBar"],
 
 	/**
 	 * Progress listener used to watch for location changes, if any.
@@ -363,15 +441,15 @@ WindowWrapper.prototype =
 	 */
 	fixupMenus: function()
 	{
-		function fixId(node)
+		function fixId(node, newId)
 		{
 			if (node.nodeType == node.ELEMENT_NODE)
 			{
 				if (node.hasAttribute("id"))
-					node.setAttribute("id", node.getAttribute("id").replace(/abp-status/, "abp-toolbar"));
+					node.setAttribute("id", node.getAttribute("id").replace(/abp-status/, newId));
 		
 				for (let i = 0, len = node.childNodes.length; i < len; i++)
-					fixId(node.childNodes[i]);
+					fixId(node.childNodes[i], newId);
 			}
 			return node;
 		}
@@ -379,10 +457,13 @@ WindowWrapper.prototype =
 		let menuSource = this.E("abp-status-popup");
 		let paletteButton = this.getPaletteButton();
 		let toolbarButton = this.E("abp-toolbarbutton");
+		let menuItem = this.E("abp-menuitem");
 		if (toolbarButton)
-			toolbarButton.appendChild(fixId(menuSource.cloneNode(true)));
+			toolbarButton.appendChild(fixId(menuSource.cloneNode(true), "abp-toolbar"));
 		if (paletteButton && paletteButton != toolbarButton)
-			paletteButton.appendChild(fixId(menuSource.cloneNode(true)));
+			paletteButton.appendChild(fixId(menuSource.cloneNode(true), "abp-toolbar"));
+		if (menuItem)
+			menuItem.appendChild(fixId(menuSource.cloneNode(true), "abp-menuitem"));
 	},
 	
 	/**
@@ -416,7 +497,7 @@ WindowWrapper.prototype =
 			let element = this.E(id);
 			if (element)
 				element.addEventListener(event, handler, false);
-	
+
 			if (id in paletteButtonIDs)
 				paletteButtonIDs[id].addEventListener(event, handler, false);
 		}
@@ -541,20 +622,15 @@ WindowWrapper.prototype =
 				return;
 	
 			if (element.tagName == "statusbarpanel")
-				element.hidden = !Prefs.showinstatusbar;
+				element.hidden = !Prefs.showinstatusbar || (this.hasAddonBar && this.hasAddonBar());
 			else
 			{
-				element.hidden = !Prefs.showintoolbar;
 				if (element.hasAttribute("context") && Prefs.defaulttoolbaraction == 0)
 					element.setAttribute("type", "menu");
 				else
 					element.setAttribute("type", "menu-button");
 			}
 
-			// HACKHACK: Show status bar icon instead of toolbar icon if the application doesn't have a toolbar icon
-			if (element.hidden && element.tagName == "statusbarpanel" && !this.getDefaultToolbar)
-				element.hidden = !Prefs.showintoolbar;
-	
 			element.setAttribute("abpstate", state);
 		};
 	
@@ -732,7 +808,8 @@ WindowWrapper.prototype =
 		if (contextMenu)
 		{
 			contextMenu.addEventListener("popupshowing", this._bindMethod(this.updateContextMenu), false);
-		
+			contextMenu.addEventListener("popuphidden", this._bindMethod(this.clearContextMenu), false);
+
 			// Make sure our context menu items are at the bottom
 			contextMenu.appendChild(this.E("abp-removeWhitelist-menuitem"));
 			contextMenu.appendChild(this.E("abp-frame-menuitem"));
@@ -743,32 +820,88 @@ WindowWrapper.prototype =
 	},
 
 	/**
+	 * Checks whether the toolbar icon is currently displayed.
+	 */
+	isToolbarIconVisible: function()
+	{
+		let tb = this.E("abp-toolbarbutton");
+		if (!tb || tb.parentNode.localName == "toolbarpalette")
+			return false;
+
+		if (tb.parentNode.collapsed)
+			return false;
+
+		return true;
+	},
+
+	/**
 	 * Makes sure the toolbar button is displayed.
 	 */
 	installToolbarIcon: function()
 	{
 		let tb = this.E("abp-toolbarbutton");
-		if (tb && tb.parentNode.localName != "toolbarpalette")
+		if (!tb || tb.parentNode.localName == "toolbarpalette")
+		{
+			let toolbar = (this.getDefaultToolbar ? this.getDefaultToolbar() : null);
+			if (!toolbar || typeof toolbar.insertItem != "function")
+				return;
+
+			let insertBefore = (this.toolbarInsertBefore ? this.toolbarInsertBefore() : null);
+			if (insertBefore && insertBefore.parentNode != toolbar)
+				insertBefore = null;
+
+			toolbar.insertItem("abp-toolbarbutton", insertBefore, null, false);
+
+			toolbar.setAttribute("currentset", toolbar.currentSet);
+			this.window.document.persist(toolbar.id, "currentset");
+		}
+
+		tb = this.E("abp-toolbarbutton");
+		if (tb && tb.parentNode.collapsed)
+		{
+			tb.parentNode.setAttribute("collapsed", "false");
+			this.window.document.persist(tb.parentNode.id, "collapsed");
+		}
+	},
+
+	/**
+	 * Removes toolbar button from the toolbar.
+	 */
+	hideToolbarIcon: function()
+	{
+		let tb = this.E("abp-toolbarbutton");
+		if (!tb || tb.parentNode.localName != "toolbar")
 			return;
 
-		let toolbar = (this.getDefaultToolbar ? this.getDefaultToolbar() : null);
-		if (!toolbar || typeof toolbar.insertItem != "function")
-			return;
-
-		let insertBefore = (this.toolbarInsertBefore ? this.toolbarInsertBefore() : null);
-		if (insertBefore && insertBefore.parentNode != toolbar)
-			insertBefore = null;
-
-		toolbar.insertItem("abp-toolbarbutton", insertBefore, null, false);
+		let toolbar = tb.parentNode;
+		toolbar.currentSet = toolbar.currentSet.split(",").filter(function(id) id != "abp-toolbarbutton").join(",");
 
 		toolbar.setAttribute("currentset", toolbar.currentSet);
 		this.window.document.persist(toolbar.id, "currentset");
+	},
 
-		if (this.unhideToolbar && this.unhideToolbar())
+	/**
+	 * Opens Adblock Plus menu.
+	 */
+	openMenu: function()
+	{
+		this.installToolbarIcon();
+
+		let button = this.E("abp-toolbarbutton");
+		if (!button)
+			return;
+
+		let toolbar = button.parentNode;
+		if (toolbar.collapsed)
 		{
 			toolbar.setAttribute("collapsed", "false");
 			this.window.document.persist(toolbar.id, "collapsed");
 		}
+
+		Utils.runAsync(function()
+		{
+			button.open = true;
+		});
 	},
 
 	/**
@@ -868,7 +1001,7 @@ WindowWrapper.prototype =
 		// Open dialog
 		if (!Utils.isFennec)
 		{
-			let subscription = {url: url, title: title, disabled: false, external: false, autoDownload: true,
+			let subscription = {url: url, title: title, disabled: false, external: false,
 													mainSubscriptionTitle: mainSubscriptionTitle, mainSubscriptionURL: mainSubscriptionURL};
 			this.window.openDialog("chrome://adblockplus/content/ui/subscriptionSelection.xul", "_blank",
 														 "chrome,centerscreen,resizable,dialog=no", subscription, null);
@@ -890,6 +1023,17 @@ WindowWrapper.prototype =
 		{
 			event.preventDefault();
 			return;
+		}
+
+		// Prevent tooltip from overlapping menu
+		for each (let id in ["abp-toolbar-popup", "abp-status-popup"])
+		{
+			let element = this.E(id);
+			if (element && element.state == "open")
+			{
+				event.preventDefault();
+				return;
+			}
 		}
 	
 		let type = (node.id == "abp-toolbarbutton" ? "toolbar" : "statusbar");
@@ -977,7 +1121,7 @@ WindowWrapper.prototype =
 		let popup = event.target;
 	
 		// Submenu being opened - ignore
-		if (!/^(abp-(?:toolbar|status)-)popup$/.test(popup.getAttribute("id")))
+		if (!/^(abp-(?:toolbar|status|menuitem)-)popup$/.test(popup.getAttribute("id")))
 			return;
 		let prefix = RegExp.$1;
 	
@@ -1032,40 +1176,31 @@ WindowWrapper.prototype =
 		this.E(prefix + "disabled").setAttribute("checked", !Prefs.enabled);
 		this.E(prefix + "frameobjects").setAttribute("checked", Prefs.frameobjects);
 		this.E(prefix + "slowcollapse").setAttribute("checked", !Prefs.fastcollapse);
-		this.E(prefix + "showintoolbar").setAttribute("checked", Prefs.showintoolbar);
+		this.E(prefix + "savestats").setAttribute("checked", Prefs.savestats);
+
+		let hasToolbar = this.getDefaultToolbar && this.getDefaultToolbar();
+		let hasAddonBar = this.hasAddonBar && this.hasAddonBar();
+		let hasStatusBar = this.E("abp-status");
+		this.E(prefix + "showinaddonbar").hidden = !hasAddonBar || prefix == "abp-toolbar-";
+		this.E(prefix + "showintoolbar").hidden = !hasToolbar || hasAddonBar || prefix == "abp-toolbar-";
+		this.E(prefix + "showinstatusbar").hidden = !hasStatusBar || hasAddonBar;
+		this.E(prefix + "iconSettingsSeparator").hidden = this.E(prefix + "showinaddonbar").hidden && this.E(prefix + "showintoolbar").hidden && this.E(prefix + "showinstatusbar").hidden;
+
+		this.E(prefix + "showinaddonbar").setAttribute("checked", this.isToolbarIconVisible());
+		this.E(prefix + "showintoolbar").setAttribute("checked", this.isToolbarIconVisible());
 		this.E(prefix + "showinstatusbar").setAttribute("checked", Prefs.showinstatusbar);
 	
 		let syncEngine = Sync.getEngine();
 		this.E(prefix + "sync").hidden = !syncEngine;
 		this.E(prefix + "sync").setAttribute("checked", syncEngine && syncEngine.enabled);
 
-		let defAction = (prefix == "abp-toolbar-" || this.window.document.popupNode.id == "abp-toolbarbutton" ?
+		let defAction = (!this.window.document.popupNode || this.window.document.popupNode.id == "abp-toolbarbutton" ?
 										 Prefs.defaulttoolbaraction :
 										 Prefs.defaultstatusbaraction);
 		this.E(prefix + "opensidebar").setAttribute("default", defAction == 1);
 		this.E(prefix + "closesidebar").setAttribute("default", defAction == 1);
-		this.E(prefix + "settings").setAttribute("default", defAction == 2);
+		this.E(prefix + "filters").setAttribute("default", defAction == 2);
 		this.E(prefix + "disabled").setAttribute("default", defAction == 3);
-
-		// Only show "Recommend" button to Facebook users, we don't want to advertise Facebook
-		this.E(prefix + "recommendbutton").hidden = true;
-		if (!this.E("abp-hooks").hasAttribute("forceHideRecommend"))
-		{
-			let cookieManager = Cc["@mozilla.org/cookiemanager;1"].getService(Ci.nsICookieManager2);
-			if ("getCookiesFromHost" in cookieManager)
-			{
-				let enumerator = cookieManager.getCookiesFromHost("facebook.com");
-				while (enumerator.hasMoreElements())
-				{
-					let cookie = enumerator.getNext().QueryInterface(Ci.nsICookie);
-					if (cookie.name == "lu")
-					{
-						this.E(prefix + "recommendbutton").hidden = false;
-						break;
-					}
-				}
-			}
-		}
 	},
 
 	/**
@@ -1081,25 +1216,26 @@ WindowWrapper.prototype =
 	},
 
 	/**
-	 * Opens Facebook's recommend page.
+	 * Opens our contribution page.
 	 */
-	recommend: function()
+	openContributePage: function()
 	{
-		this.window.open("http://www.facebook.com/share.php?u=http%3A%2F%2Fadblockplus.org%2F&t=Adblock%20Plus", "_blank", "width=550,height=350");
+		Utils.loadDocLink("contribute");
 	},
 
 	/**
-	 * Hide recommend button and persist this choice.
+	 * Hide contribute button and persist this choice.
 	 */
-	recommendHide: function(event)
+	hideContributeButton: function(event)
 	{
-		let hooks = this.E("abp-hooks");
-		hooks.setAttribute("forceHideRecommend", "true");
-		this.window.document.persist(hooks.id, "forceHideRecommend");
-
-		for each (let button in [this.E("abp-status-recommendbutton"), this.E("abp-toolbar-recommendbutton")])
+		for each (let button in [this.E("abp-status-contributebutton"), this.E("abp-toolbar-contributebutton"), this.E("abp-menuitem-contributebutton")])
+		{
 			if (button)
-				button.hidden = true;
+			{
+				button.setAttribute("hidden", "true");
+				this.window.document.persist(button.id, "hidden");
+			}
+		}
 	},
 
 	/**
@@ -1138,10 +1274,6 @@ WindowWrapper.prototype =
 			else
 				this.detachedSidebar = this.window.openDialog("chrome://adblockplus/content/ui/sidebarDetached.xul", "_blank", "chrome,resizable,dependent,dialog=no");
 		}
-	
-		let menuItem = this.E("abp-blockableitems");
-		if (menuItem)
-			menuItem.setAttribute("checked", this.isSidebarOpen());
 	},
 
 	/**
@@ -1159,6 +1291,24 @@ WindowWrapper.prototype =
 			return true;
 		}
 		return false;
+	},
+
+	/**
+	 * Toggles "Count filter hits" option.
+	 */
+	toggleSaveStats: function()
+	{
+		if (Prefs.savestats)
+		{
+			if (!Utils.confirm(this.window, Utils.getString("clearStats_warning")))
+				return;
+
+			FilterStorage.resetHitCounts();
+			FilterListener.setDirty(0);   // Force saving to disk
+			Prefs.savestats = false;
+		}
+		else
+			Prefs.savestats = true;
 	},
 
 	/**
@@ -1207,7 +1357,7 @@ WindowWrapper.prototype =
 		if (action == 1)
 			this.toggleSidebar();
 		else if (action == 2)
-			Utils.openSettingsDialog();
+			Utils.openFiltersDialog();
 		else if (action == 3)
 		{
 			// If there is a whitelisting rule for current page - remove it (reenable).
@@ -1305,6 +1455,18 @@ WindowWrapper.prototype =
 	},
 
 	/**
+	 * Clears context menu data once the menu is closed.
+	 */
+	clearContextMenu: function()
+	{
+		this.nodeData = null;
+		this.currentNode = null;
+		this.backgroundData = null;
+		this.frameData = null;
+		this.currentFrame = null;
+	},
+
+	/**
 	 * Brings up the filter composer dialog to block an item.
 	 */
 	blockItem: function(/**Node*/ node, /**RequestEntry*/ item)
@@ -1325,19 +1487,21 @@ WindowWrapper.prototype.eventHandlers = [
 	["abp-tooltip", "popupshowing", WindowWrapper.prototype.fillTooltip],
 	["abp-status-popup", "popupshowing", WindowWrapper.prototype.fillPopup],
 	["abp-toolbar-popup", "popupshowing", WindowWrapper.prototype.fillPopup],
+	["abp-menuitem-popup", "popupshowing", WindowWrapper.prototype.fillPopup],
 	["abp-command-sendReport", "command", WindowWrapper.prototype.openReportDialog],
-	["abp-command-settings", "command", function() {Utils.openSettingsDialog();}],
+	["abp-command-filters", "command", function() {Utils.openFiltersDialog();}],
 	["abp-command-sidebar", "command", WindowWrapper.prototype.toggleSidebar],
 	["abp-command-togglesitewhitelist", "command", function() { AppIntegration.toggleFilter(this.siteWhitelist); }],
 	["abp-command-togglepagewhitelist", "command", function() { AppIntegration.toggleFilter(this.pageWhitelist); }],
 	["abp-command-toggleobjtabs", "command", function() { AppIntegration.togglePref("frameobjects"); }],
 	["abp-command-togglecollapse", "command", function() { AppIntegration.togglePref("fastcollapse"); }],
+	["abp-command-togglesavestats", "command", WindowWrapper.prototype.toggleSaveStats],
 	["abp-command-togglesync", "command", AppIntegration.toggleSync],
-	["abp-command-toggleshowintoolbar", "command", function() { AppIntegration.togglePref("showintoolbar"); }],
+	["abp-command-toggleshowintoolbar", "command", AppIntegration.toggleToolbarIcon],
 	["abp-command-toggleshowinstatusbar", "command", function() { AppIntegration.togglePref("showinstatusbar"); }],
 	["abp-command-enable", "command", function() { AppIntegration.togglePref("enabled"); }],
-	["abp-command-recommend", "command", WindowWrapper.prototype.recommend],
-	["abp-command-recommend-hide", "command", WindowWrapper.prototype.recommendHide],
+	["abp-command-contribute", "command", WindowWrapper.prototype.openContributePage],
+	["abp-command-contribute-hide", "command", WindowWrapper.prototype.hideContributeButton],
 	["abp-toolbarbutton", "command", WindowWrapper.prototype.handleToolbarCommand],
 	["abp-toolbarbutton", "click", WindowWrapper.prototype.handleToolbarClick],
 	["abp-status", "click", WindowWrapper.prototype.handleStatusClick],
@@ -1354,16 +1518,69 @@ WindowWrapper.prototype.eventHandlers = [
  */
 function reloadPrefs()
 {
-	if (currentlyShowingInToolbar != Prefs.showintoolbar)
-	{
-		currentlyShowingInToolbar = Prefs.showintoolbar;
-		if (Prefs.showintoolbar)
-			for each (let wrapper in wrappers)
-				wrapper.installToolbarIcon();
-	}
-
 	for each (let wrapper in wrappers)
 		wrapper.updateState();
+}
+
+/**
+ * Initializes options in add-on manager when they show up.
+ */
+function initOptionsDoc(/**Document*/ doc)
+{
+	function E(id) doc.getElementById(id);
+
+	E("adblockplus-filters").addEventListener("command", Utils.openFiltersDialog, false);
+
+	let wrapper = wrappers.length ? wrappers[0] : null;
+	let hasToolbar = wrapper && wrapper.getDefaultToolbar && wrapper.getDefaultToolbar();
+	let hasAddonBar = wrapper && wrapper.hasAddonBar && wrapper.hasAddonBar();
+	let hasStatusBar = wrapper && wrapper.E("abp-status");
+
+	let syncEngine = Sync.getEngine();
+	E("adblockplus-sync").collapsed = !syncEngine;
+
+	E("adblockplus-showinaddonbar").collapsed = !hasAddonBar;
+	E("adblockplus-showintoolbar").collapsed = !hasToolbar || hasAddonBar;
+	E("adblockplus-showinstatusbar").collapsed = !hasStatusBar || hasAddonBar;
+
+	function initCheckboxes()
+	{
+		if (!("value" in E("adblockplus-showinaddonbar")))
+		{
+			// XBL bindings didn't apply yet (bug 708397), try later
+			Utils.runAsync(initCheckboxes);
+			return;
+		}
+
+		E("adblockplus-savestats").value = Prefs.savestats;
+		E("adblockplus-savestats").addEventListener("command", function()
+		{
+			wrapper.toggleSaveStats.call({window: doc.defaultView});
+			E("adblockplus-savestats").value = Prefs.savestats;
+		}, false);
+
+		E("adblockplus-sync").value = syncEngine && syncEngine.enabled;
+		E("adblockplus-sync").addEventListener("command", function()
+		{
+			E("adblockplus-sync").value = AppIntegration.toggleSync();
+		}, false);
+
+		if (wrapper)
+		{
+			E("adblockplus-showinaddonbar").value =
+				E("adblockplus-showintoolbar").value =
+				wrapper.isToolbarIconVisible();
+			let handler = function()
+			{
+				E("adblockplus-showinaddonbar").value =
+					E("adblockplus-showintoolbar").value =
+					AppIntegration.toggleToolbarIcon();
+			};
+			E("adblockplus-showinaddonbar").addEventListener("command", handler, false);
+			E("adblockplus-showintoolbar").addEventListener("command", handler, false);
+		}
+	}
+	initCheckboxes();
 }
 
 /**
@@ -1400,33 +1617,97 @@ function shouldHideImageManager()
 }
 
 /**
- * Executed on first run, presents the user with a list of filter subscriptions
- * and allows choosing one.
+ * Executed on first run, adds a filter subscription and notifies that user
+ * about that.
  */
-function showSubscriptions()
+function addSubscription()
 {
-	let wrapper = (wrappers.length ? wrappers[0] : null);
+	// Add "acceptable ads" subscription for new users and user updating from old ABP versions.
+	// Don't add it for users of privacy subscriptions (use a hardcoded list for now).
+	let addAcceptable = (Utils.versionComparator.compare(Prefs.lastVersion, "2.0b.3269") < 0);
+	let privacySubscriptions = {
+		"https://easylist-downloads.adblockplus.org/easyprivacy+easylist.txt": true,
+		"https://easylist-downloads.adblockplus.org/easyprivacy.txt": true,
+		"https://secure.fanboy.co.nz/fanboy-tracking.txt": true,
+		"https://fanboy-adblock-list.googlecode.com/hg/fanboy-adblocklist-stats.txt": true,
+		"https://bitbucket.org/fanboy/fanboyadblock/raw/tip/fanboy-adblocklist-stats.txt": true,
+		"https://hg01.codeplex.com/fanboyadblock/raw-file/tip/fanboy-adblocklist-stats.txt": true,
+		"https://adversity.googlecode.com/hg/Adversity-Tracking.txt": true
+	};
+	if (FilterStorage.subscriptions.some(function(subscription) subscription.url == Prefs.subscriptions_exceptionsurl || subscription.url in privacySubscriptions))
+		addAcceptable = false;
 
-	// Don't annoy the user if he has a subscription already
-	let hasSubscriptions = FilterStorage.subscriptions.some(function(subscription) subscription instanceof DownloadableSubscription);
-	if (hasSubscriptions)
-		return;
+	// Don't add subscription if the user has a subscription already
+	let addSubscription = true;
+	if (FilterStorage.subscriptions.some(function(subscription) subscription instanceof DownloadableSubscription && subscription.url != Prefs.subscriptions_exceptionsurl))
+		addSubscription = false;
 
-	// Only show the list if this is the first run or the user has no filters
-	let hasFilters = FilterStorage.subscriptions.some(function(subscription) subscription.filters.length);
-	if (hasFilters && Utils.versionComparator.compare(Prefs.lastVersion, "0.0") > 0)
-		return;
-
-	if (wrapper && wrapper.addTab)
+	// Only add subscription if this is the first run or the user has no filters
+	if (addSubscription)
 	{
-		wrapper.addTab("chrome://adblockplus/content/ui/subscriptionSelection.xul");
+		let hasFilters = FilterStorage.subscriptions.some(function(subscription) subscription.filters.length);
+		if (hasFilters && Utils.versionComparator.compare(Prefs.lastVersion, "0.0") > 0)
+			addSubscription = false;
+	}
+
+	// Add "acceptable ads" subscription
+	if (addAcceptable)
+	{
+		let subscription = Subscription.fromURL(Prefs.subscriptions_exceptionsurl);
+		if (subscription)
+		{
+			subscription.title = "Allow non-intrusive advertising";
+			FilterStorage.addSubscription(subscription);
+			if (subscription instanceof DownloadableSubscription && !subscription.lastDownload)
+				Synchronizer.execute(subscription);
+		}
+		else
+			addAcceptable = false;
+	}
+
+	if (!addSubscription && !addAcceptable)
+		return;
+
+	function notifyUser()
+	{
+		let wrapper = (wrappers.length ? wrappers[0] : null);
+		if (wrapper && wrapper.addTab)
+		{
+			wrapper.addTab("chrome://adblockplus/content/ui/firstRun.xul");
+		}
+		else
+		{
+			Utils.windowWatcher.openWindow(wrapper ? wrapper.window : null,
+																		 "chrome://adblockplus/content/ui/firstRun.xul",
+																		 "_blank", "chrome,centerscreen,resizable,dialog=no", null);
+		}
+	}
+
+	if (addSubscription)
+	{
+		// Load subscriptions data
+		let request = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance(Ci.nsIJSXMLHttpRequest);
+		request.open("GET", "chrome://adblockplus/content/ui/subscriptions.xml");
+		request.addEventListener("load", function()
+		{
+			let node = Utils.chooseFilterSubscription(request.responseXML.getElementsByTagName("subscription"));
+			let subscription = (node ? Subscription.fromURL(node.getAttribute("url")) : null);
+			if (subscription)
+			{
+				FilterStorage.addSubscription(subscription);
+				subscription.disabled = false;
+				subscription.title = node.getAttribute("title");
+				subscription.homepage = node.getAttribute("homepage");
+				if (subscription instanceof DownloadableSubscription && !subscription.lastDownload)
+					Synchronizer.execute(subscription);
+
+				notifyUser();
+			}
+		}, false);
+		request.send();
 	}
 	else
-	{
-		Utils.windowWatcher.openWindow(wrapper ? wrapper.window : null,
-																	 "chrome://adblockplus/content/ui/subscriptionSelection.xul",
-																	 "_blank", "chrome,centerscreen,resizable,dialog=no", null);
-	}
+		notifyUser();
 }
 
 /**

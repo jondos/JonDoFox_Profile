@@ -26,7 +26,7 @@
  * @fileOverview Module containing a bunch of utility functions.
  */
 
-var EXPORTED_SYMBOLS = ["Utils", "Cache", "TraceableChannelCleanup"];
+var EXPORTED_SYMBOLS = ["Utils", "Cache"];
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -56,7 +56,7 @@ var Utils =
 	 */
 	get addonVersion()
 	{
-		let version = "1.3.10";
+		let version = "2.0.1";
 		return (version[0] == "{" ? "99.9" : version);
 	},
 
@@ -65,7 +65,7 @@ var Utils =
 	 */
 	get addonBuild()
 	{
-		let build = "3154";
+		let build = "3352";
 		return (build[0] == "{" ? "" : build);
 	},
 
@@ -328,43 +328,24 @@ var Utils =
 	},
 
 	/**
-	 * Opens preferences dialog or focused already open dialog.
-	 * @param {String} location  (optional) filter suggestion
-	 * @param {Filter} filter    (optional) filter to be selected
+	 * Opens filter preferences dialog or focuses an already open dialog.
+	 * @param {Filter} [filter]  filter to be selected
 	 */
-	openSettingsDialog: function(location, filter)
+	openFiltersDialog: function(filter)
 	{
-		var dlg = Utils.windowMediator.getMostRecentWindow("abp:settings");
-		var func = function()
-		{
-			if (typeof location != "undefined")
-				dlg.setLocation(location);
-			if (typeof filter != "undefined")
-				dlg.selectFilter(filter);
-		}
-
+		var dlg = Utils.windowMediator.getMostRecentWindow("abp:filters");
 		if (dlg)
 		{
-			func();
-
 			try
 			{
 				dlg.focus();
 			}
 			catch (e) {}
-
-			if (Utils.windowMediator.getMostRecentWindow(null) != dlg)
-			{
-				// There must be some modal dialog open
-				dlg = Utils.windowMediator.getMostRecentWindow("abp:subscriptionSelection") || Utils.windowMediator.getMostRecentWindow("abp:about");
-				if (dlg)
-					dlg.focus();
-			}
+			dlg.SubscriptionActions.selectFilter(filter);
 		}
 		else
 		{
-			dlg = Utils.windowWatcher.openWindow(null, "chrome://adblockplus/content/ui/settings.xul", "_blank", "chrome,centerscreen,resizable,dialog=no", null);
-			dlg.addEventListener("post-load", func, false);
+			Utils.windowWatcher.openWindow(null, "chrome://adblockplus/content/ui/filters.xul", "_blank", "chrome,centerscreen,resizable,dialog=no", {wrappedJSObject: filter});
 		}
 	},
 
@@ -472,6 +453,65 @@ var Utils =
 	},
 
 	/**
+	 * Checks whether any of the prefixes listed match the application locale,
+	 * returns matching prefix if any.
+	 */
+	checkLocalePrefixMatch: function(/**String*/ prefixes) /**String*/
+	{
+		if (!prefixes)
+			return null;
+
+		let appLocale = Utils.appLocale;
+		for each (let prefix in prefixes.split(/,/))
+			if (new RegExp("^" + prefix + "\\b").test(appLocale))
+				return prefix;
+
+		return null;
+	},
+
+	/**
+	 * Chooses the best filter subscription for user's language.
+	 */
+	chooseFilterSubscription: function(/**NodeList*/ subscriptions) /**Node*/
+	{
+		let selectedItem = null;
+		let selectedPrefix = null;
+		let matchCount = 0;
+		for (let i = 0; i < subscriptions.length; i++)
+		{
+			let subscription = subscriptions[i];
+			if (!selectedItem)
+				selectedItem = subscription;
+
+			let prefix = Utils.checkLocalePrefixMatch(subscription.getAttribute("prefixes"));
+			if (prefix)
+			{
+				if (!selectedPrefix || selectedPrefix.length < prefix.length)
+				{
+					selectedItem = subscription;
+					selectedPrefix = prefix;
+					matchCount = 1;
+				}
+				else if (selectedPrefix && selectedPrefix.length == prefix.length)
+				{
+					matchCount++;
+
+					// If multiple items have a matching prefix of the same length:
+					// Select one of the items randomly, probability should be the same
+					// for all items. So we replace the previous match here with
+					// probability 1/N (N being the number of matches).
+					if (Math.random() * matchCount < 1)
+					{
+						selectedItem = subscription;
+						selectedPrefix = prefix;
+					}
+				}
+			}
+		}
+		return selectedItem;
+	},
+
+	/**
 	 * Saves sidebar state before detaching/reattaching
 	 */
 	setParams: function(params)
@@ -547,6 +587,73 @@ var Utils =
 			else
 				node.className += " " + Utils.collapsedClass;
 		}
+	},
+
+	/**
+	 * Verifies RSA signature. The public key and signature should be base64-encoded.
+	 */
+	verifySignature: function(/**String*/ key, /**String*/ signature, /**String*/ data) /**Boolean*/
+	{
+		if (!Utils.crypto)
+			return false;
+
+		// Maybe we did the same check recently, look it up in the cache
+		if (!("_cache" in Utils.verifySignature))
+			Utils.verifySignature._cache = new Cache(5);
+		let cache = Utils.verifySignature._cache;
+		let cacheKey = key + " " + signature + " " + data;
+		if (cacheKey in cache.data)
+			return cache.data[cacheKey];
+		else
+			cache.add(cacheKey, false);
+
+		let keyInfo, pubKey, context;
+		try
+		{
+			let keyItem = Utils.crypto.getSECItem(atob(key));
+			keyInfo = Utils.crypto.SECKEY_DecodeDERSubjectPublicKeyInfo(keyItem.address());
+			if (keyInfo.isNull())
+				throw new Error("SECKEY_DecodeDERSubjectPublicKeyInfo failed");
+
+			pubKey = Utils.crypto.SECKEY_ExtractPublicKey(keyInfo);
+			if (pubKey.isNull())
+				throw new Error("SECKEY_ExtractPublicKey failed");
+
+			let signatureItem = Utils.crypto.getSECItem(atob(signature));
+
+			context = Utils.crypto.VFY_CreateContext(pubKey, signatureItem.address(), Utils.crypto.SEC_OID_ISO_SHA_WITH_RSA_SIGNATURE, null);
+			if (context.isNull())
+				return false;   // This could happen if the signature is invalid
+
+			let error = Utils.crypto.VFY_Begin(context);
+			if (error < 0)
+				throw new Error("VFY_Begin failed");
+
+			error = Utils.crypto.VFY_Update(context, data, data.length);
+			if (error < 0)
+				throw new Error("VFY_Update failed");
+
+			error = Utils.crypto.VFY_End(context);
+			if (error < 0)
+				return false;
+
+			cache.data[cacheKey] = true;
+			return true;
+		}
+		catch (e)
+		{
+			Cu.reportError(e);
+			return false;
+		}
+		finally
+		{
+			if (keyInfo && !keyInfo.isNull())
+				Utils.crypto.SECKEY_DestroySubjectPublicKeyInfo(keyInfo);
+			if (pubKey && !pubKey.isNull())
+				Utils.crypto.SECKEY_DestroyPublicKey(pubKey);
+			if (context && !context.isNull())
+				Utils.crypto.VFY_DestroyContext(context, true);
+		}
 	}
 };
 
@@ -614,93 +721,6 @@ Cache.prototype =
 	}
 }
 
-/**
- * An object that will attach itself as a listener to a traceable channel and
- * remove Adblock Plus data once that channel is done.
- * @constructor
- */
-function TraceableChannelCleanup(request)
-{
-	// This has to run asynchronously due to bug 646370, nsHttpChannel triggers
-	// http-on-modify-request observers before setting listener!
-	Utils.runAsync(this.attach, this, request);
-}
-TraceableChannelCleanup.prototype =
-{
-	originalListener: null,
-
-	attach: function(request)
-	{
-		if (request.isPending())
-		{
-			try
-			{
-				this.originalListener = request.setNewListener(this);
-			}
-			catch (e if e.result == Cr.NS_ERROR_NOT_IMPLEMENTED)
-			{
-				// Bug 646373 :-( Remove data even though this means that we won't be
-				// able to block redirects.
-				this.cleanup(request);
-			}
-		}
-		else
-			this.cleanup(request);
-	},
-
-	cleanup: function(request)
-	{
-		try
-		{
-			if (request instanceof Ci.nsIWritablePropertyBag)
-				request.deleteProperty("abpRequestData");
-		}
-		catch(e) {} // Ignore errors due to missing property
-	},
-
-	onStartRequest: function(request, context)
-	{
-		try
-		{
-			this.originalListener.onStartRequest(request, context);
-		}
-		catch (e if e instanceof Ci.nsIException)
-		{
-			request.cancel(e.result);
-		}
-	},
-
-	onDataAvailable: function(request, context, inputStream, offset, count)
-	{
-		try
-		{
-			this.originalListener.onDataAvailable(request, context, inputStream, offset, count);
-		}
-		catch (e if e instanceof Ci.nsIException)
-		{
-			request.cancel(e.result);
-		}
-	},
-
-	onStopRequest: function(request, context, statusCode)
-	{
-		try
-		{
-			this.originalListener.onStopRequest(request, context, statusCode);
-		}
-		catch (e if e instanceof Ci.nsIException)
-		{
-			// No point cancelling the channel when it is done already
-		}
-		finally
-		{
-			this.cleanup(request);
-		}
-	},
-
-	QueryInterface: XPCOMUtils.generateQI([Ci.nsIStreamListener, Ci.nsIRequestObserver])
-}
-
 // Getters for common services, this should be replaced by Services.jsm in future
 
 XPCOMUtils.defineLazyServiceGetter(Utils, "observerService", "@mozilla.org/observer-service;1", "nsIObserverService");
@@ -722,6 +742,161 @@ XPCOMUtils.defineLazyServiceGetter(Utils, "systemPrincipal", "@mozilla.org/syste
 XPCOMUtils.defineLazyServiceGetter(Utils, "dateFormatter", "@mozilla.org/intl/scriptabledateformat;1", "nsIScriptableDateFormat");
 XPCOMUtils.defineLazyServiceGetter(Utils, "childMessageManager", "@mozilla.org/childprocessmessagemanager;1", "nsISyncMessageSender");
 XPCOMUtils.defineLazyServiceGetter(Utils, "parentMessageManager", "@mozilla.org/parentprocessmessagemanager;1", "nsIFrameMessageManager");
+XPCOMUtils.defineLazyServiceGetter(Utils, "httpProtocol", "@mozilla.org/network/protocol;1?name=http", "nsIHttpProtocolHandler");
+XPCOMUtils.defineLazyServiceGetter(Utils, "clipboard", "@mozilla.org/widget/clipboard;1", "nsIClipboard");
+XPCOMUtils.defineLazyServiceGetter(Utils, "clipboardHelper", "@mozilla.org/widget/clipboardhelper;1", "nsIClipboardHelper");
+XPCOMUtils.defineLazyGetter(Utils, "crypto", function()
+{
+	try
+	{
+		let ctypes = Components.utils.import("resource://gre/modules/ctypes.jsm", null).ctypes;
+
+		let nsslib = ctypes.open(ctypes.libraryName("nss3"));
+
+		let result = {};
+
+		// seccomon.h
+		result.siUTF8String = 14;
+
+		// secoidt.h
+		result.SEC_OID_ISO_SHA_WITH_RSA_SIGNATURE = 15;
+
+		// The following types are opaque to us
+		result.VFYContext = ctypes.void_t;
+		result.SECKEYPublicKey = ctypes.void_t;
+		result.CERTSubjectPublicKeyInfo = ctypes.void_t;
+
+		/*
+		 * seccomon.h
+		 * struct SECItemStr {
+		 *   SECItemType type;
+		 *   unsigned char *data;
+		 *   unsigned int len;
+		 * };
+		 */
+		result.SECItem = ctypes.StructType("SECItem", [
+			{type: ctypes.int},
+			{data: ctypes.unsigned_char.ptr},
+			{len: ctypes.int}
+		]);
+
+		/*
+		 * cryptohi.h
+		 * extern VFYContext *VFY_CreateContext(SECKEYPublicKey *key, SECItem *sig,
+		 *                                      SECOidTag sigAlg, void *wincx);
+		 */
+		result.VFY_CreateContext = nsslib.declare(
+			"VFY_CreateContext",
+			ctypes.default_abi, result.VFYContext.ptr,
+			result.SECKEYPublicKey.ptr,
+			result.SECItem.ptr,
+			ctypes.int,
+			ctypes.voidptr_t
+		);
+
+		/*
+		 * cryptohi.h
+		 * extern void VFY_DestroyContext(VFYContext *cx, PRBool freeit);
+		 */
+		result.VFY_DestroyContext = nsslib.declare(
+			"VFY_DestroyContext",
+			ctypes.default_abi, ctypes.void_t,
+			result.VFYContext.ptr,
+			ctypes.bool
+		);
+
+		/*
+		 * cryptohi.h
+		 * extern SECStatus VFY_Begin(VFYContext *cx);
+		 */
+		result.VFY_Begin = nsslib.declare("VFY_Begin",
+			ctypes.default_abi, ctypes.int,
+			result.VFYContext.ptr
+		);
+
+		/*
+		 * cryptohi.h
+		 * extern SECStatus VFY_Update(VFYContext *cx, const unsigned char *input,
+		 *                             unsigned int inputLen);
+		 */
+		result.VFY_Update = nsslib.declare(
+			"VFY_Update",
+			ctypes.default_abi, ctypes.int,
+			result.VFYContext.ptr,
+			ctypes.unsigned_char.ptr,
+			ctypes.int
+		);
+
+		/*
+		 * cryptohi.h
+		 * extern SECStatus VFY_End(VFYContext *cx);
+		 */
+		result.VFY_End = nsslib.declare(
+			"VFY_End",
+			ctypes.default_abi, ctypes.int,
+			result.VFYContext.ptr
+		);
+
+		/*
+		 * keyhi.h
+		 * extern CERTSubjectPublicKeyInfo *
+		 * SECKEY_DecodeDERSubjectPublicKeyInfo(SECItem *spkider);
+		 */
+		result.SECKEY_DecodeDERSubjectPublicKeyInfo = nsslib.declare(
+			"SECKEY_DecodeDERSubjectPublicKeyInfo",
+			ctypes.default_abi, result.CERTSubjectPublicKeyInfo.ptr,
+			result.SECItem.ptr
+		);
+
+		/*
+		 * keyhi.h
+		 * extern void SECKEY_DestroySubjectPublicKeyInfo(CERTSubjectPublicKeyInfo *spki);
+		 */
+		result.SECKEY_DestroySubjectPublicKeyInfo = nsslib.declare(
+			"SECKEY_DestroySubjectPublicKeyInfo",
+			ctypes.default_abi, ctypes.void_t,
+			result.CERTSubjectPublicKeyInfo.ptr
+		);
+
+		/*
+		 * keyhi.h
+		 * extern SECKEYPublicKey *
+		 * SECKEY_ExtractPublicKey(CERTSubjectPublicKeyInfo *);
+		 */
+		result.SECKEY_ExtractPublicKey = nsslib.declare(
+			"SECKEY_ExtractPublicKey",
+			ctypes.default_abi, result.SECKEYPublicKey.ptr,
+			result.CERTSubjectPublicKeyInfo.ptr
+		);
+
+		/*
+		 * keyhi.h
+		 * extern void SECKEY_DestroyPublicKey(SECKEYPublicKey *key);
+		 */
+		result.SECKEY_DestroyPublicKey = nsslib.declare(
+			"SECKEY_DestroyPublicKey",
+			ctypes.default_abi, ctypes.void_t,
+			result.SECKEYPublicKey.ptr
+		);
+
+		// Convenience method
+		result.getSECItem = function(data)
+		{
+			var dataArray = new ctypes.ArrayType(ctypes.unsigned_char, data.length)();
+			for (let i = 0; i < data.length; i++)
+				dataArray[i] = data.charCodeAt(i) % 256;
+			return new result.SECItem(result.siUTF8String, dataArray, dataArray.length);
+		};
+
+		return result;
+	}
+	catch (e)
+	{
+		Cu.reportError(e);
+		// Expected, ctypes isn't supported in Gecko 1.9.2
+		return null;
+	}
+});
 
 if ("@mozilla.org/messenger/headerparser;1" in Cc)
 	XPCOMUtils.defineLazyServiceGetter(Utils, "headerParser", "@mozilla.org/messenger/headerparser;1", "nsIMsgHeaderParser");
