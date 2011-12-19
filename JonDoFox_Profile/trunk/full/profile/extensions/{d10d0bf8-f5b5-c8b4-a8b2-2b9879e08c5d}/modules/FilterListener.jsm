@@ -37,6 +37,7 @@ let baseURL = Cc["@adblockplus.org/abp/private;1"].getService(Ci.nsIURI);
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
 Cu.import(baseURL.spec + "FilterStorage.jsm");
+Cu.import(baseURL.spec + "FilterNotifier.jsm");
 Cu.import(baseURL.spec + "ElemHide.jsm");
 Cu.import(baseURL.spec + "Matcher.jsm");
 Cu.import(baseURL.spec + "FilterClasses.jsm");
@@ -44,12 +45,10 @@ Cu.import(baseURL.spec + "SubscriptionClasses.jsm");
 Cu.import(baseURL.spec + "Prefs.jsm");
 Cu.import(baseURL.spec + "Utils.jsm");
 
-let subscriptionFilter = null;
-
 /**
  * Version of the data cache file, files with different version will be ignored.
  */
-const cacheVersion = 1;
+const cacheVersion = 2;
 
 /**
  * Value of the FilterListener.batchMode property.
@@ -58,10 +57,10 @@ const cacheVersion = 1;
 let batchMode = false;
 
 /**
- * Will be true if filters changed after saving data last time.
- * @type Boolean
+ * Increases on filter changes, filters will be saved if it exceeds 1.
+ * @type Integer
  */
-let isDirty = false;
+let isDirty = 0;
 
 /**
  * This object can be used to change properties of the filter change listeners.
@@ -76,14 +75,14 @@ var FilterListener =
 	{
 
 
-		FilterStorage.addObserver(function(action, items)
+		FilterNotifier.addListener(function(action, item, newValue, oldValue)
 		{
-			if (/^filters (.*)/.test(action))
-				onFilterChange(RegExp.$1, items);
-			else if (/^subscriptions (.*)/.test(action))
-				onSubscriptionChange(RegExp.$1, items);
+			if (/^filter\.(.*)/.test(action))
+				onFilterChange(RegExp.$1, item, newValue, oldValue);
+			else if (/^subscription\.(.*)/.test(action))
+				onSubscriptionChange(RegExp.$1, item, newValue, oldValue);
 			else
-				onGenericChange(action, items);
+				onGenericChange(action, item);
 		});
 
 		ElemHide.init();
@@ -124,7 +123,7 @@ var FilterListener =
 							{
 
 								loadDone = true;
-								FilterStorage.loadFromDisk(true);
+								FilterStorage.loadFromDisk(null, true);
 
 							}
 							return obj[prop];
@@ -177,7 +176,7 @@ var FilterListener =
 	shutdown: function()
 	{
 
-		if (isDirty)
+		if (isDirty > 0)
 			FilterStorage.saveToDisk();
 
 	},
@@ -194,6 +193,25 @@ var FilterListener =
 	{
 		batchMode = value;
 		flushElemHide();
+	},
+
+	/**
+	 * Increases "dirty factor" of the filters and calls FilterStorage.saveToDisk()
+	 * if it becomes 1 or more. Save is executed delayed to prevent multiple
+	 * subsequent calls. If the parameter is 0 it forces saving filters if any
+	 * changes were recorded after the previous save.
+	 */
+	setDirty: function(/**Integer*/ factor)
+	{
+		if (factor == 0 && isDirty > 0)
+			isDirty = 1;
+		else
+			isDirty += factor;
+		if (isDirty >= 1 && !filtersFlushScheduled)
+		{
+			Utils.runAsync(flushFiltersInternal);
+			filtersFlushScheduled = true;
+		}
 	}
 };
 
@@ -208,7 +226,7 @@ var FilterListenerPrivate =
 		if (topic == "browser:purge-session-history" && Prefs.clearStatsOnHistoryPurge)
 		{
 			FilterStorage.resetHitCounts();
-			FilterStorage.saveToDisk();
+			FilterListener.setDirty(0); // Force saving to disk
 
 			Prefs.recentReports = "[]";
 		}
@@ -216,13 +234,34 @@ var FilterListenerPrivate =
 	QueryInterface: XPCOMUtils.generateQI([Ci.nsISupportsWeakReference, Ci.nsIObserver])
 };
 
+let elemhideFlushScheduled = false;
+
 /**
- * Calls ElemHide.apply() if necessary
+ * Calls ElemHide.apply() if necessary. Executes delayed to prevent multiple
+ * subsequent calls.
  */
 function flushElemHide()
 {
+	if (elemhideFlushScheduled)
+		return;
+
+	Utils.runAsync(flushElemHideInternal);
+	elemhideFlushScheduled = true;
+}
+
+function flushElemHideInternal()
+{
+	elemhideFlushScheduled = false;
 	if (!batchMode && ElemHide.isDirty)
 		ElemHide.apply();
+}
+
+let filtersFlushScheduled = false;
+
+function flushFiltersInternal()
+{
+	filtersFlushScheduled = false;
+	FilterStorage.saveToDisk();
 }
 
 /**
@@ -232,7 +271,14 @@ function flushElemHide()
  */
 function addFilter(filter)
 {
-	if (!(filter instanceof ActiveFilter) || filter.disabled || (subscriptionFilter && filter.subscriptions.some(subscriptionFilter)))
+	if (!(filter instanceof ActiveFilter) || filter.disabled)
+		return;
+
+	let hasEnabled = false;
+	for (let i = 0; i < filter.subscriptions.length; i++)
+		if (!filter.subscriptions[i].disabled)
+			hasEnabled = true;
+	if (!hasEnabled)
 		return;
 
 	if (filter instanceof RegExpFilter)
@@ -248,8 +294,18 @@ function addFilter(filter)
  */
 function removeFilter(filter)
 {
-	if (!(filter instanceof ActiveFilter) || (subscriptionFilter && filter.subscriptions.some(subscriptionFilter)))
+	if (!(filter instanceof ActiveFilter))
 		return;
+
+	if (!filter.disabled)
+	{
+		let hasEnabled = false;
+		for (let i = 0; i < filter.subscriptions.length; i++)
+			if (!filter.subscriptions[i].disabled)
+				hasEnabled = true;
+		if (hasEnabled)
+			return;
+	}
 
 	if (filter instanceof RegExpFilter)
 		defaultMatcher.remove(filter);
@@ -260,54 +316,38 @@ function removeFilter(filter)
 /**
  * Subscription change listener
  */
-function onSubscriptionChange(action, subscriptions)
+function onSubscriptionChange(action, subscription, newValue, oldValue)
 {
-	isDirty = true;
+	if (action == "homepage" || action == "downloadStatus" || action == "lastDownload")
+		FilterListener.setDirty(0.2);
+	else
+		FilterListener.setDirty(1);
 
-	if (action != "remove")
-	{
-		subscriptions = subscriptions.filter(function(subscription)
-		{
-			// Ignore updates for subscriptions not in the list
-			return subscription.url in FilterStorage.knownSubscriptions;
-		});
-	}
-	if (!subscriptions.length)
+	if (action != "added" && action != "removed" && action != "disabled" && action != "updated")
 		return;
 
-	if (action == "add" || action == "enable" ||
-			action == "remove" || action == "disable" ||
-			action == "update")
+	if (action != "removed" && !(subscription.url in FilterStorage.knownSubscriptions))
 	{
-		let subscriptionMap = {__proto__: null};
-		for each (let subscription in subscriptions)
-			subscriptionMap[subscription.url] = true;
-		subscriptionFilter = function(subscription)
-		{
-			return !(subscription.url in subscriptionMap) && !subscription.disabled;
-		}
+		// Ignore updates for subscriptions not in the list
+		return;
 	}
-	else
-		subscriptionFilter = null;
 
-	if (action == "add" || action == "enable" ||
-			action == "remove" || action == "disable")
+	if ((action == "added" || action == "removed" || action == "updated") && subscription.disabled)
 	{
-		let method = (action == "add" || action == "enable" ? addFilter : removeFilter);
-		for each (let subscription in subscriptions)
-			if (subscription.filters && (action == "disable" || !subscription.disabled))
-				subscription.filters.forEach(method);
+		// Ignore adding/removing/updating of disabled subscriptions
+		return;
 	}
-	else if (action == "update")
+
+	if (action == "added" || action == "removed" || action == "disabled")
 	{
-		for each (let subscription in subscriptions)
-		{
-			if (!subscription.disabled)
-			{
-				subscription.oldFilters.forEach(removeFilter);
-				subscription.filters.forEach(addFilter);
-			}
-		}
+		let method = (action == "added" || (action == "disabled" && newValue == false) ? addFilter : removeFilter);
+		if (subscription.filters)
+			subscription.filters.forEach(method);
+	}
+	else if (action == "updated")
+	{
+		subscription.oldFilters.forEach(removeFilter);
+		subscription.filters.forEach(addFilter);
 	}
 
 	flushElemHide();
@@ -316,25 +356,29 @@ function onSubscriptionChange(action, subscriptions)
 /**
  * Filter change listener
  */
-function onFilterChange(action, filters)
+function onFilterChange(action, filter, newValue, oldValue)
 {
-	isDirty = true;
+	if (action == "hitCount" || action == "lastHit")
+		FilterListener.setDirty(0.0001);
+	else if (action == "disabled" || action == "moved")
+		FilterListener.setDirty(0.2);
+	else
+		FilterListener.setDirty(1);
 
-	if (action == "add" || action == "enable" ||
-			action == "remove" || action == "disable")
+	if (action != "added" && action != "removed" && action != "disabled")
+		return;
+
+	if ((action == "added" || action == "removed") && filter.disabled)
 	{
-		subscriptionFilter = null;
-
-		let method = (action == "add" || action == "enable" ? addFilter : removeFilter);
-		filters = filters.filter(function(filter)
-		{
-			// For "remove" only consider filters that don't have any enabled
-			// subscriptions, for other actions the filter that have them.
-			return ((action != "remove") == filter.subscriptions.some(function(subscription) !subscription.disabled));
-		});
-		filters.forEach(method);
-		flushElemHide();
+		// Ignore adding/removing of disabled filters
+		return;
 	}
+
+	if (action == "added" || (action == "disabled" && newValue == false))
+		addFilter(filter);
+	else
+		removeFilter(filter);
+	flushElemHide();
 }
 
 /**
@@ -344,7 +388,7 @@ function onGenericChange(action)
 {
 	if (action == "load")
 	{
-		isDirty = false;
+		isDirty = 0;
 
 		defaultMatcher.clear();
 		ElemHide.clear();
@@ -355,7 +399,7 @@ function onGenericChange(action)
 	}
 	else if (action == "save")
 	{
-		isDirty = false;
+		isDirty = 0;
 
 		let cache = {version: cacheVersion, patternsTimestamp: FilterStorage.sourceFile.clone().lastModifiedTime};
 		defaultMatcher.toCache(cache);

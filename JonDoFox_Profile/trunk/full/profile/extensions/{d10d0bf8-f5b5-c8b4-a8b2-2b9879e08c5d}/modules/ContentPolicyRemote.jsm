@@ -68,6 +68,7 @@ var PolicyRemote =
 			catMan.addCategoryEntry(category, PolicyRemote.classDescription, PolicyRemote.contractID, false, true);
 
 		Utils.observerService.addObserver(PolicyRemote, "http-on-modify-request", true);
+		Utils.observerService.addObserver(PolicyRemote, "content-document-global-created", true);
 
 		// Generate class identifier used to collapse node and register corresponding
 		// stylesheet.
@@ -111,16 +112,24 @@ var PolicyRemote =
 
 		wnd = Utils.getOriginWindow(wnd);
 
-		let wndLocation = wnd.location.href;
-		let topLocation = wnd.top.location.href;
-		let key = contentType + " " + contentLocation.spec + " " + wndLocation + " " + topLocation;
+		let locations = [];
+		let testWnd = wnd;
+		while (true)
+		{
+			locations.push(testWnd.location.href);
+			if (testWnd.parent == testWnd)
+				break;
+			else
+				testWnd = testWnd.parent;
+		}
+
+		let key = contentType + " " + contentLocation.spec + " " + locations.join(" ");
 		if (!(key in this.cache.data))
 		{
 			this.cache.add(key, Utils.childMessageManager.sendSyncMessage("AdblockPlus:Policy:shouldLoad", {
 							contentType: contentType,
 							contentLocation: contentLocation.spec,
-							wndLocation: wnd.location.href,
-							topLocation: wnd.top.location.href})[0]);
+							locations: locations})[0]);
 		}
 
 		let result = this.cache.data[key];
@@ -129,7 +138,7 @@ var PolicyRemote =
 			// We didn't block this request so we will probably see it again in
 			// http-on-modify-request. Keep it so that we can associate it with the
 			// channel there - will be needed in case of redirect.
-			PolicyRemote.previousRequest = [node, contentType, Utils.unwrapURL(contentLocation)];
+			PolicyRemote.previousRequest = [Utils.unwrapURL(contentLocation), contentType];
 		}
 		else if (result.postProcess)
 			Utils.schedulePostProcess(node);
@@ -144,24 +153,60 @@ var PolicyRemote =
 	//
 	// nsIObserver interface implementation
 	//
-	observe: function(subject, topic, data)
+	observe: function(subject, topic, data, additional)
 	{
-		if (topic != "http-on-modify-request"  || !(subject instanceof Ci.nsIHttpChannel))
-			return;
-
-		// TODO: Do-not-track header
-
-		if (PolicyRemote.previousRequest && subject.URI == PolicyRemote.previousRequest[2] &&
-				subject instanceof Ci.nsIWritablePropertyBag)
+		switch (topic)
 		{
-			// We just handled a content policy call for this request - associate
-			// the data with the channel so that we can find it in case of a redirect.
-			subject.setProperty("abpRequestData", PolicyRemote.previousRequest);
-			PolicyRemote.previousRequest = null;
+			case "content-document-global-created":
+			{
+				if (!(subject instanceof Ci.nsIDOMWindow) || !subject.opener)
+					return;
 
-			// Add our listener to remove the data again once the request is done
-			if (subject instanceof Ci.nsITraceableChannel)
-				new TraceableChannelCleanup(subject);
+				let uri = additional || Utils.makeURI(subject.location.href);
+				if (PolicyRemote.shouldLoad(0xFFFE /*Policy.type.POPUP*/, uri, null, subject.opener.document, null, null) != Ci.nsIContentPolicy.ACCEPT)
+				{
+					subject.stop();
+					Utils.runAsync(subject.close, subject);
+				}
+				else if (uri.spec == "about:blank")
+				{
+					// An about:blank pop-up most likely means that a load will be
+					// initiated synchronously. Set a flag for our "http-on-modify-request"
+					// handler.
+					PolicyRemote.expectingPopupLoad = true;
+					Utils.runAsync(function()
+					{
+						PolicyRemote.expectingPopupLoad = false;
+					});
+				}
+
+				break;
+			}
+			case "http-on-modify-request":
+			{
+				if (!(subject instanceof Ci.nsIHttpChannel))
+					return;
+
+				// TODO: Do-not-track header
+
+				if (PolicyRemote.previousRequest && subject.URI == PolicyRemote.previousRequest[0] &&
+						subject instanceof Ci.nsIWritablePropertyBag)
+				{
+					// We just handled a content policy call for this request - associate
+					// the data with the channel so that we can find it in case of a redirect.
+					subject.setProperty("abpRequestType", PolicyRemote.previousRequest[1]);
+					PolicyRemote.previousRequest = null;
+				}
+
+				if (PolicyRemote.expectingPopupLoad)
+				{
+					let wnd = Utils.getRequestWindow(subject);
+					if (wnd && wnd.opener && wnd.location.href == "about:blank")
+						PolicyRemote.observe(wnd, "content-document-global-created", null, subject.URI);
+				}
+
+				break;
+			}
 		}
 	},
 
@@ -174,12 +219,12 @@ var PolicyRemote =
 		try
 		{
 			// Try to retrieve previously stored request data from the channel
-			let requestData;
+			let contentType;
 			if (oldChannel instanceof Ci.nsIWritablePropertyBag)
 			{
 				try
 				{
-					requestData = oldChannel.getProperty("abpRequestData");
+					contentType = oldChannel.getProperty("abpRequestType");
 				}
 				catch(e)
 				{
@@ -196,8 +241,12 @@ var PolicyRemote =
 			if (!newLocation)
 				return;
 
+			let wnd = Utils.getRequestWindow(newChannel);
+			if (!wnd)
+				return;
+
 			// HACK: NS_BINDING_ABORTED would be proper error code to throw but this will show up in error console (bug 287107)
-			if (PolicyRemote.shouldLoad(requestData[1], newLocation, null, requestData[0]) != Ci.nsIContentPolicy.ACCEPT)
+			if (PolicyRemote.shouldLoad(contentType, newLocation, null, wnd.document) != Ci.nsIContentPolicy.ACCEPT)
 				throw Cr.NS_BASE_STREAM_WOULD_BLOCK;
 			else
 				return;

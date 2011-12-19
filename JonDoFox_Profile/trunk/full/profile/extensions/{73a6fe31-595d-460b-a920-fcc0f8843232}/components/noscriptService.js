@@ -5,7 +5,7 @@ const Cc = Components.classes;
 const Cu = Components.utils;
 const Cr = Components.results;
 
-const VERSION = "2.1.8";
+const VERSION = "2.2.3";
 const SERVICE_CTRID = "@maone.net/noscript-service;1";
 const SERVICE_ID = "{31aec909-8e86-4397-9380-63a59e0c5ff5}";
 const EXTENSION_ID = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
@@ -583,7 +583,6 @@ PolicySites.prototype = {
 };
 
 
-
 function AddressMatcher(s) {
   this.source = s;
   this.rx = this.parse(s);
@@ -852,6 +851,37 @@ Network.prototype = {
 };
 
 
+function SyntaxChecker() {
+  this.sandbox = new Cu.Sandbox("about:");
+}
+
+SyntaxChecker.prototype = {
+  lastError: null,
+  lastFunction: null,
+  check: function(script) {
+    this.sandbox.script = script;
+     try {
+       return !!(this.lastFunction = this.ev("new Function(script)"));
+     } catch(e) {
+       this.lastError = e;
+     }
+     return false;
+  },
+  unquote: function(s, q) {
+    if (!(s[0] == q && s[s.length - 1] == q &&
+        !s.replace(/\\./g, '').replace(/^(['"])[^\n\r]*?\1/, "")
+      )) return null;
+    try {
+      return this.ev(s);
+    } catch(e) {}
+    return null;
+  },
+  ev: function(s) {
+    return Cu.evalInSandbox(s, this.sandbox);
+  }
+};
+
+
 const IO = {
   readFile: function(file, charset) {
     var res;
@@ -1022,6 +1052,10 @@ const IOUtil = {
       switch (url.scheme) {
         case "view-source":
           return this.unwrapURL(url.path);
+        case "feed":
+          let u = url.spec.substring(5);
+          if (u.substring(0, 2) == '//') u = "http:" + u;
+          return this.unwrapURL(u);
         case "wyciwyg":
           return this.unwrapURL(url.path.replace(/^\/\/\d+\//, ""));
         case "jar":
@@ -1404,7 +1438,6 @@ var ns = {
   forbidData: true,
 
   forbidJava: true,
-  forbidFlash: false,
   forbidFlash: true,
   forbidPlugins: true,
   forbidMedia: true,
@@ -1430,6 +1463,7 @@ var ns = {
   jsHack: null,
   jsHackRegExp: null,
   
+  dropXssProtection: true,
   flashPatch: true,
   silverlightPatch: true,
   
@@ -1553,6 +1587,7 @@ var ns = {
       case "jsredirectForceShow":
       case "jsHack":
       case "consoleLog":
+      case "dropXssProtection":
       case "flashPatch":
       case "silverlightPatch":
       case "inclusionTypeChecking":
@@ -1561,6 +1596,7 @@ var ns = {
       case "liveConnectInterception":
       case "audioApiInterception":
       case "allowHttpsOnly":
+      case "removeSMILKeySniffer":
         this[name] = this.getPref(name, this[name]);  
       break;
       
@@ -1898,10 +1934,12 @@ var ns = {
       "showBlankSources", "showPlaceholder", "showUntrustedPlaceholder",
       "collapseObject",
       "temp", "untrusted", "gtemp",
+      "dropXssProtection",
       "flashPatch", "silverlightPatch",
       "allowHttpsOnly",
       "truncateTitle", "truncateTitleLen",
       "whitelistRegExp", "proxiedDNS", "asyncNetworking",
+      "removeSMILKeySniffer",
       ]) {
       try {
         this.syncPrefs(this.prefs, p);
@@ -3753,7 +3791,7 @@ var ns = {
             hiddenAncestors.push.apply(hiddenAncestors, ancestors);
             break;
           }
-          if (!(n = n.parentNode())) return true;
+          if (!(n = n.parentNode)) return true;
         }
       }
     }
@@ -3763,11 +3801,31 @@ var ns = {
     if (form && form.offsetHeight) return true;
     return false;
   },
+  
+  _SMILElements: ["set", "animation"],
+  doRemoveSMILKeySniffers: function(document) {
+    if (!this.removeSMILKeySniffer) return;
+    const tags = this._SMILElements;
+    for (let j = tags.length; j-- > 0;) {
+      let nodes = document.getElementsByTagName(tags[j]);
+      for (let k = nodes.length; k-- > 0;) {
+        let node = nodes[k];
+        let begin = node.getAttribute("begin");
+        if (begin && begin.indexOf("accessKey(") > -1)
+          node.removeAttribute("begin");
+      }
+    }
+  },
+  
   detectJSRedirects: function(document) {
     if (this.jsredirectIgnore) return 0;
     
     try {
       if (document.documentURI.indexOf("http") !== 0) return 0;
+      
+      var window = document.defaultView;
+      if (!window) return 0;
+      
       var hasVisibleLinks = this.hasVisibleLinks(document);
       if (!this.jsredirectForceShow && hasVisibleLinks) 
         return 0;
@@ -3814,7 +3872,6 @@ var ns = {
       
       var code;
       var container = null;
-      var window;
       
       code = body && body.getAttribute("onload");
       const sources = code ? [code] : [];
@@ -3848,7 +3905,6 @@ var ns = {
               minHeight = "32px";
               textAlign = "left";
             }
-            window = document.defaultView;
             follow = this.jsredirectFollow && window == window.top &&  
               !window.frames[0] &&
               !document.evaluate('//body[normalize-space()!=""]', document, null, 
@@ -3947,7 +4003,7 @@ var ns = {
             return;
          
           child = node.firstChild;
-          if (child.nodeType != 3) break;
+          if (!(child && child.nodeType === 3)) break;
           
           if (!doc) {
             doc = node.ownerDocument;
@@ -3992,7 +4048,7 @@ var ns = {
       
       var html5;
       try {
-        html5 = this.prefService.getBoolPref("html5.enable");
+        html5 = this.prefService.getBoolPref("html5.parser.enable");
       } catch(e) {
         html5 = false;
       }
@@ -4010,7 +4066,7 @@ var ns = {
         }
         content = refresh.content.split(/[,;]/, 2);
         uri = content[1];
-        if (uri) {
+        if (uri && !new AddressMatcher(this.getPref("forbidMetaRefresh.exceptions")).test(document.documentURI)) {
           if (notifyCallback && !(document.documentURI in this.metaRefreshWhitelist)) {
             timeout = parseInt(content[0]) || 0;
             uri = uri.replace (/^\s*URL\s*=\s*/i, "");
@@ -5685,7 +5741,7 @@ var ns = {
         newWin.addEventListener("change", this.bind(this.onContentChange), true);
       }
     } else {
-    
+      
       if (this.implementToStaticHTML && !("toStaticHTML" in doc.defaultView)) {
         scripts = [this._toStaticHTMLDef];
         doc.addEventListener("NoScript:toStaticHTML", this._toStaticHTMLHandler, false, true);
@@ -5756,17 +5812,14 @@ var ns = {
     if (docShell) this.executeEarlyScripts(docShell.document.documentURI, win, docShell);
   },
   
-  
   get unescapeHTML() {
     delete this.unescapeHTML;
     return this.unescapeHTML = Cc["@mozilla.org/feed-unescapehtml;1"].getService(Ci.nsIScriptableUnescapeHTML)
   },
-  
   get implementToStaticHTML() {
     delete this.implementToStaticHTML;
     return this.implementToStaticHTML = this.getPref("toStaticHTML");
   },
-  
   _toStaticHTMLHandler:  function(ev) {
     try {
       var t = ev.target;

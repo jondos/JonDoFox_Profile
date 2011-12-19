@@ -817,7 +817,8 @@ http://mags.acm.org/
 <target host="*.bahn.de" />
   <target host="bahn.de" />
 
-  <rule from="^http://([^/:@]*)\.bahn\.de/" to="https://$1.bahn.de/"/>
+  <exclusion pattern="^http://bauarbeiten\.bahn\.de/"/>
+  <rule from="^http://([^/:@\.]+)\.bahn\.de/" to="https://$1.bahn.de/"/>
 </ruleset>
 <ruleset name="Balatarin">
   <target host="balatarin.com" />
@@ -1311,12 +1312,15 @@ http://mags.acm.org/
 <ruleset name="Cert">
   <target host="cert.org" />
   <target host="www.cert.org" />
-  <target host="www.kb.cert.org" />
 
   <securecookie host="^(.+\.)?cert\.org$" name=".*"/>
 
   <rule from="^http://(www\.)?cert\.org/" to="https://www.cert.org/"/>
+  <!--
+  This host's HTTPS deployment seems to be broken...
+  <target host="www.kb.cert.org" />
   <rule from="^http://www\.kb\.cert\.org/" to="https://www.kb.cert.org/"/>
+  -->
 </ruleset>
 <!-- idg does their best to make https tricky -->
 <ruleset name="CIO.com.au">
@@ -2059,11 +2063,17 @@ other users' journals! -->
 <ruleset name="DuckDuckGo">
   <target host="duckduckgo.com" />
   <target host="*.duckduckgo.com" />
+  <target host="ddg.gg" />
   <target host="duck.co" />
-  
+
+  <exclusion pattern="^http://help\.duckduckgo\.com/" />
+
   <rule from="^http://duckduckgo\.com/" to="https://duckduckgo.com/"/>
-  <rule from="^http://([^/:@]*)\.duckduckgo\.com/" to="https://$1.duckduckgo.com/"/>
-  <rule from="^http://duck\.co/" to="https://duck.co/"/>
+  <rule from="^http://([^/:@\.]+)\.duckduckgo\.com/" to="https://$1.duckduckgo.com/"/>
+	<!-- TODO: What does ddg.gg/foo do? Runs query foo, redirects to homepage, or error? -->
+    <rule from="^http://ddg\.gg/$" to="https://duckduckgo.com/" />
+	
+    <rule from="^http://duck\.co/" to="https://duck.co/" />
 </ruleset>
 <ruleset name="Dynamo Dresden">
         <target host="cms.dynamo-dresden.de" />
@@ -3194,6 +3204,7 @@ http://clients2.google.co.jp/complete/search?hl=ja&client=hp&expIds=17259,24660,
   <target host="www.google.com" />
   <target host="encrypted.google.com" /> <!-- only for applicable list purposes -->
 
+  <rule from="^http://images\.google\.com/" to="https://encrypted.google.com/imghp" />
   <rule from="^http://(images|www|encrypted)\.google\.com/(.*tbm=isch)" to="https://encrypted.google.com/$2"/>
 </ruleset>
 <ruleset name="GoogleMaps">
@@ -3241,6 +3252,8 @@ http://clients2.google.co.jp/complete/search?hl=ja&client=hp&expIds=17259,24660,
 
   <exclusion pattern="^http://(news\.)?google\.com/newspapers" />
   <exclusion pattern="^http://(news\.)?google\.com/archivesearch" />
+  <!-- why did Google break this :( :( ? -->
+  <exclusion pattern="^http://webcache\.googleusercontent\.com" />
 
   <rule from="^http://spreadsheets\.google\.com/"
           to="https://spreadsheets.google.com/"/>
@@ -4205,7 +4218,8 @@ https differs http: mob.northern-indymedia.org, joinin.northern-indymedia.org, r
   <target host="java.com" />
   <target host="www.java.com" />
 
-  <rule from="^http://(www\.)?java\.com/" to="https://www.java.com/"/>
+  <rule from="^http://(?:www\.)?java\.com(?::80)?/" to="https://www.java.com/"/>
+  <rule from="^https://(?:www\.)?java\.com:80/" to="https://www.java.com/"/>
 </ruleset>
 <ruleset name="Jobscout24">
   <target host="jobscout24.de" />
@@ -4527,7 +4541,7 @@ https differs http: mob.northern-indymedia.org, joinin.northern-indymedia.org, r
 	<rule from="^http://lantmateriet\.se/" to="https://www.lantmateriet.se/"/>
 </ruleset>
 
-<ruleset name="LastPass">
+<ruleset name="LastPass" default_off="Breaks addon ( https://eff.org/r.3Dq )">
   <target host="lastpass.com" />
   <target host="www.lastpass.com" />
 
@@ -5926,7 +5940,7 @@ other users' journals! -->
 
 	<rule from="^http://wiki\.openstreetmap\.org/" to="https://wiki.openstreetmap.org/"/>
 </ruleset>
-<ruleset name="The Open University">
+<ruleset name="The Open University (buggy)" default_off="https://eff.org/r.5E5">
 <!--
         The OU has myriads of domains, most of which do not support https.
         Specifically, it appears that all department and faculty websites
@@ -6685,7 +6699,7 @@ falling back to http -->
         <rule from="^http://(www\.)?raiffeisen\.ch/" to="https://www.raiffeisen.ch/"/>
         <rule from="^http://(tb\.)?raiffeisendirect\.ch/" to="https://tb.raiffeisendirect.ch/"/>
 </ruleset>
-<ruleset name="Random.org">
+<ruleset name="Random.org (broken)" default_off="Breaks random number generator">
   <target host="www.random.org" />
   <target host="random.org" />
 
@@ -6952,10 +6966,9 @@ server-side CDN issues, so it's off for the time being -->
 <ruleset name="SICS.se">
   <target host="sics.se" />
   <target host="www.sics.se" />
-  <rule from="^http://SICS\.se/" to="https://www.SICS.se/"/>
-  <rule from="^http://www\.SICS\.se/" to="https://www.SICS.se/"/>
+  <rule from="^http://sics\.se/" to="https://www.sics.se/"/>
+  <rule from="^http://www\.sics\.se/" to="https://www.sics.se/"/>
 </ruleset>
-
 <!-- SJ is a government operated railway company in sweden. -->
 <ruleset name="SJ.se">
   <target host="sj.se" />
@@ -7392,6 +7405,7 @@ server-side CDN issues, so it's off for the time being -->
 <ruleset name="Statcounter">
   <target host="statcounter.com" />
   <target host="*.statcounter.com" />
+  <exclusion pattern="^http://gs\.statcounter\.com/" />
 <!-- cert warning -->
 <!--  <target host="www.statcounter.com" /> -->
 
@@ -7592,7 +7606,7 @@ server-side CDN issues, so it's off for the time being -->
 </ruleset>
 
 <!-- tv.com includes stuff from .com.com. which do NOT allow https :( -->
-<ruleset name="TV.com">
+<ruleset name="TV.com (broken)" default_off="JS redirects back to HTTP">
 	<target host="tv.com" />
 	<target host="www.tv.com" />
 
@@ -7615,7 +7629,7 @@ server-side CDN issues, so it's off for the time being -->
 	<rule from="^http://www\.tandlakarforbundet\.se/" to="https://www.tandlakarforbundet.se/"/>
 </ruleset>
 
-<ruleset name="Target">
+<ruleset name="Target (broken)" default_off="Akamai cert problem">
   <target host="target.com" />
   <target host="www.target.com" />
   <target host="sites.target.com" />
@@ -8453,7 +8467,9 @@ which does not support SSL (301 redirect). blogs.technet.com however does.
   <target host="userscripts.org" />
   <target host="www.userscripts.org" />
 
-  <rule from="^http://(www\.)?userscripts\.org/" to="https://www.userscripts.org/"/>
+  <exclusion pattern="^http://(www\.)?userscripts\.org/scripts/source/" />
+  <rule from="^http://(?:www\.)?userscripts\.org/" 
+          to="https://www.userscripts.org/"/>
 </ruleset>
 <ruleset name="UsrJoy">
   <target host="usrjoy.com" />
@@ -8745,16 +8761,10 @@ If we are to download their content, atleast do it by https -->
 
   <rule from="^http://(www\.)?wiggle\.co\.uk/" to="https://www.wiggle.co.uk/"/>
 </ruleset>
-<!-- www.wikisomething.org is generally a valid
-     domain containing general information on a project and is
-     simply not available at all in HTTPS.  Everything with a /wiki
-     suffix, however, is a language-specific page that is available in
-     HTTPS.  Hence these rules avoid redirecting www.wikisomething.org,
-     while redirecting all language-specific subdomains.  If you
-     navigate first to the WWW page, you could be vulnerable to SSL
-     stripping, but if you succeed in submitting a query from there
-     in a specific language without interference, you'll subsequently
-     be protected.  -->
+<!-- Wikipedia and other Wikimedia Foundation wikis previously had no real HTTPS support, and
+     URLs had to be rewritten to https://secure.wikimedia.org/$wikitype/$language/ . This is no
+     longer the case, see https://blog.wikimedia.org/2011/10/03/native-https-support-enabled-for-all-wikimedia-foundation-wikis/ ,
+     so this file is a lot simpler these days. -->
 
 <ruleset name="Wikipedia">
   <target host="*.wikipedia.org" />
@@ -8765,65 +8775,39 @@ If we are to download their content, atleast do it by https -->
   <target host="*.wikiversity.org" />
   <target host="*.wiktionary.org" />
   <target host="*.wikimedia.org" />
+  <target host="wikipedia.org" />
+  <target host="wikinews.org" />
+  <target host="wikisource.org" />
+  <target host="wikibooks.org" />
+  <target host="wikiquote.org" />
+  <target host="wikiversity.org" />
+  <target host="wiktionary.org" />
+  <target host="wikimedia.org" />
   <target host="mediawiki.org" />
   <target host="www.mediawiki.org" />
   <target host="wikimediafoundation.org" />
   <target host="www.wikimediafoundation.org" />
-  <target host="wikimedia.org" />
   <target host="enwp.org" />
+  <target host="frwp.org" />
 
 <!-- TODO: What exclusions do we need for mobile sites, if any? -->
-  <exclusion pattern="^http://(dumps|download)\.wikimedia\.org/"/>
+  <exclusion pattern="^http://(dumps|download|svn|noc|prototype|etherpad|stats|ganglia|nagios|status|project2)\.wikimedia\.org/"/>
   <exclusion pattern="^http://(static|download|m)\.wikipedia\.org/"/>
-  <exclusion pattern="^http://www\.wik(ipedia|inews|isource|ibooks|iquote|iversity|tionary)\.org/"/>
 
-<!-- To be safe, and to make the rule visible in the context menu -->
-  <rule from="^http://secure\.wikimedia\.org/"
-          to="https://secure.wikimedia.org/"/>
 
-<!-- The mediazilla: interwiki prefix on a default MediaWiki installation
-     is outdated, wrongly pointing to http://bugzilla.wikipedia.org
-     which is normally a (vulnerable) redirect.
-     This has been corrected on Wikimedia Foundation wikis. -->
-  <rule from="^http://bugzilla\.wiki[mp]edia\.org/"
-          to="https://bugzilla.wikimedia.org/"/>
+  <rule from="^http://([^@:/]+\.)?wik(ipedia|inews|isource|ibooks|iquote|iversity|tionary|imedia)\.org/"
+          to="https://$1wik$2.org/" />
 
-  <rule from="^http://([^@:/]+)\.wik(ipedia|inews|isource|ibooks|iquote|iversity|tionary)\.org/(w|wiki)/"
-          to="https://secure.wikimedia.org/wik$2/$1/$3/"/>
-  <rule from="^http://([^@:/]+)\.wik(ipedia|inews|isource|ibooks|iquote|iversity|tionary)\.org/\?title="
-          to="https://secure.wikimedia.org/wik$2/$1/wiki/"/>
-  <rule from="^http://([^@:/]+)\.wik(ipedia|inews|isource|ibooks|iquote|iversity|tionary)\.org/?$"
-          to="https://secure.wikimedia.org/wik$2/$1/wiki/"/>
+  <rule from="^http://(www\.)?mediawiki\.org/"
+	  to="https://$1mediawiki.org/" />
+  <rule from="^http://(www\.)?wikimediafoundation\.org/"
+	  to="https://$1wikimediafoundation.org/" />
 
-  <rule from="^http://(meta|commons|incubator|species|outreach|strategy|usability|wikimania|wikimania200[5-9]|wikimania201[0-2]|test)\.wikimedia\.org/(w|wiki)/"
-          to="https://secure.wikimedia.org/wikipedia/$1/$2/"/>
-  <rule from="^http://(meta|commons|incubator|species|outreach|strategy|usability|wikimania|wikimania200[5-9]|wikimania201[0-2]|test)\.wikimedia\.org/\?title="
-          to="https://secure.wikimedia.org/wikipedia/$1/wiki/"/>
-  <rule from="^http://(meta|commons|incubator|species|outreach|strategy|usability|wikimania|wikimania200[5-9]|wikimania201[0-2]|test)\.wikimedia\.org/?$"
-          to="https://secure.wikimedia.org/wikipedia/$1/wiki/"/>
-  
-
-  <rule from="^http://(www\.)?mediawiki\.org/$" 
-          to="https://secure.wikimedia.org/wikipedia/mediawiki/wiki/" />
-  <rule from="^http://(www\.)?mediawiki\.org/(w|wiki)/" 
-          to="https://secure.wikimedia.org/wikipedia/mediawiki/$2/" />
-  <rule from="^http://(www\.)?wikimediafoundation\.org/$" 
-          to="https://secure.wikimedia.org/wikipedia/foundation/wiki/" />
-  <rule from="^http://(www\.)?wikimediafoundation\.org/(w|wiki)/" 
-          to="https://secure.wikimedia.org/wikipedia/foundation/$2/" />
-
-<!-- portal containing links to the English versions of all projects -->
-  <rule from="^http://(www\.)wikimedia\.org/$"
-          to="https://secure.wikimedia.org/" />
-	
-  <rule from="^http://(www\.)?(bits|upload)\.wikimedia\.org/"
-   	  to="https://$2.wikimedia.org/"/>
-  <rule from="^http://geoiplookup\.wikimedia\.org/"
-	  to="https://geoiplookup.wikimedia.org/"/>
-  <rule from="^http://survey\.wikimedia\.org/"
-	  to="https://survey.wikimedia.org/" />
   <rule from="^http://enwp\.org/"
-	  to="https://secure.wikimedia.org/wikipedia/en/wiki/" />
+	  to="https://en.wikipedia.org/wiki/" />
+
+  <rule from="^http://frwp\.org/"
+	  to="https://fr.wikipedia.org/wiki/" />
 </ruleset>
 <ruleset name="WinPcap">
   <target host="winpcap.org" />
@@ -8870,7 +8854,7 @@ If we are to download their content, atleast do it by https -->
   <rule from="^http://wordpress\.(com|org)/"
           to="https://wordpress.$1/"/>
   <rule from="^http://s\.wordpress\.(com|org)/"
-	  to="https://s-ssl.wordpress.$1/"/>
+	  to="https://www.wordpress.$1/"/>
   <rule from="^http://s[0-9]\.wordpress\.(com|org)/"
 	  to="https://secure.wordpress.$1/"/>
   <rule from="^http://([^/:@]+)\.wordpress\.(com|org)/"
@@ -8965,7 +8949,7 @@ If we are to download their content, atleast do it by https -->
   <rule from="^http://yaha\.no/" to="https://yaha.no/"/>
   <rule from="^http://www\.yaha\.no/" to="https://www.yaha.no/"/>
 </ruleset>
-<ruleset name="Yahoo! Mail">
+<ruleset name="Yahoo! Mail (buggy)" default_off="https://eff.org/r.G7u">
   <target host="mail.yahoo.com" />
   <target host="login.yahoo.com" />
   <!-- This rule really needs a secure cookie.  !! -->
@@ -9039,12 +9023,14 @@ If we are to download their content, atleast do it by https -->
     <exclusion pattern="^http://metro\.yandex\.ru/" />
     <exclusion pattern="^http://music\.yandex\.ru/" />
     <exclusion pattern="^http://news\.yandex\.ru/" />
+    <exclusion pattern="^http://pogoda\.yandex\.ru/" />
     <exclusion pattern="^http://presocial\.yandex\.net/" />
     <exclusion pattern="^http://sprav\.yandex\.ru/" />
     <exclusion pattern="^http://slovari\.yandex\.ru/" />
     <exclusion pattern="^http://tv\.yandex\.ru/" />
     <exclusion pattern="^http://video\.yandex\.ru/" />
     <exclusion pattern="^http://wdgt\.yandex\.ru/" />
+    <exclusion pattern="^http://weather\.yandex\.ru/" />
     <exclusion pattern="^http://www\.yandex\.ru/" />
     <!-- Remove this if you do never post entries or comments on my.ya.ru -->
     <exclusion pattern="^http://(www\.)?[^.]+\.ya\.ru/" />

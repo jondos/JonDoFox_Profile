@@ -39,6 +39,7 @@ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
 Cu.import(baseURL.spec + "Utils.jsm");
 Cu.import(baseURL.spec + "FilterStorage.jsm");
+Cu.import(baseURL.spec + "FilterNotifier.jsm");
 Cu.import(baseURL.spec + "FilterClasses.jsm");
 Cu.import(baseURL.spec + "SubscriptionClasses.jsm");
 Cu.import(baseURL.spec + "Prefs.jsm");
@@ -279,7 +280,7 @@ var Synchronizer =
 		if (subscription.lastModified && !forceDownload)
 			request.setRequestHeader("If-Modified-Since", subscription.lastModified);
 
-		request.onerror = function(ev)
+		request.addEventListener("error", function(ev)
 		{
 			delete executing[url];
 			try {
@@ -287,9 +288,9 @@ var Synchronizer =
 			} catch (e) {}
 
 			errorCallback("synchronize_connection_error");
-		};
+		}, false);
 
-		request.onload = function(ev)
+		request.addEventListener("load", function(ev)
 		{
 			delete executing[url];
 			try {
@@ -336,8 +337,6 @@ var Synchronizer =
 					if (interval > expirationInterval)
 						expirationInterval = interval;
 				}
-				if (isBaseLocation && filter instanceof CommentFilter && /\bRedirect(?:\s*:\s*|\s+to\s+|\s+)(\S+)/i.test(filter.text))
-					subscription.nextURL = RegExp.$1;
 			}
 
 			// Expiration interval should be within allowed range
@@ -348,6 +347,37 @@ var Synchronizer =
 
 			// Soft expiration: use random interval factor between 0.8 and 1.2
 			subscription.softExpiration = (subscription.lastDownload + Math.round(expirationInterval * (Math.random() * 0.4 + 0.8)));
+
+			// Process some special filters and remove them
+			if (newFilters)
+			{
+				for (let i = 0; i < newFilters.length; i++)
+				{
+					let filter = newFilters[i];
+					if (filter instanceof CommentFilter && /^!\s*(\w+)\s*:\s*(.*)/.test(filter.text))
+					{
+						let keyword = RegExp.$1.toLowerCase();
+						let value = RegExp.$2;
+						let known = true;
+						if (keyword == "redirect")
+						{
+							if (isBaseLocation && value != url)
+								subscription.nextURL = value;
+						}
+						else if (keyword == "homepage")
+						{
+							let uri = Utils.makeURI(value);
+							if (uri && (uri.scheme == "http" || uri.scheme == "https"))
+								subscription.homepage = uri.spec;
+						}
+						else
+							known = false;
+
+						if (known)
+							newFilters.splice(i--, 1);
+					}
+				}
+			}
 
 			if (isBaseLocation && newURL && newURL != url)
 			{
@@ -374,15 +404,11 @@ var Synchronizer =
 
 			if (newFilters)
 				FilterStorage.updateSubscriptionFilters(subscription, newFilters);
-			else
-				FilterStorage.triggerObservers("subscriptions updateinfo", [subscription]);
 			delete subscription.oldSubscription;
-
-			FilterStorage.saveToDisk();
-		};
+		}, false);
 
 		executing[url] = true;
-		FilterStorage.triggerObservers("subscriptions updateinfo", [subscription]);
+		FilterNotifier.triggerListeners("subscription.downloadStatus", subscription);
 
 		try
 		{
@@ -403,11 +429,10 @@ var Synchronizer =
  */
 function checkSubscriptions()
 {
-	let hadDownloads = false;
 	let time = Math.round(Date.now() / MILLISECONDS_IN_SECOND);
 	for each (let subscription in FilterStorage.subscriptions)
 	{
-		if (!(subscription instanceof DownloadableSubscription) || !subscription.autoDownload)
+		if (!(subscription instanceof DownloadableSubscription))
 			continue;
 
 		if (subscription.lastCheck && time - subscription.lastCheck > MAX_ABSENSE_INTERVAL)
@@ -429,19 +454,9 @@ function checkSubscriptions()
 		if (subscription.softExpiration > time && subscription.expires > time)
 			continue;
 
-		// Do not retry downloads more often than synchronizationinterval pref dictates
-		let interval = (time - subscription.lastDownload) / SECONDS_IN_HOUR;
-		if (interval >= Prefs.synchronizationinterval)
-		{
-			hadDownloads = true;
+		// Do not retry downloads more often than MIN_EXPIRATION_INTERVAL
+		if (time - subscription.lastDownload >= MIN_EXPIRATION_INTERVAL)
 			Synchronizer.execute(subscription, false);
-		}
-	}
-
-	if (!hadDownloads)
-	{
-		// We didn't kick off any downloads - still save changes to lastCheck & Co.
-		FilterStorage.saveToDisk();
 	}
 }
 
@@ -558,21 +573,26 @@ function setError(subscription, error, channelStatus, responseStatus, downloadUR
 			request.channel.loadFlags = request.channel.loadFlags |
 																	request.channel.INHIBIT_CACHING |
 																	request.channel.VALIDATE_ALWAYS;
-			request.onload = function(ev)
+			request.addEventListener("load", function(ev)
 			{
+				if (!(subscription.url in FilterStorage.knownSubscriptions))
+					return;
+
 				if (/^301\s+(\S+)/.test(request.responseText))  // Moved permanently    
 					subscription.nextURL = RegExp.$1;
 				else if (/^410\b/.test(request.responseText))   // Gone
 				{
-					subscription.autoDownload = false;
-					FilterStorage.triggerObservers("subscriptions updateinfo", [subscription]);
+					let data = "[Adblock]\n" + subscription.filters.map(function(f) f.text).join("\n");
+					let url = "data:text/plain," + encodeURIComponent(data);
+					let newSubscription = Subscription.fromURL(url);
+					newSubscription.title = subscription.title;
+					newSubscription.disabled = subscription.disabled;
+					FilterStorage.removeSubscription(subscription);
+					FilterStorage.addSubscription(newSubscription);
+					Synchronizer.execute(newSubscription);
 				}
-				FilterStorage.saveToDisk();
-			}
+			}, false);
 			request.send(null);
 		}
 	}
-
-	FilterStorage.triggerObservers("subscriptions updateinfo", [subscription]);
-	FilterStorage.saveToDisk();
 }

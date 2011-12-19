@@ -29,7 +29,7 @@ pref("noscript.showExternalFilters", true);
 pref("noscript.showTempAllowPage", true);
 pref("noscript.showAllowPage", true);
 pref("noscript.mandatory", "chrome: about: about:addons about:blocked about:crashes about:home about:config about:neterror about:certerror about:plugins about:privatebrowsing about:sessionrestore resource:");
-pref("noscript.default", "about:blank about:credits addons.mozilla.org mozilla.net flashgot.net google.com gstatic.com googleapis.com paypal.com paypalobjects.com securecode.com informaction.com yahoo.com yimg.com yahooapis.com youtube.com ytimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com js.wlxrs.com msc.wlxrs.com");
+pref("noscript.default", "about:blank about:credits addons.mozilla.org mozilla.net flashgot.net google.com gstatic.com googleapis.com paypal.com paypalobjects.com securecode.com firstdata.com firstdata.lv informaction.com yahoo.com yimg.com yahooapis.com youtube.com ytimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com js.wlxrs.com msc.wlxrs.com");
 pref("noscript.forbidJava", true);
 pref("noscript.forbidFlash", true);
 pref("noscript.forbidSilverlight", true);
@@ -87,6 +87,7 @@ pref("noscript.menuAccelerators", false);
 pref("noscript.forbidMetaRefresh", false);
 pref("noscript.forbidMetaRefresh.remember", false);
 pref("noscript.forbidMetaRefresh.notify", true);
+pref("noscript.forbidMetaRefresh.exceptions", "^https?://(?:www|encrypted)\\.google\\.(?:[a-z]{2,3}|[a-z]{2}\\.[a-z]{2,3})/ t.co");
 
 pref("noscript.contentBlocker", false);
 
@@ -128,6 +129,8 @@ pref("noscript.jsredirectIgnore", false);
 pref("noscript.jsredirectFollow", false);
 pref("noscript.jsredirectForceShow", false);
 
+pref("noscript.removeSMILKeySniffer", true);
+
 pref("noscript.utf7filter", true);
 
 pref("noscript.safeJSRx", "(?:window\\.)?close\\s*\\(\\)");
@@ -167,6 +170,7 @@ pref("noscript.alwaysBlockUntrustedContent", true);
 
 pref("noscript.consoleLog", false);
 
+pref("noscript.dropXssProtection", true);
 pref("noscript.flashPatch", true);
 pref("noscript.silverlightPatch", true);
 
@@ -198,7 +202,7 @@ pref("noscript.clearClick", 3);
 pref("noscript.clearClick.plugins", true);
 pref("noscript.clearClick.prompt", true);
 pref("noscript.clearClick.debug", false);
-pref("noscript.clearClick.exceptions", ".mail.yahoo.com *.ebay.com *.photobucket.com");
+pref("noscript.clearClick.exceptions", ".mail.yahoo.com https://mail.google.com/ *.ebay.com *.photobucket.com");
 pref("noscript.clearClick.subexceptions", "^http://bit(?:ly\\.com|\\.ly)/a/sidebar\\?u= http://*.uservoice.com/*/popin.html?* http://w.sharethis.com/share3x/lightbox.html?* http://disqus.com/embed/* *.disqus.com/*/reply.html?* http://www.feedly.com/mini abine:*");
 pref("noscript.clearClick.rapidFireCheck", true);
 

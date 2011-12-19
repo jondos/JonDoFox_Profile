@@ -225,7 +225,9 @@ JDFManager.prototype = {
     'privacy.clearOnShutdown.history':
     'extensions.jondofox.clearOnShutdown_history',
     'privacy.clearOnShutdown.offlineApps':
-    'extensions.jondofox.clearOnShutdown_offlineApps'
+    'extensions.jondofox.clearOnShutdown_offlineApps',
+    'security.enable_tls_session_tickets':
+    'extensions.jondofox.tls_session_tickets'
   },
 
   //This map of integer preferences is given to the prefsMapper
@@ -255,6 +257,8 @@ JDFManager.prototype = {
 
   isClearingSearchhistoryEnabled: false,
 
+  envSrv: null,
+
   // Inititalize services and stringBundle
   init: function() {
     var bundleService;
@@ -273,22 +277,44 @@ JDFManager.prototype = {
 	                      getService(CI.nsIRDFService);
       JDFManager.prototype.directoryService = 
        CC['@mozilla.org/file/directory_service;1'].getService(CI.nsIProperties);
+      this.envSrv = CC["@mozilla.org/process/environment;1"].
+        getService(CI.nsIEnvironment); 
       // Determine whether we use FF4 or still some FF3
       this.isFirefox4();
       if (this.ff4) {
         try {
           var extensionListener = {
-	    onUninstalling: function(addon) {
+            onInstalling: function(addon, needsRestart) {
+              if (needsRestart) {
+                JDFManager.prefsHandler.
+                  setStringPref("extensions.jondofox.tz_string", "");
+              }
+            },
+	    onUninstalling: function(addon, needsRestart) {
               if (addon.id === "{437be45a-4114-11dd-b9ab-71d256d89593}") {
 		log("We got the onUninstalling notification...")
                 JDFManager.prototype.clean = true;
 		JDFManager.prototype.uninstall = true;
 	      }
+              if (needsRestart) {
+                JDFManager.prefsHandler.
+                  setStringPref("extensions.jondofox.tz_string", "");
+              }
 	    },
-            onDisabling: function(addon) {
+            onEnabling: function(addon, needsRestart) {
+              if (needsRestart) {
+                JDFManager.prefsHandler.
+                  setStringPref("extensions.jondofox.tz_string", "");
+              }
+            },
+            onDisabling: function(addon, needsRestart) {
               if (addon.id === "{437be45a-4114-11dd-b9ab-71d256d89593}") {
 		log("We got the onDisabling notification...");
                 JDFManager.prototype.clean = true;
+              }
+              if (needsRestart) {
+                JDFManager.prefsHandler.
+                  setStringPref("extensions.jondofox.tz_string", "");
               }
 	    },
 	    onOperationCancelled: function(addon) {
@@ -630,6 +656,12 @@ JDFManager.prototype = {
       // Now, we observe the datasource in order to be able to prevent the user
       // from using external applications automatically.
       this.observeMimeTypes();
+      // We need to save the mode of all plugins in order to get them properly
+      // set after switching to No-Proxy mode.
+      if (!this.prefsHandler.
+        getStringPref('extensions.jondofox.saved_plugin_settings')) {
+        this.savePluginSettings();
+      }
       log("Setting initial proxy state ..");
       // If somebody wants to have always JonDo as a proxy she gets it and the 
       // corresponding User Agent setting. Otherwise the last used proxy will be
@@ -642,7 +674,7 @@ JDFManager.prototype = {
       // We need to estimate the JonDo path anyway in order to show the user
       // later on the proper help if she accidentally shut JonDo down.
       // Therefore, we are doing it right now...
-      this.jondoExecutable = this.getJonDoPath();
+      /*this.jondoExecutable = this.getJonDoPath();
       if (this.jondoExecutable) {
         this.jondoProcess = CC["@mozilla.org/process/util;1"].
                            createInstance(CI.nsIProcess); 
@@ -654,13 +686,13 @@ JDFManager.prototype = {
           log("Starting JonDo...");
           this.startJondo();
         }
-      }
+      }*/
       // A convenient method to set user prefs that change from proxy to proxy.
       // We should nevertheless make the settings of userprefs in broader way
       // dependant on the chosen proxy. This would include the call to 
       // prefsMapper.map() in this function and should be more flexible and
       // transparent.
-      this.setUserAgent(this.getState());
+      this.setUserAgent(true, this.getState());
     } catch (e) {
       log("onUIStartup(): " + e);
     }
@@ -809,6 +841,73 @@ JDFManager.prototype = {
         // with FF < 4 got hit by this bug she has to upgrade. 
         this.jondoProcess.runw(false, this.jondoArgs, this.jondoArgs.length); 
       } 
+    }
+  },
+  
+  // Taken with some minor modifications from Torbutton (torbutton.js).
+  setTimezone: function(startup, mode) {
+    log("Setting timezone at " + startup + " for mode " + mode);
+
+    // For TZ info, see:
+    // http://www-01.ibm.com/support/docview.wss?rs=0&uid=swg21150296
+    // and 
+    // http://msdn.microsoft.com/en-us/library/90s5c885.aspx
+    if (startup) {
+      // Save Date() string to pref
+      var d = new Date();
+      var offset = d.getTimezoneOffset();
+      var offStr = "";
+      if (d.getTimezoneOffset() < 0) {
+        offset = -offset;
+        offStr = "-";
+      } else {
+        offStr = "+";
+      }
+      var minutes = offset % 60;
+      // Division in JS gives always floating point results we do not want.
+      // And Math.floor() is not working properly for negative values.
+      if ((offset - minutes) / 60 < 10) {
+        offStr += "0";
+      }
+      offStr += ((offset - minutes) / 60) + ":";
+      if ((minutes) < 10) {
+        offStr += "0";
+      }
+      offStr += (minutes);
+
+      // Regex match for 3 letter code
+      var re = new RegExp('\\((\\S+)\\)', "gm");
+      match = re.exec(d.toString());
+      // Parse parens. If parseable, use. Otherwise set TZ=""
+      var set = ""
+      if (match) {
+        set = match[1] + offStr;
+      } else {
+        // If we get no 3 letter code we set the pref at least to "" in
+        // order to have at least a small chance to get the timezone properly
+        // set after proxy switching.
+        // Just taking the offset does not work (at least on the Windows
+        // machine I had for testing).
+      }
+      this.prefsHandler.setStringPref("extensions.jondofox.tz_string", set);
+    }
+    if (mode === "custom") {
+      var userAgent = this.prefsHandler.
+        getStringPref("extensions.jondofox.custom.user_agent");
+    }
+
+    if (mode === "jondo" || mode === "tor" ||
+        (mode === "custom" && (userAgent === "jondo" || userAgent === "tor"))) {
+      log("Setting timezone to UTC");
+      this.envSrv.set("TZ", "UTC");
+    } else {
+      // 1. If startup TZ string, reset.
+      log("Unsetting timezone.");
+      // FIXME: Tears.. This will not update during daylight switch for
+      // linux+mac users. Windows users will be fine though, because tz_string
+      // should be empty for them.
+      this.envSrv.set("TZ",
+        this.prefsHandler.getStringPref("extensions.jondofox.tz_string"));
     }
   },
 
@@ -1026,7 +1125,9 @@ JDFManager.prototype = {
     log("Checking whether we have to update the profile ..");
     try {
       if (this.prefsHandler.getStringPref(
-            'extensions.jondofox.profile_version') !== "2.6.0" && 
+            'extensions.jondofox.profile_version') !== "2.6.0" &&
+          this.prefsHandler.getStringPref(
+            'extensions.jondofox.profile_version') !== "2.6.1" && 
           this.prefsHandler.getBoolPref('extensions.jondofox.update_warning')) {
           this.jdfUtils.showAlertCheck(this.jdfUtils.
             getString('jondofox.dialog.attention'), this.jdfUtils.
@@ -1039,44 +1140,66 @@ JDFManager.prototype = {
     }
   },
 
+  savePluginSettings: function() {
+    log("Saving plugins...");
+    var pluginHost = CC["@mozilla.org/plugin/host;1"].getService(CI.
+      nsIPluginHost);
+    var plugins = pluginHost.getPluginTags({}); 
+    var oldPlugins = {};
+    for (var i = 0; i < plugins.length; i++) { 
+      var p = plugins[i];
+      log(p.name + " : " + p.disabled);
+      oldPlugins[p.name] = p.disabled;  
+    }
+    var pluginJSON = JSON.stringify(oldPlugins);
+    this.prefsHandler.setStringPref('extensions.jondofox.saved_plugin_settings',
+      pluginJSON);
+  }, 
+
   enforcePluginPref: function(state) {
     var userAgent = this.prefsHandler.
       getStringPref('extensions.jondofox.custom.user_agent'); 
     var pluginHost = CC["@mozilla.org/plugin/host;1"].getService(CI.
       nsIPluginHost);
     var plugins = pluginHost.getPluginTags({}); 
-    if (state === this.STATE_JONDO || (state === this.STATE_CUSTOM &&
-        userAgent === 'jondo')) {
+    if (state === this.STATE_JONDO) {
       for (var i = 0; i < plugins.length; i++) {
         var p=plugins[i];
-        if (this.prefsHandler.
-          getBoolPref("extensions.jondofox.plugin-protection_enabled")) { 
-          if (/^Shockwave.*Flash/i.test(p.name)) { 
-            if (this.prefsHandler.
+        if (/^Shockwave.*Flash/i.test(p.name)) { 
+          if (this.prefsHandler.
               getBoolPref("extensions.jondofox.disableAllPluginsJonDoMode")) {
-              p.disabled = true;
-            } else {
-              // We need this if we are coming from Tor mode
-              p.disabled = false;
-            }
-          } else {
             p.disabled = true;
+          } else {
+            // We need this if we are coming from Tor mode
+            p.disabled = false;
           }
         } else {
-          p.disabled = false;
+          p.disabled = true;
         } 
       }
-    } else if (state === this.STATE_TOR || (state === this.STATE_CUSTOM &&
-               userAgent === 'tor')) {
+    } else if (state === this.STATE_TOR) {
       for (var i = 0; i < plugins.length; i++) {
         var p = plugins[i]; 
         // The TorBrowserBundle blocks all plugins by default
         p.disabled = true;
       }   
     } else if (state === this.STATE_CUSTOM || state === this.STATE_NONE) {
+      log("Setting plugin state back...");
+      var oldPluginSettings = JSON.parse(this.prefsHandler.
+        getStringPref('extensions.jondofox.saved_plugin_settings'));
       for (var i = 0; i < plugins.length; i++) {
         var p = plugins[i]; 
-        p.disabled = false;
+        try {
+          var oldSettings = oldPluginSettings.hasOwnProperty(p.name);
+        } catch (e) {}
+        if (oldSettings) {
+          p.disabled = oldPluginSettings[p.name];
+        } else {
+          // If new plugins were installed meanwhile (i.e. in an other mode) we
+          // do enable them as the user probably installed these plugins in
+          // order to make use of them.
+          p.disabled = false; 
+        }
       } 
     }
   },
@@ -1084,7 +1207,7 @@ JDFManager.prototype = {
   // TODO: Transfor this function in a more general prefs setting function
   // depending on the proxy state.
   // Setting the user agent for the different proxy states
-  setUserAgent: function(state) {
+  setUserAgent: function(startup, state) {
     var p;
     var userAgent;
     var proxyKeepAlive = this.prefsHandler.
@@ -1092,7 +1215,10 @@ JDFManager.prototype = {
     var acceptLang = this.prefsHandler.getStringPref("intl.accept_languages");
     log("Setting user agent and other stuff for: " + state);
     // First the plugin pref
-    this.enforcePluginPref(state);
+    if (this.prefsHandler.
+        getBoolPref("extensions.jondofox.plugin-protection_enabled")) {
+      this.enforcePluginPref(state);
+    }
     switch(state) {
       case (this.STATE_JONDO): 
         for (p in this.jondoUAMap) {
@@ -1186,6 +1312,9 @@ JDFManager.prototype = {
 	log("We should not be here!");
         break;
     }
+    // Setting the timezone according to the proxy settings and, on startup,
+    // saving the original one for recovery.
+    this.setTimezone(startup, state); 
   },
 
   // We get the original values (needed for proxy = none and if the user 
@@ -1654,6 +1783,19 @@ JDFManager.prototype = {
     try {
       // Store the previous state to detect state changes
       var previousState = this.getState();
+      // We store the previous plugin settings if the user comes out of no proxy
+      // mode in order to restore them later if the user switches back. That
+      // should be independent of the status of the plugin feature. Otherwise it
+      // could happen that an old saved state gets restored as soon as the user
+      // is enabling that feature: forgetting about e.g. newly installed or
+      // removed plugins.
+      // We treat custom proxy mode as no proxy mode for the plugin feature
+      // as otherwise the user would have no options to use JonDonym with
+      // plugins other than Flash enabled.
+      if (previousState === this.STATE_NONE ||
+          (previousState === this.STATE_CUSTOM)) {
+        this.savePluginSettings();
+      }
       // STATE_NONE --> straight disable
       if (state === this.STATE_NONE) {
         this.disableProxy();
@@ -1764,6 +1906,15 @@ JDFManager.prototype = {
           if (this.clean) {
             this.cleanup();
           }
+
+          // We reset the timezone here: That is usually not a problem as the
+          // real timezone is read and saved during every startup. But if one
+          // just updates extensions the old environment variables are kept
+          // and it can happen that the timezone switching does not work
+          // properly anymore. Thus...
+          this.envSrv.set("TZ",
+            this.prefsHandler.getStringPref("extensions.jondofox.tz_string"));
+
           // Unregister observers
           this.unregisterObservers();
           break;
