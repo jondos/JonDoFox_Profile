@@ -4,6 +4,7 @@ sqlite3.dll
 xpcom_compat.dll
 xpistub.dll
 zlib.dll
+jemalloc.dll
 LICENSE
 browserconfig.properties
 chrome/US.jar
@@ -295,6 +296,7 @@ searchplugins/atlas-sk.src
 searchplugins/baidu.gif
 searchplugins/baidu.png
 searchplugins/baidu.src
+searchplugins/bluu.xml
 searchplugins/bok-NO.gif
 searchplugins/bok-NO.png
 searchplugins/bok-NO.src
@@ -1025,10 +1027,14 @@ components/jsd3250.dll
 components/nsPostUpdateWin.js
 js3250.dll
 plugins/npnul32.dll
-Microsoft.VC80.CRT.manifest
-msvcm80.dll
-msvcp80.dll
-msvcr80.dll
+bin/Microsoft.VC90.CRT.manifest
+bin/msvcm90.dll
+bin/msvcp90.dll
+bin/msvcr90.dll
+bin/msvcp100.dll
+bin/msvcr100.dll
+mozcrt19.dll
+mozcpp19.dll
 xpcom_core.dll
 components/jar50.dll
 components/xpinstal.dll
