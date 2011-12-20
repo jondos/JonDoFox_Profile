@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "FirefoxPortable"
-!define VERSION "2.6.0.0"
+!define VERSION "2.6.1.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "8.0"
+!define FF_VERSION "9.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "FirefoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -416,7 +416,7 @@ SectionIn 1 2
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_de"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
-                    File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
+#File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
               ${Else} 
                     File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
               ${EndIf}
@@ -424,7 +424,7 @@ SectionIn 1 2
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
-                    File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
+#File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
               ${Else}
                     File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
               ${EndIf}
