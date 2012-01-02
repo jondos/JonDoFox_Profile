@@ -1,0 +1,146 @@
+Generated File. Do not edit.
+
+[HEADER]
+Version|0.11|$
+
+[PLUGINS]
+nppdf32.dll|$
+C:\Program Files\Adobe\Reader 9.0\Reader\browser\nppdf32.dll|$
+9.3.0.148|$
+1261416846000|1|5|$
+Adobe PDF Plug-In For Firefox and Netscape|$
+Adobe Acrobat|$
+7
+0|application/pdf|Acrobat Portable Document Format|pdf|$
+1|application/vnd.adobe.pdfxml|Adobe PDF in XML Format|pdfxml|$
+2|application/vnd.adobe.x-mars|Adobe PDF in XML Format|mars|$
+3|application/vnd.fdf|Acrobat Forms Data Format|fdf|$
+4|application/vnd.adobe.xfdf|XML Version of Acrobat Forms Data Format|xfdf|$
+5|application/vnd.adobe.xdp+xml| Acrobat XML Data Package|xdp|$
+6|application/vnd.adobe.xfd+xml|Adobe FormFlow99 Data File|xfd|$
+npdeploytk.dll|$
+C:\Program Files\Java\jre6\bin\new_plugin\npdeploytk.dll|$
+6.0.170.4|$
+1263118387023|1|5|$
+NPRuntime Script Plug-in Library for Java(TM) Deploy|$
+Java Deployment Toolkit 6.0.170.4|$
+1
+0|application/npruntime-scriptable-plugin;DeploymentToolkit|||$
+npjp2.dll|$
+C:\Program Files\Java\jre6\bin\new_plugin\npjp2.dll|$
+6.0.170.4|$
+1263118386976|1|5|$
+Next Generation Java Plug-in 1.6.0_17 for Mozilla browsers|$
+Java(TM) Platform SE 6 U17|$
+34
+0|application/x-java-applet|Java Applet||$
+1|application/x-java-bean|JavaBeans||$
+2|application/x-java-vm|||$
+3|application/x-java-applet;version=1.1.1|||$
+4|application/x-java-bean;version=1.1.1|||$
+5|application/x-java-applet;version=1.1|||$
+6|application/x-java-bean;version=1.1|||$
+7|application/x-java-applet;version=1.2|||$
+8|application/x-java-bean;version=1.2|||$
+9|application/x-java-applet;version=1.1.3|||$
+10|application/x-java-bean;version=1.1.3|||$
+11|application/x-java-applet;version=1.1.2|||$
+12|application/x-java-bean;version=1.1.2|||$
+13|application/x-java-applet;version=1.3|||$
+14|application/x-java-bean;version=1.3|||$
+15|application/x-java-applet;version=1.2.2|||$
+16|application/x-java-bean;version=1.2.2|||$
+17|application/x-java-applet;version=1.2.1|||$
+18|application/x-java-bean;version=1.2.1|||$
+19|application/x-java-applet;version=1.3.1|||$
+20|application/x-java-bean;version=1.3.1|||$
+21|application/x-java-applet;version=1.4|||$
+22|application/x-java-bean;version=1.4|||$
+23|application/x-java-applet;version=1.4.1|||$
+24|application/x-java-bean;version=1.4.1|||$
+25|application/x-java-applet;version=1.4.2|||$
+26|application/x-java-bean;version=1.4.2|||$
+27|application/x-java-applet;version=1.5|||$
+28|application/x-java-bean;version=1.5|||$
+29|application/x-java-applet;version=1.6|||$
+30|application/x-java-bean;version=1.6|||$
+31|application/x-java-applet;jpi-version=1.6.0_17|||$
+32|application/x-java-bean;jpi-version=1.6.0_17|||$
+33|application/x-java-vm-npruntime|||$
+npvlc.dll|$
+C:\Program Files\VideoLAN\VLC\npvlc.dll|$
+1.0.3.0|$
+1256902134000|1|5|$
+Version 1.0.3, copyright 1996-2009 The VideoLAN Team<br><a href="http://www.videolan.org/">http://www.videolan.org/</a>|$
+VLC Multimedia Plug-in|$
+35
+0|audio/mpeg|MPEG audio|mp2,mp3,mpga,mpega|$
+1|audio/x-mpeg|MPEG audio|mp2,mp3,mpga,mpega|$
+2|video/mpeg|MPEG video|mpg,mpeg,mpe|$
+3|video/x-mpeg|MPEG video|mpg,mpeg,mpe|$
+4|video/mpeg-system|MPEG video|mpg,mpeg,vob|$
+5|video/x-mpeg-system|MPEG video|mpg,mpeg,vob|$
+6|video/mp4|MPEG-4 video|mp4,mpg4|$
+7|audio/mp4|MPEG-4 audio|mp4,mpg4|$
+8|application/mpeg4-iod|MPEG-4 video|mp4,mpg4|$
+9|application/mpeg4-muxcodetable|MPEG-4 video|mp4,mpg4|$
+10|video/x-msvideo|AVI video|avi|$
+11|video/quicktime|QuickTime video|mov,qt|$
+12|application/x-ogg|Ogg stream|ogg|$
+13|application/ogg|Ogg stream|ogg|$
+14|application/x-vlc-plugin|VLC plug-in|vlc|$
+15|video/x-ms-asf-plugin|Windows Media video|asf,asx|$
+16|video/x-ms-asf|Windows Media video|asf,asx|$
+17|application/x-mplayer2|Windows Media plug-in||$
+18|video/x-ms-wmv|Windows Media video|wmv|$
+19|application/x-google-vlc-plugin|Google VLC plug-in||$
+20|audio/wav|WAV audio|wav|$
+21|audio/x-wav|WAV audio|wav|$
+22|audio/3gpp|3GPP audio|3gp,3gpp|$
+23|video/3gpp|3GPP video|3gp,3gpp|$
+24|audio/3gpp2|3GPP2 audio|3g2,3gpp2|$
+25|video/3gpp2|3GPP2 video|3g2,3gpp2|$
+26|video/divx|DivX video|divx|$
+27|video/flv|FLV video|flv|$
+28|video/x-flv|FLV video|flv|$
+29|video/x-matroska|Matroska video|mkv|$
+30|audio/x-matroska|Matroska audio|mka|$
+31|application/xspf+xml|Playlist xspf|xspf|$
+32|audio/x-m4a|MPEG-4 audio|m4a|$
+33|audio/x-mpegurl|Playlist M3U|m3u|$
+34|audio/x-ms-wma|Windows Media Audio|wma|$
+NPWPF.dll|$
+c:\Windows\Microsoft.NET\Framework\v3.5\Windows Presentation Foundation\NPWPF.dll|$
+3.5.30729.1|$
+1217371248000|1|5|$
+Windows Presentation Foundation (WPF) plug-in for Mozilla browsers|$
+Windows Presentation Foundation|$
+2
+0|application/x-ms-xbap|XAML Browser Application|xbap|$
+1|application/xaml+xml|XAML Document|xaml|$
+NPWLPG.dll|$
+C:\Program Files\Windows Live\Photo Gallery\NPWLPG.dll|$
+14.0.8081.709|$
+1247224320000|1|5|$
+NPWLPG|$
+Windows Live® Photo Gallery|$
+2
+0|application/x-wlpg3-detect|Windows Live® Photo Gallery|wlpg|$
+1|application/x-wlpg-detect|Windows Live® Photo Gallery|wlpg|$
+NPSWF32.dll|$
+C:\Windows\system32\Macromed\Flash\NPSWF32.dll|$
+9.0.124.0|$
+1206415278000|1|5|$
+Shockwave Flash 9.0  r124|$
+Shockwave Flash|$
+2
+0|application/x-shockwave-flash|Adobe Flash movie|swf|$
+1|application/futuresplash|FutureSplash movie|spl|$
+npnul32.dll|$
+C:\Users\jondos\FirefoxPortable_2\App\firefox\plugins\npnul32.dll|$
+1.0.0.15|$
+1264423974000|1|1|$
+Default Plug-in|$
+Mozilla Default Plug-in|$
+1
+0|*|Mozilla Default Plug-in|*|$
