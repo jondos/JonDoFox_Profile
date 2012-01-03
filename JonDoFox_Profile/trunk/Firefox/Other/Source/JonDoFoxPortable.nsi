@@ -21,8 +21,8 @@
 
 !define PORTABLEAPPNAME "JonDoFox"
 !define APPNAME "JonDoFox"
-!define NAME "FirefoxPortable"
-!define VER "1.6.0.2"
+!define NAME "JonDoFoxPortable"
+!define VER "2.1.0.0"
 !define WEBSITE "anonymous-proxy-servers.net/de/jondofox"
 !define DEFAULTEXE "firefox.exe"
 !define DEFAULTAPPDIR "firefox"
@@ -76,28 +76,24 @@ SetDatablockOptimize On
 !include SetFileAttributesDirectoryNormal.nsh
 
 ;=== Program Icon
-Icon "..\..\App\AppInfo\appicon.ico"
+Icon "appicon.ico"
 
-;=== Icon & Stye ===
-!define MUI_ICON "..\..\App\AppInfo\appicon.ico"
-BrandingText "PortableApps.com - Your Digital Life, Anywhere™"
-MiscButtonText "" "" "" "$(LauncherNextButton)"
-InstallButtonText "$(LauncherNextButton)"
+;=== Icon & Style ===
+!define MUI_ICON "appicon.ico"
 
 ;=== Pages
 !define MUI_PAGE_CUSTOMFUNCTION_PRE ShowLicense
 !define MUI_LICENSEPAGE_CHECKBOX
 !insertmacro MUI_PAGE_LICENSE "EULA.rtf"
-Page custom ShowLauncherOptions LeaveLauncherOptions "" 
 !insertmacro MUI_PAGE_INSTFILES
 
 ;=== Languages
 !insertmacro MUI_LANGUAGE "German"
 !include PortableApps.comLauncherLANG_GERMAN.nsh
 !include PortableApps.comLauncherOptionsLANG_GERMAN.nsh
-;!insertmacro MUI_LANGUAGE "English"
-;!include PortableApps.comLauncherLANG_ENGLISH.nsh
-;!include PortableApps.comLauncherOptionsLANG_ENGLISH.nsh
+!insertmacro MUI_LANGUAGE "English"
+!include PortableApps.comLauncherLANG_ENGLISH.nsh
+!include PortableApps.comLauncherOptionsLANG_ENGLISH.nsh
 
 ;=== Variables
 Var PROGRAMDIRECTORY
@@ -126,8 +122,6 @@ Var MOZILLAORGKEYEXISTS
 Var MISSINGFILEORPATH
 Var CRASHREPORTSDIREXISTS
 Var EXTENSIONSDIREXISTS
-Var ENABLESESSIONSTORE
-Var SESSIONSTORECHANGED
 
 Function ShowLicense
 	StrCmp $SHOWLICENSE "true" ShowLicenseEnd
@@ -136,41 +130,13 @@ Function ShowLicense
 	ShowLicenseEnd:
 FunctionEnd
 
-Function ShowLauncherOptions
-	!insertmacro MUI_INSTALLOPTIONS_EXTRACT "PortableApps.comLauncherOptionsForm.ini"
-	!insertmacro MUI_HEADER_TEXT "$(LauncherOptionsHeader)" "$(LauncherOptionsHeader2)"
-	WriteINIStr $PLUGINSDIR\PortableApps.comLauncherOptionsForm.ini "Field 1" "Text" "$(LauncherOptionsIntro)"
-	WriteINIStr $PLUGINSDIR\PortableApps.comLauncherOptionsForm.ini "Field 2" "Text" "$(LauncherOptionsOption1)"
-	WriteINIStr $PLUGINSDIR\PortableApps.comLauncherOptionsForm.ini "Field 3" "Text" "$(LauncherOptionsOption2)"
-	WriteINIStr $PLUGINSDIR\PortableApps.comLauncherOptionsForm.ini "Field 4" "Text" "$(LauncherOptionsOption1Description)"
-	WriteINIStr $PLUGINSDIR\PortableApps.comLauncherOptionsForm.ini "Field 5" "Text" "$(LauncherOptionsOption2Description)"
-	WriteINIStr $PLUGINSDIR\PortableApps.comLauncherOptionsForm.ini "Field 6" "Text" "$(LauncherOptionsOutro)"	
-	InstallOptions::InitDialog /NOUNLOAD "$PLUGINSDIR\PortableApps.comLauncherOptionsForm.ini"
-    Pop $R0
-    InstallOptions::Show
-FunctionEnd
-
-Function LeaveLauncherOptions
-	ReadINIStr $0 "$PLUGINSDIR\PortableApps.comLauncherOptionsForm.ini" "Field 2" "State"
-	StrCpy $SESSIONSTORECHANGED "true"
-	
-	StrCmp $0 "1" "" LeaveLauncherOptionsDisable
-		StrCpy $ENABLESESSIONSTORE "true"
-		Goto LeaveLauncherOptionsEnd
-
-	LeaveLauncherOptionsDisable:
-		StrCpy $ENABLESESSIONSTORE "false"
-	
-	LeaveLauncherOptionsEnd:
-FunctionEnd
-
 Function .onInit
 	${GetParameters} $0
 	StrCmp "$0" "SHOWLICENSE" CheckWhatToShow LicenseDone
 
 	CheckWhatToShow:
-		IfFileExists "$EXEDIR\Data\settings\FirefoxPortableSettings.ini" "" ShowBoth
-			ReadINIStr $0 "$EXEDIR\Data\settings\FirefoxPortableSettings.ini" "FirefoxPortableSettings" "AgreedToLicense"
+		IfFileExists "$EXEDIR\Data\settings\JonDoFoxPortableSettings.ini" "" ShowBoth
+			ReadINIStr $0 "$EXEDIR\Data\settings\JonDoFoxPortableSettings.ini" "JonDoFoxPortableSettings" "AgreedToLicense"
 			StrCmp $0 "${LICENSEVERSION}" "" ShowBoth
 	
 	;ShowOptionsOnly:
@@ -326,42 +292,30 @@ Section "Main"
 		CreateDirectory "$PROFILEDIRECTORY"
 
 	ProfileFound:
-		IfFileExists "$SETTINGSDIRECTORY\FirefoxPortableSettings.ini" SettingsFound
+		IfFileExists "$SETTINGSDIRECTORY\JonDoFoxPortableSettings.ini" SettingsFound
 			CreateDirectory "$SETTINGSDIRECTORY"
-			FileOpen $R0 "$SETTINGSDIRECTORY\FirefoxPortableSettings.ini" w
+			FileOpen $R0 "$SETTINGSDIRECTORY\JonDoFoxPortableSettings.ini" w
 			FileClose $R0
-			WriteINIStr "$SETTINGSDIRECTORY\FirefoxPortableSettings.ini" "FirefoxPortableSettings" "LastProfileDirectory" "NONE"
+			WriteINIStr "$SETTINGSDIRECTORY\JonDoFoxPortableSettings.ini" "JonDoFoxPortableSettings" "LastProfileDirectory" "NONE"
 
 	SettingsFound:
 		StrCmp $SHOWLICENSE "true" WriteSettingsOut
 		StrCmp $SHOWOPTIONS "true" WriteSettingsOut CheckForLicense
 
 	WriteSettingsOut:
-		WriteINIStr "$SETTINGSDIRECTORY\FirefoxPortableSettings.ini" "FirefoxPortableSettings" "AgreedToLicense" "${LICENSEVERSION}"
-		WriteINIStr "$SETTINGSDIRECTORY\FirefoxPortableSettings.ini" "FirefoxPortableSettings" "EnableSessionStore" "$ENABLESESSIONSTORE"
-		StrCmp $SESSIONSTORECHANGED "true" "" TheEnd
-			IfFileExists "$PROFILEDIRECTORY\prefs.js" "" TheEnd
-				FileOpen $0 "$PROFILEDIRECTORY\prefs.js" a
-				FileSeek $0 0 END
-				FileWriteByte $0 "13"
-				FileWriteByte $0 "10"
-				FileWrite $0 `user_pref("browser.sessionstore.enabled", $ENABLESESSIONSTORE);`
-				FileWriteByte $0 "13"
-				FileWriteByte $0 "10"
-			Goto TheEnd
+		WriteINIStr "$SETTINGSDIRECTORY\JonDoFoxPortableSettings.ini" "JonDoFoxPortableSettings" "AgreedToLicense" "${LICENSEVERSION}"
+                Goto TheEnd
 	
 	CheckForLicense:
-		ReadINIStr $0 "$SETTINGSDIRECTORY\FirefoxPortableSettings.ini" "FirefoxPortableSettings" "AgreedToLicense"
+		ReadINIStr $0 "$SETTINGSDIRECTORY\JonDoFoxPortableSettings.ini" "JonDoFoxPortableSettings" "AgreedToLicense"
 		StrCmp $0 "${LICENSEVERSION}" "" RelaunchWithLicense
-		ReadINIStr $0 "$SETTINGSDIRECTORY\FirefoxPortableSettings.ini" "FirefoxPortableSettings" "EnableSessionStore"
 		StrCmp $0 "" RelaunchWithLicense
-		StrCpy $ENABLESESSIONSTORE $0
 		Goto LicenseAgreedTo
 
 	RelaunchWithLicense:
 		System::Call 'kernel32::GetModuleFileNameA(i 0, t .R0, i 1024) i r1'
 		ExecWait `$R0 SHOWLICENSE`
-		ReadINIStr $0 "$SETTINGSDIRECTORY\FirefoxPortableSettings.ini" "FirefoxPortableSettings" "AgreedToLicense"
+		ReadINIStr $0 "$SETTINGSDIRECTORY\JonDoFoxPortableSettings.ini" "JonDoFoxPortableSettings" "AgreedToLicense"
 		StrCmp $0 "${LICENSEVERSION}" LicenseAgreedTo TheEnd
 	
 	LicenseAgreedTo:
