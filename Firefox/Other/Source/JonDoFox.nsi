@@ -10,12 +10,12 @@
 ;=== BEGIN: BASIC INFORMATION
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
-!define SHORTNAME "FirefoxPortable"
+!define SHORTNAME "JonDoFoxPortable"
 !define VERSION "2.6.1.0"
 !define FILENAME "JonDoFox"
 !define FF_VERSION "9.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
-!define CHECKRUNNING "FirefoxPortable.exe"
+!define CHECKRUNNING "JonDoFoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
 !define INSTALLERVERSION "1.1.1.0"
@@ -105,7 +105,6 @@ ShowInstDetails show
 ;=== Program Details
 Name "${NAME}"
 OutFile "..\..\..\${FILENAME}.paf.exe"
-;InstallDir "$PROFILE\${SHORTNAME}\"
 InstallDir "\${SHORTNAME}"
 Caption "${NAME}"
 VIProductVersion "${VERSION}"
@@ -141,7 +140,6 @@ VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 !insertmacro WordReplace
 
 # MUI defines
-#!define MUI_ICON "..\..\App\AppInfo\appicon.ico"
 !define MUI_ICON "appicon.ico"
 
 !define MUI_CUSTOMFUNCTION_GUIINIT CustomGUIInit
@@ -386,10 +384,10 @@ SectionIn 1
 
         File /r /x .svn /x Source "..\..\*.*"
 
-        # Copying the FirefoxPortable.ini in order to allow a desktop and
+        # Copying the JonDoFoxPortable.ini in order to allow a desktop and
         # a portable Firefox running in parallel
         
-	File "FirefoxPortable.ini"
+	File "JonDoFoxPortable.ini"
         
         ${If} $LANGUAGE == "1031"          # german
               File /r /x .svn "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
@@ -411,14 +409,15 @@ SectionIn 1 2
         SetOutPath $ProfilePath
         SetOverwrite on
         File appicon.ico
-        File /r /x .svn /x extensions "..\..\..\full\profile\*.*"
+        File /r /x .svn /x extensions /x places.sqlite_de /x places.sqlite_en /x prefs_portable_de.js /x prefs_portable_en.js "..\..\..\full\profile\*.*"
         ${If} $LANGUAGE == "1031"          # german
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_de"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
 #File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
               ${Else} 
-                    File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
+                    # Copying the help file and the images, but why?
+                    File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
               ${EndIf}
         ${ElseIf} $LANGUAGE == "1033"      # english
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
@@ -426,7 +425,7 @@ SectionIn 1 2
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
 #File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
               ${Else}
-                    File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
+                    File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
               ${EndIf}
         ${EndIf}
 
@@ -444,13 +443,13 @@ Section /o - ProfileCoreUpdate              #Update
               File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"   
         ${ElseIf} $LANGUAGE == "1031"
         ${AndIf} $PROGRAMINSTALL == "false"
-                File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
+                File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
         ${ElseIf} $LANGUAGE == "1033"
         ${AndIf} $PROGRAMINSTALL == "true"
               File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
         ${ElseIf} $LANGUAGE == "1033"
         ${AndIf} $PROGRAMINSTALL == "false" 
-                File /r /x .svn /x App /x Other /x FirefoxPortable.exe "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
+                File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
         ${EndIf}
 
 SectionEnd
@@ -1075,7 +1074,7 @@ FunctionEnd
       Push $5
       # We just test for firefox.exe as the option of having a desktop
       # and a portable version running in parallel disables the opportunity
-      # to check for FirefoxPortable.exe. That's quite inconvenient if one
+      # to check for JonDoFoxPortable.exe. That's quite inconvenient if one
       # has to quit Firefox in order to install the portable version but
       # probably safer.
       Push "firefox.exe"
@@ -1128,7 +1127,7 @@ FunctionEnd
 Function SearchProfileFolder
 
 
-    IfFileExists $INSTDIR\Data\settings\FirefoxPortableSettings.ini exists 0      # exists ini?
+    IfFileExists $INSTDIR\Data\settings\JonDoFoxPortableSettings.ini exists 0      # exists ini?
 
     # NO
                  StrCpy $Error ""
@@ -1143,27 +1142,27 @@ Function SearchProfileFolder
                  CreateDirectory $INSTDIR\Data\settings
                  IfErrors createerror
 
-                 StrCpy $Error "$INSTDIR\Data\settings\FirefoxPortableSettings.ini"
-                 FileOpen $0 $INSTDIR\Data\settings\FirefoxPortableSettings.ini w   # create File
+                 StrCpy $Error "$INSTDIR\Data\settings\JonDoFoxPortableSettings.ini"
+                 FileOpen $0 $INSTDIR\Data\settings\JonDoFoxPortableSettings.ini w   # create File
                  FileClose $0
                  IfErrors createerror
 
-                 StrCpy $Error "$INSTDIR\Data\settings\FirefoxPortableSettings.ini" # write profile to ini
-                 WriteINIStr $INSTDIR\Data\settings\FirefoxPortableSettings.ini FirefoxPortableSettings LastProfileDirectory $INSTDIR\Data\profile
+                 StrCpy $Error "$INSTDIR\Data\settings\JonDoFoxPortableSettings.ini" # write profile to ini
+                 WriteINIStr $INSTDIR\Data\settings\JonDoFoxPortableSettings.ini JonDoFoxPortableSettings LastProfileDirectory $INSTDIR\Data\profile
                  IfErrors writeerror
 
 exists:
 
-                 StrCpy $Error "$INSTDIR\Data\settings\FirefoxPortableSettings.ini"
-                 ReadINIStr $0 $INSTDIR\Data\settings\FirefoxPortableSettings.ini FirefoxPortableSettings LastProfileDirectory          # Get profile directory
+                 StrCpy $Error "$INSTDIR\Data\settings\JonDoFoxPortableSettings.ini"
+                 ReadINIStr $0 $INSTDIR\Data\settings\JonDoFoxPortableSettings.ini JonDoFoxPortableSettings LastProfileDirectory          # Get profile directory
 
                  IfErrors INIreaderror INIreadokay
 
                  INIreaderror:         # This could happen if Firefox-Portable is installed, but never started !!!
 
-                 WriteINIStr $INSTDIR\Data\settings\FirefoxPortableSettings.ini FirefoxPortableSettings LastProfileDirectory $INSTDIR\Data\profile
+                 WriteINIStr $INSTDIR\Data\settings\JonDoFoxPortableSettings.ini JonDoFoxPortableSettings LastProfileDirectory $INSTDIR\Data\profile
                  IfErrors writeerror
-                 ReadINIStr $0 $INSTDIR\Data\settings\FirefoxPortableSettings.ini FirefoxPortableSettings LastProfileDirectory          # Get profile directory again
+                 ReadINIStr $0 $INSTDIR\Data\settings\JonDoFoxPortableSettings.ini JonDoFoxPortableSettings LastProfileDirectory          # Get profile directory again
                  IfErrors readerror
 
                  INIreadokay:
@@ -1203,8 +1202,8 @@ Function SearchProfileFolderWithoutPermissions
 
          # If writing is denied
 
-    IfFileExists $INSTDIR\Data\settings\FirefoxPortableSettings.ini 0 INIreaderror      # exists ini?
-    ReadINIStr $0 $INSTDIR\Data\settings\FirefoxPortableSettings.ini FirefoxPortableSettings LastProfileDirectory          # Get profile directory
+    IfFileExists $INSTDIR\Data\settings\JonDoFoxPortableSettings.ini 0 INIreaderror      # exists ini?
+    ReadINIStr $0 $INSTDIR\Data\settings\JonDoFoxPortableSettings.ini JonDoFoxPortableSettings LastProfileDirectory          # Get profile directory
     IfErrors INIreaderror INIreadokay
     
     INIreaderror:
@@ -1815,7 +1814,7 @@ Function FinishRun
               StrCpy $0 "en"
         ${EndIf}
         ${If} $PROGRAMINSTALL == "true"
-              Exec "$INSTDIR\FirefoxPortable.exe"
+              Exec "$INSTDIR\JonDoFoxPortable.exe"
         ${Else} 
               ${If} $FFInstalled == "done"
                  UAC::Exec '' '"$PROGRAMFILES\Mozilla Firefox\firefox.exe" -no-remote -P JonDoFox' '' ''
