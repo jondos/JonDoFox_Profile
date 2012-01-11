@@ -81,12 +81,6 @@ Icon "appicon.ico"
 ;=== Icon & Style ===
 !define MUI_ICON "appicon.ico"
 
-;=== Pages
-!define MUI_PAGE_CUSTOMFUNCTION_PRE ShowLicense
-!define MUI_LICENSEPAGE_CHECKBOX
-!insertmacro MUI_PAGE_LICENSE "EULA.rtf"
-!insertmacro MUI_PAGE_INSTFILES
-
 ;=== Languages
 !insertmacro MUI_LANGUAGE "German"
 !include PortableApps.comLauncherLANG_GERMAN.nsh
@@ -122,13 +116,6 @@ Var MOZILLAORGKEYEXISTS
 Var MISSINGFILEORPATH
 Var CRASHREPORTSDIREXISTS
 Var EXTENSIONSDIREXISTS
-
-Function ShowLicense
-	StrCmp $SHOWLICENSE "true" ShowLicenseEnd
-		Abort
-		
-	ShowLicenseEnd:
-FunctionEnd
 
 Function .onInit
 	${GetParameters} $0
