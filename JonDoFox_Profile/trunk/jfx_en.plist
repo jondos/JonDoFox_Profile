@@ -15,7 +15,7 @@
 	<key>ErrorBackupProcess</key>
 	<string>An error occured while saving profiles.ini.</string>
 	<key>ErrorFFNotInstalled</key>
-	<string>Sorry, but you do not have Firefox installed. For installing JonDoFox you need Firefox 2.x or newer.</string>
+	<string>Sorry, but you do not have Firefox installed. For installing JonDoFox you need Firefox 3.5 or newer.</string>
 	<key>ErrorIniBackupFile</key>
 	<string>Error: The file profiles.ini.bak was not found.</string>
 	<key>ErrorIniFile</key>
