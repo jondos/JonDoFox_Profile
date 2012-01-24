@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "JonDoFoxPortable"
-!define VERSION "2.6.1.0"
+!define VERSION "2.6.2.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "9.0"
+!define FF_VERSION "10.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "JonDoFoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -409,9 +409,9 @@ SectionIn 1 2
         SetOutPath $ProfilePath
         SetOverwrite on
         File appicon.ico
-        File /r /x .svn /x extensions /x places.sqlite_de /x places.sqlite_en /x prefs_portable_de.js /x prefs_portable_en.js "..\..\..\full\profile\*.*"
+        File /r /x .svn /x extensions /x bookmarks_de.html /x bookmarks_en.html /x prefs_portable_de.js /x prefs_portable_en.js "..\..\..\full\profile\*.*"
         ${If} $LANGUAGE == "1031"          # german
-              File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_de"
+              File "/oname=bookmarks.html" "..\..\..\full\profile\bookmarks_de.html"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
 #File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
@@ -420,7 +420,7 @@ SectionIn 1 2
                     File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
               ${EndIf}
         ${ElseIf} $LANGUAGE == "1033"      # english
-              File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
+              File "/oname=bookmarks.html" "..\..\..\full\profile\bookmarks_en.html"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
 #File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
@@ -437,7 +437,7 @@ Section /o - ProfileCoreUpdate              #Update
         SetOutPath $ProfilePath
         SetOverwrite on
         
-        File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\*.*"
+        File /r /x .svn /x extensions /x bookmarks_en.html /x bookmarks_de.html /x prefs_portable_de.js /x prefs_portable_de.js "..\..\..\full\profile\*.*"
         ${If} $LANGUAGE == "1031" 
         ${AndIf} $PROGRAMINSTALL == "true"
               File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"   
@@ -470,7 +470,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}\*.*"
 
         SectionEnd
 
@@ -483,7 +483,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{45d8ff86-d909-11db-9705-005056c00008}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{45d8ff86-d909-11db-9705-005056c00008}\*.*"
 
         SectionEnd
 
@@ -495,7 +495,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\https-everywhere@eff.org\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\https-everywhere@eff.org\*.*"
 
         SectionEnd
         
@@ -509,7 +509,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{437be45a-4114-11dd-b9ab-71d256d89593}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{437be45a-4114-11dd-b9ab-71d256d89593}\*.*"
 
         SectionEnd
 
@@ -523,7 +523,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}\*.*"
 
         SectionEnd
 
@@ -537,7 +537,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\unplug@compunach\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\unplug@compunach\*.*"
 
         SectionEnd
 
@@ -551,7 +551,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn /x extensions /x places.sqlite /x bookmarks.html "..\..\..\full\profile\extensions\{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}\*.*"
 
         SectionEnd
 
