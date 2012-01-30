@@ -401,7 +401,7 @@ variablesOsSpecific
 
 isFirefoxRunning
 if [ $? -ne 0 ]; then
-	zenity --error --text="Your Firefox is running. Please quit Firefox/Iceweasel first."
+	zenity --error --text "Your Firefox is running. Please quit Firefox/Iceweasel first."
 	exit 1
 fi
 
@@ -421,7 +421,7 @@ isJonDoFoxInstalled
 if [ $? -eq 0 ]; then
 	editProfilesIni
 	if [ $? -ne 0 ]; then
-		zenity --error --text="Could not edit profiles.ini: Restoring old settings and abort installation!"
+		zenity --error --text "Could not edit profiles.ini: Restoring old settings and abort installation!"
 		restoreOldSettings
 		exit 1
 	fi
@@ -447,7 +447,7 @@ fi
 echo "installing profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
-	zenity --error --text="JonDoFox could not be installed"
+	zenity --error --text "JonDoFox could not be installed"
 	exit 1
 fi
 # echo "JonDoFox successfully installed!"

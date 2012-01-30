@@ -34,7 +34,7 @@
 
 
 if [ ! -e $HOME/.mozilla/firefox/profiles.ini ]; then
-    zenity --error --text="No profiles for Firefox/Iceweasel found! You can start and quit Firefox or Iceweasel one time for profil creation."
+    zenity --error --text "No profiles for Firefox/Iceweasel found! You can start and quit Firefox or Iceweasel one time for profil creation."
     exit 1
 fi
 

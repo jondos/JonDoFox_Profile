@@ -401,7 +401,7 @@ variablesOsSpecific
 
 isFirefoxRunning
 if [ $? -ne 0 ]; then
-	zenity --error --text="Firefox oder Iceweasel läuft gerade. Bitte schließen Sie den Browser zuerst."
+	zenity --error --text "Firefox oder Iceweasel läuft gerade. Bitte schließen Sie den Browser zuerst."
 	exit 1
 fi
 
@@ -421,7 +421,7 @@ isJonDoFoxInstalled
 if [ $? -eq 0 ]; then
 	editProfilesIni
 	if [ $? -ne 0 ]; then
-		zenity --error --title="Fehler" --text="Die Datei profiles.ini kann nicht bearbeitet werden: Installation wurde abgebrochen und der alte Zustand wieder hergestellt!"
+		zenity --error --title="Fehler" --text "Die Datei profiles.ini kann nicht bearbeitet werden: Installation wurde abgebrochen und der alte Zustand wieder hergestellt!"
 		restoreOldSettings
 		exit 1
 	fi
@@ -447,7 +447,7 @@ fi
 echo "installing profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
-	zenity --error --title="Fehler bei der JonDoFox Installation" --text="JonDoFox konnte nicht installiert werden!"
+	zenity --error --title "Fehler bei der JonDoFox Installation" --text "JonDoFox konnte nicht installiert werden!"
 	exit 1
 fi
 # echo "JonDoFox successfully installed!"

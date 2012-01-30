@@ -51,11 +51,11 @@ install: build
 	install -m644 debian/jondofox.desktop debian/jondofox-en/usr/share/applications/
 	install -m644 debian/jondofox.desktop debian/jondofox-de/usr/share/applications/
 
-	tar -xjf jondofox_linux_en.tar.bz2
+	tar -xaf jondofox_linux_en.tar.bz2
 	cp -rf profile debian/jondofox-en/usr/share/jondofox/profile
 	rm -r profile
 
-	tar -xjf jondofox_linux_de.tar.bz2
+	tar -xaf jondofox_linux_de.tar.bz2
 	cp -rf profile debian/jondofox-de/usr/share/jondofox/profile
 	rm -r profile
 

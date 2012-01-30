@@ -34,7 +34,7 @@
 
 # Check for Firefox/Iceweasel profiles folder
 if [ ! -e $HOME/.mozilla/firefox/profiles.ini ]; then
-    zenity --error --text="Es wurden keine Profile für Firefox / Iceweasel gefunden. Bitte starten sie Firefox oder Iceweasel einmalig und beenden sie ihn wieder, um das Default-Profil anzulegen."
+    zenity --error --text "Es wurden keine Profile für Firefox / Iceweasel gefunden. Bitte starten sie Firefox oder Iceweasel einmalig und beenden sie ihn wieder, um das Default-Profil anzulegen."
     exit 1
 fi
 
