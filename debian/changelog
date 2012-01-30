@@ -1,3 +1,17 @@
+jondofox (2.6.1.2) unstable; urgency=low
+
+  * bugfix update
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 05 Jan 2012 11:17:23 +0200
+
+
+jondofox (2.6.1.1) unstable; urgency=low
+
+  * update the extensions
+
+ -- JonDos GmbH <info@jondos.de>  Fri, 23 Dec 2011 16:17:23 +0200
+
+
 jondofox (2.6.1) unstable; urgency=low
 
   * update the extensions of the JonDoFox profile
