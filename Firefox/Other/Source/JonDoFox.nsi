@@ -409,9 +409,9 @@ SectionIn 1 2
         SetOutPath $ProfilePath
         SetOverwrite on
         File appicon.ico
-        File /r /x .svn /x extensions /x bookmarks_de.html /x bookmarks_en.html /x prefs_portable_de.js /x prefs_portable_en.js "..\..\..\full\profile\*.*"
+        File /r /x .svn /x extensions /x bookmarks_de.html /x bookmarks_en.html /x prefs_portable_de.js /x prefs_portable_en.js /x places_de.sqlite /x places_en.sqlite "..\..\..\full\profile\*.*"
         ${If} $LANGUAGE == "1031"          # german
-              File "/oname=bookmarks.html" "..\..\..\full\profile\bookmarks_de.html"
+              File "/oname=places.sqlite" "..\..\..\full\profile\places_de.sqlite"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
 #File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
@@ -420,7 +420,7 @@ SectionIn 1 2
                     File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
               ${EndIf}
         ${ElseIf} $LANGUAGE == "1033"      # english
-              File "/oname=bookmarks.html" "..\..\..\full\profile\bookmarks_en.html"
+              File "/oname=places.sqlite" "..\..\..\full\profile\places_en.sqlite"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
 #File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
