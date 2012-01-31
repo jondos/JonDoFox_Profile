@@ -1,11 +1,15 @@
 <?xml version="1.0"?>
 
+<!-- This Source Code is subject to the terms of the Mozilla Public License
+   - version 2.0 (the "License"). You can obtain a copy of the License at
+   - http://mozilla.org/MPL/2.0/. -->
+
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}</em:id>
-    <em:version>2.0.1</em:version>
+    <em:version>2.0.3</em:version>
     <em:name>Adblock Plus</em:name>
     <em:description>Ads were yesterday!</em:description>
     <em:creator>Wladimir Palant</em:creator>
@@ -25,6 +29,7 @@
     <em:translator>Aivo Kuhlberg</em:translator>
     <em:translator>Algimantas Margevičius</em:translator>
     <em:translator>AlleyKat</em:translator>
+    <em:translator>Anusuk Sangubon(Jaideejung007)</em:translator>
     <em:translator>Dagobert_78</em:translator>
     <em:translator>Genti Ereqi</em:translator>
     <em:translator>Hrvoje Majer</em:translator>
@@ -38,7 +43,7 @@
     <em:translator>Kristján Bjarni Guðmundsson</em:translator>
     <em:translator>Leonid</em:translator>
     <em:translator>Leszek(teo)Życzkowski</em:translator>
-    <em:translator>Luana Di Muzio</em:translator>
+    <em:translator>Luana Di Muzio - BabelZilla</em:translator>
     <em:translator>Manuel Meixide</em:translator>
     <em:translator>Mark Tyndall</em:translator>
     <em:translator>Martin Srebotnjak</em:translator>
@@ -49,11 +54,11 @@
     <em:translator>Milupo</em:translator>
     <em:translator>Nguyễn Mạnh Hùng</em:translator>
     <em:translator>Ninnetyer</em:translator>
+    <em:translator>Onno Ekker</em:translator>
     <em:translator>Premier</em:translator>
     <em:translator>Raul Pimentel</em:translator>
     <em:translator>Regmos</em:translator>
     <em:translator>Reza_NA</em:translator>
-    <em:translator>Schuzak</em:translator>
     <em:translator>SiiiE</em:translator>
     <em:translator>Stefan Lewitas</em:translator>
     <em:translator>Teboga</em:translator>
@@ -274,7 +279,7 @@
     </em:localized>
     <em:localized>
       <Description>
-        <em:locale>hsb-DE</em:locale>
+        <em:locale>hsb</em:locale>
         <em:name>Adblock Plus</em:name>
         <em:description>Reklama bě wčera!</em:description>
         <em:creator>Wladimir Palant</em:creator>
@@ -357,7 +362,7 @@
       <Description>
         <em:locale>lt</em:locale>
         <em:name>Adblock Plus</em:name>
-        <em:description>Reklamos - tai jau praeitis!</em:description>
+        <em:description>Reklamos tai praeitis!</em:description>
         <em:creator>Wladimir Palant</em:creator>
         <em:homepageURL>http://adblockplus.org/</em:homepageURL>
       </Description>
@@ -554,7 +559,7 @@
       <Description>
         <!-- fennec -->
         <em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
-        <em:minVersion>4.0.*</em:minVersion>
+        <em:minVersion>4.0</em:minVersion>
         <em:maxVersion>11.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
@@ -562,8 +567,8 @@
       <Description>
         <!-- firefox -->
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>3.6</em:minVersion>
-        <em:maxVersion>11.0a1</em:maxVersion>
+        <em:minVersion>3.6.13</em:minVersion>
+        <em:maxVersion>12.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
     <em:targetApplication>
@@ -571,15 +576,15 @@
         <!-- seamonkey -->
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.1</em:minVersion>
-        <em:maxVersion>2.8a1</em:maxVersion>
+        <em:maxVersion>2.9a1</em:maxVersion>
       </Description>
     </em:targetApplication>
     <em:targetApplication>
       <Description>
         <!-- thunderbird -->
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-        <em:minVersion>3.1</em:minVersion>
-        <em:maxVersion>11.0a1</em:maxVersion>
+        <em:minVersion>3.1.7</em:minVersion>
+        <em:maxVersion>12.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>

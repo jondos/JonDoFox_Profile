@@ -1,26 +1,8 @@
-/* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is Adblock Plus.
- *
- * The Initial Developer of the Original Code is
- * Wladimir Palant.
- * Portions created by the Initial Developer are Copyright (C) 2006-2011
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *
- * ***** END LICENSE BLOCK ***** */
+/*
+ * This Source Code is subject to the terms of the Mozilla Public License
+ * version 2.0 (the "License"). You can obtain a copy of the License at
+ * http://mozilla.org/MPL/2.0/.
+ */
 
 /**
  * @fileOverview Application integration module, will keep track of application
@@ -1054,7 +1036,7 @@ WindowWrapper.prototype =
 			{
 				if (current instanceof SpecialSubscription)
 					return [subscriptions, filters + current.filters.filter(function(filter) !filter.disabled).length];
-				else if (!current.disabled)
+				else if (!current.disabled && !(Prefs.subscriptions_exceptionscheckbox && current.url == Prefs.subscriptions_exceptionsurl))
 					return [subscriptions + 1, filters];
 				else
 					return [subscriptions, filters]
@@ -1457,8 +1439,11 @@ WindowWrapper.prototype =
 	/**
 	 * Clears context menu data once the menu is closed.
 	 */
-	clearContextMenu: function()
+	clearContextMenu: function(event)
 	{
+		if (event.eventPhase != event.AT_TARGET)
+			return;
+
 		this.nodeData = null;
 		this.currentNode = null;
 		this.backgroundData = null;

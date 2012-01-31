@@ -1,27 +1,8 @@
-/* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is Adblock Plus.
- *
- * The Initial Developer of the Original Code is
- * Fabrice Desré.
- * Portions created by the Initial Developer are Copyright (C) 2006-2011
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *  Wladimir Palant
- *
- * ***** END LICENSE BLOCK ***** */
+/*
+ * This Source Code is subject to the terms of the Mozilla Public License
+ * version 2.0 (the "License"). You can obtain a copy of the License at
+ * http://mozilla.org/MPL/2.0/.
+ */
 
 /**
  * @fileOverview Code specific to integration into Fennec.
@@ -288,11 +269,16 @@ function onCreateOptions(wrapper, event)
 			setSubscription(menu.value, menu.label);
 	}, false);
 
+	wrapper.E("adblockplus-acceptableAds").addEventListener("command", function(event)
+	{
+		allowAcceptableAds(event.target.value);
+	}, false);
+
 	let syncSetting = wrapper.E("adblockplus-sync");
 	let syncEngine = Sync.getEngine();
 	syncSetting.hidden = !syncEngine;
-	syncSetting.value = syncEngine.enabled;
-	wrapper.E("adblockplus-sync").addEventListener("command", AppIntegration.toggleSync, false);
+	syncSetting.value = syncEngine && syncEngine.enabled;
+	syncSetting.addEventListener("command", AppIntegration.toggleSync, false);
 
 	let updateFunction = function(action, items)
 	{
@@ -310,7 +296,12 @@ function onCreateOptions(wrapper, event)
 
 function updateSubscriptionList(wrapper)
 {
-	let currentSubscription = FilterStorage.subscriptions.filter(function(subscription) subscription instanceof DownloadableSubscription);
+	let hasAcceptableAds = FilterStorage.subscriptions.some(function(subscription) subscription instanceof DownloadableSubscription && subscription.url == Prefs.subscriptions_exceptionsurl);
+	wrapper.E("adblockplus-acceptableAds").value = hasAcceptableAds;
+
+	let currentSubscription = FilterStorage.subscriptions.filter(
+		function(subscription) subscription instanceof DownloadableSubscription && subscription.url != Prefs.subscriptions_exceptionsurl
+	);
 	currentSubscription = (currentSubscription.length ? currentSubscription[0] : null);
 	
 	let xhr = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance(Ci.nsIJSXMLHttpRequest);
@@ -344,7 +335,9 @@ function updateSubscriptionList(wrapper)
 	
 function setSubscription(url, title)
 {
-	let currentSubscription = FilterStorage.subscriptions.filter(function(subscription) subscription instanceof DownloadableSubscription);
+	let currentSubscription = FilterStorage.subscriptions.filter(
+		function(subscription) subscription instanceof DownloadableSubscription && subscription.url != Prefs.subscriptions_exceptionsurl
+	);
 	currentSubscription = (currentSubscription.length ? currentSubscription[0] : null);
 	if (currentSubscription && currentSubscription.url == url)
 		return;
@@ -358,6 +351,24 @@ function setSubscription(url, title)
 
 	FilterStorage.addSubscription(currentSubscription);
 	Synchronizer.execute(currentSubscription, false);
+}
+
+function allowAcceptableAds(/**Boolean*/ allow)
+{
+	let subscription = Subscription.fromURL(Prefs.subscriptions_exceptionsurl);
+	if (!subscription)
+		return;
+
+	subscription.disabled = false;
+	subscription.title = "Allow non-intrusive advertising";
+	if (allow)
+	{
+		FilterStorage.addSubscription(subscription);
+		if (subscription instanceof DownloadableSubscription && !subscription.lastDownload)
+			Synchronizer.execute(subscription);
+	}
+	else
+		FilterStorage.removeSubscription(subscription);
 }
 
 function updateFennecStatusUI(wrapper)

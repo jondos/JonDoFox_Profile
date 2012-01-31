@@ -28,7 +28,7 @@ locale    adblockplus fy-NL jar:chrome/adblockplus.jar!/locale/fy-NL/
 locale    adblockplus gl jar:chrome/adblockplus.jar!/locale/gl/
 locale    adblockplus he jar:chrome/adblockplus.jar!/locale/he/
 locale    adblockplus hr jar:chrome/adblockplus.jar!/locale/hr/
-locale    adblockplus hsb-DE jar:chrome/adblockplus.jar!/locale/hsb-DE/
+locale    adblockplus hsb jar:chrome/adblockplus.jar!/locale/hsb/
 locale    adblockplus hu jar:chrome/adblockplus.jar!/locale/hu/
 locale    adblockplus hy-AM jar:chrome/adblockplus.jar!/locale/hy-AM/
 locale    adblockplus is jar:chrome/adblockplus.jar!/locale/is/
