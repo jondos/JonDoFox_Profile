@@ -1279,6 +1279,7 @@ http://mags.acm.org/
   <exclusion pattern="^http://dasalte\.ccc\.de/"/><!-- revoked cert -->
   <exclusion pattern="^http://chaosradio\.ccc\.de/"/><!-- invalid cert -->
   <exclusion pattern="^http://blog.chaosradio\.ccc\.de/"/><!-- invalid cert -->
+  <exclusion pattern="^http://ds\.ccc\.de/"/><!-- different content -->
   <rule from="^http://ccc\.de/" to="https://www.ccc.de/"/>
   <rule from="^http://([^/:@]*)\.ccc\.de/" to="https://$1.ccc.de/"/>
 </ruleset>
@@ -2094,6 +2095,10 @@ other users' journals! -->
   <exclusion pattern="^http://action\.eff\.org/"/>
   <target host="*.eff.org" />
   <target host="eff.org" />
+  <target host="globalchokepoints.org" />
+  <target host="www.globalchokepoints.org" />
+  <target host="httpsnow.org" />
+  <target host="www.httpsnow.org" />
 
   <rule from="^http://eff\.org/" to="https://eff.org/"/>
 
@@ -2112,9 +2117,24 @@ other users' journals! -->
           to="https://secure.eff.org/site/Donation2?idb=43804189&#x26;df_id=1200" />
 
   <rule from="^http://secure\.eff\.org/mechaposter"
-        to="https://secure.eff.org/site/Ecommerce?VIEW_PRODUCT=true&#x26;product_id=2161&#x26;store_id=2441" />
+          to="https://secure.eff.org/site/Ecommerce?VIEW_PRODUCT=true&#x26;product_id=2161&#x26;store_id=2441" />
 
-  <rule from="^http://([^/:@]*)\.eff\.org/" to="https://$1.eff.org/"/>
+  <rule from="^http://([^/:@\.]+)\.eff\.org/" to="https://$1.eff.org/"/>
+
+  <!-- other EFF sites that support HTTPS -->
+
+  <rule from="^http://(www\.)?(globalchokepoints|httpsnow)\.org/"
+          to="https://$1$2.org/" />
+
+  <!-- These are for promoting HTTPS Everywhere to eff.org visitors, but we
+       don't want to bug people who already have it installed! -->
+
+  <rule from="^https://www\.eff\.org/sites/all/themes/frontier/images/get-https-e.png"
+          to= "https://www.eff.org/sites/all/themes/frontier/images/got-https-e.png" />
+
+  <rule from="^https://www\.eff\.org/sites/all/themes/frontier/images/get-https-e-chrome.png"
+          to= "https://www.eff.org/sites/all/themes/frontier/images/got-https-e-chrome.png" />
+
 </ruleset>
 <ruleset name="EPA (.ie)">
   <target host="www.epa.ie" />
@@ -3252,8 +3272,6 @@ http://clients2.google.co.jp/complete/search?hl=ja&client=hp&expIds=17259,24660,
 
   <exclusion pattern="^http://(news\.)?google\.com/newspapers" />
   <exclusion pattern="^http://(news\.)?google\.com/archivesearch" />
-  <!-- why did Google break this :( :( ? -->
-  <exclusion pattern="^http://webcache\.googleusercontent\.com" />
 
   <rule from="^http://spreadsheets\.google\.com/"
           to="https://spreadsheets.google.com/"/>
@@ -3921,7 +3939,15 @@ redbooks. -->
   <target host="www.identi.ca" />
   <target host="identi.ca" />
 
-  <rule from="^http://(www\.)?identi\.ca/" to="https://identi.ca/"/>
+  <!-- https://mail1.eff.org/pipermail/https-everywhere-rules/2011-November/000793.html -->
+  <exclusion pattern="^http://identi\.ca/main/openid" />
+
+  <rule from="^http://(?:www\.)?identi\.ca/"
+	        to="https://identi.ca/"/>
+  <rule from="^http://files\.status\.net/"
+	        to="https://files.status.net/"/>
+  <rule from="^http://(meteor\d+\.identi\.ca)/" 
+          to="https://$1/" />
 </ruleset>
 <ruleset name="IdentityTheft">
   <target host="identitytheft.org.uk"/>
@@ -5396,7 +5422,7 @@ other users' journals! -->
   <rule from="^http://npr\.org/" to="https://www.npr.org/"/>
 </ruleset>
 
-<ruleset name="NSF.gov">
+<ruleset name="NSF.gov (broken)" default_off="(broken)">
   <target host="www.nsf.gov" />
   <target host="nsf.gov" />
   <rule from="^http://www\.nsf\.gov/" to="https://www.nsf.gov/"/>
@@ -6357,7 +6383,9 @@ falling back to http -->
   <target host="www.pogo.com" />
   <target host="help.pogo.com" />
 
-  <rule from="^http://(www\.)?pogo\.com/" to="https://www.pogo.com/"/>
+  <exclusion pattern="http://www.pogo.com/avatar/edit.do" />
+
+  <rule from="^http://(?:www\.)?pogo\.com/" to="https://www.pogo.com/"/>
   <rule from="^http://help\.pogo\.com/" to="https://help.pogo.com/"/>
 </ruleset>
 <!-- polarnopyret.se sells clothes for small children. -->
@@ -8468,8 +8496,10 @@ which does not support SSL (301 redirect). blogs.technet.com however does.
   <target host="www.userscripts.org" />
 
   <exclusion pattern="^http://(www\.)?userscripts\.org/scripts/source/" />
-  <rule from="^http://(?:www\.)?userscripts\.org/" 
-          to="https://www.userscripts.org/"/>
+  <rule from="^https?://www\.userscripts\.org/"
+	to="https://userscripts.org/"/>
+  <rule from="^http://userscripts\.org/"
+	to="https://userscripts.org/"/>
 </ruleset>
 <ruleset name="UsrJoy">
   <target host="usrjoy.com" />
@@ -8538,7 +8568,12 @@ which does not support SSL (301 redirect). blogs.technet.com however does.
   <target host="www.verizonwireless.com" />
   <target host="verizonwireless.com" />
 
-  <rule from="^http://(www\.)?verizon\.com/" to="https://www22.verizon.com/"/>
+  <!-- Ugh horrible exclusion to work around Verizon security bugs
+  https://mail1.eff.org/pipermail/https-everywhere/2011-November/001237.html
+  -->
+  <exculsion pattern="^http://www22\.verizon\.com/secure/pages/viewbill/" />
+
+  <rule from="^http://(?:www\.)?verizon\.com/" to="https://www22.verizon.com/"/>
   <rule from="^http://www22\.verizon\.com/" to="https://www22.verizon.com/"/>
   <rule from="^http://(www\.)?verizonwireless\.com/" to="https://www.verizonwireless.com/"/>
 </ruleset>
@@ -8646,7 +8681,7 @@ which does not support SSL (301 redirect). blogs.technet.com however does.
 
   <rule from="^http://(www\.)?vuze\.com/" to="https://www.vuze.com/"/>
 </ruleset>
-<ruleset name="WHO.int">
+<ruleset name="WHO.int (broken)" default_off="broken">
 	<target host="www.who.int" />
 	<target host="who.int" />
 	<rule from="^http://www\.who\.int/" to="https://www.who.int/"/>
@@ -8790,10 +8825,9 @@ If we are to download their content, atleast do it by https -->
   <target host="enwp.org" />
   <target host="frwp.org" />
 
-<!-- TODO: What exclusions do we need for mobile sites, if any? -->
-  <exclusion pattern="^http://(dumps|download|svn|noc|prototype|etherpad|stats|ganglia|nagios|status|project2)\.wikimedia\.org/"/>
+  <exclusion pattern="^http://(apt|bayes|bayle|brewster|commonsprototype.tesla.usability|commons.prototype|cs|cz|dataset2|de.prototype|download|dumps|ekrem|emery|en.prototype|ersch|etherpad|fenari|flaggedrevssandbox|flgrevsandbox|gallium|ganglia|ganglia3|harmon|hume|ipv4.labs|ipv6and4.labs|jobs|mlqt.tesla.usability|mobile.tesla.usability|m|nagios|noc|observium|oldusability|project2|prototype|results.labs|search|sitemap|snapshot3|stafford|stats|status|svn|test.prototype|torrus|ubuntu|wiki-mail|yongle)\.wikimedia\.org" />
   <exclusion pattern="^http://(static|download|m)\.wikipedia\.org/"/>
-
+  <exclusion pattern="^http://[^@:/]+\.m\.wikipedia\.org/"/>
 
   <rule from="^http://([^@:/]+\.)?wik(ipedia|inews|isource|ibooks|iquote|iversity|tionary|imedia)\.org/"
           to="https://$1wik$2.org/" />
@@ -9014,6 +9048,7 @@ If we are to download their content, atleast do it by https -->
     <exclusion pattern="^http://bar-widgets\.yandex\.ru/" />
     <exclusion pattern="^http://blogs\.yandex\.ru/" />
     <exclusion pattern="^http://dict\.yandex\.ru/" />
+    <exclusion pattern="^http://cards\.yandex\.ru/"/>
     <exclusion pattern="^http://dzen\.yandex\.ru/" />
     <exclusion pattern="^http://encyclopedia\.yandex\.ru/" />
     <exclusion pattern="^http://fotki\.yandex\.ru/" />
