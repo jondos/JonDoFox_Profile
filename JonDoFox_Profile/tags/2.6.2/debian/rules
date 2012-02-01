@@ -1,0 +1,80 @@
+#!/usr/bin/make -f
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	dh_clean -A
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+
+	install -m755 debian/bin/jondofox-install_en debian/jondofox-en/usr/bin/jondofox-install
+	install -m755 debian/bin/jondofox-start-en debian/jondofox-en/usr/bin/jondofox-start
+
+	install -m755 debian/bin/jondofox-install_de debian/jondofox-de/usr/bin/jondofox-install
+	install -m755 debian/bin/jondofox-start-de debian/jondofox-de/usr/bin/jondofox-start
+
+	install -m644 icons/linux/jondofox-48.png debian/jondofox-en/usr/share/pixmaps/jondofox.png
+	install -m644 icons/linux/jondofox-16.png debian/jondofox-en/usr/share/pixmaps/jondofox-16.png
+	install -m644 icons/linux/jondofox-48.png debian/jondofox-de/usr/share/pixmaps/jondofox.png
+	install -m644 icons/linux/jondofox-16.png debian/jondofox-de/usr/share/pixmaps/jondofox-16.png
+
+	install -m644 icons/linux/jondofox-16.png debian/jondofox-de/usr/share/icons/crystalsvg/16x16/apps/jondofox.png
+	install -m644 icons/linux/jondofox-22.png debian/jondofox-de/usr/share/icons/crystalsvg/22x22/apps/jondofox.png
+	install -m644 icons/linux/jondofox-48.png debian/jondofox-de/usr/share/icons/crystalsvg/48x48/apps/jondofox.png
+	install -m644 icons/linux/jondofox-64.png debian/jondofox-de/usr/share/icons/crystalsvg/64x64/apps/jondofox.png
+	install -m644 icons/linux/jondofox-16.png debian/jondofox-de/usr/share/icons/oxygen/16x16/apps/jondofox.png
+	install -m644 icons/linux/jondofox-22.png debian/jondofox-de/usr/share/icons/oxygen/22x22/apps/jondofox.png
+	install -m644 icons/linux/jondofox-48.png debian/jondofox-de/usr/share/icons/oxygen/48x48/apps/jondofox.png
+	install -m644 icons/linux/jondofox-64.png debian/jondofox-de/usr/share/icons/oxygen/64x64/apps/jondofox.png
+	install -m644 icons/linux/jondofox-128.png debian/jondofox-de/usr/share/icons/oxygen/128x128/apps/jondofox.png
+
+	install -m644 icons/linux/jondofox-16.png debian/jondofox-en/usr/share/icons/crystalsvg/16x16/apps/jondofox.png
+	install -m644 icons/linux/jondofox-22.png debian/jondofox-en/usr/share/icons/crystalsvg/22x22/apps/jondofox.png
+	install -m644 icons/linux/jondofox-48.png debian/jondofox-en/usr/share/icons/crystalsvg/48x48/apps/jondofox.png
+	install -m644 icons/linux/jondofox-64.png debian/jondofox-en/usr/share/icons/crystalsvg/64x64/apps/jondofox.png
+	install -m644 icons/linux/jondofox-16.png debian/jondofox-en/usr/share/icons/oxygen/16x16/apps/jondofox.png
+	install -m644 icons/linux/jondofox-22.png debian/jondofox-en/usr/share/icons/oxygen/22x22/apps/jondofox.png
+	install -m644 icons/linux/jondofox-48.png debian/jondofox-en/usr/share/icons/oxygen/48x48/apps/jondofox.png
+	install -m644 icons/linux/jondofox-64.png debian/jondofox-en/usr/share/icons/oxygen/64x64/apps/jondofox.png
+	install -m644 icons/linux/jondofox-128.png debian/jondofox-en/usr/share/icons/oxygen/128x128/apps/jondofox.png
+
+
+	install -m644 debian/jondofox.desktop debian/jondofox-en/usr/share/applications/
+	install -m644 debian/jondofox.desktop debian/jondofox-de/usr/share/applications/
+
+	tar -xaf jondofox_linux_en.tar.bz2
+	cp -rf profile debian/jondofox-en/usr/share/jondofox/profile
+	rm -r profile
+
+	tar -xaf jondofox_linux_de.tar.bz2
+	cp -rf profile debian/jondofox-de/usr/share/jondofox/profile
+	rm -r profile
+
+
+binary-arch: build install
+
+binary-indep: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs -A debian/copyright
+	dh_installchangelogs
+	dh_installmenu
+	dh_icons
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install
