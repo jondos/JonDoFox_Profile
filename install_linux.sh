@@ -224,7 +224,7 @@ editProfilesIni()
 {
 	if  ! [ -e "${PROFILES_INI_FILE}" ]; then
 		if [ $ZENITY ]; then
-			zenity --error --text="ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
+			zenity --error --text "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
 		else
 			echo "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
 		fi
@@ -423,7 +423,7 @@ variablesOsSpecific
 isFirefoxRunning
 if [ $? -ne 0 ]; then
 	if [ $ZENITY ]; then
-		zenity --error --text="Your Firefox is running. Please quit Firefox/Iceweasel first."
+		zenity --error --text "Your Firefox is running. Please quit Firefox/Iceweasel first."
 	else
 		echo "Your Firefox is running. Please quit Firefox first."
 	fi
@@ -436,7 +436,7 @@ if [ "${REMOVE}" = "TRUE" ]; then
 	isJonDoFoxInstalled
 	if [ $? -eq 0 ]; then
 		if [ $ZENITY ]; then
-			zenity --error --text="Cannot remove JonDoFox, because it is not installed."
+			zenity --error --text "Cannot remove JonDoFox, because it is not installed."
 		else
 			echo "Cannot remove JonDoFox, because it is not installed."
 		fi
@@ -453,7 +453,7 @@ if [ $? -eq 0 ]; then
 	editProfilesIni
 	if [ $? -ne 0 ]; then
 		if [ $ZENITY ]; then
-			zenity --error --text="Could not edit profiles.ini: Restoring old settings and abort installation!"
+			zenity --error --text "Could not edit profiles.ini: Restoring old settings and abort installation!"
 		else
 			echo "Could not edit profiles.ini: Restoring old settings and abort installation!"
 		fi
@@ -484,7 +484,7 @@ echo "installing profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
 	if [ $ZENITY ]; then
-		zenity --error --text="JonDoFox could not be installed!"
+		zenity --error --text "JonDoFox could not be installed!"
 	else
 		echo "JonDoFox could not be installed!"
 	fi
