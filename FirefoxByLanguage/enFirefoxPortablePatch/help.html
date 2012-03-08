@@ -25,16 +25,13 @@ separately. The following lines describe how to install and use JonDoFox.</p>
   </li>
   <li><strong>Handling</strong> 
     <ul>
-      <li><a href="#critical_addons">Security relevant Firefox
-        extensions</a></li>
+      <li><a href="#using_jondofox">Using JonDoFox for anonymous websurfing</a></li>
       <li><a href="#jdf_features">Features of the JonDoFox addon</a></li>
       <li><a href="#controlCookies">Control
         cookies with Cookie Monster</a></li>
       <li><a href="#noscript">Control active contents with NoScript</a></li>
-      <li><a href="#videoDownload">Protection against dangerous Flash videos:
-        Video download with UnPlug and aTube Catcher</a></li>
-      <li><a href="#filterAds">Filter advertisements with
-        Adblock Plus</a></li> 
+      <li><a href="#noscript_ssl">Enforcing HTTPS</a></li>
+      <li><a href="#videoDownload">Protection against dangerous Flash Videos</a></li>
     </ul>
   </li>
 </ul>
@@ -95,8 +92,7 @@ you haven't done so yet. After that, you may install JonDoFox as follows:</p>
 
 <p><b>Notice</b><br>
 When a new version of JonDoFox is released, you may always install the new
-version "on top of" the old one, i.e. into the same directory using the above mentioned steps. Your bookmarks and your certificate database
-will be kept. </p>
+version "on top of" the old one, i.e. into the same directory using the above mentioned steps. Your bookmarks, your certificate database, your custom STS and your HTTPS-Everywhere rules will be kept. </p>
 
 <h3><a name="jdfPortable" id="jdfPortable">Option 2:
 "Portable"</a></h3>
@@ -105,7 +101,7 @@ will be kept. </p>
 integrate with your system. If needed, you have to create any links to the
 JonDoFox program files yourself.</p>
 
-<h4>Windows (2000, XP, Vista)</h4>
+<h4>Windows (2000, XP, Vista, 7)</h4>
 
 <p>The <a href="https://anonymous-proxy-servers.net/downloads/JonDoFox.paf.exe">JonDoFox
 installation program</a> is also prepared for a portable installation. If you
@@ -120,8 +116,7 @@ available</a> as well.</p>
 
 
 <h2>Manual for the JonDoFox profile</h2>
-<h3><a name="critical_addons" id="critical_addons">Security relevant
-Firefox extensions</a></h3>
+<h3><a name="using_jondofox" id="using_jondofox">Using JonDoFox for anonymous websurfing</a></h3>
 
 <p>The JonDoFox package contains all extensions which are relevant for
 your security, already with settings optimized. The symbols 
@@ -129,8 +124,47 @@ your security, already with settings optimized. The symbols
 src="img_jondofox/jondofox_statusbar.png"> 
 in the Firefox statusbar (plus the icon <img alt="JonDoFox icon toolbar" src="img_jondofox/jondos-16.png"> and the NoScript icon
  <img alt="NoScript symbol toolbar" src="img_jondofox/noscript_toolbar.png"> in the toolbar (only in Firefox 4 and later, in Firefox 3 the NoScript icon is integrated in the statusbar as well)) always give you control of the most important 
-functions integrated in the JonDoFox profile (UnPlug, Adblock Plus, Cookie Monster, NoScript and JonDoFox). 
-In the following, these features will be explained in more detail.</p>
+functions integrated in the JonDoFox profile (UnPlug, Adblock Plus, Cookie Monster, NoScript, HTTPS Everywhere, and JonDoFox).</p>
+
+<h4>Problems with Logins and Account Registration</h4>
+<p>By default JonDoFox uses restrictive settings for security reasons. Time by time a website does not work like expected.</p>
+<ul>
+<li>Good webdesign will show you an advice to solve the problem:
+<div style="padding: 10px;">
+<img src="img_jondofox/cookies_required.png" alt="Cookies erforderlich" style="border: 1px solid #333;">
+</div>
+<div style="padding: 10px;">
+<img src="img_jondofox/cookies_required2.png" alt="Cookies und Javascript erforderlich">
+</div>
+</li>
+<li>Other websites will give you only an useless error message:
+<div style="padding: 10px;">
+<img src="img_jondofox/cookies_wrong1.png" alt="bad error message" style="border: 1px solid #333;">
+</div>
+<div style="padding: 10px;">
+<img src="img_jondofox/cookies_wrong2.png" alt="bad error message">
+</div>
+</li>
+<li>Very bad websites will not give you any return and something goes wrong.<br>May be, you are redirected to the start page without login or something else unexpected.</li>
+<li>For solving <span style="font-weight:bold; color: #333;">CAPTCHAs</span> you have to enable Javascript in most cases.</li>
+</ul>
+<h4>Howto solve these Problems</h4>
+<p>Please, try the following steps to solve the problems:</p>
+<ol>
+<li><a href="#controlCookies">Temporarily Allow Cookies  <img src="next.gif" alt="-&gt;"></a> You can allow cookies for the website temporarily without risk. It is easy to remove stored cookies later by restart your browser or manage cookies with the add-on CookieMonster.
+</li>
+<li><a href="#noscript">Enable Javascript <img src="next.gif" alt="-&gt;"></a> If cookies does not solve the problem Javascript is required in most cases. Please keep in mind: using Javascript it is possible for web masters to access many information about your browser, your desktop settings, your hardware and an attacker can e.g. inject malicious JavaScript code. Enable Javascript only for trusted websites!
+</li>
+<li><a href="#noscript">Enable Javascript for third party sites <img src="next.gif" alt="-&gt;"></a> For large server farms like Facebook, Youtube, Yahoo! and others Javascript is required for some third party domains. For third party CAPTCHA providers you have to enable Javascript too.
+</li>
+</ol>
+<h4>Problems with Videos and PDF Documents</h4>
+<p>Because of security reasons all plug-ins for display non-HTML content (like Flash videos or PDF documents) within the browser are disabled.</p>
+<ul>
+<li>Flash and Java applets can circumvent the proxy settings of your browser an leak your IP address. You may <a href="#videoDownload">download Flash videos with UnPlug</a> and use a media player to play it.</li>
+<li>For most attacks from the internet malicious PDF documents and Flash applets are used. To avoid drive-by-download in background and infection of your computer without notification all  plug-ins are disabled. Download the document and open it in a recommended <a href="http://www.pdfreaders.org/">PDF reader</a>.
+</li>
+</ul>
 
 <h3><a name="jdf_features" id="jdf_features">Features of the JonDoFox addon</a></h3>
 
@@ -194,10 +228,10 @@ gather information to identify users.</p>
 
 <p>Information regarding users surfing the web may not only be gathered 
 analyzing the Referer but examing the individual User Agent header as well. 
-Therefore, we built an uniform User Agent which all users of JonDo are sending 
+Therefore, we built a uniform User Agent which all users of JonDo are sending 
 along while requesting pages on the WWW. If a user wants to connect to the Tor 
 network instead of using JonDo the User Agent is rebuilt again, this time 
-matching the one issued by the Tor project and its browser add-on, 
+matching the one issued by the Tor Project and its browser add-on, 
 <a href="https://www.torproject.org/torbutton/">Torbutton</a>. And, additionally,
  if someone wants to configure a proxy manually then she has the opportunity to
  choose between different User Agents, i.e. Unchanged (leaving the default 
@@ -344,7 +378,9 @@ src="img_jondofox/noscript_temp.gif"
 alt="NoScript tempor&#xe4;r erlauben"></span> icon. Time by time you need to
 enable some subdomains of the current website to get it working well. You have to try it.</p>
 
-<p><strong>Warning:</strong> You should give as few permissions as possible. Third party scripts are
+<p><span style="font-weight:bold; color: #333;">CAPTCHAs:</span> Time by time websites are using CAPTCHAs for spam protection. To solve a CAPTCHA Javascript is required. If a third party CAPTCHA provider was used like Recaptcha.com, Nucaptcha.com or others, you have to enable Javascript for the CAPTCHA provider too.</p>
+
+<p>You should give as few permissions as possible. Third party scripts are
 often only used to spy on you and are rarely needed for proper functionality of
 the website.</p>
 <div align="center">
@@ -378,10 +414,31 @@ alt="NoScript: not trusted" vspace="8" hspace="0"> </div>
 
 <p>You may undo this action just the same way. </p>
 
-<h3><a name="noscript_ssl" id="noscript_ssl">Enforcing SSL with NoScript</a></h3>
-<p>There may be websites which a user wants to visit purely over SSL (inlcuding all
-the requests issued by content embedded into these sites). 
-NoScript lets you conveniently enforce SSL on your connections. Right-click on the 
+<h4>Controlling installed plugins with NoScript</h4>
+
+<p>When you visit a website containing plugin content like Flash movies or Java
+applets, this content will be automatically blocked by NoScript. A placeholder
+ is shown instead of the active content: </p>
+
+<div style="text-align: center; padding: 10px;">
+<img src="img_jondofox/noscript_placeholder.gif" alt="NoScript-Platzhalter">
+</div>
+
+<p>You may allow the content by clicking on the placeholder or by choosing the
+respective option in <span class="nowrap" style="font-weight: bold; color: #333;"><img src="img_jondofox/noscript_blockedcontent.gif"
+alt="NoScript: Geblockte Objekte"> Blocked Objects</span> after clicking
+on the NoScript menu icon <img src="img_jondofox/noscript.gif"
+alt="NoScript-Icon">. </p>
+
+<p><span style="font-weight: bold; color: #333;">Warning:</span> Without <a
+href="https://anonymous-proxy-servers.net/en/help/flash-applets.html">special protective measures</a>, allowed plugin content may completely or partially revoke your anonymity and might even damage your system.</p>
+
+<h3><a name="noscript_ssl" id="noscript_ssl">Enforcing HTTPS encryption</a></h3>
+<p>JonDoFox contains the add-on <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>. It redirects the traffic to more than 1,000 websites to the HTTPS encrypted version.</p>
+<p>If you want to enforce HTTPS encryption to more wensites you may add the domain to the list of HTTPS only websites in NoScript or you may write own rules for HTTPSEverywhere. NoScript can only rewrite <em>http://</em> with <em>https://</em>. With new rules for HTTPSEverywhere it is possible to implement complex URL rewriting.</p> 
+
+<h4>Enforcing HTTPS with NoScript</h4>
+<p>NoScript lets you conveniently enforce SSL on your connections. Right-click on the 
 NoScript icon <img src="img_jondofox/noscript.gif" alt="NoScript-Icon">. In the <i>Options -&gt; 
 Advanced -&gt; HTTPS -&gt; Behavior</i> panel NoScript offers the opportunity to build a whitelist as seen in the following screenshot. You may specify single domains and/or an arbitrary amount of subdomains using a wildcard symbol.</p>
 
@@ -389,34 +446,17 @@ Advanced -&gt; HTTPS -&gt; Behavior</i> panel NoScript offers the opportunity to
   <img src="img_jondofox/noscript-ssl-en.png" alt="NoScript_STS" vspace="8" hspace="0">
 </div>
 
-<p>You may create your whitelist onself using the <a href="https://anonymous-proxy-servers.net/wiki/index.php/Security_notes#Enforce_HTTPS_websites_list">list of websites with HTTPS support</a> in our Wiki. Or
-you may use other extensions with a
-predefined list may be used instead, e.g. <a href="http://www.eff.org/https-everywhere">HTTPS-Everywhere</a>.
-
-<h3><a name="noscript_plugin" id="noscript_plugin">Controlling installed plugins with NoScript</a></h3>
-
-<p>When you visit a website containing plugin content like Flash movies or Java
-applets, this content will be automatically blocked by NoScript. A placeholder
- is shown instead of the active content: </p>
-
-<div align="left">
-<img src="img_jondofox/noscript_placeholder.gif" alt="NoScript-Platzhalter" vspace="8" hspace="0">
-</div>
-
-<p>You may allow the content by clicking on the placeholder or by choosing the
-respective option in <span><img src="img_jondofox/noscript_blockedcontent.gif"
-alt="NoScript: Geblockte Objekte"> <b>Blocked Objects</b></span> after clicking
-on the NoScript menu icon <img src="img_jondofox/noscript.gif"
-alt="NoScript-Icon">. </p>
-
-<p><strong>Warning:</strong> Without <a
-href="https://anonymous-proxy-servers.net/en/help/flash-applets.html">special protective
-measures</a>, allowed plugin content may completely or partially revoke your
-anonymity and might even damage your system.</p>
-
 <h3><a name="videoDownload" id="videoDownload">Protection against dangerous
-flash videos: Downloading videos with UnPlug</a></h3>
+Flash Videos</a></h3>
+<p>Flash plug-ins and other plug-ins for web videos are deactivated in JonDoFox for security and privacy reasons.
+It is possible for Flash applets to bypass the proxy settings and send your real IP address to the webserver.
+To avoid the IP address leak you can use <a href="https://anonymous-proxy-servers.net/en/help/proxifier.html">proxyfier tools</a>. Additional you have to disable 
+<a href="https://anonymous-proxy-servers.net/en/help/flash-applets.html">Flash cookies</a>.</p>
 
+<p><span style="font-weight: bold; color: #333;">Hint:</span> The max. file size for downloads is restricted to 2&nbsp;MB on free cascades!
+Almost all videos on Youtube and other website you can download only with <a href="https://anonymous-proxy-servers.net/en/help/premium.html">premium services</a>.</p>
+
+<h4>Downloading Flash Videos with UnPlug</h4>
 <p>To prevent having to activate dangerous Flash in your browser, you should
 always download web videos to your hard drive and play them from there. This
 also saves you the additional traffic which would be needed to view a streaming
@@ -427,14 +467,6 @@ YouTube page, just click on the menu entry (marked in red) in your <em>Tools</em
 <div align="center"><img alt="1-Click-Video-Download with UnPlug"
 src="img_jondofox/UnPlug_en.png" vspace="10"></div>
 
-<p>For Windows, there also exists an excellent freeware
-program called <a href="http://atube-catcher.dsnetwb.com">aTube Catcher</a>.
-It is a special program for video download. The <a href="https://anonymous-proxy-servers.net/wiki/index.php/Compatible_applications#Download_videos_with_aTube_Catcher">configuration
-for anonymous use</a> can be found in our wiki.</p>
-  
-<h3><a name="filterAds" id="filterAds">Filter advertisements with
-Adblock Plus</a></h3>
-
-<p>Adblock Plus <img alt="Adblock Plus" src="img_jondofox/abp-enabled-16.png"> is
-an advertisement filter that runs in the background. Usually, you do not have
-to alter its settings. However, you may add your own filter lists any time.</p>
+<p>Alternatively you may use video download sites like <a href="http://www.downloadtube.org">DownloadTube.org</a>
+or <a href="http://keepvid.com/">KEEPVID</a>
+to download and convert web videos.</p>
