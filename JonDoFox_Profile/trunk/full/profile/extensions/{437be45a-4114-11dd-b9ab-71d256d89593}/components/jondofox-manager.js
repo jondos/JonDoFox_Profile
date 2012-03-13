@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright 2008-2011, JonDos GmbH
+ * Copyright 2008-2012, JonDos GmbH
  * Author: Johannes Renner, Georg Koppen
  *
  * JonDoFox extension management and compatibility tasks + utilities
@@ -91,6 +91,9 @@ JDFManager.prototype = {
 
   // If FF4, which version (the add-on bar exists since 4.0b7pre)
   ff4Version: "",
+
+  // Do we have already checked whether JonDoBrowser is up-to-date
+  jdbCheck: false,
 
   // Part of a hack to show reliably the about:jondofox page in FF4 after a new
   // version was detected.
@@ -227,7 +230,8 @@ JDFManager.prototype = {
     'privacy.clearOnShutdown.offlineApps':
     'extensions.jondofox.clearOnShutdown_offlineApps',
     'security.enable_tls_session_tickets':
-    'extensions.jondofox.tls_session_tickets'
+    'extensions.jondofox.tls_session_tickets',
+    'dom.battery.enabled': 'extensions.jondofox.battery.enabled'
   },
 
   //This map of integer preferences is given to the prefsMapper
@@ -286,7 +290,7 @@ JDFManager.prototype = {
           var extensionListener = {
             onInstalling: function(addon, needsRestart) {
               if (needsRestart) {
-                JDFManager.prefsHandler.
+                JDFManager.prototype.prefsHandler.
                   setStringPref("extensions.jondofox.tz_string", "");
               }
             },
@@ -297,13 +301,13 @@ JDFManager.prototype = {
 		JDFManager.prototype.uninstall = true;
 	      }
               if (needsRestart) {
-                JDFManager.prefsHandler.
+                JDFManager.prototype.prefsHandler.
                   setStringPref("extensions.jondofox.tz_string", "");
               }
 	    },
             onEnabling: function(addon, needsRestart) {
               if (needsRestart) {
-                JDFManager.prefsHandler.
+                JDFManager.prototype.prefsHandler.
                   setStringPref("extensions.jondofox.tz_string", "");
               }
             },
@@ -313,7 +317,7 @@ JDFManager.prototype = {
                 JDFManager.prototype.clean = true;
               }
               if (needsRestart) {
-                JDFManager.prefsHandler.
+                JDFManager.prototype.prefsHandler.
                   setStringPref("extensions.jondofox.tz_string", "");
               }
 	    },
@@ -1132,6 +1136,8 @@ JDFManager.prototype = {
             'extensions.jondofox.profile_version') !== "2.6.2" &&
           this.prefsHandler.getStringPref(
             'extensions.jondofox.profile_version') !== "2.6.3" && 
+          this.prefsHandler.getStringPref(
+            'extensions.jondofox.profile_version') !== "2.6.4" &&
           this.prefsHandler.getBoolPref('extensions.jondofox.update_warning')) {
           this.jdfUtils.showAlertCheck(this.jdfUtils.
             getString('jondofox.dialog.attention'), this.jdfUtils.
@@ -1156,8 +1162,12 @@ JDFManager.prototype = {
       oldPlugins[p.name] = p.disabled;  
     }
     var pluginJSON = JSON.stringify(oldPlugins);
-    this.prefsHandler.setStringPref('extensions.jondofox.saved_plugin_settings',
+    this.prefsHandler.setStringPref("extensions.jondofox.saved_plugin_settings",
       pluginJSON);
+    // Saving the missing plugin notification as well...
+    this.prefsHandler.
+      setBoolPref("extensions.jondofox.saved_plugin_notification", this.
+      prefsHandler.getBoolPref("plugins.hide_infobar_for_missing_plugin"));
   }, 
 
   enforcePluginPref: function(state) {
@@ -1181,16 +1191,23 @@ JDFManager.prototype = {
           p.disabled = true;
         } 
       }
+      // We do not want to show a warning about missing plugins. No plugins
+      // no security risk stemming from them.
+      this.prefsHandler.setBoolPref("plugins.hide_infobar_for_missing_plugin",
+        true);
     } else if (state === this.STATE_TOR) {
       for (var i = 0; i < plugins.length; i++) {
         var p = plugins[i]; 
         // The TorBrowserBundle blocks all plugins by default
         p.disabled = true;
       }   
+      // The same as for JonDo mode...
+      this.prefsHandler.setBoolPref("plugins.hide_infobar_for_missing_plugin",
+        true);
     } else if (state === this.STATE_CUSTOM || state === this.STATE_NONE) {
       log("Setting plugin state back...");
       var oldPluginSettings = JSON.parse(this.prefsHandler.
-        getStringPref('extensions.jondofox.saved_plugin_settings'));
+        getStringPref("extensions.jondofox.saved_plugin_settings"));
       for (var i = 0; i < plugins.length; i++) {
         var p = plugins[i]; 
         try {
@@ -1205,6 +1222,11 @@ JDFManager.prototype = {
           p.disabled = false; 
         }
       } 
+      // Using the saved plugin notification settings.
+      this.prefsHandler.
+        setBoolPref("plugins.hide_infobar_for_missing_plugin",
+        this.prefsHandler.
+        getBoolPref("extensions.jondofox.saved_plugin_notification"));
     }
   },
 

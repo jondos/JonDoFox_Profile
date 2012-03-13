@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright 2008-2010 JonDos GmbH
+ * Copyright 2008-2012 JonDos GmbH
  * Author: Johannes Renner, Georg Koppen
  *
  * This component is instanciated once on app-startup and does the following:
@@ -75,9 +75,15 @@ RequestObserver.prototype = {
     let notificationCallbacks;
     let wind = null;
     // Getting the content window for resetting window.name and history.length
-    notificationCallbacks = 
-        channel.notificationCallbacks ? channel.notificationCallbacks : 
-           channel.loadGroup.notificationCallbacks;
+    if (channel.notificationCallbacks) {
+      notificationCallbacks = channel.notificationCallbacks;
+    } else {
+      if (channel.loadGroup) {
+        notificationCallbacks = channel.loadGroup.notificationCallbacks;
+      } else {
+        notificationCallbacks = null;
+      }
+    }
     if (!notificationCallbacks) {
       log("We found no Notificationcallbacks! Returning null...");
     } else {

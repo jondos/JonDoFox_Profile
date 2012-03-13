@@ -158,7 +158,9 @@ function HTTPSEverywhere() {
   this.https_rules = HTTPSRules;
   this.INCLUDE=INCLUDE;
   this.ApplicableList = ApplicableList;
-
+  
+  this.prefs = this.get_prefs();
+  
   // We need to use observers instead of categories for FF3.0 for these:
   // https://developer.mozilla.org/en/Observer_Notifications
   // https://developer.mozilla.org/en/nsIObserverService.
@@ -167,8 +169,12 @@ function HTTPSEverywhere() {
   // we rewrite.
   this.obsService = CC["@mozilla.org/observer-service;1"]
                     .getService(Components.interfaces.nsIObserverService);
-  this.obsService.addObserver(this, "profile-before-change", false);
-  this.obsService.addObserver(this, "profile-after-change", false);
+					
+  if(this.prefs.getBoolPref("globalEnabled")){
+    this.obsService.addObserver(this, "profile-before-change", false);
+    this.obsService.addObserver(this, "profile-after-change", false);
+    this.obsService.addObserver(this, "sessionstore-windows-restored", false);
+  }
   return;
 }
 
@@ -219,6 +225,7 @@ const shouldLoadTargets = {
 // HTTP redirects) correctly.
 
 HTTPSEverywhere.prototype = {
+  prefs: null,
   // properties required for XPCOM registration:
   classDescription: SERVICE_NAME,
   classID:          SERVICE_ID,
@@ -415,6 +422,7 @@ HTTPSEverywhere.prototype = {
 
     if (topic == "http-on-modify-request") {
       if (!(channel instanceof CI.nsIHttpChannel)) return;
+	  
       this.log(DBUG,"Got http-on-modify-request: "+channel.URI.spec);
       var lst = this.getApplicableListForChannel(channel);
       if (channel.URI.spec in https_everywhere_blacklist) {
@@ -424,11 +432,33 @@ HTTPSEverywhere.prototype = {
       }
       HTTPS.replaceChannel(lst, channel);
     } else if (topic == "http-on-examine-response") {
-      this.log(DBUG, "Got http-on-examine-response @ "+ (channel.URI ? channel.URI.spec : '') );
-      HTTPS.handleSecureCookies(channel);
+         this.log(DBUG, "Got http-on-examine-response @ "+ (channel.URI ? channel.URI.spec : '') );
+         HTTPS.handleSecureCookies(channel);
     } else if (topic == "http-on-examine-merged-response") {
-      this.log(DBUG, "Got http-on-examine-merged-response ");
-      HTTPS.handleSecureCookies(channel);
+		 this.log(DBUG, "Got http-on-examine-merged-response ");
+         HTTPS.handleSecureCookies(channel);
+    } else if (topic == "cookie-changed") {
+      // Javascript can add cookies via document.cookie that are insecure.
+      // It might also be able to 
+      if (data == "added" || data == "changed") {
+        // subject can also be an nsIArray! bleh.
+        try {
+          subject.QueryInterface(CI.nsIArray);
+          var elems = subject.enumerate();
+          while (elems.hasMoreElements()) {
+            var cookie = elems.getNext()
+                            .QueryInterface(CI.nsICookie2);
+            if (!cookie.isSecure) {
+              HTTPS.handleInsecureCookie(cookie);
+            }
+          }
+        } catch(e) {
+          subject.QueryInterface(CI.nsICookie2);
+          if(!subject.isSecure) {
+            HTTPS.handleInsecureCookie(subject);
+          }
+        }
+      }
     } else if (topic == "app-startup") {
       this.log(DBUG,"Got app-startup");
     } else if (topic == "profile-before-change") {
@@ -439,39 +469,45 @@ HTTPSEverywhere.prototype = {
       Thread.hostRunning = false;
     } else if (topic == "profile-after-change") {
       this.log(DBUG, "Got profile-after-change");
-      OS.addObserver(this, "http-on-modify-request", false);
-      OS.addObserver(this, "http-on-examine-merged-response", false);
-      OS.addObserver(this, "http-on-examine-response", false);
-      var dls = CC['@mozilla.org/docloaderservice;1']
-        .getService(CI.nsIWebProgress);
-      dls.addProgressListener(this, CI.nsIWebProgress.NOTIFY_STATE_REQUEST |
+	  
+	  if(this.prefs.getBoolPref("globalEnabled")){
+		OS.addObserver(this, "cookie-changed", false);
+		OS.addObserver(this, "http-on-modify-request", false);
+		OS.addObserver(this, "http-on-examine-merged-response", false);
+		OS.addObserver(this, "http-on-examine-response", false);
+		
+		var dls = CC['@mozilla.org/docloaderservice;1']
+			.getService(CI.nsIWebProgress);
+		dls.addProgressListener(this, CI.nsIWebProgress.NOTIFY_STATE_REQUEST |
                                     CI.nsIWebProgress.NOTIFY_LOCATION);
-      this.log(INFO,"ChannelReplacement.supported = "+ChannelReplacement.supported);
-      try {
-        // Firefox >= 4
-        Components.utils.import("resource://gre/modules/AddonManager.jsm");
-        AddonManager.getAddonByID("https-everywhere@eff.org",
-          function(addon) {
-            RuleWriter.addonDir = addon.
-              getResourceURI("").QueryInterface(CI.nsIFileURL).file;
-            HTTPSRules.init();
-          });
-      } catch(e) {
-        // Firefox < 4
-        HTTPSRules.init();
-      }
-      Thread.hostRunning = true;
-      var catman = Components.classes["@mozilla.org/categorymanager;1"]
+		this.log(INFO,"ChannelReplacement.supported = "+ChannelReplacement.supported);
+
+		HTTPSRules.init();
+
+		Thread.hostRunning = true;
+		var catman = Components.classes["@mozilla.org/categorymanager;1"]
            .getService(Components.interfaces.nsICategoryManager);
-      // hook on redirections (non persistent, otherwise crashes on 1.8.x)
-      catman.addCategoryEntry("net-channel-event-sinks", SERVICE_CTRID,
-          SERVICE_CTRID, false, true);
+		// hook on redirections (non persistent, otherwise crashes on 1.8.x)
+		catman.addCategoryEntry("net-channel-event-sinks", SERVICE_CTRID,
+			SERVICE_CTRID, false, true);
+	  }
+    } else if (topic == "sessionstore-windows-restored") {
+      var ssl_observatory = CC["@eff.org/ssl-observatory;1"]
+                        .getService(Components.interfaces.nsISupports)
+                        .wrappedJSObject;
+      // FIXME This prefs code is terrible spaghetti
+      var shown = ssl_observatory.myGetBoolPref("popup_shown");
+      // this is relevant if the user just installed torbutton bad had
+      // enabled the Observatory previously
+      var enabled = ssl_observatory.myGetBoolPref("enabled");
+      if (!shown && !enabled && ssl_observatory.torbutton_installed) 
+        this.chrome_opener("chrome://https-everywhere/content/observatory-popup.xul");
     }
     return;
   },
 
   // nsIChannelEventSink implementation
-  onChannelRedirect: function(oldChannel, newChannel, flags) {
+  onChannelRedirect: function(oldChannel, newChannel, flags) {  
     const uri = newChannel.URI;
     this.log(DBUG,"Got onChannelRedirect.");
     if (!(newChannel instanceof CI.nsIHttpChannel)) {
@@ -504,8 +540,8 @@ HTTPSEverywhere.prototype = {
   },
 
   asyncOnChannelRedirect: function(oldChannel, newChannel, flags, callback) {
-    this.onChannelRedirect(oldChannel, newChannel, flags);
-    callback.onRedirectVerifyCallback(0);
+		this.onChannelRedirect(oldChannel, newChannel, flags);
+		callback.onRedirectVerifyCallback(0);
   },
 
   // These implement the nsIContentPolicy API; they allow both yes/no answers
@@ -513,15 +549,14 @@ HTTPSEverywhere.prototype = {
 
   shouldLoad: function(aContentType, aContentLocation, aRequestOrigin, aContext, aMimeTypeGuess, aInternalCall) {
     //this.log(WARN,"shouldLoad for " + unwrappedLocation.spec + " of type " + aContentType);
-
-    if (shouldLoadTargets[aContentType] != null) {
-      var unwrappedLocation = IOUtil.unwrapURL(aContentLocation);
-      var scheme = unwrappedLocation.scheme;
-      var isHTTP = /^https?$/.test(scheme);   // s? -> either http or https
-      this.log(VERB,"shoulLoad for " + aContentLocation.spec);
-      if (isHTTP)
-        HTTPS.forceURI(aContentLocation, null, aContext);
-    } 
+       if (shouldLoadTargets[aContentType] != null) {
+         var unwrappedLocation = IOUtil.unwrapURL(aContentLocation);
+         var scheme = unwrappedLocation.scheme;
+         var isHTTP = /^https?$/.test(scheme);   // s? -> either http or https
+         this.log(VERB,"shoulLoad for " + aContentLocation.spec);
+         if (isHTTP)
+           HTTPS.forceURI(aContentLocation, null, aContext);
+       } 
     return true;
   },
 
@@ -582,8 +617,79 @@ HTTPSEverywhere.prototype = {
     } catch (e) {
       this.log(WARN, "Couldn't notify observers: " + e);
     }
-  }
+  },
 
+  chrome_opener: function(uri, args) {
+    // we don't use window.open, because we need to work around TorButton's 
+    // state control
+    args = args || 'chrome,centerscreen';
+    return CC['@mozilla.org/appshell/window-mediator;1']
+      .getService(CI.nsIWindowMediator) 
+      .getMostRecentWindow('navigator:browser')
+      .open(uri,'', args );
+  },
+
+  toggleEnabledState: function() {
+	if(this.prefs.getBoolPref("globalEnabled")){	
+		try{	
+			this.obsService.removeObserver(this, "profile-before-change");
+			this.obsService.removeObserver(this, "profile-after-change");
+			this.obsService.removeObserver(this, "sessionstore-windows-restored");		
+			OS.removeObserver(this, "cookie-changed");
+			OS.removeObserver(this, "http-on-modify-request");
+			OS.removeObserver(this, "http-on-examine-merged-response");
+			OS.removeObserver(this, "http-on-examine-response");  
+			
+			var catman = Components.classes["@mozilla.org/categorymanager;1"]
+           .getService(Components.interfaces.nsICategoryManager);
+			catman.deleteCategoryEntry("net-channel-event-sinks", SERVICE_CTRID, true);
+						
+			var dls = CC['@mozilla.org/docloaderservice;1']
+			.getService(CI.nsIWebProgress);
+			dls.removeProgressListener(this);
+			
+			this.prefs.setBoolPref("globalEnabled", false);
+		}
+		catch(e){
+			this.log(WARN, "Couldn't remove observers: " + e);			
+		}
+	}
+	else{	
+		try{	  
+			this.obsService.addObserver(this, "profile-before-change", false);
+			this.obsService.addObserver(this, "profile-after-change", false);
+			this.obsService.addObserver(this, "sessionstore-windows-restored", false);		
+			OS.addObserver(this, "cookie-changed", false);
+			OS.addObserver(this, "http-on-modify-request", false);
+			OS.addObserver(this, "http-on-examine-merged-response", false);
+			OS.addObserver(this, "http-on-examine-response", false);  
+			
+			var dls = CC['@mozilla.org/docloaderservice;1']
+			.getService(CI.nsIWebProgress);
+			dls.addProgressListener(this, CI.nsIWebProgress.NOTIFY_STATE_REQUEST |
+                                    CI.nsIWebProgress.NOTIFY_LOCATION);
+			
+			this.log(INFO,"ChannelReplacement.supported = "+ChannelReplacement.supported);
+
+			HTTPSRules.init();
+
+			if(!Thread.hostRunning)
+				Thread.hostRunning = true;
+			
+			var catman = Components.classes["@mozilla.org/categorymanager;1"]
+			.getService(Components.interfaces.nsICategoryManager);
+			// hook on redirections (non persistent, otherwise crashes on 1.8.x)
+			catman.addCategoryEntry("net-channel-event-sinks", SERVICE_CTRID,
+				SERVICE_CTRID, false, true);			
+			
+			HTTPSRules.init();			
+			this.prefs.setBoolPref("globalEnabled", true);
+		}
+		catch(e){
+			this.log(WARN, "Couldn't add observers: " + e);			
+		}
+	}
+  }
 };
 
 var prefs = 0;

@@ -192,7 +192,7 @@ const HTTPS = {
       this.log(WARN,"No URI inside request " +req);
       return;
     }
-    this.log(DBUG, "Cookie hunting in " + uri.spec);
+    //this.log(DBUG, "Cookie hunting in " + uri.spec);
     var alist = HTTPSEverywhere.instance.getApplicableListForChannel(req);
     if (!alist)
       this.log(INFO, "No alist for cookies for "+(req.URI) ? req.URI.spec : "???");
@@ -217,6 +217,18 @@ const HTTPS = {
         }
       }
       
+    }
+  },
+
+  handleInsecureCookie: function(c) {
+    if (HTTPSRules.shouldSecureCookie(null, c)) {
+      this.log(INFO, "Securing cookie from event: " + c.domain + " " + c.name);
+      var cookieManager = Components.classes["@mozilla.org/cookiemanager;1"]
+                            .getService(Components.interfaces.nsICookieManager2);
+      //some braindead cookies apparently use umghzabilliontrabilions
+      var expiry = Math.min(c.expiry, Math.pow(2,31))
+      cookieManager.remove(c.host, c.name, c.path, false);
+      cookieManager.add(c.host, c.path, c.name, c.value, true, c.isHTTPOnly, c.isSession, expiry);
     }
   },
   
