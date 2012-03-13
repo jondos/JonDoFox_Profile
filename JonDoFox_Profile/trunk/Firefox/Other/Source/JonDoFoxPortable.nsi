@@ -22,7 +22,7 @@
 !define PORTABLEAPPNAME "JonDoFox"
 !define APPNAME "JonDoFox"
 !define NAME "JonDoFoxPortable"
-!define VER "2.1.0.0"
+!define VER "2.6.4.0"
 !define WEBSITE "anonymous-proxy-servers.net/de/jondofox"
 !define DEFAULTEXE "firefox.exe"
 !define DEFAULTAPPDIR "firefox"

@@ -11,7 +11,7 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "JonDoFoxPortable"
-!define VERSION "2.6.3.0"
+!define VERSION "2.6.4.0"
 !define FILENAME "JonDoFox"
 !define FF_VERSION "11.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
