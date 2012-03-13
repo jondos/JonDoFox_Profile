@@ -5,7 +5,9 @@ xpcom_compat.dll
 xpistub.dll
 zlib.dll
 jemalloc.dll
+mozutils.dll
 LICENSE
+update.locale
 browserconfig.properties
 chrome/US.jar
 chrome/app-chrome.manifest
@@ -59,6 +61,7 @@ components/nsUrlClassifierTable.js
 components/nsXmlRpcClient.js
 components/pluginGlue.js
 components/sidebar.xpt
+components/uconvd.dll
 components/WeaveCrypto.js
 components/WeaveCrypto.manifest
 components/xmlextras.xpt
@@ -213,6 +216,8 @@ greprefs/security-prefs.js
 greprefs/xpinstall.js
 install.rdf
 modules/JSON.jsm
+modules/SpatialNavigation.js
+modules/utils.js
 mozilla-runtime.exe
 old-homepage-default.properties
 README.txt
@@ -234,6 +239,7 @@ res/fonts/mathfontMath4.properties
 res/fonts/mathfontPUA.properties
 res/fonts/pangoFontEncoding.properties
 res/forms.css
+res/full-screen-override.css
 res/hiddenWindow.html
 res/html.css
 res/html/gopher-audio.gif
@@ -889,6 +895,8 @@ components/storage-Legacy.js
 components/storage-mozStorage.js
 components/txEXSLTRegExFunctions.js
 components/Weave.js
+components/Webapps.js
+components/Webapps.manifest
 components/WebContentConverter.js
 defaults/autoconfig/platform.js
 defaults/autoconfig/prefcalls.js
@@ -1012,7 +1020,7 @@ modules/stylePanel.jsm
 modules/tabview/AllTabs.jsm
 modules/tabview/groups.jsm
 modules/tabview/utils.jsm
-modules/utils.js
+modules/Webapps.jsm
 modules/WindowDraggingUtils.jsm
 modules/WindowsJumpLists.jsm
 modules/WindowsPreviewPerTab.jsm
@@ -1064,14 +1072,14 @@ components/jsd3250.dll
 components/nsPostUpdateWin.js
 js3250.dll
 plugins/npnul32.dll
-bin/Microsoft.VC90.CRT.manifest
-bin/msvcm90.dll
-bin/msvcp90.dll
-bin/msvcr90.dll
-bin/msvcp100.dll
-bin/msvcr100.dll
-bin/msvcp110.dll
-bin/msvcr110.dll
+Microsoft.VC90.CRT.manifest
+msvcm90.dll
+msvcp90.dll
+msvcr90.dll
+msvcp100.dll
+msvcr100.dll
+msvcp110.dll
+msvcr110.dll
 mozcrt19.dll
 mozcpp19.dll
 xpcom_core.dll
