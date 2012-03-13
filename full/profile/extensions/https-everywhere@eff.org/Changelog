@@ -1,3 +1,126 @@
+2.0.1                                       (2012-02-27)
+  * 2.0 is now Stable!
+  * Fix tiny settings window on some versions of Windows:
+    https://trac.torproject.org/projects/tor/ticket/5197
+  * Fix drop down menu bug for the non-English versions of the UI
+  * Added Farsi and Arabic translations
+  * Disable Netflix, which was demonstrating a lot of breakage
+  * Improvements: Wikipedia
+  * Fixes: Google, Samba
+  * Ship 4 new rulesets since 2.0development.6
+    (404 new rulesets since 1.2.2!)
+  * Check ruleset grammaticity with xmllint/RelaxNG
+
+chrome-2012.02.09
+  * make <exclusion pattern> rulesets elements work in the Chrome version
+    https://trac.torproject.org/projects/tor/ticket/5042
+    (also disable the LinkedIn ruleset)
+  * Support for Google Sorry
+  * 6 new rulesets
+
+2.0.0development.6                           (2012-02-08)
+  * Fix a nasty UI crash bug on Windows
+    https://trac.torproject.org/projects/tor/ticket/5020
+  * Ruleset fixes: Google Video, Yandex, LDS
+    https://trac.torproject.org/projects/tor/ticket/5026
+    https://trac.torproject.org/projects/tor/ticket/5042
+  * Disable problematic LinkedIn ruleset
+  * An experimental ruleset for the Google "Sorry" page
+  * Improved Nederlands translation
+  * Ship 6 new rulesets
+
+chrome-2012.02.06{,.01}
+  * First "Official" EFF alpha Chrome release
+  * Installable on Chrome|Chromium 18+
+  * Two point versions, to test the autoupdating mechanism
+
+2.0.0development.5                           (2012-02-02)
+  * Fix some data structure inefficiencies that should reduce RAM consumption
+    by 25-75MB (!)
+    https://trac.torproject.org/projects/tor/ticket/4804
+  * Global enable / disable option
+    https://trac.torproject.org/projects/tor/ticket/4060
+  * Google Cache is back! :)
+  * Ship 126 new rulesets
+  * Fixes: Wikipedia, Identi.ca, Verizon, CCC.de, UserScripts, Yandex,
+           Hidemyass, Mozilla, Pogo, Google, Google Images, Google Video,
+           The Pirate Bay, AK Vorrat, JBoss 
+  * Improvements: EFF, Flickr, RedHat, Diaspora, PrivatePaste, KDE,
+                  Portugese Govt 
+  * Disable broken: NSF.gov, WHO.int, Economist
+  * New experimental Yahoo! ruleset (off by default)
+  * New translations: Spanish, Nederlands
+
+2.0.0development.4                           (2011-11-15)
+  * The translations actually work
+  * Add new translations: Chinese, Russian
+  * Ship 37 new rulesets
+  * Exclude Userscript paths as an insecure workaround for the Greasemonkey
+    and Scriptish instances of this bug:
+      https://trac.torproject.org/projects/tor/ticket/3190
+  * Fixes: Java.com, Yandex, Wordpress, Wikipedia, Bahn.de, UNSW, Apache,
+           DuckDuckGo, Google Images
+  * Improvements: Debian, Tumblr, Apple, Facebook, VeriSign, Google Services,
+                  Flickr, Youtu.be 
+  * Disable broken: Target, OpenUniversity, TV.com, Radio Shack, 
+                    Yahoo Mail :( :(,
+                    Google Cache coverage in Google Services :( :( :(
+
+2.0.0development.3                           (2011-10-19)
+  * Selectively reenable nsIContentPolicy::shouldLoad()
+      Fixes: https://trac.torproject.org/projects/tor/ticket/4194
+      Fixes: https://trac.torproject.org/projects/tor/ticket/4149
+  * Crazy experimental IOUtils hacks from NoScript
+      https://bugzilla.mozilla.org/show_bug.cgi?id=677643#c75
+      (Appears to fix
+      https://mail1.eff.org/pipermail/https-everywhere/2011-October/001208.html,
+      which is probably a general redirection bug)
+  * Secure cookies set by JavaScript as well as those set by HTTP
+      Fixes: https://trac.torproject.org/projects/tor/ticket/3766
+  * Perform initialisation synchronously, reducing races during startup
+      Fixes: https://trac.torproject.org/projects/tor/ticket/3533
+  * Ship 9 new rulesets
+  * Disable: MikeWest
+  * Improvements: YouTube, Google Images
+
+2.0.0development.2                           (2011-10-05)
+  * Enable YouTube by default
+    (also closes https://trac.torproject.org/projects/tor/ticket/4032)
+  * Merge nsIContentPolicy disablement from stable
+    (closes https://trac.torproject.org/projects/tor/ticket/3882)
+  * Context menu should work on error pages
+    (https://trac.torproject.org/projects/tor/ticket/3815)
+  * Fix the ASN setting button in the observatory prefs
+    (https://trac.torproject.org/projects/tor/ticket/4170)
+  * Make the Observatory much more efficient
+  * Ship 46 new rulesets
+  * Update for new Wikipedia HTTPS deployment
+  * Ruleset Fixes and Enhancements: Yandex, Identica, SBB, Polldaddy, XKCD,
+    Statcounter, Caltech, UCSD, FlickR, Android
+  * Disable broken: LastPass, Avast, EPEAT, Bloglines
+  * Improve the state of our translations-in progress
+  * Fancy new Python build scripts
+
+2.0.0development.1                           (2011-09-15)
+  * Begin alpha testing for the Decentralized SSL Observatory!
+    (currently opt-in, with a popup prompt if you have Tor Button installed)
+  * Ship 164 new rulesets
+  * Enable Google Maps by default
+  * Pending translations: Arabic, Dutch, German, Portugese, Latvian, Russian, 
+                          Swedish
+  * Fixes: OpenDNS, WordPress, Flickr
+  * Expansions & Improvements: Google Services, Twitter, Gowalla, Apple, Bit.ly
+                               AdBlock Plus, KLM, Adobe, UCSD, Heroku, Wikipedia
+  * Disable broken rulesets: Deviantart, Bandcamp, Securityfocus
+  * Improved build scripts
+
+1.2.2                                         (2012-01-09)
+  * Google Cache is back!
+  * Fixes: Wikipedia, Identi.ca, Verizon, CCC.de, UserScripts,
+           Yandex
+  * Improvements: EFF
+  * Disable broken: NSF.gov, WHO.int
+
 1.2.1                                         (2011-10-15)
   * Google Cache is broken, remove it from GoogleServices :( :( :(
   * Fix for the Google Image Search homepage

@@ -10,6 +10,10 @@ INFO=3;
 NOTE=4;
 WARN=5;
 
+HTTPSEverywhere = CC["@eff.org/https-everywhere;1"]
+                      .getService(Components.interfaces.nsISupports)
+                      .wrappedJSObject;
+
 function https_everywhere_load() {
   // on first run, put the context menu in the addons bar
   try {
@@ -33,14 +37,30 @@ function https_everywhere_load() {
   } catch(e) { }
 }
 
-function show_applicable_list() {
+function stitch_context_menu() {
+  // the same menu appears both under Tools and via the toolbar button:
+  var menu = document.getElementById("https-everywhere-menu");
+  if (!menu.firstChild) {
+    var popup = document.getElementById("https-everywhere-context");
+    menu.appendChild(popup.cloneNode(true));
+  }
+}
+function stitch_context_menu2() {
+  // the same menu appears both under Tools and via the toolbar button:
+  var menu = document.getElementById("https-everywhere-menu2");
+  if (!menu.firstChild) {
+    var popup = document.getElementById("https-everywhere-context");
+    menu.appendChild(popup.cloneNode(true));
+  }
+}
+
+function show_applicable_list(menupopup) {
   var domWin = content.document.defaultView.top;
   if (!(domWin instanceof CI.nsIDOMWindow)) {
     alert(domWin + " is not an nsIDOMWindow");
     return null;
   }
 
-  var HTTPSEverywhere = CC["@eff.org/https-everywhere;1"].getService(Components.interfaces.nsISupports).wrappedJSObject;
   var alist = HTTPSEverywhere.getExpando(domWin,"applicable_rules", null);
   var weird=false;
   
@@ -51,24 +71,21 @@ function show_applicable_list() {
     alist = new HTTPSEverywhere.ApplicableList(HTTPSEverywhere.log, document, domWin);
     weird = true;
   }
-  alist.populate_menu(document, weird);
+  alist.populate_menu(document, menupopup, weird);
 }
 
 function toggle_rule(rule_id) {
   // toggle the rule state
-  var HTTPSEverywhere = CC["@eff.org/https-everywhere;1"]
-                      .getService(Components.interfaces.nsISupports)
-                      .wrappedJSObject;
   HTTPSEverywhere.https_rules.rulesetsByID[rule_id].toggle();
   var domWin = content.document.defaultView.top;
   /*if (domWin instanceof CI.nsIDOMWindow) {
     var alist = HTTPSEverywhere.getExpando(domWin,"applicable_rules", null);
     if (alist) alist.empty();
   }*/
-  reload_window(HTTPSEverywhere);
+  reload_window();
 }
 
-function reload_window(HTTPSEverywhere) {
+function reload_window() {
   var domWin = content.document.defaultView.top;
   if (!(domWin instanceof CI.nsIDOMWindow)) {
     HTTPSEverywhere.log(WARN, domWin + " is not an nsIDOMWindow");
@@ -84,7 +101,12 @@ function reload_window(HTTPSEverywhere) {
   }
   // This choice of flags comes from NoScript's quickReload function; not sure
   // if it's optimal
-  webNav.reload(webNav.LOAD_FLAGS_CHARSET_CHANGE);
+  webNav.reload(webNav.LOAD_FLAGS_CHARSET_CHANGE);  
+}
+
+function toggleEnabledState(){
+	HTTPSEverywhere.toggleEnabledState();
+	reload_window();	
 }
 
 function open_in_tab(url) {
@@ -92,11 +114,4 @@ function open_in_tab(url) {
                      .getService(Components.interfaces.nsIWindowMediator);
   var recentWindow = wm.getMostRecentWindow("navigator:browser");
   recentWindow.delayedOpenTab(url, null, null, null, null);
-}
-
-function chrome_opener(uri) {
-  // we don't use window.open, because we need to work around TorButton's state control
-  CC['@mozilla.org/appshell/window-mediator;1'].getService(CI.nsIWindowMediator)
-                                               .getMostRecentWindow('navigator:browser')
-                                               .open(uri,'', 'chrome,centerscreen' );
 }

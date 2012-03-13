@@ -1,11 +1,11 @@
 function Rule(from, to) {
-  this.from = from;
+  //this.from = from;
   this.to = to;
   this.from_c = new RegExp(from);
 }
 
 function Exclusion(pattern) {
-  this.pattern = pattern;
+  //this.pattern = pattern;
   this.pattern_c = new RegExp(pattern);
 }
 
@@ -18,11 +18,11 @@ function CookieRule(host, cookiename) {
 
 ruleset_counter = 0;
 function RuleSet(name, match_rule, default_off) {
-  this.id="https-everywhere-rule-" + ruleset_counter;
+  this.id="httpseR" + ruleset_counter;
   ruleset_counter += 1;
   this.on_by_default = true;
   this.name = name;
-  this.ruleset_match = match_rule;
+  //this.ruleset_match = match_rule;
   this.notes = "";
   if (match_rule)   this.ruleset_match_c = new RegExp(match_rule)
   else              this.ruleset_match_c = null;
@@ -36,7 +36,7 @@ function RuleSet(name, match_rule, default_off) {
   this.rules = [];
   this.exclusions = [];
   this.cookierules = [];
-  this.prefs = HTTPSEverywhere.instance.get_prefs();
+  this.prefs = HTTPSEverywhere.instance.prefs;
   try {
     // if this pref exists, use it
     this.active = this.prefs.getBoolPref(name);
@@ -87,8 +87,8 @@ RuleSet.prototype = {
    // care about hypothetical wouldMatch questios
    if (this.name in alist.all) return false;
 
-   //this.log(DBUG,"Would " +this.name + " match " +hypothetical_uri.spec +
-   //         "?  serial " + alist.serial);
+   this.log(DBUG,"Would " +this.name + " match " +hypothetical_uri.spec +
+            "?  serial " + alist.serial);
     
    var uri = hypothetical_uri.clone();
    if (uri.scheme == "https") uri.scheme = "http";
@@ -115,7 +115,7 @@ RuleSet.prototype = {
     if (0 == newurl)
       return 0;
     var newuri = Components.classes["@mozilla.org/network/standard-url;1"].
-                createInstance(CI.nsIStandardURL);
+                 createInstance(CI.nsIStandardURL);
     newuri.init(CI.nsIStandardURL.URLTYPE_STANDARD, 80,
              newurl, uri.originCharset, null);
     newuri = newuri.QueryInterface(CI.nsIURI);
@@ -141,7 +141,6 @@ RuleSet.prototype = {
 };
 
 const RuleWriter = {
-  addonDir: false,
 
   getCustomRuleDir: function() {
     var loc = "ProfD";  // profile directory
@@ -161,21 +160,47 @@ const RuleWriter = {
     return file;
   },
 
+  chromeToPath: function (aPath) {
+    if (!aPath || !(/^chrome:/.test(aPath)))
+       return; //not a chrome url
+
+    var ios =
+      CC['@mozilla.org/network/io-service;1']
+      .getService(CI.nsIIOService);
+    var uri = ios.newURI(aPath, "UTF-8", null);
+    var cr =
+      CC['@mozilla.org/chrome/chrome-registry;1']
+      .getService(CI.nsIChromeRegistry);
+    var rv = cr.convertChromeURL(uri).spec;
+
+    if (/^file:/.test(rv))
+      rv = this.urlToPath(rv);
+    else
+      rv = this.urlToPath("file://"+rv);
+
+    return rv;
+  },
+
+  urlToPath: function (aPath) {
+    if (!aPath || !/^file:/.test(aPath))
+      return ;
+
+    var ph =
+      CC["@mozilla.org/network/protocol;1?name=file"]
+      .createInstance(CI.nsIFileProtocolHandler);
+    var rv = ph.getFileFromURLSpec(aPath).path;
+
+    return rv;
+  },
+
   getRuleDir: function() {
-    if (!this.addonDir)
-      try {
-        // Firefox < 4
-        this.addonDir = CC["@mozilla.org/extensions/manager;1"].
-          getService(CI.nsIExtensionManager).
-          getInstallLocation("https-everywhere@eff.org").
-          getItemFile("https-everywhere@eff.org", "");
-      } catch(e) {
-        // Firefox >= 4 (this should not be reached)
-      }
-    var file = this.addonDir.clone();
-    file.append("chrome");
-    file.append("content");
-    file.append("rules");
+    loc = "chrome://https-everywhere/content/rules/";
+
+    var file =
+      CC["@mozilla.org/file/local;1"]
+      .createInstance(CI.nsILocalFile);  
+    file.initWithPath(this.chromeToPath(loc));
+
     if (!file.isDirectory()) {
       // XXX: Arg, death!
       this.log(WARN,"Catastrophic failure: extension directory is not a directory");
@@ -203,7 +228,8 @@ const RuleWriter = {
     }
 
     sstream.close();
-    fstream.close();
+    fstream.close();	
+    data = data.replace(/<\?xml[^>]*\?>/, ""); 
     try {
       data = data.replace(/<\?xml[^>]*\?>/, ""); 
       var xmlrulesets = XML(data);
@@ -429,12 +455,18 @@ const HTTPSRules = {
   },
 
 
-  potentiallyApplicableRulesets: function(host) {
+  potentiallyApplicableRulesets: function(host) {  
     // Return a list of rulesets that declare targets matching this host
     var i, tmp, t;
     var results = this.global_rulesets;
-    if (this.targets[host])
-      results = results.concat(this.targets[host]);
+	try{
+		if (this.targets[host])
+			results = results.concat(this.targets[host]);
+	}
+	catch(e){	
+		this.log(DBUG,"Couldn't check for ApplicableRulesets: " + e);
+		return [];
+	}
     // replace each portion of the domain with a * in turn
     var segmented = host.split(".");
     for (i = 0; i < segmented.length; ++i) {
@@ -452,9 +484,9 @@ const HTTPSRules = {
       if (this.targets[t])
         results = results.concat(this.targets[t]);
     }
-    //this.log(DBUG,"Potentially applicable rules for " + host + ":");
-    //for (i = 0; i < results.length; ++i)
-    //  this.log(DBUG, "  " + results[i].name);
+    this.log(DBUG,"Potentially applicable rules for " + host + ":");
+    for (i = 0; i < results.length; ++i)
+      this.log(DBUG, "  " + results[i].name);
     return results;
   },
 
@@ -480,9 +512,9 @@ const HTTPSRules = {
           }
         }
         if (ruleset.cookierules.length > 0)
-          applicable_list.moot_rule(ruleset);
+          if (applicable_list) applicable_list.moot_rule(ruleset);
       } else if (ruleset.cookierules.length > 0) {
-        applicable_list.inactive_rule(ruleset);
+        if (applicable_list) applicable_list.inactive_rule(ruleset);
         this.log(INFO,"Inactive cookie rule " + ruleset.name);
       }
     }

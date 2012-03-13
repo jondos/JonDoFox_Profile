@@ -9,8 +9,8 @@
   xmlns:html="http://www.w3.org/1999/xhtml"
   buttons="accept"
   title="&https-everywhere.about.title;"
-  width="500"
-  height="600"
+  width="750"
+  height="540"
   align="center">
 
   <script type="application/x-javascript" 
@@ -21,7 +21,7 @@
 
     <groupbox>
       <caption label="&https-everywhere.about.version;" />
-      <label>1.2.2</label>
+      <label>2.0.1</label>
     </groupbox>
     
     <groupbox>
@@ -36,18 +36,20 @@
 
     <groupbox>
       <caption label="&https-everywhere.about.thanks;" />
-      <label>Many many contributors, including Alec Moskvin, Alex Xu, Chris
-      Palmer, Christopher Liu, Claudio Moretti, Daniel Kahn Gillmor, dm0,
-      Felix Geyer, Heiko Adams, Jeroen van der Gun, Jorge Bernal, katmagic,
-      Micah Lee, Ori Avtalion, Osama Khalid, nitrox, Pablo Castellano, Richard
-      Green, Rules Moore, Stefan Tomanek, Victor Garin and Whizz Mo.  Also, 
-      portions of HTTPS Everywhere are based on code from NoScript, by
-      Giorgio Maone and others.  We are grateful for their excellent work!
+      <label>Many many contributors, including Aaron Swartz, Alec Moskvin,
+      Alex Xu, Anas Qtiesh, Artyom Gavrichenkov, Chris Palmer, Christopher
+      Liu, Claudio Moretti, Daniel Kahn Gillmor, dm0, The Doctor, Felix
+      Geyer, haviah, Heiko Adams, Jeroen van der Gun, Jorge Bernal, katmagic,
+      Kevin Jacobs, Korte, Micah Lee, Ori Avtalion, Osama Khalid, nitrox,
+      Pablo Castellano, Phol Paucar, Richard Green, Rules Moore, Stefan
+      Tomanek, Steve Milner, Sujit Rao, Vendo, Victor Garin and Whizz Mo.
+      Also, portions of HTTPS Everywhere are based on code from NoScript, by
+      Giorgio Maone and others. We are grateful for their excellent work!
       </label>
     </groupbox>
 
     <label style="font-weight:bold; margin-top:10px;">
-      &https-everywhere.about.countribute;
+      &https-everywhere.about.contribute;
       <label id="donate link"
         value="&https-everywhere.about.donate_tor;"
         style="color: blue; cursor:hand; text-decoration:underline; font-style:bold"

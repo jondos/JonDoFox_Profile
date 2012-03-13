@@ -65,22 +65,37 @@ ApplicableList.prototype = {
       dst.setUserData(key, data, this.dom_handler);
   },
 
-  populate_menu: function(document, weird) {
+  populate_menu: function(document, menupopup, weird) {
 
     // The base URI of the dom tends to be loaded from some /other/
     // ApplicableList, so pretend we're loading it from here.
     HTTPSEverywhere.instance.https_rules.rewrittenURI(this, this.doc.baseURIObject);
     this.log(DBUG, "populating using alist #" + this.serial);
     this.document = document;
+	
+	var https_everywhere = CC["@eff.org/https-everywhere;1"].getService(Components.interfaces.nsISupports).wrappedJSObject;	  
+	var o_httpsprefs = https_everywhere.get_prefs();
    
     // get the menu popup
-    this.menupopup = document.getElementById('https-everywhere-context');
+    this.menupopup = menupopup;
 
     // empty it all of its menuitems
-    while(this.menupopup.firstChild) {
+    while(this.menupopup.firstChild.tagName != "menuseparator") {
       this.menupopup.removeChild(this.menupopup.firstChild);
     }
-
+	
+	// add global enable/disable toggle button	
+	var strings = document.getElementById("HttpsEverywhereStrings");
+	
+	var enableLabel = document.createElement('menuitem');
+	var text = strings.getString("https-everywhere.menu.globalDisable");
+	if(!o_httpsprefs.getBoolPref("globalEnabled"))
+		text = strings.getString("https-everywhere.menu.globalEnable");
+		
+	enableLabel.setAttribute('label', text);
+    enableLabel.setAttribute('command', 'https-everywhere-menuitem-globalEnableToggle');	
+	this.prepend_child(enableLabel);
+	
     // add the label at the top
     var any_rules = false
     for (var x in this.all) {
@@ -92,10 +107,9 @@ ApplicableList.prototype = {
         label.setAttribute('label', 'Enable / Disable Rules');
     } else {
       if (!weird) label.setAttribute('label', '(No Rules for This Page)');
-      else        label.setAttribute('label', '(Rules for This Page Uknown)');
+      else        label.setAttribute('label', '(Rules for This Page Unknown)');
     }
     label.setAttribute('command', 'https-everywhere-menuitem-preferences');
-    this.menupopup.appendChild(label);
 
     // create a commandset if it doesn't already exist
     this.commandset = document.getElementById('https-everywhere-commandset');
@@ -110,6 +124,37 @@ ApplicableList.prototype = {
         this.commandset.removeChild(this.commandset.firstChild);
     }
 
+	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                     .getService(Components.interfaces.nsIWindowMediator);
+					 
+	var domWin = wm.getMostRecentWindow("navigator:browser").content.document.defaultView.top;	
+	var location = domWin.document.baseURIObject.asciiSpec; //full url, including about:certerror details
+	
+	if(location.substr(0, 6) == "about:"){
+		//"From" portion of the rule is retrieved from the location bar via document.getElementById("urlbar").value
+		  
+		var fromHost = document.getElementById("urlbar").value;	 
+		
+	    //scheme must be trimmed out to check for applicable rulesets		
+		if(fromHost.indexOf("://") != -1)
+			fromHost = fromHost.substr(fromHost.indexOf("://") + 3, fromHost.length);
+			
+		//trim off any page locations - we only want the host - e.g. domain.com
+		if(fromHost.indexOf("/") != -1)
+			fromHost = fromHost.substr(0, fromHost.indexOf("/"));
+					   
+		//Search for applicable rulesets for the host listed in the location bar
+		var alist = HTTPSRules.potentiallyApplicableRulesets(fromHost);		
+		
+		for (var i = 0 ; i < alist.length ; i++){
+			//For each applicable rulset, determine active/inactive, and append to proper list.
+			if(o_httpsprefs.getBoolPref(alist[i].name))
+				this.active_rule(alist[i]);
+			else
+				this.inactive_rule(alist[i]);					
+		}	
+	}	
+	
     // add all applicable commands
     for(var x in this.breaking) 
       this.add_command(this.breaking[x]); 
@@ -120,44 +165,28 @@ ApplicableList.prototype = {
     for(var x in this.inactive) 
       this.add_command(this.inactive[x]);
 
-    // add all the menu items
-    for (var x in this.breaking)
-      this.add_menuitem(this.breaking[x], 'breaking');
-    // break once break everywhere
-    for (var x in this.active) 
-      if (!(x in this.breaking))
-        this.add_menuitem(this.active[x], 'active');
-    // rules that are active for some uris are not really moot
-    for (var x in this.moot) 
-      if (!(x in this.active))   
-        this.add_menuitem(this.moot[x], 'moot');
-    for (var x in this.inactive)
-      this.add_menuitem(this.inactive[x], 'inactive');
+	if(o_httpsprefs.getBoolPref("globalEnabled")){
+       // add all the menu items
+       for (var x in this.inactive)
+          this.add_menuitem(this.inactive[x], 'inactive');
+       // rules that are active for some uris are not really moot
+       for (var x in this.moot) 
+          if (!(x in this.active))   
+              this.add_menuitem(this.moot[x], 'moot');
+       // break once break everywhere
+       for (var x in this.active) 
+          if (!(x in this.breaking))
+              this.add_menuitem(this.active[x], 'active');
+	   for (var x in this.breaking)
+		  this.add_menuitem(this.breaking[x], 'breaking');
+		  
+       this.prepend_child(label);
+	}
+	
+  },
 
-    // add other menu items
-    this.menupopup.appendChild(document.createElement('menuseparator'));
-
-    // preferences, about
-    var about = document.createElement('menuitem');
-    about.setAttribute('label', 'About HTTPS Everywhere');
-    about.setAttribute('command', 'https-everywhere-menuitem-about');
-    this.menupopup.appendChild(about);
-
-    // separator
-    this.menupopup.appendChild(document.createElement('menuseparator'));
-
-    // donate
-    /* var donate_eff = document.createElement('menuitem');
-    donate_eff.setAttribute('label', 'Donate to EFF');
-    donate_eff.setAttribute('command', 'https-everywhere-menuitem-donate-eff');
-    this.menupopup.appendChild(donate_eff);
-    var donate_tor = document.createElement('menuitem');
-    donate_tor.setAttribute('label', 'Donate to Tor');
-    donate_tor.setAttribute('command', 'https-everywhere-menuitem-donate-tor');
-    this.menupopup.appendChild(donate_tor); */
-
-    this.log(DBUG, "finished menu");
-    
+  prepend_child: function(node) {
+    this.menupopup.insertBefore(node, this.menupopup.firstChild);
   },
 
   add_command: function(rule) {
@@ -175,29 +204,19 @@ ApplicableList.prototype = {
     // create the menuitem
     var item = this.document.createElement('menuitem');
     item.setAttribute('command', rule.id+'-command');
-    item.setAttribute('class', type+'-item');
-
+    item.setAttribute('class', type+'-item menuitem-iconic');
+    item.setAttribute('label', rule.name);
+    
     // set the icon
-    var image = this.document.createElement('image');
     var image_src;
     if (type == 'active') image_src = 'tick.png';
     else if (type == 'inactive') image_src = 'cross.png';
     else if (type == 'moot') image_src = 'tick-moot.png';
     else if (type == 'breaking') image_src = 'tick-red.png';
-    image.setAttribute('src', 'chrome://https-everywhere/skin/'+image_src);
-
-    // set the label
-    var label = this.document.createElement('label');
-    label.setAttribute('value', rule.name);
-    
-    // put them in an hbox, and put the hbox in the menuitem
-    var hbox = this.document.createElement('hbox');
-    hbox.appendChild(image);
-    hbox.appendChild(label);
-    item.appendChild(hbox);
+    item.setAttribute('image', 'chrome://https-everywhere/skin/'+image_src);
 
     // all done
-    this.menupopup.appendChild(item);
+    this.prepend_child(item);
   },
 
   show_applicable: function() {
