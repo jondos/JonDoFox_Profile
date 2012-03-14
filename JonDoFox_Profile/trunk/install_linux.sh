@@ -189,8 +189,9 @@ restoreBookmarks()
 			rm -r "${HTTPSEverywhereUserRules}"
 		fi
 		echo "restoring HTTPSEverywhereUserRules."
-		cp ${COPY_RECURSIVE_OPT} -f "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
+		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
 		rm -r "${SAVED_HTTPSEverywhereUserRules}"
+		cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} "${INSTALL_PROFILE}/HTTPSEverywhereUserRules"/*.xml  "${HTTPSEverywhereUserRules}"
 	fi
 }
 
