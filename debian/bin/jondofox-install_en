@@ -68,7 +68,7 @@ COPY_RECURSIVE_OPT=""
 ECHO_ESCAPE="-e"
 VERBOSE=""
 
-OVERWRITE_DIALOG_TITLE=""
+OVERWRITE_DIALOG_TITLE=""cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} "${INSTALL_PROFILE}/HTTPSEverywhereUserRules"/*.xml  "${HTTPSEverywhereUserRules}"
 DIALOG_TEXT_SAME_VERSION=""
 DIALOG_TEXT_OW_OLDER_VERSION=""
 DIALOG_TEXT_OW_NEWER_VERSION=""
@@ -185,6 +185,7 @@ restoreBookmarks()
 		fi
 		cp ${COPY_RECURSIVE_OPT} -f "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
 		rm -r "${SAVED_HTTPSEverywhereUserRules}"
+		cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} "${INSTALL_PROFILE}/HTTPSEverywhereUserRules"/*.xml  "${HTTPSEverywhereUserRules}"
 	fi
 }
 
