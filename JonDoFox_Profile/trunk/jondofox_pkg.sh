@@ -271,6 +271,9 @@ createLinuxPackage()
 			
 			cp -f "${installer_help_file}" "${INSTALLER_HELP_FILE}"
 			setLanguageBookmarks "${lang}"
+
+			# replace "Arial" by "liberation Sans"
+                        sed -i "s/Arial/Liberation Sans/" "${JONDOFOX_PROFILE}"/prefs.js
 			
 			echo "Creating linux archiv 'jondofox_linux_${lang}.tar.bz2'"
 			chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
@@ -279,7 +282,6 @@ createLinuxPackage()
 			fi
 			tar -cf jondofox_linux_${lang}.tar "${JONDOFOX_PROFILE}" 
 			tar -rf jondofox_linux_${lang}.tar "${INSTALLER_HELP_FILE}" 
-			# tar -rf jondofox_linux_${lang}.tar "${VB_INSTALLER_SCRIPT}" 
 			tar -rf jondofox_linux_${lang}.tar "${BASH_INSTALLER_SCRIPT}"
 			if [ -e jondofox_linux_${lang}.tar.bz2 ]; then
 				rm -f jondofox_linux_${lang}.tar.bz2
@@ -290,7 +292,6 @@ createLinuxPackage()
 			fi
 			if [ $GPGSIG == "y" ]; then
 				gpg -b --armor --default-key=support@jondos.de jondofox_linux_${lang}.tar.bz2
-				md5sum -b jondofox_linux_${lang}.tar.bz2 | cut -d " " -f 1 > md5_jondofox_linux_${lang}.html
 			fi
 		done
 	done
