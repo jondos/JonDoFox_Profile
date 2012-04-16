@@ -1515,6 +1515,11 @@ ClearErrors
            IfFileExists $TEMP\NoScriptSTS.db 0 +2 
            CopyFiles "$TEMP\NoScriptSTS.db" $ProfilePath 
            IfFileExists $TEMP\HTTPSEverywhereUserRules\*.* 0 +2
+           # We have a new profile here. Avoid overwriting new rules regarding
+           # our domains with old ones. As CopyFiles is overwriting files
+           # automatically we have to copy the new rules for our domain to the
+           # temp folder first, ugh.
+           CopyFiles $ProfilePath\HTTPSEverywhereUserRules\*.* "$TEMP\HTTPSEverywhereUserRules"
            CopyFiles "$TEMP\HTTPSEverywhereUserRules\*.*" $ProfilePath\HTTPSEverywhereUserRules
            # Adding the user chosen forced domains or exceptions
            IfFileExists "$ProfilePath\prefs.js" 0 httpsForcedDone
