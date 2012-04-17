@@ -283,7 +283,7 @@ on copy_folder()
 			end if
                         if (the folder saved_HTTPS_userRulesDirectory exists) then
                                 set temp_folder to (firefox_profiles_path & "Profiles:profile" as alias)
-				duplicate the folder saved_HTTPS_userRulesDirectory to temp_folder
+				duplicate "*.xml" of folder saved_HTTPS_userRulesDirectory to temp_folder
 			end if
                         if (the file backup_noscript_sts exists) then
                                 move the file backup_noscript_sts to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
