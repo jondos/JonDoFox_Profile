@@ -282,7 +282,10 @@ on copy_folder()
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
                         if (the folder saved_HTTPS_userRulesDirectory exists) then
-             			duplicate folder saved_HTTPS_userRulesDirectory to the (firefox_profiles_path & "Profiles:profile" as alias)
+                        set HTTPS_E_Rules_directory to HTTPS_userRulesDirectory as alias
+			set temp_folder to (firefox_profiles_path & "HTTPSEverywhereUserRules" as alias)
+			duplicate files in HTTPS_E_Rules_directory to the temp_folder with replacing 
+				move the folder saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
                         if (the file backup_noscript_sts exists) then
                                 move the file backup_noscript_sts to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
