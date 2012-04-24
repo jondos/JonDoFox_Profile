@@ -49,8 +49,8 @@ SHA1-Digest: Y+nrYdUPAuIMcmui4SF5EnSB8Rs=
 
 Name: modules/ssl-observatory.jsm
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: zu0SrFt2rX0fRHcua9qKIQ==
-SHA1-Digest: 4bHi8+OhCdqxUEhj2aqYuhHcXnc=
+MD5-Digest: trQsFifR43Gw6jV0Tsl5VA==
+SHA1-Digest: L5Apnj3BC4WowmVyJvo7jdrZq9c=
 
 Name: modules/bloodyVikingsUtils.jsm
 Digest-Algorithms: MD5 SHA1
