@@ -2,24 +2,12 @@
  * Copyright 2008-2012 JonDos GmbH
  * Author: Johannes Renner, Georg Koppen
  *
- * This component is instanciated once on app-startup and does the following:
+ * This component is instantiated once on app-startup and does the following:
  *
  * - Replace RefControl functionality by simply forging every referrer
  * - Arbitrary HTTP request headers can be set from here as well
  *****************************************************************************/
 
-///////////////////////////////////////////////////////////////////////////////
-// Debug stuff
-///////////////////////////////////////////////////////////////////////////////
-
-m_debug = true;
-
-// Log method
-var log = function(message) {
-  if (m_debug) dump("RequestObserver :: " + message + "\n");
-};
-
-Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
@@ -29,13 +17,30 @@ const CI = Components.interfaces;
 const CU = Components.utils;
 
 ///////////////////////////////////////////////////////////////////////////////
+// Debug stuff
+///////////////////////////////////////////////////////////////////////////////
+
+var m_debug = CC["@mozilla.org/preferences-service;1"].
+  getService(CI.nsIPrefService).getBranch("extensions.jondofox.").
+  getBoolPref("debug.enabled");
+
+// Log method
+var log = function(message) {
+  if (m_debug) dump("RequestObserver :: " + message + "\n");
+};
+
+CU.import("resource://gre/modules/XPCOMUtils.jsm");
+
+///////////////////////////////////////////////////////////////////////////////
 // Observer for "http-on-modify-request"
 ///////////////////////////////////////////////////////////////////////////////
 
 var RequestObserver = function() {
   this.wrappedJSObject = this;
   CU.import("resource://jondofox/ssl-observatory.jsm", this); 
+  CU.import("resource://jondofox/safeCache.jsm", this);
   this.sslObservatory.init();
+  this.safeCache.init();
 };
 
 RequestObserver.prototype = {
@@ -55,9 +60,6 @@ RequestObserver.prototype = {
           getService().wrappedJSObject;
       this.jdfManager = CC['@jondos.de/jondofox-manager;1'].
           getService().wrappedJSObject;
-      this.safeCache = CC['@jondos.de/safecache;1'].
-          getService().wrappedJSObject;
-      this.safeCache.init();
       this.tldService = CC['@mozilla.org/network/effective-tld-service;1'].
           getService(Components.interfaces.nsIEffectiveTLDService);
       this.cookiePerm = CC['@mozilla.org/cookie/permission;1'].
@@ -88,8 +90,8 @@ RequestObserver.prototype = {
       log("We found no Notificationcallbacks! Returning null...");
     } else {
       try {
-        wind = notificationCallbacks.QueryInterface(CI.
-          nsIInterfaceRequestor).getInterface(CI.nsIDOMWindow); 
+        wind = notificationCallbacks.getInterface(CI.nsILoadContext).
+          associatedWindow; 
       } catch (e) {
         log("Error while trying to get the Window: " + e); 
       }
@@ -364,20 +366,23 @@ RequestObserver.prototype = {
           }
         }  
       }
-      // The HTTP Auth tracking protection on the response side.
-      if (this.prefsHandler.
-        getBoolPref('extensions.jondofox.stanford-safecache_enabled')) { 
-        parentHost = this.getParentHost(channel); 
-        if (channel.documentURI && channel.documentURI === channel.URI) {
-          parentHost = null;  // first party interaction
+      // The HTTP Auth tracking protection on the response side: Just for FF <
+      // 12! Starting from FF 12 we have an improved protection.
+      if (!this.jdfManager.ff12) {
+        if (this.prefsHandler.
+          getBoolPref('extensions.jondofox.stanford-safecache_enabled')) { 
+          parentHost = this.getParentHost(channel); 
+          if (channel.documentURI && channel.documentURI === channel.URI) {
+            parentHost = null;  // first party interaction
+          } 
+          if (parentHost && parentHost !== channel.URI.host) {  
+            try {
+              if (channel.getResponseHeader("WWW-Authenticate")) {
+                channel.setResponseHeader("WWW-Authenticate", null, false);
+              }
+            } catch (e) {} 
+          } else {}
         } 
-        if (parentHost && parentHost !== channel.URI.host) {  
-          try {
-            if (channel.getResponseHeader("WWW-Authenticate")) {
-              channel.setResponseHeader("WWW-Authenticate", null, false);
-            }
-          } catch (e) {} 
-        } else {}
       }
     } catch (e) {
       this.logger.warn("examineRespone(): " + e);

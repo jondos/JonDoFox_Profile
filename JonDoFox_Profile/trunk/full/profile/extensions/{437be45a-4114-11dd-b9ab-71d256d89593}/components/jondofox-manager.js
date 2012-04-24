@@ -5,19 +5,7 @@
  * JonDoFox extension management and compatibility tasks + utilities
  * TODO: Create another component containing the utils only
  *****************************************************************************/
- 
-///////////////////////////////////////////////////////////////////////////////
-// Debug stuff
-///////////////////////////////////////////////////////////////////////////////
 
-var mDebug = true;
-
-// Log a message
-var log = function(message) {
-  if (mDebug) dump("JDFManager :: " + message + "\n");
-};
-
-Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
@@ -25,6 +13,21 @@ Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 const CC = Components.classes;
 const CI = Components.interfaces;
 const CU = Components.utils;
+ 
+///////////////////////////////////////////////////////////////////////////////
+// Debug stuff
+///////////////////////////////////////////////////////////////////////////////
+
+var m_debug = CC["@mozilla.org/preferences-service;1"].
+  getService(CI.nsIPrefService).getBranch("extensions.jondofox.").
+  getBoolPref("debug.enabled");
+
+// Log a message
+var log = function(message) {
+  if (m_debug) dump("JDFManager :: " + message + "\n");
+};
+
+CU.import("resource://gre/modules/XPCOMUtils.jsm");
 
 ///////////////////////////////////////////////////////////////////////////////
 // Listen for events to delete traces in case of uninstall etc.
@@ -37,16 +40,20 @@ var JDFManager = function() {
   // https://developer.mozilla.org/en/JavaScript/Code_modules/Using section
   // "Custom modules and XPCOM components" 
   CU.import("resource://jondofox/log4moz.js", this); 
+  CU.import("resource://jondofox/jdfUtils.jsm", this);
+  this.jdfUtils.init();
   var formatter = new this.Log4Moz.BasicFormatter();
   var root = this.Log4Moz.repository.rootLogger;
-  dump("Created a rootLogger!\n");
-  // We want to have output to standard out. 
-  var dapp = new this.Log4Moz.DumpAppender(formatter);
-  dapp.level = this.Log4Moz.Level["Debug"];
-  root.addAppender(dapp); 
+  log("Created a rootLogger!\n");
+  if (m_debug) {
+    // We want to have output to standard out. 
+    var dapp = new this.Log4Moz.DumpAppender(formatter);
+    dapp.level = this.Log4Moz.Level["Debug"];
+    root.addAppender(dapp); 
+  }
   // We may want to have JS error console output as well...
   var capp = new this.Log4Moz.ConsoleAppender(formatter);
-  capp.level = this.Log4Moz.Level["Warn"];
+  capp.level = this.Log4Moz.Level["Info"];
   root.addAppender(capp); 
 
   // Now we are adding a specific logger (JDFManager)...
@@ -91,6 +98,12 @@ JDFManager.prototype = {
 
   // If FF4, which version (the add-on bar exists since 4.0b7pre)
   ff4Version: "",
+
+  // The NavigationTiming API we want to deactivate got introduced in FF7.
+  ff7: true,
+
+  // Can we use our improved HTTP Auth defense (available since FF12)?
+  ff12: true,
 
   // Do we have already checked whether JonDoBrowser is up-to-date
   jdbCheck: false,
@@ -231,7 +244,8 @@ JDFManager.prototype = {
     'extensions.jondofox.clearOnShutdown_offlineApps',
     'security.enable_tls_session_tickets':
     'extensions.jondofox.tls_session_tickets',
-    'dom.battery.enabled': 'extensions.jondofox.battery.enabled'
+    'dom.battery.enabled': 'extensions.jondofox.battery.enabled',
+    'network.http.spdy.enabled': 'extensions.jondofox.spdy.enabled'
   },
 
   //This map of integer preferences is given to the prefsMapper
@@ -275,8 +289,6 @@ JDFManager.prototype = {
                             getService().wrappedJSObject;
       JDFManager.prototype.proxyManager = CC['@jondos.de/proxy-manager;1'].
                              getService().wrappedJSObject;
-      JDFManager.prototype.jdfUtils = CC['@jondos.de/jondofox-utils;1'].
-                         getService().wrappedJSObject;
       JDFManager.prototype.rdfService = CC['@mozilla.org/rdf/rdf-service;1'].
 	                      getService(CI.nsIRDFService);
       JDFManager.prototype.directoryService = 
@@ -284,51 +296,31 @@ JDFManager.prototype = {
       this.envSrv = CC["@mozilla.org/process/environment;1"].
         getService(CI.nsIEnvironment); 
       // Determine whether we use FF4 or still some FF3
-      this.isFirefox4();
+      this.isFirefox4or7or12();
       if (this.ff4) {
         try {
           var extensionListener = {
-            onInstalling: function(addon, needsRestart) {
-              if (needsRestart) {
-                JDFManager.prototype.prefsHandler.
-                  setStringPref("extensions.jondofox.tz_string", "");
-              }
-            },
 	    onUninstalling: function(addon, needsRestart) {
               if (addon.id === "{437be45a-4114-11dd-b9ab-71d256d89593}") {
 		log("We got the onUninstalling notification...")
                 JDFManager.prototype.clean = true;
 		JDFManager.prototype.uninstall = true;
 	      }
-              if (needsRestart) {
-                JDFManager.prototype.prefsHandler.
-                  setStringPref("extensions.jondofox.tz_string", "");
-              }
 	    },
-            onEnabling: function(addon, needsRestart) {
-              if (needsRestart) {
-                JDFManager.prototype.prefsHandler.
-                  setStringPref("extensions.jondofox.tz_string", "");
-              }
-            },
             onDisabling: function(addon, needsRestart) {
               if (addon.id === "{437be45a-4114-11dd-b9ab-71d256d89593}") {
-		log("We got the onDisabling notification...");
+                log("We got the onDisabling notification...");
                 JDFManager.prototype.clean = true;
               }
-              if (needsRestart) {
-                JDFManager.prototype.prefsHandler.
-                  setStringPref("extensions.jondofox.tz_string", "");
-              }
-	    },
-	    onOperationCancelled: function(addon) {
+            },
+            onOperationCancelled: function(addon) {
               if (addon.id === "{437be45a-4114-11dd-b9ab-71d256d89593}") {
 		log("Operation got cancelled!");
                 JDFManager.prototype.clean = false;
 		JDFManager.prototype.uninstall = false;
               }
 	    }
-	  }
+	  };
 
           CU.import("resource://gre/modules/AddonManager.jsm");
 	  this.getVersionFF4();
@@ -591,6 +583,10 @@ JDFManager.prototype = {
       // Call init() first
       this.init();
       if (this.ff4) {
+        if (this.ff7) {
+          this.boolPrefsMap['dom.enable_performance'] =
+            'extensions.jondofox.navigationTiming.enabled';
+        }
 	// Adding the websockets pref until we decided whether this
 	// feature is harmless.
 	this.boolPrefsMap['network.websocket.enabled'] = 
@@ -1104,7 +1100,7 @@ JDFManager.prototype = {
     }
   },
 
-  isFirefox4: function() {
+  isFirefox4or7or12: function() {
     // Due to some changes in Firefox 4 (notably the replacement of the
     // nsIExtensionmanager by the AddonManager) we check the FF version now
     // to ensure compatibility.
@@ -1112,11 +1108,22 @@ JDFManager.prototype = {
 	    getService(CI.nsIXULAppInfo);
     var versComp = CC['@mozilla.org/xpcom/version-comparator;1'].
 	    getService(CI.nsIVersionComparator);
-    if (versComp.compare(appInfo.version, "4.0a1") >= 0) {
-      this.ff4Version = appInfo.version;
+    var ffVersion = appInfo.version;
+    if (versComp.compare(ffVersion, "4.0a1") >= 0) {
+      this.ff4Version = ffVersion;
       this.ff4 = true;
     } else {
       this.ff4 = false;
+    }
+    if (versComp.compare(ffVersion, "7.0") >= 0) {
+      this.ff7 = true;
+    } else {
+      this.ff7 = false;
+    }
+    if (versComp.compare(ffVersion, "12.0") >= 0) {
+      this.ff12 = true;
+    } else {
+      this.ff12 = false;
     }
   },
 
@@ -1138,6 +1145,8 @@ JDFManager.prototype = {
             'extensions.jondofox.profile_version') !== "2.6.3" && 
           this.prefsHandler.getStringPref(
             'extensions.jondofox.profile_version') !== "2.6.4" &&
+          this.prefsHandler.getStringPref(
+            'extensions.jondofox.profile_version') !== "2.6.5" && 
           this.prefsHandler.getBoolPref('extensions.jondofox.update_warning')) {
           this.jdfUtils.showAlertCheck(this.jdfUtils.
             getString('jondofox.dialog.attention'), this.jdfUtils.
@@ -1302,16 +1311,32 @@ JDFManager.prototype = {
               this.prefsHandler.getStringPref(this.safebrowseMap[p])); 
           }
           if (acceptLang !== "en-us") {
-          this.settingLocationNeutrality("");
+            this.settingLocationNeutrality("");
           }
+          // Check whether we had network.http.proxy.keep-alive on before. If so
+	  // we switch it off.
+	  if (proxyKeepAlive) {
+            this.prefsHandler.setBoolPref("network.http.proxy.keep-alive",
+              false);
+	  }
+          this.prefsHandler.setStringPref("network.http.accept.default",
+            this.prefsHandler.
+            getStringPref("extensions.jondofox.accept_default")); 
         } else if (userAgent === 'tor') {
           for (p in this.torUAMap) {
             this.prefsHandler.setStringPref(p,
                this.prefsHandler.getStringPref(this.torUAMap[p]));
 	  }
           if (acceptLang !== "en-us, en") {
-          this.settingLocationNeutrality("tor.");
+            this.settingLocationNeutrality("tor.");
           }
+          if (!proxyKeepAlive) {
+            this.prefsHandler.setBoolPref("network.http.proxy.keep-alive",
+              true);
+	  }
+          this.prefsHandler.setStringPref("network.http.accept.default", 
+            this.prefsHandler.
+            getStringPref("extensions.jondofox.tor.accept_default"));
         } else {
 	  // We use the opportunity to set other user prefs back to their
 	  // default values as well.

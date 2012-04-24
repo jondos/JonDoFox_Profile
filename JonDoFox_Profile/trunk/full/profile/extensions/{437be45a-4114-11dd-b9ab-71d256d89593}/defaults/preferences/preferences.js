@@ -1,5 +1,7 @@
 // General prefs
 pref("extensions.jondofox.last_version", "");
+// Debug pref
+pref("extensions.jondofox.debug.enabled", false);
 pref("extensions.jondofox.new_profile", true);
 // Proxy state 
 pref("extensions.jondofox.proxy.state", "jondo");
@@ -192,8 +194,15 @@ pref("extensions.jondofox.tls_session_tickets", false);
 pref("extensions.jondofox.disableAllPluginsJonDoMode", false);
 pref("extensions.jondofox.plugin-protection_enabled", true);
 
+// The Navigation Timing API
+
+pref("extensions.jondofox.navigationTiming.enabled", false);
+
 // The Battery API
 pref("extensions.jondofox.battery.enabled", false);
+
+// SPDY
+pref("extensions.jondofox.spdy.enabled", false);
 
 //SafeCache
 pref("extensions.jondofox.stanford-safecache_enabled", true);
@@ -202,7 +211,8 @@ pref("extensions.jondofox.stanford-safecache_enabled", true);
 pref("extensions.jondofox.certpatrol_enabled", true);
 pref("extensions.jondofox.certpatrol_showNewCert", false);
 pref("extensions.jondofox.certpatrol_showChangedCert", false);
-pref("extensions.jondofox.certpatrol_notificationTimeout", 10);
+
+pref("extensions.jondofox.notificationTimeout", 10);
 
 //AdBlocking
 pref("extensions.jondofox.adblock_enabled", true);
