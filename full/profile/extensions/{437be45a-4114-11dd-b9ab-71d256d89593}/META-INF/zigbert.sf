@@ -5,6 +5,11 @@ Digest-Algorithms: MD5 SHA1
 MD5-Digest: nwxJNTAcrRJYcp08tNJNfA==
 SHA1-Digest: RH9UesRgr4Q7bs9keJWUziH1vIg=
 
+Name: GPL-TEXT
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: SNgIzXiL78pv2X2k0YMlHA==
+SHA1-Digest: pKFio3DpOGATyZ88jG/h6eFcW00=
+
 Name: icon.png
 Digest-Algorithms: MD5 SHA1
 MD5-Digest: 8w6o4UgZaqFlzTZiyhSxAg==
@@ -70,11 +75,6 @@ Digest-Algorithms: MD5 SHA1
 MD5-Digest: eV6W3NRdFv7rRpshY6xNsQ==
 SHA1-Digest: lYoEjmZH+VtgPn6dEAPxOkaQ0EM=
 
-Name: GPL-LICENSE
-Digest-Algorithms: MD5 SHA1
-MD5-Digest: j9KYMm5jgUvyqZLkLWX/fA==
-SHA1-Digest: 1/cg7VGVZYWUS2d5EB+wJh0XZPw=
-
 Name: LICENSE
 Digest-Algorithms: MD5 SHA1
 MD5-Digest: M2UUdtGH0sQ6fCuwHYZ0EQ==
@@ -112,8 +112,8 @@ SHA1-Digest: Z0DJCk8jCsGiPMBJLwoLyKDWlkw=
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: s6UXuFHRKFeniYFSr/s3dw==
-SHA1-Digest: sYqFMrCf2lFElS8/jhMHhQsCK3I=
+MD5-Digest: 7OXzAoCI2j7UKA1UXIUYvQ==
+SHA1-Digest: qiq9LQNfiksH/Cm5zTm4I3IcZ5k=
 
 Name: chrome.manifest
 Digest-Algorithms: MD5 SHA1
