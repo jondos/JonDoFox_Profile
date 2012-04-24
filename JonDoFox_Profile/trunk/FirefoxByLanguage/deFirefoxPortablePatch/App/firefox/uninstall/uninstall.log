@@ -14,6 +14,8 @@ File: \freebl3.dll
 File: \gkmedias.dll
 File: \libEGL.dll
 File: \libGLESv2.dll
+File: \maintenanceservice.exe
+File: \maintenanceservice_installer.exe
 File: \Microsoft.VC80.CRT.manifest
 File: \mozalloc.dll
 File: \mozglue.dll
@@ -39,6 +41,7 @@ File: \smime3.dll
 File: \softokn3.chk
 File: \softokn3.dll
 File: \ssl3.dll
+File: \update-settings.ini
 File: \updater.exe
 File: \updater.ini
 File: \xpcom.dll
