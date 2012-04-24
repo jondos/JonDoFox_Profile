@@ -5,7 +5,7 @@ const Cc = Components.classes;
 const Cu = Components.utils;
 const Cr = Components.results;
 
-const VERSION = "2.3.4";
+const VERSION = "2.3.8";
 const SERVICE_CTRID = "@maone.net/noscript-service;1";
 const SERVICE_ID = "{31aec909-8e86-4397-9380-63a59e0c5ff5}";
 const EXTENSION_ID = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
@@ -708,7 +708,8 @@ AddressMatcher.prototype = {
           }
           
           // glob matching
-          if (hasPath) p += '$'; 
+          if (p.slice(-1) == '*') p = p.slice(0, -1); // optimize trailing *
+          else if (hasPath) p += '$'; 
 
           return '^' + p.replace(/\*/g, '.*?').replace(/^([^\/:]+:\/*)\.\*/, "$1[^/]*");
         } 
@@ -1149,26 +1150,8 @@ const IOUtil = {
 var Thread = {
   
   hostRunning: true,
-  activeQueues: 0,
   activeLoops: 0,
   _timers: [],
-  
-  runWithQueue: function(callback, self) {
-    var thread = this.current;
-    thread instanceof Ci.nsIThreadInternal;
-    try {
-      this.activeQueues++;
-      thread.pushEventQueue(null);
-      return self ? callback.apply(self) : callback();
-    } finally {
-      thread.popEventQueue();
-      this.activeQueues--;
-    }
-  },
-  
-  spinWithQueue: function(ctrl) {
-    return this.runWithQueue(function() { return Thread.spin(ctrl); });
-  },
   
   spin: function(ctrl) { 
     ctrl.startTime = ctrl.startTime || Date.now();
@@ -1248,20 +1231,7 @@ var Thread = {
       }
     }, Ci.nsIEventTarget.DISPATCH_NORMAL);
   },
-  
-  basap: function(callback, self, args) { // before as soon as possible
-    var thread = this.current;
-    thread instanceof Ci.nsIThreadInternal;
-    this.activeQueues++;
-    thread.pushEventQueue(null);
-    this.asap(function() {
-      callback.apply(self, args || DUMMY_ARRAY);
-      thread.popEventQueue();
-      Thread.activeQueues--;
-    }, self, args);
-  },
-  
-  
+
   _delayRunner: function(timer) {
     var ctx = this.context;
     try {
@@ -3317,6 +3287,7 @@ var ns = {
     return forbidDelegate.call(this, originURL, locationURL);
   },
   
+
   addFlashVars: function(url, embed) {
     // add flashvars to have a better URL ID
     if (embed instanceof Ci.nsIDOMElement) try {
@@ -3327,7 +3298,10 @@ var ns = {
           if (p.name && p.name.toLowerCase() === "flashvars")
             flashvars = p.value;
       }
-      if (flashvars) url += "#!flashvars#" + encodeURI(flashvars); 
+      if (flashvars) {
+        let videoId = flashvars.match(/video_?id=[^&]+/);
+        url += "#!flashvars#" + encodeURI(videoId && videoId[0] || flashvars);
+      }
     } catch(e) {
       if (this.consoleDump) this.dump("Couldn't add flashvars to " + url + ":" + e);
     }
@@ -3619,6 +3593,13 @@ var ns = {
   objectWhitelistLen: 0,
   _objectKeyRx: /^((?:\w+:\/\/)?[^\.\/\d]+)\d+(\.[^\.\/]+\.)/,
   objectKey: function(url, originSite) {
+    if (url.indexOf("id=") > 0) {
+      let [path, query] = url.split("?");
+      if (query) {
+        let id = query.match(/(?:^|&)(?:video_?)?id=([^&]+)/);
+        if (id) url = path + "?id=" + id[1];
+      }
+    }
     return (originSite || '') + ">" + IOUtil.anonymizeURL(url.replace(this._objectKeyRx, '$1$2'));
   },
   anyAllowedObject: function(site, mime) {
@@ -3711,19 +3692,20 @@ var ns = {
   
   
   countObject: function(embed, site) {
-
     if(!site) return;
-    var doc = embed.ownerDocument;
-    
-    if (doc) {
-      var topDoc = doc.defaultView.top.document;
-      var os = this.getExpando(topDoc, "objectSites");
-      if(os) {
-        if(os.indexOf(site) < 0) os.push(site);
-      } else {
-        this.setExpando(topDoc, "objectSites", [site]);
+    try {
+      var doc = embed.ownerDocument;
+      
+      if (doc) {
+        var topDoc = doc.defaultView.top.document;
+        var os = this.getExpando(topDoc, "objectSites");
+        if(os) {
+          if(os.indexOf(site) < 0) os.push(site);
+        } else {
+          this.setExpando(topDoc, "objectSites", [site]);
+        }
       }
-    }
+    } catch (ex) {}
   },
   
   getPluginExtras: function(obj) {
@@ -4289,25 +4271,23 @@ var ns = {
             browserWindow.addEventListener(et, focusListener, true);
         }
         
-        Thread.runWithQueue(function() {
-          try {
-            this.executingJSURL(doc, 1);
-            if (!(snapshots.siteJS && snapshots.docJS)) {
-              this._patchTimeouts(window, true);
-            }
-            
-            window.location.href = url;
-            
-            Thread.yieldAll();
-            if (!(snapshots.siteJS && snapshots.docJS)) {
-              this._patchTimeouts(window, false);
-            }
-            
-          } catch(e) {
-            this.logError(e, true, "Bookmarklet or location scriptlet");
+        try {
+          this.executingJSURL(doc, 1);
+          if (!(snapshots.siteJS && snapshots.docJS)) {
+            this._patchTimeouts(window, true);
           }
-        }, this);
-        
+          
+          window.location.href = url;
+          
+          Thread.yieldAll();
+          if (!(snapshots.siteJS && snapshots.docJS)) {
+            this._patchTimeouts(window, false);
+          }
+          
+        } catch(e) {
+          this.logError(e, true, "Bookmarklet or location scriptlet");
+        }
+
         return true;
       } finally {
         
@@ -4807,6 +4787,12 @@ var ns = {
            obj.ownerDocument.URL == this.createPluginDocumentURL(obj.src || obj.href, "iframe");
   },
   
+  handleClickToPlay: function(obj) {
+    if (obj instanceof Ci.nsIObjectLoadingContent && ("playPlugin" in obj) && ("activated" in obj) &&
+        !obj.activated && ns.getPref("smartClickToPlay"))
+      Thread.asap(function() obj.playPlugin());
+  },
+  
   checkAndEnableObject: function(ctx) {
     var extras = ctx.extras;
     if (!this.confirmEnableObject(ctx.window, extras)) return;
@@ -4861,7 +4847,9 @@ var ns = {
       var isMedia = ("nsIDOMHTMLVideoElement" in Ci) && (obj instanceof Ci.nsIDOMHTMLVideoElement || obj instanceof Ci.nsIDOMHTMLAudioElement);
       
       if (isMedia) {
-        if (jsEnabled && !obj.controls) {
+        if (jsEnabled && !obj.controls
+            && !/(?:=[^&;]{10,}.*){2,}/.test(this.objectKey(url)) // try to avoid infinite loops when more than one long parameter is present in the object key
+          ) {
           // we must reload, since the author-provided UI likely had no chance to wire events
           reload(true); // normal reload because of http://forums.informaction.com/viewtopic.php?f=10&t=7195
           return;
@@ -5188,31 +5176,32 @@ var ns = {
       
       var browser, win;
    
-      
-      if(type == 2 || type == 9) { // script redirection? cache site for menu
-        try {
-          var site = this.getSite(uri.spec);
-          win = IOUtil.findWindow(newChan) || ctx && ((ctx instanceof Ci.nsIDOMWindow) ? ctx : ctx.ownerDocument.defaultView); 
-          browser = win && DOM.findBrowserForNode(win);
-          if (browser) {
-            this.getRedirCache(browser, win.top.document.documentURI)
-                .push({ site: site, type: type });
-          } else {
-            if (this.consoleDump) this.dump("Cannot find window for " + uri.spec);
+      switch(type) {
+        case 2: case 9: // script redirection? cache site for menu
+          try {
+            var site = this.getSite(uri.spec);
+            win = IOUtil.findWindow(newChan) || ctx && ((ctx instanceof Ci.nsIDOMWindow) ? ctx : ctx.ownerDocument.defaultView); 
+            browser = win && DOM.findBrowserForNode(win);
+            if (browser) {
+              this.getRedirCache(browser, win.top.document.documentURI)
+                  .push({ site: site, type: type });
+            } else {
+              if (this.consoleDump) this.dump("Cannot find window for " + uri.spec);
+            }
+          } catch(e) {
+            if (this.consoleDump) this.dump(e);
           }
-        } catch(e) {
-          if (this.consoleDump) this.dump(e);
-        }
+          break;
         
-        if (type == 7) {
+        case 7: // frame
+
           ph.extra = CP_FRAMECHECK;
           if (win && win.frameElement && ph.context != win.frameElement) {
             // this shouldn't happen
             if (this.consoleDump) this.dump("Redirected frame change for destination " + uri.spec);
             ph.context = win.frameElement;
           }
-        }
-        
+          break;
       }
       
       if (this.shouldLoad.apply(this, ph.toArray()) != CP_OK) {
@@ -5543,6 +5532,10 @@ var ns = {
       }
     }
     
+    if (IOUtil.extractFromChannel(req, "noscript.checkWindowName")) {
+      this.requestWatchdog.checkWindowName(domWindow);
+    }
+    
     if (this.onWindowSwitch && docShell &&
         (topWin || !this.executeEarlyScripts))
       this.onWindowSwitch(uri.spec, domWindow, docShell);
@@ -5656,7 +5649,7 @@ var ns = {
       }
       
       if (abeSandboxed) {
-        ABE.sandbox(docShell);
+        ABE.sandbox(docShell, true);
         return;
       }
       
@@ -5706,6 +5699,8 @@ var ns = {
       dsjsBlocked.wrappedJSObject = dsjsBlocked;
       IOUtil.attachToChannel(req, "noscript.dsjsBlocked", dsjsBlocked);
       
+      
+      ABE.sandbox(docShell, false);
       docShell.allowJavascript = jsEnabled;
     } catch(e2) {
       if (this.consoleDump & LOG_JS)
