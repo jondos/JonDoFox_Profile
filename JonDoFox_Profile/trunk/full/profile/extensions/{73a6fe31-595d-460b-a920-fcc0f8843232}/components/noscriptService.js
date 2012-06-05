@@ -5,7 +5,7 @@ const Cc = Components.classes;
 const Cu = Components.utils;
 const Cr = Components.results;
 
-const VERSION = "2.3.8";
+const VERSION = "2.4.4";
 const SERVICE_CTRID = "@maone.net/noscript-service;1";
 const SERVICE_ID = "{31aec909-8e86-4397-9380-63a59e0c5ff5}";
 const EXTENSION_ID = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
@@ -762,7 +762,7 @@ function Network(s) {
   this.addr = this.ipv4 ? this._parseIPV4(addr) : this._parseIPV6(addr) ;
 }
 
-Network._netRx = /^(?:(?:\d+\.){1,3}\d*|[0-9af:]*:[0-9af:]*:[0-9af:]*)(:?\/\d{1,3})?$/i;
+Network._netRx = /^(?:(?:\d+\.){1,3}\d*|[0-9a-f:]*:[0-9a-f:]*:[0-9a-f:]*)(:?\/\d{1,3})?$/i;
 Network.isNet = function(s) {
   return this._netRx.test(s);
 }
@@ -1354,13 +1354,18 @@ var ns = {
             }
           } catch(e) {}
         }
-  
-        if ((ncb instanceof Ci.nsIXMLHttpRequest) && !ns.isCheckedChannel(channel)) {
-          if (ns.consoleDump) ns.dump("Skipping cross-site checks for chrome XMLHttpRequest " + channel.name + ", " + loadFlags + ", "
-                                      + channel.owner + ", " + !!PolicyState.hints);
-          return;
-        }
         
+        if (ncb) {
+          const IBCL = Ci.nsIBadCertListener2;
+          let bgReq = ncb instanceof Ci.nsIXMLHttpRequest || ncb instanceof IBCL;
+          if (!bgReq) try { bgReq = ncb.getInterface(IBCL); } catch (e) {}
+          if (bgReq && !ns.isCheckedChannel(channel)) {
+              if (ns.consoleDump) {
+                ns.dump("Skipping cross-site checks for chrome background request " + channel.name + ", " + loadFlags + ", " + channel.owner + ", " + !!PolicyState.hints);
+              }
+              return;
+          }
+        }
         ns.requestWatchdog.onHttpStart(channel);
       }
     }
@@ -3890,6 +3895,17 @@ var ns = {
             document.body.appendChild(container);
           }
           let url = m[1];
+          if (url.indexOf("\\") !== -1 &&
+              url.indexOf('"') === -1 // notice that m[1] is guaranteed not to contain quotes nor whitespace, but we double check anyway :)
+            ) {
+            // resolve JS escapes, see http://forums.informaction.com/viewtopic.php?f=10&t=8792
+            let sandbox = new Cu.Sandbox("about:blank");
+            try {
+              url = Cu.evalInSandbox('"' + url + '"', sandbox); // this is safe, since we've got no quotes...
+            } catch(e) {
+              // ...but a trailing backslash could cause a (harmless) syntax error anyway
+            }
+          }
           let a = document.createElementNS(HTML_NS, "a");
           a.href = url;
           container.appendChild(a);
@@ -4028,7 +4044,7 @@ var ns = {
       try {
         html5 = this.prefService.getBoolPref("html5.parser.enable");
       } catch(e) {
-        html5 = false;
+        html5 = this.geckoVersionCheck('2') > 0;
       }
 
       var node, nodeName;
@@ -4194,22 +4210,19 @@ var ns = {
   
   handleBookmark: function(url, openCallback) {
     if (!url) return true;
-    const allowBookmarklets = !this.getPref("forbidBookmarklets", false);
-    const allowBookmarks = this.getPref("allowBookmarks", false);
-    if (!this.jsEnabled && 
-      (allowBookmarks || allowBookmarklets)) {
-      try {
-        var site;
-        if (allowBookmarklets && /^\s*(?:javascript|data):/i.test(url)) {
-          var ret = this.executeJSURL(url, openCallback);
-        } else if (allowBookmarks && !(this.isJSEnabled(site = this.getSite(url)) || this.isUntrusted(site))) {
+    try {
+      if (!this.getPref("forbidBookmarklets") && /^\s*(?:javascript|data):/i.test(url)) {
+        return this.executeJSURL(url, openCallback);
+      }
+      if (!this.jsEnabled && this.getPref("allowBookmarks")) {
+        let site = this.getSite(url);
+        if (!(this.isJSEnabled(site) || this.isUntrusted(site))) {
           this.setJSEnabled(site, true);
           this.savePrefs();
         }
-        return ret;
-      } catch(e) {
-        if (ns.consoleDump) ns.dump(e + " " + e.stack);
       }
+    } catch(e) {
+      if (ns.consoleDump) ns.dump(e + " " + e.stack);
     }
     return false;
   },
@@ -4243,16 +4256,20 @@ var ns = {
     if(!window) return false;
     
     var site = this.getSite(window.document.documentURI) || this.getExpando(browser, "jsSite");
-    if (this.mozJSEnabled && !this.jsEnabled) {
+    if (this.mozJSEnabled && (!this.jsEnabled || this.isUntrusted(site))) {
       if(this.consoleDump) this.dump("Executing JS URL " + url + " on site " + site);
     
       let docShell = DOM.getDocShellForWindow(window);
     
       let snapshots = {
+        globalJS: this.jsEnabled,
         docJS: docShell.allowJavascript,
-        siteJS: this.isJSEnabled(site)
+        siteJS: this.jsPolicySites.sitesString,
+        untrusted: this.untrustedSites.sitesString
       };
-    
+      
+      let siteJSEnabled = this.isJSEnabled(site);
+      
       let doc = window.document;
       
       let focusListener = null;
@@ -4261,8 +4278,9 @@ var ns = {
 
         docShell.allowJavascript = true;
         if (!(this.jsEnabled = doc.documentURI === "about:blank" || ns.getPref(fromURLBar ? "allowURLBarImports" : "allowBookmarkletImports"))) {
-          if (!snapshots.siteJS) 
+          if (!siteJSEnabled) {
             this.setJSEnabled(site, true);
+          }
         } else {
           focusListener = function(ev) {
             ns.jsEnabled = DOM.mostRecentBrowserWindow.content == window;
@@ -4273,14 +4291,14 @@ var ns = {
         
         try {
           this.executingJSURL(doc, 1);
-          if (!(snapshots.siteJS && snapshots.docJS)) {
+          if (!(siteJSEnabled && snapshots.docJS)) {
             this._patchTimeouts(window, true);
           }
           
           window.location.href = url;
           
           Thread.yieldAll();
-          if (!(snapshots.siteJS && snapshots.docJS)) {
+          if (!(siteJSEnabled && snapshots.docJS)) {
             this._patchTimeouts(window, false);
           }
           
@@ -4308,11 +4326,13 @@ var ns = {
             for each(let et in ["focus", "blur"])
               browserWindow.removeEventListener(et, focusListener, true);
           
-          if (this.jsEnabled)
-            this.jsEnabled = false;
+          if (this.jsEnabled != snapshots.globalJS)
+            this.jsEnabled = snapshots.globalJS;
           
-          if (!snapshots.siteJS)
-              this.setJSEnabled(site, false);
+          this.jsPolicySites.sitesString = snapshots.siteJS;
+          this.untrustedSites.sitesString = snapshots.untrusted;
+          
+          this.flushCAPS();
           
           if (this.consoleDump & LOG_JS)
             this.dump("Restored snapshot permissions on " + site + "/" + (docShell.isLoadingDocument ? "loading" : docShell.currentURI.spec));
@@ -5302,7 +5322,7 @@ var ns = {
           
           let origin = ABE.getOriginalOrigin(channel) || ph.requestOrigin;
           
-          if (nosniff || origin && this.getBaseDomain(origin.host) !== this.getBaseDomain(channel.URI.host)) {
+          if (nosniff || origin && this.getBaseDomain(this.getDomain(origin)) !== this.getBaseDomain(channel.URI.host)) {
 
             var mime;
             try {
@@ -5318,7 +5338,7 @@ var ns = {
                 ? (nosniff
                     ? /(?:script|\bjs(?:on)?)\b/i // strictest
                     : /(?:script|\b(?:js(?:on)?)|css)\b/i) // allow css mime on js
-                : (PolicyUtil.isXSL(ph.context) ? /\bx[ms]l/i : /\bcss\b/i)
+                : (PolicyUtil.isXSL(ph.context) || ph.mimeType.indexOf("/x") > 0) ? /\bx[ms]l/i : /\bcss\b/i
               ).test(mime);
             
             if (okMime) return true;
@@ -5346,7 +5366,7 @@ var ns = {
 
               if (ext &&
                   (ctype === 2 && /^js(?:on)?$/i.test(ext) ||
-                   ctype === 4 && (ext == "css" || ext == "xsl" && (PolicyUtil.isXSL(ph.context))))
+                   ctype === 4 && (ext == "css" || ext == "xsl" && (PolicyUtil.isXSL(ph.context) || ph.mimeType.indexOf("/x") > 0)))
                 ) {
                 // extension matches and not an attachment, likely OK
                 return true; 
@@ -6131,7 +6151,6 @@ var ns = {
           docShell.setupRefreshURIFromHeader(docShell.currentURI,  toGo + ";" + uri.spec);
           docShell.resumeRefreshURIs();
         }
-       
       }, false);
     }
     hookFocus(true);
@@ -6148,11 +6167,9 @@ var ns = {
         if(this.consoleDump) this.dump("Neutralizing UTF-7 charset!");
         docShell.documentCharsetInfo.forcedCharset = as.getAtom("UTF-8");
         docShell.documentCharsetInfo.parentCharset = docShell.documentCharsetInfo.forcedCharset;
-        docShell.reload(docShell.LOAD_FLAGS_CHARSET_CHANGE); // neded in Gecko > 1.9
+        docShell.reload(docShell.LOAD_FLAGS_CHARSET_CHANGE); // needed in Gecko > 1.9
       }
-    } catch(e) { 
-      if(this.consoleDump) this.dump("Error filtering charset on " + req.name + ": " + e) 
-    }
+    } catch(e) {}
   },
   
   _attemptNavigationInternal: function(doc, destURL, callback) {
@@ -6334,8 +6351,7 @@ var ns = {
   
   get externalFilters() {
     delete this.externalFilters;
-    if ("nsITraceableChannel" in Ci && // Fx >= 3.0 
-        ("nsIProcess2" in Ci || // Fx 3.5
+    if (("nsIProcess2" in Ci || // Fx 3.5
          "runAsync" in Cc["@mozilla.org/process/util;1"].createInstance(Ci.nsIProcess) // Fx >= 3.6 
         )) {
       INCLUDE("ExternalFilters");
@@ -6405,6 +6421,7 @@ var ns = {
   consoleService: Cc["@mozilla.org/consoleservice;1"].getService(Ci.nsIConsoleService),
   
   log: function(msg, dump) {
+    if (msg.stack) msg += msg.stack;
     this.consoleService.logStringMessage(msg);
     if (dump) this.dump(msg, true);
   },
@@ -6418,6 +6435,7 @@ var ns = {
   },
  
   dump: function(msg, noConsole) {
+    if (msg.stack) msg += msg.stack;
     msg = "[NoScript] " + msg;
     dump(msg + "\n");
     if(this.consoleLog && !noConsole) this.log(msg);
@@ -6574,3 +6592,6 @@ var ns = {
 
 ns.wrappedJSObject = ns;
 ns.__global__ = this; // debugging helper necessary on Gecko >= 13
+ns._e = function(f) {
+  return eval("(" + f + ")()"); 
+}

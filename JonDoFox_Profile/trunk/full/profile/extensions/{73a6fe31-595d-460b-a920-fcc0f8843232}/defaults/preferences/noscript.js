@@ -29,7 +29,7 @@ pref("noscript.showExternalFilters", true);
 pref("noscript.showTempAllowPage", true);
 pref("noscript.showAllowPage", true);
 pref("noscript.mandatory", "chrome: blob: about: about:addons about:blocked about:crashes about:home about:config about:neterror about:certerror about:memory about:plugins about:privatebrowsing about:sessionrestore about:support resource:");
-pref("noscript.default", "about:blank about:credits addons.mozilla.org browserid.org mozilla.net flashgot.net google.com gstatic.com googleapis.com paypal.com paypalobjects.com securecode.com securesuite.net firstdata.com firstdata.lv informaction.com yahoo.com yimg.com yahooapis.com youtube.com ytimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com wlxrs.com");
+pref("noscript.default", "about:blank addons.mozilla.org browserid.org mozilla.net flashgot.net google.com gstatic.com googleapis.com paypal.com paypalobjects.com securecode.com securesuite.net firstdata.com firstdata.lv informaction.com yahoo.com yimg.com yahooapis.com youtube.com ytimg.com maone.net noscript.net hotmail.com msn.com passport.com passport.net passportimages.com live.com wlxrs.com");
 pref("noscript.forbidJava", true);
 pref("noscript.forbidFlash", true);
 pref("noscript.forbidSilverlight", true);
@@ -203,6 +203,7 @@ pref("noscript.clearClick.debug", false);
 pref("noscript.clearClick.exceptions", ".mail.yahoo.com https://mail.google.com/ *.ebay.com *.photobucket.com");
 pref("noscript.clearClick.subexceptions", "^http://bit(?:ly\\.com|\\.ly)/a/sidebar\\?u= http://*.uservoice.com/*/popin.html?* http://w.sharethis.com/share3x/lightbox.html?* http://disqus.com/embed/* *.disqus.com/*/reply.html* http://www.feedly.com/mini abine:*");
 pref("noscript.clearClick.rapidFireCheck", true);
+pref("noscript.clearClick.threshold", 18);
 
 pref("noscript.emulateFrameBreak", true);
 
@@ -223,6 +224,8 @@ pref("noscript.cp.last", true);
 pref("noscript.surrogate.enabled", true);
 pref("noscript.surrogate.debug", false);
 pref("noscript.surrogate.sandbox", true);
+pref("noscript.surrogate.adagionet.sources", ".adagionet.com");
+pref("noscript.surrogate.adagionet.replacement", "adagioWriteTag=adagioWriteBanner=function(){}");
 pref("noscript.surrogate.adfly.sources", "!@.adf.ly");
 pref("noscript.surrogate.adfly.replacement", "for each(let s in document.getElementsByTagName('script')){let m=s.textContent.match(/\\bcountdown\\b[\\s\\S]+\\bvar\\s+url\\s+=\\s+[\"'](https?:[^'\"]+)/);if(m){window.location.href=m[1];break}}");
 pref("noscript.surrogate.digg.sources", "!@digg.com/newsbar/*");
@@ -280,6 +283,8 @@ pref("noscript.surrogate.plusone.sources", "apis.google.com/js/plusone.js");
 pref("noscript.surrogate.plusone.replacement", "gapi=function(){if(typeof Proxy==='undefined'){var f=arguments.callee;return f.__noSuchMethod__=f.plusone=f;}var p=Proxy.createFunction({get:function(proxy, name){return name in Object.prototype?Object.prototype[name]:p;}},function(){return p;});return p;}();");
 pref("noscript.surrogate.disqus-theme.sources", ">.disqus.com/*/build/themes/t_c4ca4238a0b923820dcc509a6f75849b.js*");
 pref("noscript.surrogate.disqus-theme.replacement", "DISQUS.dtpl.actions.register('comments.reply.new.onLoadingStart', function() { DISQUS.dtpl.actions.remove('comments.reply.new.onLoadingStart'); DISQUS.dtpl.actions.remove('comments.reply.new.onLoadingEnd');});");
+pref("noscript.surrogate.skimlinks.sources", ".skimlinks.com/api/");
+pref("noscript.surrogate.skimlinks.replacement", "window.skimlinks=function(){}");
 
 pref("noscript.placeholderMinSize", 32);
 pref("noscript.placeholderLongTip", true);
@@ -307,7 +312,7 @@ pref("noscript.ABE.localExtras", "");
 
 pref("noscript.asyncNetworking", true);
 pref("noscript.inclusionTypeChecking", true);
-pref("noscript.inclusionTypeChecking.exceptions", "https://scache.vzw.com/ http://cache.vzw.com .sony-europe.com .amazonaws.com");
+pref("noscript.inclusionTypeChecking.exceptions", "https://scache.vzw.com/ http://cache.vzw.com .sony-europe.com .amazonaws.com lesscss.googlecode.com/files/");
 pref("noscript.inclusionTypeChecking.checkDynamic", false);
 pref("noscript.nosniff", true);
 
