@@ -1,0 +1,148 @@
+jondofox (2.6.4.1) unstable; urgency=low
+
+  * replaced font "Arial" by "Liberation Sans" in prefs.js
+
+ -- JonDos GmbH <info@jondos.de>  Fri, 16 Mar 2012 10:17:23 +0200
+
+
+jondofox (2.6.4) unstable; urgency=low
+
+  * update to version 2.6.4
+
+ -- JonDos GmbH <info@jondos.de>  Wed, 14 Mar 2012 10:17:23 +0200
+
+
+
+jondofox (2.6.3) unstable; urgency=low
+
+  * update to version 2.6.3
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 28 Feb 2012 10:17:23 +0200
+
+
+jondofox (2.6.2) unstable; urgency=low
+
+  * update to version 2.6.2
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 09 Feb 2012 20:17:23 +0200
+
+
+jondofox (2.6.1.2) unstable; urgency=low
+
+  * bugfix update
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 05 Jan 2012 11:17:23 +0200
+
+
+jondofox (2.6.1.1) unstable; urgency=low
+
+  * update the extensions
+
+ -- JonDos GmbH <info@jondos.de>  Fri, 23 Dec 2011 16:17:23 +0200
+
+
+jondofox (2.6.1) unstable; urgency=low
+
+  * update the extensions of the JonDoFox profile
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 20 Dec 2011 12:17:23 +0200
+
+
+jondofox (2.6.0.4) unstable; urgency=low
+
+  * remove the setting of timezone in the start script, it is done by JDF
+
+ -- JonDos GmbH <info@jondos.de>  Wed, 14 Dec 2011 11:17:23 +0200
+
+
+jondofox (2.6.0.3) unstable; urgency=low
+
+  * fixed english bookmarks
+
+ -- JonDos GmbH <info@jondos.de>  Sat, 12 Nov 2011 19:17:23 +0200
+
+
+jondofox (2.6.0.2) unstable; urgency=low
+
+  * keep HTTPSEverywhereUserRules in case of JonDoFox profil update
+
+ -- JonDos GmbH <info@jondos.de>  Fri, 11 Nov 2011 19:17:23 +0200
+
+
+jondofox (2.6.0.1) unstable; urgency=low
+
+  * remove MS core fonts from requirements
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 10 Nov 2011 7:17:23 +0200
+
+
+jondofox (2.6.0) unstable; urgency=low
+
+  * included the HTTPS-Everywhere extension 
+  * removed the PrivacyBox bookmark 
+  * added extensions.sqlite and extensions.sqlite_portable
+  * updated the NSIS installer accordingly 
+  * updated extensions 
+  * updated preferences
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 8 Nov 2011 17:17:23 +0200
+
+
+jondofox (2.5.3) unstable; urgency=low
+
+  * compatibilty with Firefox 6.0
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 16 Aug 2011 14:17:23 +0200
+
+
+jondofox (2.5.2) unstable; urgency=low
+
+  * Support for SSL observatory of the EFF
+  * compatibilty with Firefox 5.0
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 2 Jun 2011 11:17:23 +0200
+
+
+jondofox (2.5.1.2) unstable; urgency=low
+
+  * compatibilty with Firefox 4.0
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 24 Mar 2011 11:17:23 +0200
+
+
+jondofox (2.5.1.1) unstable; urgency=low
+
+  * improved installer script
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 2 Mar 2011 10:17:23 +0200
+
+
+jondofox (2.5.1) unstable; urgency=low
+
+  * update latest 0.2.8 of JonDoFox XPI
+
+ -- JonDos GmbH <info@jondos.de>  Fri, 25 Sep 2011 10:17:23 +0200
+
+
+jondofox (2.5.0) unstable; urgency=low
+
+  * update to version 0.2.8 of JonDoFox XPI
+  * replaced CS Lite with Cookie Monster 
+  * removed JonDonym RSS feeds 
+  * updated bookmarks
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 24 Sep 2011 10:17:23 +0200
+
+
+jondofox (2.4.0) unstable; urgency=low
+
+  * update to version 0.2.6 of JonDoFox
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 09 Sep 2010 14:17:23 +0200
+
+
+jondofox (2.3.0) unstable; urgency=low
+
+  * first debian release
+
+ -- JonDos GmbH <info@jondos.de>  Fri, 14 May 2010 12:17:23 +0200
