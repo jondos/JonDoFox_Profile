@@ -1,3 +1,10 @@
+jondofox (2.6.5) unstable; urgency=low
+
+  * update to the latest JonDoFox profile
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 27 Apr 2012 10:17:23 +0200
+
+
 jondofox (2.6.4.1) unstable; urgency=low
 
   * replaced font "Arial" by "Liberation Sans" in prefs.js
