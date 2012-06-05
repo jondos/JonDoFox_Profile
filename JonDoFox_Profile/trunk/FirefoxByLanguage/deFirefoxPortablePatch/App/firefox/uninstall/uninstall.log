@@ -16,14 +16,12 @@ File: \libEGL.dll
 File: \libGLESv2.dll
 File: \maintenanceservice.exe
 File: \maintenanceservice_installer.exe
-File: \Microsoft.VC80.CRT.manifest
 File: \mozalloc.dll
 File: \mozglue.dll
 File: \mozjs.dll
 File: \mozsqlite3.dll
-File: \msvcm80.dll
-File: \msvcp80.dll
-File: \msvcr80.dll
+File: \msvcp100.dll
+File: \msvcr100.dll
 File: \nspr4.dll
 File: \nss3.dll
 File: \nssckbi.dll
