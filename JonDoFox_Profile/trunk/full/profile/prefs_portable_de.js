@@ -81,7 +81,6 @@ user_pref("extensions.jondofox.new_profile", false);
 user_pref("extensions.jondofox.profile_version", "2.6.6");
 user_pref("extensions.jondofox.set_referrer", true);
 user_pref("extensions.lastAppVersion", "13.0");
-user_pref("extensions.secureLogin@blueimp.net.javascriptProtection", true);
 user_pref("extensions.shownSelectionUI", true);
 user_pref("extensions.unplug2.setup_number", 1);
 user_pref("extensions.update.notifyUser", false);
