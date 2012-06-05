@@ -9,7 +9,7 @@ Standards-Version: 3.7.2
 
 Package: jondofox-de
 Architecture: all
-Depends: firefox | iceweasel, zenity
+Depends: firefox | iceweasel, zenity, ttf-liberation
 Conflicts: jondofox-en
 Description: Firefox/Iceweasel Profile für anonymes Surfen im Web
  This package contains an secure browser profil for anonymous web browsing
@@ -36,7 +36,7 @@ Homepage: https://www.anonym-surfen.de
 
 Package: jondofox-en
 Architecture: all
-Depends: firefox | iceweasel, zenity
+Depends: firefox | iceweasel, zenity, ttf-liberation
 Conflicts: jondofox-de
 Description: secure Firefox/Iceweasel profile for anonymous web browsing.
  This package contains an secure browser profil for anonymous web browsing 
