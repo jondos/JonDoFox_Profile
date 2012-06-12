@@ -160,9 +160,6 @@ VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "blau.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Wizard\orange-uninstall.bmp"
 
-# Reserved Files
-ReserveFile "${NSISDIR}\Plugins\BGImage.dll"
-
 ###############################
 !macro SecUnSelect SecId
   SectionSetFlags ${SecId} 0
@@ -329,40 +326,7 @@ Function CustomGUIInit
 		       ShowWindow $0 ${SW_HIDE} ;hide outer instance installer window
 		       System::Free $1
 		 ${EndIf}
-                 Goto guiinit_end
 	    ${EndIf}
-           
-            Push $R1
-            Push $R2
-            BgImage::SetReturn /NOUNLOAD on
-            BgImage::SetBg /NOUNLOAD /GRADIENT 255 255 255 255 255 255
-            Pop $R1
-            Strcmp $R1 success 0 error
-            File /oname=$PLUGINSDIR\bgimage.bmp jondofox.bmp
-
-            System::call "user32::GetSystemMetrics(i 0)i.R1"
-            System::call "user32::GetSystemMetrics(i 1)i.R2"
-            IntOp $R1 $R1 - 800
-            IntOp $R1 $R1 / 2
-            IntOp $R2 $R2 - 799
-            IntOp $R2 $R2 / 2
-            BGImage::AddImage /NOUNLOAD $PLUGINSDIR\bgimage.bmp $R1 $R2
-            CreateFont $R1 "Times New Roman" 26 700 /ITALIC
-            BGImage::AddText /NOUNLOAD "$(^SetupCaption)" $R1 255 255 255 16 8 500 100
-            Pop $R1
-            Strcmp $R1 success 0 error
-            BGImage::Redraw /NOUNLOAD
-            Goto done
-        error:
-            MessageBox MB_OK|MB_ICONSTOP $R1
-        done:
-            Pop $R2
-            Pop $R1
-        guiinit_end:
-FunctionEnd
-
-Function .onGUIEnd
-    BGImage::Destroy
 FunctionEnd
 
 ##======================================================================================================================================================
