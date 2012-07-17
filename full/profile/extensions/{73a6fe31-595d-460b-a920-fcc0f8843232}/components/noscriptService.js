@@ -5,7 +5,7 @@ const Cc = Components.classes;
 const Cu = Components.utils;
 const Cr = Components.results;
 
-const VERSION = "2.4.4";
+const VERSION = "2.4.8";
 const SERVICE_CTRID = "@maone.net/noscript-service;1";
 const SERVICE_ID = "{31aec909-8e86-4397-9380-63a59e0c5ff5}";
 const EXTENSION_ID = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
@@ -1055,7 +1055,8 @@ const IOUtil = {
         case "view-source":
           return this.unwrapURL(url.path);
         case "feed":
-          let u = url.spec.substring(5);
+        case "pcast":
+          let u = url.spec.substring(url.scheme.length + 1);
           if (u.substring(0, 2) == '//') u = "http:" + u;
           return this.unwrapURL(u);
         case "wyciwyg":
@@ -1623,12 +1624,14 @@ var ns = {
       // multiple rx autoanchored
       case "hideOnUnloadRegExp":
         this.updateStyleSheet("." + this.hideObjClassName + " {display: none !important}", true);
-      case "allowedMimeRegExp":
       case "requireReloadRegExp":
       case "whitelistRegExp":
         this.updateRxPref(name, "", "^", this.rxParsers.multi);
       break;
-        
+      
+      case "allowedMimeRegExp":
+        this.updateRxPref(name, "", "^", this.rxParsers.multi);
+      break;
         
       case "safeJSRx":
         this.initSafeJSRx();
@@ -1685,12 +1688,11 @@ var ns = {
     },
     multi: function(s, flags) {
       var anchor = /\^/.test(flags);
-      var lines = s.split(/[\n\r]+/)
+      var lines = s.split(anchor ? /\s+/ : /[\n\r]+/)
           .filter(function(l) { return /\S/.test(l) });
       return new RegExp(
-        "(?:" +
         (anchor ? lines.map(ns.rxParsers.anchor) : lines).join('|')
-        + ")",
+        ,
         anchor ? flags.replace(/\^/g, '') : flags);
     }
   },
@@ -1749,7 +1751,8 @@ var ns = {
                 'noscript .__noscriptPlaceholder__ { display: inline !important; }';
       break;
       case "clearClick":
-        sheet = ".__noscriptOpaqued__ { opacity: 1 !important; visibility: visible; filter: none !important } " +
+        sheet = "body { cursor: auto !important } " + 
+                ".__noscriptOpaqued__ { opacity: 1 !important; visibility: visible; filter: none !important } " +
                 "iframe.__noscriptOpaqued__ { display: block !important; } " +
                 "object.__noscriptOpaqued__, embed.__noscriptOpaqued__ { display: inline !important } " +
                 ".__noscriptJustOpaqued__ { opacity: 1 !important } " +
@@ -3806,16 +3809,18 @@ var ns = {
     try {
       if (document.documentURI.indexOf("http") !== 0) return 0;
       
-      var window = document.defaultView;
+      let window = document.defaultView;
       if (!window) return 0;
       
-      var hasVisibleLinks = this.hasVisibleLinks(document);
+      let hasVisibleLinks = this.hasVisibleLinks(document);
       if (!this.jsredirectForceShow && hasVisibleLinks) 
         return 0;
       
-      var seen = [];
-      const body = document.body;
-      var cstyle = document.defaultView.getComputedStyle(body, "");
+      let body = document.body;
+      if (!body) return 0;
+
+      let seen = [];
+      let cstyle = document.defaultView.getComputedStyle(body, "");
       if (cstyle) {
         if (cstyle.visibility != "visible") {
           body.style.visibility = "visible";
@@ -4826,7 +4831,7 @@ var ns = {
     
     var isLegacyFrame = this.isLegacyFrameReplacement(ctx.object);
      
-    if (isLegacyFrame || (mime == doc.contentType && 
+    if (isLegacyFrame || (mime == doc.contentType && doc.body &&
         (ctx.anchor == doc.body.firstChild && 
          ctx.anchor == doc.body.lastChild ||
          (ctx.object instanceof Ci.nsIDOMHTMLEmbedElement) && ctx.object.src != url))
@@ -5512,17 +5517,11 @@ var ns = {
     
     var contentDisposition = "";
     
-    var isHTTP = req instanceof Ci.nsIHttpChannel
-    
+    var isHTTP = req instanceof Ci.nsIHttpChannel;
     if (isHTTP) {
-      
       try {
         contentDisposition = req.getResponseHeader("Content-disposition");
       } catch(e) {}
-      
-
-      if (domWindow.document)
-        this.filterUTF7(req, domWindow, docShell = DOM.getDocShellForWindow(domWindow)); 
     }
     
     const topWin = domWindow == domWindow.top;
@@ -5738,6 +5737,8 @@ var ns = {
   
   _pageModMaskRx: /^(?:chrome|resource|view-source):/,
   onWindowSwitch: function(url, win, docShell) {
+    if (this.filterBadCharsets(docShell)) return;
+    
     const doc = docShell.document;
     const flag = "__noScriptEarlyScripts__";
     if (flag in doc && doc[flag] === url) return;
@@ -5935,8 +5936,8 @@ var ns = {
         const o = d.createElement("object");
         o.type = "application/x-java-vm";
         o.data = "data:" + o.type + ",";
-        d.body.appendChild(o);
-        d.body.removeChild(o);
+        d.documentElement.appendChild(o);
+        d.documentElement.removeChild(o);
         const k = function() {};
         w.__defineGetter__("java", k);
         w.__defineGetter__("Packages", k);
@@ -6013,7 +6014,7 @@ var ns = {
           
           // this.dump(req.URI.spec + " state " + stateFlags + ", " + req.loadFlags +  ", pending " + req.isPending());
           
-          var w = wp.DOMWindow;
+          var w = req.URI.schemeIs("data") ? DOM.findWindow(req) : wp.DOMWindow;
           
           if (w) {
             
@@ -6158,18 +6159,23 @@ var ns = {
   },  
   // end nsIWebProgressListener
   
-  filterUTF7: function(req, window, docShell) {
+  _badCharsetRx: /\butf-?7\$|^armscii-8$/i,
+  filterBadCharsets: function(docShell) {
     try {
-      if (!docShell) return;
-      var as = Cc["@mozilla.org/atom-service;1"].getService(Ci.nsIAtomService);
-      if(window.document.characterSet == "UTF-7" ||
-        !req.contentCharset && (docShell.documentCharsetInfo.parentCharset + "") == "UTF-7") {
-        if(this.consoleDump) this.dump("Neutralizing UTF-7 charset!");
-        docShell.documentCharsetInfo.forcedCharset = as.getAtom("UTF-8");
-        docShell.documentCharsetInfo.parentCharset = docShell.documentCharsetInfo.forcedCharset;
+      let rx = this._badCharsetRx;
+      let charsetInfo = docShell.documentCharsetInfo || docShell;
+      let cs = charsetInfo.charset;
+      if(rx.test(cs)) {
+        this.log("[NoScript XSS] Neutralizing bad charset " + cs);
+        let as = Cc["@mozilla.org/atom-service;1"].getService(Ci.nsIAtomService);
+        charsetInfo.forcedCharset = as.getAtom("UTF-8");
         docShell.reload(docShell.LOAD_FLAGS_CHARSET_CHANGE); // needed in Gecko > 1.9
+        return true;
       }
-    } catch(e) {}
+    } catch(e) {
+      if (this.consoleDump) this.dump("Error filtering charset " + e);
+    }
+    return false;
   },
   
   _attemptNavigationInternal: function(doc, destURL, callback) {
@@ -6435,6 +6441,7 @@ var ns = {
   },
  
   dump: function(msg, noConsole) {
+    if (!this.consoleDump) return;
     if (msg.stack) msg += msg.stack;
     msg = "[NoScript] " + msg;
     dump(msg + "\n");
