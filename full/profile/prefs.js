@@ -80,7 +80,7 @@ user_pref("extensions.jondofox.last_version", "");
 user_pref("extensions.jondofox.new_profile", false);
 user_pref("extensions.jondofox.profile_version", "2.6.7");
 user_pref("extensions.jondofox.set_referrer", true);
-user_pref("extensions.lastAppVersion", "14.0");
+user_pref("extensions.lastAppVersion", "14.0.1");
 user_pref("extensions.shownSelectionUI", true);
 user_pref("extensions.unplug2.setup_number", 1);
 user_pref("extensions.update.notifyUser", false);
