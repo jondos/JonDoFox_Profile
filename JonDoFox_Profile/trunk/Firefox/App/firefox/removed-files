@@ -7,7 +7,6 @@ zlib.dll
 jemalloc.dll
 mozutils.dll
 LICENSE
-update.locale
 browserconfig.properties
 chrome/US.jar
 chrome/app-chrome.manifest
@@ -211,6 +210,7 @@ extensions/testpilot@labs.mozilla.com/skin/win/feedback.css
 extensions/testpilot@labs.mozilla.com/skin/win/notification-tail-down.png
 extensions/testpilot@labs.mozilla.com/skin/win/notification-tail-up.png
 extensions/testpilot@labs.mozilla.com/tests/test_data_store.js
+extensions/uriloader@pdf.js.xpi
 greprefs/all.js
 greprefs/security-prefs.js
 greprefs/xpinstall.js
@@ -672,6 +672,7 @@ uninstall/UninstallDeerPark.exe
 uninstall/UninstallFirefox.exe
 uninstall/uninst.exe
 uninstall/uninstall.exe
+update.locale
 xpicleanup.exe
 omni.jar
 chrome/af.jar
@@ -982,6 +983,13 @@ modules/PopupNotifications.jsm
 modules/PropertyPanel.jsm
 modules/reflect.jsm
 modules/Services.jsm
+modules/services-common/async.js
+modules/services-common/log4moz.js
+modules/services-common/observers.js
+modules/services-common/preferences.js
+modules/services-common/rest.js
+modules/services-common/stringbundle.js
+modules/services-common/utils.js
 modules/services-sync/auth.js
 modules/services-sync/base_records/collection.js
 modules/services-sync/base_records/crypto.js
@@ -1071,7 +1079,8 @@ components/brwsrcmp.dll
 components/jsd3250.dll
 components/nsPostUpdateWin.js
 js3250.dll
-plugins/npnul32.dll
+mozcpp19.dll
+mozcrt19.dll
 Microsoft.VC80.CRT.manifest
 msvcm80.dll
 msvcp80.dll
@@ -1082,8 +1091,7 @@ msvcp90.dll
 msvcr90.dll
 msvcp110.dll
 msvcr110.dll
-mozcrt19.dll
-mozcpp19.dll
+plugins/npnul32.dll
 xpcom_core.dll
 components/jar50.dll
 components/xpinstal.dll
@@ -1125,3 +1133,4 @@ extensions/inspector@mozilla.org/chrome/icons/default/winInspectorMain.ico
 components/nsPlacesTransactionsService.js
 components/browserplaces.xpt
 components/nsPlacesDBFlush.js
+jssubloader/
