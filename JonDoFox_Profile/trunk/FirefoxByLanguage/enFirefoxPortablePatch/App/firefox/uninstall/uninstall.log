@@ -1,6 +1,7 @@
 File: \AccessibleMarshal.dll
 File: \application.ini
 File: \blocklist.xml
+File: \breakpadinjector.dll
 File: \chrome.manifest
 File: \crashreporter-override.ini
 File: \crashreporter.exe
@@ -54,7 +55,6 @@ File: \searchplugins\wikipedia.xml
 File: \searchplugins\yahoo.xml
 File: \extensions\{972ce4c6-7e08-4474-a285-3208198ce6fd}\icon.png
 File: \extensions\{972ce4c6-7e08-4474-a285-3208198ce6fd}\install.rdf
-File: \extensions\{972ce4c6-7e08-4474-a285-3208198ce6fd}\preview.png
 File: \dictionaries\en-US.aff
 File: \dictionaries\en-US.dic
 File: \defaults\pref\channel-prefs.js
