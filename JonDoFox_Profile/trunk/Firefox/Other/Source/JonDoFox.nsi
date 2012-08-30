@@ -472,7 +472,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn "..\..\..\full\profile\extensions\{437be45a-4114-11dd-b9ab-71d256d89593}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{437be45a-4114-11dd-b9ab-71d256d89593}.xpi"
 
         SectionEnd
 
@@ -486,7 +486,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn "..\..\..\full\profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
 
         SectionEnd
 
