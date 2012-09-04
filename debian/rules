@@ -59,6 +59,9 @@ install: build
 	cp -rf profile debian/jondofox-de/usr/share/jondofox/profile
 	rm -r profile
 
+	install -m644 debian/latest-compatible.txt debian/jondofox-en/usr/share/jondofox/
+	install -m644 debian/latest-compatible.txt debian/jondofox-de/usr/share/jondofox/
+
 
 binary-arch: build install
 

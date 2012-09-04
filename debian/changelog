@@ -1,3 +1,29 @@
+jondofox (2.6.8) unstable; urgency=low
+
+  * updated extensions
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 30 Aug 2012 16:17:23 +0200
+
+
+jondofox (2.6.7) unstable; urgency=low
+
+  * updated extensions
+  * check vor latest compatible version and update user profil only if required
+  * start Firefox with option --no-remote
+  * new icons
+
+ -- JonDos GmbH <info@jondos.de>  Fri, 10 Aug 2012 12:17:23 +0200
+
+
+jondofox (2.6.6) unstable; urgency=low
+
+  * updated extensions
+  * fixed HTTP-Authentication defense code
+  * fixed variable redeclaration in CertPatrol code
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 05 Jun 2012 14:17:23 +0200
+
+
 jondofox (2.6.5) unstable; urgency=low
 
   * update to the latest JonDoFox profile
