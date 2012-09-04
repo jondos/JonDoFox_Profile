@@ -43,7 +43,7 @@ ret=$(grep JonDoFox "${HOME}/.mozilla/firefox/profiles.ini")
 if [ "${ret}" ]; then
     # Version check
     VersionStrold=$(fgrep jondofox.profile_version ${HOME}/.mozilla/firefox/profile/prefs.js | xargs -I % expr % : ".*, \([0-9].*[0-9]\).*")
-    VersionStrnew=$(fgrep jondofox.profile_version /usr/share/jondofox/profile/prefs.js | xargs -I % expr % : ".*, \([0-9].*[0-9]\).*")
+    VersionStrnew=`cat /usr/share/jondofox/latest-compatible.txt`
     if [ $(expr "$VersionStrnew" \> "$VersionStrold") = "1" ]; then
         jondofox-install
     fi
@@ -56,7 +56,7 @@ else
 fi
 
 if [ -x /usr/bin/iceweasel ]; then
-    /usr/bin/iceweasel -P JonDoFox
+    /usr/bin/iceweasel --no-remote -P JonDoFox
 else 
-    firefox -P JonDoFox
+    firefox --no-remote -P JonDoFox
 fi
