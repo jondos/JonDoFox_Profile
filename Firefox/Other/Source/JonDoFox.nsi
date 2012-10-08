@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "JonDoFoxPortable"
-!define VERSION "2.6.8.0"
+!define VERSION "2.6.9.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "15.0"
+!define FF_VERSION "16.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "JonDoFoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -214,7 +214,7 @@ VIAddVersionKey JonDoFoxInstallerVersion "${INSTALLERVERSION}"
 !insertmacro MUI_LANGUAGE "English"
 
 /* In UAC_JonDo.nsh we have added some german language support. Because all
-the warnings and error messages which may occur during elevating were, of 
+the warnings and error messages which may occur during elevating were, of
 course, just in english. Well, and if we want language support we have to load
 the UAC_JonDo.nsh after we included the relevant language-macro. */
 
@@ -339,7 +339,7 @@ InstType $(InstTypeProfileLite)              # 2
 InstType /NOCUSTOM
 
 Section /o $(JonDoFox) JFPortable
-SectionIn 1 
+SectionIn 1
         ${If} $PROFILE == ""
               MessageBox MB_ICONEXCLAMATION|MB_OK $(FF30Win9x)
         ${EndIf}
@@ -350,7 +350,7 @@ SectionIn 1
 
         # Copying the JonDoFoxPortable.ini in order to allow a desktop and
         # a portable Firefox running in parallel
-        
+
 	File "JonDoFoxPortable.ini"
         
         ${If} $LANGUAGE == "1031"          # german
@@ -427,7 +427,7 @@ SectionEnd
 SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         Section "Adblock Plus" AdblockPlus
-        SectionIn 1 2 
+        SectionIn 1 2
                 StrCpy $ExtensionName "Adblock Plus"
 
                 SetOutPath "$ProfileExtensionPath"
@@ -461,11 +461,10 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 File /r /x .svn "..\..\..\full\profile\extensions\https-everywhere@eff.org\*.*"
 
         SectionEnd
-        
 
         Section "JonDoFox" JonDoFox
-        SectionIn 1 2 
-        
+        SectionIn 1 2
+
                 StrCpy $ExtensionName "JonDoFox"
 
                 SetOutPath "$ProfileExtensionPath"
