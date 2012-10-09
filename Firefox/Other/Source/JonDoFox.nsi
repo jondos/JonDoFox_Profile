@@ -1415,7 +1415,10 @@ Function Update
         CopyFiles $ProfilePath\NoScriptSTS.db $TEMP
 	IfErrors Error 
 
-        IfFileExists $ProfilePath\HTTPSEverywhereUserRules\*.* 0 +4
+        IfFileExists $ProfilePath\HTTPSEverywhereUserRules\*.* 0 +5
+        # We know the directory exists, but that is created automatically.
+        # Do we have files to copy in it at all?
+        IfFileExists $ProfilePath\HTTPSEverywhereUserRules\*.xml 0 +4
         CreateDirectory $TEMP\HTTPSEverywhereUserRules
         CopyFiles $ProfilePath\HTTPSEverywhereUserRules\*.* $TEMP\HTTPSEverywhereUserRules
         IfErrors Error
@@ -1467,18 +1470,13 @@ FunctionEnd
 
 Function RestoreBackup
 ClearErrors
-           IfFileExists $TEMP\BookmarkBackup\*.* 0 +2 
+           IfFileExists $TEMP\BookmarkBackup\*.* 0 +2
            CopyFiles "$TEMP\BookmarkBackup\*.*" $ProfilePath
-           IfFileExists $TEMP\CertPatrol.sqlite 0 +2 
+           IfFileExists $TEMP\CertPatrol.sqlite 0 +2
            CopyFiles "$TEMP\CertPatrol.sqlite" $ProfilePath
-           IfFileExists $TEMP\NoScriptSTS.db 0 +2 
-           CopyFiles "$TEMP\NoScriptSTS.db" $ProfilePath 
+           IfFileExists $TEMP\NoScriptSTS.db 0 +2
+           CopyFiles "$TEMP\NoScriptSTS.db" $ProfilePath
            IfFileExists $TEMP\HTTPSEverywhereUserRules\*.* 0 +2
-           # We have a new profile here. Avoid overwriting new rules regarding
-           # our domains with old ones. As CopyFiles is overwriting files
-           # automatically we have to copy the new rules for our domain to the
-           # temp folder first, ugh.
-           CopyFiles $ProfilePath\HTTPSEverywhereUserRules\*.* "$TEMP\HTTPSEverywhereUserRules"
            CopyFiles "$TEMP\HTTPSEverywhereUserRules\*.*" $ProfilePath\HTTPSEverywhereUserRules
            # Adding the user chosen forced domains or exceptions
            IfFileExists "$ProfilePath\prefs.js" 0 httpsForcedDone
@@ -1490,23 +1488,21 @@ ClearErrors
            FileWrite $0 "$\r$\n"
            FileClose $0
            checkExceptions:
-           StrCmp $httpsForcedDomainsExceptions "" httpsForcedDone 
+           StrCmp $httpsForcedDomainsExceptions "" httpsForcedDone
            FileOpen $0 "$ProfilePath\prefs.js" a
            FileSeek $0 0 END
            FileWrite $0 "$\r$\n"
            FileWrite $0 $httpsForcedDomainsExceptions
            FileWrite $0 "$\r$\n"
-           FileClose $0 
+           FileClose $0
            httpsForcedDone:
 
            IfErrors 0 done
 	    MessageBox MB_ICONEXCLAMATION|MB_OK $(RestoreError)
- 
+
            done:
-        
+
 FunctionEnd
-
-
 
 Function ParsePrefsJS
 
