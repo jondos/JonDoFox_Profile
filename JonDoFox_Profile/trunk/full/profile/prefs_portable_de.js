@@ -79,6 +79,7 @@ user_pref("extensions.adblockplus.showinstatusbar", false);
 user_pref("extensions.adblockplus.showintoolbar", true);
 user_pref("extensions.adblockplus.showsubscriptions", false);
 user_pref("extensions.adblockplus.savestats", false);
+user_pref("extensions.https_everywhere._observatory.popup_shown", true);
 user_pref("extensions.jondofox.last_version", "");
 user_pref("extensions.jondofox.new_profile", false);
 user_pref("extensions.jondofox.profile_version", "2.6.9");
