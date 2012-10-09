@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=JonDoFox
+GenericName=Secure Web Browser
+Type=Application
+Comment=Secure Web Browser
+Exec=jondofox-start
+Icon=jondofox.png
+Categories=Application;Network
+Terminal=false
