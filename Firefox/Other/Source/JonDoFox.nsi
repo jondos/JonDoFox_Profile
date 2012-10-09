@@ -503,15 +503,14 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
 
         Section /o "ProfileSwitcher" ProfileSwitcher
-        SectionIn 2 
-                
-                StrCpy $ExtensionGUID "{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}"
+        SectionIn 2
+
                 StrCpy $ExtensionName "ProfileSwitcher"
 
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOutPath "$ProfileExtensionPath"
                 SetOverwrite on
 
-                File /r /x .svn "..\..\..\full\profile\extensions\{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{fa8476cf-a98c-4e08-99b4-65a69cb4b7d4}.xpi"
 
         SectionEnd
 
