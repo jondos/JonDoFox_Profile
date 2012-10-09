@@ -43,8 +43,12 @@ File: \ssl3.dll
 File: \update-settings.ini
 File: \updater.exe
 File: \updater.ini
+File: \webapp-uninstaller.exe
+File: \webapprt-stub.exe
 File: \xpcom.dll
 File: \xul.dll
+File: \webapprt\omni.ja
+File: \webapprt\webapprt.ini
 File: \uninstall\helper.exe
 File: \searchplugins\amazondotcom-de.xml
 File: \searchplugins\bing.xml
