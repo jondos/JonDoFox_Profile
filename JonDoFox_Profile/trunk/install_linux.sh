@@ -162,6 +162,12 @@ saveInstalledBookmarks()
 		cat ${INSTALLED_PREFS} | grep 'noscript.httpsForced' > ${SAVED_NOSCRIPTHTTPS}
 	fi
         if [ -d "${HTTPSEverywhereUserRules}" ]; then
+                if [ -e "${HTTPSEverywhereUserRules}/Anonym-surfen.de.xml" ]; then
+                     rm "${HTTPSEverywhereUserRules}/Anonym-surfen.de.xml"
+                fi
+                if [ -e "${HTTPSEverywhereUserRules}/Anonymous-proxy-servers.net.xml" ]; then
+                     rm "${HTTPSEverywhereUserRules}/Anonymous-proxy-servers.net.xml"
+                fi
                 SAVED_HTTPSEverywhereUserRules="${FIREFOX_SETTINGS_PATH}/HTTPSEverywhereUserRules_backup"
                 cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}" "${SAVED_HTTPSEverywhereUserRules}"
         fi
