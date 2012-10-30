@@ -373,20 +373,20 @@ SectionIn 1 2
         SetOutPath $ProfilePath
         SetOverwrite on
         File appicon.ico
-        File /r /x .svn /x extensions /x bookmarks_de.html /x bookmarks_en.html /x prefs_portable_de.js /x prefs_portable_en.js /x places.sqlite_de /x places.sqlite_en "..\..\..\full\profile\*.*"
+        File /r /x .svn /x extensions /x bookmarks_de.html /x bookmarks_en.html /x prefs_portable_de.js /x prefs_portable_en-US.js /x places.sqlite_de /x places.sqlite_en-US "..\..\..\full\profile\*.*"
         ${If} $LANGUAGE == "1031"          # german
               File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_de"
               ${If} $PROGRAMINSTALL == "true"
                     File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_de.js"
 #File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
-              ${Else} 
+              ${Else}
                     # Copying the help file and the images, but why?
                     File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
               ${EndIf}
         ${ElseIf} $LANGUAGE == "1033"      # english
-              File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en"
+              File "/oname=places.sqlite" "..\..\..\full\profile\places.sqlite_en-US"
               ${If} $PROGRAMINSTALL == "true"
-                    File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
+                    File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en-US.js"
 #File "/oname=extensions.sqlite" "..\..\..\full\profile\extensions.sqlite_portable"
               ${Else}
                     File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
