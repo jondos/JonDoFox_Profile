@@ -410,7 +410,7 @@ Section /o - ProfileCoreUpdate              #Update
                 File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\deFirefoxPortablePatch\*.*"
         ${ElseIf} $LANGUAGE == "1033"
         ${AndIf} $PROGRAMINSTALL == "true"
-              File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en.js"
+              File "/oname=prefs.js" "..\..\..\full\profile\prefs_portable_en-US.js"
         ${ElseIf} $LANGUAGE == "1033"
         ${AndIf} $PROGRAMINSTALL == "false" 
                 File /r /x .svn /x App /x Other "..\..\..\FirefoxByLanguage\enFirefoxPortablePatch\*.*"
