@@ -57,6 +57,13 @@ File: \searchplugins\google.xml
 File: \searchplugins\twitter.xml
 File: \searchplugins\wikipedia.xml
 File: \searchplugins\yahoo.xml
+File: \modules\sessionstore\.mkdir.done
+File: \modules\services-sync\.mkdir.done
+File: \modules\services-sync\engines\.mkdir.done
+File: \modules\services-notifications\.mkdir.done
+File: \modules\services-crypto\.mkdir.done
+File: \modules\services-common\.mkdir.done
+File: \modules\services-aitc\.mkdir.done
 File: \extensions\{972ce4c6-7e08-4474-a285-3208198ce6fd}\icon.png
 File: \extensions\{972ce4c6-7e08-4474-a285-3208198ce6fd}\install.rdf
 File: \dictionaries\en-US.aff
