@@ -55,8 +55,10 @@ INSTALLED_PREFS=""	#path to the prerference file of the local Firefox installati
 BOOKMARKS_FF3="" #Firefox3 bookmarks file
 BOOKMARKS_FF2="" #Firefox2 bookmarks file
 CERT_DATABASE="" #CertPatrol database
+STS_DATABASE="" # STS Database
 SAVED_BOOKMARKS="" #Saved bookmarks
 SAVED_CERTDATABASE="" #Saved CertPatrol database
+SAVED_STSDATABASE="" # Saved STS Database
 SAVED_NOSCRIPTHTTPS="" # Force HTTPS Options of NoScript
 HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere
 SAVED_HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere (Backup)
@@ -120,7 +122,8 @@ variablesOsSpecific()
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
 	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
 	CERT_DATABASE="${DEST_PROFILE}/CertPatrol.sqlite"
-        HTTPSEverywhereUserRules="${DEST_PROFILE}/HTTPSEverywhereUserRules"
+    STS_DATABASE="${DEST_PROFILE}/NoScriptSTS.db"
+    HTTPSEverywhereUserRules="${DEST_PROFILE}/HTTPSEverywhereUserRules"
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
 		
@@ -146,6 +149,7 @@ saveInstalledBookmarks()
 	SAVED_BOOKMARKS=""
 	SAVED_CERTDATABASE=""
 	SAVED_NOSCRIPTHTTPS=""
+    SAVED_STSDATABASE=""
 	if [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/places.sqlite"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF3}" "${SAVED_BOOKMARKS}"
@@ -156,8 +160,12 @@ saveInstalledBookmarks()
 	if [ -e "${CERT_DATABASE}" ]; then
 	        SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
                 cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
-        fi
-        if [ -e "${INSTALLED_PREFS}" ]; then
+    fi
+    if [ -e "${STS_DATABASE}" ]; then
+            SAVED_STSDATABASE="${FIREFOX_SETTINGS_PATH}/NoScriptSTS.db"
+                cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${STS_DATABASE}" "${SAVED_STSDATABASE}"
+    fi
+    if [ -e "${INSTALLED_PREFS}" ]; then
 		SAVED_NOSCRIPTHTTPS="${FIREFOX_SETTINGS_PATH}/Noscript_httpsforced.conf"
 		cat ${INSTALLED_PREFS} | grep 'noscript.httpsForced' > ${SAVED_NOSCRIPTHTTPS}
 	fi
@@ -185,6 +193,10 @@ restoreBookmarks()
 		echo "restoring certificate database."
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
+    if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
+        echo "restoring certificate database."
+        mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
+    fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
                 echo "restoring NoScript enforce HTTPS settings."
 		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
