@@ -193,6 +193,9 @@ on edit_profiles_ini()
 		if (old_version_str is equal to "???") then
 			return 0
 		end if
+		display dialog old_version_str buttons {buttonOK}
+                display dialog new_version_str buttons {buttonOK}
+                 
 		if (old_version_str is equal to new_version_str) then
 			display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) Â
 				buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
