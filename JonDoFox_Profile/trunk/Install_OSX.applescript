@@ -196,6 +196,7 @@ on edit_profiles_ini()
 		display dialog old_version_str buttons {buttonOK}
                 display dialog new_version_str buttons {buttonOK}
                  
+                considering numeric strings
 		if (old_version_str is equal to new_version_str) then
 			display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) Â
 				buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
@@ -210,6 +211,7 @@ on edit_profiles_ini()
 					with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 			end if -- installed version is newer 
 		end if -- versions equal
+                end considering
 		-- in either case copy bookmarks
 		copy_bookmarks()
 		-- reset the entry "StartWithLastProfile"
