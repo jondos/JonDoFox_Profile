@@ -395,7 +395,7 @@ createSelectedPackages()
 checkLang()
 {
 	case "$1" in
-		en) return 0;;
+		en-US) return 0;;
 		
 		de) return 0;;
 		
