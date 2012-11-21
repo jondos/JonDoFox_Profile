@@ -193,8 +193,6 @@ on edit_profiles_ini()
 		if (old_version_str is equal to "???") then
 			return 0
 		end if
-		display dialog old_version_str buttons {buttonOK}
-                display dialog new_version_str buttons {buttonOK}
                  
                 considering numeric strings
 		if (old_version_str is equal to new_version_str) then
