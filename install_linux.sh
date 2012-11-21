@@ -194,18 +194,22 @@ restoreBookmarks()
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
     if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
-        echo "restoring NoScript STS database."
+        echo "restoring certificate database."
         mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
     fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
-        echo "restoring NoScript enforce HTTPS settings."
+                echo "restoring NoScript enforce HTTPS settings."
 		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
 		rm ${SAVED_NOSCRIPTHTTPS}
 	fi
 	if [ "${SAVED_HTTPSEverywhereUserRules}" ] && [ -d "${SAVED_HTTPSEverywhereUserRules}" ]; then
+		if [ -d "${HTTPSEverywhereUserRules}" ]; then
+			rm -r "${HTTPSEverywhereUserRules}"
+		fi
 		echo "restoring HTTPSEverywhereUserRules."
 		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
 		rm -r "${SAVED_HTTPSEverywhereUserRules}"
+		cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} "${INSTALL_PROFILE}/HTTPSEverywhereUserRules"/*.xml  "${HTTPSEverywhereUserRules}"
 	fi
 }
 
@@ -383,7 +387,7 @@ compareVersions()
 promptOverwrite()
 {
 	if [ $ZENITY ]; then
-		zenity --question --title "New JonDoFox version" --text "Do you want to upgrade your JonDoFox profil (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?"
+		zenity --question --title "New JonDoFox version" --text "You have installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to upgrade it, (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?"
 
 		dialog_return=$?		
 		if [ $dialog_return -eq 1 ]; then
@@ -393,7 +397,8 @@ promptOverwrite()
 		fi
 	else
 		dialog_return="y"
-		read -p  "Do you want to upgrade your JonDoFox (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)? [y/n]: " RESP
+		echo "You have installed an older version of JonDoFox ($(getInstalledVersion))."
+		read -p  "Do you want to upgrade it (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)? [y/n]: " RESP
 		if [ "$RESP" = "y" ]; then
 			return 0
 		else
@@ -480,7 +485,7 @@ else
 	promptOverwrite $?
 	overwriteRet=$?
 	if [ $overwriteRet -ne 0 ]; then
-		#in this case: remove the JonDoFox-profile and exit
+		#in this case: remove the JonDoFox-profile and exit and exit
 		if [ $overwriteRet -eq 2 ]; then
 			uninstallJonDoFox
 			exit 0
