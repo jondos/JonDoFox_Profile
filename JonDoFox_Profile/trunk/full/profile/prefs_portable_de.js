@@ -90,6 +90,7 @@ user_pref("extensions.jondofox.profile_version", "2.6.11");
 user_pref("extensions.jondofox.set_referrer", true);
 user_pref("extensions.lastAppVersion", "18.0");
 user_pref("extensions.shownSelectionUI", true);
+user_pref("extensions.ui.lastCategory", "addons://list/extension");
 user_pref("extensions.unplug2.setup_number", 1);
 user_pref("extensions.update.notifyUser", false);
 user_pref("font.name.serif.x-western", "Arial");
