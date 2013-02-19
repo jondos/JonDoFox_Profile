@@ -55,10 +55,8 @@ INSTALLED_PREFS=""	#path to the prerference file of the local Firefox installati
 BOOKMARKS_FF3="" #Firefox3 bookmarks file
 BOOKMARKS_FF2="" #Firefox2 bookmarks file
 CERT_DATABASE="" #CertPatrol database
-STS_DATABASE="" # STS Database
 SAVED_BOOKMARKS="" #Saved bookmarks
 SAVED_CERTDATABASE="" #Saved CertPatrol database
-SAVED_STSDATABASE="" # Saved STS Database
 SAVED_NOSCRIPTHTTPS="" # Force HTTPS Options of NoScript
 HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere
 SAVED_HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere (Backup)
@@ -120,7 +118,6 @@ variablesOsSpecific()
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
 	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
 	CERT_DATABASE="${DEST_PROFILE}/CertPatrol.sqlite"
-    STS_DATABASE="${DEST_PROFILE}/NoScriptSTS.db"
 	HTTPSEverywhereUserRules="${DEST_PROFILE}/HTTPSEverywhereUserRules"
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
@@ -155,24 +152,14 @@ saveInstalledBookmarks()
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF2}" "${SAVED_BOOKMARKS}"
 	fi
 	if [ -e "${CERT_DATABASE}" ]; then
-	    SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
-        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
-    fi
-    if [ -e "${STS_DATABASE}" ]; then
-        SAVED_STSDATABASE="${FIREFOX_SETTINGS_PATH}/NoScriptSTS.db"
-        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${STS_DATABASE}" "${SAVED_STSDATABASE}"
-    fi
-    if [ -e "${INSTALLED_PREFS}" ]; then
+	        SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
+                cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
+        fi
+        if [ -e "${INSTALLED_PREFS}" ]; then
 		SAVED_NOSCRIPTHTTPS="${FIREFOX_SETTINGS_PATH}/Noscript_httpsforced.conf"
 		cat ${INSTALLED_PREFS} | grep 'noscript.httpsForced' > ${SAVED_NOSCRIPTHTTPS}
 	fi
 	if [ -d "${HTTPSEverywhereUserRules}" ]; then
-                if [ -e "${HTTPSEverywhereUserRules}/Anonym-surfen.de.xml" ]; then
-                     rm "${HTTPSEverywhereUserRules}/Anonym-surfen.de.xml"
-                fi
-                if [ -e "${HTTPSEverywhereUserRules}/Anonymous-proxy-servers.net.xml" ]; then
-                     rm "${HTTPSEverywhereUserRules}/Anonymous-proxy-servers.net.xml"
-                fi
                 SAVED_HTTPSEverywhereUserRules="${FIREFOX_SETTINGS_PATH}/HTTPSEverywhereUserRules_backup"
                 cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}" "${SAVED_HTTPSEverywhereUserRules}"
         fi
@@ -188,17 +175,17 @@ restoreBookmarks()
 	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}" ]; then
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
-    if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
-        echo "restoring NoScript STS database."
-        mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
-    fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
 		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
 		rm ${SAVED_NOSCRIPTHTTPS}
 	fi
 	if [ "${SAVED_HTTPSEverywhereUserRules}" ] && [ -d "${SAVED_HTTPSEverywhereUserRules}" ]; then
+		if [ -d "${HTTPSEverywhereUserRules}" ]; then
+			rm -r "${HTTPSEverywhereUserRules}"
+		fi
 		cp ${COPY_RECURSIVE_OPT} -f "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
 		rm -r "${SAVED_HTTPSEverywhereUserRules}"
+		cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} "${INSTALL_PROFILE}/HTTPSEverywhereUserRules"/*.xml  "${HTTPSEverywhereUserRules}"
 	fi
 }
 
@@ -371,14 +358,9 @@ compareVersions()
 
 promptOverwrite()
 {
-   dialog_return=1
-   if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-        kdialog --yesno "Eine neue Version des JonDoFox-Profil ist verfügbar.\n\nWollen sie die installierte Version aktualisieren?\n\nIhre Lesezeichen, Zertifikats-Datenbank und HTTPSEverywhereUserRules bleiben dabei erhalten." --title "Neue JonDoFox Version"
-        dialog_return=$?
-    else
-      zenity --question --title "Neue JonDoFox Version" --text "Eine neue Version des JonDoFox-Profil ist verfügbar.\n\nWollen sie die installierte Version aktualisieren?\n\nIhre Lesezeichen, Zertifikats-Datenbank und HTTPSEverywhereUserRules bleiben dabei erhalten."
-      dialog_return=$?   
-    fi     	
+	zenity --question --title "Neue JonDoFox Version" --text "Eine neue Version des JonDoFox-Profil ist verfügbar ($(getNewVersion)). Wollen sie die installierte Version aktualisieren? Ihre Lesezeichen, Zertifikats-Datenbank und HTTPSEverywhereUserRules bleiben dabei erhalten."
+
+        dialog_return=$?		
 	if [ $dialog_return -eq 1 ]; then
 		return 1
 	else
@@ -420,11 +402,7 @@ variablesOsSpecific
 
 isFirefoxRunning
 if [ $? -ne 0 ]; then
-	if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-        kdialog --error "Firefox oder Iceweasel läuft gerade. Bitte schließen Sie den Browser zuerst." --title "JonDoFox Start"
-    else
-        zenity --error --title "JonDoFox Start" --text "Firefox oder Iceweasel läuft gerade. Bitte schließen Sie den Browser zuerst."
-    fi
+	zenity --error --text "Firefox oder Iceweasel läuft gerade. Bitte schließen Sie den Browser zuerst."
 	exit 1
 fi
 
@@ -444,11 +422,7 @@ isJonDoFoxInstalled
 if [ $? -eq 0 ]; then
 	editProfilesIni
 	if [ $? -ne 0 ]; then
-		if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-            kdialog --error "Die Datei profiles.ini kann nicht bearbeitet werden: Installation wurde abgebrochen und der alte Zustand wieder hergestellt." --title "Fehler bei Installation"
-        else
-            zenity --error --title="Fehler bei Installation" --text "Die Datei profiles.ini kann nicht bearbeitet werden: Installation wurde abgebrochen und der alte Zustand wieder hergestellt."
-        fi
+		zenity --error --title="Fehler" --text "Die Datei profiles.ini kann nicht bearbeitet werden: Installation wurde abgebrochen und der alte Zustand wieder hergestellt!"
 		restoreOldSettings
 		exit 1
 	fi
@@ -474,10 +448,7 @@ fi
 echo "installing profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
-    if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-         kdialog --error "Das JonDoFox Profil konnte nicht installiert werden." --title "Fehler bei JonDoFox Installation"
-    else
-         zenity --error --title "Fehler bei JonDoFox Installation" --text "Das JonDoFox Profil konnte nicht installiert werden."
+	zenity --error --title "Fehler bei der JonDoFox Installation" --text "JonDoFox konnte nicht installiert werden!"
 	exit 1
 fi
 # echo "JonDoFox successfully installed!"
