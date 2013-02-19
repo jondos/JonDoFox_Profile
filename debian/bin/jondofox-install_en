@@ -55,8 +55,10 @@ INSTALLED_PREFS=""	#path to the prerference file of the local Firefox installati
 BOOKMARKS_FF3="" #Firefox3 bookmarks file
 BOOKMARKS_FF2="" #Firefox2 bookmarks file
 CERT_DATABASE="" #CertPatrol database
+STS_DATABASE="" # STS Database
 SAVED_BOOKMARKS="" #Saved bookmarks
 SAVED_CERTDATABASE="" #Saved CertPatrol database
+SAVED_STSDATABASE="" # Saved STS Database
 SAVED_NOSCRIPTHTTPS="" # Force HTTPS Options of NoScript
 HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere
 SAVED_HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere (Backup)
@@ -118,6 +120,7 @@ variablesOsSpecific()
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
 	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
 	CERT_DATABASE="${DEST_PROFILE}/CertPatrol.sqlite"
+    STS_DATABASE="${DEST_PROFILE}/NoScriptSTS.db"
 	HTTPSEverywhereUserRules="${DEST_PROFILE}/HTTPSEverywhereUserRules"
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
@@ -152,14 +155,24 @@ saveInstalledBookmarks()
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF2}" "${SAVED_BOOKMARKS}"
 	fi
 	if [ -e "${CERT_DATABASE}" ]; then
-	        SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
-                cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
-        fi
-        if [ -e "${INSTALLED_PREFS}" ]; then
+	    SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
+        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
+    fi
+    if [ -e "${STS_DATABASE}" ]; then
+        SAVED_STSDATABASE="${FIREFOX_SETTINGS_PATH}/NoScriptSTS.db"
+        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${STS_DATABASE}" "${SAVED_STSDATABASE}"
+    fi
+    if [ -e "${INSTALLED_PREFS}" ]; then
 		SAVED_NOSCRIPTHTTPS="${FIREFOX_SETTINGS_PATH}/Noscript_httpsforced.conf"
 		cat ${INSTALLED_PREFS} | grep 'noscript.httpsForced' > ${SAVED_NOSCRIPTHTTPS}
 	fi
 	if [ -d "${HTTPSEverywhereUserRules}" ]; then
+                if [ -e "${HTTPSEverywhereUserRules}/Anonym-surfen.de.xml" ]; then
+                     rm "${HTTPSEverywhereUserRules}/Anonym-surfen.de.xml"
+                fi
+                if [ -e "${HTTPSEverywhereUserRules}/Anonymous-proxy-servers.net.xml" ]; then
+                     rm "${HTTPSEverywhereUserRules}/Anonymous-proxy-servers.net.xml"
+                fi
                 SAVED_HTTPSEverywhereUserRules="${FIREFOX_SETTINGS_PATH}/HTTPSEverywhereUserRules_backup"
                 cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}" "${SAVED_HTTPSEverywhereUserRules}"
         fi
@@ -175,6 +188,10 @@ restoreBookmarks()
 	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}" ]; then
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
+    if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
+        echo "restoring NoScript STS database."
+        mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
+    fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
 		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
 		rm ${SAVED_NOSCRIPTHTTPS}
@@ -358,8 +375,12 @@ compareVersions()
 
 promptOverwrite()
 {
-	zenity --question --title "New JonDoFox version" --text "A new version of the JonDoFox profil is available ($(getNewVersion)). You have installed an older version of JonDoFox. Do you want to upgrade it, (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?"
-
+   dialog_return=1
+   if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
+        kdialog --yesno "A new version of the JonDoFox profil is available.\n\nYou have installed an older version of JonDoFox. Do you want to upgrade it, (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?" --title "New JonDoFox version"
+        dialog_return=$?
+    else
+	    zenity --question --title "New JonDoFox version" --text "A new version of the JonDoFox profil is available.\n\nYou have installed an older version of JonDoFox. Do you want to upgrade it, (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?"
         dialog_return=$?		
 	if [ $dialog_return -eq 1 ]; then
 		return 1
@@ -402,7 +423,11 @@ variablesOsSpecific
 
 isFirefoxRunning
 if [ $? -ne 0 ]; then
-	zenity --error --text "Your Firefox is running. Please quit Firefox/Iceweasel first."
+    if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
+        kdialog --error "Your Firefox is running. Please quit Firefox/Iceweasel first." --title "JonDoFox startup problem"
+    else
+	    zenity --error --title "JonDoFox startup problem" --text "Your Firefox is running. Please quit Firefox/Iceweasel first."
+    fi
 	exit 1
 fi
 
@@ -422,7 +447,11 @@ isJonDoFoxInstalled
 if [ $? -eq 0 ]; then
 	editProfilesIni
 	if [ $? -ne 0 ]; then
-		zenity --error --text "Could not edit profiles.ini: Restoring old settings and abort installation!"
+        if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
+            kdialog --error "Could not edit profiles.ini: Restoring old settings and abort installation." --title "JonDoFox install error"
+        else
+		    zenity --error --title "JonDoFox install error" --text "Could not edit profiles.ini: Restoring old settings and abort installation."
+        fi
 		restoreOldSettings
 		exit 1
 	fi
@@ -448,7 +477,11 @@ fi
 echo "installing profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
-	zenity --error --text "JonDoFox could not be installed"
+    if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
+         kdialog --error "JonDoFox could not be installed." --title "JonDoFox install error"
+    else
+	     zenity --error --title "JonDoFox install error" --text "JonDoFox could not be installed."
+    fi
 	exit 1
 fi
 # echo "JonDoFox successfully installed!"
