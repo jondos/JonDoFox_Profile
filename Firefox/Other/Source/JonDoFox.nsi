@@ -439,7 +439,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
 
         Section "Cookie Monster" CMonster
-        SectionIn 1 2         
+        SectionIn 1 2
                 StrCpy $ExtensionGUID "{45d8ff86-d909-11db-9705-005056c00008}"
                 StrCpy $ExtensionName "Cookie Monster"
 
@@ -451,7 +451,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
         Section "HTTPS-Everywhere" HTTPSEverywhere
-        SectionIn 1 2 
+        SectionIn 1 2
                 StrCpy $ExtensionGUID "https-everywhere@eff.org"
                 StrCpy $ExtensionName "HTTPS Everywhere"
 
@@ -477,7 +477,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         Section "NoScript" NoScript
         SectionIn 1 2
-        
+
                 StrCpy $ExtensionName "NoScript"
 
                 SetOutPath "$ProfileExtensionPath"
@@ -490,14 +490,13 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         Section "UnPlug" UnPlug
         SectionIn 1 2
-        
-                StrCpy $ExtensionGUID "unplug@compunach"
+
                 StrCpy $ExtensionName "UnPlug"
 
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOutPath "$ProfileExtensionPath"
                 SetOverwrite on
 
-                File /r /x .svn "..\..\..\full\profile\extensions\unplug@compunach\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\unplug@compunach.xpi"
 
         SectionEnd
 
@@ -546,7 +545,7 @@ Section Uninstall
         # Goto deleting_sm
 
        searching_ini:
-         ${If} $i == 0 
+         ${If} $i == 0
             Goto deleting_sm
          ${EndIf}
          IntOp $i $i - 1
@@ -605,9 +604,9 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${CMonster} $(DescCMonster)
   !insertmacro MUI_DESCRIPTION_TEXT ${HTTPSEverywhere} $(DescHTTPSEverywhere)
   !insertmacro MUI_DESCRIPTION_TEXT ${UnPlug} $(DescUnPlug)
-  !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)  
+  !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
-  !insertmacro MUI_DESCRIPTION_TEXT ${ProfileSwitcher} $(DescProfileSwitcher)  
+  !insertmacro MUI_DESCRIPTION_TEXT ${ProfileSwitcher} $(DescProfileSwitcher)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 
