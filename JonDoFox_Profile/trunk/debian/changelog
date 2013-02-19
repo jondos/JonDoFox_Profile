@@ -1,3 +1,45 @@
+jondofox (2.6.12) unstable; urgency=low
+
+  * updated extensions
+  * updated preferences
+  * set selected panel in Add-ons window to addons://list/extension 
+    to avoid contacting AMO for further Add-on suggestions
+  * removed hushmail bookmark and added neomailbox.com
+  * Using KDialog for messageboxes, if KDE was running
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 19 Feb 2013 13:17:23 +0200
+
+
+jondofox (2.6.11) unstable; urgency=low
+
+  * updated extensions
+  * updated preferences
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 08 Jan 2013 13:17:23 +0200
+
+
+jondofox (2.6.10) unstable; urgency=low
+
+  * updated extensions
+  * disabled unnecessary requests accompanied by the ABE feature in NoScript
+  * disabled loading of NoScript's homepage after version upgrade
+  * disabled the history of the download manager
+
+ -- JonDos GmbH <info@jondos.de>  Wed, 21 Nov 2012 08:17:23 +0200
+
+
+jondofox (2.6.9) unstable; urgency=low
+
+  * updated extensions
+  * updated preferences 
+  * deleted our custom HTTPS Everywhere rules as they are shipped by default in HTTPS-E > 3.0 now
+  * disabled AdBlock plus pattern backup functionality
+  * made caching preferences more coherent 
+  * disabled NoScript's XSS protection for cashU payment page 
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 10 Oct 2012 08:17:23 +0200
+
+
 jondofox (2.6.8) unstable; urgency=low
 
   * updated extensions
