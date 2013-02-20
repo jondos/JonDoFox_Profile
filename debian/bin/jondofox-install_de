@@ -175,13 +175,14 @@ saveInstalledBookmarks()
                 fi
                 SAVED_HTTPSEverywhereUserRules="${FIREFOX_SETTINGS_PATH}/HTTPSEverywhereUserRules_backup"
                 cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}" "${SAVED_HTTPSEverywhereUserRules}"
-        fi
+    fi
 	return 0
 }
 
 ## copy saved bookmarks book to the JonDoFox profile folder
 restoreBookmarks()
 {
+    echo "restoring old settings (bookmarks, certificate database...)"
 	if [ "${SAVED_BOOKMARKS}" ] && [ -e "${SAVED_BOOKMARKS}" ]; then
 		mv -f "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
 	fi
@@ -189,7 +190,6 @@ restoreBookmarks()
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
     if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
-        echo "restoring NoScript STS database."
         mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
     fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
@@ -478,6 +478,7 @@ if [ $? -ne 0 ]; then
          kdialog --error "Das JonDoFox Profil konnte nicht installiert werden." --title "Fehler bei JonDoFox Installation"
     else
          zenity --error --title "Fehler bei JonDoFox Installation" --text "Das JonDoFox Profil konnte nicht installiert werden."
+    fi
 	exit 1
 fi
 # echo "JonDoFox successfully installed!"

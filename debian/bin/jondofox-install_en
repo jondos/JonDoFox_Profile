@@ -70,7 +70,7 @@ COPY_RECURSIVE_OPT=""
 ECHO_ESCAPE="-e"
 VERBOSE=""
 
-OVERWRITE_DIALOG_TITLE=""cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} "${INSTALL_PROFILE}/HTTPSEverywhereUserRules"/*.xml  "${HTTPSEverywhereUserRules}"
+OVERWRITE_DIALOG_TITLE=""
 DIALOG_TEXT_SAME_VERSION=""
 DIALOG_TEXT_OW_OLDER_VERSION=""
 DIALOG_TEXT_OW_NEWER_VERSION=""
@@ -182,6 +182,7 @@ saveInstalledBookmarks()
 ## copy saved bookmarks book to the JonDoFox profile folder
 restoreBookmarks()
 {
+    echo "restoring old settings (bookmarks, certificate database...)"
 	if [ "${SAVED_BOOKMARKS}" ] && [ -e "${SAVED_BOOKMARKS}" ]; then
 		mv -f "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
 	fi
@@ -189,7 +190,6 @@ restoreBookmarks()
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
     if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
-        echo "restoring NoScript STS database."
         mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
     fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
@@ -202,7 +202,6 @@ restoreBookmarks()
 		fi
 		cp ${COPY_RECURSIVE_OPT} -f "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
 		rm -r "${SAVED_HTTPSEverywhereUserRules}"
-		cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} "${INSTALL_PROFILE}/HTTPSEverywhereUserRules"/*.xml  "${HTTPSEverywhereUserRules}"
 	fi
 }
 
@@ -381,7 +380,8 @@ promptOverwrite()
         dialog_return=$?
     else
 	    zenity --question --title "New JonDoFox version" --text "A new version of the JonDoFox profil is available.\n\nYou have installed an older version of JonDoFox. Do you want to upgrade it, (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?"
-        dialog_return=$?		
+        dialog_return=$?	
+    fi	
 	if [ $dialog_return -eq 1 ]; then
 		return 1
 	else
