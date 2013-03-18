@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#nav-bar"
+                   currentset="unified-back-forward-button,jondofox-toolbar-button,noscript-tbb,urlbar-container,reload-button,stop-button,urlbar-search-splitter,search-container,window-controls,https-everywhere-button,cookiemonster-status,fullscreenflex,unplug2_toolbarbutton" />
+</RDF:RDF>

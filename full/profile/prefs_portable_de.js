@@ -217,6 +217,7 @@ user_pref("pttl.save-with-UTF8", false);
 user_pref("reloadSearchPlugins", false);
 user_pref("security.disable_button.openCertManager", false);
 user_pref("security.disable_button.openDeviceManager", false);
+user_pref("security.enable_ssl3", false);
 user_pref("security.warn_viewing_mixed", false);
 user_pref("signon.rememberSignons", false);
 user_pref("spellchecker.dictionary", "de-DE");
