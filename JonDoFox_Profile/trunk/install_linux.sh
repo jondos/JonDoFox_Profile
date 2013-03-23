@@ -55,10 +55,14 @@ INSTALLED_PREFS=""	#path to the prerference file of the local Firefox installati
 BOOKMARKS_FF3="" #Firefox3 bookmarks file
 BOOKMARKS_FF2="" #Firefox2 bookmarks file
 CERT_DATABASE="" #CertPatrol database
-STS_DATABASE="" # STS Database
+STS_DATABASE="" # NoScript STS Database
+PERMISSION_DATABASE="" # permissions database
+CERT_OVERRIDE_DATABASE=""
 SAVED_BOOKMARKS="" #Saved bookmarks
 SAVED_CERTDATABASE="" #Saved CertPatrol database
 SAVED_STSDATABASE="" # Saved STS Database
+SAVED_PERMISSIONDATABASE="" # Saved permissions database
+SAVED_CERTOVERRIDEDATABASE=""
 SAVED_NOSCRIPTHTTPS="" # Force HTTPS Options of NoScript
 HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere
 SAVED_HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere (Backup)
@@ -123,6 +127,8 @@ variablesOsSpecific()
 	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
 	CERT_DATABASE="${DEST_PROFILE}/CertPatrol.sqlite"
     STS_DATABASE="${DEST_PROFILE}/NoScriptSTS.db"
+    PERMISSION_DATABASE="${DEST_PROFILE}/permissions.sqlite"
+    CERT_OVERRIDE_DATABASE="${DEST_PROFILE}/cert_override.txt"
     HTTPSEverywhereUserRules="${DEST_PROFILE}/HTTPSEverywhereUserRules"
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
@@ -150,6 +156,8 @@ saveInstalledBookmarks()
 	SAVED_CERTDATABASE=""
 	SAVED_NOSCRIPTHTTPS=""
     SAVED_STSDATABASE=""
+    SAVED_PERMISSIONDATABASE=""
+    SAVED_CERTOVERRIDEDATABASE=""
 	if [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/places.sqlite"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF3}" "${SAVED_BOOKMARKS}"
@@ -158,13 +166,22 @@ saveInstalledBookmarks()
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF2}" "${SAVED_BOOKMARKS}"
 	fi
 	if [ -e "${CERT_DATABASE}" ]; then
-	        SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
-                cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
+	    SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
+        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
     fi
     if [ -e "${STS_DATABASE}" ]; then
-            SAVED_STSDATABASE="${FIREFOX_SETTINGS_PATH}/NoScriptSTS.db"
-                cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${STS_DATABASE}" "${SAVED_STSDATABASE}"
+        SAVED_STSDATABASE="${FIREFOX_SETTINGS_PATH}/NoScriptSTS.db"
+        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${STS_DATABASE}" "${SAVED_STSDATABASE}"
     fi
+    if [ -e "${PERMISSION_DATABASE}" ]; then
+        SAVED_PERMISSIONDATABASE="${FIREFOX_SETTINGS_PATH}/permissions.sqlite"
+        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${PERMISSION_DATABASE}" "${SAVED_PERMISSIONDATABASE}"
+    fi
+    if [ -e "${CERT_OVERRIDE_DATABASE}" ]; then
+        SAVED_CERTOVERRIDEDATABASE="${FIREFOX_SETTINGS_PATH}/cert_override.txt"
+        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_OVERRIDE_DATABASE}" "${SAVED_CERTOVERRIDEDATABASE}"
+    fi
+
     if [ -e "${INSTALLED_PREFS}" ]; then
 		SAVED_NOSCRIPTHTTPS="${FIREFOX_SETTINGS_PATH}/Noscript_httpsforced.conf"
 		cat ${INSTALLED_PREFS} | grep 'noscript.httpsForced' > ${SAVED_NOSCRIPTHTTPS}
@@ -196,6 +213,14 @@ restoreBookmarks()
     if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
         echo "restoring NoScript STS database."
         mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
+    fi
+    if [ "${SAVED_PERMISSIONDATABASE}" ] && [ -e "${SAVED_PERMISSIONDATABASE}" ]; then
+        echo "restoring permissions database."
+        mv -f "${SAVED_PERMISSIONDATABASE}" "${DEST_PROFILE}"
+    fi
+    if [ "${SAVED_CERTOVERRIDEDATABASE}" ] && [ -e "${SAVED_CERTOVERRIDEDATABASE}" ]; then
+        echo "restoring certificates override database."
+        mv -f "${SAVED_CERTOVERRIDEDATABASE}" "${DEST_PROFILE}"
     fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
         echo "restoring NoScript enforce HTTPS settings."
