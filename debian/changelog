@@ -1,3 +1,15 @@
+jondofox (2.6.13) unstable; urgency=low
+
+  * updated extensions
+  * updated preferences 
+  * disabled "browser.offline-apps.notify" 
+  * disabled "security.enable_ssl3"
+  * added a customized localstore.rdf to get rid of the add-on bar 
+  * included slightly updated JonDoFox help 
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 02 Apr 2013 16:17:23 +0200
+
+
 jondofox (2.6.12.1) unstable; urgency=low
 
   * bugfix for install script

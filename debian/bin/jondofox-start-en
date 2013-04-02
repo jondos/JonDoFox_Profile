@@ -36,10 +36,12 @@
 if [ ! -e $HOME/.mozilla/firefox/profiles.ini ]; then
     if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
         kdialog --error "No profiles for Firefox/Iceweasel found! Please start and quit Firefox (or Iceweasel) once for profil creation." --title "JonDoFox Start"
+        exit 1
     else
         zenity --error --title "JonDoFox Start" --text "No profiles for Firefox/Iceweasel found! Please start and quit Firefox (or Iceweasel) once for profil creation."
+        exit 1
     fi
-    exit 1
+    
 fi
 
 # Check for installed JonDofox
