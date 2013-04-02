@@ -34,6 +34,7 @@ File: \platform.ini
 File: \plc4.dll
 File: \plds4.dll
 File: \plugin-container.exe
+File: \plugin-hang-ui.exe
 File: \precomplete
 File: \removed-files
 File: \smime3.dll
@@ -61,11 +62,11 @@ File: \modules\sessionstore\.mkdir.done
 File: \modules\services-sync\.mkdir.done
 File: \modules\services-sync\stages\.mkdir.done
 File: \modules\services-sync\engines\.mkdir.done
-File: \modules\services-notifications\.mkdir.done
 File: \modules\services-crypto\.mkdir.done
 File: \modules\services-common\.mkdir.done
 File: \modules\services-aitc\.mkdir.done
 File: \modules\services\metrics\.mkdir.done
+File: \modules\services\datareporting\.mkdir.done
 File: \modules\identity\.mkdir.done
 File: \modules\commonjs\.mkdir.done
 File: \modules\commonjs\promise\.mkdir.done
