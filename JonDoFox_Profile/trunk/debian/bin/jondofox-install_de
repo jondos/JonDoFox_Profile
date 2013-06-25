@@ -398,10 +398,10 @@ promptOverwrite()
 {
    dialog_return=1
    if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-        kdialog --yesno "Eine neue Version des JonDoFox-Profil ist verfügbar.\n\nWollen sie die installierte Version aktualisieren?\n\nIhre Lesezeichen, Zertifikats-Datenbank und HTTPSEverywhereUserRules bleiben dabei erhalten." --title "Neue JonDoFox Version"
+        kdialog --yesno 'Eine neue Version des JonDoFox-Profil ist verfügbar.\n\nWollen sie Ihr Profil aktualisieren? Ihre Lesezeichen, Datenbanken\nund HTTPSEverywhereUserRules bleiben dabei erhalten.' --title "Neue JonDoFox Version"
         dialog_return=$?
     else
-      zenity --question --title "Neue JonDoFox Version" --text "Eine neue Version des JonDoFox-Profil ist verfügbar.\n\nWollen sie die installierte Version aktualisieren?\n\nIhre Lesezeichen, Zertifikats-Datenbank und HTTPSEverywhereUserRules bleiben dabei erhalten."
+      zenity --question --title "Neue JonDoFox Version" --text 'Eine neue Version des JonDoFox-Profil ist verfügbar.\n\nWollen sie Ihr Profil aktualisieren? Ihre Lesezeichen, Datenbanken\nund HTTPSEverywhereUserRules bleiben dabei erhalten.' --no-wrap
       dialog_return=$?   
     fi     	
 	if [ $dialog_return -eq 1 ]; then
@@ -446,10 +446,10 @@ variablesOsSpecific
 isFirefoxRunning
 if [ $? -ne 0 ]; then
 	if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-        kdialog --error "Firefox oder Iceweasel läuft gerade. Bitte schließen Sie den Browser zuerst." --title "JonDoFox Start"
+        kdialog --error 'Firefox oder Iceweasel läuft gerade.\nBitte schließen Sie den Browser zuerst.' --title "JonDoFox Start"
         exit 1
     else
-        zenity --error --title "JonDoFox Start" --text "Firefox oder Iceweasel läuft gerade. Bitte schließen Sie den Browser zuerst."
+        zenity --error --title "JonDoFox Start" --text 'Firefox oder Iceweasel läuft gerade.\nBitte schließen Sie den Browser zuerst.' --no-wrap
         exit 1
     fi
 	

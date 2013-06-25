@@ -35,10 +35,10 @@
 
 if [ ! -e $HOME/.mozilla/firefox/profiles.ini ]; then
     if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-        kdialog --error "No profiles for Firefox/Iceweasel found! Please start and quit Firefox (or Iceweasel) once for profil creation." --title "JonDoFox Start"
+        kdialog --error 'No profiles for Firefox/Iceweasel found!\n\nPlease start and quit Firefox (or Iceweasel) once for profil creation.' --title "JonDoFox Start"
         exit 1
     else
-        zenity --error --title "JonDoFox Start" --text "No profiles for Firefox/Iceweasel found! Please start and quit Firefox (or Iceweasel) once for profil creation."
+        zenity --error --title "JonDoFox Start" --text 'No profiles for Firefox/Iceweasel found!\n\nPlease start and quit Firefox (or Iceweasel) once for profil creation.' --no-wrap
         exit 1
     fi
     
@@ -49,7 +49,7 @@ ret=$(grep JonDoFox "${HOME}/.mozilla/firefox/profiles.ini")
 if [ "${ret}" ]; then
     # Version check
     VersionStrold=$(fgrep jondofox.profile_version ${HOME}/.mozilla/firefox/profile/prefs.js | xargs -I % expr % : ".*, \([0-9].*[0-9]\).*")
-    VersionStrnew=`cat /usr/share/jondofox/latest-compatible.txt`
+    VersionStrnew=$(fgrep jondofox.profile_version /usr/share/jondofox/profile/prefs.js | xargs -I % expr % : ".*, \([0-9].*[0-9]\).*")
     if [ "$VersionStrnew" != "$VersionStrold" ]; then
         jondofox-install
     fi

@@ -35,10 +35,10 @@
 # Check for Firefox/Iceweasel profiles folder
 if [ ! -e $HOME/.mozilla/firefox/profiles.ini ]; then
     if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-        kdialog --error "Es wurden keine Profile für Firefox / Iceweasel gefunden. Bitte starten sie Firefox oder Iceweasel einmalig und beenden sie ihn wieder, um das Default-Profil anzulegen." --title "JonDoFox Start"
+        kdialog --error 'Es wurden keine Profile für Firefox / Iceweasel gefunden.\n\nBitte starten sie Firefox oder Iceweasel einmalig und\nbeenden sie ihn wieder, um das Default-Profil anzulegen.' --title "JonDoFox Start"
         exit 1
     else
-        zenity --error --title "JonDoFox Start" --text "Es wurden keine Profile für Firefox / Iceweasel gefunden. Bitte starten sie Firefox oder Iceweasel einmalig und beenden sie ihn wieder, um das Default-Profil anzulegen."
+        zenity --error --title "JonDoFox Start" --text 'Es wurden keine Profile für Firefox / Iceweasel gefunden.\n\nBitte starten sie Firefox oder Iceweasel einmalig und\nbeenden sie ihn wieder, um das Default-Profil anzulegen.' --no-wrap
         exit 1
     fi
     
@@ -49,7 +49,8 @@ ret=$(grep JonDoFox "${HOME}/.mozilla/firefox/profiles.ini")
 if [ "${ret}" ]; then
     # Version check
     VersionStrold=$(fgrep jondofox.profile_version ${HOME}/.mozilla/firefox/profile/prefs.js | xargs -I % expr % : ".*, \([0-9].*[0-9]\).*")
-    VersionStrnew=`cat /usr/share/jondofox/latest-compatible.txt`
+    VersionStrnew=$(fgrep jondofox.profile_version /usr/share/jondofox/profile/prefs.js | xargs -I % expr % : ".*, \([0-9].*[0-9]\).*")
+
     if [ "$VersionStrnew" != "$VersionStrold" ]; then
         jondofox-install
     fi

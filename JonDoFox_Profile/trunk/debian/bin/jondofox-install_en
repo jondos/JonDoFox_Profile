@@ -400,10 +400,10 @@ promptOverwrite()
 {
    dialog_return=1
    if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-        kdialog --yesno "A new version of the JonDoFox profil is available.\n\nYou have installed an older version of JonDoFox. Do you want to upgrade it, (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?" --title "New JonDoFox version"
+        kdialog --yesno 'A new version of the JonDoFox profil is available.\n\nYou have installed an older version of JonDoFox. Do you want to upgrade it?\nThe upgrade will keep your bookmarks, databases and HTTPSEverywhereUserRules.' --title "New JonDoFox version"
         dialog_return=$?
     else
-	    zenity --question --title "New JonDoFox version" --text "A new version of the JonDoFox profil is available.\n\nYou have installed an older version of JonDoFox. Do you want to upgrade it, (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?"
+	    zenity --question --title "New JonDoFox version" --text 'A new version of the JonDoFox profil is available.\n\nYou have installed an older version of JonDoFox. Do you want to upgrade it?\nThe upgrade will keep your bookmarks, databases and HTTPSEverywhereUserRules.' --no-wrap
         dialog_return=$?	
     fi	
 	if [ $dialog_return -eq 1 ]; then
