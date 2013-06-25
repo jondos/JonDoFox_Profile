@@ -6,6 +6,14 @@ xpistub.dll
 zlib.dll
 jemalloc.dll
 mozutils.dll
+nspr4.dll
+plds4.dll
+plc4.dll
+ssl3.dll
+smime3.dll
+nssutil3.dll
+mozsqlite3.dll
+xpcom.dll
 LICENSE
 browserconfig.properties
 chrome/US.jar
@@ -60,6 +68,7 @@ components/nsUrlClassifierTable.js
 components/nsXmlRpcClient.js
 components/pluginGlue.js
 components/sidebar.xpt
+components/dom_sms.xpt
 components/uconvd.dll
 components/WeaveCrypto.js
 components/WeaveCrypto.manifest
