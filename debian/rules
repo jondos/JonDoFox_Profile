@@ -29,20 +29,24 @@ install: build
 
 	install -m644 icons/linux/jondofox-16.png debian/jondofox-de/usr/share/icons/crystalsvg/16x16/apps/jondofox.png
 	install -m644 icons/linux/jondofox-22.png debian/jondofox-de/usr/share/icons/crystalsvg/22x22/apps/jondofox.png
+	install -m644 icons/linux/jondofox-32.png debian/jondofox-de/usr/share/icons/crystalsvg/32x32/apps/jondofox.png
 	install -m644 icons/linux/jondofox-48.png debian/jondofox-de/usr/share/icons/crystalsvg/48x48/apps/jondofox.png
 	install -m644 icons/linux/jondofox-64.png debian/jondofox-de/usr/share/icons/crystalsvg/64x64/apps/jondofox.png
 	install -m644 icons/linux/jondofox-16.png debian/jondofox-de/usr/share/icons/oxygen/16x16/apps/jondofox.png
 	install -m644 icons/linux/jondofox-22.png debian/jondofox-de/usr/share/icons/oxygen/22x22/apps/jondofox.png
+	install -m644 icons/linux/jondofox-32.png debian/jondofox-de/usr/share/icons/oxygen/32x32/apps/jondofox.png
 	install -m644 icons/linux/jondofox-48.png debian/jondofox-de/usr/share/icons/oxygen/48x48/apps/jondofox.png
 	install -m644 icons/linux/jondofox-64.png debian/jondofox-de/usr/share/icons/oxygen/64x64/apps/jondofox.png
 	install -m644 icons/linux/jondofox-128.png debian/jondofox-de/usr/share/icons/oxygen/128x128/apps/jondofox.png
 
 	install -m644 icons/linux/jondofox-16.png debian/jondofox-en/usr/share/icons/crystalsvg/16x16/apps/jondofox.png
 	install -m644 icons/linux/jondofox-22.png debian/jondofox-en/usr/share/icons/crystalsvg/22x22/apps/jondofox.png
+	install -m644 icons/linux/jondofox-32.png debian/jondofox-en/usr/share/icons/crystalsvg/32x32/apps/jondofox.png
 	install -m644 icons/linux/jondofox-48.png debian/jondofox-en/usr/share/icons/crystalsvg/48x48/apps/jondofox.png
 	install -m644 icons/linux/jondofox-64.png debian/jondofox-en/usr/share/icons/crystalsvg/64x64/apps/jondofox.png
 	install -m644 icons/linux/jondofox-16.png debian/jondofox-en/usr/share/icons/oxygen/16x16/apps/jondofox.png
 	install -m644 icons/linux/jondofox-22.png debian/jondofox-en/usr/share/icons/oxygen/22x22/apps/jondofox.png
+	install -m644 icons/linux/jondofox-32.png debian/jondofox-en/usr/share/icons/oxygen/32x32/apps/jondofox.png
 	install -m644 icons/linux/jondofox-48.png debian/jondofox-en/usr/share/icons/oxygen/48x48/apps/jondofox.png
 	install -m644 icons/linux/jondofox-64.png debian/jondofox-en/usr/share/icons/oxygen/64x64/apps/jondofox.png
 	install -m644 icons/linux/jondofox-128.png debian/jondofox-en/usr/share/icons/oxygen/128x128/apps/jondofox.png
