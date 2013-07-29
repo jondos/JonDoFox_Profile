@@ -273,7 +273,7 @@ createLinuxPackage()
 			setLanguageBookmarks "${lang}"
 
 			# replace "Arial" by "liberation Sans"
-                        sed -i "s/Arial/Liberation Sans/" "${JONDOFOX_PROFILE}"/prefs.js
+            sed -i "s/Arial/Liberation Sans/" "${JONDOFOX_PROFILE}"/prefs.js
 			
 			echo "Creating linux archiv 'jondofox_linux_${lang}.tar.bz2'"
 			chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
