@@ -189,7 +189,7 @@ user_pref("noscript.showUntrusted", false);
 user_pref("noscript.temp", "");
 user_pref("noscript.toolbarToggle", 1);
 user_pref("noscript.untrusted", "falkag.net google-analytics.com googlesyndication.com doubleclick.net doubleclick.com");
-user_pref("noscript.version", "2.6.6.1");
+user_pref("noscript.version", "2.6.6.9");
 user_pref("pref.advanced.images.disable_button.view_image", false);
 user_pref("pref.advanced.javascript.disable_button.advanced", false);
 user_pref("pref.browser.homepage.disable_button.current_page", false);
@@ -226,8 +226,8 @@ user_pref("security.disable_button.openDeviceManager", false);
 user_pref("security.enable_ssl3", false);
 user_pref("security.tls.version.min", 1);
 user_pref("security.tls.version.max", 1);
+user_pref("security.ssl.enable_false_start", true);
 user_pref("security.OCSP.enabled", 0);
-
 user_pref("security.warn_viewing_mixed", false);
 user_pref("signon.rememberSignons", false);
 user_pref("spellchecker.dictionary", "de-DE");
