@@ -1,3 +1,15 @@
+jondofox (2.6.16) unstable; urgency=low
+
+  * disable OCSP
+  * enable cache compression level 1
+  * using an AdBlock list to block tracking elements of social networks
+  * blocking FTP requests because of a proxy bug in latest Firefox
+  * disable allowed advertiesing by AdBlock (exception list)
+  * set security.tls.min and max to 1 (affects only FF 23)
+
+ -- JonDos GmbH <info@jondos.de>  Wed, 07 Aug 2013 08:17:23 +0200
+
+
 jondofox (2.6.15) unstable; urgency=low
 
   * update addons
