@@ -75,10 +75,6 @@ BOOKMARKS_FF3_NAME="places"
 BOOKMARKS_FF3_SUFFIX=".sqlite"
 BOOKMARKS_FF3="${BOOKMARKS_FF3_NAME}${BOOKMARKS_FF3_SUFFIX}"
 
-BOOKMARKS_FF2_NAME="bookmarks"
-BOOKMARKS_FF2_SUFFIX=".html"
-BOOKMARKS_FF2="${BOOKMARKS_FF2_NAME}${BOOKMARKS_FF2_SUFFIX}"
-
 SVN_MODULE="https://svn.jondos.de/svnpub/JonDoFox_Profile/trunk"
 
 createOSXBundle()
@@ -281,6 +277,12 @@ createLinuxPackage()
 				rm -f jondofox_linux_${lang}.tar
 			fi
 			tar -cf jondofox_linux_${lang}.tar "${JONDOFOX_PROFILE}" 
+			# clean some unused files
+			tar  --delete -f jondofox_linux_${lang}.tar profile/places.sqlite_de
+			tar  --delete -f jondofox_linux_${lang}.tar profile/places.sqlite_en-US
+			tar  --delete -f jondofox_linux_${lang}.tar profile/prefs_portable_de.js
+			tar  --delete -f jondofox_linux_${lang}.tar profile/prefs_portable_en-US.js
+			# add installer scripts
 			tar -rf jondofox_linux_${lang}.tar "${INSTALLER_HELP_FILE}" 
 			tar -rf jondofox_linux_${lang}.tar "${BASH_INSTALLER_SCRIPT}"
 			if [ -e jondofox_linux_${lang}.tar.bz2 ]; then
@@ -433,7 +435,6 @@ setLanguageBookmarks()
 	
 	
 	local ff3_bookmarks="${profile_folder}/${BOOKMARKS_FF3_NAME}${BOOKMARKS_FF3_SUFFIX}_${lang}"
-	local ff2_bookmarks="${profile_folder}/${BOOKMARKS_FF2_NAME}_${lang}${BOOKMARKS_FF2_SUFFIX}"
 	
 	if ! [ -e "${profile_folder}" ]; then
 		echo "Error: no profiles folder found."
@@ -443,11 +444,8 @@ setLanguageBookmarks()
 	if [ -e "${ff3_bookmarks}" ]; then
 		verboseMessage "Firefox 3 bookmarks found."
 		cp -f ${VERBOSE} "${ff3_bookmarks}" "${profile_folder}/${BOOKMARKS_FF3}"
-	elif [ -e "${ff2_bookmarks}" ]; then
-		verboseMessage "Firefox 2 bookmarks found."
-		cp -f ${VERBOSE} "${ff2_bookmarks}" "${profile_folder}/${BOOKMARKS_FF2}"
 	else
-		echo "Error: Neither Firefox 3 nor Firefox 2 bookmarks could be found."
+		echo "Error: No Firefox 3 bookmarks could be found."
 		return 1
 	fi
 	return 0
