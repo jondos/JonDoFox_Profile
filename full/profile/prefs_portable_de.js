@@ -76,7 +76,6 @@ user_pref("copyplaintext.formatting.trim", true);
 user_pref("datareporting.healthreport.service.enabled", false);
 user_pref("datareporting.healthreport.uploadEnabled", false);
 user_pref("dom.max_chrome_script_run_time", 60);
-user_pref("dom.storage.enabled", false);
 user_pref("extensions.autoDisableScopes", 14);
 user_pref("extensions.adblockplus.checkedadblockinstalled", true);
 user_pref("extensions.adblockplus.checkedtoolbar", true);
