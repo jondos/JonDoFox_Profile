@@ -90,7 +90,7 @@ user_pref("extensions.adblockplus.savestats", false);
 user_pref("extensions.https_everywhere._observatory.popup_shown", true);
 user_pref("extensions.jondofox.last_version", "");
 user_pref("extensions.jondofox.new_profile", false);
-user_pref("extensions.jondofox.profile_version", "2.6.16");
+user_pref("extensions.jondofox.profile_version", "2.7.0");
 user_pref("extensions.jondofox.set_referrer", true);
 user_pref("extensions.lastAppVersion", "23.0");
 user_pref("extensions.shownSelectionUI", true);
