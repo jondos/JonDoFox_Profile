@@ -86,6 +86,7 @@ user_pref("extensions.adblockplus.showinstatusbar", false);
 user_pref("extensions.adblockplus.showintoolbar", true);
 user_pref("extensions.adblockplus.showsubscriptions", false);
 user_pref("extensions.adblockplus.subscriptions_exceptionscheckbox", false);
+user_pref("extensions.adblockplus.subscriptions_autoupdate", false);
 user_pref("extensions.adblockplus.savestats", false);
 user_pref("extensions.https_everywhere._observatory.popup_shown", true);
 user_pref("extensions.jondofox.last_version", "");
