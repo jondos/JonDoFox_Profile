@@ -1,3 +1,19 @@
+jondofox (2.7.0.1) unstable; urgency=low
+
+  * changed depency "ttf-liberation" to "fonts-liberation"
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 29 Oct 2013 09:17:23 +0100
+
+
+jondofox (2.7) unstable; urgency=low
+
+  * ecured proxy switch (close all tabs, delete crypto tokens, auth, cache)
+  * removed disposable email provider Mailinator.com
+  * added dispostable.com and trash-mail.com
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 17 Sep 2013 08:17:23 +0200
+
+
 jondofox (2.6.16) unstable; urgency=low
 
   * disable OCSP
