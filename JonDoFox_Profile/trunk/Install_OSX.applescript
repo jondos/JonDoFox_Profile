@@ -78,23 +78,23 @@ on run
 	set profile_ini_backup_name to "profiles.ini.bak"
 	set profile_version_prefix to "local_install.titleTemplate"
 	tell application "System Events" to set firefox_profiles_path to the (path of home folder as string) & "Library:Application Support:Firefox:"
-        set firefox_profiles_path_posix to quoted form of (POSIX path of firefox_profiles_path)
+	set firefox_profiles_path_posix to quoted form of (POSIX path of firefox_profiles_path)
 	tell application "Finder" to set the profile_parent_folder to (the container of the (path to me) as string) & install_bundle_name & ":Contents:Resources:"
 	set os_x_compat to check_os_x_compatibility()
 	set jondofox_bookmarks_ff3 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":places.sqlite"
 	set jondofox_bookmarks_ff2 to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":bookmarks.html"
 	set cert_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":CertPatrol.sqlite"
-        set STS_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":NoScriptSTS.db"
-        set HTTPS_userRulesDirectory to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":HTTPSEverywhereUserRules"
-        set prefs_file to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":prefs.js"  
-        set prefs_file_path to quoted form of (POSIX path of prefs_file)
-        set saved_noscript_sts to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":Noscript_httpsforced.conf" 
-        set saved_noscript_sts_path to quoted form of (POSIX path of saved_noscript_sts)
-        set backup_noscript_sts to firefox_profiles_path & "Noscript_httpsforced.conf"
+	set STS_database to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":NoScriptSTS.db"
+	set HTTPS_userRulesDirectory to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":HTTPSEverywhereUserRules"
+	set prefs_file to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":prefs.js"
+	set prefs_file_path to quoted form of (POSIX path of prefs_file)
+	set saved_noscript_sts to firefox_profiles_path & "Profiles:" & jondoprofile_foldername & ":Noscript_httpsforced.conf"
+	set saved_noscript_sts_path to quoted form of (POSIX path of saved_noscript_sts)
+	set backup_noscript_sts to firefox_profiles_path & "Noscript_httpsforced.conf"
 	set saved_bookmarks to ""
 	set saved_certdatabase to ""
-        set saved_STSdatabase to ""
-        set saved_HTTPS_userRulesDirectory to "" 
+	set saved_STSdatabase to ""
+	set saved_HTTPS_userRulesDirectory to ""
 	
 	set lang_props to null
 	set lang_props_filename to "jfx.plist"
@@ -165,6 +165,8 @@ end run
 on check_os_x_compatibility()
 	tell application "Finder"
 		set testURL to get the URL of the file (profile_parent_folder & "jfx.plist")
+		-- kgr
+		display dialog "testURL: " & testURL
 	end tell
 	
 	set suffix to text -9 thru (-1) of testURL
@@ -174,8 +176,8 @@ on check_os_x_compatibility()
 		return 1
 	else
 		-- kgr
-		display dialog "os_x_compat: " & 1
-
+		display dialog "os_x_compat: " & 7
+		
 		return 7
 	end if
 end check_os_x_compatibility
@@ -187,7 +189,7 @@ on edit_profiles_ini()
 	-- kgr debug
 	display dialog "profiles_ini: " & profiles_ini
 	display dialog "next_profile_header: " & next_profile_header
-
+	
 	if ("---" is in next_profile_header) then
 		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} Â
 			with icon stop with title jfx_dialog_title default button buttonOK
@@ -202,23 +204,23 @@ on edit_profiles_ini()
 		if (old_version_str is equal to "???") then
 			return 0
 		end if
-                 
-                considering numeric strings
-		if (old_version_str is equal to new_version_str) then
-			display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) Â
-				buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
-		else
-			if (old_version_str is greater than new_version_str) then
-				set new_ver_replaced to replacePlaceHolder(getLangProperty("WarningOlderVersion"), "%newerversion", old_version_str)
-				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", new_version_str) buttons {buttonContinue, buttonCancel} Â
-					with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
+		
+		considering numeric strings
+			if (old_version_str is equal to new_version_str) then
+				display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) Â
+					buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 			else
-				set new_ver_replaced to replacePlaceHolder(getLangProperty("NoteOverwriteOlderVersion"), "%newerversion", new_version_str)
-				display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", old_version_str) buttons {buttonContinue, buttonCancel} Â
-					with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
-			end if -- installed version is newer 
-		end if -- versions equal
-                end considering
+				if (old_version_str is greater than new_version_str) then
+					set new_ver_replaced to replacePlaceHolder(getLangProperty("WarningOlderVersion"), "%newerversion", old_version_str)
+					display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", new_version_str) buttons {buttonContinue, buttonCancel} Â
+						with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
+				else
+					set new_ver_replaced to replacePlaceHolder(getLangProperty("NoteOverwriteOlderVersion"), "%newerversion", new_version_str)
+					display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", old_version_str) buttons {buttonContinue, buttonCancel} Â
+						with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
+				end if -- installed version is newer 
+			end if -- versions equal
+		end considering
 		-- in either case copy bookmarks
 		copy_bookmarks()
 		-- reset the entry "StartWithLastProfile"
@@ -290,16 +292,16 @@ on copy_folder()
 			if (the file saved_certdatabase exists) then
 				move the file saved_certdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
-                        if (the file saved_STSdatabase exists) then
+			if (the file saved_STSdatabase exists) then
 				move the file saved_STSdatabase to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
-                        if (the folder saved_HTTPS_userRulesDirectory exists) then
+			if (the folder saved_HTTPS_userRulesDirectory exists) then
 				move the folder saved_HTTPS_userRulesDirectory to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
 			end if
-                        if (the file backup_noscript_sts exists) then
-                                move the file backup_noscript_sts to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
-                                do shell script "cat " & saved_noscript_sts_path & " >> " & prefs_file_path & "; rm -f " & saved_noscript_sts_path
-                        end if
+			if (the file backup_noscript_sts exists) then
+				move the file backup_noscript_sts to (firefox_profiles_path & "Profiles:profile" as alias) with replacing
+				do shell script "cat " & saved_noscript_sts_path & " >> " & prefs_file_path & "; rm -f " & saved_noscript_sts_path
+			end if
 		end tell
 	on error
 		--if something goes wrong: restore old settings from backup file
@@ -473,22 +475,22 @@ on copy_bookmarks()
 			set temp_folder to firefox_profiles_path as alias
 			duplicate the jondofox_certpatrol_file to the temp_folder with replacing
 		end if
-                if (the file STS_database exists) then  
-                        set jondofox_STS_file to STS_database as alias
-                        set saved_STSdatabase to firefox_profiles_path & "NoScriptSTS.db"
-                        set temp_folder to firefox_profiles_path as alias
-                        duplicate the jondofox_STS_file to the temp_folder with replacing
-                end if
-                if (folder HTTPS_userRulesDirectory exists) then
-                        set HTTPS_E_Rules_directory to HTTPS_userRulesDirectory as alias
-                        set saved_HTTPS_userRulesDirectory to firefox_profiles_path & "HTTPSEverywhereUserRules"
+		if (the file STS_database exists) then
+			set jondofox_STS_file to STS_database as alias
+			set saved_STSdatabase to firefox_profiles_path & "NoScriptSTS.db"
+			set temp_folder to firefox_profiles_path as alias
+			duplicate the jondofox_STS_file to the temp_folder with replacing
+		end if
+		if (folder HTTPS_userRulesDirectory exists) then
+			set HTTPS_E_Rules_directory to HTTPS_userRulesDirectory as alias
+			set saved_HTTPS_userRulesDirectory to firefox_profiles_path & "HTTPSEverywhereUserRules"
 			set temp_folder to firefox_profiles_path as alias
 			duplicate the HTTPS_E_Rules_directory to the temp_folder with replacing
-                end if
-                if (the file prefs_file exists) then
-                  do shell script "cat " & prefs_file_path & " | grep 'noscript.httpsForced' > " & saved_noscript_sts_path & "; mv " & saved_noscript_sts_path & " " & firefox_profiles_path_posix
-
-                end if
+		end if
+		if (the file prefs_file exists) then
+			do shell script "cat " & prefs_file_path & " | grep 'noscript.httpsForced' > " & saved_noscript_sts_path & "; mv " & saved_noscript_sts_path & " " & firefox_profiles_path_posix
+			
+		end if
 		if (the file jondofox_bookmarks_ff3 exists) then
 			set jondofox_bookmarks_file to jondofox_bookmarks_ff3 as alias
 			set saved_bookmarks to firefox_profiles_path & "places.sqlite"
