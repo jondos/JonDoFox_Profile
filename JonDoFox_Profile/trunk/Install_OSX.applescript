@@ -169,8 +169,13 @@ on check_os_x_compatibility()
 	
 	set suffix to text -9 thru (-1) of testURL
 	if (suffix is equal to "jfx.plist") then
+		-- kgr
+		display dialog "os_x_compat: " & 1
 		return 1
 	else
+		-- kgr
+		display dialog "os_x_compat: " & 1
+
 		return 7
 	end if
 end check_os_x_compatibility
