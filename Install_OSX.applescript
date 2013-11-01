@@ -115,7 +115,7 @@ on run
 			tell application "Finder" to set profiles_ini_URL to get the URL of the file profiles_ini
 		end if
 	on error
-		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â
+		display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â¬
 			with icon stop with title jfx_dialog_title default button buttonOK
 		return 1
 	end try
@@ -127,13 +127,13 @@ on run
 	end if
 	
 	if isJonDoFoxProfileInstalled() then
-		display dialog getLangProperty("NoteChoiceUninstall") buttons {buttonInstall, buttonUninstall, buttonCancel} Â
+		display dialog getLangProperty("NoteChoiceUninstall") buttons {buttonInstall, buttonUninstall, buttonCancel} Â¬
 			with icon note with title jfx_dialog_title default button buttonInstall cancel button buttonCancel
 		if (button returned of result = buttonUninstall) then
 			return uninstall()
 		end if
 	else
-		display dialog replacePlaceHolder(getLangProperty("NoteInstallStart"), "%version", new_version_str) buttons {buttonOK, buttonCancel} Â
+		display dialog replacePlaceHolder(getLangProperty("NoteInstallStart"), "%version", new_version_str) buttons {buttonOK, buttonCancel} Â¬
 			with icon note with title jfx_dialog_title default button buttonOK cancel button buttonCancel
 	end if
 	
@@ -151,12 +151,12 @@ on run
 	end if
 	-- installation procedure successful
 	if (err is equal to 0) then
-		display dialog getLangProperty("NoteInstallSuccessful") buttons {buttonOK} Â
+		display dialog getLangProperty("NoteInstallSuccessful") buttons {buttonOK} Â¬
 			with icon note with title jfx_dialog_title default button buttonOK
 	end if
 	-- installation procedure failed
 	if (err is equal to 1) then
-		display dialog getLangProperty("ErrorInstallFailed") buttons {buttonOK} Â
+		display dialog getLangProperty("ErrorInstallFailed") buttons {buttonOK} Â¬
 			with icon stop with title jfx_dialog_title default button buttonOK
 	end if
 	return err
@@ -191,7 +191,7 @@ on edit_profiles_ini()
 	display dialog "next_profile_header: " & next_profile_header
 	
 	if ("---" is in next_profile_header) then
-		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} Â
+		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} Â¬
 			with icon stop with title jfx_dialog_title default button buttonOK
 		return 1
 	end if
@@ -207,16 +207,16 @@ on edit_profiles_ini()
 		
 		considering numeric strings
 			if (old_version_str is equal to new_version_str) then
-				display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) Â
+				display dialog replacePlaceHolder(getLangProperty("NoteOverwriteSameVersion"), "%version", new_version_str) Â¬
 					buttons {buttonContinue, buttonCancel} with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 			else
 				if (old_version_str is greater than new_version_str) then
 					set new_ver_replaced to replacePlaceHolder(getLangProperty("WarningOlderVersion"), "%newerversion", old_version_str)
-					display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", new_version_str) buttons {buttonContinue, buttonCancel} Â
+					display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", new_version_str) buttons {buttonContinue, buttonCancel} Â¬
 						with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 				else
 					set new_ver_replaced to replacePlaceHolder(getLangProperty("NoteOverwriteOlderVersion"), "%newerversion", new_version_str)
-					display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", old_version_str) buttons {buttonContinue, buttonCancel} Â
+					display dialog replacePlaceHolder(new_ver_replaced, "%olderversion", old_version_str) buttons {buttonContinue, buttonCancel} Â¬
 						with icon note with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 				end if -- installed version is newer 
 			end if -- versions equal
@@ -254,7 +254,7 @@ on edit_profiles_ini()
 			set profiles_ini_bak_file to (firefox_profiles_path & profile_ini_backup_name)
 		end if
 	else
-		display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} Â
+		display dialog getLangProperty("ErrorIniBackupFile") buttons {buttonOK} Â¬
 			with icon stop with title jfx_dialog_title default button buttonOK
 		return 1
 	end if
@@ -306,7 +306,7 @@ on copy_folder()
 	on error
 		--if something goes wrong: restore old settings from backup file
 		restore_old_settings()
-		display dialog getLangProperty("ErrorProfileFolder") buttons {buttonOK} Â
+		display dialog getLangProperty("ErrorProfileFolder") buttons {buttonOK} Â¬
 			with icon stop with title jfx_dialog_title default button buttonOK
 		return 1
 	end try
@@ -343,7 +343,7 @@ on uninstall()
 	
 	if (os_x_compat < 7) then
 		if (ffprofiles_path_URL is equal to "") then
-			display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â
+			display dialog getLangProperty("ErrorFFNotInstalled") buttons {buttonOK} Â¬
 				with icon stop with title jfx_dialog_title default button buttonOK
 			return 1
 		end if
@@ -368,7 +368,7 @@ on uninstall()
 				do shell script "mv -f \"" & ffprofiles_path & "\" .temp1 \"" & profiles_ini_path & "\""
 			end if
 		on error
-			display dialog getLangProperty("ErrorUndoProfileEntry") buttons {buttonOK} Â
+			display dialog getLangProperty("ErrorUndoProfileEntry") buttons {buttonOK} Â¬
 				with icon stop with title jfx_dialog_title default button buttonOK
 			return 1
 		end try
@@ -383,7 +383,7 @@ on uninstall()
 			try
 				do shell script "rm -rf " & installed_profile_folder
 			on error
-				display dialog getLangProperty("ErrorRemoveProfileFolder") buttons {buttonOK} Â
+				display dialog getLangProperty("ErrorRemoveProfileFolder") buttons {buttonOK} Â¬
 					with icon stop with title jfx_dialog_title default button buttonOK
 				return 1
 			end try
@@ -395,13 +395,13 @@ on uninstall()
 			try
 				do shell script "rm -rf \"" & installed_profile_folder & "\""
 			on error
-				display dialog getLangProperty("ErrorRemoveProfileFolder") buttons {buttonOK} Â
+				display dialog getLangProperty("ErrorRemoveProfileFolder") buttons {buttonOK} Â¬
 					with icon stop with title jfx_dialog_title default button buttonOK
 				return 1
 			end try
 		end if
 	end if
-	display dialog getLangProperty("NoteUninstallSuccessful") buttons {buttonOK} Â
+	display dialog getLangProperty("NoteUninstallSuccessful") buttons {buttonOK} Â¬
 		with icon note with title jfx_dialog_title default button buttonOK
 	return 0
 end uninstall
@@ -417,12 +417,12 @@ on checkFirefoxRunning(operation)
 	end tell
 	
 	if (firefox_is_running) then
-		display dialog replacePlaceHolder(getLangProperty("WarningCloseFirefox"), "%operation", operation) Â
+		display dialog replacePlaceHolder(getLangProperty("WarningCloseFirefox"), "%operation", operation) Â¬
 			buttons {buttonContinue, buttonCancel} with icon caution with title jfx_dialog_title default button buttonContinue cancel button buttonCancel
 		try
 			tell application "Firefox" to quit
 		on error
-			display dialog getLangProperty("ErrorCloseFirefox") buttons {buttonOK} Â
+			display dialog getLangProperty("ErrorCloseFirefox") buttons {buttonOK} Â¬
 				with icon stop with title jfx_dialog_title default button buttonOK cancel button buttonOK
 		end try
 	end if
@@ -434,6 +434,8 @@ on get_next_profile(prof_file)
 		tell application "Finder"
 			if (the file prof_file exists) then
 				set prof_file_URL to get the URL of the file prof_file
+				-- kgr
+				display dialog "first if --- prof_file_URL: " & prof_file_URL
 			else
 				-- kgr
 				display dialog "first else/ret --- prof_file: " & prof_file
@@ -441,9 +443,16 @@ on get_next_profile(prof_file)
 			end if
 		end tell
 		set prof_file_path to getAbsolutePath(prof_file_URL)
+		-- kgr
+		display dialog "dbg prof_file_path: " & prof_file_path
+
 		try
 			set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\] " & prof_file_path & " | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
+			-- kgr
+			display dialog "dbg next_entry_nr: " & next_entry_nr
+
 		on error
+			-- kgr
 			display dialog "second else/ret --- next_entry_nr: " & next_entry_nr
 			return "---"
 		end try
@@ -451,7 +460,11 @@ on get_next_profile(prof_file)
 		set prof_file_path to getAbsolutePath(prof_file)
 		try
 			set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\]  \"" & prof_file_path & "\" | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
+			-- kgr
+			display dialog "in else/ret --- next_entry_nr: " & next_entry_nr
+
 		on error
+			-- kgr
 			display dialog "third outer else/ret --- next_entry_nr: " & next_entry_nr
 			return "---"
 		end try
@@ -511,19 +524,19 @@ on backup_profile_ini()
 		try
 			tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
 			set tempFirefox_profiles_path to getAbsolutePath(tempFirefox_profiles_URL)
-			do shell script "cp -f " & tempFirefox_profiles_path & "/profiles.ini " & Â
+			do shell script "cp -f " & tempFirefox_profiles_path & "/profiles.ini " & Â¬
 				tempFirefox_profiles_path & "/" & profile_ini_backup_name
 		on error
-			display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} Â
+			display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} Â¬
 				with icon stop with title jfx_dialog_title default button buttonOK
 		end try
 	else
 		try
 			set tempFirefox_profiles_path to getAbsolutePath(firefox_profiles_path)
-			do shell script "cp -f \"" & tempFirefox_profiles_path & "/profiles.ini\" \"" & Â
+			do shell script "cp -f \"" & tempFirefox_profiles_path & "/profiles.ini\" \"" & Â¬
 				tempFirefox_profiles_path & "/" & profile_ini_backup_name & "\""
 		on error
-			display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} Â
+			display dialog getLangProperty("ErrorBackupProcess") buttons {buttonOK} Â¬
 				with icon stop with title jfx_dialog_title default button buttonOK
 		end try
 	end if
@@ -535,7 +548,7 @@ on restore_old_settings()
 		tell application "Finder" to set tempFirefox_profiles_URL to get the URL of the parent of the file (firefox_profiles_path & "profiles.ini")
 		set tempFirefox_profiles_path to getAbsolutePath(tempFirefox_profiles_URL)
 		try
-			do shell script "mv -f " & tempFirefox_profiles_path & "/" & profile_ini_backup_name & Â
+			do shell script "mv -f " & tempFirefox_profiles_path & "/" & profile_ini_backup_name & Â¬
 				" " & tempFirefox_profiles_path & "/profiles.ini "
 		on error
 			return 0
@@ -543,7 +556,7 @@ on restore_old_settings()
 	else
 		set tempFirefox_profiles_path to getAbsolutePath(firefox_profiles_path)
 		try
-			do shell script "mv -f \"" & tempFirefox_profiles_path & "/" & profile_ini_backup_name & "\"" & Â
+			do shell script "mv -f \"" & tempFirefox_profiles_path & "/" & profile_ini_backup_name & "\"" & Â¬
 				" \"" & tempFirefox_profiles_path & "/profiles.ini\""
 		on error
 			return 0
@@ -670,3 +683,4 @@ on replacePlaceHolder(strWithPlaceholder, placeHolder, value)
 	end repeat
 	return replacedStr
 end replacePlaceHolder
+
