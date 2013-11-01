@@ -179,6 +179,10 @@ end check_os_x_compatibility
 on edit_profiles_ini()
 	
 	set next_profile_header to get_next_profile(profiles_ini)
+	-- kgr debug
+	display dialog "profiles_ini: " & profiles_ini
+	display dialog "next_profile_header: " & next_profile_header
+
 	if ("---" is in next_profile_header) then
 		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} Â
 			with icon stop with title jfx_dialog_title default button buttonOK
@@ -424,6 +428,8 @@ on get_next_profile(prof_file)
 			if (the file prof_file exists) then
 				set prof_file_URL to get the URL of the file prof_file
 			else
+				-- kgr
+				display dialog "first else/ret --- prof_file: " & prof_file
 				return "---"
 			end if
 		end tell
@@ -431,6 +437,7 @@ on get_next_profile(prof_file)
 		try
 			set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\] " & prof_file_path & " | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
 		on error
+			display dialog "second else/ret --- next_entry_nr: " & next_entry_nr
 			return "---"
 		end try
 	else
@@ -438,11 +445,13 @@ on get_next_profile(prof_file)
 		try
 			set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\]  \"" & prof_file_path & "\" | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
 		on error
+			display dialog "third outer else/ret --- next_entry_nr: " & next_entry_nr
 			return "---"
 		end try
 	end if
 	
 	if next_entry_nr is equal to "" then
+		display dialog "last err-handler empty/ret --- next_entry_nr: " & next_entry_nr
 		return "---"
 	end if
 	
