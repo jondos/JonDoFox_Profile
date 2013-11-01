@@ -142,7 +142,7 @@ user_pref("local_install.showEMMenuButton", false);
 user_pref("local_install.showTMMenuButton", false);
 user_pref("network.cookie.cookieBehavior", 2);
 user_pref("network.cookie.prefsMigrated", true);
-user_pref("network.http.accept.default", "text/html,application/xml,*/*");
+user_pref("network.http.accept.default", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 user_pref("network.http.max-persistent-connections-per-proxy", 12);
 user_pref("network.http.pipelining.maxrequests", 6);
 user_pref("network.http.proxy.keep-alive", false);
