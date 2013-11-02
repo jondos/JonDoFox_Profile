@@ -1,3 +1,15 @@
+jondofox (2.8.0) unstable; urgency=low
+
+  * changed user-agent fake to Firefox 24 (Linux i386)
+  * default proxy settings for JonDo and Tor are configurable
+  * set SOCKS5 port for JonDo 
+  * set security.tls.version.max to browser default value to enable TLS 1.2
+  * disable update of AdBlock filter lists
+  * update all add-ons to latest version
+
+ -- JonDos GmbH <info@jondos.de>  Sat, 02 Nov 2013 09:17:23 +0100
+
+
 jondofox (2.7.0.1) unstable; urgency=low
 
   * changed depency "ttf-liberation" to "fonts-liberation"
