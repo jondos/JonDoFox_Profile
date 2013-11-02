@@ -165,19 +165,18 @@ end run
 on check_os_x_compatibility()
 	tell application "Finder"
 		set testURL to get the URL of the file (profile_parent_folder & "jfx.plist")
-		-- kgr
-		display dialog "testURL: " & testURL
+		-- dbg
+		-- display dialog "testURL: " & testURL
 	end tell
 	
 	set suffix to text -9 thru (-1) of testURL
 	if (suffix is equal to "jfx.plist") then
-		-- kgr
-		display dialog "os_x_compat: " & 1
+		-- dbg
+		-- display dialog "os_x_compat: " & 1
 		return 1
 	else
-		-- kgr
-		display dialog "os_x_compat: " & 7
-		
+		-- dbg
+		-- display dialog "os_x_compat: " & 7		
 		return 7
 	end if
 end check_os_x_compatibility
@@ -186,9 +185,9 @@ end check_os_x_compatibility
 on edit_profiles_ini()
 	
 	set next_profile_header to get_next_profile(profiles_ini)
-	-- kgr debug
-	display dialog "profiles_ini: " & profiles_ini
-	display dialog "next_profile_header: " & next_profile_header
+	-- dbg
+	-- display dialog "profiles_ini: " & profiles_ini
+	-- display dialog "next_profile_header: " & next_profile_header
 	
 	if ("---" is in next_profile_header) then
 		display dialog getLangProperty("ErrorProfileEntry") buttons {buttonOK} ¬
@@ -434,44 +433,44 @@ on get_next_profile(prof_file)
 		tell application "Finder"
 			if (the file prof_file exists) then
 				set prof_file_URL to get the URL of the file prof_file
-				-- kgr
-				display dialog "first if --- prof_file_URL: " & prof_file_URL
+				-- dbg
+				-- display dialog "first if --- prof_file_URL: " & prof_file_URL
 			else
-				-- kgr
-				display dialog "first else/ret --- prof_file: " & prof_file
+				-- dbg
+				-- display dialog "first else/ret --- prof_file: " & prof_file
 				return "---"
 			end if
 		end tell
 		set prof_file_path to getAbsolutePath(prof_file_URL)
-		-- kgr
-		display dialog "dbg prof_file_path: " & prof_file_path
+		-- dbg
+		-- display dialog "dbg prof_file_path: " & prof_file_path
 
 		try
 			set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\] " & prof_file_path & " | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
-			-- kgr
-			display dialog "dbg next_entry_nr: " & next_entry_nr
+			-- dbg
+			-- display dialog "dbg next_entry_nr: " & next_entry_nr
 
 		on error
-			-- kgr
-			display dialog "second else/ret --- next_entry_nr: " & next_entry_nr
+			-- dbg
+			-- display dialog "second else/ret --- next_entry_nr: " & next_entry_nr
 			return "---"
 		end try
 	else
 		set prof_file_path to getAbsolutePath(prof_file)
 		try
 			set next_entry_nr to do shell script "grep \\\\[Profile.*\\\\]  \"" & prof_file_path & "\" | tail -n 1 | xargs -I % expr % : \"\\[Profile\\(.*\\)\\]\" | xargs -I % expr % + 1"
-			-- kgr
-			display dialog "in else/ret --- next_entry_nr: " & next_entry_nr
+			-- dbg
+			-- display dialog "in else/ret --- next_entry_nr: " & next_entry_nr
 
 		on error
-			-- kgr
-			display dialog "third outer else/ret --- next_entry_nr: " & next_entry_nr
+			-- dbg
+			-- display dialog "third outer else/ret --- next_entry_nr: " & next_entry_nr
 			return "---"
 		end try
 	end if
 	
 	if next_entry_nr is equal to "" then
-		display dialog "last err-handler empty/ret --- next_entry_nr: " & next_entry_nr
+		-- display dialog "last err-handler empty/ret --- next_entry_nr: " & next_entry_nr
 		return "---"
 	end if
 	
@@ -578,7 +577,10 @@ end get_old_version
 on getAbsolutePath(fileURL)
 	if (os_x_compat < 7) then
 		--this just cuts off the prefix "file://localhost"
-		set path_string to text 17 thru -1 of fileURL
+		-- causes bug in Mavericks
+		-- set path_string to text 17 thru -1 of fileURL
+		
+		set path_string to text 8 thru -1 of fileURL
 		return replacePlaceHolder(path_string, "%20", "\\ ")
 	else
 		set path_string to "/Volumes/" & (fileURL as text)
