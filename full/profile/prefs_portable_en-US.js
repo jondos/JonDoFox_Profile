@@ -89,6 +89,7 @@ user_pref("extensions.adblockplus.subscriptions_exceptionscheckbox", false);
 user_pref("extensions.adblockplus.subscriptions_autoupdate", false);
 user_pref("extensions.adblockplus.savestats", false);
 user_pref("extensions.https_everywhere._observatory.popup_shown", true);
+user_pref("extensions.https_everywhere.toolbar_hint_shown", true);
 user_pref("extensions.jondofox.last_version", "");
 user_pref("extensions.jondofox.new_profile", false);
 user_pref("extensions.jondofox.profile_version", "2.8.0");
@@ -138,6 +139,7 @@ user_pref("local_install.promptingToAutoUninstall", true);
 user_pref("local_install.selected_settings_sub_tab3", 4);
 user_pref("local_install.selected_settings_sub_tab4", 5);
 user_pref("local_install.showAddonsMyConfigImage", false);
+
 user_pref("local_install.showEMMenuButton", false);
 user_pref("local_install.showTMMenuButton", false);
 user_pref("network.cookie.cookieBehavior", 2);
@@ -161,7 +163,7 @@ user_pref("network.proxy.http_port", 4001);
 user_pref("network.proxy.socks_remote_dns", true);
 user_pref("network.proxy.ssl", "127.0.0.1");
 user_pref("network.proxy.ssl_port", 4001);
-user_pref("network.proxy.socks, "127.0.0.1");
+user_pref("network.proxy.socks", "127.0.0.1");
 user_pref("network.proxy.socks_port", 4001);
 user_pref("network.proxy.type", 1);
 // No need to contact Giorgio's server with JonDonym...

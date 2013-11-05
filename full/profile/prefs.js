@@ -20,7 +20,6 @@ user_pref("app.update.lastUpdateTime.restart-nag-timer", 1224316936);
 user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1250693570);
 user_pref("app.update.never.3.6", false);
 user_pref("bcpm.Button.Shown", true);
-// Cache related settings
 user_pref("browser.cache.disk.capacity", 0);
 user_pref("browser.cache.disk.enable", false);
 user_pref("browser.cache.disk_cache_ssl", false);
@@ -42,7 +41,6 @@ user_pref("browser.identity.ssl_domain_display", 2);
 user_pref("browser.microsummary.enabled", false);
 user_pref("browser.migration.version", 1);
 user_pref("browser.offline", false);
-// We disable offline caching. No need to ask the user about it, then.
 user_pref("browser.offline-apps.notify", false);
 user_pref("browser.places.importBookmarksHTML", false);
 user_pref("browser.places.importDefaults", false);
@@ -90,6 +88,7 @@ user_pref("extensions.adblockplus.subscriptions_exceptionscheckbox", false);
 user_pref("extensions.adblockplus.subscriptions_autoupdate", false);
 user_pref("extensions.adblockplus.savestats", false);
 user_pref("extensions.https_everywhere._observatory.popup_shown", true);
+user_pref("extensions.https_everywhere.toolbar_hint_shown", true);
 user_pref("extensions.jondofox.last_version", "");
 user_pref("extensions.jondofox.new_profile", false);
 user_pref("extensions.jondofox.profile_version", "2.8.0");
@@ -99,8 +98,8 @@ user_pref("extensions.shownSelectionUI", true);
 user_pref("extensions.ui.lastCategory", "addons://list/extension");
 user_pref("extensions.unplug2.setup_number", 1);
 user_pref("extensions.update.notifyUser", false);
-user_pref("font.name.serif.x-western", "Arial");
-user_pref("font.name.sans-serif.x-western", "Arial");
+user_pref("font.name.serif.x-western", "Liberation Sans");
+user_pref("font.name.sans-serif.x-western", "Liberation Sans");
 user_pref("general.appname.override", "Netscape");
 user_pref("general.appversion.override", "5.0 (X11)");
 user_pref("general.buildID.override", "0");
@@ -162,10 +161,9 @@ user_pref("network.proxy.http_port", 4001);
 user_pref("network.proxy.socks_remote_dns", true);
 user_pref("network.proxy.ssl", "127.0.0.1");
 user_pref("network.proxy.ssl_port", 4001);
-user_pref("network.proxy.socks, "127.0.0.1");
+user_pref("network.proxy.socks", "127.0.0.1");
 user_pref("network.proxy.socks_port", 4001);
 user_pref("network.proxy.type", 1);
-// No need to contact Giorgio's server with JonDonym...
 user_pref("noscript.ABE.wanIpAsLocal", false);
 user_pref("noscript.autoReload", true);
 user_pref("noscript.blockNSWB", true);
@@ -173,7 +171,6 @@ user_pref("noscript.canonicalFQDN", false);
 user_pref("noscript.contentBlocker", true);
 user_pref("noscript.ctxMenu", false);
 user_pref("noscript.filterXExceptions", "^https?://([a-z]+)\\.google\\.(?:[a-z]{1,3}\\.)?[a-z]+/(?:search|custom|\\1)\\?\n^https?://([a-z]*)\\.?search\\.yahoo\\.com/search(?:\\?|/\\1\\b)\n^https?://[a-z]+\\.wikipedia\\.org/wiki/[^\"<>\\?%]+$\n^https?://translate\\.google\\.com/translate_t[^\"'<>\\?%]+$\n^https://secure\\.wikimedia\\.org/wikipedia/[a-z]+/wiki/[^\"<>\\?%]+$\n^https://www\\.cashu\\.com/cgi-bin/pcashu\\.cgi$");
-// We do not want to have the release notes shown after every update.
 user_pref("noscript.firstRunRedirection", false);
 user_pref("noscript.forbidBookmarklets", true);
 user_pref("noscript.gtemp", "");
@@ -228,13 +225,11 @@ user_pref("pttl.save-with-UTF8", false);
 user_pref("reloadSearchPlugins", false);
 user_pref("security.disable_button.openCertManager", false);
 user_pref("security.disable_button.openDeviceManager", false);
-// SSL related options
 user_pref("security.enable_ssl3", false);
 user_pref("security.tls.version.min", 1);
 user_pref("security.ssl.enable_false_start", true);
 user_pref("security.OCSP.enabled", 0);
 user_pref("security.warn_viewing_mixed", false);
-// oters
 user_pref("signon.rememberSignons", false);
 user_pref("spellchecker.dictionary", "en-US");
 user_pref("toolkit.telemetry.prompted", 2);
