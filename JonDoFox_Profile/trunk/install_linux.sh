@@ -58,11 +58,15 @@ CERT_DATABASE="" #CertPatrol database
 STS_DATABASE="" # NoScript STS Database
 PERMISSION_DATABASE="" # permissions database
 CERT_OVERRIDE_DATABASE=""
+MASTERPW=""
+PASSWDB=""
 SAVED_BOOKMARKS="" #Saved bookmarks
 SAVED_CERTDATABASE="" #Saved CertPatrol database
 SAVED_STSDATABASE="" # Saved STS Database
 SAVED_PERMISSIONDATABASE="" # Saved permissions database
 SAVED_CERTOVERRIDEDATABASE=""
+SAVED_MASTERPW=""
+SAVED_PASSWDB=""
 SAVED_NOSCRIPTHTTPS="" # Force HTTPS Options of NoScript
 HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere
 SAVED_HTTPSEverywhereUserRules="" # User Rules for HTTPSEvrywhere (Backup)
@@ -126,10 +130,12 @@ variablesOsSpecific()
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
 	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
 	CERT_DATABASE="${DEST_PROFILE}/CertPatrol.sqlite"
-    STS_DATABASE="${DEST_PROFILE}/NoScriptSTS.db"
-    PERMISSION_DATABASE="${DEST_PROFILE}/permissions.sqlite"
-    CERT_OVERRIDE_DATABASE="${DEST_PROFILE}/cert_override.txt"
-    HTTPSEverywhereUserRules="${DEST_PROFILE}/HTTPSEverywhereUserRules"
+	STS_DATABASE="${DEST_PROFILE}/NoScriptSTS.db"
+	PERMISSION_DATABASE="${DEST_PROFILE}/permissions.sqlite"
+	CERT_OVERRIDE_DATABASE="${DEST_PROFILE}/cert_override.txt"
+	HTTPSEverywhereUserRules="${DEST_PROFILE}/HTTPSEverywhereUserRules"
+	MASTERPW="${DEST_PROFILE}/key3.db"
+	PASSWDB="${DEST_PROFILE}/signons.sqlite"
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
 		
@@ -155,9 +161,11 @@ saveInstalledBookmarks()
 	SAVED_BOOKMARKS=""
 	SAVED_CERTDATABASE=""
 	SAVED_NOSCRIPTHTTPS=""
-    SAVED_STSDATABASE=""
-    SAVED_PERMISSIONDATABASE=""
-    SAVED_CERTOVERRIDEDATABASE=""
+	SAVED_STSDATABASE=""
+	SAVED_PERMISSIONDATABASE=""
+	SAVED_CERTOVERRIDEDATABASE=""
+	SAVED_MASTERPW=""
+	SAVED_PASSWDB=""
 	if [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/places.sqlite"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF3}" "${SAVED_BOOKMARKS}"
@@ -166,9 +174,18 @@ saveInstalledBookmarks()
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF2}" "${SAVED_BOOKMARKS}"
 	fi
 	if [ -e "${CERT_DATABASE}" ]; then
-	    SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
-        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
-    fi
+		SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
+		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_DATABASE}" "${SAVED_CERTDATABASE}"
+	fi
+	if [ -e "${MASTERPW}" ]; then
+		SAVED_MASTERPW="${FIREFOX_SETTINGS_PATH}/key3.db"
+		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${MASTERPW}" "${SAVED_MASTERPW}"
+	fi
+	if [ -e "${PASSWDB}" ]; then
+		SAVED_PASSWDB="${FIREFOX_SETTINGS_PATH}/signons.sqlite"
+		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${PASSWDB}" "${SAVED_PASSWDB}"
+	fi
+
     if [ -e "${STS_DATABASE}" ]; then
         SAVED_STSDATABASE="${FIREFOX_SETTINGS_PATH}/NoScriptSTS.db"
         cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${STS_DATABASE}" "${SAVED_STSDATABASE}"
@@ -209,6 +226,14 @@ restoreBookmarks()
 	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}" ]; then
 		echo "restoring certificate database."
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
+	fi
+	if [ "${SAVED_MASTERPW}" ] && [ -e "${SAVED_MASTERPW}" ]; then
+		echo "restoring certificate database."
+		mv -f "${SAVED_MASTERPW}" "${DEST_PROFILE}"
+	fi
+	if [ "${SAVED_PASSWDB}" ] && [ -e "${SAVED_PASSWDB}" ]; then
+		echo "restoring certificate database."
+		mv -f "${SAVED_PASSWDB}" "${DEST_PROFILE}"
 	fi
     if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
         echo "restoring NoScript STS database."
