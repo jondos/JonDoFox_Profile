@@ -230,6 +230,7 @@ user_pref("security.disable_button.openDeviceManager", false);
 // SSL related options
 user_pref("security.enable_ssl3", false);
 user_pref("security.tls.version.min", 1);
+user_pref("security.tls.version.max", 1);
 user_pref("security.ssl.enable_false_start", true);
 user_pref("security.OCSP.enabled", 0);
 user_pref("security.warn_viewing_mixed", false);
