@@ -1,30 +1,15 @@
-#########################
-# JonDoFox installation #
-#########################
 
-This package contains automated installation routines for Windows and Linux users. 
+JonDoFox installation
+---------------------
 
-Mac OS X users: Please use the package availbale at: 
-https://www.jondos.de/en/downloads/JonDoFox_OS_X.dmg
-
-
-1. Windows installation:
-------------------------
-
-Doubleclick on the file "install_win.vbs" and follow the instructions.
-
-
-2. Linux installation:
-----------------------
-
-2.1 Open a terminal and change to the path that contains the file "install_linux.sh"
+1 Open a terminal and change to the path that contains the file "install_linux.sh"
 (the folder which you unpacked).
 
     user@linux:~# cd <unpacked folder>
 
-2.2 Now execute the installation script by entering the following command:
+2 Now execute the installation script by entering the following command:
 
-    user@linux:<unpacked folder>#./install_linux.sh
+    user@linux:<unpacked folder># ./install_linux.sh
 
 If you have already installed JonDoFox, you are asked if you want to overwrite your 
 existing JonDoFox isntallation. Your bookmarks are thereby preserved.
@@ -32,3 +17,9 @@ existing JonDoFox isntallation. Your bookmarks are thereby preserved.
 IMPORTANT: If you want to run the linux installation script, DON'T DOUBLECLICK on 
 the file "install_linux.sh"! Always run this script in a TERMINAL!
 
+
+
+Uninstall JonDoFox
+------------------
+
+Open the profil manager of Firefox and delete the JonDoFox profil.

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ## Copyright (c) The JAP-Team, JonDos GmbH
 ##
@@ -50,10 +50,8 @@ PROFILES_INI_BACKUP_FILE="" #name for the file profiles.ini backup file
 PREFS_FILE_NAME="prefs.js"	#name of the firefox prefernces file
 NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"
 INSTALLED_PREFS=""	#path to the prerference file of the local Firefox installation
-	#the prefernces file of the profile that shall be installed
 
 BOOKMARKS_FF3="" #Firefox3 bookmarks file
-BOOKMARKS_FF2="" #Firefox2 bookmarks file
 CERT_DATABASE="" #CertPatrol database
 STS_DATABASE="" # NoScript STS Database
 PERMISSION_DATABASE="" # permissions database
@@ -79,9 +77,6 @@ ECHO_ESCAPE="-e"
 VERBOSE=""
 
 OVERWRITE_DIALOG_TITLE=""
-DIALOG_TEXT_SAME_VERSION=""
-DIALOG_TEXT_OW_OLDER_VERSION=""
-DIALOG_TEXT_OW_NEWER_VERSION=""
 
 DIALOG_DELETE_OPT="Delete"
 DIALOG_OVERWRITE_OPT="Overwrite"
@@ -112,7 +107,7 @@ variablesOsSpecific()
 		fi
 		INSTALL_BUNDLE_RESOURCES=""
 		ECHO_ESCAPE="-e"
-		COPY_OVERWRITE_OPT="--remove-destination"
+		COPY_OVERWRITE_OPT="-f"
 		COPY_RECURSIVE_OPT="-r"
 	fi
 	
@@ -128,7 +123,6 @@ variablesOsSpecific()
 	
 	INSTALLED_PREFS="${DEST_PROFILE}/${PREFS_FILE_NAME}"
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
-	BOOKMARKS_FF2="${DEST_PROFILE}/bookmarks.html"
 	CERT_DATABASE="${DEST_PROFILE}/CertPatrol.sqlite"
 	STS_DATABASE="${DEST_PROFILE}/NoScriptSTS.db"
 	PERMISSION_DATABASE="${DEST_PROFILE}/permissions.sqlite"
@@ -143,10 +137,7 @@ variablesOsSpecific()
 	JONDOFOX_PROFILE_ENTRY="Name=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"
 
 	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
-	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
-	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
-	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
-
+	
 	if [ "${VERBOSE}" ]; then
 		echo "Installing JonDoFox $(getInstalledVersion) with these settings:"
 		echo "Firefox settings path: ${FIREFOX_SETTINGS_PATH}"
@@ -157,7 +148,7 @@ variablesOsSpecific()
 ## store bookmarks of old JonDoFox profile
 saveInstalledBookmarks()
 {
-	echo "saving bookmarks."
+	echo "save old settings..."
 	SAVED_BOOKMARKS=""
 	SAVED_CERTDATABASE=""
 	SAVED_NOSCRIPTHTTPS=""
@@ -169,9 +160,6 @@ saveInstalledBookmarks()
 	if [ -e "${BOOKMARKS_FF3}" ]; then
 		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/places.sqlite"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF3}" "${SAVED_BOOKMARKS}"
-	elif [ -e "${BOOKMARKS_FF2}" ]; then
-		SAVED_BOOKMARKS="${FIREFOX_SETTINGS_PATH}/bookmarks.html"
-		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${BOOKMARKS_FF2}" "${SAVED_BOOKMARKS}"
 	fi
 	if [ -e "${CERT_DATABASE}" ]; then
 		SAVED_CERTDATABASE="${FIREFOX_SETTINGS_PATH}/CertPatrol.sqlite"
@@ -228,15 +216,15 @@ restoreBookmarks()
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
 	if [ "${SAVED_MASTERPW}" ] && [ -e "${SAVED_MASTERPW}" ]; then
-		echo "restoring certificate database."
+		echo "restoring master password."
 		mv -f "${SAVED_MASTERPW}" "${DEST_PROFILE}"
 	fi
 	if [ "${SAVED_PASSWDB}" ] && [ -e "${SAVED_PASSWDB}" ]; then
-		echo "restoring certificate database."
+		echo "restoring passwords database."
 		mv -f "${SAVED_PASSWDB}" "${DEST_PROFILE}"
 	fi
     if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
-        echo "restoring NoScript STS database."
+        echo "restoring STS database."
         mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
     fi
     if [ "${SAVED_PERMISSIONDATABASE}" ] && [ -e "${SAVED_PERMISSIONDATABASE}" ]; then
@@ -248,7 +236,7 @@ restoreBookmarks()
         mv -f "${SAVED_CERTOVERRIDEDATABASE}" "${DEST_PROFILE}"
     fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
-        echo "restoring NoScript enforce HTTPS settings."
+        echo "restoring NoScript HTTPS settings."
 		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
 		rm ${SAVED_NOSCRIPTHTTPS}
 	fi
@@ -302,9 +290,9 @@ editProfilesIni()
 	if  [ $? -ne 0 ]; then
 		return 1
 	fi
-	
-	nextProfileNr=$(grep \\[Profile "${PROFILES_INI_FILE}" | tail -n 1 | xargs -I % expr % : ".*Profile\([0-9]*\).*" | xargs -I % expr % + 1)
-	
+		
+        #nextProfileNr=$(grep \\[Profile "${PROFILES_INI_FILE}" | tail -n 1 | xargs -I % expr % : ".*Profile\([0-9]*\).*" | xargs -I % expr % + 1)
+	nextProfileNr=$(grep \\[Profile "${PROFILES_INI_FILE}" | wc -l | tr -d ' ')
 	#unset default profile and force profile choose dialog at startup.
 	sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ \
 		-e s/Default=1// "${PROFILES_INI_BACKUP_FILE}" > "${PROFILES_INI_FILE}"
@@ -360,17 +348,17 @@ copyProfileFolder()
 		restoreBookmarks
 		return 1
 	fi
-	chmod -fR 755 "${DEST_PROFILE}" >& /dev/null
 	restoreBookmarks
+	echo "JonDoFox successfully installed!"
 	return 0
 }
 
 isFirefoxRunning()
 {
-	if [ "$(ps aux | fgrep -i firefox | fgrep -v grep | fgrep -v install_linux | fgrep -i `whoami` )" ]; then
+	if [ "$(ps aux | fgrep -i firefox | fgrep -v grep | fgrep -v install_linux )" ]; then
 		return 1
 	fi
-	if [ "$(ps aux | fgrep -i iceweasel | fgrep -v grep | fgrep -v install_linux | fgrep -i `whoami` )" ]; then
+	if [ "$(ps aux | fgrep -i iceweasel | fgrep -v grep | fgrep -v install_linux )" ]; then
 		return 1
 	fi
 	return 0
@@ -386,56 +374,11 @@ isJonDoFoxInstalled()
 	fi
 }
 
-getVersion()
-{
-	local versionStr="";
-	if [ -e "$1" ]; then
-		#versionStr=$(grep JonDoFox.*Version "$1")
-		#if [$? -ne 0 ]; then
-			versionStr=$(fgrep jondofox.profile_version "$1" | xargs -I % expr % : ".*, \([0-9].*[0-9]\).*")
-		#else
-		#	versionStr=${versionStr##*-}
-		#	versionStr=${versionStr%\");} #"
-		#fi
-	fi
-	if [ "${versionStr}" ]; then
-		echo ${versionStr}
-	else
-		echo "${OLDER_VERSION}"
-	fi
-}
-
-getInstalledVersion()
-{
-	getVersion "${INSTALLED_PREFS}" 
-}
-
-getNewVersion()
-{
-	getVersion "${NEW_PREFS}"	
-}
-
-compareVersions()
-{
-	if  [ "$1" = "${OLDER_VERSION}" ]; then
-		return 2
-	elif [ "$2" = "${OLDER_VERSION}" ]; then
-		return 1;
-	fi
-	
-	if [ $(expr "$1" \> "$2") = "1" ]; then
-		return 1
-	elif [ $(expr "$1" \< "$2") = "1" ]; then
-		return 2
-	else
-		return 0
-	fi
-}
 
 promptOverwrite()
 {
        if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-           kdialog --yesno  "Do you want to upgrade your JonDoFox profil (keeping your bookmarks, certificate database and HTTPSEverywhereRules)?" --title "New JonDoFox version"
+           kdialog --yesno  "Do you want to update your JonDoFox profil?\nIt will keep your bookmarks, passwords,\ncertificate databases and other settings." --title "New JonDoFox version"
            dialog_return=$?        
            if [ $dialog_return -eq 1 ]; then
               return 1
@@ -444,7 +387,7 @@ promptOverwrite()
            fi
         elif [ $ZENITY ]; then
 
-		   zenity --question --title "New JonDoFox version" --text "Do you want to upgrade your JonDoFox profil (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)?"
+		   zenity --question --title "New JonDoFox version" --text "Do you want to update your JonDoFox profil?\nIt will keep your bookmarks, passwords,\ncertificate databases and other settings." --no-wrap
 		   dialog_return=$?		
 		   if [ $dialog_return -eq 1 ]; then
 			  return 1
@@ -453,7 +396,7 @@ promptOverwrite()
 		  fi
 	    else
 		  dialog_return="y"
-		  read -p  "Do you want to upgrade your JonDoFox (keeping your bookmarks, certificate database and HTTPSEverywhereUserRules)? [y/n]: " RESP
+		  read -p  "Do you want to update your JonDoFox profil? [y/n]: " RESP
 		  if [ "$RESP" = "y" ]; then
 			return 0
 		  else
@@ -542,7 +485,6 @@ if [ $? -eq 0 ]; then
 		exit 1
 	fi
 else 
-	compareVersions $(getInstalledVersion) $(getNewVersion)
 	promptOverwrite $?
 	overwriteRet=$?
 	if [ $overwriteRet -ne 0 ]; then
@@ -562,16 +504,5 @@ fi
 
 echo "installing profile."
 copyProfileFolder
-if [ $? -ne 0 ]; then
-	if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-        kdialog --error "JonDoFox could not be installed!"
-    elif [ $ZENITY ]; then
-		zenity --error --text "JonDoFox could not be installed!"
-	else
-		echo "JonDoFox could not be installed!"
-	fi
-	
-	exit 1
-fi
-# echo "JonDoFox successfully installed!"
-exit 0
+
+exit $?
