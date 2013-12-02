@@ -1,31 +1,28 @@
-#############################
-# Installation von JonDoFox #
-#############################
 
-Dieses Paket enthaelt Installationsskripte fuer Nutzer von Windows und Linux. 
+Installation von JonDoFox
+-------------------------
 
-Fuer Mac OS X Nutzer: Bitte verwenden sie das JonDox-Paket unter:
-https://www.jondos.de/de/downloads/JonDoFox_OS_X.dmg
+1. Oeffnen Sie ein Terminal-Fenster und wechseln Sie in das Verzeichnins, in dem die
+   Datei "install_linux.sh" liegt. (Das Verzeichnis, das Sie soeben entpackt haben):
 
+      user@linux:~# cd <unpacked folder>
 
-1. Installation unter Windows:
-------------------------------
+2. Fuehren Sie nun das Installationsskript aus, indem Sie eingeben:
 
-Doppelklicken Sie auf die Datei "install_win.vbs" und folgen Sie den Anweisungen.
-
-
-2. Installation unter Linux:
-----------------------------
-
-2.1 Oeffnen Sie ein Terminal-Fenster und wechseln Sie in das Verzeichnins, in dem die
-Datei "install_linux.sh" liegt. (Das Verzeichnis, das Sie soeben entpackt haben):
-user@linux:~# cd <unpacked folder>
-
-2.2 Fuehren Sie nun das Installationsskript aus, indem Sie eingeben:
-user@linux:<unpacked folder>#./install_linux.sh
+      user@linux:<unpacked folder># ./install_linux.sh
 
 Wenn Sie bereits JonDoFox installiert haben, werden Sie gefragt, ob Sie Ihre vorhandene 
 Installation ueberschreiben wollen. Ihre Bookmarks bleiben dabei erhalten.
 
-WICHTIG: Wenn Sie das Linux-Installationsskript ausfuehren wollen, machen Sie KEINEN DOPPELKLICK 
-auf die Datei "install_linux.sh"! Fuehren Sie dieses Skript NUR in einem TERMINAL aus!
+WICHTIG: Starten Sie das Linux-Installationsskript NICHT mit einem DOPPELKLICK 
+auf die Datei! Fuehren Sie dieses Skript NUR in einem TERMINAL aus!
+
+
+Deinstallation von JonDoFox
+---------------------------
+
+Starten Sie den Profilmanager von Firefox (im Terminal mit der Option -P )
+
+      user@linux:~# firefox -P
+
+Im Profilmanager können Sie das Profil "JonDoFox" löschen.

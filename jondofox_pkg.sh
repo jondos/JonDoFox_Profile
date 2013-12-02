@@ -6,12 +6,12 @@
 #  All rights reserved.                                                                            #
 #  Redistribution and use in source and binary forms, with or without modification, are permitted  #
 #  provided that the following conditions are met:                                                 #
-#	*	Redistributions of source code must retain the above copyright notice, this list of        #
-#		conditions and the following disclaimer.                                                   #
-#	*	Redistributions in binary form must reproduce the above copyright notice,                  #
-#		this list of conditions and the following disclaimer in the documentation and/or           #
-#		other materials provided with the distribution.                                            #
-#	*	Neither the name of the University of Technology Dresden, Germany, nor the name of         #
+#     * Redistributions of source code must retain the above copyright notice, this list of        #
+#	conditions and the following disclaimer.                                                   #
+#     * Redistributions in binary form must reproduce the above copyright notice,                  #
+#	this list of conditions and the following disclaimer in the documentation and/or           #
+#	other materials provided with the distribution.                                            #
+#     * Neither the name of the University of Technology Dresden, Germany, nor the name of         #
 #  the JonDos GmbH, nor the names of their contributors may be used to endorse or                  # 
 #  promote products derived from this software without specific prior written permission.          #
 #                                                                                                  #
@@ -29,7 +29,7 @@
 #                                                                                                  #
 ####################################################################################################
 
-## basch script for creating JonDoFox packages for each platform
+## bash script for creating JonDoFox packages for each platform
 ## NOTE: Mac OS X package creation only works with Mac OS X builtin tools.
 ## It's RECOMMENDED NOT to RUN this script IN YOUR SVN WORKING COPY FOLDER because 
 ## of the cleanups after the packaging process, which can result in deletions when you 
@@ -63,7 +63,6 @@ BUNDLE_RESOURCES="Contents/Resources"
 
 JONDOFOX_PROFILE="profile"
 
-JONDOFOX_PROFILE_TYPES=""
 JONDOFOX_PROFILE_LANGS=""
 BUILD_PLATFORMS=""
 
@@ -76,6 +75,8 @@ BOOKMARKS_FF3_SUFFIX=".sqlite"
 BOOKMARKS_FF3="${BOOKMARKS_FF3_NAME}${BOOKMARKS_FF3_SUFFIX}"
 
 SVN_MODULE="https://svn.jondos.de/svnpub/JonDoFox_Profile/trunk"
+
+SEDBIN="sed"
 
 createOSXBundle()
 {
@@ -131,17 +132,10 @@ createOSXBundle()
 			echo "Error: could not fetch Mac OS X installer icon"
 		fi
 	fi
-	
-	for type in ${JONDOFOX_PROFILE_TYPES}; do
-	
-		#checkType "${type}"
-		#if [ $? -ne 0 ]; then
-		#	continue
-		#fi
 		
-		getProfileFolder "${type}"
+		getProfileFolder
 		
-		if [ $? -ne 0 ] || ! [ -e "${JONDOFOX_PROFILE}_${type}" ]; then
+		if [ $? -ne 0 ] || ! [ -e "${JONDOFOX_PROFILE}" ]; then
 			continue
 		fi
 		
@@ -152,7 +146,7 @@ createOSXBundle()
 				continue
 			fi
 			
-			setLanguageBookmarks "${lang}" "${type}"
+			setLanguageBookmarks "${lang}"
 			if [ $? -ne 0 ]; then
 				continue
 			fi
@@ -183,7 +177,6 @@ createOSXBundle()
 			echo "Creating dmg file '${OS_X_INSTALLER_PKG}'"
 			hdiutil create -srcfolder "${OS_X_INSTALLER_BUNDLE}" "${OS_X_INSTALLER_PKG}"
 		done
-	done
 	
 	cleanupOSX
 	return 0
@@ -193,7 +186,7 @@ cleanupOSX()
 {
 	local type=""
 	echo "Cleaning up Mac OS X package components."
-	cleanupProfileFolders
+	rm -rf ${VERBOSE} "${JONDOFOX_PROFILE}"
 	
 	if ! [ "${SRC_LOCAL}" ]; then
 		rm -f ${VERBOSE} "${OS_X_INSTALLER_SRC}"
@@ -208,117 +201,80 @@ createLinuxPackage()
 {
 	
 	local lang=""
-	local type=""
-	local installer_help_file=""
-	
-	
-	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${BASH_INSTALLER_SCRIPT}" ]; then
-		echo "Fetching Installer scripts from Subversion"
-		svn cat "${SVN_MODULE}/${BASH_INSTALLER_SCRIPT}" > "${BASH_INSTALLER_SCRIPT}"
-		if [ $? -ne 0 ]; then
-			echo "Error: cannot load bash install script from subversion."
-			return 1
-		fi
+
+	# we need GNU sed, check if gsed is installed (for BSD)
+	if [ `which gsed` ]; then
+  	echo "GNU sed found, seems we are on BSD"
+  		SEDBIN="gsed"
 	fi
+
+	
+	for lang in ${JONDOFOX_PROFILE_LANGS}; do
 			
-	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${VB_INSTALLER_SCRIPT}" ]; then
-		svn cat "${SVN_MODULE}/${VB_INSTALLER_SCRIPT}" > "${VB_INSTALLER_SCRIPT}"
+		checkLang "${lang}"
 		if [ $? -ne 0 ]; then
-			echo "Error: cannot load vb install script from subversion."
-			return 1
-		fi
-	fi
-	
-	chmod -f 755 "${BASH_INSTALLER_SCRIPT}"
-	
-	for type in ${JONDOFOX_PROFILE_TYPES}; do
-		
-		getProfileFolder "${type}"
-		if [ $? -ne 0 ] || ! [ -e "${JONDOFOX_PROFILE}_${type}" ]; then
 			continue
 		fi
-		
-		rm -rf ${VERBOSE} "${JONDOFOX_PROFILE}"
-		cp -Rf ${VERBOSE} "${JONDOFOX_PROFILE}_${type}" "${JONDOFOX_PROFILE}"
-	
-		for lang in ${JONDOFOX_PROFILE_LANGS}; do
-			
-			checkLang "${lang}"
-			if [ $? -ne 0 ]; then
-				continue
-			fi
-		
-			installer_help_file="${INSTALLER_HELP_NAME}_${lang}${INSTALLER_HELP_SUFFIX}"
-		
-			if ! [ "${SRC_LOCAL}" ] || 
-			   ! [ -e "${installer_help_file}" ]; then
-			
-				svn cat "${SVN_MODULE}/${installer_help_file}" > "${installer_help_file}"
-				if [ $? -ne 0 ]; then
-					echo "Error: cannot load install help file for '${lang}'."
-					continue
-				fi
-			fi
-			
-			if ! [ -e "${installer_help_file}" ]; then
-				echo "Error: no installer help file found for '${lang}'."
-				continue
-			fi
-			
-			cp -f "${installer_help_file}" "${INSTALLER_HELP_FILE}"
-			setLanguageBookmarks "${lang}"
 
-			# replace "Arial" by "liberation Sans"
-            sed -i "s/Arial/Liberation Sans/" "${JONDOFOX_PROFILE}"/prefs.js
-			
-			echo "Creating linux archiv 'jondofox_linux_${lang}.tar.bz2'"
-			chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
-			if [ -e jondofox_linux_${lang}.tar ]; then
-				rm -f jondofox_linux_${lang}.tar
-			fi
-			tar -cf jondofox_linux_${lang}.tar "${JONDOFOX_PROFILE}" 
-			# clean some unused files
-			tar  --delete -f jondofox_linux_${lang}.tar profile/places.sqlite_de
-			tar  --delete -f jondofox_linux_${lang}.tar profile/places.sqlite_en-US
-			tar  --delete -f jondofox_linux_${lang}.tar profile/prefs_portable_de.js
-			tar  --delete -f jondofox_linux_${lang}.tar profile/prefs_portable_en-US.js
-			# add installer scripts
-			tar -rf jondofox_linux_${lang}.tar "${INSTALLER_HELP_FILE}" 
-			tar -rf jondofox_linux_${lang}.tar "${BASH_INSTALLER_SCRIPT}"
-			if [ -e jondofox_linux_${lang}.tar.bz2 ]; then
-				rm -f jondofox_linux_${lang}.tar.bz2
-			fi
-			bzip2 jondofox_linux_${lang}.tar
-			if [ -e jondofox_linux_${lang}.tar.bz2.asc ]; then
-				rm -f jondofox_linux_${lang}.tar.bz2.asc
-			fi
-			if [ $GPGSIG == "y" ]; then
-				gpg -b --armor --default-key=support@jondos.de jondofox_linux_${lang}.tar.bz2
-			fi
-		done
+		# prepare the profile
+		if [ -d jondofox_linux ]; then
+			rm -r jondofox_linux
+		fi
+		mkdir jondofox_linux
+
+		if [ "${SRC_LOCAL}" ]; then
+			cp "INSTALL_${lang}.txt" jondofox_linux/INSTALL.txt
+			cp "${BASH_INSTALLER_SCRIPT}" "jondofox_linux/${BASH_INSTALLER_SCRIPT}"
+			cp -r full/profile jondofox_linux/
+		else
+			echo "SVN checkout for all files."
+			svn cat "${SVN_MODULE}/INSTALL_${lang}.txt" > "jondofox_linux/INSTALL.txt"
+			svn cat "${SVN_MODULE}/${BASH_INSTALLER_SCRIPT}" > "jondofox_linux/${BASH_INSTALLER_SCRIPT}"
+			svn export "${SVN_MODULE}/full/${JONDOFOX_PROFILE}" "jondofox_linux/${JONDOFOX_PROFILE}"
+		fi
+
+		chmod -f 755 "jondofox_linux/${BASH_INSTALLER_SCRIPT}"		
+
+		cd "jondofox_linux/${JONDOFOX_PROFILE}"
+		
+		# Set bookmarks
+		cp "places.sqlite_${lang}" places.sqlite
+
+		# remove unwanted files
+		rm places.sqlite_de
+		rm places.sqlite_en-US
+		if [ -e prefs_portable_de.js ]; then
+			rm prefs_portable_de.js
+		fi
+		if [ -e prefs_portable_en-US.js ]; then
+			rm prefs_portable_en-US.js
+		fi
+
+		# replace "Arial" by "Liberation Sans"
+		$SEDBIN -i "s/Arial/Liberation Sans/" prefs.js
+		
+		cd ..
+		chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
+		cd ..
+
+		echo "Creating linux archiv 'jondofox_linux_${lang}.tar.bz2'"
+		
+		if [ -e jondofox_linux_${lang}.tar.bz2 ]; then
+			rm -f jondofox_linux_${lang}.tar.bz2
+		fi
+		tar -cjf jondofox_linux_${lang}.tar.bz2 jondofox_linux 
+
+		if [ -e jondofox_linux_${lang}.tar.bz2.asc ]; then
+			rm -f jondofox_linux_${lang}.tar.bz2.asc
+		fi
+		if [ $GPGSIG == "y" ]; then
+			gpg -b --armor --default-key=support@jondos.de jondofox_linux_${lang}.tar.bz2
+		fi
+
+		rm -r jondofox_linux
 	done
-	
-	cleanupLinux
+
 	return 0
-}
-
-cleanupLinux()
-{
-	echo "Cleaning up Linux package components."
-	rm -rf ${VERBOSE} "${JONDOFOX_PROFILE}"
-	rm -f "${INSTALLER_HELP_FILE}"
-	
-	if ! [ "${SRC_LOCAL}" ]; then
-		rm -f ${VERBOSE} "${VB_INSTALLER_SCRIPT}"
-		rm -f ${VERBOSE} "${BASH_INSTALLER_SCRIPT}"
-		
-		cleanupProfileFolders
-
-		for lang in ${JONDOFOX_PROFILE_LANGS}; do
-			rm -f ${VERBOSE} "${INSTALLER_HELP_NAME}_${lang}${INSTALLER_HELP_SUFFIX}"
-		done
-		
-	fi
 }
 
 createWindowsPackage()
@@ -331,21 +287,14 @@ createWindowsPackage()
 ## try to fetch profile folder 
 getProfileFolder()
 {
-	local type=$1
-	local exclude=""
 	
-#	checkType "${type}"
-#	if [ $? -ne 0 ]; then
-#		return 1
-#	fi
-	
-	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${JONDOFOX_PROFILE}_${type}" ]; then
-		echo "Checking out JonDoFox profile type '${type}'."
+	if ! [ "${SRC_LOCAL}" ] || ! [ -e "${JONDOFOX_PROFILE}" ]; then
+		echo "Checking out JonDoFox profile."
 		
-		svn export "${SVN_MODULE}/full/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}_${type}"
+		svn export "${SVN_MODULE}/full/${JONDOFOX_PROFILE}" "${JONDOFOX_PROFILE}"
 		
 		if [ $? -ne 0 ]; then
-			echo "Error: could not check out profile type '${type}'"
+			echo "Error: could not check out profile!"
 			return 1
 		fi
 		
@@ -355,15 +304,6 @@ getProfileFolder()
 	
 }
 
-cleanupProfileFolders()
-{
-	if ! [ "${SRC_LOCAL}" ]; then
-		for type in ${JONDOFOX_PROFILE_TYPES}; do
-			
-			rm -rf ${VERBOSE} "${JONDOFOX_PROFILE}_${type}"
-		done
-	fi
-}
 
 createPackage()
 {
@@ -423,15 +363,9 @@ setLanguageBookmarks()
 {
 	local lang=$1
 	local type=$2
-	local profile_folder=""
+	local profile_folder="${JONDOFOX_PROFILE}"
 	
 	echo "Setting bookmarks for language '${lang}'."
-	
-	if [ "${type}" ]; then
-		profile_folder="${JONDOFOX_PROFILE}_${type}"
-	else
-		profile_folder="${JONDOFOX_PROFILE}"
-	fi
 	
 	
 	local ff3_bookmarks="${profile_folder}/${BOOKMARKS_FF3_NAME}${BOOKMARKS_FF3_SUFFIX}_${lang}"
@@ -528,9 +462,6 @@ if [ "${BUILD_PLATFORMS}" ]; then
 else
 	BUILD_PLATFORMS="${ALL_PLATFORMS}"
 fi
-
-#set profile types tobuild
-JONDOFOX_PROFILE_TYPES="${ALL_TYPES}"
 
 
 if [ "${JONDOFOX_PROFILE_LANGS}" ]; then
