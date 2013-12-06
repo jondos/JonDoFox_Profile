@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## Copyright (c) The JAP-Team, JonDos GmbH
 ##
@@ -29,7 +29,7 @@
 ## SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ##    
 ##   JonDoFox profile bash installation script
-##   2008 by Simon Pecher, JonDos GmbH (simon.pecher@jondos.de) 
+##   2008 by Simon Pecher, JonDos GmbH
 ##
 
 #global variables - will obtain OS specific values when setVariables is called
@@ -38,10 +38,9 @@ JONDOFOX_PROFILE_NAME="profile" #name of the JondoFox profile folder (within fir
 FIREFOX_SETTINGS_PATH=""  #firefox profile folder's path (defaults to Linux)
 
 INSTALL_SOURCE_DIR="."	#the parent path of the installation source folder
-INSTALL_BUNDLE_RESOURCES=""	#Resource folder of the installation bundle (Mac OS X)
 
 #the path of the profile folder that shall be installed
-INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${INSTALL_BUNDLE_RESOURCES}${JONDOFOX_PROFILE_NAME}"
+INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${JONDOFOX_PROFILE_NAME}"
 DEST_PROFILE=""	#where to install the profile
 
 PROFILES_INI_FILE="" #name of the profiles config file
@@ -92,10 +91,12 @@ variablesOsSpecific()
 		#Mac OS X specific settings
 		FIREFOX_PROFILES_FOLDER="Profiles/"
 		if ! [ "${FIREFOX_SETTINGS_PATH}" ]; then
-			FIREFOX_SETTINGS_PATH="${HOME}/Library/Application Support/Firefox"
+			if [ -d "${HOME}/Library/Application Support/Firefox" ]; then
+				FIREFOX_SETTINGS_PATH="${HOME}/Library/Application Support/Firefox"
+			else 
+				FIREFOX_SETTINGS_PATH="${HOME}/Mozilla/Firefox"
+			fi
 		fi
-		#INSTALL_BUNDLE_RESOURCES="JonDoFox_Install.app/Contents/Resources/"
-		INSTALL_BUNDLE_RESOURCES=""
 		ECHO_ESCAPE="-e"
 		COPY_OVERWRITE_OPT="-f"
 		COPY_RECURSIVE_OPT="-R"
@@ -105,21 +106,16 @@ variablesOsSpecific()
 		if ! [ "${FIREFOX_SETTINGS_PATH}" ]; then
 			FIREFOX_SETTINGS_PATH="${HOME}/.mozilla/firefox"
 		fi
-		INSTALL_BUNDLE_RESOURCES=""
 		ECHO_ESCAPE="-e"
 		COPY_OVERWRITE_OPT="-f"
 		COPY_RECURSIVE_OPT="-r"
 	fi
 	
-	INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${INSTALL_BUNDLE_RESOURCES}${JONDOFOX_PROFILE_NAME}"
+	INSTALL_PROFILE="${INSTALL_SOURCE_DIR}/${JONDOFOX_PROFILE_NAME}"
 	DEST_PROFILE="${FIREFOX_SETTINGS_PATH}/${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}"	
 	
 	PROFILES_INI_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini"
 	PROFILES_INI_BACKUP_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini.bak"	
-	
-	PROFILES_INI_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini"
-	PROFILES_INI_BACKUP_FILE="${FIREFOX_SETTINGS_PATH}/profiles.ini.bak"		
-
 	
 	INSTALLED_PREFS="${DEST_PROFILE}/${PREFS_FILE_NAME}"
 	BOOKMARKS_FF3="${DEST_PROFILE}/places.sqlite"
@@ -133,13 +129,10 @@ variablesOsSpecific()
 
 	NEW_PREFS="${INSTALL_PROFILE}/${PREFS_FILE_NAME}"	
 		
-	#JONDOFOX_PROFILE_ENTRY="[General]\nStartWithLastProfile=0\n\n[Profile0]\nName=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"    	
-	JONDOFOX_PROFILE_ENTRY="Name=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"
-
 	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
 	
 	if [ "${VERBOSE}" ]; then
-		echo "Installing JonDoFox $(getInstalledVersion) with these settings:"
+		echo "Installing JonDoFox with these settings:"
 		echo "Firefox settings path: ${FIREFOX_SETTINGS_PATH}"
 		echo "Install Destination: ${DEST_PROFILE}"
 	fi
@@ -173,21 +166,20 @@ saveInstalledBookmarks()
 		SAVED_PASSWDB="${FIREFOX_SETTINGS_PATH}/signons.sqlite"
 		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${PASSWDB}" "${SAVED_PASSWDB}"
 	fi
+	if [ -e "${STS_DATABASE}" ]; then
+		SAVED_STSDATABASE="${FIREFOX_SETTINGS_PATH}/NoScriptSTS.db"
+		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${STS_DATABASE}" "${SAVED_STSDATABASE}"
+	fi
+	if [ -e "${PERMISSION_DATABASE}" ]; then
+		SAVED_PERMISSIONDATABASE="${FIREFOX_SETTINGS_PATH}/permissions.sqlite"
+		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${PERMISSION_DATABASE}" "${SAVED_PERMISSIONDATABASE}"
+	fi
+	if [ -e "${CERT_OVERRIDE_DATABASE}" ]; then
+		SAVED_CERTOVERRIDEDATABASE="${FIREFOX_SETTINGS_PATH}/cert_override.txt"
+		cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_OVERRIDE_DATABASE}" "${SAVED_CERTOVERRIDEDATABASE}"
+	fi
 
-    if [ -e "${STS_DATABASE}" ]; then
-        SAVED_STSDATABASE="${FIREFOX_SETTINGS_PATH}/NoScriptSTS.db"
-        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${STS_DATABASE}" "${SAVED_STSDATABASE}"
-    fi
-    if [ -e "${PERMISSION_DATABASE}" ]; then
-        SAVED_PERMISSIONDATABASE="${FIREFOX_SETTINGS_PATH}/permissions.sqlite"
-        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${PERMISSION_DATABASE}" "${SAVED_PERMISSIONDATABASE}"
-    fi
-    if [ -e "${CERT_OVERRIDE_DATABASE}" ]; then
-        SAVED_CERTOVERRIDEDATABASE="${FIREFOX_SETTINGS_PATH}/cert_override.txt"
-        cp ${COPY_OVERWRITE_OPT} ${VERBOSE} "${CERT_OVERRIDE_DATABASE}" "${SAVED_CERTOVERRIDEDATABASE}"
-    fi
-
-    if [ -e "${INSTALLED_PREFS}" ]; then
+    	if [ -e "${INSTALLED_PREFS}" ]; then
 		SAVED_NOSCRIPTHTTPS="${FIREFOX_SETTINGS_PATH}/Noscript_httpsforced.conf"
 		cat ${INSTALLED_PREFS} | grep 'noscript.httpsForced' > ${SAVED_NOSCRIPTHTTPS}
 	fi
@@ -209,32 +201,39 @@ restoreBookmarks()
 {
 	if [ "${SAVED_BOOKMARKS}" ] && [ -e "${SAVED_BOOKMARKS}" ]; then
 		echo "restoring bookmarks."
-		mv -f "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
+		cp ${COPY_OVERWRITE_OPT} "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
+		rm "${SAVED_BOOKMARKS}"
 	fi
 	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}" ]; then
 		echo "restoring certificate database."
-		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
+		cp ${COPY_OVERWRITE_OPT} "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
+		rm "${SAVED_CERTDATABASE}"
 	fi
 	if [ "${SAVED_MASTERPW}" ] && [ -e "${SAVED_MASTERPW}" ]; then
 		echo "restoring master password."
-		mv -f "${SAVED_MASTERPW}" "${DEST_PROFILE}"
+		cp ${COPY_OVERWRITE_OPT} "${SAVED_MASTERPW}" "${DEST_PROFILE}"
+		rm "${SAVED_MASTERPW}"
 	fi
 	if [ "${SAVED_PASSWDB}" ] && [ -e "${SAVED_PASSWDB}" ]; then
 		echo "restoring passwords database."
-		mv -f "${SAVED_PASSWDB}" "${DEST_PROFILE}"
+		cp ${COPY_OVERWRITE_OPT} "${SAVED_PASSWDB}" "${DEST_PROFILE}"
+		rm "${SAVED_PASSWDB}"
 	fi
-    if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
-        echo "restoring STS database."
-        mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
-    fi
-    if [ "${SAVED_PERMISSIONDATABASE}" ] && [ -e "${SAVED_PERMISSIONDATABASE}" ]; then
-        echo "restoring permissions database."
-        mv -f "${SAVED_PERMISSIONDATABASE}" "${DEST_PROFILE}"
-    fi
-    if [ "${SAVED_CERTOVERRIDEDATABASE}" ] && [ -e "${SAVED_CERTOVERRIDEDATABASE}" ]; then
-        echo "restoring certificates override database."
-        mv -f "${SAVED_CERTOVERRIDEDATABASE}" "${DEST_PROFILE}"
-    fi
+	if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
+		echo "restoring STS database."
+		cp ${COPY_OVERWRITE_OPT} "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
+		rm "${SAVED_STSDATABASE}"
+	fi
+	if [ "${SAVED_PERMISSIONDATABASE}" ] && [ -e "${SAVED_PERMISSIONDATABASE}" ]; then
+		echo "restoring permissions database."
+		cp ${COPY_OVERWRITE_OPT} "${SAVED_PERMISSIONDATABASE}" "${DEST_PROFILE}"
+		rm "${SAVED_PERMISSIONDATABASE}"
+	fi
+	if [ "${SAVED_CERTOVERRIDEDATABASE}" ] && [ -e "${SAVED_CERTOVERRIDEDATABASE}" ]; then
+		echo "restoring certificates override database."
+		cp ${COPY_OVERWRITE_OPT} "${SAVED_CERTOVERRIDEDATABASE}" "${DEST_PROFILE}"
+		rm "${SAVED_CERTOVERRIDEDATABASE}"
+	fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
         echo "restoring NoScript HTTPS settings."
 		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
@@ -243,7 +242,6 @@ restoreBookmarks()
 	if [ "${SAVED_HTTPSEverywhereUserRules}" ] && [ -d "${SAVED_HTTPSEverywhereUserRules}" ]; then
 		echo "restoring HTTPSEverywhereUserRules."
 		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
-		rm -r "${SAVED_HTTPSEverywhereUserRules}"
 	fi
 }
 
@@ -277,7 +275,7 @@ editProfilesIni()
 {
 	if  ! [ -e "${PROFILES_INI_FILE}" ]; then
 		if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-            kdialog --error "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
+		kdialog --error "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
         elif [ $ZENITY ]; then
 			zenity --error --text "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
 		else
@@ -291,15 +289,17 @@ editProfilesIni()
 		return 1
 	fi
 		
-        #nextProfileNr=$(grep \\[Profile "${PROFILES_INI_FILE}" | tail -n 1 | xargs -I % expr % : ".*Profile\([0-9]*\).*" | xargs -I % expr % + 1)
-	nextProfileNr=$(grep \\[Profile "${PROFILES_INI_FILE}" | wc -l | tr -d ' ')
+
 	#unset default profile and force profile choose dialog at startup.
-	sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ \
-		-e s/Default=1// "${PROFILES_INI_BACKUP_FILE}" > "${PROFILES_INI_FILE}"
+	cat "${PROFILES_INI_BACKUP_FILE}" | sed -e s/StartWithLastProfile=1/StartWithLastProfile=0/ -e s/Default=1// > "${PROFILES_INI_FILE}"
 	
-	echo >> "${PROFILES_INI_FILE}"
+	local nextProfileNr=$(grep \\[Profile "${PROFILES_INI_FILE}" | wc -l | tr -d ' ')
+	echo "" >> "${PROFILES_INI_FILE}"
 	echo "[Profile${nextProfileNr}]" >> "${PROFILES_INI_FILE}"
-	echo ${ECHO_ESCAPE} ${JONDOFOX_PROFILE_ENTRY} >> "${PROFILES_INI_FILE}"
+        echo "Name=JonDoFox" >> "${PROFILES_INI_FILE}"
+	echo "IsRelative=1" >> "${PROFILES_INI_FILE}"
+	echo "Path=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}" >> "${PROFILES_INI_FILE}"
+	echo "Default=1" >> "${PROFILES_INI_FILE}"
 }
 
 resetStartWithLastProfile()
@@ -339,7 +339,7 @@ copyProfileFolder()
 		restoreOldSettings
 		return 1
 	fi
-	
+
 	cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${INSTALL_PROFILE}" "${FIREFOX_SETTINGS_PATH}/${FIREFOX_PROFILES_FOLDER}"
 	
 	if [ $? -ne 0 ]; then
@@ -418,7 +418,7 @@ do
 		f) FIREFOX_SETTINGS_PATH="${OPTARG}";;
 		r) REMOVE="TRUE";;
 		h) 
-			echo "JonDoFox $(getNewVersion) Installation for Linux (2008 Copyright (c) JonDos GmbH)"
+			echo "JonDoFox Installation for Linux, MacOS, BSD (2008 Copyright (c) JonDos GmbH)"
 			echo "usage: ./install_linux [options]"
 			echo "possible options are:"
 			echo "-v prints verbose about the installation progress."
@@ -455,7 +455,7 @@ if [ "${REMOVE}" = "TRUE" ]; then
 	isJonDoFoxInstalled
 	if [ $? -eq 0 ]; then
 		if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-             kdialog --error "Cannot remove JonDoFox, because it is not installed."
+		kdialog --error "Cannot remove JonDoFox, because it is not installed."
         elif [ $ZENITY ]; then
 			zenity --error --text "Cannot remove JonDoFox, because it is not installed."
 		else
@@ -474,7 +474,7 @@ if [ $? -eq 0 ]; then
 	editProfilesIni
 	if [ $? -ne 0 ]; then
 		if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
-             kdialog --error "Could not edit profiles.ini: Restoring old settings and abort installation!"
+		kdialog --error "Could not edit profiles.ini: Restoring old settings and abort installation!"
         elif [ $ZENITY ]; then
 			zenity --error --text "Could not edit profiles.ini: Restoring old settings and abort installation!"
 		else
@@ -493,7 +493,7 @@ else
 			uninstallJonDoFox
 			exit 0
 		else
-			echo "Installation aborted"
+			echo "Installation aborted!"
 			exit 1
 		fi
 	fi
@@ -502,7 +502,7 @@ else
 	resetStartWithLastProfile
 fi
 
-echo "installing profile."
+echo "Installing JonDoFox profile in ${FIREFOX_SETTINGS_PATH}/${FIREFOX_PROFILES_FOLDER}"
 copyProfileFolder
 
 exit $?

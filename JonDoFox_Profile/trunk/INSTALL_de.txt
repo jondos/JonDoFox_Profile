@@ -2,27 +2,22 @@
 Installation von JonDoFox
 -------------------------
 
-1. Oeffnen Sie ein Terminal-Fenster und wechseln Sie in das Verzeichnins, in dem die
-   Datei "install_linux.sh" liegt. (Das Verzeichnis, das Sie soeben entpackt haben):
+Entpacken Sie das Archiv entweder mit einem Rechtsklick im Dateimanager oder auf
+der Kommandozeile im Terminal mit folgendem Befehl:
 
-      user@linux:~# cd <unpacked folder>
+   user@linux:~# tar -xjf jondofox_linux_mac_bsd.tar.bz2
 
-2. Fuehren Sie nun das Installationsskript aus, indem Sie eingeben:
+Oeffnen Sie ein Terminal-Fenster und wechseln Sie in das Verzeichnins, in dem die
+Datei "install_jondofox.sh" liegt. (Das Verzeichnis, das Sie soeben entpackt haben):
 
-      user@linux:<unpacked folder># ./install_linux.sh
+   user@linux:~# cd jondofox_linux_mac_bsd
+
+Fuehren Sie nun das Installationsskript aus, indem Sie eingeben:
+
+   user@linux:<unpacked folder># ./install_jondofox.sh
 
 Wenn Sie bereits JonDoFox installiert haben, werden Sie gefragt, ob Sie Ihre vorhandene 
-Installation ueberschreiben wollen. Ihre Bookmarks bleiben dabei erhalten.
+Installation ueberschreiben wollen. Ihre Lesezeichen bleiben dabei erhalten.
 
-WICHTIG: Starten Sie das Linux-Installationsskript NICHT mit einem DOPPELKLICK 
-auf die Datei! Fuehren Sie dieses Skript NUR in einem TERMINAL aus!
-
-
-Deinstallation von JonDoFox
----------------------------
-
-Starten Sie den Profilmanager von Firefox (im Terminal mit der Option -P )
-
-      user@linux:~# firefox -P
-
-Im Profilmanager können Sie das Profil "JonDoFox" löschen.
+WICHTIG: Wenn Sie das Linux-Installationsskript ausfuehren wollen, machen Sie KEINEN DOPPELKLICK 
+auf die Datei "install_linux.sh"! Fuehren Sie dieses Skript NUR in einem TERMINAL aus!
