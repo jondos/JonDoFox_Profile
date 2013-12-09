@@ -11,9 +11,9 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "JonDoFoxPortable"
-!define VERSION "2.8.0.0"
+!define VERSION "2.9.0.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "25"
+!define FF_VERSION "24.2.0esr"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "JonDoFoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -488,20 +488,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section "UnPlug" UnPlug
-        SectionIn 1 2
-
-                StrCpy $ExtensionName "UnPlug"
-
-                SetOutPath "$ProfileExtensionPath"
-                SetOverwrite on
-
-                File /r /x .svn "..\..\..\full\profile\extensions\unplug@compunach.xpi"
-
-        SectionEnd
-
-
-        Section /o "ProfileSwitcher" ProfileSwitcher
+   	Section /o "ProfileSwitcher" ProfileSwitcher
         SectionIn 2
 
                 StrCpy $ExtensionName "ProfileSwitcher"
@@ -603,7 +590,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${AdblockPlus} $(DescAdblockPlus)
   !insertmacro MUI_DESCRIPTION_TEXT ${CMonster} $(DescCMonster)
   !insertmacro MUI_DESCRIPTION_TEXT ${HTTPSEverywhere} $(DescHTTPSEverywhere)
-  !insertmacro MUI_DESCRIPTION_TEXT ${UnPlug} $(DescUnPlug)
+  
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
   !insertmacro MUI_DESCRIPTION_TEXT ${ProfileSwitcher} $(DescProfileSwitcher)
@@ -656,8 +643,7 @@ Function RequiredSelections
    	 SectionSetFlags ${CMonster} $0
          SectionSetFlags ${HTTPSEverywhere} $0
          SectionSetFlags ${JonDoFox} $0
-         SectionSetFlags ${NoScript} $0
-         SectionSetFlags ${UnPlug} $0
+         SectionSetFlags ${NoScript} $0         
          SectionSetFlags ${ProfileSwitcher} $0
 FunctionEnd
 
@@ -954,6 +940,7 @@ Function CheckFolder
         IfErrors pathbad 0
         RMDir "$R0\$R2"
         Goto pathgood
+
 
         parentLoop:
 
