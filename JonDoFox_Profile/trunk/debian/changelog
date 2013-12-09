@@ -1,9 +1,24 @@
+jondofox (2.9.0) unstable; urgency=low
+
+  * replaced Unplug with VideoDownloadHelper
+  * placement of toolbar icons chnaged (CookieMonster, VideoDownloadHelper)
+  * SSL certificate of AnonBox was verified and is accepted by default
+  * TLS 1.2 enabled
+  * disable Firefox Health Report by default
+  * update add-ons
+  * update AdBlock blocklist
+  * JonDoFox-XPI will block HTTP-Auth tracking silent
+  * improved man-in-the middle protection in JonDoFox-XPI
+
+ -- JonDos GmbH <info@jondos.de>  Mon, 09 Dec 2013 17:00:23 +0100
+
+
 jondofox (2.8.0) unstable; urgency=low
 
   * changed user-agent fake to Firefox 24 (Linux i386)
   * default proxy settings for JonDo and Tor are configurable
   * set SOCKS5 port for JonDo 
-  * set security.tls.version.max to browser default value to enable TLS 1.2
+  * set security.tls.version.max to browser default value
   * disable update of AdBlock filter lists
   * update all add-ons to latest version
 
