@@ -1119,8 +1119,6 @@ msvcp90.dll
 msvcr90.dll
 msvcp110.dll
 msvcr110.dll
-msvcp120.dll
-msvcr120.dll
 plugins/npnul32.dll
 xpcom_core.dll
 components/jar50.dll
