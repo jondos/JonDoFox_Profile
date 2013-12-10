@@ -56,21 +56,21 @@ install: build
 	install -m644 debian/jondofox.desktop debian/jondofox-de/usr/share/applications/
 
 	cp -rf full/profile debian/jondofox-en/usr/share/jondofox/profile
-        mv debian/jondofox-en/usr/share/jondofox/profile/places.sqlite_en-US debian/jondofox-en/usr/share/jondofox/profile/places.sqlite
+	mv debian/jondofox-en/usr/share/jondofox/profile/places.sqlite_en-US debian/jondofox-en/usr/share/jondofox/profile/places.sqlite
 	rm debian/jondofox-en/usr/share/jondofox/profile/places.sqlite_de
 	rm debian/jondofox-en/usr/share/jondofox/profile/prefs_portable_de.js
 	rm debian/jondofox-en/usr/share/jondofox/profile/prefs_portable_en-US.js
-        sed -i "s/Arial/Liberation Sans/" debian/jondofox-en/usr/share/jondofox/profile/prefs.js
-        chmod -R ugo-x,u+rwX,go+rX,go-w debian/jondofox-en/usr/share/jondofox/profile
+	sed -i "s/Arial/Liberation Sans/" debian/jondofox-en/usr/share/jondofox/profile/prefs.js
+	chmod -R ugo-x,u+rwX,go+rX,go-w debian/jondofox-en/usr/share/jondofox/profile
 
 
-	cp -rf profile debian/jondofox-de/usr/share/jondofox/profile
-        mv debian/jondofox-de/usr/share/jondofox/profile/places.sqlite_de debian/jondofox-de/usr/share/jondofox/profile/places.sqlite
+	cp -rf full/profile debian/jondofox-de/usr/share/jondofox/profile
+	mv debian/jondofox-de/usr/share/jondofox/profile/places.sqlite_de debian/jondofox-de/usr/share/jondofox/profile/places.sqlite
 	rm debian/jondofox-de/usr/share/jondofox/profile/places.sqlite_en-US
 	rm debian/jondofox-de/usr/share/jondofox/profile/prefs_portable_de.js
 	rm debian/jondofox-de/usr/share/jondofox/profile/prefs_portable_en-US.js
-        sed -i "s/Arial/Liberation Sans/" debian/jondofox-de/usr/share/jondofox/profile/prefs.js
-        chmod -R ugo-x,u+rwX,go+rX,go-w debian/jondofox-de/usr/share/jondofox/profile
+	sed -i "s/Arial/Liberation Sans/" debian/jondofox-de/usr/share/jondofox/profile/prefs.js
+	chmod -R ugo-x,u+rwX,go+rX,go-w debian/jondofox-de/usr/share/jondofox/profile
 
 
 binary-arch: build install
