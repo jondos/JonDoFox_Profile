@@ -63,7 +63,7 @@ else
 fi
 
 if [ -x /usr/bin/iceweasel ]; then
-    /usr/bin/iceweasel --no-remote -P JonDoFox
+    /usr/bin/iceweasel --no-remote -P JonDoFox -UILocale de
 else 
-    firefox --no-remote -P JonDoFox
+    firefox --no-remote -P JonDoFox -UILocale de
 fi
