@@ -36,7 +36,7 @@
 ## commit working copy changes. Best way is to make a copy of the working copy and 
 ## then create the packages there. 
 
-VERBOSE=""
+VERBOSE="1"
 
 OS_X_INSTALLER_NAME="Install_OSX"
 OS_X_INSTALLER_BUNDLE="${OS_X_INSTALLER_NAME}.app"
@@ -251,7 +251,7 @@ createLinuxPackage()
 		fi
 
 		# replace "Arial" by "Liberation Sans"
-		$SEDBIN -i "s/Arial/Liberation Sans/" prefs.js
+		#$SEDBIN -i "s/Arial/Liberation Sans/" prefs.js
 		
 		cd ..
 		chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
