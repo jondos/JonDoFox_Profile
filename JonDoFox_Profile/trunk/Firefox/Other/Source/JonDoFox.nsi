@@ -450,6 +450,18 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
+	Section "VideoDownloadHelper" VideoDownloadHelper
+        SectionIn 1 2
+                StrCpy $ExtensionGUID "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}"
+                StrCpy $ExtensionName "VideoDownloadHelper"
+
+                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOverwrite on
+
+                File /r /x .svn "..\..\..\full\profile\extensions\{b9db16a4-6edc-47ec-a1f4-b86292ed211d}\*.*"
+
+        SectionEnd
+
         Section "HTTPS-Everywhere" HTTPSEverywhere
         SectionIn 1 2
                 StrCpy $ExtensionGUID "https-everywhere@eff.org"
@@ -484,6 +496,18 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOverwrite on
 
                 File /r /x .svn "..\..\..\full\profile\extensions\{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi"
+
+        SectionEnd
+
+	Section "NoScript" NoScript
+        SectionIn 1 2
+
+                StrCpy $ExtensionName "NoScript"
+
+                SetOutPath "$ProfileExtensionPath"
+                SetOverwrite on
+
+                File /r /x .svn "..\..\..\full\profile\extensions\{b9db16a4-6edc-47ec-a1f4-b86292ed211d}.xpi"
 
         SectionEnd
 
