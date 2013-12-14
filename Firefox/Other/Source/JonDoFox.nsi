@@ -499,18 +499,6 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
         SectionEnd
 
-	Section "NoScript" NoScript
-        SectionIn 1 2
-
-                StrCpy $ExtensionName "NoScript"
-
-                SetOutPath "$ProfileExtensionPath"
-                SetOverwrite on
-
-                File /r /x .svn "..\..\..\full\profile\extensions\{b9db16a4-6edc-47ec-a1f4-b86292ed211d}.xpi"
-
-        SectionEnd
-
 
    	Section /o "ProfileSwitcher" ProfileSwitcher
         SectionIn 2
