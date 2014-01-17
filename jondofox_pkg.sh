@@ -217,25 +217,25 @@ createLinuxPackage()
 		fi
 
 		# prepare the profile
-		if [ -d jondofox_linux_mac ]; then
-			rm -r jondofox_linux_mac
+		if [ -d jondofox_linux_bsd ]; then
+			rm -r jondofox_linux_bsd
 		fi
-		mkdir jondofox_linux_mac
+		mkdir jondofox_linux_bsd
 
 		if [ "${SRC_LOCAL}" ]; then
-			cp "INSTALL_${lang}.txt" jondofox_linux_mac/INSTALL.txt
-			cp "${BASH_INSTALLER_SCRIPT}" "jondofox_linux_mac/install_jondofox.sh"
-			cp -r full/profile jondofox_linux_mac/
+			cp "INSTALL_${lang}.txt" jondofox_linux_bsd/INSTALL.txt
+			cp "${BASH_INSTALLER_SCRIPT}" "jondofox_linux_bsd/install_jondofox.sh"
+			cp -r full/profile jondofox_linux_bsd/
 		else
 			echo "SVN checkout for all files."
-			svn cat "${SVN_MODULE}/INSTALL_${lang}.txt" > "jondofox_linux_mac/INSTALL.txt"
-			svn cat "${SVN_MODULE}/${BASH_INSTALLER_SCRIPT}" > "jondofox_linux_mac/install_jondofox.sh"
-			svn export "${SVN_MODULE}/full/${JONDOFOX_PROFILE}" "jondofox_linux_mac/${JONDOFOX_PROFILE}"
+			svn cat "${SVN_MODULE}/INSTALL_${lang}.txt" > "jondofox_linux_bsd/INSTALL.txt"
+			svn cat "${SVN_MODULE}/${BASH_INSTALLER_SCRIPT}" > "jondofox_linux_bsd/install_jondofox.sh"
+			svn export "${SVN_MODULE}/full/${JONDOFOX_PROFILE}" "jondofox_linux_bsd/${JONDOFOX_PROFILE}"
 		fi
 
-		chmod -f 755 "jondofox_linux_mac/install_jondofox.sh"		
+		chmod -f 755 "jondofox_linux_bsd/install_jondofox.sh"		
 
-		cd "jondofox_linux_mac/${JONDOFOX_PROFILE}"
+		cd "jondofox_linux_bsd/${JONDOFOX_PROFILE}"
 		
 		# Set bookmarks
 		cp "places.sqlite_${lang}" places.sqlite
@@ -257,21 +257,21 @@ createLinuxPackage()
 		chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
 		cd ..
 
-		echo "Creating linux archiv 'jondofox_linux_mac_${lang}.tar.bz2'"
+		echo "Creating linux archiv 'jondofox_linux_bsd_${lang}.tar.bz2'"
 		
-		if [ -e jondofox_linux_mac_${lang}.tar.bz2 ]; then
-			rm -f jondofox_linux_mac_${lang}.tar.bz2
+		if [ -e jondofox_linux_bsd_${lang}.tar.bz2 ]; then
+			rm -f jondofox_linux_bsd_${lang}.tar.bz2
 		fi
-		tar -cjf jondofox_linux_mac_${lang}.tar.bz2 jondofox_linux_mac 
+		tar -cjf jondofox_linux_bsd_${lang}.tar.bz2 jondofox_linux_bsd 
 
-		if [ -e jondofox_linux_mac_${lang}.tar.bz2.asc ]; then
-			rm -f jondofox_linux_mac_${lang}.tar.bz2.asc
+		if [ -e jondofox_linux_bsd_${lang}.tar.bz2.asc ]; then
+			rm -f jondofox_linux_bsd_${lang}.tar.bz2.asc
 		fi
 		if [ $GPGSIG == "y" ]; then
-			gpg -b --armor --default-key=support@jondos.de jondofox_linux_mac_${lang}.tar.bz2
+			gpg -b --armor --default-key=support@jondos.de jondofox_linux_bsd_${lang}.tar.bz2
 		fi
 
-		rm -r jondofox_linux_mac
+		rm -r jondofox_linux_bsd
 	done
 
 	return 0

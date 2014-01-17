@@ -5,12 +5,12 @@ Installation von JonDoFox
 Entpacken Sie das Archiv entweder mit einem Rechtsklick im Dateimanager oder auf
 der Kommandozeile im Terminal mit folgendem Befehl:
 
-   user@linux:~# tar -xjf jondofox_linux_mac_bsd.tar.bz2
+   user@linux:~# tar -xjf jondofox_linux_bsd.tar.bz2
 
 Oeffnen Sie ein Terminal-Fenster und wechseln Sie in das Verzeichnins, in dem die
 Datei "install_jondofox.sh" liegt. (Das Verzeichnis, das Sie soeben entpackt haben):
 
-   user@linux:~# cd jondofox_linux_mac_bsd
+   user@linux:~# cd jondofox_linux_bsd
 
 Fuehren Sie nun das Installationsskript aus, indem Sie eingeben:
 
