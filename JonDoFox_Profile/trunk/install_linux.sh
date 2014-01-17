@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ## Copyright (c) The JAP-Team, JonDos GmbH
 ##
@@ -91,10 +91,10 @@ variablesOsSpecific()
 		#Mac OS X specific settings
 		FIREFOX_PROFILES_FOLDER="Profiles/"
 		if ! [ "${FIREFOX_SETTINGS_PATH}" ]; then
-			if [ -d "${HOME}/Mozilla/Firefox" ]; then
-				FIREFOX_SETTINGS_PATH="${HOME}/Mozilla/Firefox"
-			else 
+			if [ -d "${HOME}/Library/Application Support/Firefox" ]; then
 				FIREFOX_SETTINGS_PATH="${HOME}/Library/Application Support/Firefox"
+			else 
+				FIREFOX_SETTINGS_PATH="${HOME}/Mozilla/Firefox"
 			fi
 		fi
 		ECHO_ESCAPE="-e"
