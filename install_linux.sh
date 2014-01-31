@@ -191,7 +191,8 @@ saveInstalledBookmarks()
                      rm "${HTTPSEverywhereUserRules}/Anonymous-proxy-servers.net.xml"
                 fi
                 SAVED_HTTPSEverywhereUserRules="${FIREFOX_SETTINGS_PATH}/HTTPSEverywhereUserRules_backup"
-                cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}" "${SAVED_HTTPSEverywhereUserRules}"
+                mkdir "${SAVED_HTTPSEverywhereUserRules}"
+                cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}"/*.xml "${SAVED_HTTPSEverywhereUserRules}"/
         fi
 	return 0
 }
@@ -241,7 +242,11 @@ restoreBookmarks()
 	fi
 	if [ "${SAVED_HTTPSEverywhereUserRules}" ] && [ -d "${SAVED_HTTPSEverywhereUserRules}" ]; then
 		echo "restoring HTTPSEverywhereUserRules."
-		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}" "${HTTPSEverywhereUserRules}"
+                if [! -d "${HTTPSEverywhereUserRules}" ]; then
+			mkdir "${HTTPSEverywhereUserRules}"
+		fi
+		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}"/*.xml "${HTTPSEverywhereUserRules}"/
+                rm -r "${SAVED_HTTPSEverywhereUserRules}"
 	fi
 }
 
