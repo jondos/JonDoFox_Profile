@@ -155,7 +155,7 @@ variablesOsSpecific()
 ## store bookmarks of old JonDoFox profile
 saveInstalledBookmarks()
 {
-	echo "saving bookmarks."
+	echo "backup old settings (bookmarks, certificate databases...)"
 	SAVED_BOOKMARKS=""
 	SAVED_CERTDATABASE=""
 	SAVED_NOSCRIPTHTTPS=""
@@ -213,7 +213,7 @@ saveInstalledBookmarks()
 ## copy saved bookmarks book to the JonDoFox profile folder
 restoreBookmarks()
 {
-    echo "restoring old settings (bookmarks, certificate database...)"
+        echo "restore old settings (bookmarks, certificate databases...)"
 	if [ "${SAVED_BOOKMARKS}" ] && [ -e "${SAVED_BOOKMARKS}" ]; then
 		mv -f "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
 	fi
@@ -221,22 +221,18 @@ restoreBookmarks()
 		mv -f "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 	fi
 	if [ "${SAVED_MASTERPW}" ] && [ -e "${SAVED_MASTERPW}" ]; then
-		echo "restoring certificate database."
 		mv -f "${SAVED_MASTERPW}" "${DEST_PROFILE}"
 	fi
 	if [ "${SAVED_PASSWDB}" ] && [ -e "${SAVED_PASSWDB}" ]; then
-		echo "restoring certificate database."
 		mv -f "${SAVED_PASSWDB}" "${DEST_PROFILE}"
 	fi
     if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
         mv -f "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
     fi
     if [ "${SAVED_PERMISSIONDATABASE}" ] && [ -e "${SAVED_PERMISSIONDATABASE}" ]; then
-        echo "restoring permissions database."
         mv -f "${SAVED_PERMISSIONDATABASE}" "${DEST_PROFILE}"
     fi
     if [ "${SAVED_CERTOVERRIDEDATABASE}" ] && [ -e "${SAVED_CERTOVERRIDEDATABASE}" ]; then
-        echo "restoring certificates override database."
         mv -f "${SAVED_CERTOVERRIDEDATABASE}" "${DEST_PROFILE}"
     fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
@@ -244,7 +240,7 @@ restoreBookmarks()
 		rm ${SAVED_NOSCRIPTHTTPS}
 	fi
 	if [ "${SAVED_HTTPSEverywhereUserRules}" ] && [ -d "${SAVED_HTTPSEverywhereUserRules}" ]; then
-		if [! -d "${HTTPSEverywhereUserRules}" ]; then
+		if [ ! -d "${HTTPSEverywhereUserRules}" ]; then
 			mkdir "${HTTPSEverywhereUserRules}"
 		fi
 		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}"/*.xml "${HTTPSEverywhereUserRules}"/
@@ -270,7 +266,7 @@ backupProfilesIni()
 ## restores the profiles.ini from the corresponding backup-file
 restoreOldSettings()
 {
-	echo "restoring old settings"
+	echo "restoring old profiles.ini"
 	if [ -e "${PROFILES_INI_BACKUP_FILE}" ]; then
 		mv -f  ${VERBOSE} "${PROFILES_INI_BACKUP_FILE}" "${PROFILES_INI_FILE}"
 	fi
@@ -523,7 +519,7 @@ else
 	resetStartWithLastProfile
 fi
 
-echo "installing profile."
+echo "install JonDoFox profile."
 copyProfileFolder
 if [ $? -ne 0 ]; then
     if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
@@ -533,5 +529,5 @@ if [ $? -ne 0 ]; then
     fi
 	exit 1
 fi
-# echo "JonDoFox successfully installed!"
+echo "JonDoFox successfully installed!"
 exit 0
