@@ -200,49 +200,41 @@ saveInstalledBookmarks()
 ## copy saved bookmarks book to the JonDoFox profile folder
 restoreBookmarks()
 {
+	echo "restore old settings..."
 	if [ "${SAVED_BOOKMARKS}" ] && [ -e "${SAVED_BOOKMARKS}" ]; then
-		echo "restoring bookmarks."
 		cp ${COPY_OVERWRITE_OPT} "${SAVED_BOOKMARKS}" "${DEST_PROFILE}"
 		rm "${SAVED_BOOKMARKS}"
 	fi
 	if [ "${SAVED_CERTDATABASE}" ] && [ -e "${SAVED_CERTDATABASE}" ]; then
-		echo "restoring certificate database."
 		cp ${COPY_OVERWRITE_OPT} "${SAVED_CERTDATABASE}" "${DEST_PROFILE}"
 		rm "${SAVED_CERTDATABASE}"
 	fi
 	if [ "${SAVED_MASTERPW}" ] && [ -e "${SAVED_MASTERPW}" ]; then
-		echo "restoring master password."
 		cp ${COPY_OVERWRITE_OPT} "${SAVED_MASTERPW}" "${DEST_PROFILE}"
 		rm "${SAVED_MASTERPW}"
 	fi
 	if [ "${SAVED_PASSWDB}" ] && [ -e "${SAVED_PASSWDB}" ]; then
-		echo "restoring passwords database."
 		cp ${COPY_OVERWRITE_OPT} "${SAVED_PASSWDB}" "${DEST_PROFILE}"
 		rm "${SAVED_PASSWDB}"
 	fi
 	if [ "${SAVED_STSDATABASE}" ] && [ -e "${SAVED_STSDATABASE}" ]; then
-		echo "restoring STS database."
 		cp ${COPY_OVERWRITE_OPT} "${SAVED_STSDATABASE}" "${DEST_PROFILE}"
 		rm "${SAVED_STSDATABASE}"
 	fi
 	if [ "${SAVED_PERMISSIONDATABASE}" ] && [ -e "${SAVED_PERMISSIONDATABASE}" ]; then
-		echo "restoring permissions database."
 		cp ${COPY_OVERWRITE_OPT} "${SAVED_PERMISSIONDATABASE}" "${DEST_PROFILE}"
 		rm "${SAVED_PERMISSIONDATABASE}"
 	fi
 	if [ "${SAVED_CERTOVERRIDEDATABASE}" ] && [ -e "${SAVED_CERTOVERRIDEDATABASE}" ]; then
-		echo "restoring certificates override database."
 		cp ${COPY_OVERWRITE_OPT} "${SAVED_CERTOVERRIDEDATABASE}" "${DEST_PROFILE}"
 		rm "${SAVED_CERTOVERRIDEDATABASE}"
 	fi
 	if [ "${SAVED_NOSCRIPTHTTPS}" ] && [ -e "${SAVED_NOSCRIPTHTTPS}" ]; then
-        echo "restoring NoScript HTTPS settings."
 		cat ${SAVED_NOSCRIPTHTTPS} >> ${INSTALLED_PREFS}
 		rm ${SAVED_NOSCRIPTHTTPS}
 	fi
 	if [ "${SAVED_HTTPSEverywhereUserRules}" ] && [ -d "${SAVED_HTTPSEverywhereUserRules}" ]; then
-		echo "restoring HTTPSEverywhereUserRules."
-                if [! -d "${HTTPSEverywhereUserRules}" ]; then
+                if [ ! -d "${HTTPSEverywhereUserRules}" ]; then
 			mkdir "${HTTPSEverywhereUserRules}"
 		fi
 		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}"/*.xml "${HTTPSEverywhereUserRules}"/
@@ -324,7 +316,7 @@ removeOldProfileFolder()
 
 uninstallJonDoFox()
 {
-	echo "removing JonDoFox"
+	echo "remove JonDoFox"
 	#depends on existing profiles.ini.bak
 	restoreOldSettings
 	removeOldProfileFolder
