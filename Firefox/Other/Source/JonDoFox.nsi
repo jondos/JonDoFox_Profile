@@ -602,7 +602,8 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${AdblockPlus} $(DescAdblockPlus)
   !insertmacro MUI_DESCRIPTION_TEXT ${CMonster} $(DescCMonster)
   !insertmacro MUI_DESCRIPTION_TEXT ${HTTPSEverywhere} $(DescHTTPSEverywhere)
-  
+  # KGr, 12.02.2014
+  !insertmacro MUI_DESCRIPTION_TEXT ${VideoDownloadHelper} $(DescVideoDownloadHelper)
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)
   !insertmacro MUI_DESCRIPTION_TEXT ${NoScript} $(DescNoScript)
   !insertmacro MUI_DESCRIPTION_TEXT ${ProfileSwitcher} $(DescProfileSwitcher)
@@ -648,11 +649,13 @@ Function GetDrivesCallBack
 		Push $0
 FunctionEnd
 
+# en-/disables selection status
 Function RequiredSelections
 
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
          SectionSetFlags ${AdblockPlus} $0
    	 SectionSetFlags ${CMonster} $0
+	 SectionSetFlags ${VideoDownloadHelper} $0
          SectionSetFlags ${HTTPSEverywhere} $0
          SectionSetFlags ${JonDoFox} $0
          SectionSetFlags ${NoScript} $0         
