@@ -37,7 +37,6 @@ user_pref("browser.feeds.showFirstRunUI", false);
 user_pref("browser.fixup.alternate.enabled", false);
 user_pref("browser.history_expire_days", 0);
 user_pref("browser.history_expire_days.mirror", 180);
-user_pref("browser.identity.ssl_domain_display", 2);
 user_pref("browser.microsummary.enabled", false);
 user_pref("browser.migration.version", 1);
 user_pref("browser.offline", false);
