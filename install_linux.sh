@@ -192,7 +192,7 @@ saveInstalledBookmarks()
                 fi
                 SAVED_HTTPSEverywhereUserRules="${FIREFOX_SETTINGS_PATH}/HTTPSEverywhereUserRules_backup"
                 mkdir "${SAVED_HTTPSEverywhereUserRules}"
-                cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}"/*.xml "${SAVED_HTTPSEverywhereUserRules}"/
+                cp ${COPY_RECURSIVE_OPT} ${COPY_OVERWRITE_OPT} ${VERBOSE} "${HTTPSEverywhereUserRules}"/*.xml "${SAVED_HTTPSEverywhereUserRules}"/ 2> /dev/null
         fi
 	return 0
 }
@@ -237,7 +237,7 @@ restoreBookmarks()
                 if [ ! -d "${HTTPSEverywhereUserRules}" ]; then
 			mkdir "${HTTPSEverywhereUserRules}"
 		fi
-		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}"/*.xml "${HTTPSEverywhereUserRules}"/
+		cp ${COPY_RECURSIVE_OPT} "${SAVED_HTTPSEverywhereUserRules}"/*.xml "${HTTPSEverywhereUserRules}"/  2> /dev/null
                 rm -r "${SAVED_HTTPSEverywhereUserRules}"
 	fi
 }
@@ -274,7 +274,7 @@ editProfilesIni()
 		if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
 		kdialog --error "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
         elif [ $ZENITY ]; then
-			zenity --error --text "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
+			zenity --error --text "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"  2> /dev/null
 		else
 			echo "ERROR: No profiles.ini found. You can specify the path to this file with the option -f"
 		fi
@@ -384,7 +384,7 @@ promptOverwrite()
            fi
         elif [ $ZENITY ]; then
 
-		   zenity --question --title "New JonDoFox version" --text "Do you want to update your JonDoFox profil?\nIt will keep your bookmarks, passwords,\ncertificate databases and other settings." --no-wrap
+		   zenity --question --title "New JonDoFox version" --text "Do you want to update your JonDoFox profil?\nIt will keep your bookmarks, passwords,\ncertificate databases and other settings." --no-wrap  2> /dev/null
 		   dialog_return=$?		
 		   if [ $dialog_return -eq 1 ]; then
 			  return 1
@@ -439,7 +439,7 @@ if [ $? -ne 0 ]; then
     if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
         kdialog --error "Your Firefox is running. Please quit Firefox/Iceweasel first."
 	elif [ $ZENITY ]; then
-		zenity --error --text "Your Firefox is running. Please quit Firefox/Iceweasel first."
+		zenity --error --text "Your Firefox is running. Please quit Firefox/Iceweasel first."  2> /dev/null
 	else
 		echo "Your Firefox is running. Please quit Firefox first."
 	fi
@@ -454,7 +454,7 @@ if [ "${REMOVE}" = "TRUE" ]; then
 		if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
 		kdialog --error "Cannot remove JonDoFox, because it is not installed."
         elif [ $ZENITY ]; then
-			zenity --error --text "Cannot remove JonDoFox, because it is not installed."
+			zenity --error --text "Cannot remove JonDoFox, because it is not installed."  2> /dev/null
 		else
 			echo "Cannot remove JonDoFox, because it is not installed."
 		fi
@@ -473,7 +473,7 @@ if [ $? -eq 0 ]; then
 		if test "X$KDE_FULL_SESSION" = "Xtrue" ; then
 		kdialog --error "Could not edit profiles.ini: Restoring old settings and abort installation!"
         elif [ $ZENITY ]; then
-			zenity --error --text "Could not edit profiles.ini: Restoring old settings and abort installation!"
+			zenity --error --text "Could not edit profiles.ini: Restoring old settings and abort installation!"  2> /dev/null
 		else
 			echo "Could not edit profiles.ini: Restoring old settings and abort installation!"
 		fi
