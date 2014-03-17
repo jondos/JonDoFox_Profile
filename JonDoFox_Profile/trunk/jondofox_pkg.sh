@@ -254,7 +254,7 @@ createLinuxPackage()
 		#$SEDBIN -i "s/Arial/Liberation Sans/" prefs.js
 		
 		cd ..
-		chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
+		chmod -R ugo-x,u+rwX,go-rwX "${JONDOFOX_PROFILE}"
 		cd ..
 
 		echo "Creating linux archiv 'jondofox_linux_bsd_${lang}.tar.bz2'"
