@@ -346,6 +346,8 @@ copyProfileFolder()
 		return 1
 	fi
 	restoreBookmarks
+        # fix permissions for profile
+        chmod -R ugo-x,u+rwX,go-rw "${DEST_PROFILE}"
 	echo "JonDoFox successfully installed!"
 	return 0
 }

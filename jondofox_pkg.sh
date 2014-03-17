@@ -236,7 +236,16 @@ createLinuxPackage()
 		chmod -f 755 "jondofox_linux_bsd/install_jondofox.sh"		
 
 		cd "jondofox_linux_bsd/${JONDOFOX_PROFILE}"
-		
+
+                case "${lang}" in 
+		   "en-US") 		
+                      rm searchplugins/ixquick---deutsch.xml
+                      rm searchplugins/ixquick-ssl-pictures---deutsch.xml
+                      rm searchplugins/ssl-wikipedia-deutsch.xml
+                      rm searchplugins/startpage-https---deutsch.xml
+                      ;;
+		esac
+
 		# Set bookmarks
 		cp "places.sqlite_${lang}" places.sqlite
 
@@ -251,10 +260,11 @@ createLinuxPackage()
 		fi
 
 		# replace "Arial" by "Liberation Sans"
-		#$SEDBIN -i "s/Arial/Liberation Sans/" prefs.js
+		$SEDBIN -i "s/Arial/Liberation Sans/" prefs.js
 		
 		cd ..
-		chmod -R ugo-x,u+rwX,go-rwX "${JONDOFOX_PROFILE}"
+                chmod -x "${JONDOFOX_PROFILE}"/searchplugins/*.xml
+		chmod -R ugo-x,u+rwX,go+rX,go-w "${JONDOFOX_PROFILE}"
 		cd ..
 
 		echo "Creating linux archiv 'jondofox_linux_bsd_${lang}.tar.bz2'"
