@@ -1,3 +1,10 @@
+jondofox (2.9.0-3) unstable; urgency=low
+
+  * only updates of add-ons, no profil update required
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 29 Apr 2014 18:00:23 +0100
+
+
 jondofox (2.9.0-2) unstable; urgency=low
 
   * only updates of add-ons, no profil update required
