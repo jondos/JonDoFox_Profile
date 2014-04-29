@@ -1,3 +1,11 @@
+jondofox (2.9.0-2) unstable; urgency=low
+
+  * only updates of add-ons, no profil update required
+  * update default bookmarks for temporäry email adresses
+
+ -- JonDos GmbH <info@jondos.de>  Wed, 19 Mar 2014 18:00:23 +0100
+
+
 jondofox (2.9.0-1) unstable; urgency=low
 
   * only updates of add-ons, no profil update required

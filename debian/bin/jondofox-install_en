@@ -141,9 +141,9 @@ variablesOsSpecific()
 	JONDOFOX_PROFILE_ENTRY="Name=JonDoFox\nIsRelative=1\nPath=${FIREFOX_PROFILES_FOLDER}${JONDOFOX_PROFILE_NAME}\nDefault=1"
 
 	OVERWRITE_DIALOG_TITLE="Overwrite existing JonDoFox"
-	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
-	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
-	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keeping your bookmarks), or delete it?"
+	DIALOG_TEXT_SAME_VERSION="You already have a JonDoFox installation of the same version ($(getInstalledVersion)). Do you want to overwrite it, (keep your bookmarks), or delete it?"
+	DIALOG_TEXT_OW_NEWER_VERSION="WARNING: You have already installed a newer version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keep your bookmarks), or delete it?"
+	DIALOG_TEXT_OW_OLDER_VERSION="You have already installed an older version of JonDoFox ($(getInstalledVersion)). Do you want to overwrite it, (keep your bookmarks), or delete it?"
 
 	if [ "${VERBOSE}" ]; then
 		echo "Installing JonDoFox $(getInstalledVersion) with these settings:"
