@@ -133,3 +133,6 @@ pref("dwhelper.file-extension-mode","ask");
 pref("dwhelper.last-conv-license-status","unknown");
 pref("dwhelper.show-expire-menu",false);
 pref("dwhelper.yt-visitor-cookie","keep");
+pref("dwhelper.yt-network-hit","cancel");
+pref("dwhelper.yt-meta-referrer",false);
+pref("dwhelper.yt-cache-timing",60000);
