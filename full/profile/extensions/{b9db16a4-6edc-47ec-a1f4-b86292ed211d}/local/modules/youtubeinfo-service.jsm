@@ -73,6 +73,16 @@ function YTInfo() {
 				*/
 		}
 
+		var $this=this;
+		this.videoMap={};
+		this.videoMapCleanTiming=this.pref.getIntPref("yt-cache-timing");
+		this.videoMapCleanTimer=Components.classes["@mozilla.org/timer;1"].createInstance(Components.interfaces.nsITimer);
+		this.videoMapCleanTimer.initWithCallback({
+			notify: function(timer) {
+				$this.videoMapCleanup();
+			},
+		},10000,Components.interfaces.nsITimer.TYPE_REPEATING_SLACK);
+
 	} catch(e) {
 		dump("[YTInfo] !!! constructor: "+e+"\n");
 	}
@@ -317,7 +327,256 @@ YTInfo.prototype.handleRequest=function(request) {
 	}
 }
 
+YTInfo.prototype.videoMapCleanup=function() {
+	//dump("YTInfo.prototype.videoMapCleanup\n");
+	var now=Date.now();
+	for(var vid in this.videoMap) {
+		if(this.videoMap[vid].timestamp+this.videoMapCleanTiming<now) {
+			delete this.videoMap[vid];
+			//dump("YTInfo.prototype.videoMapCleanup purge "+vid+"\n");
+		}
+	}
+}
+
+YTInfo.prototype.getVideoTitle=function(dom) {
+	var title=Util.xpGetString(dom,"/html/head/meta[@name='title']/@content");
+	if(title==null || title.length==0) {
+		title=Util.xpGetString(dom,".//h3[@id='playnav-restricted-title']/text()");
+	}
+	if(title==null || title.length==0) {
+		title=Util.xpGetString(dom,".//div[@class='content']/div/a/img[@title]/@title");
+	}			
+	if(title) {
+		title=Util.resolveNumericalEntities(title);
+		title=title.replace(/"/g,"");
+	}
+	return title;
+}
+
+YTInfo.prototype.getVideoFileName=function(title) {
+	var fileName=title;
+	var unmodifiedFilename=false;
+	try {
+		unmodifiedFilename=this.pref.getBoolPref("yt-unmodified-filename");		
+	} catch(e) {}
+	fileName=fileName.replace(/(?:[\/"\?\*:\|"'\\_]|&quot;|&amp;|&gt;|&lt;)+/g,"_");
+	if(unmodifiedFilename==false) {
+		var keepSpaces=false;
+		try {
+			keepSpaces=this.pref.getBoolPref("yt-keep-spaces");
+		} catch(e) {}
+		if(keepSpaces)
+			fileName=fileName.replace(/[^a-zA-Z0-9\.\- ]+/g,"_");
+		else
+			fileName=fileName.replace(/[^a-zA-Z0-9\.\-]+/g,"_");
+		fileName=fileName.replace(/^[^a-zA-Z0-9]+/,"");
+		fileName=fileName.replace(/[^a-zA-Z0-9]+$/,"");
+	}
+	if(title) {
+		title=title.replace(/&quot;/g,"\"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">");
+	}
+	return fileName;
+}
+
 YTInfo.prototype.handleDocument=function(document,window) {
+	try {
+		this.handleDocumentSpf(document,window);
+	} catch(e) {
+		dump("!!! [YTInfo] handleDocument: "+e+"\n")
+	}
+}
+
+YTInfo.prototype.handleDocumentSpf=function(document,window) {
+	var $this=this;
+	//dump("handleDocumentSpf "+document.URL+"\n")
+	var m = /^https?:\/\/[^\/]*\.?youtube\.[^\/\.]+\/.*[\?&]v=([a-zA-Z0-9\-_]+)/.exec(document.URL);
+	if(m) {
+		var videoId=m[1];
+
+		var title = this.getVideoTitle(document.documentElement);
+		
+		document=Components.utils.getWeakReference(document);
+		window=Components.utils.getWeakReference(window);
+		
+		function HandleMeta(js) {
+			var uefsm = null;
+			js.forEach(function(obj) {
+				for(var f in obj) {
+					if(f=="swfcfg" && obj.swfcfg.args) {
+						if(obj.swfcfg.args.title)
+							title = obj.swfcfg.args.title;
+						if(obj.swfcfg.args.url_encoded_fmt_stream_map)
+							uefsm = obj.swfcfg.args.url_encoded_fmt_stream_map;
+					}
+				}
+			});
+			if(!uefsm) {
+				dump("!!! [YouTubeInfoService: no variant format in meta information]: "+e+"\n");
+				return;							
+			}
+			var fileName = $this.getVideoFileName(title);
+			
+			var variants={};
+			uefsm.split(",").forEach(function(variant) {
+				var props={};
+				variant.split("&").forEach(function(prop) {
+					var pLine=decodeURIComponent(prop);
+					var m1=/^(.*?)=(.*)$/.exec(pLine);
+					if(m1)
+						props[m1[1]]=m1[2];
+				});
+				if(props.itag)
+					variants[props.itag]=props;
+			});
+
+			window=window.get();
+			document=document.get();
+			
+			if(!window) {
+				dump("!!! [YouTubeInfoService]: window expired\n");
+				return;
+			}
+			if(!document) {
+				dump("!!! [YouTubeInfoService]: document expired\n");
+				return;
+			}
+			
+			var desc=Components.classes["@mozilla.org/properties;1"].
+				createInstance(Components.interfaces.nsIProperties);
+			Util.setPropsString(desc,"page-url",document.URL);
+			Util.setPropsString(desc,"label",title);
+			Util.setPropsString(desc,"base-name",fileName);
+			Util.setPropsString(desc,"capture-method","youtube-hq");
+			Util.setPropsString(desc,"youtube-title",title);
+			Util.setPropsString(desc,"icon-url","http://www.youtube.com/favicon.ico");
+			try {
+				if(this.pbUtils) {
+					if(this.pbUtils.privacyContextFromWindow)
+						desc.set("loadContext", this.pbUtils.privacyContextFromWindow(window));
+					if(this.pbUtils.isWindowPrivate(window)) {
+						Util.setPropsString(desc,"private","yes");
+						var pbc=channel.QueryInterface(Components.interfaces.nsIPrivateBrowsingChannel);
+						pbc.setPrivate(true);
+					} else 
+						Util.setPropsString(desc,"private","no");
+				}
+			} catch(e) {
+				dump("!!! [YouTubeInfoService] setting loadContext: "+e+"\n");
+			}
+
+			var descIndex=0;
+			var formats=$this.pref.getCharPref("ythq-formats").split(",");
+			var selFormats={};
+			for(var i in formats) {
+				if(formats[i].length>0) {
+					selFormats[formats[i]]=descIndex++;
+				}
+			}
+			
+			for(var format in selFormats) {
+				if(typeof(variants[format])!="undefined") {
+					var url=variants[format].url;
+					var desc1=$this.core.cloneEntry(desc);
+					Util.setPropsString(desc1,"media-url",url);
+					var extension=$this.getExtension(format);
+					var fileName=Util.getPropsString(desc,"base-name");
+					Util.setPropsString(desc1,"file-name",fileName+"."+extension);
+					Util.setPropsString(desc1,"file-extension",extension);
+					var title=Util.getPropsString(desc,"youtube-title");
+					var prefix=$this.getFormatPrefix(format);
+					Util.setPropsString(desc1,"label-prefix",prefix);
+					Util.setPropsString(desc1,"label",prefix+title);
+					$this.core.addEntryForDocument(desc1,document,window);
+					//dump("Added "+prefix+title+"\n");
+				}
+			}			
+		}
+		
+		
+		function StreamListener() {
+		}
+		StreamListener.prototype={
+				QueryInterface: function(iid) {
+				    if (!iid.equals(Components.interfaces.nsISupports) && 
+				    	!iid.equals(Components.interfaces.nsIStreamListener)) {
+				            throw Components.results.NS_ERROR_NO_INTERFACE;
+				        }
+				    return this;
+				},
+				onStartRequest: function(request,context) {
+					this.httpChannel=request.QueryInterface(Components.interfaces.nsIHttpChannel);
+					this.responseStatus=this.httpChannel.responseStatus;
+					this.data="";
+				},
+				onDataAvailable: function(request,context,inputStream,offset,count) {
+					var sstream = Components.classes["@mozilla.org/intl/converter-input-stream;1"]
+		                   .createInstance(Components.interfaces.nsIConverterInputStream);
+					sstream.init(inputStream, "utf-8", 256, 
+						Components.interfaces.nsIConverterInputStream.DEFAULT_REPLACEMENT_CHARACTER);
+					var str={};
+					var n=sstream.readString(128,str);
+					while(n>0) {
+						this.data+=str.value;
+						str={};
+						n=sstream.readString(128,str);
+					}
+				},
+				onStopRequest: function(request,context,nsresult) {
+					if(this.responseStatus==200) {
+						var js;
+						try {
+							js = JSON.parse(this.data);
+						} catch(e) {
+							dump("!!! [YouTubeInfoService: cannot JSON decode meta information]: "+e+"\n");
+							return;
+						}
+						videoData.js=js;
+						HandleMeta(js)
+					} else {
+						dump("!!! [YouTubeInfoService]: meta returns "+this.responseStatus+"\n");
+						window=window.get();
+						document=document.get();
+						
+						if(!window) {
+							dump("!!! [YouTubeInfoService]: window expired\n");
+							return;
+						}
+						if(!document) {
+							dump("!!! [YouTubeInfoService]: document expired\n");
+							return;
+						}
+						$this.handleDocumentOriginal(document,window);
+					}
+				}
+			}
+
+		this.videoMapCleanup();
+		var videoData=this.videoMap[videoId];
+		if(videoData) {
+			if(videoData.js)
+				HandleMeta(videoData.js);
+		} else {
+			videoData={
+				timestamp: Date.now(),
+			};
+			$this.videoMap[videoId] = videoData;
+			var ioService = Components.classes["@mozilla.org/network/io-service;1"]
+				.getService(Components.interfaces.nsIIOService);
+			var uri = ioService.newURI("http://www.youtube.com/watch?v="+videoId+"&spf=navigate", null, null);
+			var channel = ioService.newChannelFromURI(uri);
+
+			if(this.pref.getBoolPref("yt-meta-referrer")) {
+				var referrerURI = ioService.newURI("http://www.youtube.com/results?search_query="+encodeURIComponent(title), null, null);
+				var httpChannel = channel.QueryInterface(Components.interfaces.nsIHttpChannel);
+				httpChannel.referrer = referrerURI;
+			}
+			//dump("request meta "+uri.spec+"\n");
+			channel.asyncOpen(new StreamListener(), null);
+		}
+	}
+}
+
+YTInfo.prototype.handleDocumentOriginal=function(document,window) {
 	try {
 		var availFormats={};
 		if(/^https?:\/\/[^\/]*\.?youtube\.[^\/\.]+/.test(document.URL)) {
@@ -373,7 +632,7 @@ YTInfo.prototype.handleDocument=function(document,window) {
 					}
 				}				
 			}
-			
+
 			for(var i=0;i<scripts.length;i++) {
 				var script=scripts[i];
 				Extract(script);
@@ -398,7 +657,7 @@ YTInfo.prototype.handleDocument=function(document,window) {
 					}
 				}
 			}
-				
+
 			for(var i=0;i<scripts.length;i++) {
 				var script=scripts[i];
 				var match=/\"video_id\": \"(.*?)\".*\"t(?:oken)?\": \"(.*?)\"/m.exec(script);
