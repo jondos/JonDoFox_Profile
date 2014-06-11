@@ -13,7 +13,7 @@
 !define SHORTNAME "JonDoFoxPortable"
 !define VERSION "2.9.0.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "24.5.0esr"
+!define FF_VERSION "24.6.0esr"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "JonDoFoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -446,7 +446,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
                 SetOverwrite on
 
-                File /r /x .svn "..\..\..\full\profile\extensions\{45d8ff86-d909-11db-9705-005056c00008}\*.*"
+                File /r /x .svn "..\..\..\full\profile\extensions\{45d8ff86-d909-11db-9705-005056c00008}.xpi"
 
         SectionEnd
 
