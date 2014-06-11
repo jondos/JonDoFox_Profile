@@ -443,7 +443,7 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
                 StrCpy $ExtensionGUID "{45d8ff86-d909-11db-9705-005056c00008}"
                 StrCpy $ExtensionName "Cookie Monster"
 
-                SetOutPath "$ProfileExtensionPath\$ExtensionGUID"
+                SetOutPath "$ProfileExtensionPath"
                 SetOverwrite on
 
                 File /r /x .svn "..\..\..\full\profile\extensions\{45d8ff86-d909-11db-9705-005056c00008}.xpi"
