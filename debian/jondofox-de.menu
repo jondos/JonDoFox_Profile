@@ -1,5 +1,5 @@
 ?package(jondofox-de): needs="X11" \
-                    section="Apps/Net" \
+                    section="Applications/Network/Web Browsing" \
                     title="JonDoFox" \
                     command="jondofox-start" \
                     icon="jondofox.png"
