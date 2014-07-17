@@ -438,15 +438,15 @@ SectionGroup /e $(JonDoFoxProfile) ProfileGroup
         SectionEnd
 
 
-        Section "Cookie Monster" CMonster
+        Section "Cookie Controller" CookieController
         SectionIn 1 2
-                StrCpy $ExtensionGUID "{45d8ff86-d909-11db-9705-005056c00008}"
-                StrCpy $ExtensionName "Cookie Monster"
+                StrCpy $ExtensionGUID "{ac2cfa60-bc96-11e0-962b-0800200c9a66}"
+                StrCpy $ExtensionName "Cookie Controller"
 
                 SetOutPath "$ProfileExtensionPath"
                 SetOverwrite on
 
-                File /r /x .svn "..\..\..\full\profile\extensions\{45d8ff86-d909-11db-9705-005056c00008}.xpi"
+                File /r /x .svn "..\..\..\full\profile\extensions\{ac2cfa60-bc96-11e0-962b-0800200c9a66}.xpi"
 
         SectionEnd
 
