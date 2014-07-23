@@ -655,6 +655,7 @@ Function RequiredSelections
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
          SectionSetFlags ${AdblockPlus} $0
    	 # SectionSetFlags ${CMonster} $0
+	 SectionSetFlags ${CookieController} $0	 
 	 SectionSetFlags ${VideoDownloadHelper} $0
          SectionSetFlags ${HTTPSEverywhere} $0
          SectionSetFlags ${JonDoFox} $0
@@ -1180,6 +1181,7 @@ FunctionEnd
 ##======================================================================================================================================================
 ##                                                                           instPre
 ##======================================================================================================================================================
+
 
 
 Function instPre
