@@ -1,3 +1,12 @@
+jondofox (2.10.0) unstable; urgency=low
+
+  * Replaced CookieMonster by CookieController
+  * Update add-ons
+  * Update AdBlock filter lists 
+
+ -- JonDos GmbH <info@jondos.de>  Thu, 24 Jul 2014 13:00:23 +0100
+
+
 jondofox (2.9.0-4) unstable; urgency=low
 
   * only updates of add-ons, no profil update required
