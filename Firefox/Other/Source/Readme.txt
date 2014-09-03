@@ -1,6 +1,6 @@
 Firefox Portable Launcher
 =========================
-Copyright 2004-2008 John T. Haller of PortableApps.com
+Copyright 2004-2008 John T. Haller of PortableApps.comm
 
 Website: http://PortableApps.com/FirefoxPortable
 
