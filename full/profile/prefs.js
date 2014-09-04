@@ -33,6 +33,7 @@ user_pref("browser.download.manager.addToRecentDocs", false);
 user_pref("browser.download.manager.retention", 0);
 user_pref("browser.download.useDownloadDir", false);
 user_pref("browser.newtab.url", "about:blank");
+user_pref("browser.newtabpage.enabled", false);
 user_pref("browser.feeds.handler", "bookmarks");
 user_pref("browser.feeds.handler.default", "bookmarks");
 user_pref("browser.feeds.showFirstRunUI", false);
