@@ -9,6 +9,9 @@ File: \firefox.exe
 File: \freebl3.chk
 File: \freebl3.dll
 File: \gkmedias.dll
+File: \icudt52.dll
+File: \icuin52.dll
+File: \icuuc52.dll
 File: \libEGL.dll
 File: \libGLESv2.dll
 File: \maintenanceservice.exe
