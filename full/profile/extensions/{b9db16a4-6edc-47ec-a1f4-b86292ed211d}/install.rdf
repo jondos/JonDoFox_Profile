@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{b9db16a4-6edc-47ec-a1f4-b86292ed211d}</em:id>
-    <em:version>4.9.22</em:version>
+    <em:version>4.9.23</em:version>
     <em:type>2</em:type>
     <em:unpack>true</em:unpack>
    
