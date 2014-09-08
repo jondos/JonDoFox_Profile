@@ -86,7 +86,7 @@ user_pref("dwhelper.extended-download-menu", false);
 user_pref("dwhelper.first-time", false);
 user_pref("dwhelper.icon-animation", false);
 user_pref("dwhelper.icon-click", "open-popup");
-user_pref("dwhelper.last-version", "4.9.23");
+user_pref("dwhelper.last-version", "4.9.24");
 user_pref("dwhelper.safe-mode", false);
 user_pref("dwhelper.share-blacklist", false);
 user_pref("dwhelper.smartnamer.auto-share", false);
