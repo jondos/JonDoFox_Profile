@@ -1,3 +1,11 @@
+jondofox (2.10.0-1) unstable; urgency=low
+
+  * Update add-ons
+  * Update bookmarks
+
+ -- JonDos GmbH <info@jondos.de>  Tue, 09 Sep 2014 08:00:23 +0100
+
+
 jondofox (2.10.0) unstable; urgency=low
 
   * Replaced CookieMonster by CookieController
