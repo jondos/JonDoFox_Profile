@@ -13,7 +13,7 @@
 !define SHORTNAME "JonDoFoxPortable"
 !define VERSION "2.10.0.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "24.7.0esr"
+!define FF_VERSION "33.0.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "JonDoFoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
@@ -947,6 +947,7 @@ Function CheckFolder
 
         next:
         ${GetFileAttributes} "$R0" "DIRECTORY" $R1
+
         StrCmp $R1 0 parentLoop
 #        ${GetFileAttributes} "$R0" "READONLY" $R1
 #        StrCmp $R1 1 pathbad
