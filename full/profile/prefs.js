@@ -131,7 +131,7 @@ user_pref("general.buildID.override", "20141011015303");
 user_pref("general.oscpu.override", "Linux i686");
 user_pref("general.platform.override", "Linux i686");
 user_pref("general.productsub.override", "20100101");
-user_pref("general.useragent.override", "Mozilla/5.0 (X11; Linux i686; rv:33.0) Gecko/20100101 Firefox/33.0");
+user_pref("general.useragent.override", "Mozilla/5.0 (X11; Linux i686; rv:31.0) Gecko/20100101 Firefox/31.0");
 user_pref("general.useragent.vendor", "");
 user_pref("general.useragent.vendorSub", "");
 user_pref("geo.enabled", false);
