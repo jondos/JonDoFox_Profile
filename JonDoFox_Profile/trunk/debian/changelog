@@ -2,8 +2,9 @@ jondofox (2.10.0-2) unstable; urgency=low
 
   * Update add-ons
   * Update SSL certificate of AnonBox.net
+  * install new software signing key for future downloads
 
- -- JonDos GmbH <info@jondos.de>  Wed, 15 Sep 2014 09:00:23 +0100
+ -- JonDos GmbH <info@jondos.de>  Wed, 22 Sep 2014 09:00:23 +0100
 
 
 jondofox (2.10.0-1) unstable; urgency=low
