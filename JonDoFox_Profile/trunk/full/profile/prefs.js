@@ -221,7 +221,7 @@ user_pref("noscript.subscription.lastCheck", 1170365537);
 user_pref("noscript.temp", "");
 user_pref("noscript.toolbarToggle", 1);
 user_pref("noscript.untrusted", "falkag.net google-analytics.com googlesyndication.com doubleclick.net doubleclick.com");
-user_pref("noscript.version", "2.6.9.1");
+user_pref("noscript.version", "2.6.9.2");
 user_pref("pref.advanced.images.disable_button.view_image", false);
 user_pref("pref.advanced.javascript.disable_button.advanced", false);
 user_pref("pref.browser.homepage.disable_button.current_page", false);
