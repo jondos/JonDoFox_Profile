@@ -426,14 +426,15 @@ SectionEnd
 
 SectionGroup /e $(JonDoFoxProfile) ProfileGroup
 
-        Section "Adblock Plus" AdblockPlus
+        Section "Adblock Lite" AdblockPlus
         SectionIn 1 2
-                StrCpy $ExtensionName "Adblock Plus"
+                StrCpy $ExtensionName "Adblock Lite"
 
                 SetOutPath "$ProfileExtensionPath"
                 SetOverwrite on
 
-                File /r /x .svn "..\..\..\full\profile\extensions\{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}.xpi"
+                File /r /x .svn "..\..\..\full\profile\extensions\jid1-dwtFBkQjb3SIQp@jetpack.xpi
+"
 
         SectionEnd
 
