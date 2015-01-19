@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-apt-key add /usr/share/jondofox/software_jondos_pub.asc
-
 #DEBHELPER#
 
 exit 0
