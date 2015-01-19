@@ -51,10 +51,6 @@ install: build
 	install -m644 icons/linux/jondofox-64.png debian/jondofox-en/usr/share/icons/oxygen/64x64/apps/jondofox.png
 	install -m644 icons/linux/jondofox-128.png debian/jondofox-en/usr/share/icons/oxygen/128x128/apps/jondofox.png
 
-
-	install -m644 debian/software_jondos_pub.asc debian/jondofox-en/usr/share/jondofox/software_jondos_pub.asc
-	install -m644 debian/software_jondos_pub.asc debian/jondofox-de/usr/share/jondofox/software_jondos_pub.asc
-
 	install -m644 debian/jondofox.desktop debian/jondofox-en/usr/share/applications/
 	install -m644 debian/jondofox.desktop debian/jondofox-de/usr/share/applications/
 
