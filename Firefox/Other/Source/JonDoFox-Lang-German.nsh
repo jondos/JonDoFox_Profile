@@ -52,6 +52,8 @@ LangString DescCMonster ${LANG_GERMAN} "Kontrolliert Cookie-Berechtigungen"
 
 LangString DescHTTPSEverywhere ${LANG_GERMAN} "Erzwingt sichere Verbindungen zu Webseiten"
 
+LangString DescCanvasBlocker ${LANG_GERMAN} "Blockiert die <canvas>-JS-API um Canvas-Fingerprinting zu verhindern."
+
 LangString DescVideoDownloadHelper ${LANG_GERMAN} "Webinhalte wie Videos und Bilder aus Seiten extrahieren"
 
 LangString DescUnPlug ${LANG_GERMAN} "Erlaubt das Herunterladen von Videos von vielen Webseiten"

@@ -614,6 +614,8 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${AdblockPlus} $(DescAdblockPlus)
   # !insertmacro MUI_DESCRIPTION_TEXT ${CMonster} $(DescCMonster)
   !insertmacro MUI_DESCRIPTION_TEXT ${HTTPSEverywhere} $(DescHTTPSEverywhere)
+  # KGr, 26.02.2015
+  !insertmacro MUI_DESCRIPTION_TEXT ${CanvasBlocker} $(DescCanvasBlocker)
   # KGr, 12.02.2014
   !insertmacro MUI_DESCRIPTION_TEXT ${VideoDownloadHelper} $(DescVideoDownloadHelper)
   !insertmacro MUI_DESCRIPTION_TEXT ${JonDoFox} $(DescJonDoFox)
@@ -667,7 +669,8 @@ Function RequiredSelections
          IntOp $0 ${SF_SELECTED} | ${SF_RO}
          SectionSetFlags ${AdblockPlus} $0
    	 # SectionSetFlags ${CMonster} $0
-	 SectionSetFlags ${CookieController} $0	 
+	 SectionSetFlags ${CookieController} $0	
+	 SectionSetFlags ${CanvasBlocker} $0 
 	 SectionSetFlags ${VideoDownloadHelper} $0
          SectionSetFlags ${HTTPSEverywhere} $0
          SectionSetFlags ${JonDoFox} $0
