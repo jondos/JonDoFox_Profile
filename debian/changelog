@@ -1,3 +1,12 @@
+jondofox (2.11.0) unstable; urgency=low
+
+  * Update add-ons
+  * Added Canvas Blocker
+  * Update Adblock Plus filter lists
+
+ -- JonDos GmbH <info@jondos.de>  Fri, 27 Feb 2015 09:00:23 +0100
+
+
 jondofox (2.10.0-4) unstable; urgency=low
 
   * Update add-ons
