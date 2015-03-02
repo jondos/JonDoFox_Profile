@@ -567,7 +567,7 @@ end restore_old_settings
 -- sets the version string of the profile to install
 on get_new_version()
 	-- set new_version_str to get_version(profile_parent_folder & jondoprofile_foldername & ":prefs.js")
-	set new_version_str to "2.10.0"
+	set new_version_str to "2.11.0"
 end get_new_version
 
 -- sets the version string of the already installed JonDoFox profile (if there is one)
