@@ -1,0 +1,10 @@
+<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/" xmlns:os="http://a9.com/-/spec/opensearch/1.1/">
+<os:ShortName>MetaGer</os:ShortName>
+<os:Description>Die Metasuche ueber deutschsprachige Suchmaschinen</os:Description>
+<os:InputEncoding>ISO-8859-1</os:InputEncoding>
+<os:Image width="16" height="16">data:image/x-icon;base64,AAABAAEAEBAQAAEAAwAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAgAAAAACAAACAgAAAAACAAIAAgAAAgIAAwMDAAICAgAD/AAAAAP8AAP//AAAAAP8A/wD/AAD//wD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJkACZCZmZmQmQAJkJmZmZCZAAmQmZmZmZmZCZmZmZmZmZmZmZkAmZmZmZmZmZmZmZmZCZmZmZmZCZkJmZmQmZkJmQmZmZCZkAmZCZmZkJmQCZmZAJmZmZn//////////////////////////zkB//85Af//OTn//ykh//8BP///EQH//zkB////////////////////////</os:Image>
+<SearchForm>https://www.metager.de/beta</SearchForm>
+<os:Url type="text/html" method="GET" template="https://www.metager.de/beta/meta/meta.ger3?eingabe={searchTerms}" resultDomain="metager.de">
+</os:Url><os:Url type="application/opensearchdescription+xml" method="GET" template="https://www.metager.de/beta/plugins/ffplug.xml" rel="self" resultDomain="metager.de">
+</os:Url>
+</SearchPlugin>
