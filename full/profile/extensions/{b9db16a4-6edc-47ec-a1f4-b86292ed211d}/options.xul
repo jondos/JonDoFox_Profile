@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <setting data-jetpack-id="{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" pref="extensions.dwhelper.settings" pref-name="settings" title="Settings" type="control">
+    <button data-jetpack-id="{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" label="..." oncommand="Services.obs.notifyObservers(null, '{b9db16a4-6edc-47ec-a1f4-b86292ed211d}-cmdPressed', 'settings');" pref-name="settings"/>
+  </setting>
+</vbox>
