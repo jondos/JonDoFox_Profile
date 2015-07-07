@@ -1,0 +1,1376 @@
+{
+ "abort_on_missing": false, 
+ "check_memory": false, 
+ "enable_e10s": false, 
+ "is-sdk-bundled": false, 
+ "jetpackID": "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}", 
+ "loader": "addon-sdk/lib/sdk/loader/cuddlefish.js", 
+ "main": "main", 
+ "mainPath": "downloadhelper/main", 
+ "manifest": {
+  "downloadhelper/about": {
+   "docsSHA256": null, 
+   "jsSHA256": "dcba56c299f74c100c7d3b13de3da1a40501f81f9e03fa3048ada750fb6feed1", 
+   "moduleName": "about", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "panels": "downloadhelper/panels", 
+    "sdk/self": "sdk/self", 
+    "sdk/tabs": "sdk/tabs"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/actions": {
+   "docsSHA256": null, 
+   "jsSHA256": "3c480e94bcfcd38e69260230debbca825d48f71b44e9022e18b39da872f4feaf", 
+   "moduleName": "actions", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "alerts": "downloadhelper/alerts", 
+    "blacklist": "downloadhelper/blacklist", 
+    "chrome": "chrome", 
+    "converter": "downloadhelper/converter", 
+    "downloads": "downloadhelper/downloads", 
+    "funding": "downloadhelper/funding", 
+    "hits": "downloadhelper/hits", 
+    "log": "downloadhelper/log", 
+    "panels": "downloadhelper/panels", 
+    "scrap": "downloadhelper/scrap", 
+    "sdk/core/heritage": "sdk/core/heritage", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/notifications": "sdk/notifications", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/util/object": "sdk/util/object", 
+    "sdk/view/core": "sdk/view/core", 
+    "sdk/windows": "sdk/windows"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/alerts": {
+   "docsSHA256": null, 
+   "jsSHA256": "df1a7d6fdc4ee74043c7ea98cb18a7240a94900f82f886b93b1f82cf0ad4878e", 
+   "moduleName": "alerts", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "panels": "downloadhelper/panels"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/blacklist": {
+   "docsSHA256": null, 
+   "jsSHA256": "d1bf708318843c4a0939953599e9d48261d08e8abfd91ffa68011e772bdeeba4", 
+   "moduleName": "blacklist", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/simple-storage": "sdk/simple-storage"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/chunks": {
+   "docsSHA256": null, 
+   "jsSHA256": "ddc50af9678f42f7491122403b84b523b6248605538bcfb6fd2cfa6f374c62d1", 
+   "moduleName": "chunks", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "actions": "downloadhelper/actions", 
+    "alerts": "downloadhelper/alerts", 
+    "chrome": "chrome", 
+    "converter": "downloadhelper/converter", 
+    "hits": "downloadhelper/hits", 
+    "panels": "downloadhelper/panels", 
+    "sdk/core/heritage": "sdk/core/heritage", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/private-browsing": "sdk/private-browsing", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/util/object": "sdk/util/object", 
+    "tpsr": "downloadhelper/tpsr", 
+    "utils": "downloadhelper/utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/converter": {
+   "docsSHA256": null, 
+   "jsSHA256": "6be3f87212043b47f87d9400117b51f9140197b3fb690adb255fea573dbae77a", 
+   "moduleName": "converter", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "actions": "downloadhelper/actions", 
+    "alerts": "downloadhelper/alerts", 
+    "chrome": "chrome", 
+    "hits": "downloadhelper/hits", 
+    "log": "downloadhelper/log", 
+    "panels": "downloadhelper/panels", 
+    "sdk/io/file": "sdk/io/file", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/private-browsing": "sdk/private-browsing", 
+    "sdk/request": "sdk/request", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/simple-storage": "sdk/simple-storage", 
+    "sdk/system": "sdk/system", 
+    "sdk/system/child_process": "sdk/system/child_process", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/util/object": "sdk/util/object", 
+    "sdk/windows": "sdk/windows", 
+    "utils": "downloadhelper/utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/downloads": {
+   "docsSHA256": null, 
+   "jsSHA256": "b7e4c3446d626cf08e6443e3cf247f0dbe819b5bfcdbc0c7cb7e9226bf4d6c85", 
+   "moduleName": "downloads", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/timers": "sdk/timers"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/extender": {
+   "docsSHA256": null, 
+   "jsSHA256": "2fdafbf1bdf8d19c0c0df184be3fd1a48cd101fa38f0f70b74d100098498d60c", 
+   "moduleName": "extender", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "actions": "downloadhelper/actions", 
+    "chrome": "chrome", 
+    "hits": "downloadhelper/hits", 
+    "sdk/core/heritage": "sdk/core/heritage", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system/unload": "sdk/system/unload", 
+    "sdk/util/object": "sdk/util/object"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/funding": {
+   "docsSHA256": null, 
+   "jsSHA256": "d56f5226beb3a9636b0d1e33bc8103a2c8b9866b0947692883f1b8908a9406a4", 
+   "moduleName": "funding", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "converter": "downloadhelper/converter", 
+    "panels": "downloadhelper/panels", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/tabs": "sdk/tabs"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/gallery": {
+   "docsSHA256": null, 
+   "jsSHA256": "ad4a41bbfda94c1190102b8c429c6f1dc95e0dad13dfe56b1852cac6166150b1", 
+   "moduleName": "gallery", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "hits": "downloadhelper/hits", 
+    "sdk/content/worker": "sdk/content/worker", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/page-mod": "sdk/page-mod", 
+    "sdk/private-browsing": "sdk/private-browsing", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/view/core": "sdk/view/core", 
+    "sdk/window/utils": "sdk/window/utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/hits": {
+   "docsSHA256": null, 
+   "jsSHA256": "06ee9a9fdaaf6f5c6f4548acae46efff78fed1e7e3a99cbe22efe843ea12aa69", 
+   "moduleName": "hits", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "actions": "downloadhelper/actions", 
+    "blacklist": "downloadhelper/blacklist", 
+    "chrome": "chrome", 
+    "prefs": "downloadhelper/prefs", 
+    "sdk/core/heritage": "sdk/core/heritage", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/util/object": "sdk/util/object", 
+    "sdk/view/core": "sdk/view/core", 
+    "sdk/windows": "sdk/windows", 
+    "utils": "downloadhelper/utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/hotkeys": {
+   "docsSHA256": null, 
+   "jsSHA256": "cd8b7aeef182559c92404da611c5976bd49fdf956ca7d66c6ef44af2fb52bd2a", 
+   "moduleName": "hotkeys", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "converter": "downloadhelper/converter", 
+    "gallery": "downloadhelper/gallery", 
+    "hits": "downloadhelper/hits", 
+    "scrap": "downloadhelper/scrap", 
+    "sdk/hotkeys": "sdk/hotkeys", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/view/core": "sdk/view/core", 
+    "sdk/windows": "sdk/windows", 
+    "sites": "downloadhelper/sites"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/log": {
+   "docsSHA256": null, 
+   "jsSHA256": "9ab2f42f75ee636d2e6c5d3bff38794df727f5b08dc6dcd27f1ea534c08b0252", 
+   "moduleName": "log", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "panels": "downloadhelper/panels", 
+    "sdk/util/object": "sdk/util/object"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/main": {
+   "docsSHA256": null, 
+   "jsSHA256": "bf9dae61e190a209a5746528968f05114b07744f5ed09d3afbcbbe9a5a1a563f", 
+   "moduleName": "main", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "about": "downloadhelper/about", 
+    "actions": "downloadhelper/actions", 
+    "blacklist": "downloadhelper/blacklist", 
+    "chrome": "chrome", 
+    "converter": "downloadhelper/converter", 
+    "extender": "downloadhelper/extender", 
+    "funding": "downloadhelper/funding", 
+    "gallery": "downloadhelper/gallery", 
+    "hits": "downloadhelper/hits", 
+    "hotkeys": "downloadhelper/hotkeys", 
+    "log": "downloadhelper/log", 
+    "menus": "downloadhelper/menus", 
+    "network-probe": "downloadhelper/network-probe", 
+    "panels": "downloadhelper/panels", 
+    "prefs": "downloadhelper/prefs", 
+    "safemode": "downloadhelper/safemode", 
+    "scrap": "downloadhelper/scrap", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/page-mod": "sdk/page-mod", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system/unload": "sdk/system/unload", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/ui": "sdk/ui", 
+    "settings": "downloadhelper/settings", 
+    "sites": "downloadhelper/sites", 
+    "smartnames": "downloadhelper/smartnames", 
+    "tbvws": "downloadhelper/tbvws", 
+    "tfvws": "downloadhelper/tfvws", 
+    "tpsr": "downloadhelper/tpsr", 
+    "utils": "downloadhelper/utils", 
+    "variants": "downloadhelper/variants"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/menus": {
+   "docsSHA256": null, 
+   "jsSHA256": "c950ea6d784765a18e7ec6e6c4012df318c5703768573c41fd463d21cec00c8a", 
+   "moduleName": "menus", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "about": "downloadhelper/about", 
+    "actions": "downloadhelper/actions", 
+    "converter": "downloadhelper/converter", 
+    "gallery": "downloadhelper/gallery", 
+    "hits": "downloadhelper/hits", 
+    "scrap": "downloadhelper/scrap", 
+    "sdk/context-menu": "sdk/context-menu", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system/unload": "sdk/system/unload", 
+    "sdk/timers": "sdk/timers", 
+    "settings": "downloadhelper/settings", 
+    "sites": "downloadhelper/sites", 
+    "smartnames": "downloadhelper/smartnames", 
+    "tpsr": "downloadhelper/tpsr", 
+    "utils": "downloadhelper/utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/network-probe": {
+   "docsSHA256": null, 
+   "jsSHA256": "09d06bfb50d6e1aa5dade8e98aebe292fbe8f38b6a610ac9fa7e9aea11e9a145", 
+   "moduleName": "network-probe", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "chunks": "downloadhelper/chunks", 
+    "sdk/content/worker": "sdk/content/worker", 
+    "sdk/event/core": "sdk/event/core", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/private-browsing": "sdk/private-browsing", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system/events": "sdk/system/events", 
+    "sdk/system/unload": "sdk/system/unload", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/view/core": "sdk/view/core", 
+    "sdk/window/utils": "sdk/window/utils", 
+    "smartnames": "downloadhelper/smartnames", 
+    "tbvws": "downloadhelper/tbvws", 
+    "utils": "downloadhelper/utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/panels": {
+   "docsSHA256": null, 
+   "jsSHA256": "bee603a0b083ceb8a5da67daca8fd75c659bbd95693595ab11559af8ccc29674", 
+   "moduleName": "panels", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "@l10n/data": "@l10n/data", 
+    "prefs": "downloadhelper/prefs", 
+    "sdk/panel": "sdk/panel", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system/unload": "sdk/system/unload", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/util/object": "sdk/util/object", 
+    "sdk/window/utils": "sdk/window/utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/prefs": {
+   "docsSHA256": null, 
+   "jsSHA256": "43f4a82d028d0e1cabd6f31fab550a62a2e8dd96fc740f49b6ca4c7888007138", 
+   "moduleName": "prefs", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "sdk/simple-prefs": "sdk/simple-prefs"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/safemode": {
+   "docsSHA256": null, 
+   "jsSHA256": "640d304be2dc6e7d9cd8aa9e86f00609e8672064d2396bd54e67f9297504f156", 
+   "moduleName": "safemode", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "alerts": "downloadhelper/alerts", 
+    "chrome": "chrome", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/page-mod": "sdk/page-mod", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/timers": "sdk/timers"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/scrap": {
+   "docsSHA256": null, 
+   "jsSHA256": "9362a40c712c7984118d592d4ac654720e505b36a84aa98d362190e72b88d70f", 
+   "moduleName": "scrap", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "actions": "downloadhelper/actions", 
+    "alerts": "downloadhelper/alerts", 
+    "chrome": "chrome", 
+    "converter": "downloadhelper/converter", 
+    "downloads": "downloadhelper/downloads", 
+    "hits": "downloadhelper/hits", 
+    "log": "downloadhelper/log", 
+    "menus": "downloadhelper/menus", 
+    "panels": "downloadhelper/panels", 
+    "sdk/core/heritage": "sdk/core/heritage", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/private-browsing": "sdk/private-browsing", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/view/core": "sdk/view/core", 
+    "sdk/windows": "sdk/windows", 
+    "smartnames": "downloadhelper/smartnames"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/settings": {
+   "docsSHA256": null, 
+   "jsSHA256": "ba808b8c0a17ead95eacc8d71904594e41a496b0d1c5801f9b54b7e3269d4b73", 
+   "moduleName": "settings", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "actions": "downloadhelper/actions", 
+    "blacklist": "downloadhelper/blacklist", 
+    "converter": "downloadhelper/converter", 
+    "panels": "downloadhelper/panels", 
+    "safemode": "downloadhelper/safemode", 
+    "sdk/private-browsing": "sdk/private-browsing", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system": "sdk/system", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/window/utils": "sdk/window/utils", 
+    "smartnames": "downloadhelper/smartnames", 
+    "variants": "downloadhelper/variants"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/sites": {
+   "docsSHA256": null, 
+   "jsSHA256": "638c914762defb6d1aa2bb36851b166f5e3c8d3ca9a9c24863601dd3a7f12c8e", 
+   "moduleName": "sites", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "panels": "downloadhelper/panels", 
+    "sdk/request": "sdk/request", 
+    "sdk/simple-storage": "sdk/simple-storage", 
+    "sdk/tabs": "sdk/tabs"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/smartnames": {
+   "docsSHA256": null, 
+   "jsSHA256": "8aed78398a97b10509fa72cf7856e56f38b3e0ff2c001d02457aad987dd8c032", 
+   "moduleName": "smartnames", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "panels": "downloadhelper/panels", 
+    "sdk/content/worker": "sdk/content/worker", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/simple-storage": "sdk/simple-storage", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/util/object": "sdk/util/object", 
+    "utils": "downloadhelper/utils"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/tbvws": {
+   "docsSHA256": null, 
+   "jsSHA256": "ea17404e93440bfd67cd993b97177e0fffeb15442ada48b68146ef47f7a57e66", 
+   "moduleName": "tbvws", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "converter": "downloadhelper/converter", 
+    "menus": "downloadhelper/menus", 
+    "sdk/context-menu": "sdk/context-menu", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/page-mod": "sdk/page-mod", 
+    "sdk/private-browsing": "sdk/private-browsing", 
+    "sdk/request": "sdk/request", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system/unload": "sdk/system/unload", 
+    "sdk/timers": "sdk/timers", 
+    "sdk/util/object": "sdk/util/object", 
+    "utils": "downloadhelper/utils", 
+    "variants": "downloadhelper/variants"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/tfvws": {
+   "docsSHA256": null, 
+   "jsSHA256": "58c4927077639ef4e6493ece220bcfa6bb2de7cbc24fc24bad68802c77c7332c", 
+   "moduleName": "tfvws", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/page-mod": "sdk/page-mod", 
+    "sdk/private-browsing": "sdk/private-browsing", 
+    "sdk/request": "sdk/request", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/util/object": "sdk/util/object", 
+    "variants": "downloadhelper/variants"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/tpsr": {
+   "docsSHA256": null, 
+   "jsSHA256": "69877f9b73075cf19140e68eb58c61f5e8487af3bc5177779aa7768f35bd5675", 
+   "moduleName": "tpsr", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "converter": "downloadhelper/converter", 
+    "hits": "downloadhelper/hits", 
+    "panels": "downloadhelper/panels", 
+    "sdk/page-mod": "sdk/page-mod", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system/unload": "sdk/system/unload", 
+    "sdk/tabs": "sdk/tabs", 
+    "sdk/timers": "sdk/timers"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/utils": {
+   "docsSHA256": null, 
+   "jsSHA256": "8badf22ff89d2ba039154455170bea42f71a4413be223e88638e124db465ce9a", 
+   "moduleName": "utils", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "sdk/system/unload": "sdk/system/unload"
+   }, 
+   "sectionName": "lib"
+  }, 
+  "downloadhelper/variants": {
+   "docsSHA256": null, 
+   "jsSHA256": "603061719de2e35b81ae7bb98b3cb9d6337c5d1a9ab04cf1580aa8520c8bfa5c", 
+   "moduleName": "variants", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/simple-storage": "sdk/simple-storage", 
+    "sdk/util/object": "sdk/util/object"
+   }, 
+   "sectionName": "lib"
+  }
+ }, 
+ "metadata": {
+  "addon-sdk": {
+   "description": "Add-on development made easy.", 
+   "keywords": [
+    "javascript", 
+    "engine", 
+    "addon", 
+    "extension", 
+    "xulrunner", 
+    "firefox", 
+    "browser"
+   ], 
+   "license": "MPL 2.0", 
+   "name": "addon-sdk"
+  }, 
+  "downloadhelper": {
+   "author": "mig@downloadhelper.net", 
+   "description": "Download Videos from the Web", 
+   "homepage": "http://www.downloadhelper.net/", 
+   "license": "Proprietary", 
+   "main": "main", 
+   "name": "downloadhelper", 
+   "permissions": {
+    "private-browsing": true
+   }, 
+   "version": "5.3.1"
+  }
+ }, 
+ "name": "downloadhelper", 
+ "parseable": false, 
+ "preferences": [
+  {
+   "label": "...", 
+   "name": "settings", 
+   "title": "Settings", 
+   "type": "control"
+  }, 
+  {
+   "hidden": true, 
+   "name": "need-prefs-migration", 
+   "title": "need-prefs-migration", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "Scan network traffic to detect hits.", 
+   "hidden": true, 
+   "name": "network-probe", 
+   "title": "Network probe", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "Regular expression to ignore some media urls.", 
+   "hidden": true, 
+   "name": "network-filter-out", 
+   "title": "Network filter out", 
+   "type": "string", 
+   "value": "/frag\\\\([0-9]+\\\\)/|[&\\\\?]range=[0-9]+-[0-9]+|/silverlight/"
+  }, 
+  {
+   "description": "Force detect media above this size.", 
+   "hidden": true, 
+   "name": "mediaweight-threshold", 
+   "title": "Size threshold", 
+   "type": "integer", 
+   "value": 1048576
+  }, 
+  {
+   "description": "Ignore hits below this size.", 
+   "hidden": true, 
+   "name": "mediaweight-min-size", 
+   "title": "Minimum size", 
+   "type": "integer", 
+   "value": 4096
+  }, 
+  {
+   "description": "Timeout in seconds before removing orphan hits.", 
+   "hidden": true, 
+   "name": "orphan-expiration", 
+   "title": "Orphan expiration timeout", 
+   "type": "integer", 
+   "value": 60
+  }, 
+  {
+   "description": "When to activate the toolbar icon.", 
+   "hidden": true, 
+   "name": "icon-activation", 
+   "title": "Icon activation", 
+   "type": "string", 
+   "value": "anytab"
+  }, 
+  {
+   "description": "Maximum number of displayed variants for a same video.", 
+   "hidden": true, 
+   "name": "qualities-max", 
+   "title": "Max variants", 
+   "type": "integer", 
+   "value": 6
+  }, 
+  {
+   "description": "Pin hit after download.", 
+   "hidden": true, 
+   "name": "auto-pin", 
+   "title": "Auto Pin", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "description": "Action to be picked by default in category 0.", 
+   "hidden": true, 
+   "name": "default-action-0", 
+   "title": "Default action 0", 
+   "type": "string", 
+   "value": "download"
+  }, 
+  {
+   "description": "Action to be picked by default in category 1.", 
+   "hidden": true, 
+   "name": "default-action-1", 
+   "title": "Default action 1", 
+   "type": "string", 
+   "value": "openlocalfile"
+  }, 
+  {
+   "description": "Action to be picked by default in category 2.", 
+   "hidden": true, 
+   "name": "default-action-2", 
+   "title": "Default action 2", 
+   "type": "string", 
+   "value": "abort"
+  }, 
+  {
+   "description": "Minimum width of every addon panel", 
+   "hidden": true, 
+   "name": "min-panel-width", 
+   "title": "Minimum panel width", 
+   "type": "integer", 
+   "value": 320
+  }, 
+  {
+   "description": "Maximum width of every addon panel", 
+   "hidden": true, 
+   "name": "max-panel-width", 
+   "title": "Maximum panel width", 
+   "type": "integer", 
+   "value": 500
+  }, 
+  {
+   "hidden": true, 
+   "name": "show-hits-inactive", 
+   "title": "Show inactive hits", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "show-hits-orphan", 
+   "title": "Show orphan hits", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "show-hits-pinned", 
+   "title": "Show pinned hits", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "show-hits-running", 
+   "title": "Show running hits", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "show-logs", 
+   "title": "Show logs", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "advanced-settings", 
+   "title": "Advanced settings", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "adaptative-count", 
+   "title": "Number of adaptative entries in the preferred variants", 
+   "type": "integer", 
+   "value": 4
+  }, 
+  {
+   "description": "Controls the number of addon-generated downloads running simultaneously to preserve some bandwidth.", 
+   "hidden": true, 
+   "name": "download.controlled.max", 
+   "title": "Maximum simultaneous downloads", 
+   "type": "integer", 
+   "value": 4
+  }, 
+  {
+   "description": "Whether the icon animates when some hits are active.", 
+   "hidden": true, 
+   "name": "icon-animation", 
+   "title": "Icon animation", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "Display drop down triangle on icon.", 
+   "hidden": true, 
+   "name": "icon-marker", 
+   "title": "Icon drop-down marker", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "Toolbar icon badge display.", 
+   "hidden": true, 
+   "name": "icon-badge", 
+   "title": "Icon badge", 
+   "type": "string", 
+   "value": "mixed"
+  }, 
+  {
+   "description": "Prevent some sites to activate media recognition.", 
+   "hidden": true, 
+   "name": "blacklist-enable", 
+   "title": "Enable blacklist", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "Extract name from the containing page.", 
+   "hidden": true, 
+   "name": "smartnamer.enabled", 
+   "title": "Use smartnaming", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "Ensures generated file names do not exceed this size.", 
+   "hidden": true, 
+   "name": "smartnamer.fname.maxlen", 
+   "title": "Max filename length", 
+   "type": "integer", 
+   "value": 64
+  }, 
+  {
+   "description": "What to do with spaces within file names.", 
+   "hidden": true, 
+   "name": "smartnamer.fname.spaces", 
+   "title": "File names space replacement", 
+   "type": "string", 
+   "value": "keep"
+  }, 
+  {
+   "description": "Toolbar icon badge display errors if any in priority.", 
+   "hidden": true, 
+   "name": "icon-badge-error", 
+   "title": "Badge error display", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "description": "Animates hits when changed in the lists.", 
+   "hidden": true, 
+   "name": "hits-animation", 
+   "title": "Hits animation", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "supports-vp9", 
+   "title": "Supports VP9 codec", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "converter-path", 
+   "title": "Converter binary path", 
+   "type": "string", 
+   "value": ""
+  }, 
+  {
+   "hidden": true, 
+   "name": "converter-ok", 
+   "title": "Converter working", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "converter-checked", 
+   "title": "Converter checked", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "supports-vp9", 
+   "title": "Supports VP9 codec", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "conversion-no-pass1-params", 
+   "title": "Conversion no pass 1 params", 
+   "type": "string", 
+   "value": "c:a,ar,ab,b:a"
+  }, 
+  {
+   "hidden": true, 
+   "name": "converter-keep-tmp-files", 
+   "title": "Keep temporary files after conversion", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "converter-log-calls", 
+   "title": "Log converter calls", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "converter-aggreg-tune-h264", 
+   "title": "Aggregation H264 with tuned settings", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "converter-threads", 
+   "title": "Multi-threaded conversion", 
+   "type": "string", 
+   "value": "auto"
+  }, 
+  {
+   "hidden": true, 
+   "name": "exclude-msasf", 
+   "title": "Exclude MS-ASF files from capture", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "media-extensions", 
+   "title": "List of extensions to be detected as media", 
+   "type": "string", 
+   "value": "flv|ram|mpg|mpeg|avi|rm|wmv|mov|asf|mp3|rar|movie|divx|rbs|mp4|mpeg4"
+  }, 
+  {
+   "hidden": true, 
+   "name": "safe-mode", 
+   "title": "Safe mode", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "sites-order-field", 
+   "title": "Order field for supported site", 
+   "type": "string", 
+   "value": "duration"
+  }, 
+  {
+   "hidden": true, 
+   "name": "sites-order-direction", 
+   "title": "Order direction for supported site", 
+   "type": "integer", 
+   "value": 1
+  }, 
+  {
+   "hidden": true, 
+   "name": "download-count", 
+   "title": "Download counter", 
+   "type": "integer", 
+   "value": 0
+  }, 
+  {
+   "hidden": true, 
+   "name": "donate-not-again", 
+   "title": "Prevent donation panel", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "donate-not-again-expire", 
+   "title": "Expiration for donation panel blocking", 
+   "type": "integer", 
+   "value": 0
+  }, 
+  {
+   "hidden": true, 
+   "name": "shortcut-icons", 
+   "title": "Shortcut icons in main panel", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "commands-section", 
+   "title": "Display global commands with words", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "notify-ready", 
+   "title": "Display notification when hit ready", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "no-private-notification", 
+   "title": "No notification for hits from private windows", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "max-hits-per-source", 
+   "title": "Prevent single window from generating many hits", 
+   "type": "integer", 
+   "value": 15
+  }, 
+  {
+   "hidden": true, 
+   "name": "qr-message-not-again", 
+   "title": "Do not display message about QR code", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "medialink-extensions", 
+   "title": "URL extension to be captured in the galleries", 
+   "type": "string", 
+   "value": "jpg|jpeg|gif|png|mpg|mpeg|avi|rm|wmv|mov|flv|mp3|mp4"
+  }, 
+  {
+   "hidden": true, 
+   "name": "medialink-max-hits", 
+   "title": "Maximum number of gallery links to consider", 
+   "type": "integer", 
+   "value": 50
+  }, 
+  {
+   "hidden": true, 
+   "name": "medialink-min-files-per-group", 
+   "title": "Minimum number of gallery files to consider the group", 
+   "type": "integer", 
+   "value": 6
+  }, 
+  {
+   "hidden": true, 
+   "name": "medialink-min-img-size", 
+   "title": "Minimum image size to consider", 
+   "type": "integer", 
+   "value": 80
+  }, 
+  {
+   "hidden": true, 
+   "name": "medialink-auto-detect", 
+   "title": "Detect galleries automatically on loaded pages", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "medialink-scan-images", 
+   "title": "Scan for embedded images in pages", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "medialink-scan-links", 
+   "title": "Scan for links to media in pages", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "medialink-index-prefix", 
+   "title": "Prefix file names with incremental index", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "extend", 
+   "title": "Extend the add-on", 
+   "type": "string", 
+   "value": ""
+  }, 
+  {
+   "hidden": true, 
+   "name": "cmenu-mode", 
+   "title": "Context menu mode", 
+   "type": "string", 
+   "value": "both"
+  }, 
+  {
+   "hidden": true, 
+   "name": "context-menu", 
+   "title": "Use context menu", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "companion-enabled", 
+   "title": "Enable companion button", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "companion-default-op", 
+   "title": "Companion default operation", 
+   "type": "string", 
+   "value": "sites"
+  }, 
+  {
+   "hidden": true, 
+   "name": "file-ext-change-not-again", 
+   "title": "Do not see file extension change message", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "ignore-embedded", 
+   "title": "Ignore embedded videos", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "dlconv-rename", 
+   "title": "Offer renaming dialog in download & convert", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "hotkey.default", 
+   "title": "Hot key for default action", 
+   "type": "string", 
+   "value": "alt-shift-d"
+  }, 
+  {
+   "hidden": true, 
+   "name": "hotkey.opencompanion", 
+   "title": "Hot key for opencompanion", 
+   "type": "string", 
+   "value": "alt-shift-c"
+  }, 
+  {
+   "hidden": true, 
+   "name": "hotkey.detect-gallery", 
+   "title": "Hot key for detect-gallery", 
+   "type": "string", 
+   "value": "alt-shift-g"
+  }, 
+  {
+   "hidden": true, 
+   "name": "hotkey.clear-hits", 
+   "title": "Hot key for clear-hits", 
+   "type": "string", 
+   "value": "alt-shift-x"
+  }, 
+  {
+   "hidden": true, 
+   "name": "hotkey.supported-sites", 
+   "title": "Hot key for supported-sites", 
+   "type": "string", 
+   "value": ""
+  }, 
+  {
+   "hidden": true, 
+   "name": "hotkey.convert-local", 
+   "title": "Hot key for convert-local", 
+   "type": "string", 
+   "value": ""
+  }, 
+  {
+   "hidden": true, 
+   "name": "hotkey.toggle-scrap", 
+   "title": "Hot key for toggle-scrap", 
+   "type": "string", 
+   "value": "alt-shift-w"
+  }, 
+  {
+   "hidden": true, 
+   "name": "ignore-protected", 
+   "title": "Ignore protected videos", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "chunk.initial-period", 
+   "title": "Initial chunk duration period in seconds", 
+   "type": "integer", 
+   "value": 20
+  }, 
+  {
+   "hidden": true, 
+   "name": "chunk.period-factor", 
+   "title": "Percent factor to be applied to chunk average period to consider timeout", 
+   "type": "integer", 
+   "value": 250
+  }, 
+  {
+   "hidden": true, 
+   "name": "chunk.assemble-native", 
+   "title": "Assemble by concatenation", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "smartnamer.defMode", 
+   "title": "Smartnaming default mode", 
+   "type": "string", 
+   "value": "page-content"
+  }, 
+  {
+   "hidden": true, 
+   "name": "tpsr.state", 
+   "title": "Periscope state", 
+   "type": "string", 
+   "value": "init"
+  }, 
+  {
+   "hidden": true, 
+   "name": "tpsr.concurrent-captures", 
+   "title": "Number of concurrent captures", 
+   "type": "integer", 
+   "value": 3
+  }, 
+  {
+   "hidden": true, 
+   "name": "tpsr.start-timeout", 
+   "title": "Stream start timeout", 
+   "type": "integer", 
+   "value": 15
+  }, 
+  {
+   "hidden": true, 
+   "name": "tpsr.duration-timeout", 
+   "title": "Maximum stream capture duration", 
+   "type": "integer", 
+   "value": 3600
+  }, 
+  {
+   "hidden": true, 
+   "name": "tpsr.enabled", 
+   "title": "Enable Periscope auto-record", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "tpsr.convert", 
+   "title": "Auto convert periscope auto captures", 
+   "type": "string", 
+   "value": ""
+  }, 
+  {
+   "hidden": true, 
+   "name": "toolbar-button", 
+   "title": "Toolbar button mode", 
+   "type": "string", 
+   "value": "unset"
+  }, 
+  {
+   "hidden": true, 
+   "name": "display", 
+   "title": "Display mode", 
+   "type": "string", 
+   "value": "normal"
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.enabled", 
+   "title": "Enable screen capture", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.state", 
+   "title": "Screen capture state", 
+   "type": "string", 
+   "value": "init"
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.rate", 
+   "title": "Capture rate", 
+   "type": "integer", 
+   "value": 24
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.port", 
+   "title": "Converter port", 
+   "type": "integer", 
+   "value": 6872
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.8x8-align", 
+   "title": "Aligning capture zone to 8x8 scheme", 
+   "type": "string", 
+   "value": "cut"
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.mouse", 
+   "title": "Mouse recording", 
+   "type": "string", 
+   "value": "metakey"
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.mouse.halo.radius", 
+   "title": "Mouse halo radius", 
+   "type": "integer", 
+   "value": 50
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.mouse.halo.color", 
+   "title": "Mouse halo radius", 
+   "type": "string", 
+   "value": "#ffff00"
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.mouse.halo.transparency", 
+   "title": "Mouse halo transparency (percent)", 
+   "type": "integer", 
+   "value": 50
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.mouse.pointer.size", 
+   "title": "Mouse pointer size", 
+   "type": "integer", 
+   "value": 30
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.applet-start-not-see-again", 
+   "title": "Do not display applet start panel", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.auto-detect", 
+   "title": "Scrap auto detect", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.min-applet-size", 
+   "title": "Minimum applet size", 
+   "type": "integer", 
+   "value": 100
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.applet-selector", 
+   "title": "Applet selector", 
+   "type": "string", 
+   "value": "object,video"
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.convert", 
+   "title": "Screen capture conversion", 
+   "type": "string", 
+   "value": "90195ab2-d891-443c-a164-8f0953ec8975"
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.extra-args", 
+   "title": "Extra parameters to be added on scrap converter call", 
+   "type": "string", 
+   "value": ""
+  }, 
+  {
+   "hidden": true, 
+   "name": "scrap.explicit-kill", 
+   "title": "Kill converter process explicitely", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "show-in-toolsmenu", 
+   "title": "Display controls in Tools menu", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "storage-last-dir", 
+   "title": "Use default browser storage directory", 
+   "type": "bool", 
+   "value": false
+  }
+ ], 
+ "preferencesBranch": "dwhelper", 
+ "sdkVersion": "1.17", 
+ "staticArgs": {}, 
+ "verbose": false
+}
