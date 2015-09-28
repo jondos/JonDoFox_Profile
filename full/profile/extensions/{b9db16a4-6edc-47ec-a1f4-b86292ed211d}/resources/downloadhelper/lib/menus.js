@@ -513,6 +513,10 @@ exports.appendMenuItem = function(data) {
 	vdhMenu.items = vdhMenuItems;
 }
 
+exports.doOperation = function(action) {
+	DoOperation(action);
+}
+
 require("sdk/system/unload").when(function() {
 	exports.stopCompanion();
 });

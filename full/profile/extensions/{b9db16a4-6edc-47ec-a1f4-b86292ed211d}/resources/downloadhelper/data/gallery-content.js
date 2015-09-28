@@ -44,7 +44,7 @@ function MakeGroups(selector,type,options) {
 			if(href) {
 				var m = /\.([^\.]{1,5})$/.exec(href);
 				if(m)
-					fileExtension = m[1];
+					fileExtension = m[1].toLowerCase();
 			}
 			var key = HashCode(window.location.href+"@"+ancestors.join("/")+"@"+fileExtension);
 			var attr = "vdh-"+key;
@@ -134,6 +134,7 @@ self.port.on("detect", function(message) {
 	var selectors = [];
 	message.extensions.split("|").forEach(function(extension) {
 		selectors.push("a[href$='"+extension+"']");
+		selectors.push("a[href$='"+extension.toUpperCase()+"']");
 	});
 	MakeGroups(selectors.join(","),"link",message);
 	if(message.scanImages)

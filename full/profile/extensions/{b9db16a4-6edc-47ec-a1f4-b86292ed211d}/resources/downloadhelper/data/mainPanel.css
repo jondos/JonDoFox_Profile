@@ -46,6 +46,10 @@
 	padding: 2px 0;
 }
 
+.hits-adp-grey {
+	background-color: #eee;
+}
+
 .hit:hover {
 	background-color: #1F80E0;
 	color:white;
@@ -151,6 +155,24 @@
 	margin-left: 6px;
 }
 
+.hit-adp {
+	overflow: hidden;
+	width: 2rem;
+}
+
+.hit-adp > div {
+	text-align: center;
+	color: White;
+	background-color: #222;
+	width: 5rem;
+	margin-left: -1.5rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transform: rotate(-90deg);
+	transform-origin: 50% 50%;
+}
+
 .hit-plus-but  {
 	width: 35px;	
 	height: 35px;	
@@ -237,4 +259,24 @@
 
 .compact .vdh-commands {
 	font-size: 10px;
+}
+
+.vdh-main-shortcuts {
+	overflow: hidden;	
+	padding-bottom: 4px;
+}
+
+.vdh-main-shortcuts .vdh-dropdown {
+	float: right;
+}
+
+.vdh-main-shortcuts .vdh-panel-button {
+	width: 35px;
+	height: 35px;
+}
+
+.vdh-main-shortcuts .vdh-panel-button > img {
+	width: 30px;
+	height: 30px;
+}
 

@@ -8,6 +8,8 @@
 
 var url = null, videoId = null;
 
+//console.info("DWHELPER content file loaded");
+
 function CheckURLChange() {
 	if(url==window.location.href)
 		return;
@@ -28,6 +30,8 @@ function CheckURLChange() {
 		pageUrl: url,
 	}
 
+	//console.info("DWHELPER url",url,"id",videoId);
+
 	if(videoId) {
 		videoMessage.videoId = videoId;
 		videoMessage.source = url;
@@ -41,17 +45,21 @@ function CheckURLChange() {
 	self.port.emit("detected-video",videoMessage);
 }
 CheckURLChange();
-window.setInterval(CheckURLChange,250);
+window.setInterval(CheckURLChange,500);
 
 var LINK_PATTERN = new RegExp("\\bv=([^&]+)");
 
+var totalCheckSelectionTime = 0;
+
 function CheckSelection() {
+	var t0 = Date.now();
+
 	var selection=window.getSelection();
 	
 	var ids = {};
 	for(var ri=0;ri<selection.rangeCount;ri++) {
 		var range=selection.getRangeAt(ri);
-		if(!range.collapsed) {
+		if(!range.collapsed && range.commonAncestorContainer.getElementsByTagName) {
 			var aNodes = range.commonAncestorContainer.getElementsByTagName("a");
 			for(var i=0; i<aNodes.length; i++) {
 				var node = aNodes[i];

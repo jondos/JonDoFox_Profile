@@ -17,7 +17,7 @@
   				<li role="presentation" 
   					ng-class="{active:tabs.current=='appearance'}"
   					ng-click="tabs.current='appearance'">
-  					<a vdh-l10n="appearance" data-toggle="tab">Blah</a>
+  					<a vdh-l10n="appearance" data-toggle="tab"></a>
   				</li>
   				<li role="presentation" 
   					ng-class="{active:tabs.current=='behavior'}"
@@ -26,6 +26,7 @@
   				</li>
   				<li role="presentation">
   					<div class="vdh-dropdown">
+  						<div>
 		  					<select class="vdh-settings-select" ng-model="tabs.dropdown">
 		  						<option value="more" vdh-l10n="more..."></option>
 		  						<option value="qualities" vdh-l10n="video-qualities"></option>
@@ -36,8 +37,10 @@
 		  						<option value="par" vdh-l10n="tpsr.title"></option>  						
 		  						<option value="scrap" vdh-l10n="scrap.title"></option>  						
 		  						<option value="mp2t" vdh-l10n="mp2t.title"></option>  						
+		  						<option value="f4f" vdh-l10n="f4f-streaming"></option>  						
 		  						<option value="conversion" vdh-l10n="conversion"></option>  						
 		  					</select>
+		  				</div>
   					</div>
   				</li>
 
@@ -109,9 +112,9 @@
 						<input type="checkbox" ng-model="prefs['hits-animation']"> 
 					</div>
 					<div class="vdh-settings-row">
-						<div class="vdh-settings-label" vdh-l10n="shortcut-icons"></div>
-						<input type="checkbox" ng-model="prefs['shortcut-icons']"> 
-					</div>
+						<div class="vdh-settings-label" vdh-l10n="top-main-panel"></div>
+						<select ng-options="m.mode as m.text for m in topMainModes" ng-model="prefs['main-top']"></select>
+					</div>					
 					<div class="vdh-settings-row">
 						<div class="vdh-settings-label" vdh-l10n="context-menu"></div>
 						<input type="checkbox" ng-model="prefs['context-menu']"> 
@@ -193,6 +196,10 @@
 							<div class="vdh-settings-label" vdh-l10n="ignore-embedded"></div>
 							<input type="checkbox" ng-model="prefs['ignore-embedded']"> 
 						</div>
+						<div class="vdh-settings-row">
+							<div class="vdh-settings-label" vdh-l10n="downloads-hook-headers"></div>
+							<input type="checkbox" ng-model="prefs['downloads-hook-headers']"> 
+						</div>
 
 					</div>
 				</div>
@@ -205,6 +212,14 @@
 					<div class="vdh-settings-row">
 						<div class="vdh-settings-label" vdh-l10n="ignore-protected"></div>
 						<input type="checkbox" ng-model="prefs['ignore-protected']"> 
+					</div>
+					<div class="vdh-settings-row">
+						<div class="vdh-settings-label" vdh-l10n="ui.adp.grey"></div>
+						<input type="checkbox" ng-model="prefs['ui.adp.grey']"> 
+					</div>
+					<div class="vdh-settings-row">
+						<div class="vdh-settings-label" vdh-l10n="ui.adp.tag"></div>
+						<input type="checkbox" ng-model="prefs['ui.adp.tag']"> 
 					</div>
 					<div class="vdh-settings-row">
 						<div class="vdh-settings-label" vdh-l10n="variants"></div>
@@ -301,6 +316,10 @@
 						<div class="vdh-settings-label" vdh-l10n="gallery-auto-detect"></div>
 						<input type="checkbox" ng-model="prefs['medialink-auto-detect']"/>
 						<div ng-show="prefs['medialink-auto-detect']"><em vdh-l10n="gallery-auto-detect-warning"></em></div> 
+					</div>
+					<div class="vdh-settings-row">
+						<div class="vdh-settings-label" vdh-l10n="detect-extensions"></div>
+						<div vdh-list-editor="{order:false,remove:true,add:true}" ng-model="medialinkExtensions" style="max-width:150px;height:120px;"></div>
 					</div>
 				</div>
 				<div ng-show="tabs.current=='hotkeys'" class="tab-pane">
@@ -412,6 +431,10 @@
 	  					<div class="vdh-settings-label" vdh-l10n="scrap.port"></div>
 						<input type="number" ng-model="prefs['scrap.port']" style="width: 60px;"> 
 	  				</div>
+					<div class="vdh-settings-row" ng-show="prefs['advanced-settings']">
+						<div class="vdh-settings-label" vdh-l10n="scrap.do-not-display-start-panel"></div>
+						<input type="checkbox" ng-model="prefs['scrap.applet-start-not-see-again']"/>
+					</div>
 					<br/>
 				</div>
 				<div ng-show="tabs.current=='mp2t'" class="tab-pane">
@@ -441,6 +464,18 @@
 	  				<div class="vdh-settings-row">
 	  					<div class="vdh-settings-label" vdh-l10n="tpsr.duration-timeout"></div>
 						<input type="number" ng-model="prefs['tpsr.duration-timeout']" style="width: 60px;"> 
+	  				</div>
+					<br/>
+				</div>
+				<div ng-show="tabs.current=='f4f'" class="tab-pane">
+					<div class="vdh-settings-category" vdh-l10n="f4f-streaming"></div>
+					<div class="vdh-settings-row">
+						<div class="vdh-settings-label" vdh-l10n="f4f.enabled"></div>
+						<input type="checkbox" ng-model="prefs['f4f.enabled']"> 
+					</div>
+					<div class="vdh-settings-row">
+	  					<div class="vdh-settings-label" vdh-l10n="f4f.prefetch"></div>
+						<input type="number" ng-model="prefs['f4f.prefetch']" style="width: 40px;"> 
 	  				</div>
 					<br/>
 				</div>

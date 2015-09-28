@@ -21,7 +21,7 @@ function Congrats(count) {
 	var status = require("converter").config().license.status; 
 	if(status!="unneeded" && status!="unchecked")
 		return;
-	vdhPanels.togglePanel('sites',{
+	vdhPanels.togglePanel('funding',{
 		contentURL: "fundingPanel.html",
 		top: 10,
 		jsFiles: [
@@ -44,9 +44,15 @@ function Congrats(count) {
 					url: "http://www.downloadhelper.net/donate.php",
 				});
 				break;
+			case "review":
+				panel.hide();
+				tabs.open({
+					url: "https://addons.mozilla.org/firefox/addon/video-downloadhelper/reviews/add",
+				});
+				break;
 			case "donate-later":
 				panel.hide();
-				simplePrefs.prefs['donate-not-again-expire'] = Math.round(Date.now()/1000) +  60 * 60 * 24 * 30 * 3;
+				simplePrefs.prefs['donate-not-again-expire'] = Math.round(Date.now()/1000) +  60 * 60 * 24 * 30;
 				break;
 			}
 		},

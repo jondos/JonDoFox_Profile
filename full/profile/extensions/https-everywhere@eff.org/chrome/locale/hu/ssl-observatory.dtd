@@ -82,14 +82,14 @@ Mouseover the options for further details:">-->
 
 <!ENTITY ssl-observatory.prefs.show "Speciális beállítások megjelenítése">
 
-<!ENTITY ssl-observatory.prefs.title "SSL Observatory Beállítások">
+<!ENTITY ssl-observatory.prefs.title "SSL Observatory Preferenciák">
 
 <!ENTITY ssl-observatory.prefs.use "Az Observatory használata?">
 <!ENTITY ssl-observatory.warning.title "FIGYELMEZTETÉS az EFF SSL Observatory-tól">
 <!ENTITY ssl-observatory.warning.showcert "A tanúsítványlánc megjelenítése">
 <!ENTITY ssl-observatory.warning.okay "Megértettem">
 <!ENTITY ssl-observatory.warning.text "Az EFF SSL Oeservatory figyelmeztetést bocsátott az alábbi tanúsítványokról, ehhez az oldalhoz:">
-<!ENTITY ssl-observatory.warning.defense "Ha be vagy jelentkezve erre az oldalra, javasolt a jelszavad megváltoztatása ha biztonságos kapcsolatot használsz. (Ezek a figyelmeztetések kikapcsolhatók a HTTPS Everywhere beállítások &quot;SSL Observatory&quot; fülén.)">
+<!ENTITY ssl-observatory.warning.defense "Ha be vagy jelentkezve erre az oldalra, javasolt a jelszavad megváltoztatása ha biztonságos kapcsolatot használsz. (Ezek a figyelmeztetések kikapcsolhatók a HTTPS Everywhere preferenciák &quot;SSL Observatory&quot; fülén.)">
 
 <!ENTITY ssl-observatory.prefs.self_signed
 "A használt önaláírt tanúsítványok feltöltése és ellenőrzése">

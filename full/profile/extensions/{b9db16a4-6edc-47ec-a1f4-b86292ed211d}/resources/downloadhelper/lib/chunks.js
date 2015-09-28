@@ -437,7 +437,7 @@ var ChunkStopRecordAction = merge(Class({
 	removeChunkSet: function(chunkSet,removeHit) {
 		Cu.import("resource://gre/modules/FileUtils.jsm");
 		var file =  new FileUtils.File(chunkSet.dir);
-		if(file.exists)
+		if(file.exists && !simplePrefs.prefs['chunk.keep-temp'])
 			file.remove(true);
 		if(removeHit)
 			hits.remove(chunkSet.hit.id);

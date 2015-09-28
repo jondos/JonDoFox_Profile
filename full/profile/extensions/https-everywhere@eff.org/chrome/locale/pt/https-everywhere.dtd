@@ -1,11 +1,11 @@
 <!ENTITY https-everywhere.about.title "Sobre o HTTPS Everywhere">
-<!ENTITY https-everywhere.about.ext_name "HTTPS Em Qualquer Lugar">
-<!ENTITY https-everywhere.about.ext_description "Criptografe a Web! Use, automaticamente, segurança HTTPS em vários sites.">
+<!ENTITY https-everywhere.about.ext_name "HTTPS Everywhere">
+<!ENTITY https-everywhere.about.ext_description "Encripte a Web! Use automaticamente a segurança HTTPS em vários sítios.">
 <!ENTITY https-everywhere.about.version "Versão">
 <!ENTITY https-everywhere.about.created_by "Criado por">
 <!ENTITY https-everywhere.about.librarians "Bibliotecas de Regras">
 <!ENTITY https-everywhere.about.thanks "Obrigado a">
-<!ENTITY https-everywhere.about.contribute  "Se gosta de HTTPS Everywhere, pode pensar em">
+<!ENTITY https-everywhere.about.contribute  "Se gosta de HTTPS Em todo o lado, poderá considerar">
 <!ENTITY https-everywhere.about.donate_tor "Doar ao Tor">
 <!ENTITY https-everywhere.about.tor_lang_code "pt">
 <!ENTITY https-everywhere.about.or "ou">
@@ -17,32 +17,33 @@
 <!ENTITY https-everywhere.menu.globalDisable "Desativar HTTPS Everywhere">
 <!ENTITY https-everywhere.menu.blockHttpRequests "Bloquear todos os pedidos HTTP">
 <!ENTITY https-everywhere.menu.showCounter "Mostrar Contador">
+<!ENTITY https-everywhere.menu.viewAllRules "View All Rules">
 
 <!ENTITY https-everywhere.prefs.title "Preferências do HTTPS Everywhere">
-<!ENTITY https-everywhere.prefs.enable_all "Ativar todas">
-<!ENTITY https-everywhere.prefs.disable_all "Desativar todas">
-<!ENTITY https-everywhere.prefs.reset_defaults "Restaurar padrões">
+<!ENTITY https-everywhere.prefs.enable_all "Ativar tudo">
+<!ENTITY https-everywhere.prefs.disable_all "Desativar tudo">
+<!ENTITY https-everywhere.prefs.reset_defaults "Restaurar predefinições">
 <!ENTITY https-everywhere.prefs.search "Procurar">
-<!ENTITY https-everywhere.prefs.site "Site">
+<!ENTITY https-everywhere.prefs.site "Sítio">
 <!ENTITY https-everywhere.prefs.notes "Notas">
-<!ENTITY https-everywhere.prefs.list_caption "Que regras de redireção HTTPS devem aplicar-se?">
+<!ENTITY https-everywhere.prefs.list_caption "Quais as regras de redireção HTTPS que se devem aplicar?">
 <!ENTITY https-everywhere.prefs.enabled "Ativada">
-<!ENTITY https-everywhere.prefs.ruleset_howto "Pode aprender a escrever os seus próprios grupos de regras (para adicionar suporte para outros sites)">
+<!ENTITY https-everywhere.prefs.ruleset_howto "Pode aprender a escrever os seus próprios grupos de regras (para adicionar suporte para outros sítios)">
 <!ENTITY https-everywhere.prefs.here_link "aqui">
 <!ENTITY https-everywhere.prefs.toggle "Alternar">
-<!ENTITY https-everywhere.prefs.reset_default "Restaurar Padrão">
+<!ENTITY https-everywhere.prefs.reset_default "Restaurar predefinição">
 <!ENTITY https-everywhere.prefs.view_xml_source "Ver fonte XML">
 
-<!ENTITY https-everywhere.source.downloading "Descarregando">
+<!ENTITY https-everywhere.source.downloading "A descarregar">
 <!ENTITY https-everywhere.source.filename "Nome do ficheiro">
-<!ENTITY https-everywhere.source.unable_to_download "Impossível baixar a fonte">
+<!ENTITY https-everywhere.source.unable_to_download "Não é possível transferir a fonte.">
 
-<!ENTITY https-everywhere.popup.title "HTTPS Everywhere 4.0development.11 notificação">
-<!ENTITY https-everywhere.popup.paragraph1 "Oops. Estava a usar a última versão estável do HTTPS Everywhere, mas nós poderemos ter acidentalmente feito o upgrade para a versão de desenvolvimento do mesmo na nossa última versão.">
+<!ENTITY https-everywhere.popup.title "HTTPS Everywhere 4.0 development.11 notificação">
+<!ENTITY https-everywhere.popup.paragraph1 "Ups!. Estava a utilizar a última versão do HTTPS Everywhere estável, mas nós poderemos ter-lhe atualizado acidentalmente para a versão de desenvolvimento no nosso último lançamento.">
 <!ENTITY https-everywhere.popup.paragraph2 "Gostaria de voltar para a versão estável?">
-<!ENTITY https-everywhere.popup.paragraph3 "Adoraríamos que continuasse a usar a nossa versão de desenvolvimento e ajudasse a tornar HTTPS Everywhere melhor! Poderá encontrar ainda alguns bugs por aí, que poderá relatar para https-everywhere@eff.org. Pedimos desculpa pela inconveniência e obrigado por utilizar HTTPS Everywhere.">
+<!ENTITY https-everywhere.popup.paragraph3 "Nós iríamos adorar que continuasse a utilizar o nosso lançamento de desenvolvimento e que nos ajudasse a tornar o HTTPS Everywhere melhor! Poderá encontrar ainda alguns erros aqui e acolá, que poderá reportar para https-everywhere@eff.org. Pedimos desculpa pela inconveniência, e obrigado por utilizar o HTTPS Everywhere.">
 <!ENTITY https-everywhere.popup.keep "Manter-me na versão de desenvolvimento">
-<!ENTITY https-everywhere.popup.revert "Descarregar a úlitma versão estável">
+<!ENTITY https-everywhere.popup.revert "Transferir a úlitma versão estável">
 
 <!ENTITY https-everywhere.ruleset-tests.status_title "HTTPS Everywhere Ruleset Tests">
 <!ENTITY https-everywhere.ruleset-tests.status_cancel_button "Cancelar">

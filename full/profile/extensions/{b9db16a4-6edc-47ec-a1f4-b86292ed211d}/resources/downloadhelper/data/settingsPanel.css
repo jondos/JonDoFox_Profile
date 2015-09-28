@@ -104,24 +104,6 @@
 	text-align: left;	
 }
 
-.vdh-dropdown {
-	background: url(images/select-bk.png) no-repeat 96% 0;
-	overflow: hidden;
-	width: 100px;
-	padding: 6px 0 6px 5px;
-}
-
-.vdh-dropdown select {
-	min-width: 300px;
-	background: transparent;
-	border: none;
-	font-size: 14px;
-	height: 29px;
-	color: #337AB7;
-	text-shadow: 0 0 0 #fff;
-}
-
-.vdh-dropdown select:-moz-focusring {
-    color: transparent;
-    text-shadow: 0 0 0 #000;
+li[role="presentation"] .vdh-dropdown {
+	padding-top: 6px;
 }
