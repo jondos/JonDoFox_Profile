@@ -93,7 +93,7 @@ de så på. Hold muspekeren over innstillingene for flere detaljer:">
 <!ENTITY ssl-observatory.warning.title "ADVARSEL fra EFF's SSL Observatory ">
 <!ENTITY ssl-observatory.warning.showcert "Vis sertifikatkjede">
 <!ENTITY ssl-observatory.warning.okay "Jeg forstår">
-<!ENTITY ssl-observatory.warning.text "EFF's SSL Observatory har utstedt en advarsel om bruk av HTTPS sertifikatene på denne siden:">
+<!ENTITY ssl-observatory.warning.text "EFF's SSL Observatory har utstedt en advarsel om HTTPS-sertifikatene for dette nettstedet:">
 <!ENTITY ssl-observatory.warning.defense "Hvis du er logget inn på denne siden, så kan det være en god idé å endre passordet ditt så snart du har en sikker tilkobling. (Disse advarslene kan deaktiveres i &quot;SSL Observatory&quot; fanen under instillinger i HTTPS Everywhere).">
 
 <!ENTITY ssl-observatory.prefs.self_signed

@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: do/+6BBhp3tOE7XqCYhRBw==
-SHA1-Digest: J7pAU/+CyNDrfMGpPHNv5ukXf+4=
+MD5-Digest: tNFLVrJYZ4a6f5NjgqvCkg==
+SHA1-Digest: 1LrkOzcYu592JL8hAZ1Grzc+6ks=
 
 Name: bootstrap.js
 Digest-Algorithms: MD5 SHA1
@@ -12,13 +12,13 @@ SHA1-Digest: TWD0b5BkAoKXr56l0Tt3AkKBy8s=
 
 Name: harness-options.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: AN7Zdn8niRZRpi7gQJAKQg==
-SHA1-Digest: +doUJatXDoAmGJp76X80XkCGSnQ=
+MD5-Digest: oi6d6tKAz8u9+tMlryu4uA==
+SHA1-Digest: fNW1/RISnIwf/d1/p0UOlajMvfA=
 
 Name: locales.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: l9y78CWTVAlWaFjUCTGEXw==
-SHA1-Digest: VuUWmiS5K6X5Wfplj6DBCTiu6MM=
+MD5-Digest: f4Gctpq5PQOEgKEA11lEgw==
+SHA1-Digest: rMFSlAYl1NiV6bm/mZPO8jm5llI=
 
 Name: options.xul
 Digest-Algorithms: MD5 SHA1
@@ -27,58 +27,73 @@ SHA1-Digest: JF1CxMzKzIZ55dkmq0JB3Sh8mig=
 
 Name: defaults/preferences/prefs.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: InV6Su7CFW4yHM4ddUjovA==
-SHA1-Digest: usMgrFtG2EdSNuVvFKqrVzWmb0U=
+MD5-Digest: lBQgakxl22ModMvEeYMlcA==
+SHA1-Digest: dIWTjnsLa6ng3fWcK09eeCY1xgA=
 
 Name: locale/da.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: pJetAWyvQ9t8pctRBw2ivA==
-SHA1-Digest: c+JS4lWWFy2JokcRSgSZI/Cgawc=
+MD5-Digest: dNF9pGy/31jgXTZEcWXLXA==
+SHA1-Digest: qv+cL0B4VdY0lLCEwcJCVAK4+2g=
 
 Name: locale/de.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: XVqWJIZJ12ABlWiyyauuCQ==
-SHA1-Digest: MoTZkuc4Z8wBnQcv7AOn/sWJD3w=
+MD5-Digest: hdrqTLbPCEO1qNloBVMGmw==
+SHA1-Digest: 2n3+55hopnD22xMXQYHwxtDciIY=
 
 Name: locale/en-US.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: RoAjOu5V64bGAQ3RWxT+Cg==
-SHA1-Digest: NduBajCJKOGo4hHgzEWw5HJueMY=
+MD5-Digest: 5SoK1GKpuhRJ+Nrj+FinRA==
+SHA1-Digest: ceD8MuGLg+EjezobMSRFxecmIo8=
 
 Name: locale/es.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: R1AwTdFphU/p64QnQKrACQ==
-SHA1-Digest: Cpp0iOxxVNF5cgRLTo3uUUi1H7I=
+MD5-Digest: 5qqq2hjMaDk+claqg1GJrA==
+SHA1-Digest: EsDfLFii/tKpOzHCszVS5E2sD/o=
 
 Name: locale/fr.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: jkusXcU6TmFyB7jIMHuQKA==
-SHA1-Digest: Vd29r6RrY0wnFO+cMAjbhu+Xiik=
+MD5-Digest: MDGgrkE2cwXMnJgjY66o+Q==
+SHA1-Digest: PSDZbKwTWrU046FskDE6VE6HPVE=
 
 Name: locale/it.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: PUhLR66D8hAJWcL2CEGWCw==
-SHA1-Digest: sLUbuhcHVwkGrJu0gt+sZnjv3L8=
+MD5-Digest: jkxAldpo8QpubcBW2Kesbw==
+SHA1-Digest: 7pG6dqq7FokZ2WJ0Pz7+x+fgSAs=
 
 Name: locale/nl.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: K1bl9acAv/4yMogVdSMDJQ==
-SHA1-Digest: ajFeN9PGPTHs68+ZRWjplay/Bt8=
+MD5-Digest: +6dCq09K8qHZf7ltq+O8bQ==
+SHA1-Digest: ba/vHcZDczQ8RaV3+yCAZYR1ef0=
+
+Name: locale/pl.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: xBV2DQbYRCPXaraVgLe+eg==
+SHA1-Digest: xfh3eMvVw2qh8x1pBKSttELy+50=
 
 Name: locale/pt-BR.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: mxLbzhlF5e/u2xBu8OlmzA==
-SHA1-Digest: yFPL+/bUXmxwkopnwEAZ0UNFSmc=
+MD5-Digest: efkQ7MoBVMBIsgR61gTPaQ==
+SHA1-Digest: P37ELSAMFBPCYj4EwhB4cnr0iDA=
+
+Name: locale/sl-SI.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 3V4s6KJJ0vqvmSE03SDwcw==
+SHA1-Digest: 3u7eWb8X/Ccc0PIwcx7HP0cxTHk=
 
 Name: locale/tr.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: WorC66ofz6upxyhpMLBe7Q==
-SHA1-Digest: ynEDBL8pKnXzSt1jrj1LLMu/4lU=
+MD5-Digest: FfQ+/buPwi19sV+rvBIiwg==
+SHA1-Digest: RuGRSrFVVVG/zcOzw+Tg/ZePc3c=
 
 Name: locale/uk-UA.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: WxhmfW92LSRJsnnhrKn0NA==
-SHA1-Digest: q6CuwFhpc7rWAZIsWoBpTLqF56o=
+MD5-Digest: 1WdUi2hXd8if0LSX5jkorQ==
+SHA1-Digest: 3aBBKxmGLy5Svqg8pbEMXotCrGU=
+
+Name: locale/zh-CN.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: iDhZd15YajZE0gIkEtCShw==
+SHA1-Digest: TsF0gs3yXbtFjMe+526iWwMQj9I=
 
 Name: resources/downloadhelper/data/aboutPanel.css
 Digest-Algorithms: MD5 SHA1
@@ -142,8 +157,8 @@ SHA1-Digest: yhCqnKaD1fzxlh92td39wdqaYXM=
 
 Name: resources/downloadhelper/data/commonPanel.css
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 6ZzTP5UMfvQxSsLW99tFng==
-SHA1-Digest: twh/uCHEPMiQctWP7Q+weaD/e3M=
+MD5-Digest: Y/9lBnXzW/tbu/qyXuWyow==
+SHA1-Digest: boXUDr+tsFxchP2mPMrl1pnxYvo=
 
 Name: resources/downloadhelper/data/commonPanel.js
 Digest-Algorithms: MD5 SHA1
@@ -197,18 +212,18 @@ SHA1-Digest: dz1Sygcv0DYAKE5NfXB/1nopHoE=
 
 Name: resources/downloadhelper/data/fundingPanel.html
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: yHS8FGR6MW38wqtAXeVzrg==
-SHA1-Digest: SdnD5d/03Q8lTUm4yJ0d3fxJUok=
+MD5-Digest: 2UYZVO9Ckk5OD2P57w7HkA==
+SHA1-Digest: qeaLF6/XHYfGAhamPfzpK7rzXqA=
 
 Name: resources/downloadhelper/data/fundingPanel.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: dLahKC7Lp0+JorqcV4v7QA==
-SHA1-Digest: Bb0Cv7GbymwjVw2Nk+Jk26JKszE=
+MD5-Digest: qPRBXskNKmLqR+X223epNw==
+SHA1-Digest: 5fcBV60PjQPu/7BaTTT4t5npYfQ=
 
 Name: resources/downloadhelper/data/gallery-content.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: beNxZ3kmTpuv5TntkbXj5Q==
-SHA1-Digest: lx9e4ThojsFyB0MvKERuD9n1P2k=
+MD5-Digest: XSsBb62Kysxeu9tsxKHv/g==
+SHA1-Digest: peiS7IWvnR3VAquu7d611nmL22Q=
 
 Name: resources/downloadhelper/data/hotkey-widget.html
 Digest-Algorithms: MD5 SHA1
@@ -237,18 +252,18 @@ SHA1-Digest: MTVqAtyDS4duL4gKJP+ZS14JT7o=
 
 Name: resources/downloadhelper/data/mainPanel.css
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: o+bPYmvvpvhSaTz+YZdwXg==
-SHA1-Digest: PboWBnuZ2lmHD8YnCupDK+Imr1s=
+MD5-Digest: PXHGPh9JeXWRv3ESS3JKIQ==
+SHA1-Digest: 2A0qJyp7uOcrpn02Q0zch/VKrXg=
 
 Name: resources/downloadhelper/data/mainPanel.html
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 4BXTCsRPod/qZezTqMlZDw==
-SHA1-Digest: yVRoWQKop04hdDIryW3O50X5R+c=
+MD5-Digest: y/Oveou7/xoZnTrfoWheZw==
+SHA1-Digest: XObYKvPzQooZTd68OwNmlphrUPo=
 
 Name: resources/downloadhelper/data/mainPanel.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: TCeB71fcMgPRiBEksjOKtQ==
-SHA1-Digest: wmb3p7OKHy6WHfi+j0Zd2BGJ9cg=
+MD5-Digest: +9ws4TghUCpyhMeQvKxxfg==
+SHA1-Digest: l/9yY582OKxwT/N4i2tJPP+mB24=
 
 Name: resources/downloadhelper/data/pagedata-content.js
 Digest-Algorithms: MD5 SHA1
@@ -292,13 +307,13 @@ SHA1-Digest: 7fGFMgZM7kG7AAxvFd0eT8NPdCM=
 
 Name: resources/downloadhelper/data/scrapEndPanel.html
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: BcGQDHa5QKgCWHlhY4vsPw==
-SHA1-Digest: LlLJkGOAUNsbT88R9bCrm8k41Hs=
+MD5-Digest: lH55LLc4oUhtvRDHXR+6Vw==
+SHA1-Digest: POOOvxBV0KIIFqkDcu4Gx8cxDMo=
 
 Name: resources/downloadhelper/data/scrapEndPanel.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: tbc6/sgF0IAAV5K1ckDNHw==
-SHA1-Digest: 6XbKLzJ4s7OiN7udAlWVENqYj5I=
+MD5-Digest: XEsbM1B10InaSaYu2+G1wQ==
+SHA1-Digest: dc2za9CfsFkxxzopTDQ8mCbZpyA=
 
 Name: resources/downloadhelper/data/scrapPanel.css
 Digest-Algorithms: MD5 SHA1
@@ -317,18 +332,18 @@ SHA1-Digest: UWPnveHbmGiI1ydvcXpWOmSCuDM=
 
 Name: resources/downloadhelper/data/settingsPanel.css
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 9U9WMXYDxGvJjOQfLZx37g==
-SHA1-Digest: FBSCCDRv3Xx7gs42SNJHM+32Img=
+MD5-Digest: yPuJ5PIu286cRknZIcITkA==
+SHA1-Digest: /O94BlHi1DVulHeSUHL2Ish/bBQ=
 
 Name: resources/downloadhelper/data/settingsPanel.html
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: dtBkjgU2BQD2hu9+wKuvgA==
-SHA1-Digest: 1lPYKgMQM1V+nqYHVlL1cLKZvs4=
+MD5-Digest: LGMCHP8upYW0HOY/5aTedQ==
+SHA1-Digest: dHPtENgbBw2fQf9X61nvgtUXUR8=
 
 Name: resources/downloadhelper/data/settingsPanel.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 191aW+nsPiyDw16RKeaH6w==
-SHA1-Digest: U+EzqTfIsL5CBSi0pWKq8zVW0dw=
+MD5-Digest: t5e8LbwUsuaZgtvFssbLFg==
+SHA1-Digest: VaGCKb8amnLqkCZBf4qELrL0AVo=
 
 Name: resources/downloadhelper/data/sitesPanel.css
 Digest-Algorithms: MD5 SHA1
@@ -367,13 +382,13 @@ SHA1-Digest: 9ufCHdyERClMldn2KLd76Kxo8YQ=
 
 Name: resources/downloadhelper/data/tbvws-content.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: tjJRAetzK1A8RmL0Gp62qg==
-SHA1-Digest: G7rMsR7OJClsjVBNM/o3Bx3dzLQ=
+MD5-Digest: yYuI3CkzheE4dIWtnuoxoA==
+SHA1-Digest: /Qwwdql7dk9LvDfwM4ASZBV/PTI=
 
 Name: resources/downloadhelper/data/tfvws-content.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: dwdeLI5ZGyJP7Cpm3Wlieg==
-SHA1-Digest: LhgVVAPWzNMGqxvyQbqCN1vfpM0=
+MD5-Digest: j5/IK6ITV+xRY4GE8BxhNA==
+SHA1-Digest: KGdwuTIXUquNFopCxWpeOL12Bg8=
 
 Name: resources/downloadhelper/data/tpsr-content.js
 Digest-Algorithms: MD5 SHA1
@@ -778,8 +793,8 @@ SHA1-Digest: zjozys08XAJBO/Cjp5LugKGg9vE=
 
 Name: resources/downloadhelper/data/images/select-bk.png
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: ssd0fI1ApjTcpYmSHTLQfw==
-SHA1-Digest: pbA2wg2qU6Le+6TOjP3LOtJNRyo=
+MD5-Digest: QMOrA3fWJrb1Fa9kX6lIyA==
+SHA1-Digest: 0CsgcjM+RnLYmyz/rpyLhwQk1H8=
 
 Name: resources/downloadhelper/data/images/jocly/chess.png
 Digest-Algorithms: MD5 SHA1
@@ -843,8 +858,8 @@ SHA1-Digest: fEhaOm1SmwTMeXqV19bC2MyYR2o=
 
 Name: resources/downloadhelper/lib/actions.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: Xb263Oueij3TtQtCrahNvQ==
-SHA1-Digest: x2Jr8OCXTcrMirPso/EvkEOShi0=
+MD5-Digest: pzwwsjwq7xXOTaxUpyd7FQ==
+SHA1-Digest: 2RrQ0iFV3cp5JzYwIu4EesXwWdc=
 
 Name: resources/downloadhelper/lib/alerts.js
 Digest-Algorithms: MD5 SHA1
@@ -858,28 +873,33 @@ SHA1-Digest: AlQLJlPOdSf59hLCks6aM8Lsxhk=
 
 Name: resources/downloadhelper/lib/chunks.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 71JlSFxVn+0fTzwYk47eiA==
-SHA1-Digest: 1TKBPYxRD+ufwCrAvqfaXMqUrlo=
+MD5-Digest: Mxeo0rCD+PyNCcHGWaCZKw==
+SHA1-Digest: f6od81iR7tnj/1dSMshEAajzDjM=
 
 Name: resources/downloadhelper/lib/converter.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: AKDt4rCmHz9XYDXdDg4A/A==
-SHA1-Digest: vl0U+uQ1tefRMgR7uKGUOq7fz3s=
+MD5-Digest: kx8kAYsFqdNFHJGQlVoc4w==
+SHA1-Digest: LmGYthtyCxmQEvXA89cpnXeQ5xU=
 
 Name: resources/downloadhelper/lib/downloads.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: MZ7IPEV8YVIghFSfbb0X2Q==
-SHA1-Digest: vwtXPhhhMOew7R+MvxU+UjIjGwo=
+MD5-Digest: 2NTmFoK0DxiEp46+FocAQw==
+SHA1-Digest: LnB10zLBouTyEHcLVK3P1Vv82pw=
 
 Name: resources/downloadhelper/lib/extender.js
 Digest-Algorithms: MD5 SHA1
 MD5-Digest: +e4cCH8lF5Mu+K1RHUEGbw==
 SHA1-Digest: 3XeAE0/9jiuKs4Nqqmeku0RmbAY=
 
+Name: resources/downloadhelper/lib/f4f.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: k4v6CYoEN4egKbWXMBMTBA==
+SHA1-Digest: /rknCaPraZQ/bnByLXfs7+TS+K0=
+
 Name: resources/downloadhelper/lib/funding.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: UWy6dJFYgf+s++3YvYCYxQ==
-SHA1-Digest: lahQmVbWBPIOO2VIuZBvMYVMJJo=
+MD5-Digest: 67vpEp4uZ8KjbUS42MXlzw==
+SHA1-Digest: jfeNWwbdP7LXX6JbFR9cPnnovzk=
 
 Name: resources/downloadhelper/lib/gallery.js
 Digest-Algorithms: MD5 SHA1
@@ -888,8 +908,8 @@ SHA1-Digest: 17swlSVPQFOjxn0Ki9j+PbdyJRI=
 
 Name: resources/downloadhelper/lib/hits.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: DaxihUnE4RcIH8OG7N2y2A==
-SHA1-Digest: oHewOB6z2a2TF15wbqio+JmIz/A=
+MD5-Digest: UhQrX1Vh2pWaQANmASrKmg==
+SHA1-Digest: C6fQxwLtn/1aD5Fv1YJyGZ8B3ok=
 
 Name: resources/downloadhelper/lib/hotkeys.js
 Digest-Algorithms: MD5 SHA1
@@ -903,23 +923,23 @@ SHA1-Digest: D/YwDuYSjoierzc8UOQ54aalAG0=
 
 Name: resources/downloadhelper/lib/main.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: F1ALMVEdbixfi2hmpTMEag==
-SHA1-Digest: TsyenbJZb121vwkTxFwkk1VhyyU=
+MD5-Digest: j7CdBQDYrDWZPSA2PiFFqw==
+SHA1-Digest: BVCqoU4pwwC4d5DlUl4Hbly4GLE=
 
 Name: resources/downloadhelper/lib/menus.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: DE9g9QfJrGC63cJDjiHQ0g==
-SHA1-Digest: diRgOAsIXibMKLNAsPJ0jz5z5cM=
+MD5-Digest: JYRABYddG2n9LR7XGAVtvg==
+SHA1-Digest: 6NSVsgrqB/exVtRKTNRVan9TbgU=
 
 Name: resources/downloadhelper/lib/network-probe.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: EXsvQjAjPBaeJ+FHspOFoA==
-SHA1-Digest: wjTQfO/+zoYN53ar/2FlnVtPmvM=
+MD5-Digest: +RlQiDt3kJws9zJJ0xONVw==
+SHA1-Digest: RWdB2wLNMfVH5pIYr8/VXSwysaw=
 
 Name: resources/downloadhelper/lib/panels.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: fmTaK8dMdZpC3pncpROnLg==
-SHA1-Digest: LwfEHziKJWcjvRvh6BntgZJMyis=
+MD5-Digest: dG1AI7RlahD24UIumkaZ4Q==
+SHA1-Digest: vhjBtiUG++m2ABv2mXfMLZDwXOE=
 
 Name: resources/downloadhelper/lib/prefs.js
 Digest-Algorithms: MD5 SHA1
@@ -953,13 +973,13 @@ SHA1-Digest: C7RbC/E9qBJxKAr2FVYgddNFsao=
 
 Name: resources/downloadhelper/lib/tbvws.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: tdG36Whfxtx8B23zXSM9sA==
-SHA1-Digest: pZZGVdnAZSu1kfGVgHyQtoXs/HM=
+MD5-Digest: 7b+VSibiDQgLSTIKnNO/jg==
+SHA1-Digest: yQ/4KR5AArrYkOAyOJG1EpHqd/c=
 
 Name: resources/downloadhelper/lib/tfvws.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: c+dE9k+A97ROk61GdDaxzQ==
-SHA1-Digest: +guuG3pz8J8w47/agwcI3doymTY=
+MD5-Digest: Xkcru2D4VwbdMWCM5oghmw==
+SHA1-Digest: 4Dh7ykrVC5K2OTVp6jjTPZtjYgc=
 
 Name: resources/downloadhelper/lib/tpsr.js
 Digest-Algorithms: MD5 SHA1
@@ -973,6 +993,6 @@ SHA1-Digest: KQxuw2jb2pXRX3n30qtbu99XPZU=
 
 Name: resources/downloadhelper/lib/variants.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: JCkmBg8nh3hKK1C+YlW05w==
-SHA1-Digest: YSAqcYrFiuqZSZsL8fWEueI1C+g=
+MD5-Digest: pArPswdcUOzguhf/U/SiSQ==
+SHA1-Digest: viz9n5lSZVF/kQl7OFawcH+WTFs=
 

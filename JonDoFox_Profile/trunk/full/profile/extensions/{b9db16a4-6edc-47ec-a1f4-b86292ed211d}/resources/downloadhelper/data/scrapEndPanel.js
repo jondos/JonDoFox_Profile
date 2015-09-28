@@ -10,7 +10,7 @@ angular.module('VDH').controller('VDHScrapEndCtrl',
 	['$scope', 'VDH.util',
 	 	function($scope,VDHUtil) {
 			VDHUtil.prepareScope($scope);
-			$scope.launch = function() {
+			$scope.launchFile = function() {
 				$scope.post("launch",{ });
 			}
 			$scope.container = function() {

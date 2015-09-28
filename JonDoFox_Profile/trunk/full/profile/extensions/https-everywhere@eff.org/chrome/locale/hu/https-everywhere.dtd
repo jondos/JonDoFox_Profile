@@ -12,13 +12,14 @@
 <!ENTITY https-everywhere.about.donate_eff "Az EFF támogatása">
 
 <!ENTITY https-everywhere.menu.about "A HTTPS Everywhere névjegye">
-<!ENTITY https-everywhere.menu.observatory "SSL Observatory Beállítások">
+<!ENTITY https-everywhere.menu.observatory "SSL Observatory Preferenciák">
 <!ENTITY https-everywhere.menu.globalEnable "HTTPS Everywhere bekapcsolása">
 <!ENTITY https-everywhere.menu.globalDisable "HTTPS Everywhere kikapcsolása">
 <!ENTITY https-everywhere.menu.blockHttpRequests "Minden HTTP kérés tiltása">
 <!ENTITY https-everywhere.menu.showCounter "Mutassa a számlálót">
+<!ENTITY https-everywhere.menu.viewAllRules "View All Rules">
 
-<!ENTITY https-everywhere.prefs.title "HTTPS Everywhere Preferences">
+<!ENTITY https-everywhere.prefs.title "HTTPS Everywhere Preferenciák">
 <!ENTITY https-everywhere.prefs.enable_all "Mind bekapcsolása">
 <!ENTITY https-everywhere.prefs.disable_all "Mind kikapcsolása">
 <!ENTITY https-everywhere.prefs.reset_defaults "Visszaállítás alaphelyzetre">

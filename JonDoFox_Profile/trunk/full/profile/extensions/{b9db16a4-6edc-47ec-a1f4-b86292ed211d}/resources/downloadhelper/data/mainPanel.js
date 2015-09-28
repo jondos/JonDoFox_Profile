@@ -13,7 +13,20 @@ angular.module('VDH').controller('VDHMainCtrl',
 		$scope.logs = [];
 		$scope.errorLogs = [];
 		$scope.logLogs = [];
+		$scope.operation = {
+			value: "operations"
+		}
 		VDHUtil.prepareScope($scope);
+		
+		$scope.$watch("operation.value",function(operation) {
+			if(operation!="operations") {
+				$scope.post('operation',{
+					operation: operation,
+				});
+				console.info("send operation",operation)
+			}
+			$scope.operation.value = "operations";
+		});
 		
 		$scope.settings = function() {
 			$scope.post('settings');
@@ -42,6 +55,8 @@ angular.module('VDH').controller('VDHMainCtrl',
 			if(hit.description)
 				return hit.description;
 			var parts = [];
+			if(hit.descrPrefix)
+				parts.push(hit.descrPrefix);
 			if(hit.adp)
 				parts.push("ADP");
 			if(hit.size)
@@ -75,10 +90,11 @@ angular.module('VDH').controller('VDHMainCtrl',
 			}
 			return parts.join(" - ");
 		}
-		$scope.action = function(action,hit) {
+		$scope.action = function(action,hit,event) {
 			$scope.post('action',{
 				action: action,
 				hitId: hit.id,
+				shift: !!event.shiftKey,
 			});
 		}
 		$scope.defaultAction = function(hit) {
@@ -114,8 +130,12 @@ angular.module('VDH').controller('VDHMainCtrl',
 		},true);
 		$scope.hitClass = function(hit) {
 			var classes = [ "hit-"+hit.status ];
-			if($scope.prefs && $scope.prefs['hits-animation'])
-				classes.push("hits-animation");
+			if($scope.prefs) {
+				if($scope.prefs['hits-animation'])
+					classes.push("hits-animation");
+				if(hit.adp && (hit.status=='active' || hit.status=='inactive') && $scope.prefs['ui.adp.grey'])
+					classes.push("hits-adp-grey");
+			}
 			return classes.join(" ");
 		}
 		$scope.clearLogs = function() {

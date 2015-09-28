@@ -10,6 +10,7 @@ const { Cc, Ci, Cu } = require("chrome");
 const timers = require("sdk/timers");
 const _ = require("sdk/l10n").get;
 const simplePrefs = require('sdk/simple-prefs');
+const events = require("sdk/system/events");
 
 const PROGRESS_TIMEOUT = 100;
 
@@ -27,6 +28,70 @@ function Failed(specs,reason) {
 	TryDownload();	
 }
 
+var headersHook = {};
+var headersHooked = false;
+
+function ModifyRequest(event) {
+	var channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
+	var headers = headersHook[channel.name];
+	if(headers) {
+		for(var header in headers) 
+			channel.setRequestHeader(header, headers[header], false);
+		var headersVisitor = {
+			visitHeader: function(header,value) {
+				if(!headers[header])
+					channel.setRequestHeader(header,"",false);
+			}
+		}
+		channel.visitRequestHeaders(headersVisitor);
+	}
+}
+
+function AddHeadersHook(specs) {
+	if(!specs.headers || !simplePrefs.prefs['downloads-hook-headers'])
+		return;
+	headersHook[specs.data.source.url] = specs.headers;
+	if(!headersHooked) {
+		events.on("http-on-modify-request", ModifyRequest);
+		headersHooked = true;
+	}
+}
+
+function RemoveHeadersHook(specs) {
+	if(!specs.headers)
+		return;
+	delete headersHook[specs.data.source.url];
+	if(headersHooked) {
+		var empty = true;
+		for(var url in headersHook) {
+			empty = false;
+			break;
+		}
+		if(empty) {
+			events.off("http-on-modify-request", ModifyRequest);
+			headersHooked = false;			
+		}
+	}
+}
+
+function ClearHeadersHooks() {
+	headersHook = {};
+	if(headersHooked) {
+		events.on("http-on-modify-request", ModifyRequest);
+		headersHooked = false;					
+	}
+}
+
+simplePrefs.on("downloads-hook-headers",function() {
+	var dhh = simplePrefs.prefs['downloads-hook-headers'];
+	if(!dhh)
+		ClearHeadersHooks();
+});
+
+require("sdk/system/unload").when(function() {
+	ClearHeadersHooks();
+});
+
 function DoTryDownload() {
 	var maxDownloads = simplePrefs.prefs['download.controlled.max'];
 	while(queue.length>0 && (maxDownloads==0 || runningCount<maxDownloads)) {
@@ -37,6 +102,7 @@ function DoTryDownload() {
 			specs.lastProgress = -1;
 			Cu.import("resource://gre/modules/Downloads.jsm");
 			preparing[specs.id] = 1;
+			AddHeadersHook(specs);
 			
 			Downloads.createDownload(specs.data).then(function(download) {
 				Downloads.getList(specs.data.source.isPrivate?Downloads.PRIVATE:Downloads.PUBLIC).then(function(list) {
@@ -53,18 +119,22 @@ function DoTryDownload() {
 						runningCount--;
 						EnsuresProgressTimer();
 						TryDownload();
+						RemoveHeadersHook(specs);
 						if(specs.download.succeeded)
 							specs.success();
 						else
 							specs.failure(specs.download.error);
 					},function(error) {
+						RemoveHeadersHook(specs);
 						Failed(specs,error);
 					});
 				},function(error) {
+					RemoveHeadersHook(specs);
 					Failed(specs,error);				
 				});
 			},function(reason) {
 				delete preparing[specs.id];
+				RemoveHeadersHook(specs);
 				Failed(specs,reason);
 			});			
 		})();
@@ -100,7 +170,7 @@ function UpdateProgress() {
 
 function DoNothing() {};
 
-exports.download = function(data,success,failure,progress) {
+exports.download = function(data,success,failure,progress,headers) {
 	var id = ++globalId;
 	queue.push({
 		id: id,
@@ -108,6 +178,7 @@ exports.download = function(data,success,failure,progress) {
 		success: success || DoNothing,
 		failure: failure || DoNothing,
 		progress: progress || DoNothing,
+		headers: headers,
 	});
 	TryDownload();
 	return id;

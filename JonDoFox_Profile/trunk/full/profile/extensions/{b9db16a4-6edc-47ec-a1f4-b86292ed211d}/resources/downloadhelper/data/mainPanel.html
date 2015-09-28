@@ -6,7 +6,7 @@
 		<link href="mainPanel.css" type="text/css" rel="stylesheet">
 		<script type="text/ng-template" id="vdh-hit">
 			<div  
-				ng-click="action(defaultAction(hit),hit)"
+				ng-click="action(defaultAction(hit),hit,$event)"
 				vdh-track-mouse="hit"
 				class="hit" ng-class="hitClass(hit)">
 				<div ng-show="hit.status=='orphan'" class="hit-progress hit-progress-orphan" vdh-orphan-timer="hit"></div>
@@ -28,6 +28,9 @@
 								{{description(hit)}}
 							</div>
 						</div>
+						<div class="hit-adp" ng-show="prefs['ui.adp.tag'] && (hit.status=='active' || hit.status=='inactive') && hit.adp">
+							<div>ADP</div>
+						</div>
 						<div class="hit-actions">
 							<div ng-show="hit.actions.length>1"
 								vdh-panel-button="{image:'images/icon-more-64.png'}"
@@ -43,40 +46,59 @@
 	<body ng-controller="VDHMainCtrl" ng-cloak ng-show="checkSize()" ng-class="{'compact':prefs['display']=='compact'}">
 		<div id="content">
 			<div class="vdh-panel-title">
-				<div vdh-panel-button="{image:'images/icon-up-64.png'}" 
-					ng-click="prefs['commands-section']=false" ng-show="prefs['commands-section']"></div>
-				<div vdh-panel-button="{image:'images/icon-down-64.png'}" 
-					ng-click="prefs['commands-section']=true" ng-show="!prefs['commands-section']"></div>
-				<div ng-show="prefs['shortcut-icons']" class="vdh-buttons">
-					<div vdh-panel-button="{image:'images/icon-about-64.png'}"
-						ng-click="about()"></div>
-					<div vdh-panel-button="{image:'images/icon-settings-64.png'}" 
-						ng-click="settings()"></div>
-					<div vdh-panel-button="{image:'images/icon-action-convert-b-64.png'}" 
-						ng-click="convert()"></div>
-					<div vdh-panel-button="{image:'images/icon-sites-list-64.png'}" 
-						ng-click="sites()"></div>
-					<div vdh-panel-button="{image:'images/icon-photo-64.png'}" 
-						ng-click="gallery()"></div>
-					<div vdh-panel-button="{image:'images/icon-action-delete-64.png'}" 
-						ng-click="clear('all')" ng-show="canClear()"></div>
-					<div ng-show="prefs['tpsr.enabled'] && prefs['tpsr.state']=='stopped'"
-						vdh-panel-button="{image:'images/icon-par-64.png'}" 
-						ng-click="tpsr('start')"></div>
-					<div ng-show="prefs['tpsr.state']=='started'"
-						vdh-panel-button="{image:'images/icon-par-stop-64.png'}" 
-						ng-click="tpsr('stop')"></div>
-					<div ng-show="prefs['scrap.enabled'] && prefs['scrap.state']=='stopped'"
-						vdh-panel-button="{image:'images/icon-action-record-64.png'}" 
-						ng-click="scrap('start')"></div>
-					<div ng-show="prefs['scrap.state']=='started'"
-						vdh-panel-button="{image:'images/icon-action-stoprecord-64.png'}" 
-						ng-click="scrap('stop')"></div>
-				</div>
 				<div vdh-l10n="video-downloadhelper" style="padding-left: 70px;"></div>
 			</div>
 			
-			<div class="vdh-commands" ng-class="{'vdh-closed':!prefs['commands-section']}">
+			<div class="vdh-main-shortcuts" ng-show="prefs['main-top']=='icons'">
+					<div vdh-panel-button="{image:'images/icon-about-64.png'}" title="{{_('about')}}"
+						ng-click="about()"></div>
+					<div vdh-panel-button="{image:'images/icon-settings-64.png'}"  title="{{_('settings')}}"
+						ng-click="settings()"></div>
+					<div vdh-panel-button="{image:'images/icon-sites-list-64.png'}"  title="{{_('supported-sites')}}"
+						ng-click="sites()"></div>
+					&nbsp;
+					<div vdh-panel-button="{image:'images/icon-photo-64.png'}"  title="{{_('analyze-page')}}"
+						ng-click="gallery()"></div>
+					<div vdh-panel-button="{image:'images/icon-action-convert-b-64.png'}"  title="{{_('convert-local-files')}}"
+						ng-click="convert()"></div>
+					&nbsp;
+					<div ng-show="prefs['tpsr.enabled'] && prefs['tpsr.state']=='stopped'" title="{{_('tpsr.start-par-long')}}"
+						vdh-panel-button="{image:'images/icon-par-64.png'}" 
+						ng-click="tpsr('start')"></div>
+					<div ng-show="prefs['tpsr.state']=='started'" title="{{_('tpsr.stop-par-long')}}"
+						vdh-panel-button="{image:'images/icon-par-stop-64.png'}" 
+						ng-click="tpsr('stop')"></div>
+					<div ng-show="prefs['scrap.enabled'] && prefs['scrap.state']=='stopped'" title="{{_('scrap.start-long')}}"
+						vdh-panel-button="{image:'images/icon-action-record-64.png'}" 
+						ng-click="scrap('start')"></div>
+					<div ng-show="prefs['scrap.state']=='started'" title="{{_('scrap.stop-long')}}"
+						vdh-panel-button="{image:'images/icon-action-stoprecord-64.png'}" 
+						ng-click="scrap('stop')"></div>
+					&nbsp;
+					<div vdh-panel-button="{image:'images/icon-action-delete-64.png'}"  title="{{_('clear-hits')}}"
+						ng-click="clear('all')" ng-show="canClear()"></div>
+				<div class="vdh-dropdown">
+					<div>
+	 					<select class="vdh-settings-select" ng-model="operation.value">
+	 						<option value="operations" vdh-l10n="operations"></option>
+	 						<option value="about" vdh-l10n="about"></option>
+	 						<option value="settings" vdh-l10n="settings"></option>
+	 						<option value="sites" vdh-l10n="supported-sites"></option>
+	 						<option value="gallery" vdh-l10n="analyze-page"></option>
+	 						<option value="convert" vdh-l10n="convert-local-files"></option>
+	 						<option value="start-par" ng-show="prefs['tpsr.enabled'] && prefs['tpsr.state']=='stopped'" vdh-l10n="tpsr.start-par-long"></option>
+	 						<option value="stop-par" ng-show="prefs['tpsr.state']=='started'" vdh-l10n="tpsr.stop-par-long"></option>
+	 						<option value="start-scrap" ng-show="prefs['scrap.enabled'] && prefs['scrap.state']=='stopped'" vdh-l10n="scrap.start-long"></option>
+	 						<option value="stop-scrap" ng-show="prefs['scrap.state']=='started'" vdh-l10n="scrap.stop-long"></option>
+	 						<option value="clearhits" ng-show="canClear()" vdh-l10n="clear-hits"></option>
+	 					</select>
+ 					</div>
+				</div>
+			</div>
+			
+
+			
+			<div class="vdh-commands" ng-show="prefs['main-top']=='links'">
 					<div><a vdh-l10n="about" ng-click="about()"></a></div>
 					<div><a vdh-l10n="settings" ng-click="settings()"></a></div>
 					<div><a vdh-l10n="convert-local-files" ng-click="convert()"></a></div>

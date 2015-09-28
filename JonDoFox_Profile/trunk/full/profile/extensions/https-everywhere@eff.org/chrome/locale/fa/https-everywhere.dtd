@@ -1,4 +1,4 @@
-<!ENTITY https-everywhere.about.title "درباره‌ی HTTPS همه‌جا">
+<!ENTITY https-everywhere.about.title "درباره‌ی HTTPS Everywhere">
 <!ENTITY https-everywhere.about.ext_name "HTTPS همه‌جا">
 <!ENTITY https-everywhere.about.ext_description "وب را رمزگذاری کنید! از امنیت HTTPS بصورت خودکار برای بسیاری از وب‌سایت‌ها استفاده کنید.">
 <!ENTITY https-everywhere.about.version "نسخه">
@@ -17,6 +17,7 @@
 <!ENTITY https-everywhere.menu.globalDisable "HTTPS همه‌جا را غیرفعال کنید">
 <!ENTITY https-everywhere.menu.blockHttpRequests "مسدود کردن تمام درخواست های HTTP">
 <!ENTITY https-everywhere.menu.showCounter "نمایش شمارنده">
+<!ENTITY https-everywhere.menu.viewAllRules "View All Rules">
 
 <!ENTITY https-everywhere.prefs.title "تنظیم‌های HTTPS همه‌جا">
 <!ENTITY https-everywhere.prefs.enable_all "همه‌ی موارد را فعال کنید">

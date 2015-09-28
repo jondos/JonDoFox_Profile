@@ -22,7 +22,7 @@
   }, 
   "downloadhelper/actions": {
    "docsSHA256": null, 
-   "jsSHA256": "3c480e94bcfcd38e69260230debbca825d48f71b44e9022e18b39da872f4feaf", 
+   "jsSHA256": "b973865f991c0d157872aef777bc339dc675e2568d6acbae3aff4694f8dbe91f", 
    "moduleName": "actions", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -31,6 +31,7 @@
     "chrome": "chrome", 
     "converter": "downloadhelper/converter", 
     "downloads": "downloadhelper/downloads", 
+    "f4f": "downloadhelper/f4f", 
     "funding": "downloadhelper/funding", 
     "hits": "downloadhelper/hits", 
     "log": "downloadhelper/log", 
@@ -71,7 +72,7 @@
   }, 
   "downloadhelper/chunks": {
    "docsSHA256": null, 
-   "jsSHA256": "ddc50af9678f42f7491122403b84b523b6248605538bcfb6fd2cfa6f374c62d1", 
+   "jsSHA256": "e3a35a1a47f55da99cef9f2ce269faa76e7313123e16a8531825aba1e41104bf", 
    "moduleName": "chunks", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -95,7 +96,7 @@
   }, 
   "downloadhelper/converter": {
    "docsSHA256": null, 
-   "jsSHA256": "6be3f87212043b47f87d9400117b51f9140197b3fb690adb255fea573dbae77a", 
+   "jsSHA256": "05c22761ee7669f846d4beec23449a933b26302f374f670660931ee23991a055", 
    "moduleName": "converter", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -124,13 +125,15 @@
   }, 
   "downloadhelper/downloads": {
    "docsSHA256": null, 
-   "jsSHA256": "b7e4c3446d626cf08e6443e3cf247f0dbe819b5bfcdbc0c7cb7e9226bf4d6c85", 
+   "jsSHA256": "80ccacf0265372fdc2b58248626689bce60e65936b4fba51da748bcb94e45350", 
    "moduleName": "downloads", 
    "packageName": "downloadhelper", 
    "requirements": {
     "chrome": "chrome", 
     "sdk/l10n": "sdk/l10n", 
     "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/system/events": "sdk/system/events", 
+    "sdk/system/unload": "sdk/system/unload", 
     "sdk/timers": "sdk/timers"
    }, 
    "sectionName": "lib"
@@ -151,9 +154,23 @@
    }, 
    "sectionName": "lib"
   }, 
+  "downloadhelper/f4f": {
+   "docsSHA256": null, 
+   "jsSHA256": "bfd8704dd788d54a31cbb8c8b66031cd4ddfe1bc902a6b927f239366f3b8c7ff", 
+   "moduleName": "f4f", 
+   "packageName": "downloadhelper", 
+   "requirements": {
+    "chrome": "chrome", 
+    "hits": "downloadhelper/hits", 
+    "log": "downloadhelper/log", 
+    "sdk/l10n": "sdk/l10n", 
+    "sdk/simple-prefs": "sdk/simple-prefs"
+   }, 
+   "sectionName": "lib"
+  }, 
   "downloadhelper/funding": {
    "docsSHA256": null, 
-   "jsSHA256": "d56f5226beb3a9636b0d1e33bc8103a2c8b9866b0947692883f1b8908a9406a4", 
+   "jsSHA256": "283f8abd92ff71b65b76d2f4be22ebe84e9265eadd7f7b36a44e2a9cf39b3830", 
    "moduleName": "funding", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -186,7 +203,7 @@
   }, 
   "downloadhelper/hits": {
    "docsSHA256": null, 
-   "jsSHA256": "06ee9a9fdaaf6f5c6f4548acae46efff78fed1e7e3a99cbe22efe843ea12aa69", 
+   "jsSHA256": "119b867559720e5ce8469005ed4eae83288971950f8961457c7379a0a352b74f", 
    "moduleName": "hits", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -236,7 +253,7 @@
   }, 
   "downloadhelper/main": {
    "docsSHA256": null, 
-   "jsSHA256": "bf9dae61e190a209a5746528968f05114b07744f5ed09d3afbcbbe9a5a1a563f", 
+   "jsSHA256": "9c3af05fb7edfd6733da85d384dd1f2eb62e5fc7091683ca0eabbf64dae1afa5", 
    "moduleName": "main", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -277,7 +294,7 @@
   }, 
   "downloadhelper/menus": {
    "docsSHA256": null, 
-   "jsSHA256": "c950ea6d784765a18e7ec6e6c4012df318c5703768573c41fd463d21cec00c8a", 
+   "jsSHA256": "c2c22990968e1e516c1028fcd91d012efa18f4a398f122aca9aaf6f164029df7", 
    "moduleName": "menus", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -303,12 +320,13 @@
   }, 
   "downloadhelper/network-probe": {
    "docsSHA256": null, 
-   "jsSHA256": "09d06bfb50d6e1aa5dade8e98aebe292fbe8f38b6a610ac9fa7e9aea11e9a145", 
+   "jsSHA256": "500e6a5f48580f6b59c9c2eeb3c24b6644eaa4439220928956cd24efa1a0392d", 
    "moduleName": "network-probe", 
    "packageName": "downloadhelper", 
    "requirements": {
     "chrome": "chrome", 
     "chunks": "downloadhelper/chunks", 
+    "f4f": "downloadhelper/f4f", 
     "sdk/content/worker": "sdk/content/worker", 
     "sdk/event/core": "sdk/event/core", 
     "sdk/l10n": "sdk/l10n", 
@@ -329,7 +347,7 @@
   }, 
   "downloadhelper/panels": {
    "docsSHA256": null, 
-   "jsSHA256": "bee603a0b083ceb8a5da67daca8fd75c659bbd95693595ab11559af8ccc29674", 
+   "jsSHA256": "bd1764dc069ccaf60cf496f0e734ec7ee91ff2cfe67e065216a2812070613f09", 
    "moduleName": "panels", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -341,6 +359,7 @@
     "sdk/system/unload": "sdk/system/unload", 
     "sdk/timers": "sdk/timers", 
     "sdk/util/object": "sdk/util/object", 
+    "sdk/view/core": "sdk/view/core", 
     "sdk/window/utils": "sdk/window/utils"
    }, 
    "sectionName": "lib"
@@ -454,12 +473,13 @@
   }, 
   "downloadhelper/tbvws": {
    "docsSHA256": null, 
-   "jsSHA256": "ea17404e93440bfd67cd993b97177e0fffeb15442ada48b68146ef47f7a57e66", 
+   "jsSHA256": "b2164e5a1d09437cdb762fe2b59769615a46c159d41a825f2bc424fc6bdf6a9b", 
    "moduleName": "tbvws", 
    "packageName": "downloadhelper", 
    "requirements": {
     "chrome": "chrome", 
     "converter": "downloadhelper/converter", 
+    "hits": "downloadhelper/hits", 
     "menus": "downloadhelper/menus", 
     "sdk/context-menu": "sdk/context-menu", 
     "sdk/l10n": "sdk/l10n", 
@@ -478,7 +498,7 @@
   }, 
   "downloadhelper/tfvws": {
    "docsSHA256": null, 
-   "jsSHA256": "58c4927077639ef4e6493ece220bcfa6bb2de7cbc24fc24bad68802c77c7332c", 
+   "jsSHA256": "45807ed027325f195bedd14f7549f8c19174280c4c5387a88b11a3693d2b5cde", 
    "moduleName": "tfvws", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -490,6 +510,7 @@
     "sdk/self": "sdk/self", 
     "sdk/simple-prefs": "sdk/simple-prefs", 
     "sdk/util/object": "sdk/util/object", 
+    "utils": "downloadhelper/utils", 
     "variants": "downloadhelper/variants"
    }, 
    "sectionName": "lib"
@@ -525,7 +546,7 @@
   }, 
   "downloadhelper/variants": {
    "docsSHA256": null, 
-   "jsSHA256": "603061719de2e35b81ae7bb98b3cb9d6337c5d1a9ab04cf1580aa8520c8bfa5c", 
+   "jsSHA256": "4a17f807bcd79f6a1635dc6a41ca4a98039742ccb441888b843319e0a2d5792b", 
    "moduleName": "variants", 
    "packageName": "downloadhelper", 
    "requirements": {
@@ -563,7 +584,7 @@
    "permissions": {
     "private-browsing": true
    }, 
-   "version": "5.3.1"
+   "version": "5.4.1"
   }
  }, 
  "name": "downloadhelper", 
@@ -749,7 +770,7 @@
    "name": "icon-animation", 
    "title": "Icon animation", 
    "type": "bool", 
-   "value": true
+   "value": false
   }, 
   {
    "description": "Display drop down triangle on icon.", 
@@ -876,7 +897,7 @@
    "name": "converter-aggreg-tune-h264", 
    "title": "Aggregation H264 with tuned settings", 
    "type": "bool", 
-   "value": true
+   "value": false
   }, 
   {
    "hidden": true, 
@@ -1016,7 +1037,7 @@
    "name": "medialink-auto-detect", 
    "title": "Detect galleries automatically on loaded pages", 
    "type": "bool", 
-   "value": true
+   "value": false
   }, 
   {
    "hidden": true, 
@@ -1174,6 +1195,13 @@
   }, 
   {
    "hidden": true, 
+   "name": "chunk.keep-temp", 
+   "title": "Keep temporary chunks", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
    "name": "smartnamer.defMode", 
    "title": "Smartnaming default mode", 
    "type": "string", 
@@ -1317,7 +1345,7 @@
    "name": "scrap.auto-detect", 
    "title": "Scrap auto detect", 
    "type": "bool", 
-   "value": true
+   "value": false
   }, 
   {
    "hidden": true, 
@@ -1367,6 +1395,76 @@
    "title": "Use default browser storage directory", 
    "type": "bool", 
    "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "downloads-hook-headers", 
+   "title": "Hook downloads request to include original headers", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "remove-media-no-cache", 
+   "title": "Remove no cache from HTTP media response", 
+   "type": "bool", 
+   "value": false
+  }, 
+  {
+   "hidden": true, 
+   "name": "main-top", 
+   "title": "What to display on top of main panel", 
+   "type": "string", 
+   "value": "icons"
+  }, 
+  {
+   "hidden": true, 
+   "name": "f4f.prefetch", 
+   "title": "Number of F4F segments to preload ahead of assembling", 
+   "type": "integer", 
+   "value": 4
+  }, 
+  {
+   "hidden": true, 
+   "name": "f4f.enabled", 
+   "title": "F4F detection enabled", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "tbvws.enabled", 
+   "title": "Enable detection on the big video web site", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "tfvws.enabled", 
+   "title": "Enable detection on the french video web site", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "tbvws.anonymous", 
+   "title": "Make TBVWS meta request anonymous", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "ui.adp.tag", 
+   "title": "Show tag on ADP entries", 
+   "type": "bool", 
+   "value": true
+  }, 
+  {
+   "hidden": true, 
+   "name": "ui.adp.grey", 
+   "title": "Grey background on ADP entries", 
+   "type": "bool", 
+   "value": true
   }
  ], 
  "preferencesBranch": "dwhelper", 

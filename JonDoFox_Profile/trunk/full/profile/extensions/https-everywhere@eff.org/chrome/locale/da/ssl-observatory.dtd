@@ -20,11 +20,10 @@ to turn it on?">-->
 <!-- Observatory preferences dialog -->
 
 <!ENTITY ssl-observatory.prefs.adv_priv_opts1
-"Dette kan trygt aktiveres, medmindre du anvender et 
-meget påtrængende virksomhedsnetværk:">
+"Dette kan trygt aktiveres, medmindre du anvender et meget påtrængende virksomhedsnetværk:">
 
 <!ENTITY ssl-observatory.prefs.adv_priv_opts2
-"Dette er sikker, medmindre du bruger et virksomhedsnetværk med skjulte/hemmelige intranet-servernavne:">
+"Dette er sikkert, medmindre du bruger et virksomhedsnetværk med skjulte/hemmelige intranet-servernavne:">
 
 <!ENTITY ssl-observatory.prefs.alt_roots 
 "Indsend og tjek certifikater signeret af ikke-standardiserede rod-certifikat-autoriteter">

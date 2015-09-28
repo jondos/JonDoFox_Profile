@@ -177,7 +177,8 @@ function ToggleMainPanel() {
 				about.toggle();
 				break;
 			case "action":
-				panel.hide();
+				if(!message.shift)
+					panel.hide();
 				hits.action(message.action,message.hitId);
 				break;
 			case "more-actions":
@@ -214,6 +215,10 @@ function ToggleMainPanel() {
 			case "scrap":
 				panel.hide();
 				require("scrap").action(message);
+				break;
+			case "operation":
+				panel.hide();
+				require("menus").doOperation(message.operation);
 				break;
 			}
 		},
@@ -400,30 +405,33 @@ pageMod.PageMod({
 	}
 });
 
-var lastVersion = simplePrefs.prefs['last-version'];
-if(!lastVersion) 
-	try {
-		lastVersion = Cc["@mozilla.org/preferences-service;1"]
-			.getService(Ci.nsIPrefService)
-			.getBranch("dwhelper")
-			.getCharPref("last-version");
-	} catch($_) {}
-	
-if(lastVersion!=self.version) {
-	simplePrefs.prefs['last-version'] = self.version;
-	if(lastVersion===undefined)
-		tabs.open({
-			url: "http://www.downloadhelper.net/welcome.php?version="+self.version,
-		});
-	else {
-		if(lastVersion=="5.3.0" && /^5\.3/.test(self.version)) {
-			// do not trigger update page
-		} else
+var versionChangeChecked = false;
+function CheckVersionChange() {
+	if(versionChangeChecked)
+		return;
+	versionChangeChecked = true;
+	var lastVersion = simplePrefs.prefs['last-version'];
+	if(!lastVersion) 
+		try {
+			lastVersion = Cc["@mozilla.org/preferences-service;1"]
+				.getService(Ci.nsIPrefService)
+				.getBranch("dwhelper")
+				.getCharPref("last-version");
+		} catch($_) {}
+		
+	if(lastVersion!=self.version) {
+		simplePrefs.prefs['last-version'] = self.version;
+		if(lastVersion===undefined)
+			tabs.open({
+				url: "http://www.downloadhelper.net/welcome.php?version="+self.version,
+			});
+		else
 			tabs.open({
 				url: "http://www.downloadhelper.net/update.php?from="+lastVersion+"&to="+self.version,
 			});
 	}
 }
+tabs.on("activate",CheckVersionChange);
 
 require("sdk/system/unload").when(function() {
 	networkProbe.removeListener(ReceiveHit);

@@ -13,6 +13,7 @@ const timers = require("sdk/timers");
 const prefs = require("prefs");
 const windowUtils = require("sdk/window/utils");
 const simplePrefs = require('sdk/simple-prefs');
+const getActiveView = require('sdk/view/core').getActiveView;
 
 var vdhPanels = {};
 var vdhPanelData = {};
@@ -91,6 +92,7 @@ exports.togglePanel = function(panelName, options) {
 				options.onHide(vdhPanel);
 			},
 			onShow: function() {
+
 				if(options.closeTimer) {
 					timers.clearTimeout(options.closeTimer);
 					options.closeTimer = null;
@@ -128,6 +130,11 @@ exports.togglePanel = function(panelName, options) {
 		});
 		var showOpts = GetShowOpts(options.estimatedHeight);
 		vdhPanel.show(showOpts);
+		
+		var activeView = getActiveView(vdhPanel); 
+		
+		activeView.setAttribute('tooltip', 'aHTMLTooltip');
+		
 		vdhPanels[panelName] = vdhPanel;
 		if(options.prefs)
 			vdhPanel.port.emit("contentMessage",{

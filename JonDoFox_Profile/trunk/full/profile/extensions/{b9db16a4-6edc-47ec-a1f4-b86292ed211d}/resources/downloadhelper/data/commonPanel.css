@@ -357,4 +357,29 @@ a.vdh-link:active, a.vdh-link:hover {
 	outline-width: 0;
 }
 
+.vdh-dropdown > div {
+	background-image: url(images/select-bk.png);
+	background-repeat: no-repeat;
+	background-position: 80px 0px, center;
+	overflow: hidden;
+	width: 100px;
+}
 
+.vdh-dropdown > div select {
+	width: 120px;
+	padding-right: 20px;
+	background: transparent;
+	border: none;
+	font-size: 14px;
+	height: 29px;
+	color: #337AB7;
+	text-shadow: 0 0 0 #fff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.vdh-dropdown select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}

@@ -16,5 +16,8 @@ angular.module('VDH').controller('VDHFundingCtrl',
 			$scope.notAgain = function() {
 				$scope.post('donate-later',{});
 			}
+			$scope.review = function() {
+				$scope.post('review',{});
+			}
 	}]);
 

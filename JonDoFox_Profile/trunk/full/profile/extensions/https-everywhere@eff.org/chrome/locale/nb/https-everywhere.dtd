@@ -7,7 +7,7 @@
 <!ENTITY https-everywhere.about.thanks "Takk til">
 <!ENTITY https-everywhere.about.contribute  "Hvis du liker HTTPS Everywhere, vurder å">
 <!ENTITY https-everywhere.about.donate_tor "Donére til Tor">
-<!ENTITY https-everywhere.about.tor_lang_code "en">
+<!ENTITY https-everywhere.about.tor_lang_code "no">
 <!ENTITY https-everywhere.about.or "eller">
 <!ENTITY https-everywhere.about.donate_eff "Donére til EFF">
 
@@ -17,6 +17,7 @@
 <!ENTITY https-everywhere.menu.globalDisable "Deaktiver HTTPS Everywhere">
 <!ENTITY https-everywhere.menu.blockHttpRequests "Sperr alle HTTP forespørsler">
 <!ENTITY https-everywhere.menu.showCounter "Vis teller">
+<!ENTITY https-everywhere.menu.viewAllRules "View All Rules">
 
 <!ENTITY https-everywhere.prefs.title "HTTPS Everywhere Innstillinger">
 <!ENTITY https-everywhere.prefs.enable_all "Aktiver Alle">

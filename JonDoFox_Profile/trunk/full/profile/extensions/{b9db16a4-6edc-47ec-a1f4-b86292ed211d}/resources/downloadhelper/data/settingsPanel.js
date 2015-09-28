@@ -15,6 +15,7 @@ angular.module('VDH').controller('VDHSettingsCtrl',
 			}
 			$scope.platform = "";
 			$scope.mediaExtensions = [];
+			$scope.medialinkExtensions = [];
 			$scope.storageDirectory = {
 				value: "",
 			};
@@ -41,12 +42,32 @@ angular.module('VDH').controller('VDHSettingsCtrl',
 					else
 						$scope.prefs['media-extensions'] = "";
 			},true);
+			$scope.$watch("prefs['medialink-extensions']",function(exts) {
+				if(exts)
+					$scope.medialinkExtensions = exts.split("|");
+				else
+					$scope.medialinkExtensions = [];
+			});
+			$scope.$watch("medialinkExtensions",function(exts) {
+				if($scope.prefs)
+					if(exts)
+						$scope.prefs['medialink-extensions'] = exts.join("|");
+					else
+						$scope.prefs['medialink-extensions'] = "";
+			},true);
 			$scope.activationModes = [{
 				mode: "anytab",
 				text: $scope._("icon-activation-mode-anytab"),
 			},{
 				mode: "currenttab",
 				text: $scope._("icon-activation-mode-currenttab"),
+			}];
+			$scope.topMainModes = [{
+				mode: "icons",
+				text: $scope._("shortcut-icons-dropdown"),
+			},{
+				mode: "links",
+				text: $scope._("links-list"),
 			}];
 			$scope.$watch('blacklist',function(blacklist) {
 				if(blacklist)
