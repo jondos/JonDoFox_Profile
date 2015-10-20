@@ -172,7 +172,7 @@ user_pref("extensions.adblockplus.subscriptions_exceptionscheckbox", false);
 user_pref("extensions.autoDisableScopes", 14);
 user_pref("extensions.blocklist.enabled", false);
 user_pref("extensions.blocklist.pingCountVersion", -1);
-
+user_pref("extensions.bootstrappedAddons", "{\"{b9db16a4-6edc-47ec-a1f4-b86292ed211d}\":{\"version\":\"5.4.1\",\"type\":\"extension\",\"descriptor\":\"C:\\\\dev\\\\temp\\\\oldCurrentJdf\\\\ba_4\\\\JonDoFoxPortable\\\\Data\\\\profile\\\\extensions\\\\{b9db16a4-6edc-47ec-a1f4-b86292ed211d}\",\"multiprocessCompatible\":false},\"{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}\":{\"version\":\"2.6.11\",\"type\":\"extension\",\"descriptor\":\"C:\\\\dev\\\\temp\\\\oldCurrentJdf\\\\ba_4\\\\JonDoFoxPortable\\\\Data\\\\profile\\\\extensions\\\\{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}.xpi\",\"multiprocessCompatible\":false},\"CanvasBlocker@kkapsner.de\":{\"version\":\"0.2.0-Release\",\"type\":\"extension\",\"descriptor\":\"C:\\\\dev\\\\temp\\\\oldCurrentJdf\\\\ba_4\\\\JonDoFoxPortable\\\\Data\\\\profile\\\\extensions\\\\CanvasBlocker@kkapsner.de.xpi\",\"multiprocessCompatible\":false}}");
 user_pref("extensions.cookieController.1stPartyOnlyCount", 5);
 user_pref("extensions.cookieController.startOff", true);
 user_pref("extensions.databaseSchema", 17);
@@ -182,7 +182,7 @@ user_pref("extensions.dwhelper.need-prefs-migration", false);
 user_pref("extensions.dwhelper.scrap.state", "stopped");
 user_pref("extensions.dwhelper.toolbar-button", "maincomp");
 user_pref("extensions.dwhelper.tpsr.state", "stopped");
-
+user_pref("extensions.enabledAddons", "%7Bac2cfa60-bc96-11e0-962b-0800200c9a66%7D:4.3,https-everywhere%40eff.org:5.1.0,%7B437be45a-4114-11dd-b9ab-71d256d89593%7D:0.6.7.3,%7B73a6fe31-595d-460b-a920-fcc0f8843232%7D:2.6.9.37,%7B972ce4c6-7e08-4474-a285-3208198ce6fd%7D:41.0");
 user_pref("extensions.getAddons.cache.enabled", false);
 user_pref("extensions.getAddons.cache.lastUpdate", 1443447432);
 user_pref("extensions.getAddons.databaseSchema", 5);
@@ -213,8 +213,6 @@ user_pref("extensions.ui.experiment.hidden", true);
 user_pref("extensions.ui.lastCategory", "addons://list/extension");
 user_pref("extensions.ui.locale.hidden", true);
 user_pref("extensions.update.notifyUser", false);
-
-user_pref("font.name.serif.x-western", "Arial");
 user_pref("gecko.buildID", "20150917150946");
 user_pref("gecko.mstone", "41.0");
 user_pref("general.appname.override", "Netscape");
