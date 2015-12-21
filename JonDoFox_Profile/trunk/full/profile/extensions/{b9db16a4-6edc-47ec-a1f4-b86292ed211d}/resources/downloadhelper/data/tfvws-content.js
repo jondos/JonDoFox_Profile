@@ -17,7 +17,9 @@ for(var i=0; i<scripts.length; i++) {
 	var nodeText = script.firstChild;
 	if(!nodeText)
 		continue;
-	var m = /window\.playerV5 *=.*?,(.*)\);/.exec(nodeText.nodeValue);
+	var m = /buildPlayer\((.*)\);/.exec(nodeText.nodeValue);
+	if(!m)
+		m = /window\.playerV5 *=.*?,(.*)\);/.exec(nodeText.nodeValue);
 	if(!m)
 		continue;
 	try {

@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: tNFLVrJYZ4a6f5NjgqvCkg==
-SHA1-Digest: 1LrkOzcYu592JL8hAZ1Grzc+6ks=
+MD5-Digest: U+LxNeLPup7ovwICET8JEg==
+SHA1-Digest: NzvqdCvCx+ymZPFROkbxz2VPFVA=
 
 Name: bootstrap.js
 Digest-Algorithms: MD5 SHA1
@@ -12,13 +12,13 @@ SHA1-Digest: TWD0b5BkAoKXr56l0Tt3AkKBy8s=
 
 Name: harness-options.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: oi6d6tKAz8u9+tMlryu4uA==
-SHA1-Digest: fNW1/RISnIwf/d1/p0UOlajMvfA=
+MD5-Digest: LkcPdPR0c1IMfwvf3Gj40Q==
+SHA1-Digest: jz8YPZcoZZoz88Av2qAhWnYkWCg=
 
 Name: locales.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: f4Gctpq5PQOEgKEA11lEgw==
-SHA1-Digest: rMFSlAYl1NiV6bm/mZPO8jm5llI=
+MD5-Digest: wiyh1IEuD4H2wXgaFvtcQg==
+SHA1-Digest: vv04cdLIuN2+nRQyBxjzk9Er3Fs=
 
 Name: options.xul
 Digest-Algorithms: MD5 SHA1
@@ -52,13 +52,13 @@ SHA1-Digest: EsDfLFii/tKpOzHCszVS5E2sD/o=
 
 Name: locale/fr.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: MDGgrkE2cwXMnJgjY66o+Q==
-SHA1-Digest: PSDZbKwTWrU046FskDE6VE6HPVE=
+MD5-Digest: 9kkXP5XqLmh1HTE/S4Tiiw==
+SHA1-Digest: CBDEHRo21vtQjdgta3zr1Etzqe0=
 
 Name: locale/it.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: jkxAldpo8QpubcBW2Kesbw==
-SHA1-Digest: 7pG6dqq7FokZ2WJ0Pz7+x+fgSAs=
+MD5-Digest: EFPwEZTaO6YgWMMcLwEixQ==
+SHA1-Digest: hXLBb4IbAtqiZM6ppeg9LaOqQw0=
 
 Name: locale/nl.json
 Digest-Algorithms: MD5 SHA1
@@ -77,8 +77,8 @@ SHA1-Digest: P37ELSAMFBPCYj4EwhB4cnr0iDA=
 
 Name: locale/sl-SI.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 3V4s6KJJ0vqvmSE03SDwcw==
-SHA1-Digest: 3u7eWb8X/Ccc0PIwcx7HP0cxTHk=
+MD5-Digest: oYvbxGfkt2FdJxHIVKChOA==
+SHA1-Digest: WJ/I/7YOVoRY1JiYWhhgvZ5yBgI=
 
 Name: locale/tr.json
 Digest-Algorithms: MD5 SHA1
@@ -94,6 +94,11 @@ Name: locale/zh-CN.json
 Digest-Algorithms: MD5 SHA1
 MD5-Digest: iDhZd15YajZE0gIkEtCShw==
 SHA1-Digest: TsF0gs3yXbtFjMe+526iWwMQj9I=
+
+Name: locale/zh-TW.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: lRh+wQePEKA5k0JFMEN7sA==
+SHA1-Digest: Cv+fsJ7Gy83ZLkwCf/9yc6BMF4s=
 
 Name: resources/downloadhelper/data/aboutPanel.css
 Digest-Algorithms: MD5 SHA1
@@ -387,8 +392,8 @@ SHA1-Digest: /Qwwdql7dk9LvDfwM4ASZBV/PTI=
 
 Name: resources/downloadhelper/data/tfvws-content.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: j5/IK6ITV+xRY4GE8BxhNA==
-SHA1-Digest: KGdwuTIXUquNFopCxWpeOL12Bg8=
+MD5-Digest: VhKFikeLQHSWG62p0vLjfQ==
+SHA1-Digest: GEl3N4d0Sb0R4yywbb54OhG2e3w=
 
 Name: resources/downloadhelper/data/tpsr-content.js
 Digest-Algorithms: MD5 SHA1

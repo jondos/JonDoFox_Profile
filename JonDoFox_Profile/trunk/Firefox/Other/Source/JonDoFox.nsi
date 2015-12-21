@@ -11,14 +11,14 @@
 !define NAME "JonDoFox"
 !define ELEVATIONTITLE "${NAME}"
 !define SHORTNAME "JonDoFoxPortable"
-!define VERSION "2.13.0.0"
+!define VERSION "2.14.0.0"
 !define FILENAME "JonDoFox"
-!define FF_VERSION "41.0.0"
+!define FF_VERSION "43.0.0"
 !define FF_URL "http://download.mozilla.org/?product=firefox-${FF_VERSION}&os=win&lang="
 !define CHECKRUNNING "JonDoFoxPortable.exe"
 !define CLOSENAME "JonDoFox, Portable Edition"
 !define ADDONSDIRECTORYPRESERVE "App\firefox\plugins"
-!define INSTALLERVERSION "1.1.1.0"
+!define INSTALLERVERSION "1.1.2.0"
 !define INSTALLERCOMMENTS "For additional details, visit anonymous-proxy-servers.net" ; changed by JonDos GmbH 2009
 !define INSTALLERADDITIONALTRADEMARKS "Firefox is a Trademark of The Mozilla Foundation. " ;end this entry with a period and a space if used
 !define INSTALLERLEGALCOPYRIGHT "JonDos GmbH"
